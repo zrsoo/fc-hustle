@@ -1,0 +1,52 @@
+{
+  "recorded_at": "2026-11-11T18:39:01.999490+00:00",
+  "offline": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py"
+    ],
+    "returncode": 0,
+    "tests_run": 53,
+    "result": "OK",
+    "transaction_proof": false
+  },
+  "live_acceptance": {
+    "command": [
+      "python",
+      "tests/validate_transaction_live.py"
+    ],
+    "returncode": 1,
+    "unverified_criteria": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "verified_criteria": [
+      6,
+      7
+    ],
+    "transaction_proof": false
+  },
+  "prerequisite": {
+    "command": [
+      "python",
+      "tests/check_transaction_prerequisite.py"
+    ],
+    "returncode": 1,
+    "status": "BLOCKED",
+    "requires": "Operator loads and clicks reviewed transaction extension on existing EA Web App tab."
+  },
+  "document_control": {
+    "observed": "No connected Codex document sessions were found.",
+    "connected_sessions": 0
+  }
+}

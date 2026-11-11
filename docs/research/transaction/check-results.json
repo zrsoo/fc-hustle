@@ -1,0 +1,53 @@
+{
+  "recorded_at": "2026-11-11T19:07:05.707190+00:00",
+  "status": "VERIFIED",
+  "offline": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py"
+    ],
+    "returncode": 0,
+    "tests_run": 55,
+    "result": "OK",
+    "transaction_proof": false
+  },
+  "live_acceptance": {
+    "command": [
+      "python",
+      "tests/validate_transaction_live.py"
+    ],
+    "returncode": 0,
+    "verified_criteria": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "transaction_proof": "Independent authenticated live inventory/coin, destination, active listing and status readbacks in live.json; source and synthetic tests do not count."
+  },
+  "mutations": {
+    "purchases": 1,
+    "moves": 1,
+    "listings": 1,
+    "relists": 0,
+    "acquisition_cost": 200,
+    "listing_starting_bid": 200,
+    "listing_buy_now": 250,
+    "listing_duration_seconds": 3600
+  },
+  "relist": {
+    "status": "UNVERIFIED",
+    "reason": "No eligible expired listing existed in the fresh live status read."
+  },
+  "remaining_work": []
+}

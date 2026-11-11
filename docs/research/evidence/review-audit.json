@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "task": "task_01",
+  "local_revision": "f60bf58c38ff96b8dc59fbe2d63947fc6bda78f2",
+  "scope": "Remote source repository investigation only; no live FC27 capability validation.",
+  "instructions": {
+    "files": [
+      {
+        "path": "objectives/001-fc27-api-research.md",
+        "sha256": "3499d464add896050438401e45cf7793820954e92867058215f5b3b4a7be91d1"
+      }
+    ],
+    "agents_search": {
+      "method": "rg --files plus explicit ancestor path checks",
+      "checked_directories": [
+        "C:/",
+        "C:/hustle",
+        "C:/hustle/fc-hustle"
+      ],
+      "found": []
+    },
+    "constraints": [
+      "remote-first",
+      "source review before third-party execution",
+      "clone only for integration/testing",
+      "localhost-only bridge if integrated",
+      "no authentication secrets retained"
+    ]
+  },
+  "activity": [
+    {
+      "order": 1,
+      "type": "instructions_read",
+      "paths": [
+        "objectives/001-fc27-api-research.md"
+      ]
+    },
+    {
+      "order": 2,
+      "type": "remote_metadata",
+      "transport": "GitHub connector GET",
+      "repositories": [
+        "liusihang/fc27-copilot",
+        "jgor80/11-lab",
+        "Vladisllavy/FC27-Autobuyer",
+        "RanuK12/fc27-gallery-bot",
+        "puredan824-hub/fc27-sniffer",
+        "marchiartur/sp-tool",
+        "FrancescoPalasciano/Bot-Fc27",
+        "sauravhiremath/fut-25-market",
+        "AbdoD97/fut-web-app-api"
+      ]
+    },
+    {
+      "order": 3,
+      "type": "remote_revision_and_tree",
+      "transport": "GitHub connector GET",
+      "repositories": [
+        "liusihang/fc27-copilot",
+        "jgor80/11-lab",
+        "Vladisllavy/FC27-Autobuyer",
+        "RanuK12/fc27-gallery-bot",
+        "puredan824-hub/fc27-sniffer",
+        "marchiartur/sp-tool",
+        "FrancescoPalasciano/Bot-Fc27",
+        "sauravhiremath/fut-25-market",
+        "AbdoD97/fut-web-app-api"
+      ]
+    },
+    {
+      "order": 4,
+      "type": "remote_source_review",
+      "transport": "GitHub connector GET",
+      "reviews": [
+        {
+          "repository": "liusihang/fc27-copilot",
+          "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "requirements.txt",
+            "package.json",
+            "extension/manifest.json",
+            "extension/content/page-inject.js",
+            "extension/content/content-script.js",
+            "extension/background/bridge.js",
+            "fc27/actions.py",
+            "fc27/execution.py",
+            "fc27/daemon.py",
+            "fc27/bridge.py",
+            "tests/test_actions.py"
+          ]
+        },
+        {
+          "repository": "jgor80/11-lab",
+          "revision": "94b2e187b9fb6ab57d778bdfddbd235de8313d4c",
+          "paths": [
+            "README.md",
+            "package.json",
+            "docs/web-app-endpoints.md",
+            "extension/manifest.json",
+            "extension/src/hook.ts",
+            "extension/src/relay.ts",
+            "src/market/capture.ts",
+            "tests/fc27-capture-shape.test.ts"
+          ]
+        },
+        {
+          "repository": "Vladisllavy/FC27-Autobuyer",
+          "revision": "f96287773ef2be2ba8065369ebd8b3d8c2e2cc5b",
+          "paths": [
+            "README.md",
+            "fc27-autobuyer.user.js",
+            "CHANGELOG.md"
+          ]
+        },
+        {
+          "repository": "RanuK12/fc27-gallery-bot",
+          "revision": "c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "requirements.txt",
+            "docs/TECHNICAL_SPECIFICATIONS.md",
+            "fc27_gallery_worker.py",
+            "fc27_liquidate_and_snipe.py",
+            "fc27_targeted_sniper.py",
+            "config.example.json"
+          ]
+        },
+        {
+          "repository": "puredan824-hub/fc27-sniffer",
+          "revision": "e1488d6e51bdcafec6eaf61cdb06461358b7844d",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "requirements.txt",
+            "r2_prices.py",
+            "pricedb.py",
+            "record_prices.py",
+            "sniffer.py",
+            "sniffer_eval.py"
+          ]
+        },
+        {
+          "repository": "marchiartur/sp-tool",
+          "revision": "e9cc12558492634a94934bc8084cc77cbcf0a897",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "package.json",
+            "extension-static/manifest.json",
+            "extension-static/ea-main.js",
+            "extension-static/background.js",
+            "src/lib/price.ts",
+            "src/lib/price.test.ts"
+          ]
+        },
+        {
+          "repository": "FrancescoPalasciano/Bot-Fc27",
+          "revision": "925a61dfee4f3c13e35beb82104185942e51384b",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "package.json",
+            "manifest.json",
+            "src/market.js",
+            "src/content.js",
+            "tests/market.test.js"
+          ]
+        },
+        {
+          "repository": "sauravhiremath/fut-25-market",
+          "revision": "1d9d8c66031f9b30e5042d432efc7b5cf5ea5618",
+          "paths": [
+            "README.md",
+            "LICENSE",
+            "pyproject.toml",
+            "core/constants.py",
+            "auth_api/services.py",
+            "market/services.py",
+            "market/api.py",
+            "club/api.py",
+            "market/tests/test_schemas.py"
+          ]
+        },
+        {
+          "repository": "AbdoD97/fut-web-app-api",
+          "revision": "ad9a5f9384c3a80a6c00f33c14ca9cbd344c4aba",
+          "paths": [
+            "README.md"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "type": "remote_release_and_ci_read",
+      "transport": "GitHub connector GET",
+      "repositories": [
+        "liusihang/fc27-copilot",
+        "jgor80/11-lab",
+        "Vladisllavy/FC27-Autobuyer",
+        "RanuK12/fc27-gallery-bot",
+        "puredan824-hub/fc27-sniffer",
+        "marchiartur/sp-tool",
+        "FrancescoPalasciano/Bot-Fc27",
+        "sauravhiremath/fut-25-market",
+        "AbdoD97/fut-web-app-api"
+      ],
+      "limits": {
+        "releases": 3,
+        "latest_workflow_runs": 1
+      }
+    },
+    {
+      "order": 6,
+      "type": "assessment_written",
+      "path": "docs/research/repository-analysis.md"
+    },
+    {
+      "order": 7,
+      "type": "local_artifact_validation",
+      "commands": [
+        [
+          "python",
+          "tests/test_repository_research.py"
+        ]
+      ],
+      "purpose": "Validate retained research artifacts and reject negative mutations; executes only workspace-authored standard-library tests."
+    }
+  ],
+  "third_party_executions": [],
+  "clone_operations": [],
+  "installations": [],
+  "copied_implementation_files": [],
+  "independent_fc27": {
+    "status": "UNVERIFIED",
+    "observations": [],
+    "network_calls": 0,
+    "browser_actions": 0,
+    "trades": 0
+  },
+  "policy_for_future_execution": {
+    "review_first": true,
+    "pin_revision": true,
+    "review_transitive_dependencies": true,
+    "clone_purposes": [
+      "integration",
+      "testing"
+    ],
+    "record_clone_purpose_before_clone": true
+  },
+  "limitations": "Activity record is a worker-authored process declaration, not an OS-level execution trace. Offline checks can validate record consistency and artifact contents, but cannot prove historical absence of external activity or upstream authenticity."
+}

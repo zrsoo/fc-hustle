@@ -1,0 +1,75 @@
+{
+  "reviewed_at": "2026-11-11T19:06:26.220773+00:00",
+  "local_sha256": {
+    "fc_access/transaction.py": "4d77516444b6bab8a7bace6b3debd161182f24e6a72d550f0cd6c9a979db4053",
+    "fc_access/transaction_checks.py": "fa95b00b8d640ac225d4ee8b2c794b5bd86decfec388ceef7181a291775af89a",
+    "fc_access/transaction_server.py": "164984f6b8d2afde378da8e8fbc5b499fb015b4b608ddda78b82aebe6d4123f1",
+    "fc_access/transaction_report.py": "eddc0cc40df3b9349031cbe6184f7ea16fa67bf85c63139afc71daeb71bd15bc",
+    "browser/transaction-bridge/manifest.json": "226882ba046780025138de046569e8296c30f7391451ec4e7af51a0b511c7673",
+    "browser/transaction-bridge/worker.js": "b933c5cdcd4640643c81d86a3604f99e4c44c766ada21cef33175927f0335818",
+    "browser/transaction-bridge/page.js": "14e98cf360ba449507248ae15f3a401dbd9a8f79ac89f8f7c58e78cdce0fc70e",
+    "browser/transaction-bridge/read-page.js": "06b5b02dc89732922d68614f88d52dd5fd6147b7712c3ec9d7fee35c6bca129c"
+  },
+  "upstream": {
+    "url": "https://raw.githubusercontent.com/liusihang/fc27-copilot/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/content/page-inject.js",
+    "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+    "sha256": "ee3a7bbc2cf12bdb420f881b0dcbc038a03c06a9be1abd59c0dbc76413a024c0",
+    "contracts": [
+      "Item.bid(item, price)",
+      "Item.move([item], ItemPile.TRANSFER, false)",
+      "Item.list(item, startingBid, buyNowPrice, duration)"
+    ],
+    "treatment": "Reference only; no upstream executable code installed or run."
+  },
+  "live_write_proof": "UNVERIFIED_AT_SOURCE_REVIEW",
+  "review": [
+    "Strict numeric and pseudonym command allowlists; no arbitrary evaluation or credential export.",
+    "Separate localhost-only bridge leaves installed read-only extensions untouched.",
+    "Durable intent before write; OS lock; page duplicate guards; post-write independent reads; no mutation retries.",
+    "Source and fixtures are not live proof. Native isPlayer and cache freshness remain subject to live preflight and readback.",
+    "V2: native tradable boolean mapped through current official Item factory contract; legacy polling cannot attest v2 attachment. Broad first-page row seeds one exact version search, from which an auction with sufficient remaining lifetime is selected. No writes preceded the update.",
+    "V3: official repositories.Item.setDirty expires purchased/transfer cache before independent native reads; no account/server mutation. Existing buy intent and response are preserved. Only unwritten move/list stages can resume after fresh physical item and exact original coin delta are proven; missing response or other prior write intents remain read-only.",
+    "Final current implementation: cold-cache reconciliation preserves cached failed reads, resumes only unsubmitted move/list stages, checks positive pseudonymized live IDs, and records exact acquisition/listing observations. Native transaction proof resides in live.json and its independently derived verification, never in this source review."
+  ],
+  "revisions": [
+    {
+      "at": "2026-11-11T18:37:47.870359+00:00",
+      "local_sha256": {
+        "fc_access/transaction.py": "1574e46a9b588ffb90c1ee1cf2ae500a162b58ccb16da387af98699fc929c6c7",
+        "fc_access/transaction_checks.py": "f46c4c51663b87d55fb0b44e6829a4bc6fcdc9ff4fd6f047b9ba8fc2ee512986",
+        "fc_access/transaction_server.py": "74a06068d2104980d82cdab1e115fe784cd142d32bedd46ddf1235a1d89c85e4",
+        "fc_access/transaction_report.py": "956adf938540281cb2e6fdae49673f6604ee9a758bfff1a9e14b48e62e69196f",
+        "browser/transaction-bridge/manifest.json": "a732fd6f08ee8c1f05f01c964bd5d16dea6c8909e0c1d258eebbaf091a4d7cca",
+        "browser/transaction-bridge/worker.js": "abdb7fec6f42cf90823062558262daff1c928892891ab7518294e4a71aef353c",
+        "browser/transaction-bridge/page.js": "d7cbc84f7abbcf202600b6adb9e1b04901d06e5d74aff261ef29803f9142e94a",
+        "browser/transaction-bridge/read-page.js": "6ab250cdb7d350f178c8b11ddde2ebe0752db02ef6c2a3a4e0e42be39cc229f2"
+      }
+    },
+    {
+      "at": "2026-11-11T18:53:20.003646+00:00",
+      "local_sha256": {
+        "fc_access/transaction.py": "aecd4406c65fb734ca14826c9a9fc3018aa22a1b5077f00006e06fbc7fd6e3b5",
+        "fc_access/transaction_checks.py": "f46c4c51663b87d55fb0b44e6829a4bc6fcdc9ff4fd6f047b9ba8fc2ee512986",
+        "fc_access/transaction_server.py": "28b06cbe26dd02b22bcc0801eb81339b5842f5d6fdacd291d6d267fe13ede9cd",
+        "fc_access/transaction_report.py": "956adf938540281cb2e6fdae49673f6604ee9a758bfff1a9e14b48e62e69196f",
+        "browser/transaction-bridge/manifest.json": "23f4658c24b6efd91de2462cfd13bd8c17b80b0816915790eea97606d4c89cfa",
+        "browser/transaction-bridge/worker.js": "1b3a43a8732ac1f40fb88891cfe8c048c02b97d892978fbf14d9a9aca201e6d3",
+        "browser/transaction-bridge/page.js": "3c35b5136193b64eb7a6a74f56933c7f057eebaa9b546b1e20c4dd5c630f3077",
+        "browser/transaction-bridge/read-page.js": "c2d47b5d0f8dd14954428183eab9bb6533add97a1d50b1b127b026a05a5b7d0e"
+      }
+    },
+    {
+      "at": "2026-11-11T19:00:45.739339+00:00",
+      "local_sha256": {
+        "fc_access/transaction.py": "b90e9cdfc24c00660fbf3a4304fb6d4d5929b42e8908e022a05cd2f3aff85f67",
+        "fc_access/transaction_checks.py": "dae2c54c3d0968d59f88ba8e229fdc235e8d715f572adbf935ca3830af505e36",
+        "fc_access/transaction_server.py": "164984f6b8d2afde378da8e8fbc5b499fb015b4b608ddda78b82aebe6d4123f1",
+        "fc_access/transaction_report.py": "c6c299ff356e0818a09410853df65a42fc4b55cc280f316962dc715a1fcb9455",
+        "browser/transaction-bridge/manifest.json": "226882ba046780025138de046569e8296c30f7391451ec4e7af51a0b511c7673",
+        "browser/transaction-bridge/worker.js": "b933c5cdcd4640643c81d86a3604f99e4c44c766ada21cef33175927f0335818",
+        "browser/transaction-bridge/page.js": "14e98cf360ba449507248ae15f3a401dbd9a8f79ac89f8f7c58e78cdce0fc70e",
+        "browser/transaction-bridge/read-page.js": "06b5b02dc89732922d68614f88d52dd5fd6147b7712c3ec9d7fee35c6bca129c"
+      }
+    }
+  ]
+}

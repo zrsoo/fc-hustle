@@ -1,0 +1,37 @@
+{
+  "task": "task_02",
+  "reviewed_at": "2026-11-08T20:37:05.837651+00:00",
+  "files": {
+    "browser/observer/manifest.json": "2f29f52d52899d7f322fe4851ce812c47d25d1707c0212563a074da6545199b7",
+    "browser/observer/page.js": "b9cbd62131be0c2157c3f0b725bd1aaf2a8ac72b3c3852ae591458a132253b6a",
+    "browser/observer/worker.js": "dc06a6b50855e658c2170726e49660528d7800fbfa1bf547275e7a8e503bf398",
+    "fc_access/__init__.py": "59f61abce7ca0ac9b8a414c86f7bf2724dae507dadc00f97ad1d6c5c29d5e24e",
+    "fc_access/schema.py": "7339eb1a42ff84100784fbf31f0b730e0d4306a3eac4854842800c74659f4691",
+    "fc_access/server.py": "18d215ed8e3f614fbb21db9f7124278b174528e4d4888cbf6202c915803de741",
+    "fc_access/inspect.py": "63feeb8d8bc291900ab5ccf129824a59b4b38dd929758f19bc4ec899af9eb0b5",
+    "browser/observer/native-read-probe.js": "c6e6e14989655b8700418309def3d37636375086e76701b62a749867d022caba"
+  },
+  "third_party_code_executed": false,
+  "scope": "Security-focused source review and synthetic runtime tests; actual v2 page execution is now confirmed by a current recognized authenticated club response and observed public configuration.",
+  "findings": [
+    "Fixed IPv4 loopback listener and extension destination; no redirects or arbitrary command endpoint.",
+    "Positive schema and literal client identifier grammars before writes; no raw request/response/header data exported.",
+    "No credential API or trading calls; observer wrappers preserve original request returns.",
+    "Only tab number in memory-only extension storage; page navigation requires reattachment.",
+    "Local actors can forge evidence. No claim of cryptographic authenticity or live browser compatibility."
+  ],
+  "upgrade_review": {
+    "observer_version": 2,
+    "scope": "Bounded ArrayBuffer/Blob and JSON-wrapper decoding, exact public client getter and resource identifier filtering, strict loopback retention boundary. Source hashes unchanged; installation prerequisites resolved.",
+    "public_source": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+    "public_source_sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+    "public_getter": "getAppMain().getConfigRepository().getConfigString(EAConfigurationRepository.KEY_EADP_CLIENT_ID)",
+    "not_authentication_proof": true
+  },
+  "native_probe_review": {
+    "scope": "One native services.User.requestCurrencies() call, guarded to official HTTPS EA Web App, no output or credential access, exceptions suppressed. Synthetic tests verify wrong-site guards, unavailable service behavior, and undefined return even with account-bearing service results.",
+    "source_reference": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js",
+    "source_sha256": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+    "execution": "The agent activation attempt sent no keystrokes. The operator prerequisite subsequently resolved. A real authenticated club response is retained; exact causation by the native probe was not separately recorded."
+  }
+}

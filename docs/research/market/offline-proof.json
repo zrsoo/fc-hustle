@@ -1,0 +1,116 @@
+{
+  "kind": "OFFLINE_REPLAY_INDICATIVE_NOT_GUARANTEED",
+  "source_sha256": "26379a27da9b8263b7afee420a35ce96e42851465d67c9cef1502410bdeed994",
+  "evaluated_at": "2026-11-11T19:11:15.653125+00:00",
+  "X": 0,
+  "markets": [
+    {
+      "key": {
+        "definition_id": 233731,
+        "platform": "pc",
+        "game": "fc27"
+      },
+      "captured_rows": 42,
+      "distinct_auctions": 41,
+      "observed_bin_min": 6100,
+      "observed_bin_max": 7000,
+      "without_observed_caps": {
+        "status": "MISSING_CAPS",
+        "target_sale_price": null,
+        "acquisition_price": 6100,
+        "tax": null,
+        "expected_profit": null,
+        "X": 0,
+        "meets_threshold": false,
+        "sample_count": 0,
+        "rejected": [],
+        "assumptions": [
+          "INDICATIVE_NOT_GUARANTEED",
+          "TAX_ROUNDING_UNVERIFIED",
+          "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+          "CALLER_SUPPLIED_CAPS"
+        ]
+      },
+      "hypothetical_caps_only": {
+        "status": "OK",
+        "target_sale_price": 6200,
+        "acquisition_price": 6100,
+        "tax": 310,
+        "expected_profit": -210,
+        "X": 0,
+        "meets_threshold": false,
+        "sample_count": 40,
+        "rejected": [
+          [
+            "acquisition_excluded",
+            1
+          ],
+          [
+            "duplicate",
+            1
+          ]
+        ],
+        "assumptions": [
+          "INDICATIVE_NOT_GUARANTEED",
+          "TAX_ROUNDING_UNVERIFIED",
+          "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+          "CALLER_SUPPLIED_CAPS"
+        ]
+      }
+    },
+    {
+      "key": {
+        "definition_id": 278230,
+        "platform": "pc",
+        "game": "fc27"
+      },
+      "captured_rows": 10,
+      "distinct_auctions": 10,
+      "observed_bin_min": 200,
+      "observed_bin_max": 4000,
+      "without_observed_caps": {
+        "status": "MISSING_CAPS",
+        "target_sale_price": null,
+        "acquisition_price": 200,
+        "tax": null,
+        "expected_profit": null,
+        "X": 0,
+        "meets_threshold": false,
+        "sample_count": 0,
+        "rejected": [],
+        "assumptions": [
+          "INDICATIVE_NOT_GUARANTEED",
+          "TAX_ROUNDING_UNVERIFIED",
+          "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+          "CALLER_SUPPLIED_CAPS"
+        ]
+      },
+      "hypothetical_caps_only": {
+        "status": "OK",
+        "target_sale_price": 150,
+        "acquisition_price": 200,
+        "tax": 7,
+        "expected_profit": -57,
+        "X": 0,
+        "meets_threshold": false,
+        "sample_count": 6,
+        "rejected": [
+          [
+            "acquisition_excluded",
+            1
+          ],
+          [
+            "outlier",
+            3
+          ]
+        ],
+        "assumptions": [
+          "INDICATIVE_NOT_GUARANTEED",
+          "TAX_ROUNDING_UNVERIFIED",
+          "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+          "CALLER_SUPPLIED_CAPS"
+        ]
+      }
+    }
+  ]
+}

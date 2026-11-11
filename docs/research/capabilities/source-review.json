@@ -1,0 +1,72 @@
+{
+  "reviewed_at": "2026-11-11T14:51:27.567020+00:00",
+  "scope": "Locally authored bounded reads and positive evidence projection. Public sources inspected as text only. No third-party executable run.",
+  "local_files": {
+    "fc_access/harness.py": "9ac36a71c0e862347cd495466b115eb92fd6ca9413fc5e6c2cba8b61d792e7f1",
+    "fc_access/read_server.py": "c461035393194a0c465eba912934ae2876d141a9d61183c8194ae0193042ef74",
+    "fc_access/capabilities.py": "c2fe29a0085fa83246aadc3ea984017791e4fd41466a6c9866c6c311976e17d9",
+    "fc_access/report.py": "ef57c2a1a7985a8fa03c16e41aae0bc758da8f2cf36067e05683fbfb9cbdd059",
+    "browser/read-bridge/page.js": "564f24c465aaf74f7b07cb6b087033f4a0d17ea3d73c430a59bfda430a26cb9f",
+    "browser/read-bridge/worker.js": "96b3be6fafb266a8d5af93e7da841660d04ed38ab2763f8027564929298ab9a8",
+    "browser/read-bridge/manifest.json": "793427dbbba4a290a2d97edb102128c5c747817e68ec180c47332152a2da346c",
+    "tests/test_integration_harness.py": "053b33cc6b90d36ebda6411e51cf663a9c2bc37b450618389cafb50643929756",
+    "tests/read_bridge_checks.cjs": "09e51fe31c857fe37d9581c752976a4878bbf11c96d9540d93c1ba1291e338ba",
+    "tests/test_capability_artifacts.py": "5e2805471d0e1ca5b8bf01e8a7792d61d96fa9b75d0c4959f939a2fc7eee741a",
+    "tests/validate_capabilities_live.py": "e87f28f5a57aff57bfb77feb2cf463eb9b9c07bfe56662b39b3ef47540812629",
+    "tests/check_read_prerequisite.py": "ea246f8668c9c7660f01ef8a33d9ebd666d33ad10f40a7e0351ecbea98f73743",
+    "fc_access/research_report.py": "61c0cbc4bc4e6d139865576525d6865e3d868306d7d215a40cc1d34bf096a55c",
+    "docs/research/capabilities/native-item-mappings.json": "ebc8da5908521730c0e0c17e6f1d38e7df4809be7610c5f8c52fb4ab1bb5f7a1",
+    "docs/research/capabilities/native-source-shapes.json": "906cd526017ed3b06bc2af88ae67bdb2368de885b42176897324e91b208396a8"
+  },
+  "public_sources": [
+    {
+      "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+      "sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+      "kind": "source-only; not authenticated proof"
+    },
+    {
+      "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js",
+      "sha256": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+      "kind": "source-only; not authenticated proof"
+    },
+    {
+      "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/content/page-inject.js",
+      "kind": "source-only; credential capture not adopted"
+    }
+  ],
+  "maintenance_reviews": [
+    {
+      "reviewed_at": "2026-11-11T18:05:59.205538+00:00",
+      "scope": "Fix extension attachment polling with POST /next and an empty JSON object; retain strict extension-origin checks and authenticated GET compatibility. Add fixed worker hover diagnostics without exception text. Original observer and historical EA evidence unchanged.",
+      "previous_hashes": {
+        "fc_access/read_server.py": "ec3cfdb5406b55c9cf3b48320afc74bcef2547143a1f560d26c534c7ecdfc7c5",
+        "browser/read-bridge/worker.js": "cc5ac6669221c7d5c01116989f2a7183ae6db38461616b533267becf99a8cd59",
+        "browser/read-bridge/manifest.json": "bbdaeb08ad10e01b075db001d2871542ce74f91eea0f0c8e5199d2046a885c61",
+        "tests/test_integration_harness.py": "ccb1855280df028580d82cd7b6826d09808daa08cbac270ae615222e99cae33e",
+        "tests/read_bridge_checks.cjs": "eddebc5ab379f2330a290864048cd15e0b4faf12c18e3d5b41a8bbbb9856dede"
+      },
+      "validation": {
+        "integration_tests": "10 passed",
+        "isolated_edge_transport": {
+          "GET_without_origin": 403,
+          "POST_with_extension_origin": 200,
+          "isolated_server_attached": true,
+          "production_evidence_written": false,
+          "existing_browser_profile_used": false
+        }
+      },
+      "live_ea_readbacks": "not attempted by this fix"
+    },
+    {
+      "reviewed_at": "2026-11-11T18:22:58.596501+00:00",
+      "scope": "Reconcile authenticated native field mappings and purchased/unassigned shared queue using static primary-source snippets plus actual readbacks. Record native cached club state distinctly from network freshness. Add independent broad-filter probes, page overlap/order and expiry readback assessment. Preserve loaded bridge and prior evidence.",
+      "previous_hashes": {
+        "fc_access/harness.py": "0ea9442f843b57f733cd9388d1cb9288037e6ae44085fcac0b20a4f062c86d12",
+        "fc_access/capabilities.py": "f81497db77ec69de396e0c938192435566e613ac9669510a25c818b211558f6f",
+        "tests/test_integration_harness.py": "c695afbf5a323507a65256376881e653c5ba9ddf331f79ace6d19fd1f72f62ed",
+        "tests/test_capability_artifacts.py": "5416739bcbc302b9ad89ba15c78d32191c32d312c55221b8744d6fb0c5ac5234"
+      },
+      "downloaded_code_executed": false
+    }
+  ]
+}

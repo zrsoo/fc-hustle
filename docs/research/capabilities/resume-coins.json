@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "source": "fc-read-harness",
+  "captured_at": "2026-11-11T18:12:19.085841+00:00",
+  "attempts": [
+    {
+      "observed_at": "2026-11-11T18:12:08.308572+00:00",
+      "transport": "edge",
+      "operation": "coins",
+      "request": {},
+      "method": "services.User.requestCurrencies()",
+      "elapsed_ms": 10776.821,
+      "result": {
+        "auctions": null,
+        "cache_invalidated": null,
+        "credits": 29061,
+        "ea_error_code": null,
+        "error": null,
+        "has_more": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "path": "/ut/game/fc27/user/credits",
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "platform": "pc",
+        "status": 200,
+        "success": true
+      }
+    }
+  ]
+}

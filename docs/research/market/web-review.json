@@ -1,0 +1,31 @@
+{
+  "reviewed_at": "2026-11-11",
+  "channel": "web reader; separate from direct Python HTTP probes in availability.json",
+  "sources": [
+    {
+      "url": "https://www.fut.gg/players/momentum/",
+      "observed": "Rendered page exposes 6h, 12h and 24h controls; no timestamped numeric price series was extracted.",
+      "status": "UI_ONLY_NOT_HISTORY_API_PROOF"
+    },
+    {
+      "url": "https://www.fut.gg/players/history/",
+      "observed": "Player History page describes players without a current FC27 card, not historical market prices.",
+      "status": "NOT_A_PRICE_SERIES"
+    },
+    {
+      "url": "https://www.fut.gg/price-ranges/",
+      "observed": "Price range changes page is readable through the web reader. No exact-card PC cap was independently verified.",
+      "status": "UI_ONLY"
+    },
+    {
+      "url": "https://www.futgenie.gg/posts/view-on-futgenie",
+      "observed": "Provider describes platform-specific price history and recent sales on player pages. This article is not a downloaded series.",
+      "status": "PROVIDER_CLAIM_NOT_DATA_PROOF"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/puredan824-hub/fc27-sniffer/e1488d6e51bdcafec6eaf61cdb06461358b7844d/r2_prices.py",
+      "observed": "Pinned source reads manifest version and publication time, delta-coded index, PS5 price/status arrays and streamlined pool. It does not prove current feed access or PC compatibility.",
+      "status": "SOURCE_CONTRACT_ONLY"
+    }
+  ]
+}

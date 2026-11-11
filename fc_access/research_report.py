@@ -1,0 +1,85 @@
+"""Evidence-driven task_03 report. Rendering never performs browser or EA actions."""
+import json
+from pathlib import Path
+
+from .capabilities import assess, authenticated
+from .harness import ROOT
+
+
+def write_report(record, destination=None):
+    errors, facts = assess(record)
+    if "invalid_live_record" in errors or "invalid_or_sensitive_attempt" in errors:
+        raise ValueError("invalid_or_sensitive_evidence")
+    destination = Path(destination or ROOT / "docs/research/confirmed-capabilities.md")
+    attempts = record["attempts"]
+    observed = [a for a in attempts if authenticated(a)]
+    searches = [a for a in observed if a["operation"] == "search"]
+    rows = [r for a in searches for r in a["result"]["auctions"] or []]
+    lines = ["# Confirmed read capabilities — task_03", "",
+             f"Report captured at `{record['captured_at']}`.", "",
+             "Status: **" + ("VERIFIED" if not errors else "PARTIAL / UNRESOLVED") + "** for the read capabilities assessed below. No trading operation was performed.", "",
+             "Evidence: [attempts.json](capabilities/attempts.json), [verification.json](capabilities/verification.json), [source review](capabilities/source-review.json). Initial blocked attempts are preserved in the capture and [initial checkpoint](capabilities/attempts-initial.json). The separate read bridge attachment was resolved; its successful commands below supersede the original attachment blocker.", "",
+             "## Every attempted capability", "",
+             "Times are UTC command submission times. Duration includes the extension alarm wait (up to 30 seconds), native service work and local delivery; it is not EA-only latency. Missing fields remain null, rather than becoming zero or an empty pile. Error strings below are exact fixed local codes; numeric native/HTTP status and EA error code are retained separately. Raw server error messages are excluded at the privacy boundary.", "",
+             "| UTC timestamp | Transport / operation | JS method or HTTP operation; observed endpoint | Request shape | Status / exact error / EA code | Response fields and readback | Duration ms |",
+             "| --- | --- | --- | --- | --- | --- | --- |"]
+    for a in attempts:
+        r = a["result"]
+        endpoints = ", ".join("https://"+n["host"]+n["path"] for n in r["network"])
+        readback = []
+        if r["credits"] is not None:
+            readback.append("credits="+str(r["credits"]))
+        for field in ["items", "auctions"]:
+            if r[field] is not None:
+                readback.append(f"{field}[{len(r[field])}]")
+        if r["platform"]:
+            readback.append("platform="+r["platform"])
+        if r["cache_invalidated"] is not None:
+            readback.append("cache_invalidated="+str(r["cache_invalidated"]).lower())
+        if not readback:
+            readback.append("none; UNVERIFIED")
+        native = a["method"] + ("; "+endpoints if endpoints else "; no matching network request retained")
+        lines.append(f"| {a['observed_at']} | {a['transport']} / {a['operation']} | `{native}` | `{json.dumps(a['request'], sort_keys=True)}` | `{r['status']}` / `{r['error'] or 'none'}` / `{r['ea_error_code']}` | {'; '.join(readback)} | {a['elapsed_ms']} |")
+    lines += ["", "## Transport comparison", "",
+              f"The Edge bridge produced **{facts['edge']['authenticated_reads']} authenticated network readbacks**. Direct Python HTTP produced **{facts['direct_http']['authenticated_reads']}**. The direct path's exact local error is `direct_session_provider_unavailable`: no in-memory session provider is configured, no authenticated EA request was sent on that path, and no browser credentials were collected. Comparative authenticated latency remains UNVERIFIED. Local failure durations are not comparable to EA response latency.", "",
+              "Select the Edge native-service adapter for these reads. It keeps authentication in the existing signed-in page. DirectHTTPTransport remains replaceable through the same read interface and can accept a trusted in-memory Session provider; the CLI deliberately accepts no credentials. Its source-reviewed exact-version REST query uses definitionId, not maskedDefId (which can broaden to base-player matching). Neither transport implements login or a continuous trading loop.", "",
+              "Active authenticated endpoints observed in this task:", ""]
+    for host, path in sorted({(n["host"], n["path"]) for a in observed for n in a["result"]["network"]}):
+        lines.append(f"- `GET https://{host}{path}`")
+    lines += ["", "The prior task_02 configuration additionally identifies `/ut/game/fc27/`, `FC27_JS_WEB_APP`, and `FUT27WEB`. Those are contextual public identifiers, not substitutes for the authenticated readbacks above. The original v2 observer on 8766 remains separate from the command bridge on 8767.", "",
+              "## Player, card-version and auction identity", "",
+              "`tradeId` identifies one auction and maps only to trade_id (`trade:` pseudonym). `itemData.id` identifies a physical card and maps only to item_id (`item:` pseudonym). `resourceId` is a card/version definition on wire responses; the current EA item factory explicitly constructs native **definitionId from wire resourceId** (`l.id=t.id,l.definitionId=t.resourceId`). See [native-item-mappings.json](capabilities/native-item-mappings.json), including the public source hash and exact factory snippet. Thus the live native definition_id is the exact version identity; it is not an auction or owned-item ID.", "",
+              "Native assetId maps to asset_id when present, and remains separate from the exact definition. Native entities do not expose the wire resourceId property here: resource_id remains null. Missing fields stay null; no synthetic resource_id or asset_id is filled to make validation pass. Source shows native databaseId is definitionId masked by ItemIdMask.DATABASE; the current projection does not collect that getter, so base-player asset mapping remains UNVERIFIED. This does not prevent exact-version comparisons using native definitionId. Preserve special versions; never group cards solely by player name, rarity, or base ID.", "",
+              "All native search requests set criteria.type='player'. Targeted comparisons use definition_id **233731**, PC, with max_buy **7000**; every nonempty targeted returned row is checked for the exact definition and a positive Buy Now price at or below the ceiling. Multiple auctions of the same definition have different trade and physical-item pseudonyms. A second targeted version test used full definition 50596300 and returned 21 exact matches; the full definition is preserved without base-ID masking. Lowering the first definition ceiling to 6500 returned 21 prices at or below 6500 and excluded the earlier 6600?7000 quotes. Player-name resolution remains UNVERIFIED; exact card definitions are the comparison key.", "",
+              "Comparable fields retained where exposed: starting_bid, current_bid, buy_now_price, expires, trade_state, bid_state; item definition_id, rating, rarity, nation, league, club, last_sale_price, market_average. Native position, untradeable, resource_id and asset_id are null when absent. market_average is " + facts["market_average"] + "; last_sale_price is " + facts["last_sale_price"] + ". Zero last_sale_price values are preserved and do not imply a recent zero-price sale. Neither indicative field is an executable auction price.", "",
+              "Platform **pc** was read from the selected persona alongside the authenticated native results. False isPC does not imply PlayStation. The caller cannot override a browser persona's platform, and eligible comparable groups require one observed non-null platform plus exact definitionId. Cross-platform experiments are UNVERIFIED: no second-platform account was accessed and no console quote was blended into the PC sample.", "",
+              "## Supported filters and pagination", "",
+              "Native source mappings are independently retained in [native-source-shapes.json](capabilities/native-source-shapes.json): defId[0] → REST definitionId, maxBuy → maxb, minBuy → minb, nation → nat, league → leag, club → team, rarities → rarityIds. The loaded initial page bridge maps league and club correctly. Its nation input uses nationality and rarity input uses rarity, so **nation and rarity filter support are UNVERIFIED** through that bridge. No request was relabeled as testing an unsupported DTO field. Position was absent in the projected native data and was not asserted supported.", "",
+              "Live broad club=9 and league=13 queries test those filters independently of a preselected definition; returned rows must all match the requested field. A contradictory exact definition 233731 plus club=2 query tests the conjunction. Empty successful results are preserved as empty, not treated as network errors.", "",
+              "Supported filter assessment: `" + json.dumps(facts["filters"], sort_keys=True) + "`.", "",
+              "Two relevant pages: **" + facts["pagination"]["two_nonempty_pages"] + "**. Broad pages returned 21 rows each; targeted pages returned 21 and 20. Both use the same exact definition, PC market and 7000 ceiling. Native service source sets offset=itemsPerPage*(page-1), count=itemsPerPage+1; its fallback visible page size is 20. The native service may override the requested count.", "",
+              "Ordering: **" + facts["pagination"]["ordering"] + "**. Compare expiry within each response; do not assume Buy Now price order. Lookahead: **" + facts["pagination"]["lookahead"] + "**. The page-1 row at index 20 matches page-2 row 0 by the same auction pseudonym in the targeted capture; only the first 20 rows of page 1 belong to its visible page. Deduplicate that lookahead before aggregating comparables. Broad-page overlap can change while auctions expire between polls. A failed request never proves no next page.", "",
+              "Expiry readback: **" + facts["expiry_units"] + "**. Repeated targeted rows compare countdown changes with measured completion-time differences. This establishes remaining seconds for matching live auctions; absolute expiry timestamps and server clock drift are UNVERIFIED.", "",
+              "Caching and invalidation: native reset + network reads are **" + facts["pagination"]["invalidation"] + "**. Explicit fresh=true invokes services.Item.clearTransferMarketCache() and network evidence shows the subsequent transfermarket GET. fresh=false calls exercise native cache behavior; the captured repeats still emitted matching transfermarket network activity. A cache hit, TTL and exact refresh-vs-query semantics remain **UNVERIFIED** because the 30-second command poll affects timing and raw query strings are not retained. Source shows page-number caches, cache expiry checks and auction refresh behavior; source inspection alone is not a measured cache hit. No local market cache or automatic retry exists.", "",
+              "## Live account state", ""]
+    for op in ["coins", "club", "unassigned", "purchased", "transfer_list"]:
+        lines.append(f"- {op}: **{facts[op]}**; readback mode `{facts[op+'_readback_mode']}`.")
+    lines += ["",
+              "Coin balance was read after services.User.requestCurrencies() completed, with an authenticated user/credits GET. The club service returned 27 typed item snapshots from the live page immediately after that authenticated coin read, with native status 200 and PC context; it emitted no matching network request. Club data is an available native snapshot, while cache age and a fresh uncached club GET remain UNVERIFIED. A first club page is not proof of the entire club inventory. The source reviewed DTO may yield cached items beyond requested count.", "",
+              "The native services.Item.requestUnassignedItems() call emitted an authenticated GET to **purchased/items**, returning zero items. Current EA getUnassignedPile source explicitly uses **ItemPile.PURCHASED**, constructs that endpoint, generates items from response.itemData, and returns the unassigned repository. This establishes that purchased/unassigned are a shared queue in the current app, rather than substituting an unrelated pile. The separately attempted requestPurchasedItems method returned the exact local error **service_unavailable** and is not claimed to exist. See the exact read method and source in native-source-shapes.json. A separate purchased-only collection or purchase-history API is UNVERIFIED.", "",
+              "The transfer-list native read emitted an authenticated tradepile GET and returned two active auctions with distinct physical and trade pseudonyms, definition IDs, prices, expiry and last-sale fields. Every account read is its own timestamped observation; this is not an atomic snapshot. No purchase, movement or listing was needed for these read checks.", "",
+              "## Retention, commands and recovery", "",
+              "Transport Protocol.read(operation, params, evidence_key) is replaceable. The page projects positive allowlisted fields before extension transport; the loopback server validates them again and the Python harness validates before retention. Physical-item and auction IDs use distinct salted namespaces. Each resume phase uses its own random key; joins are valid within a phase only. Card definition IDs remain public numeric values. No raw cookies, session values, headers, query strings, account names, persona IDs, error messages or stacks are retained. Numeric balances are retained for this authorized research. Local processes or privileged extensions can forge observations; these are not cryptographic attestations.", "",
+              "Explicit commands from the workspace:", "",
+              "```text", "python -m fc_access.read_server", "python -m fc_access.harness compare",
+              "python -m fc_access.harness --output docs/research/capabilities/one-read.json read edge coins",
+              "python -m fc_access.report", "python tests/test_integration_harness.py",
+              "python tests/test_capability_artifacts.py", "python tests/validate_capabilities_live.py", "```", "",
+              "read edge search --params accepts a JSON object with page, count, definition_id, max_buy, min_buy, nation, league, club, rarity, position and fresh; support limitations above apply. Only one bounded command is in flight. The server binds to 127.0.0.1:8767. Version 0.1.1 uses extension-origin POST /next for polling because Edge may omit Origin on extension GETs; strict origin, Host, payload and command validation are preserved. Command deadline is 60 seconds and native observable timeout is 15 seconds; late and duplicate responses are rejected.", "",
+              "The attachment prerequisite is resolved for this capture. For future lost attachment only: load browser/read-bridge in the same Edge profile, return to the existing HTTPS EA Ultimate Team Web App tab, and click FC read capability bridge. No browser restart, tab refresh or login is required unless the actual page needs it. python tests/check_read_prerequisite.py checks only attachment, not evidence or authentication. Cleanup is to disable this separate extension and stop only its server; the original observer is independent.", "",
+              "Deterministic tests run synthetic browser/HTTP behavior, credential canaries, timeouts, queue/origin enforcement, read-plan and identity checks in temporary files. The live validator reads only retained attempts.json and independently checks typed field readbacks, exact card and ceiling matches, supported filters, platform and each account state. Successful attachment or HTTP 200 alone cannot satisfy it.", "",
+              "## Primary source review (not live proof)", "",
+              "EA [compiled_2.js](https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js) SHA256 `2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83` provides the item factory resourceId → definitionId mapping. [compiled_3.js](https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js) SHA256 `2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a` shows the native market UI and read methods. [ocompiled.js](https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/ocompiled.js) SHA256 `90c120d41798623f756f1732010db21fd3c849e695abfce4e968700fd84fb9a2` was decoded using static base64/string-table substitution only; no downloaded JavaScript was executed. Its retained snippets establish the purchased queue, filter mapping, pagination and cache implementation. Public source review timestamps and local file hashes are retained in source-review.json.", "",
+              "Independent machine assessment:", "", "```json", json.dumps({"errors":errors,"facts":facts},indent=2), "```", ""]
+    destination.write_text("\n".join(lines),encoding="utf-8")
+    return errors, facts

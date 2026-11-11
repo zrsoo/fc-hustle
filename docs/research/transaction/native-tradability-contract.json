@@ -1,0 +1,31 @@
+{
+  "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+  "sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+  "sections": [
+    {
+      "term": "l.tradable=!t.untradeable",
+      "offset": 279248,
+      "source": "setId=t.cardassetid,l.subtype=t.cardsubtypeid||this.generateSubtype(t.itemType),l.tradable=!t.untradeable,l.lastSalePrice=t.lastSalePrice,l.discardValue=t.discardValue,l.state=t.itemState,l.pile=t.pile,l.amount=t.amount,l.rating=JSUtils.isString(t.rating)?parseInt(t.rating,10):t.rating,l.teamId=t.teamId||0,l.leagueId=t.leagueId||0,l.nationId=t.nation||0,l.rareflag=t.rareflag,l.groups=t.groups,l.owners=t.owners,l.timestamp=t.timestamp,l.guidAssetId=t.guidAs"
+    },
+    {
+      "term": "i.tradable=",
+      "offset": 232304,
+      "source": ".continuationId)?e:\"\",i.state=null!=(e=null==t?void 0:t.state)?e:ItemState.FREE,i.tradable=null!=(e=null==t?void 0:t.tradable)&&e,i.untradeableCount=null!=(e=null==t?void 0:t.untradeableCount)?e:0,i.concept=null!=(e=null==t?void 0:t.concept)&&e,i.teamId=null!=(e=null==t?void 0:t.teamId)?e:-1,i.leagueId=null!=(e=null==t?void 0:t.leagueId)?e:-1,i.nationId=null!=(e=null==t?void 0:t.nationId)?e:-1,null!=t&&t.loansInfo?(i.limitedUseType=t.loansInfo.type,i.limit"
+    },
+    {
+      "term": "prototype.isPlayer=function",
+      "offset": 249337,
+      "source": "isPlayer()&&this.isAcademyGraduate()&&!this.isEnrolledInAcademy()},UTItemEntity.prototype.isPlayer=function(){return this.type===ItemType.PLAYER},UTItemEntity.prototype.isLeagueHeroItem=function(){var t=this.teamId===UTItemEntity.LEAGUE_HERO_CLUB_ID||this.teamId===UTItemEntity.HALL_OF_FUT_CLUB_ID;return this.isPlayer()&&t},UTItemEntity.prototype.isSuperChem=function(){var t=null!=(t=repositories.ServerSettings.getStringSettingByKey(UTServerSettingsReposito"
+    },
+    {
+      "term": "prototype.isTradable=function",
+      "offset": -1,
+      "source": null
+    },
+    {
+      "term": "prototype.getAuctionData=function",
+      "offset": 241281,
+      "source": "ItemEntity.prototype.setStaticData=function(t){this._staticData=t},UTItemEntity.prototype.getAuctionData=function(){return this._auction},UTItemEntity.prototype.setAuctionData=function(t){this._auction=t},Object.defineProperty(UTItemEntity.prototype,\"basePlusRoles\",{get:function(){var t=null!=(t=null==(t=this._metaData)?void 0:t.rolePlus)?t:[];return 0<this._basePlusRoles.length?this._basePlusRoles:t},enumerable:!1,configurable:!0}),UTItemEntity.prototype."
+    }
+  ]
+}

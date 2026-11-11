@@ -1,0 +1,31 @@
+{
+  "task": "task_02",
+  "inspected_at": "2026-11-11T18:35:17.763054+00:00",
+  "edge_processes": {
+    "edge_listeners": [],
+    "debug_pipe_process_count": 0,
+    "debug_ports": [],
+    "edge_process_count": 15,
+    "unreadable_command_lines": 0
+  },
+  "devtools_active_port_markers": 0,
+  "cdp_probes": [
+    {
+      "address": "127.0.0.1",
+      "port": 9222,
+      "available": false
+    },
+    {
+      "address": "127.0.0.1",
+      "port": 9223,
+      "available": false
+    }
+  ],
+  "extension_permissions": {
+    "manifests": 5,
+    "debugger_candidates": 0,
+    "loopback_candidates": 0,
+    "unreadable": 0
+  },
+  "limits": "Only default Edge user-data root, process debugging flags, owned listeners, and manifest permissions inspected. Custom profile paths, UI state, and enterprise policies unverified. No credentials read."
+}

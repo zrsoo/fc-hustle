@@ -1,0 +1,79 @@
+{
+  "task": "task_07",
+  "checked_at": "2026-11-11T19:42:37.338501+00:00",
+  "status": "PASS",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 97,
+      "skipped_tests": false
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_browser_live.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 0,
+      "reported_status": "PASS",
+      "errors": []
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_capabilities_live.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 0,
+      "reported_status": "PASS",
+      "errors": []
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_transaction_live.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 0,
+      "reported_status": "PASS",
+      "errors": {}
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "tests_run": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "tests_run": 0
+    }
+  ],
+  "privacy": {
+    "files_reviewed": 102,
+    "findings": [],
+    "scope": "All retained deliverables; allowlisted native schemas, pseudonymous IDs and concrete secret/account-field signatures."
+  },
+  "manifest_sha256": "7c3d7482d2e1c2b8020a21f27b8c87f9d5885a7773845095edc4480d347f01a9",
+  "proof_boundary": "Actual offline/checkpoint validations and freshness checks on existing captures; no new EA request, browser action or mutation.",
+  "git_review": "Final validate_final.py requires committed byte equality, preserved baseline objective and exclusion of unrelated runtime/private files."
+}

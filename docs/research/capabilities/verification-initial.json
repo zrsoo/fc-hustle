@@ -1,0 +1,131 @@
+{
+  "task": "task_03",
+  "verified_at": "2026-11-11T14:52:47.372033+00:00",
+  "status": "PARTIAL/BLOCKED",
+  "capture": "docs/research/capabilities/attempts.json",
+  "capture_attempts": 14,
+  "successful_live_reads": 0,
+  "live_errors": [
+    "criterion_3_live_listing_identity_prices_expiry_unverified",
+    "criterion_3_card_version_or_buy_now_ceiling_unverified",
+    "criterion_3_platform_separation_unverified",
+    "criterion_3_supported_filters_unverified",
+    "criterion_5_live_coins_unverified",
+    "criterion_5_live_club_unverified",
+    "criterion_5_live_unassigned_unverified",
+    "criterion_5_live_purchased_unverified",
+    "criterion_5_live_transfer_list_unverified"
+  ],
+  "facts": {
+    "edge": {
+      "attempts": 7,
+      "authenticated_reads": 0,
+      "elapsed_ms": [],
+      "unavailable_reasons": [
+        "bridge_not_attached"
+      ]
+    },
+    "direct_http": {
+      "attempts": 7,
+      "authenticated_reads": 0,
+      "elapsed_ms": [],
+      "unavailable_reasons": [
+        "direct_session_provider_unavailable"
+      ]
+    },
+    "filters": {
+      "nation": "UNVERIFIED",
+      "league": "UNVERIFIED",
+      "club": "UNVERIFIED",
+      "rarity": "UNVERIFIED",
+      "position": "UNVERIFIED"
+    },
+    "market_average": "UNVERIFIED",
+    "last_sale_price": "UNVERIFIED",
+    "pagination": {
+      "two_nonempty_pages": "UNVERIFIED",
+      "page_pairs": 0,
+      "ordering": "UNVERIFIED",
+      "lookahead": "UNVERIFIED",
+      "caching": "UNVERIFIED",
+      "invalidation": "UNVERIFIED",
+      "reason": "No two authenticated nonempty pages retained; do not infer end-of-market from failed reads."
+    },
+    "coins": "UNVERIFIED",
+    "club": "UNVERIFIED",
+    "unassigned": "UNVERIFIED",
+    "purchased": "UNVERIFIED",
+    "transfer_list": "UNVERIFIED"
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/test_integration_harness.py"
+      ],
+      "exit_code": 0,
+      "tests": 10
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_capability_artifacts.py"
+      ],
+      "exit_code": 0,
+      "tests": 6
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_capabilities_live.py"
+      ],
+      "exit_code": 1,
+      "reason": "Required live readback fields unavailable; failures retained, not interpreted as empty state."
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_browser_access.py"
+      ],
+      "exit_code": 0,
+      "tests": 11
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_repository_research.py"
+      ],
+      "exit_code": 0,
+      "tests": 8
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_browser_live.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "regression_fix": "The task_02 report test now compares its report to its own retained receipt/validation checkpoint while independently validating the growing current trace. New real observer traffic no longer invalidates an unchanged historical report.",
+  "human_prerequisite": "Load browser/read-bridge as an unpacked Edge extension in the existing profile and click FC read capability bridge on the existing authenticated EA Web App tab. The separate localhost server is running on 127.0.0.1:8767.",
+  "blocker_check": [
+    "python",
+    "tests/check_read_prerequisite.py"
+  ],
+  "recovery": "docs/research/confirmed-capabilities.md",
+  "remaining": [
+    "Authenticated market listings, exact card/version and auction identities, prices and expiry",
+    "Buy Now ceiling, supported filters, platform separation and relevant pagination/cache observations",
+    "Coin balance and distinct club/unassigned/purchased/transfer-list readback"
+  ],
+  "credential_export_performed": false,
+  "trading_loop_implemented": false
+}

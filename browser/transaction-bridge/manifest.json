@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "FC one-shot transaction bridge",
+  "version": "0.3.0",
+  "description": "One inexpensive purchase-to-list experiment with independent readback. No trading loop.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8768/*"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "action": {
+    "default_title": "Attach FC one-shot transaction bridge"
+  }
+}

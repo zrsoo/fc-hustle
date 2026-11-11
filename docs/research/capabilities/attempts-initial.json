@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "source": "fc-read-harness",
+  "captured_at": "2026-11-11T14:50:27.521035+00:00",
+  "attempts": [
+    {
+      "observed_at": "2026-11-11T14:50:27.353061+00:00",
+      "transport": "edge",
+      "operation": "coins",
+      "request": {},
+      "method": "services.User.requestCurrencies()",
+      "elapsed_ms": 23.443,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.376574+00:00",
+      "transport": "edge",
+      "operation": "club",
+      "request": {
+        "count": 20,
+        "start": 0
+      },
+      "method": "services.Club.search(criteria)",
+      "elapsed_ms": 31.113,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.407712+00:00",
+      "transport": "edge",
+      "operation": "unassigned",
+      "request": {},
+      "method": "services.Item.requestUnassignedItems()",
+      "elapsed_ms": 32.145,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.439886+00:00",
+      "transport": "edge",
+      "operation": "purchased",
+      "request": {},
+      "method": "services.Item.requestPurchasedItems()",
+      "elapsed_ms": 31.395,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.471297+00:00",
+      "transport": "edge",
+      "operation": "transfer_list",
+      "request": {},
+      "method": "services.Item.requestTransferItems()",
+      "elapsed_ms": 15.965,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.487281+00:00",
+      "transport": "edge",
+      "operation": "search",
+      "request": {
+        "page": 1,
+        "count": 21,
+        "fresh": true
+      },
+      "method": "services.Item.searchTransferMarket(criteria, page)",
+      "elapsed_ms": 15.669,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.502966+00:00",
+      "transport": "edge",
+      "operation": "search",
+      "request": {
+        "page": 2,
+        "count": 21,
+        "fresh": false
+      },
+      "method": "services.Item.searchTransferMarket(criteria, page)",
+      "elapsed_ms": 16.847,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.519848+00:00",
+      "transport": "direct_http",
+      "operation": "coins",
+      "request": {},
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.048,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.519912+00:00",
+      "transport": "direct_http",
+      "operation": "club",
+      "request": {
+        "count": 20,
+        "start": 0
+      },
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.033,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.519955+00:00",
+      "transport": "direct_http",
+      "operation": "unassigned",
+      "request": {},
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.023,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.519985+00:00",
+      "transport": "direct_http",
+      "operation": "purchased",
+      "request": {},
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.02,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.520012+00:00",
+      "transport": "direct_http",
+      "operation": "transfer_list",
+      "request": {},
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.021,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.520048+00:00",
+      "transport": "direct_http",
+      "operation": "search",
+      "request": {
+        "page": 1,
+        "count": 21,
+        "fresh": true
+      },
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.024,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    },
+    {
+      "observed_at": "2026-11-11T14:50:27.520086+00:00",
+      "transport": "direct_http",
+      "operation": "search",
+      "request": {
+        "page": 2,
+        "count": 21,
+        "fresh": false
+      },
+      "method": "GET (candidate REST mapping)",
+      "elapsed_ms": 0.023,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "direct_session_provider_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "task": "task_04",
+  "status": "VERIFIED",
+  "evidence_sha256": "6f98af8de9d3ed0d2b1ea8a45e17e2bc1e488a2a3c2cc31401ee135a5f9906fc",
+  "checked_at": "2026-11-11T19:05:53.488626+00:00",
+  "criteria_errors": {},
+  "facts": {
+    "purchase": "VERIFIED",
+    "movement": "VERIFIED",
+    "listing": "VERIFIED",
+    "status": "VERIFIED",
+    "relist": "UNVERIFIED",
+    "identity": {
+      "physical_item": "item:15e4b72c33f68aa58be37a09",
+      "definition_id": 278230,
+      "purchase_trade": "trade:0de6624af1485853ddb21f56",
+      "acquisition_price": 200
+    },
+    "acquisition_readback": {
+      "before_at": "2026-11-11T18:54:19.656468+00:00",
+      "after_at": "2026-11-11T19:01:45.364858+00:00",
+      "coin_debit": 200,
+      "fresh_inventory_at": "2026-11-11T19:00:50.130902+00:00"
+    },
+    "listing_readback": {
+      "read_at": "2026-11-11T19:04:15.694257+00:00",
+      "physical_item": "item:15e4b72c33f68aa58be37a09",
+      "definition_id": 278230,
+      "trade_id": "trade:f5ba424b763777e403134979",
+      "starting_bid": 200,
+      "buy_now_price": 250,
+      "requested_duration": 3600,
+      "observed_seconds_remaining": 3570,
+      "trade_state": "active"
+    },
+    "eligible_expired_listing_present": false
+  },
+  "proof_boundary": "Only the recorded independent live reads can satisfy transaction criteria. Offline tests exercise guards and validation only."
+}

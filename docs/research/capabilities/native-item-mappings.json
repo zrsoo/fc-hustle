@@ -1,0 +1,83 @@
+[
+  {
+    "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_1.js",
+    "sha256": "1e629d041c0a67f37d1b18ba9795facc4d3b6c02d5a4965c297b205d8beae94d",
+    "snippets": []
+  },
+  {
+    "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+    "sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+    "snippets": [
+      {
+        "symbol": "resourceId",
+        "offset": 279135,
+        "source": "),s.hasStatUpgrade=e,s},UTItemEntityFactory.prototype.generateItemConstructorOptions=function(t){var e,i,o,r,n,a,s,l={};if(l.id=t.id,l.definitionId=t.resourceId,l.type=t.itemType,l.assetId=t.cardassetid,l.subtype=t.cardsubtypeid||this.generateSubtype(t.itemType),l.tradable=!t.untradeable,l.lastSalePrice=t.lastSalePrice,l.discardValue=t.discardValue,l.state=t.itemState,l.pile=t.pile,l.amount=t.amount,l.rating=JSUtils.isString(t.rating)?parseInt(t.rating,10):t.rating,l.teamId=t.teamId||0,l.leagueId=t.leagueId||0,l.nationId=t.nation||0,l.rareflag=t.rareflag,l.groups=t.groups,l.owners=t.owners,l.t"
+      },
+      {
+        "symbol": "resourceId",
+        "offset": 281141,
+        "source": ".type===ItemType.VANITY&&(l.authenticity=t.authenticity,t.authenticity)&&(l.subtype===ItemSubType.VANITY_TIFO_BASE?l.teamId=this.generateTifoTeamId(t.resourceId):l.subtype===ItemSubType.VANITY_STADIUM_THEME&&(l.teamId=t.assetId)),l.stackCount=1,l.untradeableCount=t.untradeable?1:0,l.type!==ItemType.PLAYER&&l.type!==ItemType.MANAGER||(l.concept=t.dream,l.gender=t.gender,l.lifetimeStats=t.lifetimeStatsArray,l.stats=t.statsArray,t.loansInfo&&JSUtils.isString(t.loansInfo.loanType)?(s=t.loansInfo.loanType,n=JSUtils.isNumber(t.contract),n=\"MATCH_LOAN\"===s&&n?t.contract:t.loansInfo.loanValue,l.loansI"
+      },
+      {
+        "symbol": "resourceId",
+        "offset": 285531,
+        "source": "ata payload.\");var e=t.item?this.generateItemConstructorOptions(t.item):{};return e.discardValue=t.discardValue,e.stackCount=t.count,e.definitionId=t.resourceId,e.untradeableCount=t.untradeableCount,e.tradable=t.untradeableCount<t.count,e},UTItemEntityFactory.prototype.createItem=function(t){if(!t)return new UTNullItemEntity;t.itemType||(t.itemType=t.cardassetid?this.convertCardAssetIdToItemType(t.cardassetid):ItemType.PLAYER),t.itemType===ItemType.MANAGER&&t.presets&&(\"any\"===(i=t.presets[0]).formation&&i&&(i.formation=null!=(e=t.formation)?e:DEFAULT_FORMATION),e=factories.Squad.createTacticP"
+      },
+      {
+        "symbol": "resourceId",
+        "offset": 286150,
+        "source": "ositories.Squad.setTacticsManagerProfile(t.id,e),(t=this.normalizePayload(t)).itemType===ItemType.PLAYER&&(i=repositories.Item.getStaticDataByDefId(t.resourceId&ItemIdMask.DATABASE))&&(t.firstName=i.firstName,t.lastName=i.lastName,t.knownAs=i.commonName||BLANK_STR);var e=new UTItemEntity(this.generateItemConstructorOptions(t)),i=(e.getStaticData().parseDynamicItemData(e,t),services.Configuration.getItemRarity(e));return i&&(e.hasLevels=i.levels),e},UTItemEntityFactory.prototype.createConsumable=function(t){if(!t||!t.item)return new UTNullItemEntity;t.item.itemType||(t.item.itemType=t.item.card"
+      },
+      {
+        "symbol": "resourceId",
+        "offset": 287108,
+        "source": "tyItem=function(t){var e;return t?((e={assetId:t.assetId,authenticity:t.authenticity,id:t.id,rareflag:t.rareflag||0,rating:t.rating||0,definitionId:t.resourceId,subtype:t.cardSubTypeId,stackCount:1,type:t.itemType,teamId:t.teamId||0}).type===ItemType.VANITY&&(e.authenticity=t.authenticity,t.authenticity)&&(e.subtype===ItemSubType.VANITY_TIFO_BASE?e.teamId=this.generateTifoTeamId(t.resourceId):e.subtype===ItemSubType.VANITY_STADIUM_THEME&&(e.teamId=t.assetId)),(e=new UTItemEntity(e)).getStaticData().parseDynamicItemData(e,t),(t=services.Configuration.getItemRarity(e))&&(e.hasLevels=t.levels),e)"
+      },
+      {
+        "symbol": "resourceId",
+        "offset": 287342,
+        "source": ".type===ItemType.VANITY&&(e.authenticity=t.authenticity,t.authenticity)&&(e.subtype===ItemSubType.VANITY_TIFO_BASE?e.teamId=this.generateTifoTeamId(t.resourceId):e.subtype===ItemSubType.VANITY_STADIUM_THEME&&(e.teamId=t.assetId)),(e=new UTItemEntity(e)).getStaticData().parseDynamicItemData(e,t),(t=services.Configuration.getItemRarity(e))&&(e.hasLevels=t.levels),e):new UTNullItemEntity},UTItemEntityFactory.prototype.createCustomBrickItem=function(t){return t?(t=this.normalizePayload(t,!1),new UTCustomBrickItemEntity(this.generateItemConstructorOptions(t))):new UTNullItemEntity},UTItemEntityFact"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 235939,
+        "source": ".sbsScore)?e:0,i.isFavorite=null!=(e=null==t?void 0:t.isFavorite)&&e,i}return __extends(UTItemEntity,o),Object.defineProperty(UTItemEntity.prototype,\"databaseId\",{get:function(){return this.definitionId&ItemIdMask.DATABASE},enumerable:!1,configurable:!0}),Object.defineProperty(UTItemEntity.prototype,\"possiblePositions\",{get:function(){var t,e=null!=(t=null==(t=this.upgrades)?void 0:t.positions)?t:[];return this.getBasePossiblePositions().filter(function(t){return!e.includes(t)}).concat(e)},enumerable:!1,configurable:!0}),UTItemEntity.prototype.getBasePossiblePositions=function(){return this.ba"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 261257,
+        "source": "=JSUtils.isValid(t.upgrades)&&this.definitionId===t.definitionId:this.isLegend()&&t.isLegend()&&0<this.iconId&&0<t.iconId?this.iconId===t.iconId:this.databaseId===t.databaseId},UTItemEntity.prototype.setItemPriceLimits=function(t){this._itemPriceLimits=t},UTItemEntity.prototype.hasPriceLimits=function(){return null!==this._itemPriceLimits},UTItemEntity.prototype.getPriceLimits=function(){return this._itemPriceLimits},UTItemEntity.prototype.hasCosmetics=function(){return 0<this.cosmetics.length},UTItemEntity.prototype.hasHyperCosmetics=function(){return 0<Object.keys(this._hyperCosmeticDTOs).le"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 339055,
+        "source": "urn!1;if(0<o.excludeDefIds.length&&-1<o.excludeDefIds.indexOf(t.definitionId)||0<o.defId.length&&o.defId.indexOf(t.definitionId)<0&&o.defId.indexOf(t.databaseId)<0)return!1;if(o.ovrMin>t.rating||o.ovrMax<t.rating)return!1}else if(o.type===SearchType.STAFF&&o.category!==SearchCategory.ANY&&t.isManager()&&o.category!==SearchCategory.MANAGER)return!1;if(o.type!==SearchType.CONSUMABLES_DEVELOPMENT&&o.type!==SearchType.CONSUMABLES_TRAINING){if(o.level===SearchLevel.SPECIAL&&!t.isSpecial()||o.level===SearchLevel.BRONZE&&(!t.hasQualityTiers()||t.getTier()!==ItemRatingTier.BRONZE)||o.level===SearchLev"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 400428,
+        "source": "nction(t){var i=this,o=new EAObservable,e=new UTHttpRequest(this.authDelegate),r=new UTHttpResponseDTO,n=t.filter(function(t){return i.metaRepo.has(t.databaseId)}),t=n.filter(function(t){return!i.metaRepo.has(t.definitionId)}),a=new Map;return r.response={metas:[]},0===n.length&&(r.success=!1,r.status=HttpStatusCode.BAD_REQUEST,o.notify(r)),0===t.length?(this.updateMetaData(n),r.success=!0,r.status=HttpStatusCode.NOT_MODIFIED,r.response.metas=n.map(function(t){return i.metaRepo.get(t.definitionId)}).filter(function(t){return JSUtils.isValid(t)}),o.notify(r)):(t.forEach(function(t){var e=i.meta"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 400889,
+        "source": "(t){return i.metaRepo.get(t.definitionId)}).filter(function(t){return JSUtils.isValid(t)}),o.notify(r)):(t.forEach(function(t){var e=i.metaRepo.get(t.databaseId);e&&a.set(t.definitionId,e)}),e.setPath(\"/ut/game/\".concat(GAME_NAME,\"/attributes/metadata\")),e.setUrlVariables({defIds:t.map(function(t){return t.definitionId})}),this.requestDelegate.send(e).observe(this,function(t,e){t.unobserve(i),JSUtils.assignPropertyValues(e,r),e.success&&Array.isArray(e.response)&&(e.response.forEach(function(t){var e=a.get(t.defId);e&&(e=i.generateIPlayerMetaEntry(e,t.ingameattribs),i.metaRepo.setIndividualDat"
+      },
+      {
+        "symbol": "databaseId",
+        "offset": 1271987,
+        "source": "=0<t.guidAssetId.length&&t.isSpecial())?AssetLocationUtils.getPortraitImageUri(t.definitionId,t.guidAssetId):AssetLocationUtils.getPortraitImageUri(t.databaseId),o=e?this.onLoadDynamicPortraitError:this.onLoadAssetError,this.assets.set(ItemAssetType.MAIN,this.getAssetDimensions(ItemAssetType.MAIN,e,t.isLegend())),this.requestResource(i,ItemAssetType.MAIN,t,o))},UTPlayerItemView.prototype.renderOwnershipBadge=function(t,e){var i,o;this.__ownershipBadge&&(i=1===t.owners&&!t.concept,t=t.hasHyperCosmetics()&&0<t.getFoilCosmeticLayers().length,o=JSUtils.getObjectValues(UTPlayerItemView.OWNERSHIP_BA"
+      }
+    ]
+  },
+  {
+    "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js",
+    "sha256": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+    "snippets": []
+  },
+  {
+    "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_4.js",
+    "sha256": "d5aacfdfe5b3afa9b5122454d5c5fb9876e199035b5c5618dfd3c02b0587d267",
+    "snippets": []
+  }
+]

@@ -1,0 +1,715 @@
+{
+  "schema": 1,
+  "source": "fc-one-shot-transaction",
+  "created_at": "2026-11-11T18:46:30.003279+00:00",
+  "evidence_key": "67a04924c3d5c597ab31843a28a87428",
+  "status": "PARTIAL/BLOCKED",
+  "attempts": [
+    {
+      "at": "2026-11-11T18:46:30.021600+00:00",
+      "phase": "before_buy",
+      "operation": "unassigned",
+      "request": {},
+      "method": "services.Item.requestUnassignedItems()",
+      "result": {
+        "auctions": null,
+        "cache_invalidated": null,
+        "credits": null,
+        "ea_error_code": null,
+        "error": null,
+        "has_more": null,
+        "items": [],
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "path": "/ut/game/fc27/purchased/items",
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "platform": "pc",
+        "status": 200,
+        "success": true
+      },
+      "elapsed_ms": 12522.362
+    },
+    {
+      "at": "2026-11-11T18:46:42.546842+00:00",
+      "phase": "before_buy",
+      "operation": "transfer_list",
+      "request": {},
+      "method": "services.Item.requestTransferItems()",
+      "result": {
+        "auctions": [
+          {
+            "bid_state": "none",
+            "buy_now_price": 7000,
+            "current_bid": 0,
+            "expires": 104366,
+            "item": {
+              "asset_id": null,
+              "club": 9,
+              "definition_id": 233731,
+              "item_id": "item:50032e061ce7f6d1d844aba8",
+              "last_sale_price": 5900,
+              "league": 13,
+              "market_average": null,
+              "nation": 46,
+              "position": null,
+              "rarity": 0,
+              "rating": 86,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 4400,
+            "trade_id": "trade:28f626931108991656d81bd6",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 3700,
+            "current_bid": 2800,
+            "expires": 106905,
+            "item": {
+              "asset_id": null,
+              "club": 9,
+              "definition_id": 246104,
+              "item_id": "item:d8d96f1784054afd409307ba",
+              "last_sale_price": 3100,
+              "league": 13,
+              "market_average": null,
+              "nation": 34,
+              "position": null,
+              "rarity": 0,
+              "rating": 85,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 2200,
+            "trade_id": "trade:cdf3854f73f62e512065477d",
+            "trade_state": "active"
+          }
+        ],
+        "cache_invalidated": null,
+        "credits": null,
+        "ea_error_code": null,
+        "error": null,
+        "has_more": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "path": "/ut/game/fc27/tradepile",
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "platform": "pc",
+        "status": 200,
+        "success": true
+      },
+      "elapsed_ms": 30042.271
+    },
+    {
+      "at": "2026-11-11T18:47:12.594825+00:00",
+      "phase": "before_buy",
+      "operation": "coins",
+      "request": {},
+      "method": "services.User.requestCurrencies()",
+      "result": {
+        "auctions": null,
+        "cache_invalidated": null,
+        "credits": 29061,
+        "ea_error_code": null,
+        "error": null,
+        "has_more": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "path": "/ut/game/fc27/user/credits",
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "platform": "pc",
+        "status": 200,
+        "success": true
+      },
+      "elapsed_ms": 29906.765
+    },
+    {
+      "at": "2026-11-11T18:47:42.505819+00:00",
+      "phase": "preflight",
+      "operation": "search",
+      "request": {
+        "max_buy": 500,
+        "page": 1,
+        "count": 21,
+        "fresh": true
+      },
+      "method": "services.Item.searchTransferMarket(criteria, page)",
+      "result": {
+        "auctions": [
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 837,
+              "definition_id": 264151,
+              "item_id": "item:b2cbb7732f742940739e7203",
+              "last_sale_price": 0,
+              "league": 65,
+              "market_average": null,
+              "nation": 25,
+              "position": null,
+              "rarity": 0,
+              "rating": 57,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:78e602f2ab91691fbe890a86",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 15015,
+              "definition_id": 50604510,
+              "item_id": "item:86591f7845e79c9139efe73f",
+              "last_sale_price": 200,
+              "league": 60,
+              "market_average": null,
+              "nation": 25,
+              "position": null,
+              "rarity": 0,
+              "rating": 63,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:b6ce8a474fe6f4ec4e4e60e1",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 110991,
+              "definition_id": 275069,
+              "item_id": "item:651366434e444d86845add51",
+              "last_sale_price": 200,
+              "league": 1014,
+              "market_average": null,
+              "nation": 61,
+              "position": null,
+              "rarity": 0,
+              "rating": 63,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:e3ddd5ad9c470443979be4da",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 132139,
+              "definition_id": 248752,
+              "item_id": "item:4442e554ebbeb0c7cc2612b3",
+              "last_sale_price": 200,
+              "league": 2012,
+              "market_average": null,
+              "nation": 155,
+              "position": null,
+              "rarity": 0,
+              "rating": 60,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:f974443d7fcc2f02a9187170",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 110197,
+              "definition_id": 244078,
+              "item_id": "item:c539478da8aca5bf955b8fe9",
+              "last_sale_price": 200,
+              "league": 2076,
+              "market_average": null,
+              "nation": 21,
+              "position": null,
+              "rarity": 0,
+              "rating": 62,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:62bf351523d79824a69a2ea0",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 300,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 113057,
+              "definition_id": 225195,
+              "item_id": "item:e0930190e984424d383fc9eb",
+              "last_sale_price": 250,
+              "league": 350,
+              "market_average": null,
+              "nation": 183,
+              "position": null,
+              "rarity": 0,
+              "rating": 59,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 250,
+            "trade_id": "trade:14e25c55f7f0ad1a3e03f197",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 350,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 113149,
+              "definition_id": 216346,
+              "item_id": "item:2356334c544d260c42141a03",
+              "last_sale_price": 300,
+              "league": 39,
+              "market_average": null,
+              "nation": 82,
+              "position": null,
+              "rarity": 0,
+              "rating": 64,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 300,
+            "trade_id": "trade:b02c07e1ab6b798b7755e8c1",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 393,
+              "definition_id": 79706,
+              "item_id": "item:45b4e102095ea2f195576e6e",
+              "last_sale_price": 0,
+              "league": 63,
+              "market_average": null,
+              "nation": 22,
+              "position": null,
+              "rarity": 0,
+              "rating": 63,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:8fa334f8140d63e8f206b0db",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 44,
+            "item": {
+              "asset_id": null,
+              "club": 445,
+              "definition_id": 244655,
+              "item_id": "item:4fad7f0fb32f4776a6319da0",
+              "last_sale_price": 0,
+              "league": 65,
+              "market_average": null,
+              "nation": 35,
+              "position": null,
+              "rarity": 0,
+              "rating": 60,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:3bf80f6eb9423c3fe734dc04",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 322,
+              "definition_id": 83043,
+              "item_id": "item:a30ad0943215fbb9b8bb3bef",
+              "last_sale_price": 200,
+              "league": 189,
+              "market_average": null,
+              "nation": 8,
+              "position": null,
+              "rarity": 0,
+              "rating": 59,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:8ed935969b0b6ec226716cb8",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 272,
+              "definition_id": 82787,
+              "item_id": "item:c3e042ce2bfc7bfe8b0a5aa8",
+              "last_sale_price": 200,
+              "league": 1,
+              "market_average": null,
+              "nation": 13,
+              "position": null,
+              "rarity": 0,
+              "rating": 55,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:c38b2723a662b7c8528a969c",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 286,
+              "definition_id": 256401,
+              "item_id": "item:9de52a309365a039e61861a7",
+              "last_sale_price": 0,
+              "league": 189,
+              "market_average": null,
+              "nation": 47,
+              "position": null,
+              "rarity": 0,
+              "rating": 59,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:27ca7cec9516f76ca24480a5",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 110597,
+              "definition_id": 263084,
+              "item_id": "item:d56ab17f404da41946d83a4f",
+              "last_sale_price": 0,
+              "league": 2076,
+              "market_average": null,
+              "nation": 21,
+              "position": null,
+              "rarity": 0,
+              "rating": 63,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:b49edcbc3db862dd401d8027",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 113146,
+              "definition_id": 266718,
+              "item_id": "item:80073bc303ce2803bef5baa9",
+              "last_sale_price": 0,
+              "league": 2149,
+              "market_average": null,
+              "nation": 159,
+              "position": null,
+              "rarity": 0,
+              "rating": 57,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:73b2e08614eaa515fe6b8a49",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 45,
+            "item": {
+              "asset_id": null,
+              "club": 1013,
+              "definition_id": 75653,
+              "item_id": "item:a33ac887d2c9caf93d93f614",
+              "last_sale_price": 0,
+              "league": 353,
+              "market_average": null,
+              "nation": 52,
+              "position": null,
+              "rarity": 0,
+              "rating": 64,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:26b3d45c7929fea2d458caa4",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 112965,
+              "definition_id": 276708,
+              "item_id": "item:b8530e0a0ea9fd4d67a78510",
+              "last_sale_price": 0,
+              "league": 353,
+              "market_average": null,
+              "nation": 58,
+              "position": null,
+              "rarity": 0,
+              "rating": 64,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:51cbaee1f981fe72b4b27f12",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 110912,
+              "definition_id": 279562,
+              "item_id": "item:5fc3d8aaf4c3bccf847ecd17",
+              "last_sale_price": 0,
+              "league": 32,
+              "market_average": null,
+              "nation": 38,
+              "position": null,
+              "rarity": 0,
+              "rating": 56,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:b99829418a5220fbed14464b",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 111708,
+              "definition_id": 240955,
+              "item_id": "item:338f117b9db7af5dec2c474c",
+              "last_sale_price": 0,
+              "league": 353,
+              "market_average": null,
+              "nation": 52,
+              "position": null,
+              "rarity": 0,
+              "rating": 64,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:98c896a711634d5029fb60fe",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 113040,
+              "definition_id": 272312,
+              "item_id": "item:515648b9979722ac958c0911",
+              "last_sale_price": 0,
+              "league": 2149,
+              "market_average": null,
+              "nation": 159,
+              "position": null,
+              "rarity": 0,
+              "rating": 55,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:d834cb17d3efb22fb432612d",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 114326,
+              "definition_id": 86816,
+              "item_id": "item:69f1f6137d9c24a7a680c22a",
+              "last_sale_price": 0,
+              "league": 66,
+              "market_average": null,
+              "nation": 37,
+              "position": null,
+              "rarity": 0,
+              "rating": 60,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:20bde771de2aad6df664f914",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 200,
+            "current_bid": 0,
+            "expires": 46,
+            "item": {
+              "asset_id": null,
+              "club": 131826,
+              "definition_id": 84024,
+              "item_id": "item:30fbdbf82521bde7fe7e1476",
+              "last_sale_price": 0,
+              "league": 1014,
+              "market_average": null,
+              "nation": 58,
+              "position": null,
+              "rarity": 0,
+              "rating": 59,
+              "resource_id": null,
+              "untradeable": null
+            },
+            "starting_bid": 150,
+            "trade_id": "trade:072cae9d2fab05a363db0d2b",
+            "trade_state": "active"
+          }
+        ],
+        "cache_invalidated": true,
+        "credits": null,
+        "ea_error_code": null,
+        "error": null,
+        "has_more": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "path": "/ut/game/fc27/transfermarket",
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "platform": "pc",
+        "status": 200,
+        "success": true
+      },
+      "elapsed_ms": 30597.062
+    }
+  ],
+  "intents": {},
+  "selection": null,
+  "listing": null,
+  "errors": [
+    {
+      "at": "2026-11-11T18:48:13.107207+00:00",
+      "error": "no_inexpensive_tradeable_player_with_complete_identity"
+    }
+  ],
+  "relist": "UNVERIFIED",
+  "transport": {
+    "selected": "edge",
+    "decision": "FINAL",
+    "direct_http": "UNVERIFIED",
+    "reason": "Observed direct_session_provider_unavailable; prior authenticated native reads. Use the native bridge; essential writes remain UNVERIFIED pending live proof. No comparison purchase."
+  },
+  "recovery": [
+    "Start python -m fc_access.transaction_server and attach the reviewed browser/transaction-bridge extension to the existing official EA tab.",
+    "Run python -m fc_access.transaction once. It buys at most one player for 200-500 coins and lists that physical item for one hour.",
+    "If any write intent exists, preserve this journal: reruns only read and reconcile. Inspect exact error/status/EA code and the physical item before any manual recovery. Never repeat a purchase or listing on timeout."
+  ],
+  "updated_at": "2026-11-11T18:48:13.107223+00:00",
+  "direct_probe": {
+    "status": null,
+    "success": false,
+    "error": "direct_session_provider_unavailable",
+    "ea_error_code": null,
+    "platform": null,
+    "credits": null,
+    "items": null,
+    "auctions": null,
+    "has_more": null,
+    "cache_invalidated": null,
+    "network": []
+  }
+}

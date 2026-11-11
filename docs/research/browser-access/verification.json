@@ -1,0 +1,299 @@
+{
+  "task": "task_02",
+  "checked_at": "2026-11-11T14:37:09.543366+00:00",
+  "overall": "VERIFIED",
+  "document_control": {
+    "connected_sessions": 0
+  },
+  "live_configuration": {
+    "status": "VERIFIED",
+    "configuration": {
+      "game_version": "fc27",
+      "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+      "request_prefix": "/ut/game/fc27/",
+      "client_id": "FC27_JS_WEB_APP",
+      "sku": "FUT27WEB"
+    },
+    "observations": [
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:24.112Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:24.640Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:26.577Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "authenticated_read",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:27.316Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "itemData",
+        "response_type": "text",
+        "route": "club",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:27.427Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "club",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:27.548Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:29.166Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      },
+      {
+        "client_id": "FC27_JS_WEB_APP",
+        "event": "configured_request",
+        "game_version": "fc27",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "observed_at": "2026-11-11T14:20:40.353Z",
+        "observer_version": 2,
+        "request_prefix": "/ut/game/fc27/",
+        "response_shape": "none",
+        "response_type": "text",
+        "route": "other",
+        "session_header_present": true,
+        "sku": "FUT27WEB",
+        "status": 200
+      }
+    ],
+    "summary": {
+      "game_version": "fc27",
+      "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+      "request_prefix": "/ut/game/fc27/",
+      "client_id": "FC27_JS_WEB_APP",
+      "sku": "FUT27WEB",
+      "current_observation_count": 8,
+      "archived_observation_count": 21,
+      "authenticated_reads": [
+        {
+          "observed_at": "2026-11-11T14:20:27.316Z",
+          "response_shape": "itemData",
+          "status": 200,
+          "route": "club"
+        }
+      ],
+      "session_lifecycle": {
+        "first_current_request_at": "2026-11-11T14:20:24.112Z",
+        "last_current_request_at": "2026-11-11T14:20:40.353Z",
+        "authenticated_read_at": "2026-11-11T14:20:27.316Z",
+        "later_successful_request_count": 4,
+        "last_later_successful_request_at": "2026-11-11T14:20:40.353Z",
+        "transport_activity_after_authenticated_read": "OBSERVED",
+        "repeat_authenticated_readback": "UNVERIFIED",
+        "renewal": "UNVERIFIED",
+        "expiry": "UNVERIFIED",
+        "logout_reconnect": "UNVERIFIED",
+        "historical_rejections": [
+          {
+            "observed_at": "2026-11-08T20:14:07.899Z",
+            "status": 401
+          },
+          {
+            "observed_at": "2026-11-08T20:18:37.922Z",
+            "status": 401
+          }
+        ],
+        "current_rejection_count": 0
+      }
+    }
+  },
+  "browser_mutations": [],
+  "listener": {
+    "address": "127.0.0.1",
+    "port": 8766,
+    "attached": true
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/test_browser_access.py"
+      ],
+      "exit_code": 0,
+      "kind": "Eleven task tests passed: artifact traceability, browser behavior, privacy/loopback enforcement, recovery, archive freshness and honest lifecycle classification."
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_browser_live.py"
+      ],
+      "exit_code": 0,
+      "kind": "PASS on actual current evidence: authenticated FC27 club read, observed host/prefix/client/SKU, and later successful request activity. Renewal and repeated authenticated readback remain unverified."
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_repository_research.py"
+      ],
+      "exit_code": 0,
+      "kind": "Eight dependency regression tests passed."
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "kind": "Whitespace check passed."
+    }
+  ],
+  "remaining": [],
+  "instructions": "docs/research/browser-access.md",
+  "original_blocker_resolved": true,
+  "observer_version": 2,
+  "legacy_evidence_preserved": true,
+  "public_source_review": {
+    "source": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+    "sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+    "scope": "Public client-ID getter only; not authenticated evidence."
+  },
+  "operator_action_request": "Resolved; no further operator action pending. Native read and page activity yielded a recognized authenticated club response.",
+  "endpoint_checks": [
+    {
+      "address": "127.0.0.1",
+      "port": 8766,
+      "service": "fc-config-observer-v1"
+    }
+  ],
+  "v2_attachment_prerequisite": {
+    "status": "READY",
+    "source": "supervisor reports existing blocker check succeeded; not repeated this turn"
+  },
+  "listener_attachment_source": "Supervisor prerequisite resolved; current real v2 observations independently prove the page read reached the sink.",
+  "v2_request_evidence": {
+    "exists": true,
+    "current_rows": 8
+  },
+  "desktop_probe_attempt": {
+    "attempted": false,
+    "reason": "edge_window_cannot_be_activated_in_this_desktop",
+    "keystrokes_sent": false,
+    "clipboard_used": false
+  },
+  "observer_version_source": "Eight real current observation records include observer_version=2.",
+  "session_lifecycle": {
+    "first_current_request_at": "2026-11-11T14:20:24.112Z",
+    "last_current_request_at": "2026-11-11T14:20:40.353Z",
+    "authenticated_read_at": "2026-11-11T14:20:27.316Z",
+    "later_successful_request_count": 4,
+    "last_later_successful_request_at": "2026-11-11T14:20:40.353Z",
+    "transport_activity_after_authenticated_read": "OBSERVED",
+    "repeat_authenticated_readback": "UNVERIFIED",
+    "renewal": "UNVERIFIED",
+    "expiry": "UNVERIFIED",
+    "logout_reconnect": "UNVERIFIED",
+    "historical_rejections": [
+      {
+        "observed_at": "2026-11-08T20:14:07.899Z",
+        "status": 401
+      },
+      {
+        "observed_at": "2026-11-08T20:18:37.922Z",
+        "status": 401
+      }
+    ],
+    "current_rejection_count": 0
+  },
+  "evidence": {
+    "path": "docs/research/browser-access/live-v2.json",
+    "received_at": "2026-11-11T14:21:05.598357+00:00",
+    "validated_at": "2026-11-11T14:35:46.014870+00:00",
+    "current_rows": 8,
+    "archive_rows": 21,
+    "original_archive_sha256": "78e97e8a2ebf018cedb24ace045fd7411c1f18c613120b4534d92e782331d894"
+  },
+  "legacy_listener": {
+    "current_state": "NOT_LISTENING",
+    "agent_stop_during_final_verification": false
+  },
+  "validation_method": "Require a current structured authenticated FC27 read and later successful same-configuration request activity. Archived rows remain privacy-checked and cannot prove current access. Repeated authenticated readback and renewal are explicitly unverified."
+}

@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "FC configuration observer",
+  "version": "0.2.0",
+  "description": "Observe public FC configuration from your existing signed-in tab. No trading or credential export.",
+  "permissions": ["activeTab", "scripting", "alarms", "storage"],
+  "host_permissions": ["http://127.0.0.1:8766/*"],
+  "background": {"service_worker": "worker.js"},
+  "action": {"default_title": "Attach read-only FC observer"}
+}

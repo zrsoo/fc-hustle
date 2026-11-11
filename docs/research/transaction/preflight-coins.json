@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "source": "fc-read-harness",
+  "captured_at": "2026-11-11T18:26:21.289780+00:00",
+  "attempts": [
+    {
+      "observed_at": "2026-11-11T18:26:21.263347+00:00",
+      "transport": "edge",
+      "operation": "coins",
+      "request": {},
+      "method": "services.User.requestCurrencies()",
+      "elapsed_ms": 25.976,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      }
+    }
+  ]
+}

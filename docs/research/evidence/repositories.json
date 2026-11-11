@@ -1,0 +1,3718 @@
+{
+  "schema_version": 1,
+  "task": "task_01",
+  "collected_at": "2026-11-08T19:50:48Z",
+  "method": "GitHub connector GET: repository metadata, default-branch commit, recursive tree, SHA-pinned raw text, releases and latest workflow run; no clones or upstream execution.",
+  "source_snapshot_policy": "Only file identities, short review anchors and metadata retained; no runnable upstream source copied. Upstream contents can be rechecked via pinned URLs.",
+  "repositories": [
+    {
+      "repository": "liusihang/fc27-copilot",
+      "url": "https://github.com/liusihang/fc27-copilot",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+      "default_branch": "main",
+      "commit_date": "2026-10-12T04:55:26Z",
+      "pushed_at": "2026-10-12T04:55:29Z",
+      "archived": false,
+      "declared_license": "MIT",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".github/workflows/check.yml",
+          "sha": "2b0e99698539202dad6998ff45015b3d8f9a1785"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "b8e89849e6400a7e53e0498ba8ae7e863639cde2"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha": "3c0c8988bffdd7104ab985f5f7b20a36c4fc6401"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "sha": "7b38804e058c1b269c2cd06e255bf9cafa835fde"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "c9a53e3cae9065980c6739e02d4fb620354b5b99"
+        },
+        {
+          "path": "NOTICE.md",
+          "sha": "7f7271cf2c20f4c76e75eb4065f6bff1848b50f7"
+        },
+        {
+          "path": "README.md",
+          "sha": "1dcf8429cc8609798293321777ea1f3343155300"
+        },
+        {
+          "path": "README.zh-CN.md",
+          "sha": "0d59db4831c744cc3d1a7d59b17226dc1613b5c5"
+        },
+        {
+          "path": "data/README.md",
+          "sha": "57d5b80f6659a124c261b4d5c12e40c41f9dd892"
+        },
+        {
+          "path": "data/catalog-manifest.json",
+          "sha": "2174a5259c882da9e2aa22a1d35ff9a3ccae4ff3"
+        },
+        {
+          "path": "data/catalog.sqlite",
+          "sha": "14a9dd390d532359d5d0de76deb2257cb1f29a37"
+        },
+        {
+          "path": "docs/architecture.md",
+          "sha": "f1b6a8467f1db88726b89a8ea8104393397e821b"
+        },
+        {
+          "path": "docs/assets/hero.webp",
+          "sha": "f70aaf87216f57a53a2c49da780badf67becfabd"
+        },
+        {
+          "path": "docs/database-schema.md",
+          "sha": "204b223235139c2096479f4598e69271c296350a"
+        },
+        {
+          "path": "docs/execution-policy.md",
+          "sha": "3b84322a328b16dd1c6da516b1c3ae22219b374b"
+        },
+        {
+          "path": "docs/extension.md",
+          "sha": "1c78c6b40b6e7a08aa86a962fe928cac256e63d3"
+        },
+        {
+          "path": "docs/install.md",
+          "sha": "0a30e10f2d08e96b71f712ac8103b1ae60c4d185"
+        },
+        {
+          "path": "docs/install.zh-CN.md",
+          "sha": "a7f2563858c24890b275be6d9b8a3f9f598dc8f7"
+        },
+        {
+          "path": "docs/mcp-contract.md",
+          "sha": "c6e04e39cc7d15ded9f18705a96ec1f118eb611e"
+        },
+        {
+          "path": "docs/openclaw.md",
+          "sha": "c3ee00a3118ecffa07eeeca10e914934f9db3e69"
+        },
+        {
+          "path": "docs/sbc-contract.md",
+          "sha": "adb113037dc2af7c504d6f8432b5123ce9ac0d93"
+        },
+        {
+          "path": "docs/source-artifacts.md",
+          "sha": "71d9aad86717274a6ff2eaf4137401874fb9cea7"
+        },
+        {
+          "path": "extension/background/bridge.js",
+          "sha": "11470ab5644747929269e73d5c8940331d36e910"
+        },
+        {
+          "path": "extension/background/daemon.js",
+          "sha": "64e32a08f4f4a989d4630c267fc8d96140aa39ce"
+        },
+        {
+          "path": "extension/background/ea-call.js",
+          "sha": "3c66b2033f37fbddb7be7aae235775d2239a94c1"
+        },
+        {
+          "path": "extension/background/service-worker.js",
+          "sha": "481f9e773400407a2dc929d93cc67c97cc4a0c1d"
+        },
+        {
+          "path": "extension/background/session-monitor.js",
+          "sha": "31a0d00a03bb13135a15da707ac2584bcf0d57f8"
+        },
+        {
+          "path": "extension/content/content-script.js",
+          "sha": "2ed715c43c43637c0650176845d0225342bd6604"
+        },
+        {
+          "path": "extension/content/page-inject.js",
+          "sha": "a60ec86f438a451e812db9511ccb0f772e833907"
+        },
+        {
+          "path": "extension/manifest.json",
+          "sha": "492f6f0fffeac0a7c5d9db8e696817808121f0bf"
+        },
+        {
+          "path": "extension/shared/constants.js",
+          "sha": "699d09991eb73356ad10cc240804f170164362f2"
+        },
+        {
+          "path": "extension/shared/logger.js",
+          "sha": "a44c80b5ea726bd2c994390f64688075e4dced57"
+        },
+        {
+          "path": "extension/ui/popup.css",
+          "sha": "47ee688b3b1521625ef0f04f9ec0c5c2a24b424f"
+        },
+        {
+          "path": "extension/ui/popup.html",
+          "sha": "06495a871ec2e38d5df3e2736ac77d6f32a8350e"
+        },
+        {
+          "path": "extension/ui/popup.js",
+          "sha": "9bbf13fe330b61774b704f632cc27d0d79e9bbf6"
+        },
+        {
+          "path": "fc27/__init__.py",
+          "sha": "5508d41fe47db6b3ee19e834979bdaa057beae84"
+        },
+        {
+          "path": "fc27/account.py",
+          "sha": "997bd8cefca9d2a1dd37456aef7ae77248293280"
+        },
+        {
+          "path": "fc27/actions.py",
+          "sha": "8297760c0b94453925f0e64e402681b1c037ffe2"
+        },
+        {
+          "path": "fc27/auto_sync.py",
+          "sha": "2c5852ec2d9fc8af4b4818513d5a24bab96b7ddb"
+        },
+        {
+          "path": "fc27/bridge.py",
+          "sha": "4f1168ed6cc023e77a1c32a6a0b9a05fd632ab32"
+        },
+        {
+          "path": "fc27/catalog.py",
+          "sha": "b04accef59bacde3aef3b4c43ad765244ec5c76a"
+        },
+        {
+          "path": "fc27/content.py",
+          "sha": "614dc7a186441d6d2585d88edee7d84422ffdb81"
+        },
+        {
+          "path": "fc27/daemon.py",
+          "sha": "23d0208decdfad6a90cb6369b0c3ba0b09d1cec7"
+        },
+        {
+          "path": "fc27/errors.py",
+          "sha": "4654d02398f0cde9f8487063e19944e5188ecac7"
+        },
+        {
+          "path": "fc27/execution.py",
+          "sha": "23d7d47bb39ba434519859c09aaee75181984bf2"
+        },
+        {
+          "path": "fc27/market.py",
+          "sha": "3d798e98c1e4833c0834e495011cffc19aa5fe89"
+        },
+        {
+          "path": "fc27/mcp.py",
+          "sha": "de419923a6f9d64983a767737df32c3461f1b67a"
+        },
+        {
+          "path": "fc27/policy.py",
+          "sha": "b7f979e4a9f9d04e962327e0eca2bf9107c36ac3"
+        },
+        {
+          "path": "fc27/runtime.py",
+          "sha": "6873769cbc1eced25089e9fb6bcea598c629e1eb"
+        },
+        {
+          "path": "fc27/sbc.py",
+          "sha": "3ee30cc4c627625d4aadf35a9f9fdaf77b07c4ee"
+        },
+        {
+          "path": "fc27/sbc_optimizer.py",
+          "sha": "f73b3f7993b52576cabecde1ec7d56f602e868ca"
+        },
+        {
+          "path": "fc27/schema.py",
+          "sha": "d6b2709fa4f86460872c08242fe423bf48edf0e6"
+        },
+        {
+          "path": "fc27/squad.py",
+          "sha": "5149a46a3ebe836e69d1b0c50356a75561a67f88"
+        },
+        {
+          "path": "fc27d.py",
+          "sha": "32ea3d15cb315fd7164628132a041162b2b7af1b"
+        },
+        {
+          "path": "mcp_stdio.py",
+          "sha": "cf4914320ea0e6c3cb2f25198c4ca40d8c1536b6"
+        },
+        {
+          "path": "package.json",
+          "sha": "557eb2a72e82f4062992e106960462ab7b14274a"
+        },
+        {
+          "path": "policy.example.json",
+          "sha": "4b4a6def5f821e14d883db4554d912467a9d5450"
+        },
+        {
+          "path": "policy.json",
+          "sha": "4b4a6def5f821e14d883db4554d912467a9d5450"
+        },
+        {
+          "path": "requirements.txt",
+          "sha": "c21d857999fa45535759e0b9b5bf5c8bcf12649c"
+        },
+        {
+          "path": "scripts/build.js",
+          "sha": "ba5135b17a684167848840b6e7840bd36f057f08"
+        },
+        {
+          "path": "scripts/import_catalog.py",
+          "sha": "93fd2bd5e2c1a2d69ab027b1a747e1fd329b5e1f"
+        },
+        {
+          "path": "scripts/install_macos_service.py",
+          "sha": "bc2d3f961ebd8cba6de4ebc7acf2c7cf6343c0c7"
+        },
+        {
+          "path": "scripts/query_catalog.py",
+          "sha": "75fb52239c46fbfaefaf73155bc0d4d82da8fbe5"
+        },
+        {
+          "path": "scripts/refresh_catalog.py",
+          "sha": "3f7ad4d58b879d840df09cd021fa4887dd076331"
+        },
+        {
+          "path": "scripts/validate-extension.js",
+          "sha": "00d4be9531eaaf5ea4aada9fc828e6caa063a551"
+        },
+        {
+          "path": "scripts/validate_catalog.py",
+          "sha": "f61db5e3393b09107900628c71d8861be15ccf91"
+        },
+        {
+          "path": "tests/fixtures/fc26_sbc_samples.json",
+          "sha": "50cd36c95b219c0d60c3d987f798e25b5773d86c"
+        },
+        {
+          "path": "tests/fixtures/fc27_marquee_matchups_20260920.json",
+          "sha": "f55be93415244735727e3ed8e51e84f0b4cf94a7"
+        },
+        {
+          "path": "tests/test_account_reader.py",
+          "sha": "f5df2cfd8971b8846c6a665df0efe71a17bcfb8e"
+        },
+        {
+          "path": "tests/test_actions.py",
+          "sha": "f4392958dcc1d6c0d30fe750239b7556c57a626c"
+        },
+        {
+          "path": "tests/test_auto_sync.py",
+          "sha": "ce001723a862e4b4eb721125deb0ea0e67a5572e"
+        },
+        {
+          "path": "tests/test_bridge.py",
+          "sha": "628691e1c56981b811e1d0f031a14b88d0b232ba"
+        },
+        {
+          "path": "tests/test_catalog_query.py",
+          "sha": "9312e5416a7662026170c36af6a47343c923ca9a"
+        },
+        {
+          "path": "tests/test_catalog_schema.py",
+          "sha": "580d1b97162805f769fcabe0cd85795ea33ffa8e"
+        },
+        {
+          "path": "tests/test_content.py",
+          "sha": "4594bec7c7e839ac883af4eee452f94f4b05889a"
+        },
+        {
+          "path": "tests/test_daemon_http.py",
+          "sha": "3596772d450be6927c25c2e514c169d39d7334f9"
+        },
+        {
+          "path": "tests/test_execution.py",
+          "sha": "b42374a8e406cdb62e1117c150c96e8748b5a80b"
+        },
+        {
+          "path": "tests/test_full_catalog_import.py",
+          "sha": "c288e3186032d924c547922cf1fc5b80ac2e5606"
+        },
+        {
+          "path": "tests/test_market.py",
+          "sha": "4e8fd33c630e5c763343a8814cd6b8cbf89574e7"
+        },
+        {
+          "path": "tests/test_mcp.py",
+          "sha": "a324cc8e76e92627a3c7a74598f6b0c398a6e1a6"
+        },
+        {
+          "path": "tests/test_mcp_stdio.py",
+          "sha": "7643780e0c47941442fe31abfe73b472ed11bab5"
+        },
+        {
+          "path": "tests/test_policy.py",
+          "sha": "60128637ce856682b625bd79048bbbaf237ca2ea"
+        },
+        {
+          "path": "tests/test_public_installation.py",
+          "sha": "38c2357f5a6639505b2eb50b3b6e7df5c60ffb5c"
+        },
+        {
+          "path": "tests/test_runtime.py",
+          "sha": "054a3fd19ad78d5a3780a291555a0000d8407917"
+        },
+        {
+          "path": "tests/test_runtime_sync.py",
+          "sha": "8df97ab65248e3c08c38e4bb49b5cf640ac00efb"
+        },
+        {
+          "path": "tests/test_sbc.py",
+          "sha": "36ddc884cc759772d7d19252c72728969178eeea"
+        },
+        {
+          "path": "tests/test_sbc_actions.py",
+          "sha": "0b49403fef33d5d9e21025133030f070f10e2db0"
+        },
+        {
+          "path": "tests/test_squad.py",
+          "sha": "f5bed5bc7f401e6f03109bc635ca1cf36f214850"
+        },
+        {
+          "path": "web/index.html",
+          "sha": "3bd9a6773c66aecf2bfd9562cc4b6b73370dfea3"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/README.md",
+          "blob_sha": "1dcf8429cc8609798293321777ea1f3343155300",
+          "line_count": 173,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "<p align=\"center\">"
+            },
+            {
+              "line": 8,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/LICENSE",
+          "blob_sha": "c9a53e3cae9065980c6739e02d4fb620354b5b99",
+          "line_count": 22,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "MIT License"
+            },
+            {
+              "line": 3,
+              "text": "Copyright (c) 2026 FC27 Copilot contributors"
+            },
+            {
+              "line": 5,
+              "text": "Permission is hereby granted, free of charge, to any person obtaining a copy"
+            },
+            {
+              "line": 12,
+              "text": "The above copyright notice and this permission notice shall be included in all"
+            }
+          ]
+        },
+        {
+          "path": "requirements.txt",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/requirements.txt",
+          "blob_sha": "c21d857999fa45535759e0b9b5bf5c8bcf12649c",
+          "line_count": 2,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "ortools==9.15.6755"
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/package.json",
+          "blob_sha": "557eb2a72e82f4062992e106960462ab7b14274a",
+          "line_count": 16,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 7,
+              "text": "  \"scripts\": {"
+            }
+          ]
+        },
+        {
+          "path": "extension/manifest.json",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/manifest.json",
+          "blob_sha": "492f6f0fffeac0a7c5d9db8e696817808121f0bf",
+          "line_count": 38,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            }
+          ]
+        },
+        {
+          "path": "extension/content/page-inject.js",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/content/page-inject.js",
+          "blob_sha": "a60ec86f438a451e812db9511ccb0f772e833907",
+          "line_count": 2158,
+          "excerpts": [
+            {
+              "line": 22,
+              "text": "  function isAllowedEaHost(hostname) {"
+            },
+            {
+              "line": 27,
+              "text": "  function detectApiBase(rawUrl) {"
+            },
+            {
+              "line": 1243,
+              "text": "  async function findMarketItem(params) {"
+            },
+            {
+              "line": 1250,
+              "text": "    appServices.Item.clearTransferMarketCache?.();"
+            },
+            {
+              "line": 1262,
+              "text": "  async function loadItemById(itemId) {"
+            },
+            {
+              "line": 1596,
+              "text": "    async searchTransferMarket(params) {"
+            },
+            {
+              "line": 1607,
+              "text": "      appServices.Item.clearTransferMarketCache?.();"
+            },
+            {
+              "line": 1612,
+              "text": "    async buyNow(params) {"
+            },
+            {
+              "line": 1619,
+              "text": "        loaded.appServices.Item.bid(loaded.item, Number(params.buy_now_price))"
+            },
+            {
+              "line": 1636,
+              "text": "    async listOnMarket(params) {"
+            },
+            {
+              "line": 1639,
+              "text": "        loaded.appServices.Item.list("
+            },
+            {
+              "line": 1701,
+              "text": "    async sendToTradepile(params) {"
+            },
+            {
+              "line": 1704,
+              "text": "        loaded.appServices.Item.move([loaded.item], globalThis.ItemPile.TRANSFER, false)"
+            },
+            {
+              "line": 1717,
+              "text": "    async getTradepile() {"
+            },
+            {
+              "line": 1719,
+              "text": "      const response = await observeOnce(appServices.Item.requestTransferItems());"
+            },
+            {
+              "line": 1850,
+              "text": "    async relistAll() {"
+            },
+            {
+              "line": 1852,
+              "text": "      const response = await observeOnce(appServices.Item.relistExpiredAuctions());"
+            },
+            {
+              "line": 2113,
+              "text": "  window.addEventListener('message', (event) => {"
+            },
+            {
+              "line": 2114,
+              "text": "    if (event.source !== window) return;"
+            },
+            {
+              "line": 2116,
+              "text": "    if (!message || message.source !== SOURCE_CONTENT || message.type !== 'FC27_EA_REQUEST') return;"
+            }
+          ]
+        },
+        {
+          "path": "extension/content/content-script.js",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/content/content-script.js",
+          "blob_sha": "2ed715c43c43637c0650176845d0225342bd6604",
+          "line_count": 106,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "(() => {"
+            }
+          ]
+        },
+        {
+          "path": "extension/background/bridge.js",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/background/bridge.js",
+          "blob_sha": "11470ab5644747929269e73d5c8940331d36e910",
+          "line_count": 68,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "const WEB_APP_PREFIX = 'https://www.ea.com/ea-sports-fc/ultimate-team/web-app';"
+            }
+          ]
+        },
+        {
+          "path": "fc27/actions.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/fc27/actions.py",
+          "blob_sha": "8297760c0b94453925f0e64e402681b1c037ffe2",
+          "line_count": 604,
+          "excerpts": [
+            {
+              "line": 32,
+              "text": "    def _buy_now(self, action):"
+            },
+            {
+              "line": 56,
+              "text": "                \"Buy Now completed but readback did not identify exactly one acquired item.\","
+            },
+            {
+              "line": 68,
+              "text": "            )"
+            },
+            {
+              "line": 125,
+              "text": "    def _move_item(self, action):"
+            },
+            {
+              "line": 138,
+              "text": "    def _list_item(self, action):"
+            },
+            {
+              "line": 150,
+              "text": "            tradepile = self._call(\"getTradepile\", {})"
+            },
+            {
+              "line": 160,
+              "text": "                None,"
+            },
+            {
+              "line": 174,
+              "text": "                \"LISTING_READBACK_FAILED\","
+            }
+          ]
+        },
+        {
+          "path": "fc27/execution.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/fc27/execution.py",
+          "blob_sha": "23d7d47bb39ba434519859c09aaee75181984bf2",
+          "line_count": 669,
+          "excerpts": [
+            {
+              "line": 28,
+              "text": "    def execute(self, request):"
+            },
+            {
+              "line": 37,
+              "text": "        replay = self._existing_batch(batch_id)"
+            },
+            {
+              "line": 50,
+              "text": "        if request.get(\"confirmed\") is not True:"
+            }
+          ]
+        },
+        {
+          "path": "fc27/daemon.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/fc27/daemon.py",
+          "blob_sha": "23d0208decdfad6a90cb6369b0c3ba0b09d1cec7",
+          "line_count": 779,
+          "excerpts": [
+            {
+              "line": 673,
+              "text": "    def do_POST(self):"
+            },
+            {
+              "line": 691,
+              "text": "            if self.path == \"/rpc\":"
+            },
+            {
+              "line": 756,
+              "text": "def serve(host=None, port=None, catalog_path=None, web_root=None):"
+            },
+            {
+              "line": 758,
+              "text": "    host = host or os.environ.get(\"FC27D_HOST\", \"127.0.0.1\")"
+            }
+          ]
+        },
+        {
+          "path": "fc27/bridge.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/fc27/bridge.py",
+          "blob_sha": "4f1168ed6cc023e77a1c32a6a0b9a05fd632ab32",
+          "line_count": 113,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "import threading"
+            }
+          ]
+        },
+        {
+          "path": "tests/test_actions.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/tests/test_actions.py",
+          "blob_sha": "f4392958dcc1d6c0d30fe750239b7556c57a626c",
+          "line_count": 321,
+          "excerpts": [
+            {
+              "line": 44,
+              "text": "class FakeBridge:"
+            },
+            {
+              "line": 108,
+              "text": "    def test_buy_now_identifies_item_and_records_coin_transaction(self):"
+            },
+            {
+              "line": 144,
+              "text": "    def test_move_and_list_verify_full_sync_readback(self):"
+            },
+            {
+              "line": 199,
+              "text": "    def test_listing_readback_requires_requested_prices(self):"
+            },
+            {
+              "line": 241,
+              "text": "    def test_delayed_listing_reconciliation_requires_exact_prices(self):"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": [
+        {
+          "name": "Checks",
+          "conclusion": "success",
+          "head_sha": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+          "url": "https://github.com/liusihang/fc27-copilot/actions/runs/38205749038"
+        }
+      ]
+    },
+    {
+      "repository": "jgor80/11-lab",
+      "url": "https://github.com/jgor80/11-lab",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "94b2e187b9fb6ab57d778bdfddbd235de8313d4c",
+      "default_branch": "main",
+      "commit_date": "2026-11-08T01:53:40Z",
+      "pushed_at": "2026-11-08T01:53:40Z",
+      "archived": false,
+      "declared_license": null,
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitignore",
+          "sha": "4925a17175b595ca13cb8b69e4ae09683ed5f4ce"
+        },
+        {
+          "path": "README.md",
+          "sha": "d8e1361d49cc86b4a953a91af69af0f88c4c4b43"
+        },
+        {
+          "path": "data/manual/cards.template.csv",
+          "sha": "0049f25e6c02587b9cab7d0a24cdcae94b6c3776"
+        },
+        {
+          "path": "data/manual/seed-352.template.json",
+          "sha": "dd45660f33031efb7594aa4295a9d236ae9d2ab7"
+        },
+        {
+          "path": "docs/chemistry-engine.md",
+          "sha": "e3aefca426343ba53e2d1e70ae0decfb06e4fa91"
+        },
+        {
+          "path": "docs/data-sources.md",
+          "sha": "1af5987e099474f1753a8b6991f5ca02dcb09519"
+        },
+        {
+          "path": "docs/market-feed-collector.md",
+          "sha": "f8498bce6a0f5c73130fd83ff4b143c98707b982"
+        },
+        {
+          "path": "docs/market-lab.md",
+          "sha": "25219039aee10d842767b483142f09d77d96ce5e"
+        },
+        {
+          "path": "docs/squad-workspace.md",
+          "sha": "7ee82dfa4135d1ed8f7dd4feecb964e222c2c2b7"
+        },
+        {
+          "path": "docs/web-app-endpoints.md",
+          "sha": "68e33df255f637c7b22432ac9d313214d1c7ae44"
+        },
+        {
+          "path": "extension/manifest.json",
+          "sha": "5eaf5aea08756ff8e48c56c4f3db17c9cdc7a3ac"
+        },
+        {
+          "path": "extension/popup.html",
+          "sha": "c3fc7182b8814e31deb6a6548ad993ab96d32f56"
+        },
+        {
+          "path": "extension/src/background.ts",
+          "sha": "35d597218f84a25c0ea254d84c2991918d2f0fc5"
+        },
+        {
+          "path": "extension/src/hook.ts",
+          "sha": "f63358f090c2b8bdc20ab8e5ad48a7803136ec4b"
+        },
+        {
+          "path": "extension/src/popup.ts",
+          "sha": "f39a6a75299539b09c85c62d8942466fcd9c4425"
+        },
+        {
+          "path": "extension/src/relay.ts",
+          "sha": "a83218213ebb01d39919fcf33c19c66a210191e9"
+        },
+        {
+          "path": "extension/src/store.ts",
+          "sha": "47d62b6553b7cf4ceba430fd8da6b95480533112"
+        },
+        {
+          "path": "migrations/0001_core.sql",
+          "sha": "f8a553d88a2188df54f02ec0ee99fe7d1e50ef67"
+        },
+        {
+          "path": "migrations/0002_reference_seed.sql",
+          "sha": "6c94b166ee7b328be5267bab0dc1b2687b921d18"
+        },
+        {
+          "path": "migrations/0003_rules_v1_manager_counts.sql",
+          "sha": "39eeb9ebb829157a052b1c80c7f4b4386b38db44"
+        },
+        {
+          "path": "migrations/0004_market_lab.sql",
+          "sha": "bc5531179c17c05ac7e2c7be735e1c2cdfdc5b46"
+        },
+        {
+          "path": "migrations/0005_market_capture.sql",
+          "sha": "8f55035e2668dc19a85786708243561af5d2fd43"
+        },
+        {
+          "path": "package-lock.json",
+          "sha": "446b085460aaf055829e6694b2438a1f9d91a3f9"
+        },
+        {
+          "path": "package.json",
+          "sha": "c390730d43f5d867d5ced7e799171d30fe783d2a"
+        },
+        {
+          "path": "scripts/build-extension.mjs",
+          "sha": "04feff4901ab5b2ba496658ad744f1262ce66474"
+        },
+        {
+          "path": "scripts/export-d1.ts",
+          "sha": "096bac6a90ed8ae98fd57abb28aecfebd739cab7"
+        },
+        {
+          "path": "scripts/fetch-ea-ratings.ts",
+          "sha": "c5c7d25ab3ddd28bf91e731d8b5b19e42f6d6207"
+        },
+        {
+          "path": "scripts/import.ts",
+          "sha": "d5a2a2f54295df4e0c5af81da94e192fa24a6768"
+        },
+        {
+          "path": "scripts/install-market-timer.sh",
+          "sha": "faa426bd5d091a855ce9d2604fca14547903abe1"
+        },
+        {
+          "path": "scripts/market.ts",
+          "sha": "fb7cc0c517d1aacd89028a754a4c0e7b2faa89ca"
+        },
+        {
+          "path": "scripts/migrate.ts",
+          "sha": "fb0dfa79127c1d84c61f3e47b21aa962a4810bb1"
+        },
+        {
+          "path": "scripts/sync-futgg-prices.py",
+          "sha": "abd5a62ebd86edfbf56c9c849f5f46fd1545cfd6"
+        },
+        {
+          "path": "scripts/sync-market-feed.py",
+          "sha": "db08152180cb0808704763fcabe1d6b9faa33bba"
+        },
+        {
+          "path": "src/chemistry/diff.ts",
+          "sha": "7a830b6fced79c92d03b674e32120be386823250"
+        },
+        {
+          "path": "src/chemistry/engine.ts",
+          "sha": "21c30b3395cf8a37ca60d9d7c02b8fdb84299e31"
+        },
+        {
+          "path": "src/chemistry/index.ts",
+          "sha": "a7a73ae2455413254a87e01c22ba3f198cb0c6d5"
+        },
+        {
+          "path": "src/chemistry/rules.ts",
+          "sha": "36f5d9cc57fce357f8099b8260ff5b4cba900eb5"
+        },
+        {
+          "path": "src/chemistry/types.ts",
+          "sha": "443cc938ccaa73ec4dbe8646249bc1f899876e40"
+        },
+        {
+          "path": "src/club/capture.ts",
+          "sha": "190a9e3a9afa49214abff5aefdd56a3aa417a33e"
+        },
+        {
+          "path": "src/db/chemistry-rules.ts",
+          "sha": "8248eee50926b365728162a11207a6d7320a0e28"
+        },
+        {
+          "path": "src/db/market-store.ts",
+          "sha": "4e9ff8822ae76ab1d4f3fc77a9708d638487d307"
+        },
+        {
+          "path": "src/db/sqlite.ts",
+          "sha": "061dbb38c664e6f1c3b85fea4b295f52caf35ee5"
+        },
+        {
+          "path": "src/import/adapters/ea-ratings.ts",
+          "sha": "cd367435251b0144f277468bf59ce967aaef1bb5"
+        },
+        {
+          "path": "src/import/adapters/index.ts",
+          "sha": "74a372bcb5e2defd2e543c7877ec9d5c8a9ecf31"
+        },
+        {
+          "path": "src/import/adapters/kaggle-fc27.ts",
+          "sha": "c90e6dae1da4d1ffcad3c7590a10a1810467b9de"
+        },
+        {
+          "path": "src/import/adapters/manual.ts",
+          "sha": "0389d6d1e88b5cfeb04c8e66776b26e9b77d022b"
+        },
+        {
+          "path": "src/import/csv.ts",
+          "sha": "cc4dd9cd57f840894ecaf06f14677ae5e71bb538"
+        },
+        {
+          "path": "src/import/ea-feed.ts",
+          "sha": "b02f9c5c2ef8fa885f84bca92948d7cb1ee000cb"
+        },
+        {
+          "path": "src/import/record.ts",
+          "sha": "d6ea288452b82f8ee1659eeab86caf71cbe148be"
+        },
+        {
+          "path": "src/import/writer.ts",
+          "sha": "03d050c081cf069a47a25e62e8ba723c89d2ef10"
+        },
+        {
+          "path": "src/intelligence/card.ts",
+          "sha": "3766155b4e2cd98035bf365d74b4a9f46b3408c7"
+        },
+        {
+          "path": "src/market/baskets.ts",
+          "sha": "bdf53f934091a36aaa137a75a0b2c3cbe4b713ea"
+        },
+        {
+          "path": "src/market/capture.ts",
+          "sha": "24bf8c0bc8c15c9eccd145cbab4323b79b125bb6"
+        },
+        {
+          "path": "src/market/demo.ts",
+          "sha": "c868a3987900fa3d1ec28321788540f8f8a69ba6"
+        },
+        {
+          "path": "src/market/import.ts",
+          "sha": "af7d93b6e3a9b9cd47d542df9bc0f87e21eda925"
+        },
+        {
+          "path": "src/market/index.ts",
+          "sha": "f35429bf37e4307cfe732fbbb41b12ea63fbf5c0"
+        },
+        {
+          "path": "src/market/pricecheck.ts",
+          "sha": "0cb4074b29db7213d7dfdd6bf34695fb444ab824"
+        },
+        {
+          "path": "src/market/regime.ts",
+          "sha": "89b0cd58952eb6d98015f98e138b5a8531fbf7f4"
+        },
+        {
+          "path": "src/market/rules.ts",
+          "sha": "b727bdfb696af9fa65de382f641bdbbc06a0f68a"
+        },
+        {
+          "path": "src/market/schema.ts",
+          "sha": "5fc436cd5c88955c176fc4c69b624c59c34e1789"
+        },
+        {
+          "path": "src/market/series.ts",
+          "sha": "04cbdab262933fef322c2705b5ff61d377acf5df"
+        },
+        {
+          "path": "src/market/service.ts",
+          "sha": "e3ca0327815808b0e1293115ae331d7cfdf99bfe"
+        },
+        {
+          "path": "src/market/signals.ts",
+          "sha": "c38f74cf8ab1c3b13581013dd8e1b43dab5ceae7"
+        },
+        {
+          "path": "src/market/sources.ts",
+          "sha": "2d72ce5cd2bbfd94066550af84c3ef7c5c01e831"
+        },
+        {
+          "path": "src/market/squad-link.ts",
+          "sha": "3146cdd5baf7961a57edd42914c88eeef31de11b"
+        },
+        {
+          "path": "src/market/store.ts",
+          "sha": "acd548425fa29f9b852bb80cb7c718f7b1e18ddb"
+        },
+        {
+          "path": "src/market/thesis.ts",
+          "sha": "550b9e79ee1c710cd89932095a370ae437f520e0"
+        },
+        {
+          "path": "src/market/types.ts",
+          "sha": "29558c0388fbf6e37d6a7c444da41f106d072e1a"
+        },
+        {
+          "path": "src/market/upload.ts",
+          "sha": "2375cbcd9557ea79226f5e623eb5a99c2bdb852e"
+        },
+        {
+          "path": "src/shared/csv.ts",
+          "sha": "824816ae458d3f0dcfb0672a4bfefa3c0646753e"
+        },
+        {
+          "path": "src/workspace/compare.ts",
+          "sha": "2be1a4df58345b539e6cc5060c82251dd2508431"
+        },
+        {
+          "path": "src/workspace/default-rules.ts",
+          "sha": "1332ea3e43de7c10a261e757c2af5fdfe20cac08"
+        },
+        {
+          "path": "src/workspace/demo.ts",
+          "sha": "51de4934a1c9ebf42ad17f27ad03e29c6a254090"
+        },
+        {
+          "path": "src/workspace/fit.ts",
+          "sha": "6f32ed3e9f510da95456b27cd23a2fadb15aed0b"
+        },
+        {
+          "path": "src/workspace/formations.ts",
+          "sha": "43070a54ba3095e580a8dce622bc9193fbcd619a"
+        },
+        {
+          "path": "src/workspace/index.ts",
+          "sha": "55ec76961990cdc676f3e531dd52dfa809f5fc45"
+        },
+        {
+          "path": "src/workspace/optimizer.ts",
+          "sha": "21638fdba0d3d2f6a75f2e3a1f83cc2415a29f53"
+        },
+        {
+          "path": "src/workspace/schema.ts",
+          "sha": "9af9a99acc5585d1fe2c746904bea854c0f43944"
+        },
+        {
+          "path": "src/workspace/service.ts",
+          "sha": "e0e91f613d8bd54969aff1c9c55b9f77d5efda4c"
+        },
+        {
+          "path": "src/workspace/squad.ts",
+          "sha": "4ba3441ac1657e481b671c3fab9126fa9ab96bda"
+        },
+        {
+          "path": "src/workspace/store.ts",
+          "sha": "2c1e6ace132cc9fb76867ad811d2ce991fe7ecc1"
+        },
+        {
+          "path": "src/workspace/surgeon.ts",
+          "sha": "142d0380f1ef6fa699701c98458311e02147b5dc"
+        },
+        {
+          "path": "src/workspace/types.ts",
+          "sha": "406cc34bec54bfc9a85edabc2f24f7aef19da413"
+        },
+        {
+          "path": "tests/capture.test.ts",
+          "sha": "59dc85836a17089e2f00b86f4464c5182692acc6"
+        },
+        {
+          "path": "tests/chemistry-seed-real.test.ts",
+          "sha": "a38cf8bc5e05435eb4c01458c5b8cc1707d18975"
+        },
+        {
+          "path": "tests/chemistry.test.ts",
+          "sha": "5a59a6a26d1d6daa18d6db722c87380f7bda657c"
+        },
+        {
+          "path": "tests/club-capture.test.ts",
+          "sha": "dc8d980c24046a4f8cdb6c429fa3d577e5ff8cbf"
+        },
+        {
+          "path": "tests/ea-ratings.test.ts",
+          "sha": "f02f555ab552cc66d11943e53039697991fe8320"
+        },
+        {
+          "path": "tests/fc27-capture-shape.test.ts",
+          "sha": "72654c6a1fc1697b32b046d11470fb63df7dbba5"
+        },
+        {
+          "path": "tests/fixtures/chemistry/seed-352.ts",
+          "sha": "d42eaded102de2a60774d4f449773899ee733bc9"
+        },
+        {
+          "path": "tests/fixtures/kaggle-sample.csv",
+          "sha": "4ac74821b7ea0a446f0f2cb36d08a5bdde78a95a"
+        },
+        {
+          "path": "tests/fixtures/manual-cards.csv",
+          "sha": "d375004e258bd30e78a3f6a4d02cd91ce9b886bd"
+        },
+        {
+          "path": "tests/import.test.ts",
+          "sha": "ecedcd1376ca87fec5c82b9b806ee0b7d1b510ea"
+        },
+        {
+          "path": "tests/market-fixtures.ts",
+          "sha": "6eb268b75722e743c46f6fe46ac5b13598dfe658"
+        },
+        {
+          "path": "tests/market-sqlite.test.ts",
+          "sha": "efc7a669f3bb957f2a27d0e7b949192d56ea20ca"
+        },
+        {
+          "path": "tests/market.test.ts",
+          "sha": "97bc4dbcd852ed351c3471780d59da0dbfde3757"
+        },
+        {
+          "path": "tests/pricecheck.test.ts",
+          "sha": "ad3fd0a01b027412cfcb42d158c6c9d7fe6f3f10"
+        },
+        {
+          "path": "tests/test_futgg_collector.py",
+          "sha": "8f767cab35979b18cfa844409c071d4c440cca3b"
+        },
+        {
+          "path": "tests/test_market_feed_collector.py",
+          "sha": "315d80aaff2e6e7ba5a703857df577b40e01e606"
+        },
+        {
+          "path": "tests/upload.test.ts",
+          "sha": "cc10f3c523426891c374d0cc27aa491768189e94"
+        },
+        {
+          "path": "tests/workspace.test.ts",
+          "sha": "36b843628ca5347ef66f2de1e8f98c238e1d4c2f"
+        },
+        {
+          "path": "tsconfig.json",
+          "sha": "38d8edecced01c055e48989e807c9d0cca8fdd3e"
+        },
+        {
+          "path": "web/import.ts",
+          "sha": "ce8318811e55f09d9ccee3aee909d35708e65d8b"
+        },
+        {
+          "path": "web/index.html",
+          "sha": "de3a58e1fdc09273a38dcb5bdd06d76c4e95b39c"
+        },
+        {
+          "path": "web/main.ts",
+          "sha": "02f0c8c0e6ee07da90e01be9f9223fe3b2dcb819"
+        },
+        {
+          "path": "web/market-storage.ts",
+          "sha": "8bf8a4506b50855a30ae943bedcd031a5d7a1a5e"
+        },
+        {
+          "path": "web/market.css",
+          "sha": "91091218568451d650397419417b5f1f412aea70"
+        },
+        {
+          "path": "web/market.html",
+          "sha": "206b212ec53ffc76a63708737d8395bd538d9b6c"
+        },
+        {
+          "path": "web/market.ts",
+          "sha": "1d80cdaef4e62831a4502884a647d788b6f5c09a"
+        },
+        {
+          "path": "web/storage.ts",
+          "sha": "627cac4e583e3f2885ea43a6b56e487bffc27152"
+        },
+        {
+          "path": "web/style.css",
+          "sha": "35eec42534cc98041fb68d6f276e825519b5d434"
+        },
+        {
+          "path": "web/vite.config.ts",
+          "sha": "7b271514988061371bd1bc495d588370851472b4"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/README.md",
+          "blob_sha": "d8e1361d49cc86b4a953a91af69af0f88c4c4b43",
+          "line_count": 76,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# XI Lab"
+            },
+            {
+              "line": 8,
+              "text": "- `migrations/`: SQLite schema, D1-compatible. Players vs. card versions, positions, attributes,"
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/package.json",
+          "blob_sha": "c390730d43f5d867d5ced7e799171d30fe783d2a",
+          "line_count": 33,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 7,
+              "text": "  \"engines\": {"
+            }
+          ]
+        },
+        {
+          "path": "docs/web-app-endpoints.md",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/docs/web-app-endpoints.md",
+          "blob_sha": "68e33df255f637c7b22432ac9d313214d1c7ae44",
+          "line_count": 159,
+          "excerpts": [
+            {
+              "line": 3,
+              "text": "Captured on **2026-11-08, 00:49 to 00:57 UTC** by watching the real FC 27 Web App in a signed-in browser tab (Xbox"
+            },
+            {
+              "line": 6,
+              "text": "No bids, buys or listings. Every answer was `200`, with no captcha and no \"too many actions\" message."
+            },
+            {
+              "line": 26,
+              "text": "Source: the Web App's public `config/config.json` (changelist `11414`) has `eadpClientId: FC27_JS_WEB_APP`,"
+            },
+            {
+              "line": 53,
+              "text": "GET https://utas.mob.v1.prd.futc-ext.gcp.ea.com:443/ut/game/fc27/transfermarket?num=21&start=0&type=player[&filters]"
+            }
+          ]
+        },
+        {
+          "path": "extension/manifest.json",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/extension/manifest.json",
+          "blob_sha": "5eaf5aea08756ff8e48c56c4f3db17c9cdc7a3ac",
+          "line_count": 44,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 37,
+              "text": "  \"host_permissions\": ["
+            }
+          ]
+        },
+        {
+          "path": "extension/src/hook.ts",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/extension/src/hook.ts",
+          "blob_sha": "f63358f090c2b8bdc20ab8e5ad48a7803136ec4b",
+          "line_count": 166,
+          "excerpts": [
+            {
+              "line": 14,
+              "text": "function emit(url: string, json: unknown) {"
+            },
+            {
+              "line": 42,
+              "text": "function learn(url: string, method: string, headers: Record<string, string>) {"
+            },
+            {
+              "line": 123,
+              "text": "async function run(items: { ea_item_id: number; asset_id: number | null }[]) {"
+            },
+            {
+              "line": 138,
+              "text": "      if (!isSafeSearch(url, \"GET\")) return status({ running: false, stopped: \"Refused an unsafe request.\" });"
+            },
+            {
+              "line": 139,
+              "text": "      const res = await window.fetch(url, { method: \"GET\", headers: searchHeaders, credentials: \"include\" });"
+            }
+          ]
+        },
+        {
+          "path": "extension/src/relay.ts",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/extension/src/relay.ts",
+          "blob_sha": "a83218213ebb01d39919fcf33c19c66a210191e9",
+          "line_count": 90,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "// Extension side (isolated world): receives summaries from hook.ts and keeps them in the extension's own"
+            }
+          ]
+        },
+        {
+          "path": "src/market/capture.ts",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/src/market/capture.ts",
+          "blob_sha": "24bf8c0bc8c15c9eccd145cbab4323b79b125bb6",
+          "line_count": 128,
+          "excerpts": [
+            {
+              "line": 46,
+              "text": "export function isTransferMarketSearch(url: string): boolean {"
+            },
+            {
+              "line": 82,
+              "text": "export function lowestBelievable(bins: number[]): number {"
+            },
+            {
+              "line": 91,
+              "text": "export function summarizeSearch(json: unknown, opts: { observed_at: string; platform: \"console\" | \"pc\" }): CaptureRow[] {"
+            },
+            {
+              "line": 100,
+              "text": "    const id = int(item.resourceId);"
+            },
+            {
+              "line": 103,
+              "text": "    const avg = int(item.marketAverage);"
+            },
+            {
+              "line": 104,
+              "text": "    const sale = int(item.lastSalePrice);"
+            }
+          ]
+        },
+        {
+          "path": "tests/fc27-capture-shape.test.ts",
+          "url": "https://github.com/jgor80/11-lab/blob/94b2e187b9fb6ab57d778bdfddbd235de8313d4c/tests/fc27-capture-shape.test.ts",
+          "blob_sha": "72654c6a1fc1697b32b046d11470fb63df7dbba5",
+          "line_count": 49,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "// Pins the helper's parsers to the FC 27 Web App traffic captured on 2026-11-08 (docs/web-app-endpoints.md)."
+            },
+            {
+              "line": 7,
+              "text": "const HOST = \"https://utas.mob.v1.prd.futc-ext.gcp.ea.com:443/ut/game/fc27\";"
+            },
+            {
+              "line": 11,
+              "text": "const listing = (tradeId: number, buyNowPrice: number, lastSalePrice: number) => ({"
+            },
+            {
+              "line": 28,
+              "text": "  it(\"reads the real response shape: lowest active Buy Now per card\", () => {"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": []
+    },
+    {
+      "repository": "Vladisllavy/FC27-Autobuyer",
+      "url": "https://github.com/Vladisllavy/FC27-Autobuyer",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "f96287773ef2be2ba8065369ebd8b3d8c2e2cc5b",
+      "default_branch": "main",
+      "commit_date": "2026-09-23T13:41:25Z",
+      "pushed_at": "2026-09-23T13:42:13Z",
+      "archived": false,
+      "declared_license": null,
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitignore",
+          "sha": "524f0963bd1d8c6149eb6f2dc52a5fc50c7637ad"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha": "d9c57ee6d1226748205db54f9be61fc6e3ad139c"
+        },
+        {
+          "path": "README.md",
+          "sha": "ed3ad9d45c6ad7ec4484adf79b94b8e860148320"
+        },
+        {
+          "path": "fc27-autobuyer.user.js",
+          "sha": "0338841fcee36907e01873d4a87ff2c30d0280f8"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/blob/f96287773ef2be2ba8065369ebd8b3d8c2e2cc5b/README.md",
+          "blob_sha": "ed3ad9d45c6ad7ec4484adf79b94b8e860148320",
+          "line_count": 9,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# FC27-Autobuyer"
+            },
+            {
+              "line": 8,
+              "text": "Actual setup link: https://github.com/Vladisllavy/FC27-Autobuyer/releases/latest/download/fc27-autobuyer.user.js"
+            }
+          ]
+        },
+        {
+          "path": "fc27-autobuyer.user.js",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/blob/f96287773ef2be2ba8065369ebd8b3d8c2e2cc5b/fc27-autobuyer.user.js",
+          "blob_sha": "0338841fcee36907e01873d4a87ff2c30d0280f8",
+          "line_count": 1145,
+          "excerpts": [
+            {
+              "line": 9,
+              "text": "// @require      https://code.jquery.com/jquery-3.7.1.min.js"
+            },
+            {
+              "line": 159,
+              "text": "    window.searchFutMarket = function (sender, event, data) {"
+            },
+            {
+              "line": 164,
+              "text": "        services.Item.clearTransferMarketCache();"
+            },
+            {
+              "line": 167,
+              "text": "        services.Item.searchTransferMarket(searchCriteria, 1).observe(this, (function (sender, response) {"
+            },
+            {
+              "line": 501,
+              "text": "    window.buyItem = function (item, price) {"
+            },
+            {
+              "line": 507,
+              "text": "        services.Item.bid(item, price).observe(this, (function (sender, data) {"
+            },
+            {
+              "line": 530,
+              "text": "                    window.profit += (sellPrice / 100 * 95) - price;"
+            },
+            {
+              "line": 532,
+              "text": "                    window.sellQueue.push([item, sellPrice, 3600]);"
+            },
+            {
+              "line": 636,
+              "text": "    window.updateTransferList = function () {"
+            },
+            {
+              "line": 637,
+              "text": "        services.Item.requestTransferItems().observe(this, function (t, response) {"
+            },
+            {
+              "line": 1128,
+              "text": "    window.setInterval(function () {"
+            },
+            {
+              "line": 1133,
+              "text": "        var sellItem = window.sellQueue.pop()"
+            },
+            {
+              "line": 1136,
+              "text": "            services.Item.list(sellItem[0], window.getPreviousPrice(sellItem[1]), sellItem[1], sellItem[2]);"
+            }
+          ]
+        },
+        {
+          "path": "CHANGELOG.md",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/blob/f96287773ef2be2ba8065369ebd8b3d8c2e2cc5b/CHANGELOG.md",
+          "blob_sha": "d9c57ee6d1226748205db54f9be61fc6e3ad139c",
+          "line_count": 14,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# Change Log"
+            }
+          ]
+        }
+      ],
+      "releases": [
+        {
+          "tag": "1.1.5",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/releases/tag/1.1.5",
+          "published_at": "2026-09-23T13:42:13Z"
+        },
+        {
+          "tag": "1.1.4",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/releases/tag/1.1.4",
+          "published_at": "2026-09-20T13:20:19Z"
+        },
+        {
+          "tag": "1.1.3",
+          "url": "https://github.com/Vladisllavy/FC27-Autobuyer/releases/tag/1.1.3",
+          "published_at": "2026-09-20T02:48:56Z"
+        }
+      ],
+      "latest_workflow_runs": []
+    },
+    {
+      "repository": "RanuK12/fc27-gallery-bot",
+      "url": "https://github.com/RanuK12/fc27-gallery-bot",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec",
+      "default_branch": "main",
+      "commit_date": "2026-11-03T05:51:32Z",
+      "pushed_at": "2026-11-03T05:51:34Z",
+      "archived": false,
+      "declared_license": "MIT",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".env.example",
+          "sha": "e52c598ee7583d948b6e76544e7ac9699d75d1ac"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "f0941744f937cee4b1274a38670ba73406c77ce3"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "aa4155eee66df0c09116186c5f3308f77fe1c1f6"
+        },
+        {
+          "path": "README.md",
+          "sha": "814c07092e736c08939bdc8655cf42febbf873af"
+        },
+        {
+          "path": "config.example.json",
+          "sha": "5204b93dcc2667da8b15897ce07f23fa05a5b65a"
+        },
+        {
+          "path": "data/.gitkeep",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "docs/TECHNICAL_SPECIFICATIONS.md",
+          "sha": "f6a00a455f84fd794e0712c5996b4b82e12cec4a"
+        },
+        {
+          "path": "fc27_audit_all_plantillas.py",
+          "sha": "4a45b5448b9b1b84d6f3aa03f5ed68e46865621f"
+        },
+        {
+          "path": "fc27_gallery_auditor.py",
+          "sha": "598894f897aab7972a658bbe9b705373836a0dfb"
+        },
+        {
+          "path": "fc27_gallery_worker.py",
+          "sha": "f879bc599ca79993b2b370936254fa4e47b69df7"
+        },
+        {
+          "path": "fc27_harvester.py",
+          "sha": "e172800eddfef2514098dcf656660bcd7f788111"
+        },
+        {
+          "path": "fc27_level10_engine.py",
+          "sha": "cb577533b63d1e6de1970b1dc4791777ddbb3bae"
+        },
+        {
+          "path": "fc27_liquidate_and_snipe.py",
+          "sha": "dee109d1a381004aa2872f872ae0b71d95aef8da"
+        },
+        {
+          "path": "fc27_targeted_sniper.py",
+          "sha": "8f1d07856ea229c1ecb31379b39b5ece16e7e738"
+        },
+        {
+          "path": "requirements.txt",
+          "sha": "f2dd63c241a34b98b46a55053018f7122dbf3f41"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/README.md",
+          "blob_sha": "814c07092e736c08939bdc8655cf42febbf873af",
+          "line_count": 131,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# EA Sports FC™ 27 — Ultimate Team Gallery Automator"
+            },
+            {
+              "line": 8,
+              "text": "[![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)"
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/LICENSE",
+          "blob_sha": "aa4155eee66df0c09116186c5f3308f77fe1c1f6",
+          "line_count": 22,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "MIT License"
+            },
+            {
+              "line": 3,
+              "text": "Copyright (c) 2026 Ranuk IT Solutions"
+            },
+            {
+              "line": 5,
+              "text": "Permission is hereby granted, free of charge, to any person obtaining a copy"
+            },
+            {
+              "line": 12,
+              "text": "The above copyright notice and this permission notice shall be included in all"
+            }
+          ]
+        },
+        {
+          "path": "requirements.txt",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/requirements.txt",
+          "blob_sha": "f2dd63c241a34b98b46a55053018f7122dbf3f41",
+          "line_count": 7,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# Minimal dependencies for FC27 Gallery Bot"
+            }
+          ]
+        },
+        {
+          "path": "docs/TECHNICAL_SPECIFICATIONS.md",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/docs/TECHNICAL_SPECIFICATIONS.md",
+          "blob_sha": "f6a00a455f84fd794e0712c5996b4b82e12cec4a",
+          "line_count": 133,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# Especificaciones Técnicas — EA Sports FC™ 27 Ultimate Team Gallery Automator"
+            }
+          ]
+        },
+        {
+          "path": "fc27_gallery_worker.py",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/fc27_gallery_worker.py",
+          "blob_sha": "f879bc599ca79993b2b370936254fa4e47b69df7",
+          "line_count": 638,
+          "excerpts": [
+            {
+              "line": 63,
+              "text": "DEFAULT_ENDPOINT = os.getenv(\"RANUKITA_EXT_ENDPOINT\", CONFIG.get(\"bridge\", {}).get(\"endpoint\", \"http://127.0.0.1:9224/command\"))"
+            },
+            {
+              "line": 75,
+              "text": "def send_telegram_alert(text):"
+            },
+            {
+              "line": 79,
+              "text": "        url = f\"https://api.telegram.org/bot{TG_TOKEN}/sendMessage\""
+            },
+            {
+              "line": 88,
+              "text": "def eval_js(js_code, tab_id, endpoint=DEFAULT_ENDPOINT, timeout=35):"
+            },
+            {
+              "line": 235,
+              "text": "def execute_buy_and_flip_cycle(tab_id, set_info, max_buy=750, endpoint=DEFAULT_ENDPOINT):"
+            },
+            {
+              "line": 318,
+              "text": "      services.Item.clearTransferMarketCache();"
+            },
+            {
+              "line": 389,
+              "text": "        services.Item.bid(candidate, {target['buyNow']}).observe({{}}, (sender, resp) => {{"
+            },
+            {
+              "line": 401,
+              "text": "    log(f\"COMPRA CONFIRMADA: {target['name']} adquirida por {target['buyNow']} monedas.\")"
+            },
+            {
+              "line": 433,
+              "text": "      const targetItem = unassigned.find(i => i.definitionId === {target['defId']});"
+            },
+            {
+              "line": 446,
+              "text": "      const toTransfer = await new Promise(r => services.Item.move(targetItem, ItemPile.TRANSFER).observe({{}}, (s, res) => r(res)));"
+            },
+            {
+              "line": 449,
+              "text": "      const listRes = await new Promise(r => services.Item.list(targetItem, {start_bid}, {list_price}, 3600).observe({{}}, (s, res) => r(res)));"
+            },
+            {
+              "line": 465,
+              "text": "    if flip_data.get(\"listed\"):"
+            }
+          ]
+        },
+        {
+          "path": "fc27_liquidate_and_snipe.py",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/fc27_liquidate_and_snipe.py",
+          "blob_sha": "dee109d1a381004aa2872f872ae0b71d95aef8da",
+          "line_count": 218,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "#!/usr/bin/env python3"
+            }
+          ]
+        },
+        {
+          "path": "fc27_targeted_sniper.py",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/fc27_targeted_sniper.py",
+          "blob_sha": "8f1d07856ea229c1ecb31379b39b5ece16e7e738",
+          "line_count": 489,
+          "excerpts": [
+            {
+              "line": 112,
+              "text": "def eval_js(js_code, tab_id=DEFAULT_TAB, timeout=30):"
+            },
+            {
+              "line": 180,
+              "text": "def process_target_set(tab_id, target):"
+            },
+            {
+              "line": 353,
+              "text": "        return await new Promise(r => services.Item.bid(item, {target_card['buyNow']}).observe({{}}, (s, res) => r(res)));"
+            },
+            {
+              "line": 400,
+              "text": "        const listRes = await new Promise(r => services.Item.list(item, minBid, buyNow, 3600).observe({{}}, (s, res) => r(res)));"
+            }
+          ]
+        },
+        {
+          "path": "config.example.json",
+          "url": "https://github.com/RanuK12/fc27-gallery-bot/blob/c01d88cdca6ed7e4574f592ddd22ce4b3bdd08ec/config.example.json",
+          "blob_sha": "5204b93dcc2667da8b15897ce07f23fa05a5b65a",
+          "line_count": 29,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": []
+    },
+    {
+      "repository": "puredan824-hub/fc27-sniffer",
+      "url": "https://github.com/puredan824-hub/fc27-sniffer",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "e1488d6e51bdcafec6eaf61cdb06461358b7844d",
+      "default_branch": "main",
+      "commit_date": "2026-10-26T21:42:03Z",
+      "pushed_at": "2026-10-26T21:42:03Z",
+      "archived": false,
+      "declared_license": "MIT",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitignore",
+          "sha": "8335259319bb21ee59f8dc4298e5405e8c147327"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "750d3a1760f8c5ba85b6c4bfd6b450947511b330"
+        },
+        {
+          "path": "README.md",
+          "sha": "468e24511a0e59eec7d5f5988248b179d4605d67"
+        },
+        {
+          "path": "examples/crontab.txt",
+          "sha": "99168af193e7fa89d7cd6a670d697856f1eed30c"
+        },
+        {
+          "path": "examples/poll.sh",
+          "sha": "0b8c70c06a52e503e62342b693a9804e74cf32cf"
+        },
+        {
+          "path": "floor_index.py",
+          "sha": "140814191999464d156ef40e206d800d96cfd6f3"
+        },
+        {
+          "path": "futbin_prices.py",
+          "sha": "557b2a774f99652da166a69fcc52712b1f6826d4"
+        },
+        {
+          "path": "movers_scan.py",
+          "sha": "b878571b411c04c22ba8a24e1cadcceb5c47ba74"
+        },
+        {
+          "path": "price_ranges_radar.py",
+          "sha": "844096c265ff960724ad4ce1a7ebab5ae55b611e"
+        },
+        {
+          "path": "pricedb.py",
+          "sha": "dc94cbf22c9b6fe04bee38f46edf431c7ffb8860"
+        },
+        {
+          "path": "r2_map.json",
+          "sha": "31cef934bababde1b7c7221381d2232dcc3a0623"
+        },
+        {
+          "path": "r2_prices.py",
+          "sha": "ee0353334bbdc6fdbee8e9fb29ed5c9b88d238c5"
+        },
+        {
+          "path": "record_prices.py",
+          "sha": "146b665f43bf40de7fe0cfcc1e880c99d615e9bb"
+        },
+        {
+          "path": "requirements.txt",
+          "sha": "c567cf70d49fbf9adbb2a5bf1902282acfacce8f"
+        },
+        {
+          "path": "sbc_radar.py",
+          "sha": "cdc687aec3ed1964612053f71118558678037a89"
+        },
+        {
+          "path": "sniffer.py",
+          "sha": "56f7be52857ba8c124b90b338fd2b5b23b29e96b"
+        },
+        {
+          "path": "sniffer_eval.py",
+          "sha": "a49b64e7e9a27338b7823bbd873c174d9a9f1b37"
+        },
+        {
+          "path": "sniffer_params.json",
+          "sha": "730effd24adadc320268de80c9b6c60bb8eee398"
+        },
+        {
+          "path": "watchlist.json",
+          "sha": "c57cce1e7e5e2d66e45302a2240fbd7d782db3b9"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/README.md",
+          "blob_sha": "468e24511a0e59eec7d5f5988248b179d4605d67",
+          "line_count": 226,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# FC27 Sniffer · 探嗅引擎"
+            },
+            {
+              "line": 8,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/LICENSE",
+          "blob_sha": "750d3a1760f8c5ba85b6c4bfd6b450947511b330",
+          "line_count": 22,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "MIT License"
+            },
+            {
+              "line": 3,
+              "text": "Copyright (c) 2026 Puredan"
+            },
+            {
+              "line": 5,
+              "text": "Permission is hereby granted, free of charge, to any person obtaining a copy"
+            },
+            {
+              "line": 12,
+              "text": "The above copyright notice and this permission notice shall be included in all"
+            }
+          ]
+        },
+        {
+          "path": "requirements.txt",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/requirements.txt",
+          "blob_sha": "c567cf70d49fbf9adbb2a5bf1902282acfacce8f",
+          "line_count": 5,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "requests>=2.31"
+            }
+          ]
+        },
+        {
+          "path": "r2_prices.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/r2_prices.py",
+          "blob_sha": "ee0353334bbdc6fdbee8e9fb29ed5c9b88d238c5",
+          "line_count": 203,
+          "excerpts": [
+            {
+              "line": 35,
+              "text": "R2 = \"https://r2.fut.gg/27\""
+            },
+            {
+              "line": 47,
+              "text": "def get_json(url: str, timeout: int = 30):"
+            },
+            {
+              "line": 53,
+              "text": "def decode_ids(index: dict) -> list[int]:"
+            },
+            {
+              "line": 63,
+              "text": "def fetch_market() -> dict:"
+            },
+            {
+              "line": 66,
+              "text": "    pub = int(man[\"_published_at\"][\"player-prices-ps5-dyn\"])"
+            },
+            {
+              "line": 71,
+              "text": "    index = blob(\"player-prices-index\")"
+            },
+            {
+              "line": 72,
+              "text": "    dyn = blob(\"player-prices-ps5-dyn\")"
+            },
+            {
+              "line": 74,
+              "text": "    if index.get(\"v\") != 2 or dyn.get(\"v\") != 2:"
+            },
+            {
+              "line": 77,
+              "text": "    if len(dyn[\"p\"]) != len(ids) or len(pool[\"o\"]) != len(ids):"
+            },
+            {
+              "line": 88,
+              "text": "def resolve_names(market: dict, ea_ids: list[int]) -> dict:"
+            },
+            {
+              "line": 111,
+              "text": "def cycle() -> dict:"
+            }
+          ]
+        },
+        {
+          "path": "pricedb.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/pricedb.py",
+          "blob_sha": "dc94cbf22c9b6fe04bee38f46edf431c7ffb8860",
+          "line_count": 85,
+          "excerpts": [
+            {
+              "line": 37,
+              "text": "def connect() -> sqlite3.Connection:"
+            },
+            {
+              "line": 43,
+              "text": "def insert_samples(rows: list[dict]) -> int:"
+            },
+            {
+              "line": 49,
+              "text": "            \"INSERT INTO samples(ts,kind,key,name,rating,price,exp_hours,source)\""
+            }
+          ]
+        },
+        {
+          "path": "record_prices.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/record_prices.py",
+          "blob_sha": "146b665f43bf40de7fe0cfcc1e880c99d615e9bb",
+          "line_count": 43,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "\"\"\"把一轮实读的球员 PS 价格落进 prices.db（kind='player'）。"
+            }
+          ]
+        },
+        {
+          "path": "sniffer.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/sniffer.py",
+          "blob_sha": "56f7be52857ba8c124b90b338fd2b5b23b29e96b",
+          "line_count": 309,
+          "excerpts": [
+            {
+              "line": 88,
+              "text": "def load_series(conn: sqlite3.Connection, key: str, hours: float) -> list[tuple[datetime, int]]:"
+            },
+            {
+              "line": 93,
+              "text": "        \" AND source<>'fut.gg R2' ORDER BY ts\","
+            },
+            {
+              "line": 105,
+              "text": "def features(conn, key, price, recent):"
+            },
+            {
+              "line": 159,
+              "text": "def judge(fid, price, new_low_age, slope, rng, tail_at_low, hist, P):"
+            },
+            {
+              "line": 185,
+              "text": "def cycle() -> dict:"
+            }
+          ]
+        },
+        {
+          "path": "sniffer_eval.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/sniffer_eval.py",
+          "blob_sha": "a49b64e7e9a27338b7823bbd873c174d9a9f1b37",
+          "line_count": 160,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "\"\"\"探嗅引擎回测评分 sniffer_eval：用 prices.db 已落库序列给历史信号与状态判定打分。"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": []
+    },
+    {
+      "repository": "marchiartur/sp-tool",
+      "url": "https://github.com/marchiartur/sp-tool",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "e9cc12558492634a94934bc8084cc77cbcf0a897",
+      "default_branch": "main",
+      "commit_date": "2026-11-02T19:34:23Z",
+      "pushed_at": "2026-11-03T02:25:48Z",
+      "archived": false,
+      "declared_license": "MIT",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitattributes",
+          "sha": "b20e6c1db05f27c74546383aea71ca72b9a41202"
+        },
+        {
+          "path": ".github/CODE_OF_CONDUCT.md",
+          "sha": "97153168583733287ad3e1ff6a72be343fc29556"
+        },
+        {
+          "path": ".github/CONTRIBUTING.md",
+          "sha": "78f4a91c6834af4957a20598711015e76509db75"
+        },
+        {
+          "path": ".github/FUNDING.yml",
+          "sha": "f1fff59d1e28663a89705a804ad53da90a8c6bda"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+          "sha": "397eddc99cae4bf87d1f0e252529363cfeba0858"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/config.yml",
+          "sha": "44d47303e34f5d711efc374211160212c04448a5"
+        },
+        {
+          "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+          "sha": "774f4441261fb43c258b6d840a413f8d6d83273e"
+        },
+        {
+          "path": ".github/SECURITY.md",
+          "sha": "f15175b7f8a9c8a1361ff6108ce1cda3c58dd270"
+        },
+        {
+          "path": ".github/assets/demo.gif",
+          "sha": "e5d16b515b126679ee8976dfbfdc79c15dc7a21a"
+        },
+        {
+          "path": ".github/dependabot.yml",
+          "sha": "50213bbec1eb703a689d60d0c012568bd6dc0dfd"
+        },
+        {
+          "path": ".github/pull_request_template.md",
+          "sha": "af853b7c7cef6ab9d080f27009c4008f5226c582"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "sha": "a151a9adc0fb7d75a2aa475a0748f6699f6527d1"
+        },
+        {
+          "path": ".github/workflows/futgg-canary.yml",
+          "sha": "99f03f12e7e77214f8ce7209fcbe4ad81a9f13a3"
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "sha": "4b42bf949f1524e31c3344f1572e17d9a434693c"
+        },
+        {
+          "path": ".github/workflows/site.yml",
+          "sha": "ab3813396fe57947361fe2be36a1b9ea4c1b953e"
+        },
+        {
+          "path": ".github/workflows/webstore-watch.yml",
+          "sha": "0fea091f16d6097e3ee6645be4c6c30cb218948d"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "ceec9fb1b93c364045ec441490349c182c54c4f8"
+        },
+        {
+          "path": ".npmrc",
+          "sha": "1a99418bf0395c634fd847b68e77d1998275ec6c"
+        },
+        {
+          "path": ".oxlintrc.json",
+          "sha": "12d56039fc6985fd23bda2ddd17b912b08a86d71"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha": "69c2d7388ea3bdc180fa26fdb9999557ef947a1c"
+        },
+        {
+          "path": "CLAUDE.md",
+          "sha": "b9ddec4600eb14e3ec942238ee86ee9654e00590"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "6aa846d82094123222ccd2980074799a78f0fa30"
+        },
+        {
+          "path": "README.md",
+          "sha": "97418b22d8e18a78498810989b7f635f818446c0"
+        },
+        {
+          "path": "changelog.html",
+          "sha": "40965e9197b2784e26d0b1cf01541804ca38a27b"
+        },
+        {
+          "path": "components.json",
+          "sha": "e71fe103f1266995be80b1b9350c8a21fcd68e5c"
+        },
+        {
+          "path": "extension-debug/debug.css",
+          "sha": "a7968eaf362188f8bf49fa879400c1434b14411d"
+        },
+        {
+          "path": "extension-debug/debug.html",
+          "sha": "7a173148e2457ead7d378cd94019a385d60cc52c"
+        },
+        {
+          "path": "extension-debug/debug.js",
+          "sha": "da1b54776963a921c41765677635cb3a66a93daa"
+        },
+        {
+          "path": "extension-static/background.js",
+          "sha": "8db354948164cfc793163e6d1a6d10ae33b0bc0f"
+        },
+        {
+          "path": "extension-static/ea-main.js",
+          "sha": "cc1ef2f9869cbbf381044c0c188a2f9f0b51a526"
+        },
+        {
+          "path": "extension-static/futgg.css",
+          "sha": "5f104ce4ed6f15ce9d3aa1424f4a7e4b441c5d32"
+        },
+        {
+          "path": "extension-static/icons/icon-128.png",
+          "sha": "0dd387a20680132c02015f211980b9600a7215a5"
+        },
+        {
+          "path": "extension-static/icons/icon-16.png",
+          "sha": "4f311c8a41183b15af44e41a6f370968ec3e9e4e"
+        },
+        {
+          "path": "extension-static/icons/icon-32.png",
+          "sha": "70bd0cebbbe4b079e7d91426fad7fb8a9c674df1"
+        },
+        {
+          "path": "extension-static/icons/icon-48.png",
+          "sha": "e983f7dbef47318fdb4e55d8c931be6f4c506c40"
+        },
+        {
+          "path": "extension-static/manifest.json",
+          "sha": "0a3fad1a26043bc3105a894e3253550949d34f35"
+        },
+        {
+          "path": "extension-static/popup.css",
+          "sha": "c0f69feb6b69d1f103dbdb827436fbe3c1740c95"
+        },
+        {
+          "path": "extension-static/popup.html",
+          "sha": "30d39bd10c20b8dffbe02139c678f59918310db7"
+        },
+        {
+          "path": "index.html",
+          "sha": "779bdf6b304e5c4f7f585dd455cc146ee32ae8cb"
+        },
+        {
+          "path": "package.json",
+          "sha": "a65c7cf63124c8dc162805cabc35ddb7c8423ad6"
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "sha": "705648ce4cf7a5e3ada6be3a51cd1449f0b2d587"
+        },
+        {
+          "path": "postcss.config.js",
+          "sha": "a7f73a2d1d7c466d1e8037200bca4d1c79b6e609"
+        },
+        {
+          "path": "preview.html",
+          "sha": "6dde0a31b48936bdabee90ae44a9ecfce3049b05"
+        },
+        {
+          "path": "privacy.html",
+          "sha": "cdfd7973a26baf9254f82f3aeffeb00ecf9f66c6"
+        },
+        {
+          "path": "public/demo-poster.jpg",
+          "sha": "3ad32cf72fa8fd4da473e9c0404ee32c67b0ae0b"
+        },
+        {
+          "path": "public/demo.mp4",
+          "sha": "01565784974971c4b4fdc70109252884e3b791a5"
+        },
+        {
+          "path": "public/favicon.svg",
+          "sha": "0017cbe4725d5db4c0bc0a73cc3b006c00214b92"
+        },
+        {
+          "path": "public/og-image.png",
+          "sha": "6207f20a21821a44cc9d3e82c4cb40b072b17bf2"
+        },
+        {
+          "path": "public/sitemap.xml",
+          "sha": "fbbdc7419491509718f460a8c7018fdab9a34e3c"
+        },
+        {
+          "path": "scripts/build-extension.mjs",
+          "sha": "281c6e35d1f94f40f196ae106da4cf230cb285be"
+        },
+        {
+          "path": "scripts/dev-extension.mjs",
+          "sha": "f9e6997bd10e307378b12b95c34630c54a594f21"
+        },
+        {
+          "path": "scripts/futgg-snapshot.mjs",
+          "sha": "22202e959da5ba256860a18893ae5e419a402486"
+        },
+        {
+          "path": "scripts/publish-webstore.mjs",
+          "sha": "e83e34c90723511c058069d3ab871f7bd5e85e47"
+        },
+        {
+          "path": "scripts/webstore-token.mjs",
+          "sha": "988cbf0f1ed5ee1a71573ff0b76318d17e287ceb"
+        },
+        {
+          "path": "src/App.tsx",
+          "sha": "3a8a74b8a3f5776f54ecdc638f9d3bf884c8c192"
+        },
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "sha": "e1797c93458f3751a2e0f1189ff50d77f20ae3ed"
+        },
+        {
+          "path": "src/components/ui/badge.tsx",
+          "sha": "3afe1e319490c384155e2d3e851a346e12ff76b5"
+        },
+        {
+          "path": "src/components/ui/button.tsx",
+          "sha": "1152d4d8d2c9ddcad51a537b46fcecc8966328ff"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "sha": "73637ab891d5c195ac853bee97942d79d1d8f805"
+        },
+        {
+          "path": "src/components/ui/input.tsx",
+          "sha": "6f3073a0be29a7290b5bd5cc49c6fd43bb6e915a"
+        },
+        {
+          "path": "src/components/ui/separator.tsx",
+          "sha": "1b22f4830ef83cec9a2cc48d4edddcebedc32e65"
+        },
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "sha": "afe5da62559ca05a0eb5c9415a1e20bd47b37af9"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "sha": "86b1e7006c7e65b5d2dafc0eb51beb7079d3f503"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "sha": "08bfb56093a317708f37346f89645ee5e53f2b03"
+        },
+        {
+          "path": "src/extension/PanelApp.tsx",
+          "sha": "2c4449d0528c6ef49271a9162fe3bdbea13ebca8"
+        },
+        {
+          "path": "src/extension/dev.d.ts",
+          "sha": "35a036188b89e71552cf715c7be2312bff71b3ee"
+        },
+        {
+          "path": "src/extension/panel-entry.tsx",
+          "sha": "12119de1426be66ea12ce67015602c6237b1e707"
+        },
+        {
+          "path": "src/extension/panel.css",
+          "sha": "74e3c1309b56561a161c17eb3b140892a8d54c1d"
+        },
+        {
+          "path": "src/futgg/bridge.test.ts",
+          "sha": "7bfbf1aae4e3b9507490a7f9dd803a33d67ac6c4"
+        },
+        {
+          "path": "src/futgg/bridge.ts",
+          "sha": "d452e2bc6030ed9cfaa0ebb01c5ce83e2eadf51a"
+        },
+        {
+          "path": "src/futgg/index.test.ts",
+          "sha": "7ff0fbd7a5d4ace2cb3a44b92be2979e2a5a1e22"
+        },
+        {
+          "path": "src/futgg/index.ts",
+          "sha": "464d166416131fb29feec859f49401258528aece"
+        },
+        {
+          "path": "src/futgg/live.test.ts",
+          "sha": "bcbcd7d65d655646396dccafcba82dee17ff128a"
+        },
+        {
+          "path": "src/futgg/page.test.ts",
+          "sha": "64745f1034f949c5924e0eef0a2df6bdc65331b3"
+        },
+        {
+          "path": "src/futgg/page.ts",
+          "sha": "40b3e0018b17190564b1e48565ba441877bd19d0"
+        },
+        {
+          "path": "src/futgg/ui.test.ts",
+          "sha": "72705f8fa5ce90aa56dc99db44b7a3cb4ea1ac55"
+        },
+        {
+          "path": "src/futgg/ui.ts",
+          "sha": "63987248fcc1746e1ecc0b867cd6a76d38e6527f"
+        },
+        {
+          "path": "src/index.css",
+          "sha": "744f9e4d2fab79ccc274c6c9361c23884b1f8d24"
+        },
+        {
+          "path": "src/lib/price.test.ts",
+          "sha": "1dcfc9bad8837725e44a0a4b1d7563908bfb7073"
+        },
+        {
+          "path": "src/lib/price.ts",
+          "sha": "c5d16d473a28893a07576829d3f881afe33aa734"
+        },
+        {
+          "path": "src/lib/settings.test.ts",
+          "sha": "8f41e949498b601bd4fabf783226140f70c1d44e"
+        },
+        {
+          "path": "src/lib/settings.ts",
+          "sha": "03de5f4fa6c3df90393540ea49fab967e8fc613a"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "sha": "bd0c391ddd1088e9067844c48835bf4abcd61783"
+        },
+        {
+          "path": "src/panel/Panel.tsx",
+          "sha": "bf87af13c9a76ae626818b63f57d45861b398608"
+        },
+        {
+          "path": "src/panel/types.ts",
+          "sha": "3c50e046a8987cbd8391f911c7c1cf1efa92fcea"
+        },
+        {
+          "path": "src/popup/index.test.ts",
+          "sha": "47514a3ea5ded20acae22d0d06201cc0f33fa6c3"
+        },
+        {
+          "path": "src/popup/index.ts",
+          "sha": "642734b048ba0b3de6f1830f51d56d703367ff39"
+        },
+        {
+          "path": "src/preview.tsx",
+          "sha": "3367056f459fa29315b23220a848b7abd4503fe8"
+        },
+        {
+          "path": "src/site/Changelog.tsx",
+          "sha": "0d7a37b365e13a79d8c20d7e52abbb4a4d01a45c"
+        },
+        {
+          "path": "src/site/Landing.tsx",
+          "sha": "ebb2fe2e11ebc4805703cf144b5506c1829284a3"
+        },
+        {
+          "path": "src/site/Privacy.tsx",
+          "sha": "0cb7ed4389ba2724a5c135f3328a523fc15d98d2"
+        },
+        {
+          "path": "src/site/changelog-entry.tsx",
+          "sha": "ee270ddc2f93d60710b2810e8f9492ba45d1e7f3"
+        },
+        {
+          "path": "src/site/fonts.ts",
+          "sha": "5884f259918dc48e5bbef138ca37cff437c1d202"
+        },
+        {
+          "path": "src/site/landing-entry.tsx",
+          "sha": "73a7fe04014c0b31b586a502571b4bbcf9935ba6"
+        },
+        {
+          "path": "src/site/layout.tsx",
+          "sha": "936537d6f5db318257ee8676fe5dba3dd3d15253"
+        },
+        {
+          "path": "src/site/parse-changelog.test.ts",
+          "sha": "48e1908e733f05cd311e95f28f945ea3b868b3c5"
+        },
+        {
+          "path": "src/site/parse-changelog.ts",
+          "sha": "6a175afba13ba07c41459eaa60173b335ee09523"
+        },
+        {
+          "path": "src/site/privacy-entry.tsx",
+          "sha": "f1e31035322b75dd4d7a9e46870839cca5b5aeb4"
+        },
+        {
+          "path": "src/site/release.ts",
+          "sha": "e107b6e722bb47cb7505e052ef27632ca58c4ec4"
+        },
+        {
+          "path": "src/site/useDemoQueue.ts",
+          "sha": "0ec03bd825c12c0c18edc7d0abd8e23e012d49c5"
+        },
+        {
+          "path": "src/test-setup.ts",
+          "sha": "3ea2055f20e0e34587655217e74bc2fc16ad7323"
+        },
+        {
+          "path": "src/theme.css",
+          "sha": "62511fefc5915752f1baf8f6ab74a416e3f4edbc"
+        },
+        {
+          "path": "tsconfig.app.json",
+          "sha": "5b7679cf36faf8f18d073a5c811fc646a5fa127d"
+        },
+        {
+          "path": "tsconfig.json",
+          "sha": "ccf881872b2ac4adf3038b5ed5d9b9a064332f19"
+        },
+        {
+          "path": "tsconfig.node.json",
+          "sha": "a8b245b232f31bfe1db5e4d031a62bcbf25542d5"
+        },
+        {
+          "path": "vite.config.ts",
+          "sha": "f91dc122eb9922a083aceb65bf0bf490c1ba87e2"
+        },
+        {
+          "path": "vite.ext.config.ts",
+          "sha": "9e428de0001912ac7628d49bad8826e8221789c8"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/README.md",
+          "blob_sha": "97418b22d8e18a78498810989b7f635f818446c0",
+          "line_count": 96,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# SP Tool 27"
+            },
+            {
+              "line": 8,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/LICENSE",
+          "blob_sha": "6aa846d82094123222ccd2980074799a78f0fa30",
+          "line_count": 22,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "MIT License"
+            },
+            {
+              "line": 3,
+              "text": "Copyright (c) 2026 marchiartur"
+            },
+            {
+              "line": 5,
+              "text": "Permission is hereby granted, free of charge, to any person obtaining a copy"
+            },
+            {
+              "line": 12,
+              "text": "The above copyright notice and this permission notice shall be included in all"
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/package.json",
+          "blob_sha": "a65c7cf63124c8dc162805cabc35ddb7c8423ad6",
+          "line_count": 53,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            }
+          ]
+        },
+        {
+          "path": "extension-static/manifest.json",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/extension-static/manifest.json",
+          "blob_sha": "0a3fad1a26043bc3105a894e3253550949d34f35",
+          "line_count": 38,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 12,
+              "text": "  \"permissions\": [\"storage\"],"
+            }
+          ]
+        },
+        {
+          "path": "extension-static/ea-main.js",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/extension-static/ea-main.js",
+          "blob_sha": "cc1ef2f9869cbbf381044c0c188a2f9f0b51a526",
+          "line_count": 241,
+          "excerpts": [
+            {
+              "line": 26,
+              "text": "  function toValidPrice(price) {"
+            },
+            {
+              "line": 97,
+              "text": "  function clearMarketCache() {"
+            },
+            {
+              "line": 112,
+              "text": "  function openInMarket(defId, price) {"
+            },
+            {
+              "line": 114,
+              "text": "    const c = new UTSearchCriteriaDTO();"
+            },
+            {
+              "line": 116,
+              "text": "    c.defId = [defId];"
+            },
+            {
+              "line": 118,
+              "text": "    if (maxBuy) c.maxBuy = maxBuy;"
+            },
+            {
+              "line": 120,
+              "text": "    const minBuy = searchCount % 2 ? 200 : 0; // no-op filter, only there to avoid EA's cached results"
+            },
+            {
+              "line": 124,
+              "text": "    const screen = phone ? new UTMarketSearchResultsViewController() : new UTMarketSearchResultsSplitViewController();"
+            },
+            {
+              "line": 125,
+              "text": "    screen.initWithSearchCriteria(c);"
+            },
+            {
+              "line": 194,
+              "text": "  window.addEventListener(\"message\", (e) => {"
+            }
+          ]
+        },
+        {
+          "path": "extension-static/background.js",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/extension-static/background.js",
+          "blob_sha": "8db354948164cfc793163e6d1a6d10ae33b0bc0f",
+          "line_count": 185,
+          "excerpts": [
+            {
+              "line": 77,
+              "text": "const FUTGG_ORIGIN = \"https://www.fut.gg\";"
+            },
+            {
+              "line": 79,
+              "text": "const fromWebApp = (sender) => sender.origin === \"https://www.ea.com\";"
+            },
+            {
+              "line": 82,
+              "text": "function cleanPlayer(p) {"
+            }
+          ]
+        },
+        {
+          "path": "src/lib/price.ts",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/src/lib/price.ts",
+          "blob_sha": "c5d16d473a28893a07576829d3f881afe33aa734",
+          "line_count": 39,
+          "excerpts": [
+            {
+              "line": 7,
+              "text": "export const stepAt = (p: number) =>"
+            },
+            {
+              "line": 8,
+              "text": "  p < 1000 ? 50 : p < 10000 ? 100 : p < 50000 ? 250 : p < 100000 ? 500 : 1000"
+            },
+            {
+              "line": 10,
+              "text": "export const snap = (p: number) =>"
+            },
+            {
+              "line": 11,
+              "text": "  Math.min(MAX_PRICE, Math.max(MIN_PRICE, Math.ceil(p / stepAt(p)) * stepAt(p)))"
+            },
+            {
+              "line": 25,
+              "text": "export function parseAmount(text: string): number | null {"
+            },
+            {
+              "line": 35,
+              "text": "export function parsePrice(text: string): number | null {"
+            }
+          ]
+        },
+        {
+          "path": "src/lib/price.test.ts",
+          "url": "https://github.com/marchiartur/sp-tool/blob/e9cc12558492634a94934bc8084cc77cbcf0a897/src/lib/price.test.ts",
+          "blob_sha": "1dcfc9bad8837725e44a0a4b1d7563908bfb7073",
+          "line_count": 40,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "import { describe, expect, it } from \"vitest\""
+            }
+          ]
+        }
+      ],
+      "releases": [
+        {
+          "tag": "v1.1.0",
+          "url": "https://github.com/marchiartur/sp-tool/releases/tag/v1.1.0",
+          "published_at": "2026-10-21T05:56:59Z"
+        },
+        {
+          "tag": "v1.0.0",
+          "url": "https://github.com/marchiartur/sp-tool/releases/tag/v1.0.0",
+          "published_at": "2026-10-06T21:56:33Z"
+        }
+      ],
+      "latest_workflow_runs": [
+        {
+          "name": "Web Store watch",
+          "conclusion": "success",
+          "head_sha": "e9cc12558492634a94934bc8084cc77cbcf0a897",
+          "url": "https://github.com/marchiartur/sp-tool/actions/runs/42489168896"
+        }
+      ]
+    },
+    {
+      "repository": "FrancescoPalasciano/Bot-Fc27",
+      "url": "https://github.com/FrancescoPalasciano/Bot-Fc27",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "925a61dfee4f3c13e35beb82104185942e51384b",
+      "default_branch": "main",
+      "commit_date": "2026-09-20T13:50:33Z",
+      "pushed_at": "2026-09-20T13:50:42Z",
+      "archived": false,
+      "declared_license": "MIT",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitignore",
+          "sha": "47835836d6ccca62f84f0e9d33bd9850753bda18"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "d520bbe5bf2109c0bd4fd1f76f6306bf069d1e06"
+        },
+        {
+          "path": "README.md",
+          "sha": "2de0f523fbbcc5ca591843249f5a7877d94ae149"
+        },
+        {
+          "path": "data/players.json",
+          "sha": "638dfd8ef8242d5c8bb9b897815e8a63dbe535c0"
+        },
+        {
+          "path": "data/serie-a.tsv",
+          "sha": "567df08f77222ee31497ab87a3b1ae40ebdcbe61"
+        },
+        {
+          "path": "docs/RESEARCH.md",
+          "sha": "3fca438cc63165d8cfd5208b89a4c731214f3bbc"
+        },
+        {
+          "path": "manifest.json",
+          "sha": "a713a6c96077a1d94b4d13295caeaf328dc9ad4e"
+        },
+        {
+          "path": "package.json",
+          "sha": "3ec2b5b3f636c8d76db03ec3d169f536c82324d0"
+        },
+        {
+          "path": "scripts/build-player-index.js",
+          "sha": "44ca4277aa33a0c6653fbf5fde708a96db8849aa"
+        },
+        {
+          "path": "src/content.css",
+          "sha": "0bbde1bc8bdfe3e3e0472bfa53186de1d7c0d51a"
+        },
+        {
+          "path": "src/content.js",
+          "sha": "574b3a24cb6e076d2a48201a7def7b779639332d"
+        },
+        {
+          "path": "src/market.js",
+          "sha": "622b9cfa9d36fc098f3060c70bafb3ac83f5b69e"
+        },
+        {
+          "path": "src/popup.css",
+          "sha": "661bcdef3c80477d78db74ef7af16a0d1e597abe"
+        },
+        {
+          "path": "src/popup.html",
+          "sha": "f4ad5361b2629506fea2c3bbee7a817ebe574273"
+        },
+        {
+          "path": "src/popup.js",
+          "sha": "5e5a06dd84f22467c8faf5511608d4c9f4df36c0"
+        },
+        {
+          "path": "tests/market.test.js",
+          "sha": "fefe5474dca1c4874936089b3e8372aef0ed3faf"
+        },
+        {
+          "path": "tests/players.test.js",
+          "sha": "c021387451f3a494cd5e6b04731332067f609396"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/README.md",
+          "blob_sha": "2de0f523fbbcc5ca591843249f5a7877d94ae149",
+          "line_count": 91,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# FC27 Market Companion"
+            },
+            {
+              "line": 8,
+              "text": "- monitor assistito continuo: apre Trasferimenti, seleziona il giocatore e ripete la ricerca ogni 2 secondi finché trova un’offerta, viene fermato manualmente o la Web App restituisce un errore;"
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/LICENSE",
+          "blob_sha": "d520bbe5bf2109c0bd4fd1f76f6306bf069d1e06",
+          "line_count": 22,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "MIT License"
+            },
+            {
+              "line": 3,
+              "text": "Copyright (c) 2026 Francesco Palasciano"
+            },
+            {
+              "line": 5,
+              "text": "Permission is hereby granted, free of charge, to any person obtaining a copy"
+            },
+            {
+              "line": 12,
+              "text": "The above copyright notice and this permission notice shall be included in all"
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/package.json",
+          "blob_sha": "3ec2b5b3f636c8d76db03ec3d169f536c82324d0",
+          "line_count": 13,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 6,
+              "text": "  \"scripts\": {"
+            }
+          ]
+        },
+        {
+          "path": "manifest.json",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/manifest.json",
+          "blob_sha": "a713a6c96077a1d94b4d13295caeaf328dc9ad4e",
+          "line_count": 31,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "{"
+            },
+            {
+              "line": 7,
+              "text": "  \"action\": {"
+            }
+          ]
+        },
+        {
+          "path": "src/market.js",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/src/market.js",
+          "blob_sha": "622b9cfa9d36fc098f3060c70bafb3ac83f5b69e",
+          "line_count": 191,
+          "excerpts": [
+            {
+              "line": 13,
+              "text": "  function calculateTrade({ buyPrice, sellPrice, quantity = 1, taxRate = TAX_RATE }) {"
+            },
+            {
+              "line": 17,
+              "text": "    const tax = Math.floor(sell * taxRate);"
+            },
+            {
+              "line": 61,
+              "text": "  function roundCoins(value, step = 50) {"
+            },
+            {
+              "line": 65,
+              "text": "  function suggestPricing(marketPrice, minimumProfit = 500, mode = \"recommended\") {"
+            },
+            {
+              "line": 93,
+              "text": "  function summarizePrices(values) {"
+            },
+            {
+              "line": 103,
+              "text": "    const floorSample = prices.slice(0, Math.min(3, prices.length));"
+            },
+            {
+              "line": 111,
+              "text": "  function latestObservedPrice(snapshots, playerName, now = Date.now(), maxAge = 6 * 60 * 60 * 1000) {"
+            },
+            {
+              "line": 115,
+              "text": "      normalizeSearchText(entry?.player) === normalizedPlayer"
+            }
+          ]
+        },
+        {
+          "path": "src/content.js",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/src/content.js",
+          "blob_sha": "574b3a24cb6e076d2a48201a7def7b779639332d",
+          "line_count": 847,
+          "excerpts": [
+            {
+              "line": 315,
+              "text": "  async function recordMarketSnapshot(player, listings) {"
+            },
+            {
+              "line": 466,
+              "text": "  async function waitBetweenSearches(runId, attempt) {"
+            },
+            {
+              "line": 507,
+              "text": "  function visibleMarketListings(runId) {"
+            },
+            {
+              "line": 509,
+              "text": "      const rows = [...document.querySelectorAll(\".paginated-item-list .listFUTItem\")];"
+            },
+            {
+              "line": 579,
+              "text": "  async function runScout({ playerName, maximumBuy, expectedSale }) {"
+            }
+          ]
+        },
+        {
+          "path": "tests/market.test.js",
+          "url": "https://github.com/FrancescoPalasciano/Bot-Fc27/blob/925a61dfee4f3c13e35beb82104185942e51384b/tests/market.test.js",
+          "blob_sha": "fefe5474dca1c4874936089b3e8372aef0ed3faf",
+          "line_count": 126,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "const test = require(\"node:test\");"
+            },
+            {
+              "line": 11,
+              "text": "test(\"calcola tassa, utile e ROI\", () => {"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": []
+    },
+    {
+      "repository": "sauravhiremath/fut-25-market",
+      "url": "https://github.com/sauravhiremath/fut-25-market",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "1d9d8c66031f9b30e5042d432efc7b5cf5ea5618",
+      "default_branch": "master",
+      "commit_date": "2026-01-20T21:16:49Z",
+      "pushed_at": "2026-01-20T21:16:49Z",
+      "archived": false,
+      "declared_license": "Apache-2.0",
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".dockerignore",
+          "sha": "e43a5f251146337b08a18b6581bbc862acf8a347"
+        },
+        {
+          "path": ".env.example",
+          "sha": "e7f9575d86c0f9e0d458f8dfe95109c144e9bb50"
+        },
+        {
+          "path": ".github/workflows/lint_and_test.yml",
+          "sha": "c40f216c4a0a2e9f7b11f4054f5c3ee4e72a4f95"
+        },
+        {
+          "path": ".gitignore",
+          "sha": "dfa58ef6342678fef413c43f18c77cc3c0ea13f0"
+        },
+        {
+          "path": ".idea/.gitignore",
+          "sha": "b58b603fea78041071d125a30db58d79b3d49217"
+        },
+        {
+          "path": ".idea/fut-25-market.iml",
+          "sha": "5fc70ef368f05a58fb6296b99f23cdc7a2ae56dd"
+        },
+        {
+          "path": ".idea/inspectionProfiles/Project_Default.xml",
+          "sha": "490092e05954e828e0779be7710562770d0da735"
+        },
+        {
+          "path": ".idea/inspectionProfiles/profiles_settings.xml",
+          "sha": "105ce2da2d6447d11dfe32bfb846c3d5b199fc99"
+        },
+        {
+          "path": ".idea/material_theme_project_new.xml",
+          "sha": "2f6258878614065ec35a46ee468167d5642bb4b4"
+        },
+        {
+          "path": ".idea/misc.xml",
+          "sha": "0e2ee50ede7fcc62b8a909dec27817623b5d5ecf"
+        },
+        {
+          "path": ".idea/modules.xml",
+          "sha": "a2cee395d942993633ecaa80ccf623baded646f4"
+        },
+        {
+          "path": ".idea/vcs.xml",
+          "sha": "35eb1ddfbbc029bcab630581847471d7f238ec53"
+        },
+        {
+          "path": ".pre-commit-config.yaml",
+          "sha": "04f65035781252e8529769c949401339b125e4ba"
+        },
+        {
+          "path": "CLAUDE.md",
+          "sha": "f13283942ecd2bba97a7c2d26dd1b0f1b31036db"
+        },
+        {
+          "path": "Dockerfile",
+          "sha": "d192fcd305427b5f387438dc7b6d5de0d8636efc"
+        },
+        {
+          "path": "LICENSE",
+          "sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64"
+        },
+        {
+          "path": "README.md",
+          "sha": "0ec1042cff37442d77d3a507550a94b7f31938b1"
+        },
+        {
+          "path": "auth_api/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "auth_api/api.py",
+          "sha": "8be52f3aea73e4ee675e36c122ab549266b4f294"
+        },
+        {
+          "path": "auth_api/apps.py",
+          "sha": "518b854faefe623bcc66fcf28ebc562ce9c062c8"
+        },
+        {
+          "path": "auth_api/migrations/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "auth_api/models.py",
+          "sha": "6b2021999398416a78191ac543b7e0e34d86bc2c"
+        },
+        {
+          "path": "auth_api/schemas.py",
+          "sha": "15e1a2db9c1a27eb5899794da0b6107f95f7cd55"
+        },
+        {
+          "path": "auth_api/services.py",
+          "sha": "93adf0375042aa37422d3ef7553de35b5c45dc5c"
+        },
+        {
+          "path": "auth_api/tests/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "auth_api/tests/fixtures/login.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "auth_api/tests/fixtures/login_with_2fa.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "auth_api/tests/test_schemas.py",
+          "sha": "0201de249db9a659654635478db5bad036255eeb"
+        },
+        {
+          "path": "club/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "club/api.py",
+          "sha": "6e8267bc86dcec623742422fdf7763d5638cefcc"
+        },
+        {
+          "path": "club/apps.py",
+          "sha": "fffa95b26f52cf856aa7f3183eb08e6276d83b8d"
+        },
+        {
+          "path": "club/migrations/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "club/models.py",
+          "sha": "6b2021999398416a78191ac543b7e0e34d86bc2c"
+        },
+        {
+          "path": "club/schemas.py",
+          "sha": "aec0ea265c603fce635a507ecceda57427ee5af6"
+        },
+        {
+          "path": "club/tests/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "club/tests/fixtures/get_club_items.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "club/tests/fixtures/get_credits.json",
+          "sha": "172bf48897b69de17705877ec0775377e03eeb23"
+        },
+        {
+          "path": "club/tests/fixtures/get_player_list.json",
+          "sha": "e04d5bb40d760fdce2a68fe929b3f0ef4819dc4f"
+        },
+        {
+          "path": "club/tests/fixtures/get_squad_list.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "club/tests/fixtures/quick_sell_item.json",
+          "sha": "1991e15e306ae513d77650e56d7397a05b8e4984"
+        },
+        {
+          "path": "club/tests/fixtures/send_to_club.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "club/tests/fixtures/send_to_trade_pile.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "club/tests/test_schemas.py",
+          "sha": "76b34845c2fdbe2ca865557d29bdf1801c8e217f"
+        },
+        {
+          "path": "core/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "core/apps.py",
+          "sha": "c0ce093bd64d1542e8df1162e3992e04606716d9"
+        },
+        {
+          "path": "core/constants.py",
+          "sha": "96439631e8a331c89ac50ec9543f04cc0b3db82b"
+        },
+        {
+          "path": "core/exceptions.py",
+          "sha": "51baf3fa607b17ba0aea786daf56dc1260bcb2cd"
+        },
+        {
+          "path": "core/fut_models/__init__.py",
+          "sha": "174f43abe68c25a72698c8e11a5f4961b52bdb85"
+        },
+        {
+          "path": "core/fut_models/auction.py",
+          "sha": "ccea5be6ab551d30ba46d2ad53eb6877c6a60cfc"
+        },
+        {
+          "path": "core/fut_models/auth.py",
+          "sha": "1447cb48bb8c87b91aeae808b35dd6a8fb6e6e7e"
+        },
+        {
+          "path": "core/fut_models/club.py",
+          "sha": "2d6a825e4fc19cd0d4a1fdf88bec3c38ad4a171b"
+        },
+        {
+          "path": "core/fut_models/pack.py",
+          "sha": "89fec7b825eff9062cb825862a9a4ceb074fe952"
+        },
+        {
+          "path": "core/fut_models/player.py",
+          "sha": "cdee4c09ab0d8bcd40222a0e65c6e25e763f48ce"
+        },
+        {
+          "path": "core/fut_models/search.py",
+          "sha": "57d1eef6dfb8616287ce67dca0c1fcd9ea6cf557"
+        },
+        {
+          "path": "core/migrations/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "core/models.py",
+          "sha": "6b2021999398416a78191ac543b7e0e34d86bc2c"
+        },
+        {
+          "path": "docker-compose.monitoring.yml",
+          "sha": "72d3e4c1ccf4eb1eb7ebc3dcaa31e9b7aa6398b7"
+        },
+        {
+          "path": "docker-compose.yml",
+          "sha": "2999d93cf71911b04bd11e695942fd9e356619da"
+        },
+        {
+          "path": "features.md",
+          "sha": "5546eaddf84f5856c4a6f136e65fe3450718a801"
+        },
+        {
+          "path": "fut_market/__init__.py",
+          "sha": "53f4ccb1d8eb50e131da7b0e3abdd22cf9e0151c"
+        },
+        {
+          "path": "fut_market/api/__init__.py",
+          "sha": "471a50dd24b76864ed55fce3040fca5a5f78f818"
+        },
+        {
+          "path": "fut_market/asgi.py",
+          "sha": "c799f3b106b66feef0fe09fa0125d73995557e0b"
+        },
+        {
+          "path": "fut_market/celery.py",
+          "sha": "30fdb1dbf14d7df46d108b14499cb25e3b91b0f4"
+        },
+        {
+          "path": "fut_market/settings.py",
+          "sha": "49d40d9465f7fdb1e72a21babb84fb1b7dee7132"
+        },
+        {
+          "path": "fut_market/urls.py",
+          "sha": "17b74a0ebb62b1a4d663d078dd9759f9d095fcc5"
+        },
+        {
+          "path": "fut_market/wsgi.py",
+          "sha": "53d7b3afea2da0364fbba95a08a7b18563285ba5"
+        },
+        {
+          "path": "manage.py",
+          "sha": "f6121114a1f32bb9a1129f9c5b1b9ca4762eadf4"
+        },
+        {
+          "path": "market/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "market/api.py",
+          "sha": "e0bb60125f2d6016628eeb187c6764bf8e399bc8"
+        },
+        {
+          "path": "market/apps.py",
+          "sha": "b41e2d7db532c853a40503a18ca194b0e2d0a93e"
+        },
+        {
+          "path": "market/migrations/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "market/models.py",
+          "sha": "6b2021999398416a78191ac543b7e0e34d86bc2c"
+        },
+        {
+          "path": "market/schemas.py",
+          "sha": "1cb56223b77e9df8281179441af22f07b4177277"
+        },
+        {
+          "path": "market/services.py",
+          "sha": "8d631d150a3aa104c7db56e0c4f6dc50d6237fdc"
+        },
+        {
+          "path": "market/tests/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "market/tests/fixtures/add_to_watchlist.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/buy_now.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/get_trade_pile.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/get_trade_status.json",
+          "sha": "80fedd2d9c59d7a0d887d77cd27595941d821023"
+        },
+        {
+          "path": "market/tests/fixtures/get_watchlist.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/place_bid.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/relist_items.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/remove_from_trade_pile.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/remove_from_watchlist.json",
+          "sha": "9e26dfeeb6e641a33dae4961196235bdb965b21b"
+        },
+        {
+          "path": "market/tests/fixtures/search_players.json",
+          "sha": "130808575d049d006cdf7e6e88d4305df3a44514"
+        },
+        {
+          "path": "market/tests/test_schemas.py",
+          "sha": "c2145cc12b8891e93e4380dc81ed754d635cdb06"
+        },
+        {
+          "path": "monitoring/grafana/dashboards/scraper-dashboard.json",
+          "sha": "dbcc5a8bd9ca484aad75ee5c71e76f0aa895ced3"
+        },
+        {
+          "path": "monitoring/grafana/provisioning/dashboards/all.yml",
+          "sha": "35c89ff173e94c03b261c70b3b02b27d3223c94d"
+        },
+        {
+          "path": "monitoring/grafana/provisioning/datasources/prometheus.yml",
+          "sha": "f88db84c460af7be7e38f0d3b4a7d33b9bd37c6a"
+        },
+        {
+          "path": "monitoring/prometheus.yml",
+          "sha": "d8a16c58760591a4725a100df8d682a264c807d0"
+        },
+        {
+          "path": "monitoring/prometheus/rules.yml",
+          "sha": "7e39ee19cf948fd49d4857f10ca1cc6277198de7"
+        },
+        {
+          "path": "plan.md",
+          "sha": "ff541c5a99dbc1707b349b8f981e1e991bc6f082"
+        },
+        {
+          "path": "players/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "players/api.py",
+          "sha": "1a3a45bc2fc4830ed9ce59c0acd85951b71ca75c"
+        },
+        {
+          "path": "players/apps.py",
+          "sha": "5c5e1fd1240df89f76f51943b66056fd8d51ef07"
+        },
+        {
+          "path": "players/management/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "players/management/commands/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "players/management/commands/initialize_tiers.py",
+          "sha": "94828daa0998a825dd806637af164e56180d8149"
+        },
+        {
+          "path": "players/migrations/0001_initial.py",
+          "sha": "0f3edea7496fc87b8f76957e03c3dae5a2d2643a"
+        },
+        {
+          "path": "players/migrations/0002_pricescrapejob_pricescrapefailure.py",
+          "sha": "1c7c2261846bd5aa28231e0f03dcaf922b77c771"
+        },
+        {
+          "path": "players/migrations/0003_playerprice_confidence_score_and_more.py",
+          "sha": "10d538901636ccea4bc95fcafbe5494c68b6df21"
+        },
+        {
+          "path": "players/migrations/0004_remove_unverified_price.py",
+          "sha": "92eb0aefdc5502c67265b99ff03d441b703aa0cc"
+        },
+        {
+          "path": "players/migrations/0005_remove_confidence_score.py",
+          "sha": "463cca2950f045f2d7fba9f0048cf7ca530ba978"
+        },
+        {
+          "path": "players/migrations/0006_remove_last_verified.py",
+          "sha": "4e24caf06d8cfa61f3f47e1cdd645bb52d459f30"
+        },
+        {
+          "path": "players/migrations/0007_add_priority_system_fields.py",
+          "sha": "9f4b479ec5e35c97f6eec25d9bdb16904575c8a8"
+        },
+        {
+          "path": "players/migrations/0008_remove_unnecessary_fields.py",
+          "sha": "d82efce3178bbff6b61479f99356402be1e2f434"
+        },
+        {
+          "path": "players/migrations/0009_add_expires_at_to_tradewatch.py",
+          "sha": "6b43e0d81a42acfd96ef40d7dfb8b90dcd356cef"
+        },
+        {
+          "path": "players/migrations/0010_remove_pricescrapefailure_job_delete_sessionusage_and_more.py",
+          "sha": "a45c3f2334e98ddc2133e86b951a23434e2bfcd1"
+        },
+        {
+          "path": "players/migrations/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "players/models.py",
+          "sha": "59f268c6c037bfa1eaf00c34df46fc2eb4a6214c"
+        },
+        {
+          "path": "players/services.py",
+          "sha": "30dccf630bf3ebaaf6e771aa67635c8f91982e8b"
+        },
+        {
+          "path": "players/tasks.py",
+          "sha": "f234f0f141280e93770a51e683ddcb7881cb6b60"
+        },
+        {
+          "path": "players/tests/__init__.py",
+          "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+        },
+        {
+          "path": "players/tests/test_hotness_calculator.py",
+          "sha": "d0ed3c41769cdbeba55772396df319bc8961f0bf"
+        },
+        {
+          "path": "players/tests/test_priority_queue.py",
+          "sha": "578c4beeeb9b18284d7eaaee200a46f576c0c2fb"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha": "b3978a6e9743d2c6c1470a21344f758d334971d2"
+        },
+        {
+          "path": "scripts/README.md",
+          "sha": "6cff5e4f59ffe28de75b706c1609ad5fe4728d00"
+        },
+        {
+          "path": "scripts/load-env.sh",
+          "sha": "8349cb0e48438ee47e8b9d9a447d501fa74699db"
+        },
+        {
+          "path": "scripts/start-celery-worker.sh",
+          "sha": "dc90865daf4428f3356a5733efbbfbed813a176c"
+        },
+        {
+          "path": "scripts/start-django-dev.sh",
+          "sha": "a25008221dd150f8fd2f9c0fe9d867f7b6dafcbb"
+        },
+        {
+          "path": "scripts/test_trade_status.py",
+          "sha": "761caeeaaebac6268418e55ba4a979202311f9fb"
+        },
+        {
+          "path": "scripts/verify_priority_system.py",
+          "sha": "4f9eae1add9db1015c611a9fdae83d11a2c27d7d"
+        },
+        {
+          "path": "start_monitoring.sh",
+          "sha": "43bd46b25f1ae8d66f8107e5b4ebe7531970f57a"
+        },
+        {
+          "path": "utils/adaptive_throttle.py",
+          "sha": "980875e6a73dc930a3a7d9a447285aa74c582166"
+        },
+        {
+          "path": "utils/circuit_breaker.py",
+          "sha": "ba85610c1b4eb5d0a0e29d14f6d1b1adb090dff0"
+        },
+        {
+          "path": "utils/logging_config.py",
+          "sha": "b065d896070ded5229351d25788cb0f2844c7a75"
+        },
+        {
+          "path": "utils/metrics.py",
+          "sha": "1b37ba0e7b0b1e897a25f47d1f13b4c78b21cf1e"
+        },
+        {
+          "path": "utils/prometheus_multiprocess.py",
+          "sha": "8ad8346938b1ddeea3aaf93479efdae018bc7d68"
+        },
+        {
+          "path": "utils/task_deduplication.py",
+          "sha": "19ac1df286b0f51c5aa7ac87fa2b4793cf7c6236"
+        },
+        {
+          "path": "utils/timing.py",
+          "sha": "4a4d2ec78516726e8e6375eb472b86c4fdf97232"
+        },
+        {
+          "path": "uv.lock",
+          "sha": "247ce2a6854021c55b40d9e6a1d2a40c94e6c1af"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/README.md",
+          "blob_sha": "0ec1042cff37442d77d3a507550a94b7f31938b1",
+          "line_count": 249,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# FIFA Ultimate Team Server"
+            },
+            {
+              "line": 8,
+              "text": "- **Transfer Market**: Search players, place bids, buy items"
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/LICENSE",
+          "blob_sha": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+          "line_count": 202,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "                                 Apache License"
+            },
+            {
+              "line": 3,
+              "text": "                        http://www.apache.org/licenses/"
+            },
+            {
+              "line": 5,
+              "text": "   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION"
+            },
+            {
+              "line": 12,
+              "text": "      \"Licensor\" shall mean the copyright owner or entity authorized by"
+            }
+          ]
+        },
+        {
+          "path": "pyproject.toml",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/pyproject.toml",
+          "blob_sha": "b3978a6e9743d2c6c1470a21344f758d334971d2",
+          "line_count": 284,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "[project]"
+            },
+            {
+              "line": 7,
+              "text": "requires-python = \">=3.11\""
+            }
+          ]
+        },
+        {
+          "path": "core/constants.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/core/constants.py",
+          "blob_sha": "96439631e8a331c89ac50ec9543f04cc0b3db82b",
+          "line_count": 215,
+          "excerpts": [
+            {
+              "line": 148,
+              "text": "    \"base_url\": \"https://utas.mob.v4.prd.futc-ext.gcp.ea.com/ut/game/fc25\","
+            }
+          ]
+        },
+        {
+          "path": "auth_api/services.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/auth_api/services.py",
+          "blob_sha": "93adf0375042aa37422d3ef7553de35b5c45dc5c",
+          "line_count": 638,
+          "excerpts": [
+            {
+              "line": 53,
+              "text": "class FutClient:"
+            },
+            {
+              "line": 57,
+              "text": "        self, cookie_jar: Optional[httpx.Cookies] = None, x_ut_sid: Optional[str] = None, rotate_ua: bool = True"
+            },
+            {
+              "line": 159,
+              "text": "    async def search_players(self, params: PlayerSearchParameters) -> SearchResponse:"
+            },
+            {
+              "line": 164,
+              "text": "        search_params = {\"type\": \"player\", \"start\": (params.page - 1) * 50}"
+            },
+            {
+              "line": 227,
+              "text": "    async def place_bid(self, trade_id: int, bid_amount: int) -> BidResult:"
+            },
+            {
+              "line": 256,
+              "text": "    async def buy_now(self, trade_id: int) -> BidResult:"
+            },
+            {
+              "line": 264,
+              "text": "                json={\"bid\": -1},  # -1 indicates buy now"
+            },
+            {
+              "line": 525,
+              "text": "    async def send_to_trade_pile(self, item_id: int) -> SendToTradePileResult:"
+            },
+            {
+              "line": 544,
+              "text": "    async def relist_items(self) -> RelistResult:"
+            },
+            {
+              "line": 619,
+              "text": "    def store_session(self, user_id: str, session_id: str, cookies: httpx.Cookies) -> None:"
+            }
+          ]
+        },
+        {
+          "path": "market/services.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/market/services.py",
+          "blob_sha": "8d631d150a3aa104c7db56e0c4f6dc50d6237fdc",
+          "line_count": 95,
+          "excerpts": [
+            {
+              "line": 30,
+              "text": "    async def get_trade_status(self, trade_ids: List[str]) -> Dict[str, TradeStatus]:"
+            },
+            {
+              "line": 45,
+              "text": "        # TODO: Verify max 20 trade IDs limit with EA API"
+            },
+            {
+              "line": 55,
+              "text": "                f\"{self.base_url}/trade/status/lite\", params={\"tradeIds\": trade_ids_param}"
+            }
+          ]
+        },
+        {
+          "path": "market/api.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/market/api.py",
+          "blob_sha": "e0bb60125f2d6016628eeb187c6764bf8e399bc8",
+          "line_count": 298,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "\"\"\"Market API endpoints using Django Ninja.\"\"\""
+            }
+          ]
+        },
+        {
+          "path": "club/api.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/club/api.py",
+          "blob_sha": "6e8267bc86dcec623742422fdf7763d5638cefcc",
+          "line_count": 227,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "\"\"\"Club API endpoints using Django Ninja.\"\"\""
+            }
+          ]
+        },
+        {
+          "path": "market/tests/test_schemas.py",
+          "url": "https://github.com/sauravhiremath/fut-25-market/blob/1d9d8c66031f9b30e5042d432efc7b5cf5ea5618/market/tests/test_schemas.py",
+          "blob_sha": "c2145cc12b8891e93e4380dc81ed754d635cdb06",
+          "line_count": 105,
+          "excerpts": [
+            {
+              "line": 21,
+              "text": "    def test_search_response_schema(self):"
+            },
+            {
+              "line": 41,
+              "text": "    def test_buy_now_response_schema(self):"
+            },
+            {
+              "line": 69,
+              "text": "    def test_trade_status_schema(self):"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": [
+        {
+          "name": "Lint and Test",
+          "conclusion": "failure",
+          "head_sha": "1d9d8c66031f9b30e5042d432efc7b5cf5ea5618",
+          "url": "https://github.com/sauravhiremath/fut-25-market/actions/runs/21187551118"
+        }
+      ]
+    },
+    {
+      "repository": "AbdoD97/fut-web-app-api",
+      "url": "https://github.com/AbdoD97/fut-web-app-api",
+      "access": {
+        "status": "accessible",
+        "blockers": []
+      },
+      "revision": "ad9a5f9384c3a80a6c00f33c14ca9cbd344c4aba",
+      "default_branch": "master",
+      "commit_date": "2026-03-08T14:27:48Z",
+      "pushed_at": "2026-03-08T14:27:57Z",
+      "archived": false,
+      "declared_license": null,
+      "tree_truncated": false,
+      "tree": [
+        {
+          "path": ".gitignore",
+          "sha": "f2a0c551c6ec08ed253cd999ab0f98af0c19712c"
+        },
+        {
+          "path": "README.md",
+          "sha": "984dc69c482727e84935e0e49414f0b3bd214f13"
+        }
+      ],
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "url": "https://github.com/AbdoD97/fut-web-app-api/blob/ad9a5f9384c3a80a6c00f33c14ca9cbd344c4aba/README.md",
+          "blob_sha": "984dc69c482727e84935e0e49414f0b3bd214f13",
+          "line_count": 697,
+          "excerpts": [
+            {
+              "line": 1,
+              "text": "# EA FC 26 Ultimate Team — REST API Reference"
+            },
+            {
+              "line": 8,
+              "text": "- **[Observed]** — Directly confirmed via network interception on EA FC 26"
+            },
+            {
+              "line": 9,
+              "text": "- **[Community]** — Documented by the reverse-engineering community; may vary across FC versions"
+            },
+            {
+              "line": 40,
+              "text": "https://utas.mob.v5.prd.futc-ext.gcp.ea.com:443/ut/game/fc26/"
+            },
+            {
+              "line": 241,
+              "text": "### List an item for sale"
+            },
+            {
+              "line": 243,
+              "text": "**[Observed via JS layer]** — confirmed via `services.Item.itemDao.listItem()`."
+            },
+            {
+              "line": 246,
+              "text": "POST /auctionhouse"
+            },
+            {
+              "line": 284,
+              "text": "### Bid on an auction"
+            },
+            {
+              "line": 286,
+              "text": "**[Community]**"
+            },
+            {
+              "line": 289,
+              "text": "PUT /trade/{tradeId}/bid"
+            },
+            {
+              "line": 597,
+              "text": "**[Observed]** — verified against multiple known players."
+            },
+            {
+              "line": 603,
+              "text": "maskedDefId = definitionId % 1048576"
+            }
+          ]
+        }
+      ],
+      "releases": [],
+      "latest_workflow_runs": []
+    }
+  ]
+}

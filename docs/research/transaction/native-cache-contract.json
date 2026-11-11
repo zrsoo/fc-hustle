@@ -1,0 +1,21 @@
+{
+  "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+  "sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+  "sections": [
+    {
+      "symbol": "UTItemDomainRepository.prototype.setDirty=function",
+      "offset": 858498,
+      "source": "UTItemDomainRepository.prototype.setDirty=function(t){t?this.setCacheTimestamp(t,0,0):(this.unassigned.setCacheTimestamp(0,0),this.transfer.setCacheTimestamp(0,0),this.inbox.setCacheTimestamp(0,0),this.storage.setCacheTimestamp(0,0))},UTItemDomainRepository.prototype.isDirty=function(t){switch(t){case ItemPile.PURCHASED:return this.unassigned.isCacheExpired();case ItemPile.TRANSFER:return this.transfer.isCacheExpired();case ItemPile.INBOX:return "
+    },
+    {
+      "symbol": "UTItemDomainRepository.prototype.isDirty=function",
+      "offset": 858733,
+      "source": "UTItemDomainRepository.prototype.isDirty=function(t){switch(t){case ItemPile.PURCHASED:return this.unassigned.isCacheExpired();case ItemPile.TRANSFER:return this.transfer.isCacheExpired();case ItemPile.INBOX:return this.inbox.isCacheExpired();case ItemPile.STORAGE:return this.storage.isCacheExpired()}return!0},UTItemDomainRepository.prototype.getClub=function(){return this.club},UTItemDomainRepository.prototype.getStorage=function(){return this.s"
+    },
+    {
+      "symbol": "repositories.Item=new UTItemDomainRepository",
+      "offset": 863392,
+      "source": "repositories.Item=new UTItemDomainRepository,this&&this.__extends||(()=>{var i=function(t,e){return(i=Object.setPrototypeOf||({__proto__:[]}instanceof Array?function(t,e){t.__proto__=e}:function(t,e){for(var i in e)Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i])}))(t,e)};return function(t,e){if(\"function\"!=typeof e&&null!==e)throw new TypeError(\"Class extends value \"+String(e)+\" is not a constructor or null\");function __(){this.constructor"
+    }
+  ]
+}

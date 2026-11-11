@@ -1,0 +1,307 @@
+{
+  "verdict": "CONDITIONAL GO",
+  "objective_state": "BOUNDED_VALIDATION_DEMONSTRATED",
+  "browser_errors": [],
+  "read_errors": [],
+  "transaction_errors": {},
+  "capabilities": [
+    {
+      "capability": "authenticated_session_configuration",
+      "status": "VERIFIED",
+      "evidence": "docs/research/browser-access/live-v2.json",
+      "detail": "Structured authenticated FC27 read; observed host/prefix/client/SKU. Checkpoint, not a new connection."
+    },
+    {
+      "capability": "session_renewal",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/browser-access/live-v2.json",
+      "detail": "No independent session lifecycle experiment retained."
+    },
+    {
+      "capability": "session_expiry",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/browser-access/live-v2.json",
+      "detail": "No independent session lifecycle experiment retained."
+    },
+    {
+      "capability": "session_logout_reconnect",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/browser-access/live-v2.json",
+      "detail": "No independent session lifecycle experiment retained."
+    },
+    {
+      "capability": "transfer_market_search",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Exact native card definition, physical item, trade, prices and expiry; PC only."
+    },
+    {
+      "capability": "account_coins",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Observed readback mode: NETWORK_READ"
+    },
+    {
+      "capability": "account_club",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Observed readback mode: NATIVE_SNAPSHOT_NETWORK_FRESHNESS_UNVERIFIED"
+    },
+    {
+      "capability": "account_unassigned",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Observed readback mode: NETWORK_READ"
+    },
+    {
+      "capability": "account_purchased",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Observed readback mode: SHARED_PURCHASED_UNASSIGNED_ENDPOINT"
+    },
+    {
+      "capability": "account_transfer_list",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Observed readback mode: NETWORK_READ"
+    },
+    {
+      "capability": "exact_card_and_bin_filters",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Exact version and ceiling positive/negative boundary searches retained."
+    },
+    {
+      "capability": "filter_nation",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Broad population checks; unsupported filters remain unverified."
+    },
+    {
+      "capability": "filter_league",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Broad population checks; unsupported filters remain unverified."
+    },
+    {
+      "capability": "filter_club",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Broad population checks; unsupported filters remain unverified."
+    },
+    {
+      "capability": "filter_rarity",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Broad population checks; unsupported filters remain unverified."
+    },
+    {
+      "capability": "filter_position",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Broad population checks; unsupported filters remain unverified."
+    },
+    {
+      "capability": "pagination_two_pages",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "OBSERVED"
+    },
+    {
+      "capability": "search_cache_invalidation",
+      "status": "VERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "OBSERVED_NATIVE_RESET_AND_NETWORK_READ"
+    },
+    {
+      "capability": "cache_ttl_and_hit_semantics",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/capabilities/attempts.json",
+      "detail": "Network invalidation observed; no proven cache hit/TTL."
+    },
+    {
+      "capability": "comparable_market_sample",
+      "status": "VERIFIED",
+      "evidence": "docs/research/market/availability.json",
+      "detail": "Exact-version PC samples retained; market_average null and last_sale_price observed, not guaranteed proceeds."
+    },
+    {
+      "capability": "purchase",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Independent before/after readbacks; relist not exercised because no eligible expired listing existed."
+    },
+    {
+      "capability": "movement",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Independent before/after readbacks; relist not exercised because no eligible expired listing existed."
+    },
+    {
+      "capability": "listing",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Independent before/after readbacks; relist not exercised because no eligible expired listing existed."
+    },
+    {
+      "capability": "status",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Independent before/after readbacks; relist not exercised because no eligible expired listing existed."
+    },
+    {
+      "capability": "relist",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Independent before/after readbacks; relist not exercised because no eligible expired listing existed."
+    },
+    {
+      "capability": "purchase_verification",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "New physical item plus exact 200-coin debit on fresh reconciliation; 304 cache snapshots rejected."
+    },
+    {
+      "capability": "listing_verification",
+      "status": "VERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "Same physical item/version; new active trade, bid 200/BIN 250, duration 3600, countdown 3570."
+    },
+    {
+      "capability": "direct_http",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/transaction/live.json",
+      "detail": "direct_session_provider_unavailable; zero authenticated direct reads."
+    },
+    {
+      "capability": "bulk_catalog_and_price_feed",
+      "status": "BLOCKED",
+      "evidence": "docs/research/market/availability.json",
+      "detail": "Retained direct manifest/catalog requests returned 403; no fresh availability claim."
+    },
+    {
+      "capability": "numeric_history",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "exact_card_caps",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "full_increment_schedule",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "realized_tax_rounding",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "sold_settlement",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "continuous_autonomous_repeat",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    },
+    {
+      "capability": "cross_platform",
+      "status": "UNVERIFIED",
+      "evidence": "docs/research/obj002-handoff.md",
+      "detail": "Explicit future release prerequisite; not proved by offline fixtures."
+    }
+  ],
+  "mutations": [
+    {
+      "operation": "buy",
+      "status": "VERIFIED",
+      "write": [
+        "docs/research/transaction/live.json#/attempts/5"
+      ],
+      "before": [
+        "docs/research/transaction/live.json#/attempts/4",
+        "docs/research/transaction/live.json#/attempts/0",
+        "docs/research/transaction/live.json#/attempts/1",
+        "docs/research/transaction/live.json#/attempts/2"
+      ],
+      "after": [
+        "docs/research/transaction/live.json#/attempts/9",
+        "docs/research/transaction/live.json#/attempts/10",
+        "docs/research/transaction/live.json#/attempts/11",
+        "docs/research/transaction/live.json#/attempts/12"
+      ]
+    },
+    {
+      "operation": "move",
+      "status": "VERIFIED",
+      "write": [
+        "docs/research/transaction/live.json#/attempts/13"
+      ],
+      "before": [
+        "docs/research/transaction/live.json#/attempts/9",
+        "docs/research/transaction/live.json#/attempts/10",
+        "docs/research/transaction/live.json#/attempts/11",
+        "docs/research/transaction/live.json#/attempts/12"
+      ],
+      "after": [
+        "docs/research/transaction/live.json#/attempts/14"
+      ]
+    },
+    {
+      "operation": "list",
+      "status": "VERIFIED",
+      "write": [
+        "docs/research/transaction/live.json#/attempts/15"
+      ],
+      "before": [
+        "docs/research/transaction/live.json#/attempts/14"
+      ],
+      "after": [
+        "docs/research/transaction/live.json#/attempts/16"
+      ]
+    }
+  ],
+  "transaction_facts": {
+    "purchase": "VERIFIED",
+    "movement": "VERIFIED",
+    "listing": "VERIFIED",
+    "status": "VERIFIED",
+    "relist": "UNVERIFIED",
+    "identity": {
+      "physical_item": "item:15e4b72c33f68aa58be37a09",
+      "definition_id": 278230,
+      "purchase_trade": "trade:0de6624af1485853ddb21f56",
+      "acquisition_price": 200
+    },
+    "acquisition_readback": {
+      "before_at": "2026-11-11T18:54:19.656468+00:00",
+      "after_at": "2026-11-11T19:01:45.364858+00:00",
+      "coin_debit": 200,
+      "fresh_inventory_at": "2026-11-11T19:00:50.130902+00:00"
+    },
+    "listing_readback": {
+      "read_at": "2026-11-11T19:04:15.694257+00:00",
+      "physical_item": "item:15e4b72c33f68aa58be37a09",
+      "definition_id": 278230,
+      "trade_id": "trade:f5ba424b763777e403134979",
+      "starting_bid": 200,
+      "buy_now_price": 250,
+      "requested_duration": 3600,
+      "observed_seconds_remaining": 3570,
+      "trade_state": "active"
+    },
+    "eligible_expired_listing_present": false
+  },
+  "proof_boundary": "Retained historical observations replayed at their recorded checkpoints. No fresh EA calls or mutations by task_07."
+}

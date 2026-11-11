@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "source": "fc-one-shot-transaction",
+  "created_at": "2026-11-11T18:35:31.778016+00:00",
+  "evidence_key": "fc10fc4fb101182a8a0dd060a5ad6fe1",
+  "status": "PARTIAL/BLOCKED",
+  "attempts": [
+    {
+      "at": "2026-11-11T18:35:31.798911+00:00",
+      "phase": "before_buy",
+      "operation": "unassigned",
+      "request": {},
+      "method": "services.Item.requestUnassignedItems()",
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      },
+      "elapsed_ms": 22.771
+    },
+    {
+      "at": "2026-11-11T18:35:31.825937+00:00",
+      "phase": "before_buy",
+      "operation": "transfer_list",
+      "request": {},
+      "method": "services.Item.requestTransferItems()",
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      },
+      "elapsed_ms": 27.479
+    },
+    {
+      "at": "2026-11-11T18:35:31.857542+00:00",
+      "phase": "before_buy",
+      "operation": "coins",
+      "request": {},
+      "method": "services.User.requestCurrencies()",
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_not_attached",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      },
+      "elapsed_ms": 27.429
+    }
+  ],
+  "intents": {},
+  "selection": null,
+  "listing": null,
+  "errors": [
+    {
+      "at": "2026-11-11T18:35:31.888956+00:00",
+      "error": "prepurchase_fresh_account_reads_unavailable"
+    }
+  ],
+  "relist": "UNVERIFIED",
+  "transport": {
+    "selected": "edge",
+    "decision": "FINAL",
+    "direct_http": "UNVERIFIED",
+    "reason": "Observed direct_session_provider_unavailable; prior authenticated native reads. Use the native bridge; essential writes remain UNVERIFIED pending live proof. No comparison purchase."
+  },
+  "recovery": [
+    "Start python -m fc_access.transaction_server and attach the reviewed browser/transaction-bridge extension to the existing official EA tab.",
+    "Run python -m fc_access.transaction once. It buys at most one player for 200-500 coins and lists that physical item for one hour.",
+    "If any write intent exists, preserve this journal: reruns only read and reconcile. Inspect exact error/status/EA code and the physical item before any manual recovery. Never repeat a purchase or listing on timeout."
+  ],
+  "updated_at": "2026-11-11T18:35:31.888975+00:00",
+  "direct_probe": {
+    "status": null,
+    "success": false,
+    "error": "direct_session_provider_unavailable",
+    "ea_error_code": null,
+    "platform": null,
+    "credits": null,
+    "items": null,
+    "auctions": null,
+    "has_more": null,
+    "cache_invalidated": null,
+    "network": []
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "task": "task_03",
+  "verified_at": "2026-11-11T18:24:02.703439+00:00",
+  "status": "VERIFIED",
+  "original_attachment_blocker_resolved": true,
+  "capture": "docs/research/capabilities/attempts.json",
+  "capture_sha256": "d47664fbf4008ef6c947251bfeeb1881d9b408e5c0bc1351586499daa32ac012",
+  "capture_attempts": 30,
+  "successful_native_reads": 15,
+  "authenticated_network_readbacks": 14,
+  "live_errors": [],
+  "facts": {
+    "edge": {
+      "attempts": 23,
+      "authenticated_reads": 14,
+      "elapsed_ms": [
+        10776.821,
+        29909.016,
+        30199.167,
+        29976.583,
+        29896.501,
+        21231.349,
+        30010.932,
+        29949.608,
+        29943.235,
+        30985.684,
+        29982.121,
+        29172.877,
+        9860.722,
+        30214.389
+      ],
+      "unavailable_reasons": [
+        "bridge_not_attached",
+        "service_unavailable"
+      ]
+    },
+    "direct_http": {
+      "attempts": 7,
+      "authenticated_reads": 0,
+      "elapsed_ms": [],
+      "unavailable_reasons": [
+        "direct_session_provider_unavailable"
+      ]
+    },
+    "filters": {
+      "nation": "UNVERIFIED",
+      "league": "VERIFIED",
+      "club": "VERIFIED",
+      "rarity": "UNVERIFIED",
+      "position": "UNVERIFIED"
+    },
+    "market_average": "UNVERIFIED",
+    "last_sale_price": "OBSERVED",
+    "comparable_groups": {
+      "pc:173891": {
+        "platform": "pc",
+        "definition_id": 173891,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:186146": {
+        "platform": "pc",
+        "definition_id": 186146,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:200724": {
+        "platform": "pc",
+        "definition_id": 200724,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:202693": {
+        "platform": "pc",
+        "definition_id": 202693,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:207952": {
+        "platform": "pc",
+        "definition_id": 207952,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:209750": {
+        "platform": "pc",
+        "definition_id": 209750,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:211361": {
+        "platform": "pc",
+        "definition_id": 211361,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:211978": {
+        "platform": "pc",
+        "definition_id": 211978,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:212228": {
+        "platform": "pc",
+        "definition_id": 212228,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:218659": {
+        "platform": "pc",
+        "definition_id": 218659,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:220710": {
+        "platform": "pc",
+        "definition_id": 220710,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:224099": {
+        "platform": "pc",
+        "definition_id": 224099,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:231184": {
+        "platform": "pc",
+        "definition_id": 231184,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:231736": {
+        "platform": "pc",
+        "definition_id": 231736,
+        "distinct_auction_pseudonyms": 2
+      },
+      "pc:232658": {
+        "platform": "pc",
+        "definition_id": 232658,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:233731": {
+        "platform": "pc",
+        "definition_id": 233731,
+        "distinct_auction_pseudonyms": 61
+      },
+      "pc:235735": {
+        "platform": "pc",
+        "definition_id": 235735,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:235805": {
+        "platform": "pc",
+        "definition_id": 235805,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:236772": {
+        "platform": "pc",
+        "definition_id": 236772,
+        "distinct_auction_pseudonyms": 3
+      },
+      "pc:236987": {
+        "platform": "pc",
+        "definition_id": 236987,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:237386": {
+        "platform": "pc",
+        "definition_id": 237386,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:239627": {
+        "platform": "pc",
+        "definition_id": 239627,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:239837": {
+        "platform": "pc",
+        "definition_id": 239837,
+        "distinct_auction_pseudonyms": 2
+      },
+      "pc:241953": {
+        "platform": "pc",
+        "definition_id": 241953,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:242516": {
+        "platform": "pc",
+        "definition_id": 242516,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:243263": {
+        "platform": "pc",
+        "definition_id": 243263,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:243576": {
+        "platform": "pc",
+        "definition_id": 243576,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:245155": {
+        "platform": "pc",
+        "definition_id": 245155,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:246104": {
+        "platform": "pc",
+        "definition_id": 246104,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:246565": {
+        "platform": "pc",
+        "definition_id": 246565,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:247946": {
+        "platform": "pc",
+        "definition_id": 247946,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:250758": {
+        "platform": "pc",
+        "definition_id": 250758,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:251262": {
+        "platform": "pc",
+        "definition_id": 251262,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:253054": {
+        "platform": "pc",
+        "definition_id": 253054,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:253124": {
+        "platform": "pc",
+        "definition_id": 253124,
+        "distinct_auction_pseudonyms": 3
+      },
+      "pc:253149": {
+        "platform": "pc",
+        "definition_id": 253149,
+        "distinct_auction_pseudonyms": 4
+      },
+      "pc:253163": {
+        "platform": "pc",
+        "definition_id": 253163,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:257271": {
+        "platform": "pc",
+        "definition_id": 257271,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:257289": {
+        "platform": "pc",
+        "definition_id": 257289,
+        "distinct_auction_pseudonyms": 3
+      },
+      "pc:257345": {
+        "platform": "pc",
+        "definition_id": 257345,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:257423": {
+        "platform": "pc",
+        "definition_id": 257423,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:258433": {
+        "platform": "pc",
+        "definition_id": 258433,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:259660": {
+        "platform": "pc",
+        "definition_id": 259660,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:261786": {
+        "platform": "pc",
+        "definition_id": 261786,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:262621": {
+        "platform": "pc",
+        "definition_id": 262621,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:263798": {
+        "platform": "pc",
+        "definition_id": 263798,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:264670": {
+        "platform": "pc",
+        "definition_id": 264670,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:270857": {
+        "platform": "pc",
+        "definition_id": 270857,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:273478": {
+        "platform": "pc",
+        "definition_id": 273478,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:274979": {
+        "platform": "pc",
+        "definition_id": 274979,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:276278": {
+        "platform": "pc",
+        "definition_id": 276278,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:278131": {
+        "platform": "pc",
+        "definition_id": 278131,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:278623": {
+        "platform": "pc",
+        "definition_id": 278623,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:278974": {
+        "platform": "pc",
+        "definition_id": 278974,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:279044": {
+        "platform": "pc",
+        "definition_id": 279044,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:279128": {
+        "platform": "pc",
+        "definition_id": 279128,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:50408058": {
+        "platform": "pc",
+        "definition_id": 50408058,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:50563169": {
+        "platform": "pc",
+        "definition_id": 50563169,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:50578738": {
+        "platform": "pc",
+        "definition_id": 50578738,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:50579536": {
+        "platform": "pc",
+        "definition_id": 50579536,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:50596300": {
+        "platform": "pc",
+        "definition_id": 50596300,
+        "distinct_auction_pseudonyms": 26
+      },
+      "pc:74586": {
+        "platform": "pc",
+        "definition_id": 74586,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:76687": {
+        "platform": "pc",
+        "definition_id": 76687,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:77403": {
+        "platform": "pc",
+        "definition_id": 77403,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:77763": {
+        "platform": "pc",
+        "definition_id": 77763,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:79419": {
+        "platform": "pc",
+        "definition_id": 79419,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:80346": {
+        "platform": "pc",
+        "definition_id": 80346,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:82289": {
+        "platform": "pc",
+        "definition_id": 82289,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:82724": {
+        "platform": "pc",
+        "definition_id": 82724,
+        "distinct_auction_pseudonyms": 1
+      },
+      "pc:85858": {
+        "platform": "pc",
+        "definition_id": 85858,
+        "distinct_auction_pseudonyms": 1
+      }
+    },
+    "pagination": {
+      "two_nonempty_pages": "OBSERVED",
+      "page_pairs": 2,
+      "ordering": "OBSERVED_EXPIRY_ASCENDING_BIN_UNSORTED",
+      "lookahead": "OBSERVED_ONE_ROW_OVERLAP",
+      "caching": "UNVERIFIED",
+      "invalidation": "OBSERVED_NATIVE_RESET_AND_NETWORK_READ",
+      "observations": [
+        {
+          "page_1_at": "2026-11-11T18:14:19.195356+00:00",
+          "page_2_at": "2026-11-11T18:14:49.174281+00:00",
+          "page_1_count": 21,
+          "page_2_count": 21,
+          "overlap_count": 0,
+          "lookahead_row_matches_next_page": false,
+          "page_1_bin_nondecreasing": false,
+          "page_1_expiry_nondecreasing": true
+        },
+        {
+          "page_1_at": "2026-11-11T18:15:57.895531+00:00",
+          "page_2_at": "2026-11-11T18:16:19.128936+00:00",
+          "page_1_count": 21,
+          "page_2_count": 20,
+          "overlap_count": 1,
+          "lookahead_row_matches_next_page": true,
+          "page_1_bin_nondecreasing": false,
+          "page_1_expiry_nondecreasing": true
+        }
+      ],
+      "fresh_network_reads": 7,
+      "cached_native_reads": 0
+    },
+    "expiry_readbacks": [
+      {
+        "first_at": "2026-11-11T18:15:57.895531+00:00",
+        "second_at": "2026-11-11T18:16:49.141922+00:00",
+        "elapsed_seconds": 59.965,
+        "matched_auctions": 21,
+        "countdowns_matching_elapsed_seconds": 21
+      },
+      {
+        "first_at": "2026-11-11T18:15:57.895531+00:00",
+        "second_at": "2026-11-11T18:17:19.094143+00:00",
+        "elapsed_seconds": 89.91,
+        "matched_auctions": 21,
+        "countdowns_matching_elapsed_seconds": 21
+      },
+      {
+        "first_at": "2026-11-11T18:16:49.141922+00:00",
+        "second_at": "2026-11-11T18:17:19.094143+00:00",
+        "elapsed_seconds": 29.946,
+        "matched_auctions": 21,
+        "countdowns_matching_elapsed_seconds": 21
+      }
+    ],
+    "expiry_units": "OBSERVED_SECONDS_REMAINING",
+    "coins": "VERIFIED",
+    "coins_readback_mode": "NETWORK_READ",
+    "club": "VERIFIED",
+    "club_readback_mode": "NATIVE_SNAPSHOT_NETWORK_FRESHNESS_UNVERIFIED",
+    "unassigned": "VERIFIED",
+    "unassigned_readback_mode": "NETWORK_READ",
+    "purchased": "VERIFIED",
+    "purchased_readback_mode": "SHARED_PURCHASED_UNASSIGNED_ENDPOINT",
+    "transfer_list": "VERIFIED",
+    "transfer_list_readback_mode": "NETWORK_READ"
+  },
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/test_integration_harness.py"
+      ],
+      "exit_code": 0,
+      "tests": 12
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_capability_artifacts.py"
+      ],
+      "exit_code": 0,
+      "tests": 7
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_capabilities_live.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_browser_access.py"
+      ],
+      "exit_code": 0,
+      "tests": 11
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_repository_research.py"
+      ],
+      "exit_code": 0,
+      "tests": 8
+    }
+  ],
+  "acceptance": [
+    {
+      "criterion": 0,
+      "result": "PASS",
+      "evidence": "Transport protocol, finite commands, strict projections and deterministic browser/HTTP tests."
+    },
+    {
+      "criterion": 1,
+      "result": "PASS",
+      "evidence": "Measured Edge authenticated readbacks; direct HTTP locally unavailable with exact session-provider error retained. Alarm delay is distinguished from EA latency."
+    },
+    {
+      "criterion": 2,
+      "result": "PASS",
+      "evidence": "confirmed-capabilities.md lists all 30 retained attempts with timestamps, methods/endpoints, request shapes, status/error, response/readback and elapsed time."
+    },
+    {
+      "criterion": 3,
+      "result": "PASS",
+      "evidence": "PC live listings; exact definitions 233731 and 50596300; independent club and league filters; contradictory club/definition empty result; BIN ceilings 7000 and 6500; auction/item namespaces and expiry countdown readback."
+    },
+    {
+      "criterion": 4,
+      "result": "PASS",
+      "evidence": "Broad and exact-version page pairs, one-row targeted lookahead, expiry order, unsorted prices, explicit cache reset with authenticated network reads. Cache hit/TTL remain UNVERIFIED."
+    },
+    {
+      "criterion": 5,
+      "result": "PASS",
+      "evidence": "Authenticated coin and transfer-list reads; typed current native club snapshot; authenticated purchased/items read exposes the shared purchased/unassigned queue, independently confirmed in current primary source."
+    },
+    {
+      "criterion": 6,
+      "result": "PASS",
+      "evidence": "Trade and physical item IDs have separate pseudonym namespaces. Primary source proves wire resourceId becomes native definitionId; no absent resource_id/asset_id values invented."
+    }
+  ],
+  "limitations": [
+    "No authenticated direct Python HTTP request because no session provider is configured.",
+    "Club is an available native snapshot; cache age and a fresh uncached club GET remain UNVERIFIED.",
+    "requestPurchasedItems is unavailable; current native unassigned service demonstrably reads ItemPile.PURCHASED through purchased/items. A separate purchased-only collection/history is UNVERIFIED.",
+    "Cache hits, TTL, other-platform experiments, player-name resolution, marketAverage, and nation/rarity/position filter support are UNVERIFIED.",
+    "Physical and trade pseudonyms join only within each random-key capture phase.",
+    "Sanitized observations are not cryptographic attestations."
+  ],
+  "remaining": [],
+  "human_intervention_pending": false,
+  "loaded_bridge_modified_during_resume": false,
+  "credential_export_performed": false,
+  "trading_operations_performed": false,
+  "trading_loop_implemented": false,
+  "report": "docs/research/confirmed-capabilities.md"
+}

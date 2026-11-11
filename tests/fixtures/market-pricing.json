@@ -1,0 +1,17 @@
+{
+  "provenance": "SYNTHETIC offline scenarios, not live prices or empirical price caps",
+  "now": "2026-11-11T19:12:00+00:00",
+  "key": {"definition_id": 233731, "platform": "pc", "game": "fc27"},
+  "caps": [150, 15000000],
+  "scenarios": [
+    {"name": "lower_quartile_and_undercut", "prices": [6000, 6100, 6200, 6300, 6400], "acquisition": 5000, "X": 700, "target": 6000, "tax": 300, "profit": 700, "meets": true},
+    {"name": "threshold_one_coin_short", "prices": [6000, 6100, 6200, 6300, 6400], "acquisition": 5000, "X": 701, "target": 6000, "tax": 300, "profit": 700, "meets": false},
+    {"name": "low_and_high_outliers", "prices": [200, 6000, 6100, 6200, 6300, 6400, 1000000], "acquisition": 5000, "X": 700, "target": 6000, "tax": 300, "profit": 700, "meets": true},
+    {"name": "zero_mad_repeated_ask_prices", "prices": [1000, 1000, 1000, 1000, 1000, 1000000], "acquisition": 800, "X": 103, "target": 950, "tax": 47, "profit": 103, "meets": true},
+    {"name": "minimum_price_no_upward_rounding", "prices": [150, 150, 150, 150, 150], "acquisition": 150, "X": 0, "target": 150, "tax": 7, "profit": -7, "meets": false},
+    {"name": "thin_market", "prices": [6000, 6100, 6200, 6300], "acquisition": 5000, "X": 0, "status": "INSUFFICIENT_SAMPLES"},
+    {"name": "thin_after_outliers", "prices": [200, 6000, 6100, 6200, 6300, 1000000], "acquisition": 5000, "X": 0, "status": "INSUFFICIENT_AFTER_OUTLIERS"},
+    {"name": "increment_boundary_10000", "prices": [10000, 10000, 10000, 10000, 10000], "acquisition": 9000, "X": 405, "target": 9900, "tax": 495, "profit": 405, "meets": true}
+  ],
+  "rounding": [[149, null], [150, 150], [999, 950], [1000, 1000], [1001, 1000], [9999, 9900], [10000, 10000], [10249, 10000], [10250, 10250], [49999, 49750], [50000, 50000], [99999, 99500], [100000, 100000], [101999, 101000], [15000099, 15000000]]
+}
