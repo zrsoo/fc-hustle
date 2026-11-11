@@ -1,0 +1,658 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "FUT-DB API",
+    "description": "The FC Ultimate Team Database API is a JSON REST API.<br/>We offer a complete, easy to understand JSON REST API with a complete database of players, prices, nations, leagues, clubs, and card-types.<br/>Please note that some data fields are only delivered with a premium account.",
+    "version": "27"
+  },
+  "paths": {
+    "/api/players/{playerId}/price": {
+      "get": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Get current price for a specific player. *premium only*",
+        "parameters": [
+          {
+            "name": "playerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/players/prices": {
+      "get": {
+        "tags": [
+          "Players"
+        ],
+        "summary": "Get current price for specifiied players. *premium only* (one request per player)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PricesResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PricesResponse": {
+        "required": [
+          "pc",
+          "playstation"
+        ],
+        "type": "object",
+        "properties": {
+          "playstation": {
+            "$ref": "#/components/schemas/Price"
+          },
+          "pc": {
+            "$ref": "#/components/schemas/Price"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Price": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "minPrice": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "maxPrice": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prp": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "priceUpdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerModel": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "resourceId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "resourceBaseId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "futBinId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "futWizId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "commonName": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Genders"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "readOnly": true
+          },
+          "league": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "nation": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "club": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "rarity": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "playStyles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "playStylesPlus": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "position": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionAlternatives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "skillMoves": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "weakFoot": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "foot": {
+            "$ref": "#/components/schemas/PreferredFoots"
+          },
+          "attackWorkRate": {
+            "$ref": "#/components/schemas/WorkRates"
+          },
+          "defenseWorkRate": {
+            "$ref": "#/components/schemas/WorkRates"
+          },
+          "totalStats": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "totalStatsInGame": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "color": {
+            "$ref": "#/components/schemas/CardColors"
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ratingAverage": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "pace": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "shooting": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "passing": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dribbling": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "defending": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "physicality": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "diving": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "handling": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "kicking": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "reflexes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "speed": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "positioning": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paceAttributes": {
+            "$ref": "#/components/schemas/PlayerPace"
+          },
+          "shootingAttributes": {
+            "$ref": "#/components/schemas/PlayerShooting"
+          },
+          "passingAttributes": {
+            "$ref": "#/components/schemas/PlayerPassing"
+          },
+          "dribblingAttributes": {
+            "$ref": "#/components/schemas/PlayerDribbling"
+          },
+          "defendingAttributes": {
+            "$ref": "#/components/schemas/PlayerDefending"
+          },
+          "physicalityAttributes": {
+            "$ref": "#/components/schemas/PlayerPhysicality"
+          },
+          "goalkeeperAttributes": {
+            "$ref": "#/components/schemas/PlayerGoalkeeper"
+          },
+          "version": {
+            "maxLength": 2,
+            "type": "string",
+            "nullable": true
+          },
+          "rarity_groups": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerGoalkeeper": {
+        "type": "object",
+        "properties": {
+          "diving": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "handling": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "kicking": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "positioning": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "reflexes": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerPhysicality": {
+        "type": "object",
+        "properties": {
+          "jumping": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "stamina": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "strength": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "aggression": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerDefending": {
+        "type": "object",
+        "properties": {
+          "interceptions": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "headingAccuracy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "standingTackle": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "slidingTackle": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "defenseAwareness": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerDribbling": {
+        "type": "object",
+        "properties": {
+          "agility": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "balance": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "reactions": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ballControl": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dribbling": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "composure": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerPassing": {
+        "type": "object",
+        "properties": {
+          "vision": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "crossing": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "freeKickAccuracy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "shortPassing": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "longPassing": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "curve": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerShooting": {
+        "type": "object",
+        "properties": {
+          "positioning": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "finishing": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "shotPower": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "longShots": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "volleys": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "penalties": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlayerPace": {
+        "type": "object",
+        "properties": {
+          "acceleration": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sprintSpeed": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CardColors": {
+        "enum": [
+          "gold",
+          "silver",
+          "bronze"
+        ],
+        "type": "string"
+      },
+      "WorkRates": {
+        "enum": [
+          "high",
+          "medium",
+          "low"
+        ],
+        "type": "string"
+      },
+      "PreferredFoots": {
+        "enum": [
+          "left",
+          "right"
+        ],
+        "type": "string"
+      },
+      "Genders": {
+        "enum": [
+          "male",
+          "female"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "description": "Please enter token",
+        "name": "X-AUTH-TOKEN",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": []
+    }
+  ]
+}

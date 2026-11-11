@@ -1,0 +1,749 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fc-hustle:market-discovery:observation:1",
+  "title": "Sanitized exact-version FC27 PC search observation",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "mode": {
+      "enum": [
+        "SIMULATED",
+        "LIVE_READ_ONLY",
+        "HISTORICAL_REPLAY"
+      ]
+    },
+    "strategy": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "HISTORICAL_UNMATCHED"
+      ]
+    },
+    "window": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "slot": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "game": {
+      "const": "fc27"
+    },
+    "platform": {
+      "const": "pc"
+    },
+    "criteria": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "enum": [
+            1,
+            2
+          ]
+        },
+        "count": {
+          "const": 21
+        },
+        "fresh": {
+          "type": "boolean"
+        },
+        "club": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "league": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "min_buy": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "max_buy": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "definition_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "page",
+        "count",
+        "fresh"
+      ],
+      "additionalProperties": false
+    },
+    "submitted_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "elapsed_ms": {
+      "type": "number",
+      "minimum": 0
+    },
+    "network_fresh": {
+      "type": "boolean"
+    },
+    "response_bytes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 100,
+              "maximum": 599
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "error": {
+          "enum": [
+            "bridge_busy",
+            "bridge_not_attached",
+            "bridge_timeout",
+            "bridge_unavailable",
+            "direct_session_provider_unavailable",
+            "http_error",
+            "internal_error",
+            "invalid_command",
+            "network_error",
+            "schema_unrecognized",
+            "service_failed",
+            "service_timeout",
+            "service_unavailable",
+            "unsafe_integer",
+            "wrong_page",
+            null
+          ]
+        },
+        "ea_error_code": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "platform": {
+          "enum": [
+            "pc",
+            null
+          ]
+        },
+        "credits": {
+          "type": "null"
+        },
+        "items": {
+          "type": "null"
+        },
+        "auctions": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "trade_id": {
+                    "type": "string",
+                    "pattern": "^trade:[a-f0-9]{24}$"
+                  },
+                  "item": {
+                    "type": "object",
+                    "properties": {
+                      "asset_id": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "club": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "definition_id": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "last_sale_price": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "league": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "market_average": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "nation": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "rarity": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "rating": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "resource_id": {
+                        "anyOf": [
+                          {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "item_id": {
+                        "type": "string",
+                        "pattern": "^item:[a-f0-9]{24}$"
+                      },
+                      "position": {
+                        "anyOf": [
+                          {
+                            "enum": [
+                              "GK",
+                              "CB",
+                              "LB",
+                              "RB",
+                              "LWB",
+                              "RWB",
+                              "CDM",
+                              "CM",
+                              "CAM",
+                              "LM",
+                              "RM",
+                              "LW",
+                              "RW",
+                              "CF",
+                              "ST"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "untradeable": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "asset_id",
+                      "club",
+                      "definition_id",
+                      "last_sale_price",
+                      "league",
+                      "market_average",
+                      "nation",
+                      "rarity",
+                      "rating",
+                      "resource_id",
+                      "item_id",
+                      "position",
+                      "untradeable"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "starting_bid": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "current_bid": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "buy_now_price": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "expires": {
+                    "anyOf": [
+                      {
+                        "type": "integer",
+                        "minimum": -1,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "trade_state": {
+                    "enum": [
+                      null,
+                      "active",
+                      "closed",
+                      "expired",
+                      "inactive"
+                    ]
+                  },
+                  "bid_state": {
+                    "enum": [
+                      null,
+                      "none",
+                      "highest",
+                      "outbid",
+                      "buyNow",
+                      "sold"
+                    ]
+                  }
+                },
+                "required": [
+                  "trade_id",
+                  "item",
+                  "starting_bid",
+                  "current_bid",
+                  "buy_now_price",
+                  "expires",
+                  "trade_state",
+                  "bid_state"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 21
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "has_more": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cache_invalidated": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "network": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "type": "string",
+                "pattern": "^utas(?:\\.[a-z0-9-]{1,20}){1,8}\\.ea\\.com$"
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^/ut/game/fc27/(?:user/credits|user/currencies|transfermarket|club|purchased/items|unassigned|tradepile|usermassinfo)$"
+              },
+              "status": {
+                "type": "integer",
+                "minimum": 100,
+                "maximum": 599
+              },
+              "session_header_present": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "host",
+              "path",
+              "status",
+              "session_header_present"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "status",
+        "success",
+        "error",
+        "ea_error_code",
+        "platform",
+        "credits",
+        "items",
+        "auctions",
+        "has_more",
+        "cache_invalidated",
+        "network"
+      ],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "queue_delivery_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "worker_poll_to_native_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "native_service_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "page_total_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_return_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "python_compute_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "time_to_first_result_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "search_to_intent_ms": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string"
+        },
+        "intent": {
+          "type": "null"
+        },
+        "estimate": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "target_sale_price": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "acquisition_price": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tax": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "expected_profit": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "X": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "meets_threshold": {
+              "type": "boolean"
+            },
+            "sample_count": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "rejected": {
+              "type": "array"
+            },
+            "assumptions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "status",
+            "target_sale_price",
+            "acquisition_price",
+            "tax",
+            "expected_profit",
+            "X",
+            "meets_threshold",
+            "sample_count",
+            "rejected",
+            "assumptions"
+          ],
+          "additionalProperties": false
+        },
+        "python_compute_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "state",
+        "intent",
+        "python_compute_ms"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema",
+    "mode",
+    "strategy",
+    "window",
+    "slot",
+    "game",
+    "platform",
+    "criteria",
+    "submitted_utc",
+    "completed_utc",
+    "elapsed_ms",
+    "network_fresh",
+    "response_bytes",
+    "result",
+    "timing"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "status": "LOCAL_SIMULATOR_ONLY",
+  "started_utc": "2026-11-11T21:48:29.472910+00:00",
+  "arms": [
+    {
+      "transport": "alarm_30s",
+      "status": "LOCAL_SIMULATOR_ONLY",
+      "alarm_interval_seconds": 30,
+      "records": [
+        {
+          "sample": 0,
+          "end_to_end_ms": 29994.65390003752,
+          "timing": {
+            "worker_poll_to_native_ms": 2.2763999877497554,
+            "native_service_ms": 10.225699981674552,
+            "page_total_ms": 12.510799919255078,
+            "queue_delivery_ms": 29915.618799976073,
+            "result_return_ms": 23.54570012539625
+          },
+          "error": null
+        },
+        {
+          "sample": 1,
+          "end_to_end_ms": 24947.711100103334,
+          "timing": {
+            "worker_poll_to_native_ms": 2.7052999939769506,
+            "native_service_ms": 10.884899995289743,
+            "page_total_ms": 16.462000086903572,
+            "queue_delivery_ms": 24888.920100056566,
+            "result_return_ms": 12.387699913233519
+          },
+          "error": null
+        },
+        {
+          "sample": 2,
+          "end_to_end_ms": 19951.48520008661,
+          "timing": {
+            "worker_poll_to_native_ms": 2.622300060465932,
+            "native_service_ms": 10.792799992486835,
+            "page_total_ms": 16.458399943076074,
+            "queue_delivery_ms": 19904.153499985114,
+            "result_return_ms": 12.943700072355568
+          },
+          "error": null
+        }
+      ],
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 3,
+          "median_ms": 24888.920100056566,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 3,
+          "median_ms": 2.622300060465932,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 3,
+          "median_ms": 10.792799992486835,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "page_total_ms": {
+          "n": 3,
+          "median_ms": 16.458399943076074,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 3,
+          "median_ms": 12.943700072355568,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      },
+      "end_to_end": {
+        "n": 3,
+        "median_ms": 24947.711100103334,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      }
+    },
+    {
+      "transport": "long_poll",
+      "status": "LOCAL_SIMULATOR_ONLY",
+      "alarm_interval_seconds": null,
+      "records": [
+        {
+          "sample": 0,
+          "end_to_end_ms": 66.78420002572238,
+          "timing": {
+            "worker_poll_to_native_ms": 2.3364999797195196,
+            "native_service_ms": 10.357399936765432,
+            "page_total_ms": 12.525700032711029,
+            "queue_delivery_ms": 0.03720005042850971,
+            "result_return_ms": 18.398999935016036
+          },
+          "error": null
+        },
+        {
+          "sample": 1,
+          "end_to_end_ms": 33.931000041775405,
+          "timing": {
+            "worker_poll_to_native_ms": 2.5800999719649553,
+            "native_service_ms": 10.592399979941547,
+            "page_total_ms": 13.130299979820848,
+            "queue_delivery_ms": 0.34829997457563877,
+            "result_return_ms": 2.3444000398740172
+          },
+          "error": null
+        },
+        {
+          "sample": 2,
+          "end_to_end_ms": 46.32349999155849,
+          "timing": {
+            "worker_poll_to_native_ms": 2.5936999591067433,
+            "native_service_ms": 10.646100039593875,
+            "page_total_ms": 12.215599999763072,
+            "queue_delivery_ms": 0.03620004281401634,
+            "result_return_ms": 20.21200000308454
+          },
+          "error": null
+        }
+      ],
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 3,
+          "median_ms": 0.03720005042850971,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 3,
+          "median_ms": 2.5800999719649553,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 3,
+          "median_ms": 10.592399979941547,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "page_total_ms": {
+          "n": 3,
+          "median_ms": 12.525700032711029,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 3,
+          "median_ms": 18.398999935016036,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      },
+      "end_to_end": {
+        "n": 3,
+        "median_ms": 46.32349999155849,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      }
+    }
+  ],
+  "completed_utc": "2026-11-11T21:50:00.687452+00:00",
+  "EA_live_requests": 0,
+  "account_mutations": 0,
+  "browser_alternative_status": "PREPARED_NOT_LIVE_VALIDATED",
+  "limitations": [
+    "Python extension simulator, not Edge MV3",
+    "Native duration is controlled sleep, not EA latency",
+    "No live discovery throughput or profitable yield claim",
+    "p95 withheld below 20 samples"
+  ]
+}

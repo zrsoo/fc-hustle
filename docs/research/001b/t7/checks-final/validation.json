@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "task": "T7",
+  "recorded_utc": "2026-11-11T22:40:28.085567+00:00",
+  "status": "PASS",
+  "environment": {
+    "python": "3.13.17",
+    "node": "v26.13.0"
+  },
+  "checks": [
+    {
+      "key": "suite",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "started_utc": "2026-11-11T22:40:10.918277+00:00",
+      "ended_utc": "2026-11-11T22:40:26.483473+00:00",
+      "exit_code": 0,
+      "output_sha256": "fdf845904740c19e9f8266db4f89f6f590aebe0b436b8cc9a87c70fa03125056",
+      "tests_run": 174,
+      "skipped_tests": false
+    },
+    {
+      "key": "demo",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "demo",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:26.483765+00:00",
+      "ended_utc": "2026-11-11T22:40:26.861291+00:00",
+      "exit_code": 0,
+      "output_sha256": "5401453ed5d749821906dd753f1d452c9983b20cdaf16c6ef68a74ed093db16e",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "simulated_requests": 72,
+        "live_requests": 0
+      }
+    },
+    {
+      "key": "replay",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "replay",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:26.956713+00:00",
+      "ended_utc": "2026-11-11T22:40:27.149814+00:00",
+      "exit_code": 0,
+      "output_sha256": "4c80adff5271c855438bbc795070954e57384491f577039843e30b77958bbbb1",
+      "artifact_checks": {
+        "mode": "HISTORICAL_REPLAY",
+        "unique_auctions": 51,
+        "new_live_samples": 0
+      }
+    },
+    {
+      "key": "flow-demo",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "flow-demo",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:27.157850+00:00",
+      "ended_utc": "2026-11-11T22:40:27.356165+00:00",
+      "exit_code": 0,
+      "output_sha256": "154f54bbbbeba52b216d7bcc64eb69fa93849b45d568a31c69747fdcaa8c016f",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "state": "SIMULATED_INTENT_PREPARED",
+        "reads": 2,
+        "live_requests": 0
+      }
+    },
+    {
+      "key": "t4",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t4_evidence",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:27.366833+00:00",
+      "ended_utc": "2026-11-11T22:40:27.535107+00:00",
+      "exit_code": 0,
+      "output_sha256": "cc44a521215e4a3c26bd0be07921de4057150c006181eb86f384d4792438e3c2",
+      "artifact_checks": {
+        "status": "BLOCKED",
+        "authenticated_observation_seconds": 0,
+        "live_yield": null
+      }
+    },
+    {
+      "key": "t5",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t5_pricing",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:27.543740+00:00",
+      "ended_utc": "2026-11-11T22:40:27.935232+00:00",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "prepared_fixture_intents": 4,
+        "live_yield": null
+      }
+    },
+    {
+      "key": "t6",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t6_analysis",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:40:27.970260+00:00",
+      "ended_utc": "2026-11-11T22:40:28.076357+00:00",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifact_checks": {
+        "status": "ANALYSIS_COMPLETE_LIVE_BENCHMARK_BLOCKED",
+        "decision": "CONDITIONAL GO",
+        "live_yield": null
+      }
+    }
+  ],
+  "new_live_requests": 0,
+  "account_mutations": 0,
+  "proof_boundary": "Actual offline commands. Tests use fixtures and localhost only. No current authentication claim."
+}

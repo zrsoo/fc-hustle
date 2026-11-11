@@ -1,0 +1,531 @@
+{
+  "schema": 1,
+  "projected_at_utc": "2026-11-11T21:27:49.828978+00:00",
+  "projection": "Public text excerpts; scripts, styles, headers carrying identifiers and contact emails omitted. Block indexes refer to HTML data blocks, not line numbers. Original-body hashes are metadata, not reproducible from projections.",
+  "documents": [
+    {
+      "url": "https://datafluxor.com/fut-data",
+      "http_ref": "http.json#http-01",
+      "received_at_utc": "2026-11-11T21:23:33.618680+00:00",
+      "original_body_sha256": "25259e9a8abb554f392404152a4c6080e9dee7215c41cc56bbb3cec2a9f310de",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 71,
+          "text": "Prices and card data for every EA SPORTS FC 27 Ultimate Team (FC 27) card version, by EA item id: about 22,000 versions with console and PC prices refreshed continuously (the 5,700 most valuable cards about every 8 minutes, every other card about every 25 minutes), price history, stats, and card images. $29 a month for 100,000 API requests."
+        },
+        {
+          "block": 232,
+          "text": "Console and PC prices are re-read continuously: the 5,700 most valuable cards about every 8 minutes, every other card about every 25 minutes; the 500 most valuable cards also get an exact card read about every 20 minutes. Every price says how old it is (age_seconds). Price reads and each card's quotes are flagged stale after 15 minutes; the summary price on search and browse only after 24 hours, so trade on quotes or age_seconds."
+        },
+        {
+          "block": 236,
+          "text": "Browse and search every version with stats, club, league, nation and price change. Price history starts 25 September 2026 and is kept for up to 90 days for exact reads and up to 180 days for daily prices. The same key reads card images, Squad Building Challenges and news."
+        },
+        {
+          "block": 283,
+          "text": "What is in the catalogue."
+        },
+        {
+          "block": 284,
+          "text": "Measured on"
+        },
+        {
+          "block": 285,
+          "text": "2026-11-10"
+        },
+        {
+          "block": 286,
+          "text": "; the catalogue grows as EA releases new cards, which are picked up within minutes."
+        },
+        {
+          "block": 287,
+          "text": "Send your API key in the"
+        },
+        {
+          "block": 288,
+          "text": "X-API-Key"
+        },
+        {
+          "block": 289,
+          "text": "header. Each successful response costs 1 request; errors cost nothing."
+        },
+        {
+          "block": 290,
+          "text": "Catalogue facts"
+        },
+        {
+          "block": 291,
+          "text": "Card versions, identity fields, attributes, prices, history, images and freshness."
+        },
+        {
+          "block": 292,
+          "text": "Show details"
+        },
+        {
+          "block": 293,
+          "text": "Hide details"
+        },
+        {
+          "block": 294,
+          "text": "Game"
+        },
+        {
+          "block": 295,
+          "text": "EA SPORTS FC 27 Ultimate Team"
+        },
+        {
+          "block": 296,
+          "text": "Card versions"
+        },
+        {
+          "block": 297,
+          "text": "About"
+        },
+        {
+          "block": 298,
+          "text": "22,000"
+        },
+        {
+          "block": 299,
+          "text": "current versions,"
+        },
+        {
+          "block": 300,
+          "text": "20,500"
+        },
+        {
+          "block": 301,
+          "text": "with a console price, across"
+        },
+        {
+          "block": 302,
+          "text": "33"
+        },
+        {
+          "block": 303,
+          "text": "card types,"
+        },
+        {
+          "block": 304,
+          "text": "66"
+        },
+        {
+          "block": 305,
+          "text": "leagues,"
+        },
+        {
+          "block": 306,
+          "text": "165"
+        },
+        {
+          "block": 307,
+          "text": "nations and"
+        },
+        {
+          "block": 308,
+          "text": "710"
+        },
+        {
+          "block": 309,
+          "text": "clubs"
+        },
+        {
+          "block": 310,
+          "text": "Identity"
+        },
+        {
+          "block": 311,
+          "text": "ea_id (EA item id), futbin_id (the catalogue id), player_id (the same for every version of a player), name, rating, position, card type (rarity_id, rarity_name, rarity_group: icon, hero, promo, gold, silver, bronze), holo, club, league and nation with ids, added_on"
+        },
+        {
+          "block": 312,
+          "text": "Attributes"
+        },
+        {
+          "block": 313,
+          "text": "Face stats (pac, sho, pas, dri, def, phy) where listed, skill moves, weak foot, preferred foot, height, the body-type label shown under the height (accelerate: usually the body type, so not a reliable AcceleRATE type), role marker (+ or ++); alternative positions on card details"
+        },
+        {
+          "block": 314,
+          "text": "Matching"
+        },
+        {
+          "block": 315,
+          "text": "Optional rating, rarity and club hints must agree, or the card comes back as a mismatch; an id that does not map to exactly one card is returned as unresolved with a reason. A price is never borrowed from another version"
+        },
+        {
+          "block": 317,
+          "text": "Console (PlayStation and Xbox) and PC: lowest buy-now price with observed_at, age_seconds and price_source; for exactly read cards also the next listings, price range, recent sales and when the observed market data was last updated; 24-hour and 7-day change"
+        },
+        {
+          "block": 348,
+          "text": "All requests use your DataFluxor API key in the"
+        },
+        {
+          "block": 349,
+          "text": "X-API-Key"
+        },
+        {
+          "block": 350,
+          "text": "header. The JSON endpoints return the standard envelope:"
+        },
+        {
+          "block": 351,
+          "text": "success"
+        },
+        {
+          "block": 352,
+          "text": ","
+        },
+        {
+          "block": 353,
+          "text": "data"
+        },
+        {
+          "block": 354,
+          "text": ","
+        },
+        {
+          "block": 355,
+          "text": "credit_cost"
+        },
+        {
+          "block": 356,
+          "text": ","
+        },
+        {
+          "block": 357,
+          "text": "latency_ms"
+        },
+        {
+          "block": 358,
+          "text": "and"
+        },
+        {
+          "block": 359,
+          "text": "timestamp"
+        },
+        {
+          "block": 360,
+          "text": "; the two image endpoints return the image itself. Each successful response costs 1 of your"
+        },
+        {
+          "block": 361,
+          "text": "100,000"
+        },
+        {
+          "block": 362,
+          "text": "monthly requests; errors cost nothing. Limits:"
+        },
+        {
+          "block": 363,
+          "text": "120"
+        },
+        {
+          "block": 364,
+          "text": "requests a minute, and at most"
+        },
+        {
+          "block": 365,
+          "text": "3"
+        },
+        {
+          "block": 366,
+          "text": "requests running at once per key and"
+        },
+        {
+          "block": 367,
+          "text": "6"
+        },
+        {
+          "block": 368,
+          "text": "per organization. A request over a limit answers 429 with Retry-After; one over the running limit first waits up to"
+        },
+        {
+          "block": 369,
+          "text": "20"
+        },
+        {
+          "block": 370,
+          "text": "seconds for a free slot. Unlike scraper calls, it is never turned into a queued run. Full schemas for the card endpoints are in the"
+        },
+        {
+          "block": 371,
+          "text": "OpenAPI document"
+        },
+        {
+          "block": 372,
+          "text": "under the \"FUT Data API\" tag; the challenge and news endpoints are described in the table below."
+        },
+        {
+          "block": 373,
+          "text": "Request"
+        },
+        {
+          "block": 510,
+          "text": "$29 a month for FUT Data: 100,000 requests a month at up to 120 requests a minute. Each successful response costs 1 request, whatever it returns (up to 500 cards in one price read); errors cost nothing, and a price read whose ids are all unknown costs nothing either. When the month's requests are used, calls answer 402 INSUFFICIENT_CREDITS until the allowance resets at the next paid renewal. It is its own subscription, billed separately from the SEO plans, and can be held alongside one."
+        },
+        {
+          "block": 512,
+          "text": "EA SPORTS FC 27 Ultimate Team (FC 27). Send platform ps, xbox or pc. PlayStation and Xbox share one console market, so ps and xbox return the same console price; pc returns the PC market."
+        },
+        {
+          "block": 516,
+          "text": "card means the price comes from an exact read of that card, and listings, price range and futbin_updated_at (when the observed market data was last updated) belong to the same read. list means the players-list price was newer: only price and observed_at are set. price is the lowest buy-now listing in coins; 0 means the latest read found nothing listed."
+        },
+        {
+          "block": 518,
+          "text": "The EA item id is what the game and companion apps use for a specific card, and special versions have their own id. Search and browse return each card's ea_id (0 when a version has no exact id yet) and its catalogue id (the futbin_id field), which card details, history and images use."
+        },
+        {
+          "block": 520,
+          "text": "No. FUT Data sells the stored catalogue: watchlists, refresh requests and live lookups are not part of it, and refresh=1 is ignored. Every card is already re-read on the regular cycle."
+        }
+      ]
+    },
+    {
+      "url": "https://datafluxor.com/terms",
+      "http_ref": "http.json#http-02",
+      "received_at_utc": "2026-11-11T21:23:33.930121+00:00",
+      "original_body_sha256": "5ce7f88622bce4ae358460688b32a1048d5e1d5e72b05c2d291b67f27396ce00",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 83,
+          "text": "Section 4 now says that, although there is no self-service free trial, we may give an organization complimentary access to a plan, such as a FUT Data trial, by individual arrangement."
+        },
+        {
+          "block": 162,
+          "text": "Before checkout for a paid plan we show you the confirmed payment terms for your organization. There is no self-service free trial: a paid plan starts with its first monthly charge. We may give an organization complimentary access to a plan (for example a FUT Data trial) by individual arrangement; it needs no card, ends on the date we tell you and does not turn into a paid subscription. If a self-service trial is offered in future, Stripe verifies a card first, the trial length is shown before you confirm, and you will not be charged if you cancel before the trial ends."
+        },
+        {
+          "block": 185,
+          "text": "resell, sublicense or provide raw access to the service or its API to third parties without our written agreement (you may use results inside your own products and services, subject to these terms);"
+        },
+        {
+          "block": 188,
+          "text": "You are responsible for making sure your use of the websites and data you ask DataFluxor to access complies with the law and with any terms that apply to that data."
+        },
+        {
+          "block": 210,
+          "text": "Prices and card data are observations of publicly available market data at the time they were collected. They are provided “as is” (see"
+        }
+      ]
+    },
+    {
+      "url": "https://fut-db.com/",
+      "http_ref": "http.json#http-04",
+      "received_at_utc": "2026-11-11T21:23:34.331300+00:00",
+      "original_body_sha256": "c15440d4e384ba08c1d2a837f61a9529ba10e226098ca757a18d22faf5da391d",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 11,
+          "text": "FC 27"
+        },
+        {
+          "block": 29,
+          "text": "22,143"
+        },
+        {
+          "block": 43,
+          "text": "Monthly"
+        },
+        {
+          "block": 44,
+          "text": "€79.00"
+        },
+        {
+          "block": 48,
+          "text": "20.000"
+        },
+        {
+          "block": 50,
+          "text": "No recurring payments"
+        },
+        {
+          "block": 63,
+          "text": "The prices are updated between 30 minutes and 24 hours. Depends on rating and rarity of the card."
+        },
+        {
+          "block": 64,
+          "text": "Higher ratings and rarer cards are updated more frequently. Lower ratings like bronze cards are updated less frequently."
+        },
+        {
+          "block": 70,
+          "text": "No, there is no way to get multiple player prices with one request and there will be no way in the future."
+        }
+      ]
+    },
+    {
+      "url": "https://fut-db.com/terms",
+      "http_ref": "http.json#http-05",
+      "received_at_utc": "2026-11-11T21:23:34.427708+00:00",
+      "original_body_sha256": "90b4836239c732a590c2281541a36aedac4a61cd5fe8db334dcd3e482a7da365",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 16,
+          "text": "Prices for using FUT-DB.com can be viewed on the Provider's website. Payment is made in advance and is non-refundable. There is no automatic renewal."
+        },
+        {
+          "block": 22,
+          "text": "The Provider does not warrant the availability, accuracy, or reliability of the data obtained through FUT-DB.com. Usage is at the user's own risk. Any liability for damages resulting from the use of FUT-DB.com is excluded."
+        },
+        {
+          "block": 24,
+          "text": "All rights to the SaaS software FUT-DB.com and its content are owned by the Provider. Any reproduction, distribution, or modification without the explicit permission of the Provider is prohibited."
+        },
+        {
+          "block": 26,
+          "text": "The use of FUT-DB.com is subject to certain restrictions. Users are not allowed to send an unreasonably high number of requests to FUT-DB.com servers that could disrupt server stability or the user experience of others."
+        }
+      ]
+    },
+    {
+      "url": "https://www.futwiz.com/",
+      "http_ref": "http.json#http-08",
+      "received_at_utc": "2026-11-11T21:23:35.003065+00:00",
+      "original_body_sha256": "af458d5988e02035a0ee94f1b24e34553f92f67f6be5d2c509f4c6de61eddad4",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 40,
+          "text": "FC 27"
+        },
+        {
+          "block": 42,
+          "text": "FUTWIZ is your EA"
+        },
+        {
+          "block": 43,
+          "text": "FC 27"
+        },
+        {
+          "block": 44,
+          "text": "companion: the complete Ultimate Team player database with live console and PC prices, every SBC with its cheapest solution, Evolutions and the Evo Builder, a squad builder with live chemistry, and the deepest Career Mode scouting database around. Track the market with TradeWatch, import your club with FUTWIZ Sync, and keep up with the latest"
+        },
+        {
+          "block": 45,
+          "text": "FC 27"
+        }
+      ]
+    },
+    {
+      "url": "https://dsfut.net/api",
+      "http_ref": "contracts/http.json#http-06",
+      "received_at_utc": "2026-11-11T21:24:41.200759+00:00",
+      "original_body_sha256": "ac3e2373d644d302e09c693405b9f3e55d1cbc24d7cfadfb4223353df420331d",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 27,
+          "text": "The number of API requests is"
+        },
+        {
+          "block": 28,
+          "text": "no more than 10 per 10 seconds"
+        },
+        {
+          "block": 29,
+          "text": "for each console. If the limit is exceeded, a block for 10 minutes occurs."
+        },
+        {
+          "block": 30,
+          "text": "The application must have a limit for the minimum period between purchases from one account."
+        },
+        {
+          "block": 31,
+          "text": "There is no need to confirm the player’s purchase, because the check is automatic."
+        },
+        {
+          "block": 133,
+          "text": "The number of requests has been exceeded. It is allowed to make 10 requests per 10 seconds"
+        },
+        {
+          "block": 139,
+          "text": "You can also retrieve the current prices in USD for 100K coins:"
+        },
+        {
+          "block": 141,
+          "text": "https://dsfut.net/api/27/prices"
+        }
+      ]
+    },
+    {
+      "url": "https://www.ea.com/games/ea-sports-fc/news/pitch-notes-fc26-community-api-update",
+      "http_ref": "contracts/http.json#http-07",
+      "received_at_utc": "2026-11-11T21:24:42.828987+00:00",
+      "original_body_sha256": "91d1eda27b9c5f96a41b4f1f9f3fc606cd74b3b05d213ffec2b42364f78cb7a2",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 15,
+          "text": "Starting 27 July, the following websites and associated mobile apps will be authorized to use FC Community API:"
+        },
+        {
+          "block": 16,
+          "text": "FUT.GG"
+        },
+        {
+          "block": 17,
+          "text": "FUTBIN"
+        },
+        {
+          "block": 18,
+          "text": "FUTWIZ"
+        },
+        {
+          "block": 19,
+          "text": "These are the only three approved websites at this time. Note that FC Community API feature availability may vary, depending on when each site chooses to integrate the program into their platform."
+        },
+        {
+          "block": 22,
+          "text": "In this case, FC Community API allows approved websites to access certain EA SPORTS FC™ account data to help support features on their platforms."
+        },
+        {
+          "block": 23,
+          "text": "In order for websites to access your data, you’ll first need to grant permission through the EA login flow."
+        },
+        {
+          "block": 40,
+          "text": "FUT.GG"
+        },
+        {
+          "block": 41,
+          "text": "FUTBIN"
+        },
+        {
+          "block": 42,
+          "text": "FUTWIZ"
+        }
+      ]
+    },
+    {
+      "url": "https://stormstrike.gg/terms",
+      "http_ref": "terms/http.json#http-00",
+      "received_at_utc": "2026-11-11T21:25:27.591144+00:00",
+      "original_body_sha256": "51bd9b8c1e1210ec2b87acd7ad2b7b23977f7c1d1d8d3cad7ee564766b9d2ace",
+      "classification": "PROVIDER_DESCRIPTION",
+      "excerpts": [
+        {
+          "block": 10,
+          "text": "Last updated May 13, 2026"
+        },
+        {
+          "block": 47,
+          "text": "transfer, sell, sublicense, or otherwise commercially exploit our Services or their content except as expressly permitted;"
+        },
+        {
+          "block": 48,
+          "text": "use any automated means (such as bots, scrapers, or crawlers) to access our Services, except where expressly permitted;"
+        },
+        {
+          "block": 79,
+          "text": "use automated means to access, scrape, or copy data from our Services, except where expressly permitted;"
+        }
+      ]
+    }
+  ]
+}

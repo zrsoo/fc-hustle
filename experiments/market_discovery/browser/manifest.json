@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "FC discovery research SEARCH ONLY",
+  "version": "0.1.0",
+  "description": "Isolated, bounded read-only searches with timing; no account mutations or credential export.",
+  "permissions": ["activeTab", "scripting", "alarms", "storage"],
+  "host_permissions": ["http://127.0.0.1:8770/*"],
+  "background": {"service_worker": "worker.js"},
+  "action": {"default_title": "Attach read-only discovery research"}
+}

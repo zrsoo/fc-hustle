@@ -1,0 +1,53 @@
+{
+  "purpose": "separate_preflight_budget",
+  "budget": {
+    "limit": 1,
+    "commands": 1,
+    "requests": 0,
+    "overrun": false
+  },
+  "record": {
+    "schema": 1,
+    "mode": "LIVE_READ_ONLY",
+    "strategy": "A",
+    "window": -1,
+    "slot": 0,
+    "game": "fc27",
+    "platform": "pc",
+    "criteria": {
+      "definition_id": 233731,
+      "max_buy": 7000,
+      "page": 1,
+      "count": 21,
+      "fresh": true
+    },
+    "submitted_utc": "2026-11-11T22:00:49.736773+00:00",
+    "completed_utc": "2026-11-11T22:00:49.754877+00:00",
+    "elapsed_ms": 18.06789997499436,
+    "network_fresh": false,
+    "response_bytes": 311,
+    "result": {
+      "auctions": null,
+      "cache_invalidated": null,
+      "credits": null,
+      "ea_error_code": null,
+      "error": "schema_unrecognized",
+      "has_more": null,
+      "items": null,
+      "network": [],
+      "platform": null,
+      "status": null,
+      "success": false
+    },
+    "timing": {
+      "native_service_ms": null,
+      "page_total_ms": 0.30000007152557373,
+      "worker_poll_to_native_ms": null,
+      "queue_delivery_ms": 0.04299997817724943,
+      "result_return_ms": null,
+      "python_compute_ms": null,
+      "search_to_intent_ms": null,
+      "time_to_first_result_ms": 18.06789997499436
+    }
+  }
+}

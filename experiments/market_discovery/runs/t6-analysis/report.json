@@ -1,0 +1,351 @@
+{
+  "schema": 1,
+  "task": "T6",
+  "status": "ANALYSIS_COMPLETE_LIVE_BENCHMARK_BLOCKED",
+  "decision": "CONDITIONAL GO",
+  "decision_scope": "OFFLINE_ARCHITECTURE_IMPLEMENTATION_ONLY",
+  "selected_source": "EA_NATIVE_EXACT_FC27_PC_ASKS",
+  "third_party_production_source": null,
+  "commercial_candidate": "DataFluxor",
+  "selected_search": "A_TARGETED_WATCHLIST_WITH_BOUNDED_C_EXPLORATION_PROPOSED",
+  "latency_choice": "LONG_POLL_PROPOSED_SUCCESSFUL_EDGE_PATH_UNVALIDATED",
+  "strategies": [
+    {
+      "strategy": "A",
+      "planned_windows": 3,
+      "planned_discovery_requests": 18,
+      "planned_revalidation_requests": 6,
+      "planned_max_requests": 24,
+      "actual_windows": 0,
+      "actual_requests": 0,
+      "authenticated_seconds": 0,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "auctions_per_request": null,
+      "versions_per_request": null,
+      "auctions_per_minute": null,
+      "versions_per_minute": null,
+      "candidate_yield": null,
+      "false_positive_fraction": null
+    },
+    {
+      "strategy": "B",
+      "planned_windows": 3,
+      "planned_discovery_requests": 18,
+      "planned_revalidation_requests": 6,
+      "planned_max_requests": 24,
+      "actual_windows": 0,
+      "actual_requests": 0,
+      "authenticated_seconds": 0,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "auctions_per_request": null,
+      "versions_per_request": null,
+      "auctions_per_minute": null,
+      "versions_per_minute": null,
+      "candidate_yield": null,
+      "false_positive_fraction": null
+    },
+    {
+      "strategy": "C",
+      "planned_windows": 3,
+      "planned_discovery_requests": 18,
+      "planned_revalidation_requests": 6,
+      "planned_max_requests": 24,
+      "actual_windows": 0,
+      "actual_requests": 0,
+      "authenticated_seconds": 0,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "auctions_per_request": null,
+      "versions_per_request": null,
+      "auctions_per_minute": null,
+      "versions_per_minute": null,
+      "candidate_yield": null,
+      "false_positive_fraction": null
+    }
+  ],
+  "historical": {
+    "mode": "HISTORICAL_REPLAY",
+    "started_utc": "2026-11-11T19:10:03.139863+00:00",
+    "ended_utc": "2026-11-11T19:11:15.334878+00:00",
+    "observed_seconds": 72.195015,
+    "EA_requests": 3,
+    "rows": 52,
+    "unique_auctions": 51,
+    "unique_versions": 2,
+    "duplicate_rows": 1,
+    "auctions_per_request": 17.0,
+    "versions_per_request": 0.6666666666666666,
+    "auctions_per_minute": 42.385197925369226,
+    "versions_per_minute": 1.6621646245242834,
+    "opportunities_per_hour": null
+  },
+  "X_scenarios": [
+    {
+      "X": 100,
+      "live_candidates_observed": 0,
+      "live_opportunities_per_hour": null,
+      "historical_modeled_candidates": 0,
+      "synthetic_candidates": 2,
+      "synthetic_opportunities_per_hour": null
+    },
+    {
+      "X": 250,
+      "live_candidates_observed": 0,
+      "live_opportunities_per_hour": null,
+      "historical_modeled_candidates": 0,
+      "synthetic_candidates": 2,
+      "synthetic_opportunities_per_hour": null
+    },
+    {
+      "X": 500,
+      "live_candidates_observed": 0,
+      "live_opportunities_per_hour": null,
+      "historical_modeled_candidates": 0,
+      "synthetic_candidates": 2,
+      "synthetic_opportunities_per_hour": null
+    },
+    {
+      "X": 1000,
+      "live_candidates_observed": 0,
+      "live_opportunities_per_hour": null,
+      "historical_modeled_candidates": 0,
+      "synthetic_candidates": 1,
+      "synthetic_opportunities_per_hour": null
+    }
+  ],
+  "live": {
+    "started_utc": "2026-11-11T22:00:49.736773+00:00",
+    "ended_utc": "2026-11-11T22:04:49.887092+00:00",
+    "attempt_span_seconds": 240.150319,
+    "authenticated_observation_seconds": 0,
+    "reason": "EA_AUTHENTICATION_REJECTED_401"
+  },
+  "qualifying_revalidations": 0,
+  "failed_qualifying_revalidations": 0,
+  "false_positive_fraction": null,
+  "local_latency": [
+    {
+      "transport": "alarm_30s",
+      "scope": "LOCAL_SIMULATOR_ONLY",
+      "end_to_end_ms": {
+        "n": 3,
+        "median_ms": 24947.711100103334,
+        "p95_ms": null
+      },
+      "components": {
+        "worker_poll_to_native_ms": {
+          "n": 3,
+          "median_ms": 2.622300060465932,
+          "p95_ms": null
+        },
+        "native_service_ms": {
+          "n": 3,
+          "median_ms": 10.792799992486835,
+          "p95_ms": null
+        },
+        "page_total_ms": {
+          "n": 3,
+          "median_ms": 16.458399943076074,
+          "p95_ms": null
+        },
+        "queue_delivery_ms": {
+          "n": 3,
+          "median_ms": 24888.920100056566,
+          "p95_ms": null
+        },
+        "result_return_ms": {
+          "n": 3,
+          "median_ms": 12.943700072355568,
+          "p95_ms": null
+        }
+      },
+      "errors": 0
+    },
+    {
+      "transport": "long_poll",
+      "scope": "LOCAL_SIMULATOR_ONLY",
+      "end_to_end_ms": {
+        "n": 3,
+        "median_ms": 46.32349999155849,
+        "p95_ms": null
+      },
+      "components": {
+        "worker_poll_to_native_ms": {
+          "n": 3,
+          "median_ms": 2.5800999719649553,
+          "p95_ms": null
+        },
+        "native_service_ms": {
+          "n": 3,
+          "median_ms": 10.592399979941547,
+          "p95_ms": null
+        },
+        "page_total_ms": {
+          "n": 3,
+          "median_ms": 12.525700032711029,
+          "p95_ms": null
+        },
+        "queue_delivery_ms": {
+          "n": 3,
+          "median_ms": 0.03720005042850971,
+          "p95_ms": null
+        },
+        "result_return_ms": {
+          "n": 3,
+          "median_ms": 18.398999935016036,
+          "p95_ms": null
+        }
+      },
+      "errors": 0
+    }
+  ],
+  "live_latency": {
+    "alarm_30s": {
+      "attempts": 1,
+      "fresh_authenticated_results": 0,
+      "EA_requests": 1,
+      "command_round_trip_ms": {
+        "n": 1,
+        "median_ms": 10397.477900027297,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "time_to_first_successful_result_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "queue_delivery_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "native_service_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "local_result_return_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "EA_server_latency_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "sanitized_response_bytes": 316,
+      "EA_wire_response_bytes": null,
+      "outcome": "service_failed"
+    },
+    "long_poll": {
+      "attempts": 1,
+      "fresh_authenticated_results": 0,
+      "EA_requests": 0,
+      "command_round_trip_ms": {
+        "n": 1,
+        "median_ms": 18.06789997499436,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "time_to_first_successful_result_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "queue_delivery_ms": {
+        "n": 1,
+        "median_ms": 0.04299997817724943,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "native_service_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "local_result_return_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "EA_server_latency_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "sanitized_response_bytes": 311,
+      "EA_wire_response_bytes": null,
+      "outcome": "schema_unrecognized"
+    }
+  },
+  "fixture_latency_scope": "IN_PROCESS_FIXTURE_REPLAY_NOT_EA",
+  "fixture_latency": {
+    "SCAN": {
+      "n": 4,
+      "median_ms": 0.30645006336271763,
+      "p95_ms": null
+    },
+    "PRICE": {
+      "n": 4,
+      "median_ms": 4.903400025796145,
+      "p95_ms": null
+    },
+    "EVALUATE": {
+      "n": 4,
+      "median_ms": 0.0012999516911804676,
+      "p95_ms": null
+    },
+    "REVALIDATE_READ_ONLY": {
+      "n": 4,
+      "median_ms": 0.27074996614828706,
+      "p95_ms": null
+    },
+    "REPRICE_AND_EVALUATE": {
+      "n": 4,
+      "median_ms": 0.4467500257305801,
+      "p95_ms": null
+    },
+    "DRY_RUN_BUY_INTENT": {
+      "n": 4,
+      "median_ms": 0.01090002479031682,
+      "p95_ms": null
+    },
+    "PROPOSED_LISTING_INTENT": {
+      "n": 4,
+      "median_ms": 0.0032500247471034527,
+      "p95_ms": null
+    },
+    "search_to_prepared_intent_ms": {
+      "n": 4,
+      "median_ms": 6.0724500217475,
+      "p95_ms": null
+    }
+  },
+  "new_EA_requests": 0,
+  "account_mutations": 0,
+  "inputs_sha256": {
+    "docs/research/001b/protocol.json": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/providers.json": "54009582dde23e4b97e4f43b286a32379d60627b1fbb56527bd049430e2ebd16",
+    "experiments/market_discovery/runs/t3-harness/historical.json": "877652c01dbba47bb8c3070fed7edee8019c75fb265b4762edbd80b2e3bdd18f",
+    "experiments/market_discovery/runs/t3-harness/local-latency.json": "4c203203d0b86ba4bfd41a990d12ee1629660a15b843a83d693a98feca78ba27",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/report.json": "4308e47438778d56e922e62f8048f41402d567f2fa127daec6bc7d6e184805e9",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/baseline-preflight.json": "07fe6b390b9004f92d7f5de208d489addc690371178ef6deee5971c6aa69f6ff",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/preflight.json": "69134cb95352b967fc8c84ae874f2d2582336043fcf2da7790104aa863d31cb6",
+    "experiments/market_discovery/runs/t5-pricing/report.json": "726a84d24b875bd53cc2231a0656bb8ca32b57247d18e3f80c2f2b7fd9cb0491",
+    "docs/research/market/availability.json": "26379a27da9b8263b7afee420a35ce96e42851465d67c9cef1502410bdeed994",
+    "docs/research/obj002-handoff.md": "d97f536d47ad3d0692cdf8de36f676f498851211a0a0f952737c3d4bc1dc446f"
+  }
+}

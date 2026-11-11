@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "sealed_at_utc": "2026-11-11T21:35:28.144910+00:00",
+  "integrity_scope": "Retained sanitized T2 bytes; original provider body hashes remain separate metadata. Not proof of current uptime or upstream authenticity.",
+  "t1_protocol_sha256": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+  "sha256": {
+    "docs/research/001b-price-providers.md": "9336f0b4a6e8c80ddd179ab2b9afcd4f593114fbb22ee191ac98a0cebf78f629",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/contracts/http.json": "3a1b48ad59a46dc1632d6d3d9df352d70adae303ef77374341065e34867ec05e",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/datafluxor-denial.json": "fd6087d21183acfb220c678b6c00c73a8c1000a5ede5a08a0adabf45f2d218ed",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/datafluxor-openapi-projection.json": "7daba891fdb6b0015e983a4c735bad70424e0080a7d60ea5d442378ec6ad07b8",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/futdb-openapi-projection.json": "12ef976d8539487dc5318579213c167c21a784fe99a359a250d85c60b08f6b12",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/http.json": "b58b2d896698de52d41077496c794d37e2e9cef3cf41f6cad94e33e9c30b89b7",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/providers.json": "54009582dde23e4b97e4f43b286a32379d60627b1fbb56527bd049430e2ebd16",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/public-documents.json": "155f06d3c44501384380b9cf89d4202fe32a441bca0add105955560a1f48e090",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/reader-review.json": "2141b4b8d24c519fd97ae0742e5daacb13a0e8a74b731d4d482c04ba23ebb3d1",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/sandbox-history.json": "c54594abd37e3dedd3312c77abbab807b69625c9eb744f0a03e4245bcdb3f725",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/sandbox-prices.json": "2bbee6acd33960c5ea8aacd96eccf6cef9c78aaec61a19982b01bffae1d47310",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/source-review.json": "1719da6d6bbf6b1d578c44e3ce33cb74b70027a96acc2c3328b0a9e42cfc1e58",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/terms/http.json": "ebad76b8701ae282421bce321ccf6f9bbbf9d62db87c01faf6dd97bd5de545df",
+    "experiments/price_provider_research/collect_http.py": "586219b4e62acc0b7d0c121fad31ae1ac5254cc2a520159c372f74f123a275dc",
+    "tests/test_001b_price_providers.py": "e2535642774f4969aebe555d86ca72e3f2bc1b253817cb94fb2a5c01cb5d12d3"
+  }
+}

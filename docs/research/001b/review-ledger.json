@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "task": "T1",
+  "review_completed_at_utc": "2026-11-11T21:14:58.114529+00:00",
+  "sequence": [
+    "read_all_five_documents",
+    "inspect_existing_contracts_and_evidence",
+    "author_T1_scope_protocol_and_tests"
+  ],
+  "timing_note": "Tool reads completed before artifact/test authoring. Timestamp marks review completion, not individual filesystem access. No implementation or experiment preceded the required document review.",
+  "required_reads": [
+    {
+      "path": "docs/research/final-report.md",
+      "sha256": "afaa7e9a61f42dfc265d3d59f01a00f8e0c0f1ab38507189ba5f3839eff8fc65",
+      "finding": "BOUNDED_VALIDATION_DEMONSTRATED; conditional implementation GO, no production readiness. Historical browser and purchase-to-list proof do not establish current attachment."
+    },
+    {
+      "path": "docs/research/market-strategy.md",
+      "sha256": "c80f00e09916aa41f1301667fc4d7a72823f095c915128830e705a05c72ec6d3",
+      "finding": "PC definitions 233731/278230; 42 rows/41 auctions and 10 rows. Missing exact-card caps, hypothetical tick bands and negative replay profits -210/-57. Network freshness and candidate exclusion required."
+    },
+    {
+      "path": "docs/research/confirmed-capabilities.md",
+      "sha256": "86cf41e7bb9995d9b89424d478ccf552ae43e6b77a2fc67c624efa3e5dfd05dd",
+      "finding": "14 authenticated Edge network reads, zero direct HTTP reads. Exact definition, club and league verified historically; nation/rarity/position and cache hits/TTL unverified. Pages have lookahead overlap and expiry ordering, not BIN order."
+    },
+    {
+      "path": "docs/research/execution-architecture.md",
+      "sha256": "4b3c094013b407ad42c7c496728f2da64adea33bd1a7815bc355ea414acea290",
+      "finding": "Proposed Objective 002 interfaces and recovery, not implemented executor. Integer coins, full version/platform, null unknowns, one queue, 30-second minimum gap; no credential export or widening research commands."
+    },
+    {
+      "path": "docs/research/obj002-handoff.md",
+      "sha256": "d97f536d47ad3d0692cdf8de36f676f498851211a0a0f952737c3d4bc1dc446f",
+      "finding": "Separate future fc_execution and execution-bridge paths; S1-S6 depend on fresh rules and live release evidence. Reuse pure pricing directly, do not turn the single-shot Experiment into a loop."
+    }
+  ],
+  "current_browser_attachment": "NOT_CHECKED",
+  "new_live_observations": 0,
+  "new_account_mutations": 0
+}

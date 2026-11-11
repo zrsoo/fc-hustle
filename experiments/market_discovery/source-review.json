@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "task": "T3",
+  "status": "REVIEWED_LOCAL_FIXTURE_VALIDATED_NOT_LIVE_EDGE_VALIDATED",
+  "implementation": "Locally authored Python stdlib and JavaScript; search-only adaptation of local Objective 001 read bridge. No competitor code, build hooks, binaries or packages copied or executed.",
+  "competitor_reuse": [],
+  "upstream_context": {
+    "review_evidence": "docs/research/evidence/repositories.json",
+    "license_policy": "docs/research/obj002-handoff.md",
+    "copilot": {
+      "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+      "reviewed_license": "MIT",
+      "reuse": "NONE",
+      "obligation_if_later_copied": "Preserve copyright and permission notice; review transitive files and build hooks."
+    },
+    "sniffer": {
+      "revision": "e1488d6e51bdcafec6eaf61cdb06461358b7844d",
+      "reviewed_license": "MIT",
+      "reuse": "NONE"
+    },
+    "no_license_grant": [
+      "XI Lab",
+      "FC27-Autobuyer",
+      "fut-web-app-api"
+    ],
+    "feed_rights": "Code licenses do not license provider data or EA service access; T2 denial/auth/permission statuses remain unavailable."
+  },
+  "transport": {
+    "bind": "127.0.0.1",
+    "port": 8770,
+    "origin": "Exact operator-supplied unpacked extension ID, not wildcard chrome-extension origins",
+    "commands": [
+      "search"
+    ],
+    "bounded_long_poll_seconds": 20,
+    "baseline_alarm_seconds": 30,
+    "baseline_next_is_nonblocking": true,
+    "minimum_EA_slot_gap_seconds": 30,
+    "single_delivery": true,
+    "single_in_flight": true,
+    "deadline_seconds": 60,
+    "native_timeout_seconds": 15,
+    "at_most_once_result_acceptance": true,
+    "error_retries": false,
+    "host_origin_checks": true,
+    "CORS": false,
+    "credential_reads_or_exports": false,
+    "raw_account_or_native_object_retention": false,
+    "mutation_paths": [],
+    "independent_validation": [
+      "Python client",
+      "loopback server",
+      "extension worker",
+      "page adapter"
+    ],
+    "identity": [
+      "game",
+      "platform",
+      "definition_id",
+      "trade_id",
+      "item_id"
+    ],
+    "safe_filters": [
+      "definition_id",
+      "club",
+      "league",
+      "min_buy",
+      "max_buy",
+      "page",
+      "count",
+      "fresh"
+    ],
+    "timing": "Server monotonic queue delivery; normalized worker/page Performance clocks to native start; native observable duration; native-start-to-page-return; residual return overhead; separate Python compute and complete dry-flow timing. No assumed poll-delay subtraction.",
+    "threat_limit": "Exact Origin/Host blocks ordinary hostile pages/other extensions. It is not authentication against hostile local processes that can forge headers. No credentials or account write primitive are available through the protocol.",
+    "MV3_limit": "20-second fetch waits return below typical idle lifetime, but service-worker suspension, wake reliability, activeTab expiry, foreground concurrency and current Edge native services require live testing. No uptime or latency guarantee."
+  },
+  "evidence": {
+    "strategy": "experiments/market_discovery/runs/t3-harness/demo.json",
+    "historical": "experiments/market_discovery/runs/t3-harness/historical.json",
+    "dry_flow": "experiments/market_discovery/runs/t3-harness/flow.json",
+    "local_transport": "experiments/market_discovery/runs/t3-harness/local-latency.json",
+    "attachment": "experiments/market_discovery/runs/t3-harness/attachment-attempt.json"
+  },
+  "checksums": {
+    "browser/read-bridge/page.js": "564f24c465aaf74f7b07cb6b087033f4a0d17ea3d73c430a59bfda430a26cb9f",
+    "browser/read-bridge/worker.js": "96b3be6fafb266a8d5af93e7da841660d04ed38ab2763f8027564929298ab9a8",
+    "browser/transaction-bridge/worker.js": "b933c5cdcd4640643c81d86a3604f99e4c44c766ada21cef33175927f0335818",
+    "docs/research/001b/protocol.json": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+    "docs/research/evidence/repositories.json": "79ce1443160fbc94d72e840dd0b9498c67f8bb073e2ede5c1bfc94c0e02b1a6b",
+    "docs/research/obj002-handoff.md": "d97f536d47ad3d0692cdf8de36f676f498851211a0a0f952737c3d4bc1dc446f",
+    "experiments/market_discovery/README.md": "239ef74c06506d81c473e1e376dee9ad736bf9363673fa1180df5990948c9a9e",
+    "experiments/market_discovery/__init__.py": "d8adf191dba8cc64ac87bdb0b207d253ea2acf7bc2caede446164b23988c51d8",
+    "experiments/market_discovery/__main__.py": "c93ea0955afb5abfffe33ba5b2409f5407de6bbe4f3fd3b295a95800728ab848",
+    "experiments/market_discovery/bridge_server.py": "6188a597ad0f3180b4c2f0d4fb5ddc74d64404e7962910394b41e84194dc098d",
+    "experiments/market_discovery/browser/manifest.json": "9ddeaea84f0d24267bef626fe74be00c2971486595d880e3853e8b8dcfa5de20",
+    "experiments/market_discovery/browser/page.js": "f349041d9f2eae90406daf561a2558d1532d70978dd4208294b36cb93d719f25",
+    "experiments/market_discovery/browser/worker.js": "5aef5133350759fec21989303fe37119a0cbf275f8829b0402c5106a7ab1185c",
+    "experiments/market_discovery/contracts.py": "febc46d816dbaba3567a7e9b185e12f867df39c316bb4467598cb8c25cfafd79",
+    "experiments/market_discovery/discovery.py": "b0d0070bbec5c45ccb09ad3209122c2d70114451b0bf39605fc6b477241d5229",
+    "experiments/market_discovery/flow.py": "f754aa4d7bb528368700da7f49ff8109bb22337963c273a3a8903266f112671b",
+    "experiments/market_discovery/local_latency.py": "046b504d63fa67063f887e71dbb2a9c3b2ff35b1c8c48155d1118b5c96809cb4",
+    "experiments/market_discovery/model.py": "56eb6c244f9fb71e4bf214d5af31b42d851e01528d1f04d6b2cc035370d3ffad",
+    "experiments/market_discovery/observation.schema.json": "0f98636b8b44ab5da50469c0d16139101d7637344c351a93e45a7df3dd8dc9be",
+    "experiments/market_discovery/replay.py": "9770d20427e4b28c801dac43e80b00ab415698a2427f9c68193a3daa37e594cf",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/providers.json": "54009582dde23e4b97e4f43b286a32379d60627b1fbb56527bd049430e2ebd16",
+    "experiments/market_discovery/transport.py": "ee0fb214916c51a9d405e957b0380084cefca78bb37fb27ff5480b2ddae618fe",
+    "fc_access/harness.py": "9ac36a71c0e862347cd495466b115eb92fd6ca9413fc5e6c2cba8b61d792e7f1",
+    "fc_access/pricing.py": "e5ff72b277c281a2e7b9bf70b48a40041887040b27b3e491d8426a3bb0361dd8"
+  },
+  "documentation_pin_review": {
+    "task": "T7",
+    "reviewed_utc": "2026-11-11T22:38:06.781056+00:00",
+    "path": "experiments/market_discovery/README.md",
+    "previous_sha256": "b052a235463a80901eb128d98b5f87fdd7abd49c9d79a94f456054c944c7637c",
+    "reason": "T6 added offline synthesis/recommendation instructions after the T3 pin. T7 reviewed those additions and added final audit reproduction links. No source, bridge, timing sample or market observation changed."
+  },
+  "fixture_determinism_review": {
+    "task": "T7",
+    "reviewed_utc": "2026-11-11T22:39:55.928196+00:00",
+    "path": "experiments/market_discovery/replay.py",
+    "previous_sha256": "7845ec01278e20d9093853861e41b56c2d3cc87742b4cb3e3037d7f824576b59",
+    "reason": "Synthetic equal-expiry ties used randomly salted trade pseudonyms, changing page membership and adaptive coverage. Sort ties by stable public exact version; keep live salt behavior and retained observations unchanged. Regression compares every simulated page and metrics under independent salts."
+  }
+}

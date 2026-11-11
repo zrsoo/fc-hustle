@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "task": "T7",
+  "recorded_utc": "2026-11-11T22:38:06.832533+00:00",
+  "baseline_head": "7414d7c2c82e41b6a81acb71169b3eeedc87601c",
+  "excluded_modified_tracked": {
+    "docs/research/browser-access/live-v2.json": {
+      "worktree_sha256": "8eb4dc3c495a02a92b533932ffe632c3b5b6f3e8dab605e325ebd5f608baa94c",
+      "policy": "Preexisting unrelated observer additions; retain worktree and do not stage."
+    }
+  },
+  "initial_test_observation": {
+    "tests_run": 168,
+    "passed": 167,
+    "failed": 1,
+    "failure": "Stale T3 source-review pin for T6 prototype README additions",
+    "readme_sha256_before_T7": "358e1e927e3b13011724d1c7ca129ef36affd7a959459df2c87def2b77c1ebf6"
+  },
+  "commit_scope": "Additive Objective 001B docs, research prototype, sanitized runs, fixtures and tests only. No original Objective 001 edits or Objective 002 implementation."
+}

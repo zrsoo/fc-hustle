@@ -1,0 +1,561 @@
+{
+  "schema": 1,
+  "mode": "LIVE_READ_ONLY",
+  "status": "PARTIAL",
+  "stop_reason": "bridge_unavailable",
+  "protocol_sha256": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+  "source_availability": {
+    "EA": {
+      "status": "UNAVAILABLE",
+      "game": "fc27",
+      "platform": "pc",
+      "live_samples": 0
+    },
+    "external": {
+      "status": "UNAVAILABLE",
+      "quotes": [],
+      "evidence": "experiments/market_discovery/runs/t2-providers-20261111T212333Z/providers.json",
+      "production_feed_retrieved": false,
+      "providers": [
+        {
+          "id": "futgg",
+          "status": "DENIED_AND_AUTOMATION_PERMISSION_UNESTABLISHED"
+        },
+        {
+          "id": "datafluxor",
+          "status": "DOCUMENTED_PRODUCTION_AUTH_REQUIRED_SANDBOX_ONLY"
+        },
+        {
+          "id": "futdb",
+          "status": "DOCUMENTED_PREMIUM_KEY_REQUIRED"
+        },
+        {
+          "id": "futbin",
+          "status": "PUBLIC_PAGE_DENIED_NO_LICENSED_FEED"
+        },
+        {
+          "id": "futwiz",
+          "status": "WEBSITE_READABLE_NO_DOCUMENTED_PRICE_FEED"
+        },
+        {
+          "id": "ea-community",
+          "status": "PARTNER_ACCOUNT_API_NOT_PUBLIC_PRICE_FEED"
+        },
+        {
+          "id": "dsfut",
+          "status": "REJECTED_DIFFERENT_PRICE_UNIT_AND_MUTATING_PARTNER_FLOW"
+        },
+        {
+          "id": "parse",
+          "status": "INDEXED_DESCRIPTION_ONLY_READER_404"
+        }
+      ]
+    }
+  },
+  "records": [
+    {
+      "schema": 1,
+      "mode": "LIVE_READ_ONLY",
+      "strategy": "A",
+      "window": 0,
+      "slot": 0,
+      "game": "fc27",
+      "platform": "pc",
+      "criteria": {
+        "definition_id": 233731,
+        "max_buy": 7000,
+        "page": 1,
+        "count": 21,
+        "fresh": true
+      },
+      "submitted_utc": "2026-11-11T21:49:05.222416+00:00",
+      "completed_utc": "2026-11-11T21:49:07.264868+00:00",
+      "elapsed_ms": 2042.4318000441417,
+      "network_fresh": false,
+      "response_bytes": 295,
+      "result": {
+        "status": null,
+        "success": false,
+        "error": "bridge_unavailable",
+        "ea_error_code": null,
+        "platform": null,
+        "credits": null,
+        "items": null,
+        "auctions": null,
+        "has_more": null,
+        "cache_invalidated": null,
+        "network": []
+      },
+      "timing": {
+        "worker_poll_to_native_ms": null,
+        "native_service_ms": null,
+        "page_total_ms": null,
+        "python_compute_ms": null,
+        "search_to_intent_ms": null,
+        "time_to_first_result_ms": 2042.4318000441417
+      }
+    }
+  ],
+  "windows": [
+    {
+      "strategy": "A",
+      "window": 0,
+      "ranking": [
+        233731,
+        278230
+      ],
+      "budget": {
+        "limit": 8,
+        "commands": 1,
+        "requests": 0,
+        "overrun": false
+      },
+      "metrics": {
+        "commands": 1,
+        "EA_requests": 0,
+        "responses": 0,
+        "response_rows": 0,
+        "response_bytes": 295,
+        "unique_auctions": 0,
+        "unique_versions": 0,
+        "unique_auctions_per_EA_request": null,
+        "unique_versions_per_EA_request": null,
+        "observed_seconds": 2.042452,
+        "unique_auctions_per_wall_minute": 0.0,
+        "unique_versions_per_wall_minute": 0.0,
+        "duplicate_fraction": null,
+        "conflicting_auctions": 0,
+        "physical_items_with_multiple_auctions": 0,
+        "errors": {
+          "bridge_unavailable": 1
+        },
+        "cache_only": 0,
+        "empty_success": 0,
+        "fresh_network_responses": 0,
+        "freshness_age_upper_bound_seconds": [
+          2.042452
+        ],
+        "remaining_expiry_lower_bound_seconds": [],
+        "coverage_by_filter_page": {
+          "{\"count\": 21, \"definition_id\": 233731, \"max_buy\": 7000, \"page\": 1}": 1
+        },
+        "coverage_by_version": {},
+        "native_status_counts": {
+          "None": 1
+        },
+        "HTTP_status_counts": {},
+        "background_EA_requests": null,
+        "comparison_status": "CONFOUNDED_BACKGROUND_UNMEASURED",
+        "candidate_yield_by_X": {
+          "100": null,
+          "250": null,
+          "500": null,
+          "1000": null
+        },
+        "live_arrival_rate_per_hour": null,
+        "latency": {
+          "queue_delivery_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "worker_poll_to_native_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "native_service_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "result_return_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "python_compute_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "time_to_first_result_ms": {
+            "n": 1,
+            "median_ms": 2042.4318000441417,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          },
+          "search_to_intent_ms": {
+            "n": 0,
+            "median_ms": null,
+            "p95_ms": null,
+            "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+          }
+        }
+      },
+      "pagination": {
+        "pages": [
+          {
+            "page": 1,
+            "returned_rows": 0,
+            "visible_rows": 0,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": null,
+            "BIN_nondecreasing": null,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          }
+        ],
+        "pairs": [],
+        "coverage_limit": "bounded expiry-ordered offset pages; no market denominator"
+      },
+      "revalidation": "DIAGNOSTIC_ONLY_RULES_UNAVAILABLE"
+    }
+  ],
+  "overall": {
+    "commands": 1,
+    "EA_requests": 0,
+    "responses": 0,
+    "response_rows": 0,
+    "response_bytes": 295,
+    "unique_auctions": 0,
+    "unique_versions": 0,
+    "unique_auctions_per_EA_request": null,
+    "unique_versions_per_EA_request": null,
+    "observed_seconds": 2.042452,
+    "unique_auctions_per_wall_minute": 0.0,
+    "unique_versions_per_wall_minute": 0.0,
+    "duplicate_fraction": null,
+    "conflicting_auctions": 0,
+    "physical_items_with_multiple_auctions": 0,
+    "errors": {
+      "bridge_unavailable": 1
+    },
+    "cache_only": 0,
+    "empty_success": 0,
+    "fresh_network_responses": 0,
+    "freshness_age_upper_bound_seconds": [
+      2.042452
+    ],
+    "remaining_expiry_lower_bound_seconds": [],
+    "coverage_by_filter_page": {
+      "{\"count\": 21, \"definition_id\": 233731, \"max_buy\": 7000, \"page\": 1}": 1
+    },
+    "coverage_by_version": {},
+    "native_status_counts": {
+      "None": 1
+    },
+    "HTTP_status_counts": {},
+    "background_EA_requests": null,
+    "comparison_status": "CONFOUNDED_BACKGROUND_UNMEASURED",
+    "candidate_yield_by_X": {
+      "100": null,
+      "250": null,
+      "500": null,
+      "1000": null
+    },
+    "live_arrival_rate_per_hour": null,
+    "latency": {
+      "queue_delivery_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "worker_poll_to_native_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "native_service_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "result_return_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "python_compute_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "time_to_first_result_ms": {
+        "n": 1,
+        "median_ms": 2042.4318000441417,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      },
+      "search_to_intent_ms": {
+        "n": 0,
+        "median_ms": null,
+        "p95_ms": null,
+        "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+      }
+    }
+  },
+  "live_opportunity_yield": null,
+  "account_mutations": 0,
+  "by_strategy": {
+    "A": {
+      "commands": 1,
+      "EA_requests": 0,
+      "responses": 0,
+      "response_rows": 0,
+      "response_bytes": 295,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "unique_auctions_per_EA_request": null,
+      "unique_versions_per_EA_request": null,
+      "observed_seconds": 2.042452,
+      "unique_auctions_per_wall_minute": 0.0,
+      "unique_versions_per_wall_minute": 0.0,
+      "duplicate_fraction": null,
+      "conflicting_auctions": 0,
+      "physical_items_with_multiple_auctions": 0,
+      "errors": {
+        "bridge_unavailable": 1
+      },
+      "cache_only": 0,
+      "empty_success": 0,
+      "fresh_network_responses": 0,
+      "freshness_age_upper_bound_seconds": [
+        2.042452
+      ],
+      "remaining_expiry_lower_bound_seconds": [],
+      "coverage_by_filter_page": {
+        "{\"count\": 21, \"definition_id\": 233731, \"max_buy\": 7000, \"page\": 1}": 1
+      },
+      "coverage_by_version": {},
+      "native_status_counts": {
+        "None": 1
+      },
+      "HTTP_status_counts": {},
+      "background_EA_requests": null,
+      "comparison_status": "CONFOUNDED_BACKGROUND_UNMEASURED",
+      "candidate_yield_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "live_arrival_rate_per_hour": null,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "python_compute_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 1,
+          "median_ms": 2042.4318000441417,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "search_to_intent_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      }
+    },
+    "B": {
+      "commands": 0,
+      "EA_requests": 0,
+      "responses": 0,
+      "response_rows": 0,
+      "response_bytes": 0,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "unique_auctions_per_EA_request": null,
+      "unique_versions_per_EA_request": null,
+      "observed_seconds": 0,
+      "unique_auctions_per_wall_minute": null,
+      "unique_versions_per_wall_minute": null,
+      "duplicate_fraction": null,
+      "conflicting_auctions": 0,
+      "physical_items_with_multiple_auctions": 0,
+      "errors": {},
+      "cache_only": 0,
+      "empty_success": 0,
+      "fresh_network_responses": 0,
+      "freshness_age_upper_bound_seconds": [],
+      "remaining_expiry_lower_bound_seconds": [],
+      "coverage_by_filter_page": {},
+      "coverage_by_version": {},
+      "native_status_counts": {},
+      "HTTP_status_counts": {},
+      "background_EA_requests": null,
+      "comparison_status": "CONFOUNDED_BACKGROUND_UNMEASURED",
+      "candidate_yield_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "live_arrival_rate_per_hour": null,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "python_compute_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "search_to_intent_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      }
+    },
+    "C": {
+      "commands": 0,
+      "EA_requests": 0,
+      "responses": 0,
+      "response_rows": 0,
+      "response_bytes": 0,
+      "unique_auctions": 0,
+      "unique_versions": 0,
+      "unique_auctions_per_EA_request": null,
+      "unique_versions_per_EA_request": null,
+      "observed_seconds": 0,
+      "unique_auctions_per_wall_minute": null,
+      "unique_versions_per_wall_minute": null,
+      "duplicate_fraction": null,
+      "conflicting_auctions": 0,
+      "physical_items_with_multiple_auctions": 0,
+      "errors": {},
+      "cache_only": 0,
+      "empty_success": 0,
+      "fresh_network_responses": 0,
+      "freshness_age_upper_bound_seconds": [],
+      "remaining_expiry_lower_bound_seconds": [],
+      "coverage_by_filter_page": {},
+      "coverage_by_version": {},
+      "native_status_counts": {},
+      "HTTP_status_counts": {},
+      "background_EA_requests": null,
+      "comparison_status": "CONFOUNDED_BACKGROUND_UNMEASURED",
+      "candidate_yield_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "live_arrival_rate_per_hour": null,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "python_compute_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "search_to_intent_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      }
+    }
+  }
+}

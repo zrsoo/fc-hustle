@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "collector": "experiments/price_provider_research/collect_http.py",
+  "user_agent": "fc-hustle-readonly-research/1.0",
+  "attempts": [
+    {
+      "id": "http-00",
+      "url": "https://datafluxor.com/openapi.json",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.003223+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/openapi.json",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:24:39 GMT"
+      },
+      "bytes_read": 1398934,
+      "truncated": false,
+      "response_sha256": "c38f8c03f042d2e34392645efc12e3dd00b52d979dbb7c9f3e73fdb60ac1bd4d",
+      "ended_at_utc": "2026-11-11T21:24:40.326118+00:00",
+      "elapsed_ms": 322.895
+    },
+    {
+      "id": "http-01",
+      "url": "https://datafluxor.com/api/v1/fut/prices?ea_ids=233731&platform=pc",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.326962+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 401,
+      "final_url": "https://datafluxor.com/api/v1/fut/prices?ea_ids=233731&platform=pc",
+      "headers": {
+        "content-type": "application/json",
+        "date": "Wed, 11 Nov 2026 21:24:39 GMT"
+      },
+      "bytes_read": 120,
+      "truncated": false,
+      "response_sha256": "fd6087d21183acfb220c678b6c00c73a8c1000a5ede5a08a0adabf45f2d218ed",
+      "ended_at_utc": "2026-11-11T21:24:40.445139+00:00",
+      "elapsed_ms": 118.178
+    },
+    {
+      "id": "http-02",
+      "url": "https://datafluxor.com/api/fut-sandbox/prices?ea_ids=67340611,231747&platform=pc",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.446115+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/api/fut-sandbox/prices?ea_ids=67340611,231747&platform=pc",
+      "headers": {
+        "content-type": "application/json",
+        "date": "Wed, 11 Nov 2026 21:24:39 GMT",
+        "cache-control": "public, max-age=3600"
+      },
+      "bytes_read": 1649,
+      "truncated": false,
+      "response_sha256": "2bbee6acd33960c5ea8aacd96eccf6cef9c78aaec61a19982b01bffae1d47310",
+      "ended_at_utc": "2026-11-11T21:24:40.664013+00:00",
+      "elapsed_ms": 217.896
+    },
+    {
+      "id": "http-03",
+      "url": "https://datafluxor.com/api/fut-sandbox/cards/22950/history?market=pc&period=30d",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.664767+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/api/fut-sandbox/cards/22950/history?market=pc&period=30d",
+      "headers": {
+        "content-type": "application/json",
+        "date": "Wed, 11 Nov 2026 21:24:40 GMT",
+        "cache-control": "public, max-age=3600"
+      },
+      "bytes_read": 678,
+      "truncated": false,
+      "response_sha256": "c54594abd37e3dedd3312c77abbab807b69625c9eb744f0a03e4245bcdb3f725",
+      "ended_at_utc": "2026-11-11T21:24:40.831778+00:00",
+      "elapsed_ms": 167.0
+    },
+    {
+      "id": "http-04",
+      "url": "https://api.fut-db.com/api/players/1/price",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.832777+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 401,
+      "final_url": "https://api.fut-db.com/api/players/1/price",
+      "headers": {
+        "date": "Wed, 11 Nov 2026 21:24:40 GMT"
+      },
+      "bytes_read": 0,
+      "truncated": false,
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ended_at_utc": "2026-11-11T21:24:40.933088+00:00",
+      "elapsed_ms": 100.312
+    },
+    {
+      "id": "http-05",
+      "url": "https://www.futbin.com/tos",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:40.933650+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 403,
+      "final_url": "https://www.futbin.com/tos",
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Wed, 11 Nov 2026 21:24:40 GMT"
+      },
+      "bytes_read": 5488,
+      "truncated": false,
+      "response_sha256": "43eaf9992df1c4295ab9bed209fa6e68812f0a37a42d71cb724eb0862985f3d9",
+      "ended_at_utc": "2026-11-11T21:24:41.011751+00:00",
+      "elapsed_ms": 78.105
+    },
+    {
+      "id": "http-06",
+      "url": "https://dsfut.net/api",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:41.012486+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://dsfut.net/api",
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Wed, 11 Nov 2026 21:24:40 GMT",
+        "cache-control": "no-cache, private"
+      },
+      "bytes_read": 25612,
+      "truncated": false,
+      "response_sha256": "ac3e2373d644d302e09c693405b9f3e55d1cbc24d7cfadfb4223353df420331d",
+      "ended_at_utc": "2026-11-11T21:24:41.200759+00:00",
+      "elapsed_ms": 188.284
+    },
+    {
+      "id": "http-07",
+      "url": "https://www.ea.com/games/ea-sports-fc/news/pitch-notes-fc26-community-api-update",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:24:41.202049+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://www.ea.com/games/ea-sports-fc/news/pitch-notes-fc26-community-api-update",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:24:42 GMT",
+        "etag": "\"i3trfghia35vhz\"",
+        "cache-control": "public, max-age=1199, s-maxage=600"
+      },
+      "bytes_read": 275045,
+      "truncated": false,
+      "response_sha256": "91d1eda27b9c5f96a41b4f1f9f3fc606cd74b3b05d213ffec2b42364f78cb7a2",
+      "ended_at_utc": "2026-11-11T21:24:42.828987+00:00",
+      "elapsed_ms": 1626.942
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+{
+  "schema": 1,
+  "task": "T1",
+  "objective": "001B",
+  "status": "PREREGISTERED_NOT_RUN",
+  "frozen_at_utc": "2026-11-11T21:17:03.503351+00:00",
+  "actual_start_utc": null,
+  "actual_end_utc": null,
+  "new_live_observations": 0,
+  "results": null,
+  "review_ledger": "docs/research/001b/review-ledger.json",
+  "run_contract": {
+    "output_root": "experiments/market_discovery/runs/<run_id>/",
+    "pin_protocol_sha256_before_first_observation": true,
+    "amendments_require_new_revision_and_run": true,
+    "historical_data_counts_as_live": false,
+    "current_attachment": "NOT_CHECKED",
+    "current_authentication": "NOT_CHECKED",
+    "preflight": [
+      "attachment_only_check",
+      "fresh_authenticated_fc27_pc_search_network_get"
+    ],
+    "preflight_budget_separate": true
+  },
+  "market": {
+    "game": "fc27",
+    "platform": "pc",
+    "watchlist": [
+      233731,
+      278230
+    ],
+    "identity": [
+      "game",
+      "platform",
+      "definition_id",
+      "trade_id",
+      "item_id"
+    ],
+    "unsupported_filters": [
+      "nation",
+      "rarity",
+      "position"
+    ]
+  },
+  "timing": {
+    "clock": "timezone_aware_UTC",
+    "elapsed_clock": "monotonic",
+    "window_seconds": 300,
+    "order": [
+      "A",
+      "B",
+      "C",
+      "B",
+      "C",
+      "A",
+      "C",
+      "A",
+      "B"
+    ],
+    "slot_offsets_seconds": [
+      0,
+      30,
+      60,
+      90,
+      120,
+      150,
+      180,
+      210
+    ],
+    "minimum_submission_gap_seconds": 30,
+    "max_in_flight": 1,
+    "command_deadline_seconds": 60,
+    "native_timeout_seconds": 15,
+    "skip_missed_slots": true,
+    "catch_up": false,
+    "carry_unused_budget": false,
+    "late_read_counts_in_next_window": false
+  },
+  "budget": {
+    "unit": "actual_foreground_EA_network_requests",
+    "per_window": 8,
+    "discovery_slots": 6,
+    "revalidation_slots": 2,
+    "total_maximum": 72,
+    "per_strategy_maximum": 24,
+    "errors_and_safe_retries_consume_budget": true,
+    "native_side_effects_consume_budget": true,
+    "local_polls_consume_EA_budget": false,
+    "cache_only_counts_as_fresh": false,
+    "background_counted_separately": true,
+    "background_max_rate_difference_fraction": 0.25,
+    "missing_background_measurement": "CONFOUNDED",
+    "unequal_actual_budgets": "PARTIAL_DESCRIPTIVE_ONLY",
+    "complete_matched_blocks_only": true
+  },
+  "strategies": {
+    "A": {
+      "kind": "targeted",
+      "pairs": [
+        {
+          "definition_id": 233731,
+          "max_buy": 7000
+        },
+        {
+          "definition_id": 278230,
+          "max_buy": 4000
+        },
+        {
+          "definition_id": 233731,
+          "max_buy": 6500
+        }
+      ]
+    },
+    "B": {
+      "kind": "broad_filtered",
+      "pairs": [
+        {
+          "club": 9,
+          "min_buy": 150,
+          "max_buy": 7000
+        },
+        {
+          "league": 13,
+          "min_buy": 150,
+          "max_buy": 7000
+        },
+        {
+          "league": 13,
+          "min_buy": 150,
+          "max_buy": 1000
+        }
+      ]
+    },
+    "C": {
+      "kind": "adaptive_hybrid",
+      "pairs": [
+        {
+          "league": 13,
+          "min_buy": 150,
+          "max_buy": 7000
+        },
+        {
+          "definition_id": "rank_1",
+          "max_buy": 7000
+        },
+        {
+          "definition_id": "rank_2",
+          "max_buy": 7000
+        }
+      ],
+      "rank_scope": "preceding_completed_block_only",
+      "valid_external_rank": "exact_pc_indicative_ask_ascending_then_definition_id",
+      "native_fallback_rank": "fresh_distinct_auction_count_descending_then_definition_id",
+      "initial_fallback": [
+        233731,
+        278230
+      ]
+    }
+  },
+  "search_pair": {
+    "operation": "search",
+    "pages": [
+      1,
+      2
+    ],
+    "count": 21,
+    "fresh": [
+      true,
+      false
+    ],
+    "same_criteria": true,
+    "reset_between_pages": false,
+    "deduplicate_lookahead": true,
+    "bin_order_assumed": false,
+    "exhaustive_coverage_assumed": false
+  },
+  "provider": {
+    "same_snapshot_for_all_strategies_per_block": true,
+    "retrieval_outside_EA_windows": true,
+    "max_age_seconds": 600,
+    "missing_feed": "UNAVAILABLE",
+    "cross_platform_substitution": false,
+    "unavailable_feed_counts_as_working": false
+  },
+  "revalidation": {
+    "slots": [
+      6,
+      7
+    ],
+    "operation": "search",
+    "pages": [
+      1,
+      2
+    ],
+    "fresh": [
+      true,
+      false
+    ],
+    "selection": "highest_modeled_profit_at_X_100_then_trade_id_lexical",
+    "no_evaluable_candidate": "lowest_positive_BIN_then_trade_id_lexical_DIAGNOSTIC_ONLY",
+    "no_valid_rows": "UNUSED",
+    "diagnostic_counts_as_opportunity": false,
+    "checks": [
+      "exact_game_platform_version_trade_item",
+      "unchanged_BIN",
+      "active_and_age_decayed_expiry",
+      "fresh_network_comparables",
+      "verified_fresh_caps_and_relevant_ticks",
+      "recomputed_profit_at_X"
+    ],
+    "failure_reasons": [
+      "identity_changed",
+      "BIN_changed",
+      "missing_or_expired",
+      "stale",
+      "profit_below_X",
+      "rules_not_ready"
+    ]
+  },
+  "pricing": {
+    "source": "fc_access/pricing.py",
+    "formula": "target_sale_price - target_sale_price // 20 - acquisition_price",
+    "threshold_operator": ">=",
+    "X_scenarios": [
+      100,
+      250,
+      500,
+      1000
+    ],
+    "exclude_candidate": [
+      "trade_id",
+      "item_id"
+    ],
+    "minimum_comparables": 5,
+    "sample_max_age_seconds": 120,
+    "candidate_max_age_seconds": 30,
+    "rules_max_age_seconds": 300,
+    "remaining_lifetime_strictly_greater_seconds": 60,
+    "verified_caps_and_relevant_ticks_required": true,
+    "missing_rules_executable_yield": null,
+    "hypothetical_rules_label": "SIMULATED_MODELED",
+    "actual_sale_claim_from_ask": false
+  },
+  "record_fields": [
+    "run_id",
+    "protocol_sha256",
+    "block",
+    "window",
+    "strategy",
+    "slot",
+    "command_id",
+    "criteria",
+    "page",
+    "fresh",
+    "game",
+    "platform",
+    "submitted_utc",
+    "completed_utc",
+    "elapsed_ms",
+    "http_status",
+    "native_status",
+    "error_code",
+    "returned_rows",
+    "visible_rows",
+    "cache_invalidated",
+    "network_fresh",
+    "network_at_utc",
+    "expires",
+    "definition_id",
+    "item_id",
+    "trade_id"
+  ],
+  "metrics": {
+    "required": [
+      "unique_auctions_per_EA_request",
+      "unique_versions_per_EA_request",
+      "unique_auctions_per_wall_minute",
+      "unique_versions_per_wall_minute",
+      "duplicate_fraction",
+      "conflict_fraction",
+      "coverage_by_filter_page_version",
+      "age_expiry_distribution",
+      "errors_cache_empty_counts",
+      "candidate_yield_by_X",
+      "arrival_rate_per_hour",
+      "qualifying_revalidation_false_positive_fraction",
+      "diagnostic_revalidation_counts",
+      "background_EA_requests"
+    ],
+    "arrival_rate": "3600 * distinct_first_qualified_auctions / observed_strategy_seconds",
+    "false_positive_fraction": "failed_qualifying_revalidations / completed_qualifying_revalidations",
+    "zero_revalidation_denominator": null,
+    "no_run_metrics": null,
+    "dedup_scope": "per_strategy_and_overall_with_cross_window_overlap",
+    "unknown_prerequisites_yield": null,
+    "coverage_limit": "bounded_expiry_ordered_offset_pages_not_whole_market_or_daily_yield"
+  },
+  "latency": {
+    "baseline": "existing_30_second_alarm",
+    "alternative": "separate_reviewed_read_only_request_driven_or_long_poll_adapter",
+    "alternative_status": "PROPOSED_UNVALIDATED",
+    "same_EA_budget_and_pacing": true,
+    "components": [
+      "queue_delivery",
+      "native_service",
+      "result_return",
+      "python_compute",
+      "time_to_first_result",
+      "search_evaluate_fresh_revalidate_prepared_intent"
+    ],
+    "timestamps": [
+      "scheduled",
+      "submitted",
+      "delivered",
+      "native_start",
+      "native_end",
+      "result_received",
+      "evaluated",
+      "revalidation_complete",
+      "intent_prepared"
+    ],
+    "missing_component": null,
+    "native_service_is_EA_server_latency": false,
+    "subtract_assumed_alarm_delay": false,
+    "median_requires_sample_count": true,
+    "p95_min_samples": 20,
+    "p95_method": "nearest_rank_ceil_0.95_n"
+  },
+  "stop": {
+    "hard": [
+      "auth_401",
+      "challenge_CAPTCHA",
+      "EA_restriction",
+      "unexpected_mutation",
+      "credential_output",
+      "identity_platform_schema_mismatch",
+      "bridge_detached",
+      "budget_overrun"
+    ],
+    "suspend": [
+      "rate_limit_429",
+      "server_5xx",
+      "timeout"
+    ],
+    "backoff_seconds": [
+      30,
+      60,
+      120,
+      240,
+      300
+    ],
+    "honor_retry_after_even_above_cap": true,
+    "retry_outside_budget": false,
+    "third_party_403": "DISABLE_SOURCE_UNTIL_LEGITIMATE_ACCESS",
+    "insufficient_window_time": "PARTIAL",
+    "normal_end_after_windows": 9,
+    "rate_threshold_probing": false
+  },
+  "boundary": {
+    "allowed_operations": [
+      "search"
+    ],
+    "intent_mode": "DRY_RUN_ONLY",
+    "account_mutations": false,
+    "production_bot": false,
+    "objective_002_implementation": false,
+    "credential_exports": false,
+    "paid_subscriptions": false,
+    "paid_account_registration": false,
+    "access_control_bypasses": false,
+    "unrelated_repository_cloning": false,
+    "unreviewed_executable_installation": false,
+    "per_trade_approval_policy_added": false,
+    "portfolio_spend_policy_added": false,
+    "forbidden_operations": [
+      "buy",
+      "bid",
+      "move",
+      "list",
+      "relist",
+      "cancel",
+      "sold_cleanup"
+    ],
+    "retention": "allowlisted_fields_and_per_run_namespaced_pseudonyms_only"
+  }
+}

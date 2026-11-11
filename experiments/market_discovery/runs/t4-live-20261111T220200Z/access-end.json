@@ -1,0 +1,37 @@
+{
+  "task": "T4",
+  "checks": [
+    {
+      "port": 8766,
+      "health": {
+        "service": "fc-config-observer-v1",
+        "bind": "127.0.0.1",
+        "attached": true,
+        "observer_version": 2
+      },
+      "checked_at_utc": "2026-11-11T22:04:19.238827+00:00"
+    },
+    {
+      "port": 8767,
+      "health": {
+        "service": "fc-read-bridge-v1",
+        "protocol": 1,
+        "bind": "127.0.0.1",
+        "attached": true
+      },
+      "checked_at_utc": "2026-11-11T22:04:19.254806+00:00"
+    },
+    {
+      "port": 8770,
+      "health": {
+        "service": "fc-search-research-v1",
+        "attached": true,
+        "bind": "127.0.0.1",
+        "operations": [
+          "search"
+        ]
+      },
+      "checked_at_utc": "2026-11-11T22:04:19.270660+00:00"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "collector": "experiments/price_provider_research/collect_http.py",
+  "user_agent": "fc-hustle-readonly-research/1.0",
+  "attempts": [
+    {
+      "id": "http-00",
+      "url": "https://r2.fut.gg/27/manifest.json",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:33.110603+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 403,
+      "final_url": "https://r2.fut.gg/27/manifest.json",
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Wed, 11 Nov 2026 21:23:32 GMT"
+      },
+      "bytes_read": 5522,
+      "truncated": false,
+      "response_sha256": "de706d59d92dadb86708732e4ac87762482fb3963e94bc18b4ba219a1c7149de",
+      "ended_at_utc": "2026-11-11T21:23:33.200895+00:00",
+      "elapsed_ms": 90.289
+    },
+    {
+      "id": "http-01",
+      "url": "https://datafluxor.com/fut-data",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:33.201601+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/fut-data",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:32 GMT",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      "bytes_read": 182548,
+      "truncated": false,
+      "response_sha256": "25259e9a8abb554f392404152a4c6080e9dee7215c41cc56bbb3cec2a9f310de",
+      "ended_at_utc": "2026-11-11T21:23:33.618680+00:00",
+      "elapsed_ms": 417.104
+    },
+    {
+      "id": "http-02",
+      "url": "https://datafluxor.com/terms",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:33.619445+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/terms",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:33 GMT",
+        "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate"
+      },
+      "bytes_read": 117954,
+      "truncated": false,
+      "response_sha256": "5ce7f88622bce4ae358460688b32a1048d5e1d5e72b05c2d291b67f27396ce00",
+      "ended_at_utc": "2026-11-11T21:23:33.930121+00:00",
+      "elapsed_ms": 310.676
+    },
+    {
+      "id": "http-03",
+      "url": "https://datafluxor.com/docs",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:33.930737+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://datafluxor.com/docs",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:33 GMT"
+      },
+      "bytes_read": 97201,
+      "truncated": false,
+      "response_sha256": "95a76d23d12d17d0af5ee0d61430c17199bb2bba876e46580feadd87f5342748",
+      "ended_at_utc": "2026-11-11T21:23:34.105075+00:00",
+      "elapsed_ms": 174.341
+    },
+    {
+      "id": "http-04",
+      "url": "https://fut-db.com/",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:34.105634+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://fut-db.com/",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:33 GMT"
+      },
+      "bytes_read": 35311,
+      "truncated": false,
+      "response_sha256": "c15440d4e384ba08c1d2a837f61a9529ba10e226098ca757a18d22faf5da391d",
+      "ended_at_utc": "2026-11-11T21:23:34.331300+00:00",
+      "elapsed_ms": 225.672
+    },
+    {
+      "id": "http-05",
+      "url": "https://fut-db.com/terms",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:34.332210+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://fut-db.com/terms",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:33 GMT"
+      },
+      "bytes_read": 10734,
+      "truncated": false,
+      "response_sha256": "90b4836239c732a590c2281541a36aedac4a61cd5fe8db334dcd3e482a7da365",
+      "ended_at_utc": "2026-11-11T21:23:34.427708+00:00",
+      "elapsed_ms": 95.516
+    },
+    {
+      "id": "http-06",
+      "url": "https://api.fut-db.com/api/doc/v1/swagger.json",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:34.428428+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://api.fut-db.com/api/doc/v1/swagger.json",
+      "headers": {
+        "content-type": "application/json;charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:33 GMT"
+      },
+      "bytes_read": 38232,
+      "truncated": false,
+      "response_sha256": "315075baf7f405ca64e617f582048268e257e251f0853b6cbf42a211d5d0eb9e",
+      "ended_at_utc": "2026-11-11T21:23:34.624030+00:00",
+      "elapsed_ms": 195.607
+    },
+    {
+      "id": "http-07",
+      "url": "https://www.futbin.com/",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:34.624732+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 403,
+      "final_url": "https://www.futbin.com/",
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Wed, 11 Nov 2026 21:23:34 GMT"
+      },
+      "bytes_read": 5479,
+      "truncated": false,
+      "response_sha256": "24761d745d4591c62e13308492028568011973af527eb6b6aad04adbca22865c",
+      "ended_at_utc": "2026-11-11T21:23:34.717341+00:00",
+      "elapsed_ms": 92.635
+    },
+    {
+      "id": "http-08",
+      "url": "https://www.futwiz.com/",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:34.718149+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 200,
+      "final_url": "https://www.futwiz.com/",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "date": "Wed, 11 Nov 2026 21:23:34 GMT",
+        "cache-control": "public, s-maxage=60, stale-while-revalidate=3600"
+      },
+      "bytes_read": 1509817,
+      "truncated": false,
+      "response_sha256": "af458d5988e02035a0ee94f1b24e34553f92f67f6be5d2c509f4c6de61eddad4",
+      "ended_at_utc": "2026-11-11T21:23:35.003065+00:00",
+      "elapsed_ms": 284.927
+    },
+    {
+      "id": "http-09",
+      "url": "https://www.fut.gg/",
+      "method": "GET",
+      "started_at_utc": "2026-11-11T21:23:35.004540+00:00",
+      "access": "anonymous_public_get",
+      "authentication_sent": false,
+      "retry_count": 0,
+      "status": 403,
+      "final_url": "https://www.fut.gg/",
+      "headers": {
+        "content-type": "text/html; charset=UTF-8",
+        "date": "Wed, 11 Nov 2026 21:23:34 GMT"
+      },
+      "bytes_read": 5454,
+      "truncated": false,
+      "response_sha256": "6aca3faeeca7532c446eb41740c1a62881a94090f0ef3e1e0e67580dde2a2b06",
+      "ended_at_utc": "2026-11-11T21:23:35.095286+00:00",
+      "elapsed_ms": 90.754
+    }
+  ]
+}

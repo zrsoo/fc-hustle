@@ -1,0 +1,285 @@
+{
+  "schema": 1,
+  "scope": "Only the three requested repositories; price ingestion, exact identity and license review. Tree inventory solely locates sources and checks license absence. No clone, install or upstream execution.",
+  "repositories": [
+    {
+      "repository": "puredan824-hub/fc27-sniffer",
+      "revision": "e1488d6e51bdcafec6eaf61cdb06461358b7844d",
+      "review_completed_at_utc": "2026-11-11T21:27:49.828978+00:00",
+      "channel": "read-only GitHub connector",
+      "tree_sha": "bc18d1a8e2053131fe578b9efb92c5e8ed688f1f",
+      "tree_truncated": false,
+      "tree_url": "https://api.github.com/repos/puredan824-hub/fc27-sniffer/git/trees/bc18d1a8e2053131fe578b9efb92c5e8ed688f1f?recursive=1",
+      "license_paths": [
+        "LICENSE"
+      ],
+      "license": "MIT",
+      "package_license_field": "not_applicable",
+      "reuse": "reference_only_no_upstream_execution_or_copying_into_runtime",
+      "files": [
+        {
+          "path": "r2_prices.py",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/r2_prices.py",
+          "git_blob_sha1": "ee0353334bbdc6fdbee8e9fb29ed5c9b88d238c5",
+          "content_sha256": "9792e7e2a046719e1386af6efa87f84e056b76d5e1a3649eb2777f27c2087595",
+          "line_count": 202,
+          "anchors": [
+            {
+              "start": 35,
+              "end": 36,
+              "text": "R2 = \"https://r2.fut.gg/27\"\nAPI = \"https://www.fut.gg/api/fut/players/v2/27/\""
+            },
+            {
+              "start": 44,
+              "end": 44,
+              "text": "UNTRADEABLE_S = {1, 2, 4}  # sbcoverlay 实测：s in {1,2,4} 为不可交易（SBC/目标/绝版锁定）"
+            },
+            {
+              "start": 53,
+              "end": 59,
+              "text": "def decode_ids(index: dict) -> list[int]:\n    ids, cur = [], index[\"id0\"]\n    d = index[\"d\"]\n    for i in range(len(d) + 1):\n        if i:\n            cur += d[i - 1]\n        ids.append(cur)"
+            },
+            {
+              "start": 63,
+              "end": 85,
+              "text": "def fetch_market() -> dict:\n    man = get_json(f\"{R2}/manifest.json\")\n    ver = man[\"_version\"]\n    pub = int(man[\"_published_at\"][\"player-prices-ps5-dyn\"])\n\n    def blob(key):\n        return get_json(f\"{R2}/{key}.v{ver}.{man[key]}.json\")\n\n    index = blob(\"player-prices-index\")\n    dyn = blob(\"player-prices-ps5-dyn\")\n    pool = blob(\"streamlined-pool\")\n    if index.get(\"v\") != 2 or dyn.get(\"v\") != 2:\n        raise ValueError(f\"format changed: index v={index.get('v')} dyn v={dyn.get('v')}\")\n    ids = decode_ids(index)\n    if len(dyn[\"p\"]) != len(ids) or len(pool[\"o\"]) != len(ids):\n        raise ValueError(\"array length mismatch\")\n    market = {}\n    for i, cid in enumerate(ids):\n        market[cid] = {\n            \"price\": int(dyn[\"p\"][i]), \"status\": int(dyn[\"s\"][i]),\n            \"rating\": int(pool[\"o\"][i]), \"rarity_grp\": int(pool[\"r\"][i]),\n        }\n    return {\"published_at\": pub, \"market\": market}"
+            }
+          ]
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/README.md",
+          "git_blob_sha1": "468e24511a0e59eec7d5f5988248b179d4605d67",
+          "content_sha256": "179b6be02e625393dfc87eebb370f3a84d67ecfb7316f5f9b80f8d3b1fc95939",
+          "line_count": 225,
+          "anchors": [
+            {
+              "start": 3,
+              "end": 3,
+              "text": "**English:** A real-time market sniffer for EA FC 27 Ultimate Team on PlayStation. It polls special-card prices every five minutes, classifies market conditions with a trend state machine, scans more than 20,000 cards for abnormal moves, backtests every signal, and cautiously self-tunes its decision thresholds when the evidence is strong enough."
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/puredan824-hub/fc27-sniffer/blob/e1488d6e51bdcafec6eaf61cdb06461358b7844d/LICENSE",
+          "git_blob_sha1": "750d3a1760f8c5ba85b6c4bfd6b450947511b330",
+          "content_sha256": "d80d0e2aec6e4b65aadbfb5a2395b86a94ddda49719fc7aafdee2c95af6a1722",
+          "line_count": 21,
+          "anchors": [
+            {
+              "start": 1,
+              "end": 3,
+              "text": "MIT License\n\nCopyright (c) 2026 Puredan"
+            },
+            {
+              "start": 15,
+              "end": 16,
+              "text": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "liusihang/fc27-copilot",
+      "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+      "review_completed_at_utc": "2026-11-11T21:27:49.828978+00:00",
+      "channel": "read-only GitHub connector",
+      "tree_sha": "32627dcc1b9626453bdb115d7412294cd1426803",
+      "tree_truncated": false,
+      "tree_url": "https://api.github.com/repos/liusihang/fc27-copilot/git/trees/32627dcc1b9626453bdb115d7412294cd1426803?recursive=1",
+      "license_paths": [
+        "LICENSE",
+        "NOTICE.md"
+      ],
+      "license": "MIT",
+      "package_license_field": "not_applicable",
+      "reuse": "reference_only_no_upstream_execution_or_copying_into_runtime",
+      "files": [
+        {
+          "path": "fc27/catalog.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/fc27/catalog.py",
+          "git_blob_sha1": "b04accef59bacde3aef3b4c43ad765244ec5c76a",
+          "content_sha256": "d93d8c3c7c80ebb7779323301f5b6f1d59d621892aebce196c3302ee781b0751",
+          "line_count": 434,
+          "anchors": [
+            {
+              "start": 226,
+              "end": 240,
+              "text": "        card_ids = [int(value) for value in request.get(\"card_ea_ids\") or []]\n        if len(card_ids) > 100:\n            raise FC27Error(\n                \"TOO_MANY_CARD_IDS\",\n                \"card_ea_ids accepts at most 100 values per call.\",\n                recovery=\"Split the comparison into batches of at most 100 card IDs.\",\n            )\n        if card_ids:\n            where.append(f\"c.card_ea_id IN ({','.join('?' for _ in card_ids)})\")\n            params.extend(card_ids)\n            limit = max(limit, len(card_ids))\n\n        base_player_ids = [int(value) for value in request.get(\"base_player_ea_ids\") or []]\n        if base_player_ids:\n            where.append("
+            },
+            {
+              "start": 401,
+              "end": 406,
+              "text": "            \"card_ea_id\", \"futgg_id\", \"base_player_ea_id\", \"slug\", \"card_name\",\n            \"overall\", \"quality\", \"rarity_name\", \"common_name\", \"club_id\",\n            \"club_name\", \"league_id\", \"league_name\", \"nation_id\", \"nation_name\",\n            \"pace\", \"shooting\", \"passing\", \"dribbling\", \"defending\", \"physicality\",\n            \"weak_foot\", \"skill_moves\", \"image_url\", \"card_image_url\",\n            \"is_icon\", \"is_hero\", \"is_special\", \"is_dynamic\", \"is_evolution\","
+            }
+          ]
+        },
+        {
+          "path": "scripts/refresh_catalog.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/scripts/refresh_catalog.py",
+          "git_blob_sha1": "3f7ad4d58b879d840df09cd021fa4887dd076331",
+          "content_sha256": "a58c2d60786fc071cd36a44de82f26dd795344cd2f913b398eefff0317e7c969",
+          "line_count": 253,
+          "anchors": [
+            {
+              "start": 15,
+              "end": 17,
+              "text": "API = \"https://www.fut.gg/api/fut/players/v2/27/\"\nMANIFEST = \"https://r2.fut.gg/27/manifest.json\"\nR2_BASE = \"https://r2.fut.gg/27\""
+            },
+            {
+              "start": 75,
+              "end": 85,
+              "text": "def load_mappings(session):\n    m=request(session, MANIFEST)\n    version=m[\"_version\"]\n    urls={}\n    data={}\n    for key in (\"play-styles\",\"roles\"):\n        if key not in m: raise RuntimeError(\"Manifest missing %s\" % key)\n        url=\"%s/%s.v%s.%s.json\" % (R2_BASE,key,version,m[key])\n        urls[key]=url; data[key]=request(session,url)\n    ps=data[\"play-styles\"]; roles=data[\"roles\"]\n    psmap={int(x[\"eaId\"]):x[\"name\"] for x in ps if x.get(\"eaId\") is not None}"
+            },
+            {
+              "start": 109,
+              "end": 114,
+              "text": "    return (\n      c.get(\"id\"),c.get(\"eaId\"),c.get(\"basePlayerEaId\"),c.get(\"slug\"),c.get(\"basePlayerSlug\"),\n      c.get(\"commonName\"),c.get(\"cardName\"),c.get(\"firstName\"),c.get(\"lastName\"),c.get(\"nickname\"),\n      c.get(\"overall\"),c.get(\"quality\"),c.get(\"rarityName\"),c.get(\"rarityId\"),c.get(\"rarityEaId\"),\n      c.get(\"position\"),c.get(\"positionId\"),json_text(c.get(\"alternativePositions\")),json_text(c.get(\"alternativePositionIds\")),\n      entity(c,\"club\",\"name\"),entity(c,\"club\",\"eaId\"),entity(c,\"league\",\"name\"),entity(c,\"league\",\"eaId\"),"
+            },
+            {
+              "start": 213,
+              "end": 219,
+              "text": "      meta={\"dataset\":\"EA SPORTS FC 27 Ultimate Team basic player/card snapshot\",\"schema_version\":\"2\",\"game\":\"FC 27\",\"source\":\"FUT.GG\",\"source_api\":API,\n            \"snapshot_started_utc\":started,\"snapshot_finished_utc\":utc_now(),\"cards\":str(cards),\"base_players\":str(players),\"playstyles\":str(len(psmap)),\"roles\":str(len(roles)),\n            \"playstyles_source\":urls[\"play-styles\"],\"roles_source\":urls[\"roles\"],\"http_requests\":str(request_count),\n            \"manifest_version\":str(manifest.get(\"_version\", \"\")),\n            \"manifest_hash\":hashlib.sha256(json.dumps(manifest, sort_keys=True, separators=(\",\", \":\")).encode()).hexdigest(),\n            \"notes\":\"Market prices intentionally excluded. Readable PlayStyle/Role name arrays are included alongside raw EA IDs.\"}\n      con.executemany(\"INSERT OR REPLACE INTO metadata(key,value) VALUES (?,?)\",meta.items()); con.commit()"
+            }
+          ]
+        },
+        {
+          "path": "data/catalog-manifest.json",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/data/catalog-manifest.json",
+          "git_blob_sha1": "2174a5259c882da9e2aa22a1d35ff9a3ccae4ff3",
+          "content_sha256": "21deddd7719b341f33117d652003e0d847facabd65498840ebac4b837fa55820",
+          "line_count": 41,
+          "anchors": [
+            {
+              "start": 5,
+              "end": 7,
+              "text": "    \"primary_positions\": 19676,\n    \"unique_card_ea_ids\": 19676,\n    \"unique_futgg_ids\": 19676,"
+            },
+            {
+              "start": 15,
+              "end": 15,
+              "text": "    \"cards\": 19676,"
+            },
+            {
+              "start": 27,
+              "end": 35,
+              "text": "    \"card_count\": \"19676\",\n    \"game_year\": \"27\",\n    \"manifest_hash\": \"fe5fbef777a1bc6989df1a07d9b243b871c499bc88997b758905bada3171e736\",\n    \"manifest_version\": \"1\",\n    \"player_count\": \"19595\",\n    \"schema_version\": \"3\",\n    \"snapshot_finished_at\": \"2026-09-18T10:04:38Z\",\n    \"snapshot_started_at\": \"2026-09-18T10:01:23Z\",\n    \"source\": \"FUT.GG\""
+            }
+          ]
+        },
+        {
+          "path": "LICENSE",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/LICENSE",
+          "git_blob_sha1": "c9a53e3cae9065980c6739e02d4fb620354b5b99",
+          "content_sha256": "435ad66086685f77d36b34cb581446f11097173ca7841af39c201968d116870b",
+          "line_count": 21,
+          "anchors": [
+            {
+              "start": 1,
+              "end": 3,
+              "text": "MIT License\n\nCopyright (c) 2026 FC27 Copilot contributors"
+            },
+            {
+              "start": 15,
+              "end": 16,
+              "text": "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,"
+            }
+          ]
+        },
+        {
+          "path": "scripts/import_catalog.py",
+          "url": "https://github.com/liusihang/fc27-copilot/blob/fa0fdde132715b2c09a4cff1e51736a1794d635e/scripts/import_catalog.py",
+          "git_blob_sha1": "93fd2bd5e2c1a2d69ab027b1a747e1fd329b5e1f",
+          "content_sha256": "7a7f70857a6830f31b25eb98e9b2f019cf0a12ce523f3e230ace3b834f53d6d8",
+          "line_count": 276,
+          "anchors": [
+            {
+              "start": 133,
+              "end": 153,
+              "text": "        card_sql = \"\"\"INSERT INTO cards(\n            card_ea_id, futgg_id, base_player_ea_id, slug, card_name,\n            overall, quality, rarity_id, club_id, league_id,\n            weak_foot, skill_moves, pace, shooting, passing, dribbling,\n            defending, physicality, gk_diving, gk_handling, gk_kicking,\n            gk_reflexes, gk_speed, gk_positioning, strength, accelerate_type,\n            total_igs, is_icon, is_hero, is_special, is_dynamic, is_evolution,\n            is_sbc, is_objective, created_at, image_url, card_image_url\n        ) VALUES ({})\"\"\".format(\",\".join(\"?\" for _ in range(37)))\n        target.executemany(\n            card_sql,\n            source.execute(\n                \"\"\"SELECT ea_id, futgg_id, base_player_ea_id, slug, card_name,\n                          overall, quality, rarity_id, club_ea_id, league_ea_id,\n                          weak_foot, skill_moves, pace, shooting, passing, dribbling,\n                          defending, physicality, gk_diving, gk_handling, gk_kicking,\n                          gk_reflexes, gk_speed, gk_positioning, strength, accelerate_type,\n                          total_igs, is_icon, is_hero, is_special, is_dynamic,\n                          is_evolution, is_sbc, is_objective, created_at,\n                          image_url, card_image_url\n                   FROM cards ORDER BY ea_id\"\"\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "jgor80/11-lab",
+      "revision": "fc5e4b04d4effbed3ea8d098db6f38d0a5665224",
+      "review_completed_at_utc": "2026-11-11T21:27:49.828978+00:00",
+      "channel": "read-only GitHub connector",
+      "tree_sha": "63cbe83b25b799a107ebf42a2d97c3d494d3961b",
+      "tree_truncated": false,
+      "tree_url": "https://api.github.com/repos/jgor80/11-lab/git/trees/63cbe83b25b799a107ebf42a2d97c3d494d3961b?recursive=1",
+      "license_paths": [],
+      "license": null,
+      "package_license_field": null,
+      "reuse": "reference_only_no_upstream_execution_or_copying_into_runtime",
+      "files": [
+        {
+          "path": "scripts/sync-futgg-prices.py",
+          "url": "https://github.com/jgor80/11-lab/blob/fc5e4b04d4effbed3ea8d098db6f38d0a5665224/scripts/sync-futgg-prices.py",
+          "git_blob_sha1": "abd5a62ebd86edfbf56c9c849f5f46fd1545cfd6",
+          "content_sha256": "380bf06a5d5455f0b190554f73d72a4fd34055a942566d0949eac7a3ab264523",
+          "line_count": 169,
+          "anchors": [
+            {
+              "start": 14,
+              "end": 16,
+              "text": "BASE = \"https://r2.fut.gg\"\nMAX_BYTES = 8 * 1024 * 1024\nPLATFORMS = {\"console\": \"player-prices-ps5-dyn\", \"pc\": \"player-prices-pc-dyn\"}"
+            },
+            {
+              "start": 23,
+              "end": 27,
+              "text": "def file_name(manifest, name):\n    version, digest = manifest.get(\"_version\"), manifest.get(name)\n    if type(version) is not int or version < 1 or not isinstance(digest, str) or not re.fullmatch(r\"[a-f0-9]+\", digest):\n        raise ValueError(\"Invalid manifest entry for \" + name)\n    return f\"{name}.v{version}.{digest}.json\""
+            },
+            {
+              "start": 40,
+              "end": 70,
+              "text": "def decode(index, blob, published, platform, now):\n    if not isinstance(index, dict) or not isinstance(blob, dict) or index.get(\"v\") != 2 or blob.get(\"v\") != 2:\n        raise ValueError(\"Unsupported price format; expected version 2\")\n    if type(published) is not int or published <= 0:\n        raise ValueError(\"Missing dataset publication timestamp\")\n    published_at = datetime.fromtimestamp(published, timezone.utc)\n    if published_at > now + timedelta(minutes=10):\n        raise ValueError(\"Dataset publication timestamp is in the future\")\n    first, deltas, prices, statuses = index.get(\"id0\"), index.get(\"d\"), blob.get(\"p\"), blob.get(\"s\")\n    if type(first) is not int or first <= 0 or not all(isinstance(v, list) for v in (deltas, prices, statuses)):\n        raise ValueError(\"Invalid price index or arrays\")\n    if not prices or len(prices) != len(deltas) + 1 or len(statuses) != len(prices):\n        raise ValueError(\"Price blob/index length mismatch\")\n    ids = [first]\n    for delta in deltas:\n        if type(delta) is not int or delta <= 0:\n            raise ValueError(\"Card ID deltas must be positive integers\")\n        ids.append(ids[-1] + delta)\n    cards = []\n    for item, price, status in zip(ids, prices, statuses):\n        if type(status) is not int or status not in (0, 1, 2, 3, 4):\n            raise ValueError(\"Unsupported card price status\")\n        if price is not None and (type(price) is not int or price < 0):\n            raise ValueError(\"Invalid price\")\n        # FUT.GG uses status 1 for SBC costs and 2 for objectives. Those are not market quotes.\n        cards.append({\"ea_item_id\": item, \"price\": price if status == 0 and price else None,\n                      \"status_code\": status, \"provider_value\": price})\n    age = max(0, (now - published_at).total_seconds() / 3600)\n    return {\"platform\": platform, \"snapshot_published_at\": iso(published_at),\n            \"age_hours\": round(age, 2), \"stale\": age > 12,\n            \"card_count\": len(cards), \"market_price_count\": sum(c[\"price\"] is not None for c in cards),"
+            },
+            {
+              "start": 87,
+              "end": 100,
+              "text": "    manifest = fetch(f\"{base}/manifest.json\")\n    if not isinstance(manifest, dict) or not isinstance(manifest.get(\"_published_at\"), dict):\n        raise ValueError(\"Invalid dataset manifest\")\n    index_name = file_name(manifest, \"player-prices-index\")\n    index = fetch(f\"{base}/{index_name}\")\n    raw = {\"manifest\": manifest, \"player-prices-index\": index}\n    snapshots, urls = {}, {\"manifest\": f\"{base}/manifest.json\", \"index\": f\"{base}/{index_name}\"}\n    for platform, name in PLATFORMS.items():\n        url = f\"{base}/{file_name(manifest, name)}\"\n        blob = fetch(url)\n        raw[name] = blob\n        snapshots[platform] = decode(index, blob, manifest[\"_published_at\"].get(name), platform, now)\n        urls[platform] = url\n    bundle = {\"source\": \"futgg\", \"game_year\": year, \"received_at\": iso(now), \"source_urls\": urls,"
+            }
+          ]
+        },
+        {
+          "path": "src/market/pricecheck.ts",
+          "url": "https://github.com/jgor80/11-lab/blob/fc5e4b04d4effbed3ea8d098db6f38d0a5665224/src/market/pricecheck.ts",
+          "git_blob_sha1": "0cb4074b29db7213d7dfdd6bf34695fb444ab824",
+          "content_sha256": "3b41fdafc1aad230a0e665eb8411de6202994914075ff894970632990fa6ca11",
+          "line_count": 130,
+          "anchors": [
+            {
+              "start": 27,
+              "end": 28,
+              "text": " * A search the Web App sent, kept as a template if it names one player: `definitionId` (a card version) or\n * `maskedDefId` (a footballer). Returns null for anything else, including non-GET requests."
+            },
+            {
+              "start": 39,
+              "end": 49,
+              "text": "  if (!u.searchParams.has(\"definitionId\") && !u.searchParams.has(\"maskedDefId\")) return null;\n  for (const k of PRICE_FILTERS) u.searchParams.delete(k);\n  u.searchParams.set(\"start\", \"0\");\n  return u.toString();\n}\n\n/** The template with this card in it. A card-version template uses EA's item id, a footballer template the asset id. */\nexport function searchUrlFor(template: string, item: Pick<ClubItem, \"ea_item_id\" | \"asset_id\">): string | null {\n  const u = new URL(template);\n  if (u.searchParams.has(\"definitionId\")) u.searchParams.set(\"definitionId\", String(item.ea_item_id));\n  else if (u.searchParams.has(\"maskedDefId\")) {"
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "url": "https://github.com/jgor80/11-lab/blob/fc5e4b04d4effbed3ea8d098db6f38d0a5665224/package.json",
+          "git_blob_sha1": "c390730d43f5d867d5ced7e799171d30fe783d2a",
+          "content_sha256": "7a9b632c98493db39761565aef7e545c7832b13bfd429ec540dcbbacfbe1c96f",
+          "line_count": 32,
+          "anchors": [
+            {
+              "start": 1,
+              "end": 7,
+              "text": "{\n  \"name\": \"xi-lab\",\n  \"version\": \"0.1.0\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"description\": \"XI Lab: chemistry-aware FUT squad optimizer. Data model, import pipeline, chemistry engine and the squad workspace.\",\n  \"engines\": {"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

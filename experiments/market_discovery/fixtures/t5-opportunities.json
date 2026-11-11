@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "mode": "SIMULATED",
+  "lineage": "DETERMINISTIC_SYNTHETIC_NOT_LIVE",
+  "now": "2026-11-12T12:00:00+00:00",
+  "rules_status": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EA_VERIFIED",
+  "markets": [
+    {"definition_id": 233731, "acquisition": 5000, "asks": [6000, 6100, 6200, 6300, 6400]},
+    {"definition_id": 278230, "acquisition": 2500, "asks": [4000, 4100, 4200, 4300, 4400]}
+  ]
+}

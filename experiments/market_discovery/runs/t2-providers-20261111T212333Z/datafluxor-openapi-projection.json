@@ -1,0 +1,2240 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "The direct, key-authenticated DataFluxor scraper API and remote MCP endpoint. Browser workspace requests use the separately authenticated /v1 gateway and are not a substitute for these public endpoints. Available public scraper tools can be used through the API, MCP and CLI when the deployment offers them. Every plan includes every tool and the workspace. Free includes 250 credits a month without a card; top-ups add purchased credits. Direct reads cost 1 credit and browser actions cost 5; keyword research, domain overview and backlinks (DataForSEO data) cost more, from 40 credits a request, and each operation states its price. Cached and failed work is free. Cached reads require a positive balance. Daily live-page, request rate and concurrency limits protect capacity. A refusal is 429 RATE_LIMITED or DAILY_LIVE_LIMIT, or 402 INSUFFICIENT_CREDITS, and charges nothing. FUT Data is a separate subscription with REST API access to the FUT endpoints only (tag FUT Data API); it has no MCP tools and no CLI commands. Requests are limited to 2 MiB. Invalid requests and requests that fail before useful collection do not consume a credit.",
+    "title": "DataFluxor Direct API",
+    "version": "1.4.0"
+  },
+  "paths": {
+    "/api/v1/fut/prices": {
+      "get": {
+        "description": "Stored prices for up to 500 card versions by EA item id. Each id maps to exactly one catalogued card or is returned in unresolved with a reason; a price is never borrowed from another version. FUT Data API reads serve the newer of the latest per-card read and the players-list price (price_source).",
+        "operationId": "getFutPrices",
+        "parameters": [
+          {
+            "description": "Comma-separated EA item ids (1-500).",
+            "in": "query",
+            "name": "ea_ids",
+            "required": true,
+            "schema": {
+              "pattern": "^[0-9]+(,[0-9]+)*$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "ps (default), xbox or pc. PlayStation and Xbox share the console market.",
+            "in": "query",
+            "name": "platform",
+            "required": false,
+            "schema": {
+              "default": "ps",
+              "enum": [
+                "ps",
+                "xbox",
+                "pc"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1FutPricesEnvelope"
+                }
+              }
+            },
+            "description": "Prices with their observation time."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "Invalid parameters; no credit is used."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "A valid active API key is required."
+          },
+          "402": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "INSUFFICIENT_CREDITS: the month's requests are used up until the allowance resets at the next paid renewal; no credit is used."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "FORBIDDEN: the key has no FUT access, or the endpoint is not part of the FUT Data API."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "RATE_LIMITED: 120 requests per minute (FUT Data API), or 3 requests in flight per key. A FUT request over either limit is refused, never queued as a saved run. Retry after the Retry-After header.",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "The FUT store is temporarily unavailable (UPSTREAM_UNAVAILABLE) or the request timed out (REQUEST_TIMEOUT, with Retry-After); no credit is used."
+          }
+        },
+        "security": [
+          {
+            "DataFluxorAPIKey": []
+          },
+          {
+            "DataFluxorBearer": []
+          }
+        ],
+        "summary": "Prices by EA item id",
+        "tags": [
+          "FUT Data API"
+        ]
+      },
+      "post": {
+        "description": "The same read for up to 500 cards; optional rating, rarity_id and club_id must agree with the catalogued card or the id is returned as a mismatch.",
+        "operationId": "postFutPrices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResultV1FutPricesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1FutPricesEnvelope"
+                }
+              }
+            },
+            "description": "Prices with their observation time."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "Invalid parameters; no credit is used."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "A valid active API key is required."
+          },
+          "402": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "INSUFFICIENT_CREDITS: the month's requests are used up until the allowance resets at the next paid renewal; no credit is used."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "FORBIDDEN: the key has no FUT access, or the endpoint is not part of the FUT Data API."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "RATE_LIMITED: 120 requests per minute (FUT Data API), or 3 requests in flight per key. A FUT request over either limit is refused, never queued as a saved run. Retry after the Retry-After header.",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "The FUT store is temporarily unavailable (UPSTREAM_UNAVAILABLE) or the request timed out (REQUEST_TIMEOUT, with Retry-After); no credit is used."
+          }
+        },
+        "security": [
+          {
+            "DataFluxorAPIKey": []
+          },
+          {
+            "DataFluxorBearer": []
+          }
+        ],
+        "summary": "Prices by EA item id with identity hints",
+        "tags": [
+          "FUT Data API"
+        ]
+      }
+    },
+    "/api/v1/fut/cards": {
+      "get": {
+        "description": "Every current card version, filtered and sorted, one page at a time. Replaced club-move copies are left out unless include_replaced=1.",
+        "operationId": "browseFutCards",
+        "parameters": [
+          {
+            "description": "Name words (accents and case ignored; every word must match), at most 60 characters.",
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "maxLength": 60,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma list of icon, hero, promo, gold, silver, bronze.",
+            "in": "query",
+            "name": "group",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma list of card-type ids (see /api/v1/fut/rarities).",
+            "in": "query",
+            "name": "rarity_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma list of positions such as ST,CAM,GK.",
+            "in": "query",
+            "name": "pos",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "1 also matches alternative positions; anything but 0 or 1 is a 400.",
+            "in": "query",
+            "name": "alt",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "League id (see /api/v1/fut/facets).",
+            "in": "query",
+            "name": "league_id",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Nation id.",
+            "in": "query",
+            "name": "nation_id",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Club id.",
+            "in": "query",
+            "name": "club_id",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Base player id: every version of one player.",
+            "in": "query",
+            "name": "player_id",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Minimum rating.",
+            "in": "query",
+            "name": "min_rating",
+            "required": false,
+            "schema": {
+              "maximum": 99,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum rating.",
+            "in": "query",
+            "name": "max_rating",
+            "required": false,
+            "schema": {
+              "maximum": 99,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Market for price filters and price/change sorts; console by default.",
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "default": "console",
+              "enum": [
+                "console",
+                "pc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Minimum best price on the selected market.",
+            "in": "query",
+            "name": "min_price",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Maximum best price on the selected market.",
+            "in": "query",
+            "name": "max_price",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "1 = only cards priced on the selected market.",
+            "in": "query",
+            "name": "priced",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Signature/holo variants only (1) or none (0).",
+            "in": "query",
+            "name": "holo",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "1 also returns old copies left by club moves.",
+            "in": "query",
+            "name": "include_replaced",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "1 also returns cards whose EA item id is not in the game and that never had a price (left out by default).",
+            "in": "query",
+            "name": "include_unavailable",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Signature cards only (1) or only cards EA lists without the Signature hologram (0); cards whose EA facts are not known yet match neither.",
+            "in": "query",
+            "name": "signature",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Cards added on or after this date (YYYY-MM-DD).",
+            "in": "query",
+            "name": "added_since",
+            "required": false,
+            "schema": {
+              "format": "date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Order; unpriced cards sort last on price sorts.",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "price_desc",
+              "enum": [
+                "price_desc",
+                "price_asc",
+                "rating_desc",
+                "rating_asc",
+                "newest",
+                "change_desc",
+                "change_asc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page offset.",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "maximum": 100000,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page size, at least 1 (0 or a negative value is a 400); larger values are clamped to 100.",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 48,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "1 adds a details object (PlayStyles, roles, age, detailed stats) to each card that has verified details; without it list results stay lean.",
+            "in": "query",
+            "name": "details",
+            "required": false,
+            "schema": {
+              "enum": [
+                "0",
+                "1"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1FutCardPageEnvelope"
+                }
+              }
+            },
+            "description": "One page of cards and the total that matched."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "Invalid parameters; no credit is used."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "A valid active API key is required."
+          },
+          "402": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "INSUFFICIENT_CREDITS: the month's requests are used up until the allowance resets at the next paid renewal; no credit is used."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "FORBIDDEN: the key has no FUT access, or the endpoint is not part of the FUT Data API."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "RATE_LIMITED: 120 requests per minute (FUT Data API), or 3 requests in flight per key. A FUT request over either limit is refused, never queued as a saved run. Retry after the Retry-After header.",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "The FUT store is temporarily unavailable (UPSTREAM_UNAVAILABLE) or the request timed out (REQUEST_TIMEOUT, with Retry-After); no credit is used."
+          }
+        },
+        "security": [
+          {
+            "DataFluxorAPIKey": []
+          },
+          {
+            "DataFluxorBearer": []
+          }
+        ],
+        "summary": "Browse the card catalogue",
+        "tags": [
+          "FUT Data API"
+        ]
+      }
+    },
+    "/api/v1/fut/cards/{futbin_id}/history": {
+      "get": {
+        "description": "Per-card reads merged with daily players-list prices, oldest first, at most 200 evenly spaced points. Per-card reads are kept for up to 90 days and daily list prices for up to 180 days; FC 27 history starts 25 September 2026.",
+        "operationId": "getFutPriceHistory",
+        "parameters": [
+          {
+            "description": "Catalogue card id (futbin_id from browse, search or prices).",
+            "in": "path",
+            "name": "futbin_id",
+            "required": true,
+            "schema": {
+              "format": "int64",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "console (ps and xbox also mean console) or pc.",
+            "in": "query",
+            "name": "market",
+            "required": false,
+            "schema": {
+              "default": "console",
+              "enum": [
+                "console",
+                "ps",
+                "xbox",
+                "pc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "History window.",
+            "in": "query",
+            "name": "period",
+            "required": false,
+            "schema": {
+              "default": "7d",
+              "enum": [
+                "24h",
+                "7d",
+                "30d",
+                "all"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1FutPriceHistoryEnvelope"
+                }
+              }
+            },
+            "description": "Price points."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "Invalid parameters; no credit is used."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "A valid active API key is required."
+          },
+          "402": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "INSUFFICIENT_CREDITS: the month's requests are used up until the allowance resets at the next paid renewal; no credit is used."
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "FORBIDDEN: the key has no FUT access, or the endpoint is not part of the FUT Data API."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "RATE_LIMITED: 120 requests per minute (FUT Data API), or 3 requests in flight per key. A FUT request over either limit is refused, never queued as a saved run. Retry after the Retry-After header.",
+            "headers": {
+              "Retry-After": {
+                "schema": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultV1Error"
+                }
+              }
+            },
+            "description": "The FUT store is temporarily unavailable (UPSTREAM_UNAVAILABLE) or the request timed out (REQUEST_TIMEOUT, with Retry-After); no credit is used."
+          }
+        },
+        "security": [
+          {
+            "DataFluxorAPIKey": []
+          },
+          {
+            "DataFluxorBearer": []
+          }
+        ],
+        "summary": "A card's price history",
+        "tags": [
+          "FUT Data API"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResultV1Error": {
+        "description": "The error envelope of every /api/v1/scrape, /api/v1/fut and run endpoint: success false, a machine-readable code (branch on code, not on the error text), a human-readable error, latency_ms, timestamp and, where useful, request_id, retry_after_seconds, credit_cost and data. Other surfaces keep their own conventions: MCP answers with JSON-RPC errors (an invalid, revoked or missing API key is HTTP 401 with a WWW-Authenticate challenge on every method); OAuth endpoints (/oauth/register, /oauth/token) answer with RFC 6749 and RFC 7591 {error, error_description} and status 400 for invalid client metadata; the account endpoints under /api/v1/auth use {success, error, code}. Codes: INVALID_REQUEST (400), REQUEST_TOO_LARGE (413, body over 2 MiB), UNAUTHORIZED (401), FORBIDDEN (403), INSUFFICIENT_CREDITS (402), COUNTRY_UNSUPPORTED, LANGUAGE_UNSUPPORTED and DEVICE_UNSUPPORTED (422), TARGET_NOT_ALLOWED (400), TARGET_HTTP_ERROR, TARGET_UNREACHABLE, TARGET_UNSUPPORTED_CONTENT and TARGET_ROBOTS_DISALLOWED and FEATURE_UNAVAILABLE (422; a disabled option such as render, uncharged), RATE_LIMITED and DAILY_LIVE_LIMIT (429; cached results remain available with a positive balance, and Retry-After names when to retry), REQUEST_TIMEOUT, UPSTREAM_UNAVAILABLE, PROXY_EXHAUSTED and MARKET_MISMATCH (503; MARKET_MISMATCH: every results page obtained was produced for another country than the one requested, nothing is served or charged, retry after retry_after_seconds), RESULT_UNAVAILABLE (410 when retained or project evidence is gone; never a second charge), INTERNAL_ERROR (500).",
+        "properties": {
+          "code": {
+            "enum": [
+              "INVALID_REQUEST",
+              "COUNTRY_UNSUPPORTED",
+              "LANGUAGE_UNSUPPORTED",
+              "DEVICE_UNSUPPORTED",
+              "UNAUTHORIZED",
+              "FORBIDDEN",
+              "INSUFFICIENT_CREDITS",
+              "PLAN_REQUEST_LIMIT",
+              "DAILY_LIVE_LIMIT",
+              "MONTHLY_LIVE_LIMIT",
+              "MONTHLY_CRAWL_LIMIT",
+              "UPSTREAM_UNAVAILABLE",
+              "PROXY_EXHAUSTED",
+              "MARKET_MISMATCH",
+              "PARSE_FAILED",
+              "BASELINE_UNAVAILABLE",
+              "RATE_LIMITED",
+              "INTERNAL_ERROR",
+              "REQUEST_CANCELED",
+              "REQUEST_TIMEOUT",
+              "REQUEST_TOO_LARGE",
+              "NOT_FOUND",
+              "RESULT_UNAVAILABLE",
+              "TARGET_NOT_ALLOWED",
+              "TARGET_HTTP_ERROR",
+              "TARGET_UNREACHABLE",
+              "TARGET_UNSUPPORTED_CONTENT",
+              "TARGET_ROBOTS_DISALLOWED",
+              "FEATURE_UNAVAILABLE",
+              "CONFLICT",
+              "KEYWORD_LIMIT",
+              "RESEARCH_LIMIT",
+              "PROJECT_LIMIT",
+              "GOOGLE_NOT_CONNECTED",
+              "GOOGLE_PROPERTY_REQUIRED",
+              "GOOGLE_ACCESS_REQUIRED",
+              "GOOGLE_CONNECTIONS_UNAVAILABLE",
+              "AUDIT_NOT_COMPLETE",
+              "AUDIT_SCOPE_MISMATCH",
+              "AUDIT_INCOMPLETE_COVERAGE",
+              "AUDIT_COMPARISON_TOO_LARGE",
+              "PRICE_ABOVE_LIMIT"
+            ],
+            "type": "string"
+          },
+          "credit_cost": {
+            "description": "Confirmed cost of the original outcome in credits under the schedule recorded for the run: 5 per Google results page fetched live, 0 per page served from cache, 1 per live autocomplete call or extracted page, 1 per page audited as HTML in a crawl; failed or undetermined work costs 0. Successful scoped replays return the original cost without charging it again. Omitted means the outcome is not confirmed, never an implied zero.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "data": {
+            "additionalProperties": true,
+            "description": "Diagnostics. On a capacity refusal: admitted (always false: nothing was started, reserved or charged), limit_type (request_rate, active_job_capacity, active_run_capacity, crawl_concurrency, search_capacity, google_pacing or deployment_pause), on a RATE_LIMITED refusal a subcode (REQUEST_RATE_LIMIT: the per-minute window is full; CONCURRENCY_LIMIT: too many jobs are running or waiting; the code itself stays RATE_LIMITED) and, where known, reason and scope (what is full: the credential, the organization shared by all its credentials and clients, or the platform). Some tools add partial data here.",
+            "type": "object"
+          },
+          "error": {
+            "type": "string"
+          },
+          "field": {
+            "description": "On a rejected request, the input that is wrong, as a path from the request: project_id, items[2].metrics.difficulty. Absent when the problem is not one input.",
+            "type": "string"
+          },
+          "hint": {
+            "description": "What to do about the error, when there is something specific to do.",
+            "type": "string"
+          },
+          "item_index": {
+            "description": "On a rejected batch, the zero-based index of the entry that is wrong.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "latency_ms": {
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "request_id": {
+            "description": "Correlation id, also sent as the X-Request-Id response header. Quote it to match a failure to server logs; it carries no credentials.",
+            "type": "string"
+          },
+          "retry_after_seconds": {
+            "description": "Present on every retryable answer (429 and 503 with Retry-After); the same value as the Retry-After header, computed from real state (the earliest slot release, the request-rate window refill, or the search queue) and never a fixed guess. Wait this long, then repeat the identical request (with the same Idempotency-Key).",
+            "minimum": 1,
+            "type": "integer"
+          },
+          "success": {
+            "enum": [
+              false
+            ],
+            "type": "boolean"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "code",
+          "error",
+          "latency_ms",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutPriceHistoryEnvelope": {
+        "properties": {
+          "credit_cost": {
+            "description": "1 on the FUT Data API (0 when a price request names only unknown ids); 0 for workspaces with FUT enabled.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ResultV1FutPriceHistory"
+          },
+          "latency_ms": {
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "success": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "latency_ms",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutPriceHistory": {
+        "properties": {
+          "market": {
+            "type": "string"
+          },
+          "period": {
+            "type": "string"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutHistoryPoint"
+            },
+            "nullable": true,
+            "type": "array"
+          }
+        },
+        "required": [
+          "points",
+          "period",
+          "market"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutHistoryPoint": {
+        "properties": {
+          "at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "exact": {
+            "type": "boolean"
+          },
+          "lowest": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "source": {
+            "type": "string"
+          },
+          "source_updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "at",
+          "lowest",
+          "source",
+          "exact"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutCardPageEnvelope": {
+        "properties": {
+          "credit_cost": {
+            "description": "1 on the FUT Data API (0 when a price request names only unknown ids); 0 for workspaces with FUT enabled.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ResultV1FutCardPage"
+          },
+          "latency_ms": {
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "success": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "latency_ms",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutCardPage": {
+        "properties": {
+          "cards": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutSearchCard"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "corrected_query": {
+            "description": "Set when the query as typed matched nothing and the cards are those of this spelling-corrected query.",
+            "type": "string"
+          },
+          "limit": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "offset": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "quote_contract": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "read_as": {
+            "$ref": "#/components/schemas/ResultV1FutQueryReading"
+          },
+          "total": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "quote_contract",
+          "cards",
+          "total",
+          "offset",
+          "limit"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutQueryReading": {
+        "properties": {
+          "card_type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rating": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "ResultV1FutSearchCard": {
+        "properties": {
+          "accelerate": {
+            "description": "The text Futbin's players list prints under the height: on most cards the body type (Avg & Lean, Tall & Normal, a player's own body type), on others an AcceleRATE type (Controlled, Lengthy, Explosive). Not a reliable AcceleRATE value.",
+            "type": "string"
+          },
+          "added_on": {
+            "nullable": true,
+            "type": "string"
+          },
+          "added_on_estimated": {
+            "type": "boolean"
+          },
+          "assets": {
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "change_24h": {
+            "format": "double",
+            "nullable": true,
+            "type": "number"
+          },
+          "change_24h_pc": {
+            "format": "double",
+            "nullable": true,
+            "type": "number"
+          },
+          "change_24h_pc_quote": {
+            "nullable": true,
+            "properties": {
+              "baseline": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "baseline_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "current": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "current_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "elapsed_seconds": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "current",
+              "baseline",
+              "current_at",
+              "baseline_at",
+              "elapsed_seconds",
+              "source",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "change_24h_quote": {
+            "nullable": true,
+            "properties": {
+              "baseline": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "baseline_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "current": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "current_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "elapsed_seconds": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "current",
+              "baseline",
+              "current_at",
+              "baseline_at",
+              "elapsed_seconds",
+              "source",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "change_7d": {
+            "format": "double",
+            "nullable": true,
+            "type": "number"
+          },
+          "change_7d_pc": {
+            "format": "double",
+            "nullable": true,
+            "type": "number"
+          },
+          "change_7d_pc_quote": {
+            "nullable": true,
+            "properties": {
+              "baseline": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "baseline_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "current": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "current_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "elapsed_seconds": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "current",
+              "baseline",
+              "current_at",
+              "baseline_at",
+              "elapsed_seconds",
+              "source",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "change_7d_quote": {
+            "nullable": true,
+            "properties": {
+              "baseline": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "baseline_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "current": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "current_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "elapsed_seconds": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "current",
+              "baseline",
+              "current_at",
+              "baseline_at",
+              "elapsed_seconds",
+              "source",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "club": {
+            "type": "string"
+          },
+          "club_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "corrected": {
+            "description": "Fields (name, club, league, nation) replaced by EA's own values because the source page showed them wrong.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "details": {
+            "$ref": "#/components/schemas/ResultV1FutDetailView"
+          },
+          "ea_id": {
+            "description": "EA item id; 0 when the card has no exact EA id.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "first_seen": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "foot": {
+            "type": "string"
+          },
+          "futbin_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "game": {
+            "type": "string"
+          },
+          "has_image": {
+            "type": "boolean"
+          },
+          "height_cm": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "holo": {
+            "type": "boolean"
+          },
+          "holographic_type": {
+            "description": "EA's hologram type: pristine (Signature), holographic or none; null when not known yet.",
+            "nullable": true,
+            "type": "string"
+          },
+          "in_game": {
+            "description": "False when the card's EA item id is not an item in the game (a retired or never released id) and the card never had a price; true when EA lists it; null otherwise.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "last_price": {
+            "description": "Only when price is null: the most recent usable console price with its own time (at) and stale flag. Never the current price.",
+            "nullable": true,
+            "properties": {
+              "at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "lowest": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "source_updated_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "stale": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "lowest",
+              "at",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "last_price_pc": {
+            "description": "Only when price_pc is null: the most recent usable PC price with its own time (at) and stale flag.",
+            "nullable": true,
+            "properties": {
+              "at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "lowest": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "source_updated_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "stale": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "lowest",
+              "at",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "last_upgrade_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "league": {
+            "type": "string"
+          },
+          "league_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "nation": {
+            "type": "string"
+          },
+          "nation_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "player_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "position": {
+            "type": "string"
+          },
+          "price": {
+            "description": "Best known console price: the newer of the per-card read (exact) and the players-list price. Null when unknown or replaced. Its stale flag turns only after 24 hours (quotes.*.stale turns after 15 minutes): trade on quotes or their age_seconds.",
+            "nullable": true,
+            "properties": {
+              "at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "lowest": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "source_updated_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "stale": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "lowest",
+              "at",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "price_check_status": {
+            "type": "string"
+          },
+          "price_last_attempt_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "price_pc": {
+            "nullable": true,
+            "properties": {
+              "at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "exact": {
+                "type": "boolean"
+              },
+              "lowest": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "source_updated_at": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "stale": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "lowest",
+              "at",
+              "exact"
+            ],
+            "type": "object"
+          },
+          "price_pc_no_market": {
+            "description": "True when price_pc is null because the market data showed the 15,000,000 maximum price for PC regardless of console price (ambiguous maximum).",
+            "type": "boolean"
+          },
+          "price_unconfirmed": {
+            "description": "True when price is the last good console read because a newer read jumped (more than 5x, or the 15,000,000 maximum) and waits for a second read.",
+            "type": "boolean"
+          },
+          "prices": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ResultV1FutPrice"
+            },
+            "nullable": true,
+            "type": "object"
+          },
+          "quotes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ResultV1FutMarketQuote"
+            },
+            "nullable": true,
+            "type": "object"
+          },
+          "rarity": {
+            "type": "string"
+          },
+          "rarity_group": {
+            "description": "icon, hero, promo, gold, silver or bronze.",
+            "type": "string"
+          },
+          "rarity_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "rarity_name": {
+            "type": "string"
+          },
+          "rating": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "replaced": {
+            "description": "An old copy left by a club move; its price fields are null. replaced_by is the current card.",
+            "type": "boolean"
+          },
+          "replaced_by": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "role_plus": {
+            "type": "string"
+          },
+          "short_name": {
+            "description": "The name printed on the card, such as Vini Jr. or Pedri.",
+            "type": "string"
+          },
+          "signature": {
+            "description": "True for a Signature (autographed) card: EA's pristine hologram. False for other cards; null when EA's facts for a holographic card are not known yet.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "skills": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "stats": {
+            "additionalProperties": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "nullable": true,
+            "type": "object"
+          },
+          "upgrade_history": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutUpgrade"
+            },
+            "type": "array"
+          },
+          "upgraded_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "upgraded_from": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "weak_foot": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "year": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "game",
+          "year",
+          "futbin_id",
+          "ea_id",
+          "player_id",
+          "name",
+          "short_name",
+          "rating",
+          "position",
+          "role_plus",
+          "rarity_id",
+          "rarity",
+          "rarity_name",
+          "rarity_group",
+          "holo",
+          "nation",
+          "league",
+          "club",
+          "nation_id",
+          "league_id",
+          "club_id",
+          "stats",
+          "skills",
+          "weak_foot",
+          "foot",
+          "height_cm",
+          "accelerate",
+          "assets",
+          "has_image",
+          "prices",
+          "added_on",
+          "first_seen",
+          "price",
+          "price_pc",
+          "change_24h",
+          "change_7d",
+          "change_24h_quote",
+          "change_7d_quote",
+          "change_24h_pc",
+          "change_7d_pc",
+          "change_24h_pc_quote",
+          "change_7d_pc_quote",
+          "quotes",
+          "price_check_status",
+          "signature",
+          "holographic_type",
+          "in_game",
+          "last_price",
+          "last_price_pc",
+          "replaced",
+          "replaced_by"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutUpgrade": {
+        "properties": {
+          "at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "changes": {
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "from_rating": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "play_styles_added": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          },
+          "play_styles_plus_added": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          },
+          "source": {
+            "type": "string"
+          },
+          "stat_changes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ResultV1FutStatChange"
+            },
+            "type": "object"
+          },
+          "to_rating": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "at",
+          "from_rating",
+          "to_rating",
+          "changes",
+          "source"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutStatChange": {
+        "properties": {
+          "from": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "to": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutNamed": {
+        "properties": {
+          "id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutMarketQuote": {
+        "properties": {
+          "age_seconds": {
+            "format": "int64",
+            "nullable": true,
+            "type": "integer"
+          },
+          "availability": {
+            "type": "string"
+          },
+          "checked_at": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "exact": {
+            "type": "boolean"
+          },
+          "market": {
+            "type": "string"
+          },
+          "no_market": {
+            "type": "boolean"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "price": {
+            "format": "int64",
+            "nullable": true,
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "source_age_seconds": {
+            "format": "int64",
+            "nullable": true,
+            "type": "integer"
+          },
+          "source_updated_at": {
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "unconfirmed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "market",
+          "platform",
+          "price",
+          "availability",
+          "source",
+          "exact",
+          "checked_at",
+          "source_updated_at",
+          "observed_at",
+          "age_seconds",
+          "source_age_seconds",
+          "stale",
+          "no_market"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutPrice": {
+        "properties": {
+          "at_range_max": {
+            "type": "boolean"
+          },
+          "futbin_updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "last_attempt_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "last_attempt_status": {
+            "type": "string"
+          },
+          "listings": {
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "lowest": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "market": {
+            "type": "string"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "range_max": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "range_min": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "sentinel_withheld": {
+            "type": "boolean"
+          },
+          "unconfirmed": {
+            "type": "boolean"
+          },
+          "unconfirmed_lowest": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "market",
+          "lowest",
+          "listings",
+          "range_min",
+          "range_max",
+          "observed_at",
+          "last_attempt_status"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutDetailView": {
+        "properties": {
+          "accelerate_type": {
+            "type": "string"
+          },
+          "age": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "detailed_stats": {
+            "additionalProperties": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "type": "object"
+          },
+          "play_styles": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          },
+          "play_styles_plus": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          },
+          "roles_plus": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          },
+          "roles_plus_plus": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutNamed"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "ResultV1FutPricesEnvelope": {
+        "properties": {
+          "credit_cost": {
+            "description": "1 on the FUT Data API (0 when a price request names only unknown ids); 0 for workspaces with FUT enabled.",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ResultV1FutPricesResult"
+          },
+          "latency_ms": {
+            "format": "int64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "success": {
+            "enum": [
+              true
+            ],
+            "type": "boolean"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "data",
+          "latency_ms",
+          "timestamp"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutPricesResult": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutCardPrice"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "unresolved": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutResolved"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutResolved": {
+        "properties": {
+          "candidates": {
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "ea_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "futbin_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "match": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "unknown",
+              "ambiguous",
+              "mismatch"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "ea_id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutCardPrice": {
+        "properties": {
+          "age_seconds": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "availability": {
+            "type": "string"
+          },
+          "checked_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "club": {
+            "type": "string"
+          },
+          "club_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "ea_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "exact": {
+            "type": "boolean"
+          },
+          "futbin_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "futbin_updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "game": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "last_upgrade": {
+            "$ref": "#/components/schemas/ResultV1FutUpgrade"
+          },
+          "last_upgrade_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "listings": {
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "market": {
+            "enum": [
+              "console",
+              "pc"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "no_market": {
+            "description": "PC only: the market data shows the 15,000,000 maximum price and is ambiguous regardless of console price; price is 0 and reason says why.",
+            "type": "boolean"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "pending": {
+            "description": "No price is stored for this market yet.",
+            "type": "boolean"
+          },
+          "platform": {
+            "enum": [
+              "ps",
+              "xbox",
+              "pc"
+            ],
+            "type": "string"
+          },
+          "position": {
+            "type": "string"
+          },
+          "price": {
+            "description": "Lowest buy-now listing in coins; 0 = the latest read found nothing listed.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "price_range_max": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "price_range_min": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "price_source": {
+            "description": "FUT Data API reads: card = the latest per-card read (listings, range, futbin_updated_at belong to it); list = the newer players-list price (price and observed_at only).",
+            "enum": [
+              "card",
+              "list"
+            ],
+            "type": "string"
+          },
+          "rarity": {
+            "type": "string"
+          },
+          "rarity_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "rating": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "recent_sales": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutSale"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "refreshing": {
+            "type": "boolean"
+          },
+          "source_updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "stale": {
+            "description": "observed_at is more than 15 minutes old.",
+            "type": "boolean"
+          },
+          "unconfirmed": {
+            "description": "Console only: the newest read jumped (more than 5x the last good read, or the 15,000,000 maximum) and waits for a second read. price and observed_at are the last good read; unconfirmed_price is the held read.",
+            "type": "boolean"
+          },
+          "unconfirmed_price": {
+            "description": "The held console read when unconfirmed is true.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "upgraded_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "upgraded_from": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "game",
+          "ea_id",
+          "futbin_id",
+          "name",
+          "rating",
+          "position",
+          "rarity_id",
+          "rarity",
+          "club_id",
+          "club",
+          "platform",
+          "market",
+          "price",
+          "listings",
+          "price_range_min",
+          "price_range_max",
+          "recent_sales",
+          "availability",
+          "exact",
+          "age_seconds",
+          "stale",
+          "pending"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutSale": {
+        "properties": {
+          "at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "price": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "at",
+          "price",
+          "kind"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutPricesRequest": {
+        "properties": {
+          "cards": {
+            "items": {
+              "$ref": "#/components/schemas/ResultV1FutCardRequest"
+            },
+            "nullable": true,
+            "type": "array"
+          },
+          "platform": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cards"
+        ],
+        "type": "object"
+      },
+      "ResultV1FutCardRequest": {
+        "properties": {
+          "club_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "ea_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "rarity_id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "rating": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ea_id"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "DataFluxorAPIKey": {
+        "description": "A DataFluxor API key created in Workspace > API access.",
+        "in": "header",
+        "name": "X-API-Key",
+        "type": "apiKey"
+      },
+      "DataFluxorBearer": {
+        "bearerFormat": "DataFluxor API key",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  }
+}

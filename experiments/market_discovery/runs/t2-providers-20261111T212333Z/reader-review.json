@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "channel": "web reader and indexed search; distinct from direct HTTP measurements",
+  "reviewed_at_utc": "2026-11-11T21:25:19+00:00",
+  "sources": [
+    {
+      "url": "https://www.futbin.com/tos",
+      "http_status": null,
+      "section": "13. No Scraping or Data Mining; 4. Intellectual Property",
+      "quote": "No Scraping or Data Mining",
+      "summary": "Written permission is required for scraping; a credited-use exception names students and content creators. Business use requires a license. No evidence this project's automated feed use qualifies for that exception. Direct GET returned 403; readable terms are not feed access."
+    },
+    {
+      "url": "https://www.fut.gg/",
+      "http_status": null,
+      "section": "footer; GG Club link",
+      "quote": "Official EA SPORTS FC™ community partner",
+      "summary": "Footer advertises Stormstrike terms. User-facing club connection is not a public bulk price API grant. No denied manifest was retried through the reader."
+    },
+    {
+      "url": "https://www.futwiz.com/contact",
+      "http_status": null,
+      "section": "Commercial/Esports Sponsorships; Other (Esports/Website)",
+      "quote": "Commercial/Esports Sponsorships",
+      "summary": "Contact route exists for obtaining a data agreement. No message sent. No API price or bulk entitlement is advertised here. Some navigation still names FC25: not evidence of a current FC27 API contract."
+    },
+    {
+      "url": "https://parse.bot/marketplace/1b6234f9-0dfb-4cca-99b4-2d6d37aec6a7/futbin-com-api",
+      "http_status": null,
+      "reader_outcome": "404 Not Found reported by reader",
+      "section": "indexed marketplace listing, not an accessible contract",
+      "quote": "Only the PlayStation price box is read",
+      "summary": "Indexed provider description advertised get_fc27_player_price at 2 credits/call and history on one platform. Direct reader open failed. No usable PC feed, batching, dollar conversion, rights grant or successful retrieval established. Do not confuse cached marketplace advertising with a working service."
+    }
+  ],
+  "limited_documentation_search": {
+    "queries": [
+      "site:futwiz.com \"API\" \"prices\" documentation",
+      "site:fut.gg \"API\" \"bulk\" terms",
+      "site:futbin.com \"API\" \"partner\" data"
+    ],
+    "result": "No results in these scoped queries. This does not establish that private partner feeds do not exist."
+  },
+  "search_freshness_conflict": {
+    "url": "https://datafluxor.com/fut-data",
+    "indexed_description": "About 21,000 versions, list refresh 45 minutes, top 500 exact reads 10 minutes, older catalogue measurement 2026-09-28.",
+    "direct_get_description": "About 22,000 versions, top 5,700 list refresh 8 minutes, others 25 minutes, top 500 exact reads 20 minutes; catalogue measurement date 2026-11-10.",
+    "decision": "Use timestamped direct GET description, still a provider claim. Neither is measured price coverage or measured cadence."
+  }
+}

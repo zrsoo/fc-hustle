@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "task": "T7",
+  "recorded_utc": "2026-11-11T22:41:21.907786+00:00",
+  "status": "PASS",
+  "environment": {
+    "python": "3.13.17",
+    "node": "v26.13.0"
+  },
+  "checks": [
+    {
+      "key": "suite",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "started_utc": "2026-11-11T22:41:04.860270+00:00",
+      "ended_utc": "2026-11-11T22:41:20.309788+00:00",
+      "exit_code": 0,
+      "output_sha256": "c39c363bb12cf3c6a78513197280d29d1e1a26a064faeac616af5ae61960c2e8",
+      "tests_run": 174,
+      "skipped_tests": false
+    },
+    {
+      "key": "demo",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "demo",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:20.310077+00:00",
+      "ended_utc": "2026-11-11T22:41:20.703108+00:00",
+      "exit_code": 0,
+      "output_sha256": "17a7457325911f4e243ebd000d727355f21a4b6c2342a6275943c393ba883073",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "simulated_requests": 72,
+        "live_requests": 0
+      }
+    },
+    {
+      "key": "replay",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "replay",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:20.794206+00:00",
+      "ended_utc": "2026-11-11T22:41:20.986392+00:00",
+      "exit_code": 0,
+      "output_sha256": "2a43e01957b53b5705158035c16c99f458a721a1f87c7d825a38626f20ccb211",
+      "artifact_checks": {
+        "mode": "HISTORICAL_REPLAY",
+        "unique_auctions": 51,
+        "new_live_samples": 0
+      }
+    },
+    {
+      "key": "flow-demo",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery",
+        "flow-demo",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:20.993957+00:00",
+      "ended_utc": "2026-11-11T22:41:21.181714+00:00",
+      "exit_code": 0,
+      "output_sha256": "4df5fe64ddb04d04338bf6ae769bc882839cc9442ad23537d6a18e7a457a63cb",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "state": "SIMULATED_INTENT_PREPARED",
+        "reads": 2,
+        "live_requests": 0
+      }
+    },
+    {
+      "key": "t4",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t4_evidence",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:21.190772+00:00",
+      "ended_utc": "2026-11-11T22:41:21.359648+00:00",
+      "exit_code": 0,
+      "output_sha256": "cc44a521215e4a3c26bd0be07921de4057150c006181eb86f384d4792438e3c2",
+      "artifact_checks": {
+        "status": "BLOCKED",
+        "authenticated_observation_seconds": 0,
+        "live_yield": null
+      }
+    },
+    {
+      "key": "t5",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t5_pricing",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:21.367853+00:00",
+      "ended_utc": "2026-11-11T22:41:21.758358+00:00",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifact_checks": {
+        "mode": "SIMULATED",
+        "prepared_fixture_intents": 4,
+        "live_yield": null
+      }
+    },
+    {
+      "key": "t6",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery.t6_analysis",
+        "--output",
+        "{output}"
+      ],
+      "started_utc": "2026-11-11T22:41:21.795284+00:00",
+      "ended_utc": "2026-11-11T22:41:21.899722+00:00",
+      "exit_code": 0,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "artifact_checks": {
+        "status": "ANALYSIS_COMPLETE_LIVE_BENCHMARK_BLOCKED",
+        "decision": "CONDITIONAL GO",
+        "live_yield": null
+      }
+    }
+  ],
+  "inputs_sha256": {
+    "docs/research/001b-discovery-benchmarks.md": "340b8e33e2ea6dd3ed99683ab8a9522b39e6da00546d9f95336bec3ae4f7a617",
+    "docs/research/001b-discovery-decision.md": "333b58d04aaac11c89ba5923a3b91eed22fb30bc206402acd14cb6377a2cbe47",
+    "docs/research/001b-latency.md": "306df68500e4697b48f8ad2f8359017a04de4af0feef4b462b9b582e704fd5bb",
+    "docs/research/001b-obj002-addendum.md": "863c399c4c935daa311c4d46fb8ac0e9ef782479eebed813acd7a65f419aa727",
+    "docs/research/001b-price-providers.md": "9336f0b4a6e8c80ddd179ab2b9afcd4f593114fbb22ee191ac98a0cebf78f629",
+    "docs/research/001b-proposed-flow.md": "d417a530b105ccfcde1fa2ce41af5825c7a81054684d448a011989af470e7551",
+    "docs/research/001b-scope.md": "1d3c01e9c60b3880dcd5dca27945f0c3adbc10498f12ab0e296ff21358b8ce00",
+    "docs/research/001b-t3-harness.md": "b886415610dccf4c4d2ddd65570e5bae762255a0d65319254c445ab857d5bd1a",
+    "docs/research/001b-t4-live-experiments.md": "763d6af4ce52f36299d43883c1dbe2f830f6a18fd270b17e7a6265c2f4bdba41",
+    "docs/research/001b/preservation.json": "9feab83176a4341d02ccd63989a56396844535ffa5cb1a83f8b38aef39e6276b",
+    "docs/research/001b/protocol.json": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+    "docs/research/001b/review-ledger.json": "f6e6bbe110cfef8faff74032500a11c53305544f9ec1b9991736cf8dba986714",
+    "docs/research/001b/t7/audit.md": "5618666f951f8af2c676b9e019c82c7bd51300f17ef2b8aebddcd8406e0ef3c0",
+    "docs/research/001b/t7/entry.json": "f60c80639a1541ff2533fa1785b47fbfd3a3d4a18638e5a0341652584c92deb5",
+    "experiments/market_discovery/README.md": "239ef74c06506d81c473e1e376dee9ad736bf9363673fa1180df5990948c9a9e",
+    "experiments/market_discovery/__init__.py": "d8adf191dba8cc64ac87bdb0b207d253ea2acf7bc2caede446164b23988c51d8",
+    "experiments/market_discovery/__main__.py": "c93ea0955afb5abfffe33ba5b2409f5407de6bbe4f3fd3b295a95800728ab848",
+    "experiments/market_discovery/bridge_server.py": "6188a597ad0f3180b4c2f0d4fb5ddc74d64404e7962910394b41e84194dc098d",
+    "experiments/market_discovery/browser/manifest.json": "9ddeaea84f0d24267bef626fe74be00c2971486595d880e3853e8b8dcfa5de20",
+    "experiments/market_discovery/browser/page.js": "f349041d9f2eae90406daf561a2558d1532d70978dd4208294b36cb93d719f25",
+    "experiments/market_discovery/browser/worker.js": "5aef5133350759fec21989303fe37119a0cbf275f8829b0402c5106a7ab1185c",
+    "experiments/market_discovery/contracts.py": "febc46d816dbaba3567a7e9b185e12f867df39c316bb4467598cb8c25cfafd79",
+    "experiments/market_discovery/discovery.py": "b0d0070bbec5c45ccb09ad3209122c2d70114451b0bf39605fc6b477241d5229",
+    "experiments/market_discovery/fixtures/t5-opportunities.json": "299fa44b8106b120c52ffe46629771b18067f36ee97c93cb1a2535641d4ff57a",
+    "experiments/market_discovery/flow.py": "f754aa4d7bb528368700da7f49ff8109bb22337963c273a3a8903266f112671b",
+    "experiments/market_discovery/local_latency.py": "046b504d63fa67063f887e71dbb2a9c3b2ff35b1c8c48155d1118b5c96809cb4",
+    "experiments/market_discovery/model.py": "56eb6c244f9fb71e4bf214d5af31b42d851e01528d1f04d6b2cc035370d3ffad",
+    "experiments/market_discovery/observation.schema.json": "0f98636b8b44ab5da50469c0d16139101d7637344c351a93e45a7df3dd8dc9be",
+    "experiments/market_discovery/opportunity.py": "75dd8025297d61af1b09c15662dcfe57cd9ef86ed6c2041858ca22482d6744ea",
+    "experiments/market_discovery/replay.py": "9770d20427e4b28c801dac43e80b00ab415698a2427f9c68193a3daa37e594cf",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/artifacts.json": "6048ca7296f1c291153f4241d9f8d98ec84304d4ae42b4cb698fb3efc9291f6a",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/contracts/http.json": "3a1b48ad59a46dc1632d6d3d9df352d70adae303ef77374341065e34867ec05e",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/datafluxor-denial.json": "fd6087d21183acfb220c678b6c00c73a8c1000a5ede5a08a0adabf45f2d218ed",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/datafluxor-openapi-projection.json": "7daba891fdb6b0015e983a4c735bad70424e0080a7d60ea5d442378ec6ad07b8",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/futdb-openapi-projection.json": "12ef976d8539487dc5318579213c167c21a784fe99a359a250d85c60b08f6b12",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/http.json": "b58b2d896698de52d41077496c794d37e2e9cef3cf41f6cad94e33e9c30b89b7",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/providers.json": "54009582dde23e4b97e4f43b286a32379d60627b1fbb56527bd049430e2ebd16",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/public-documents.json": "155f06d3c44501384380b9cf89d4202fe32a441bca0add105955560a1f48e090",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/reader-review.json": "2141b4b8d24c519fd97ae0742e5daacb13a0e8a74b731d4d482c04ba23ebb3d1",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/sandbox-history.json": "c54594abd37e3dedd3312c77abbab807b69625c9eb744f0a03e4245bcdb3f725",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/sandbox-prices.json": "2bbee6acd33960c5ea8aacd96eccf6cef9c78aaec61a19982b01bffae1d47310",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/source-review.json": "1719da6d6bbf6b1d578c44e3ce33cb74b70027a96acc2c3328b0a9e42cfc1e58",
+    "experiments/market_discovery/runs/t2-providers-20261111T212333Z/terms/http.json": "ebad76b8701ae282421bce321ccf6f9bbbf9d62db87c01faf6dd97bd5de545df",
+    "experiments/market_discovery/runs/t3-harness/attachment-attempt.json": "c451a00ed30e4d8953636deea87511bcec86fa9e7ddb28af19b3723db927ac23",
+    "experiments/market_discovery/runs/t3-harness/demo.json": "2a5a8b4f3ce1b1dac22bbbde5b815a7cfbc070fa77c6c6e18f8466b07ccd4025",
+    "experiments/market_discovery/runs/t3-harness/flow.json": "b048654545082e03b867342d281ac65aaa6f2c5861f2bcf801c8404838f0ebcc",
+    "experiments/market_discovery/runs/t3-harness/historical.json": "877652c01dbba47bb8c3070fed7edee8019c75fb265b4762edbd80b2e3bdd18f",
+    "experiments/market_discovery/runs/t3-harness/local-latency.json": "4c203203d0b86ba4bfd41a990d12ee1629660a15b843a83d693a98feca78ba27",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/access-end.json": "483203134d35d0833712d7024fb9c817c073e08ffe3e2000840a3a8950aa6994",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/access-inspection.json": "fe995be9f9312360adb753eba23fa8898bd87b263c1863036af23c1903bd6662",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/auth-stop-health.json": "7628c7dc3b7eac646c6f17353b9b8b34b6d5024993ecaa17c6e42bd5ff351f12",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/baseline-preflight.json": "07fe6b390b9004f92d7f5de208d489addc690371178ef6deee5971c6aa69f6ff",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/preflight.json": "69134cb95352b967fc8c84ae874f2d2582336043fcf2da7790104aa863d31cb6",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z/report.json": "4308e47438778d56e922e62f8048f41402d567f2fa127daec6bc7d6e184805e9",
+    "experiments/market_discovery/runs/t5-pricing/report.json": "726a84d24b875bd53cc2231a0656bb8ca32b57247d18e3f80c2f2b7fd9cb0491",
+    "experiments/market_discovery/runs/t6-analysis/report.json": "d2520dc1851b9541a68fc640a7184d91a0be92b1498b47f5935c34bb1a2485cb",
+    "experiments/market_discovery/source-review.json": "b7e02a57194f43a4f640b63f7ed908f7a629ad2a55442b3539253092a365a3ad",
+    "experiments/market_discovery/t4_evidence.py": "e4165b987d23ae415fc59b9a22c5979cf4e2207cbb594eb0f3e2e516248c7e5f",
+    "experiments/market_discovery/t5_pricing.py": "9676d121c07b03465927306c240000ea2abdbd24446d1536bcce8a60e8d11207",
+    "experiments/market_discovery/t6_analysis.py": "5b42fb7aded175916863c12211b6d76737bdc4ce84903882da9741dd5d37768b",
+    "experiments/market_discovery/transport.py": "ee0fb214916c51a9d405e957b0380084cefca78bb37fb27ff5480b2ddae618fe",
+    "experiments/price_provider_research/collect_http.py": "586219b4e62acc0b7d0c121fad31ae1ac5254cc2a520159c372f74f123a275dc",
+    "tests/audit_001b.py": "db8c363e8bf85d1b8f281cc13e85c3ee3a7df4a08ab3b43361df5dbc86ff0636",
+    "tests/market_discovery_bridge_checks.cjs": "5699544623679253775cbdbdbf26f11450bc0b8e3b09d03f379db767dcee803d",
+    "tests/record_001b_checks.py": "ad841fe5c762f8c7d3d859e605fc2d5cf873357c65c45473883a8ea27ab5e494",
+    "tests/test_001b_price_providers.py": "e2535642774f4969aebe555d86ca72e3f2bc1b253817cb94fb2a5c01cb5d12d3",
+    "tests/test_001b_scope.py": "508607468a1826af20e3aaaf5077ee4ed59e534bcdd218d6b07c9bb0c4a16cec",
+    "tests/test_market_discovery_artifacts.py": "9f2c61fd82e2b914eb46cdd5ed282bf0873fcbf64ebbc212fad5ced62c8061d1",
+    "tests/test_market_discovery_harness.py": "a24957359b756cb79a69f9d5614035d0014b0f96571e3905cec03865115dc275",
+    "tests/test_market_discovery_transport.py": "ac91de3babd26e693580d09c91cac8c73ebcce144efcb8e04c2c765e58013888",
+    "tests/test_t4_live_evidence.py": "bc2632ba884da2544a0831392794c3e4dbd06c9136a65486809ecb619fd69e61",
+    "tests/test_t5_pricing.py": "49770c40a538d50abd3822a313ac85e62fb26e17defefd9310ab5d82dda73fa5",
+    "tests/test_t5_pricing_artifacts.py": "984cb1fc45ec018e91de1cf3f02801b8f50c6516bb239d24348ea51605c93708",
+    "tests/test_t6_discovery_recommendation.py": "51a6b2f68f53194235587cf0c8c4b340792ad1f4fd89e7c2ba4c0b2783208d3c",
+    "tests/test_t7_audit.py": "6cd7804402ccfd7b0d0e03af476d35c2fcd589d29fa5eabd3909696bd5497a6b",
+    "tests/validate_001b.py": "4910d365886c2664c965c20c968d12a2bbeeb7ee52a4603db4cc8433c4baa1fc"
+  },
+  "new_live_requests": 0,
+  "account_mutations": 0,
+  "proof_boundary": "Actual offline commands. Tests use fixtures and localhost only. No current authentication claim."
+}

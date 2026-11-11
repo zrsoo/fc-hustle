@@ -1,0 +1,39 @@
+{
+  "task": "T4",
+  "mode": "LIVE_READ_ONLY",
+  "purpose": "independent_existing_read_bridge_baseline_preflight_after_new_adapter_guard_failure",
+  "submitted_utc": "2026-11-11T22:04:39.489595+00:00",
+  "completed_utc": "2026-11-11T22:04:49.887092+00:00",
+  "elapsed_ms": 10397.477900027297,
+  "criteria": {
+    "definition_id": 233731,
+    "max_buy": 7000,
+    "page": 1,
+    "count": 21,
+    "fresh": true
+  },
+  "result": {
+    "auctions": null,
+    "cache_invalidated": true,
+    "credits": null,
+    "ea_error_code": 401,
+    "error": "service_failed",
+    "has_more": null,
+    "items": null,
+    "network": [
+      {
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "path": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "status": 401
+      }
+    ],
+    "platform": "pc",
+    "status": 401,
+    "success": false
+  },
+  "response_bytes": 316,
+  "timing_components": null,
+  "EA_budget_limit": 1,
+  "same_auction_key_as_discovery": false
+}

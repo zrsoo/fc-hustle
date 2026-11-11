@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "task": "T4",
+  "mode": "LIVE_READ_ONLY",
+  "status": "BLOCKED",
+  "reason": "EA_AUTHENTICATION_REJECTED_401",
+  "started_utc": "2026-11-11T22:00:49.736773+00:00",
+  "ended_utc": "2026-11-11T22:04:49.887092+00:00",
+  "attempt_span_seconds": 240.150319,
+  "command_wait_seconds": 10.415545800002292,
+  "authenticated_observation_seconds": 0,
+  "target_observation_seconds": 1800,
+  "attachment": {
+    "normal_reattachment": {
+      "method": "Edge extension manager Load unpacked, select existing official EA tab, click separate discovery extension action",
+      "result": "attached health true",
+      "extension_id": "olcbbiifdmfkmnlbojomiadkejehcimp",
+      "package": "experiments/market_discovery/browser",
+      "reported_at_utc": "2026-11-11T22:00:49.734298+00:00",
+      "UI_control_available": true,
+      "credential_values_read": false
+    },
+    "health": {
+      "service": "fc-search-research-v1",
+      "attached": true,
+      "bind": "127.0.0.1",
+      "operations": [
+        "search"
+      ]
+    },
+    "authenticated": false,
+    "proof": "baseline-preflight.json#/result/network/0",
+    "badge_or_health_establishes_authentication": false
+  },
+  "alternative_guard": {
+    "error": "schema_unrecognized",
+    "native_started": false,
+    "EA_requests": 0,
+    "source": "experiments/market_discovery/browser/page.js",
+    "inference": "The pre-native schema failure is at the selected-persona PC guard; raw persona values were not exported. This is separate from the independently observed EA 401.",
+    "guard": "persona.platform === 'pc' || (persona.platform == null && persona.isPC === true)"
+  },
+  "planned_observation": {
+    "status": "NOT_STARTED_PREFLIGHT_FAILED",
+    "windows_requested": 9,
+    "windows_completed": 0,
+    "order": [
+      "A",
+      "B",
+      "C",
+      "B",
+      "C",
+      "A",
+      "C",
+      "A",
+      "B"
+    ],
+    "window_seconds": 300,
+    "minimum_gap_seconds": 30,
+    "max_in_flight": 1,
+    "EA_request_budget_per_window": 8,
+    "EA_request_budget_per_strategy": 24,
+    "filters_and_pages": {
+      "strategies": {
+        "A": {
+          "kind": "targeted",
+          "pairs": [
+            {
+              "definition_id": 233731,
+              "max_buy": 7000
+            },
+            {
+              "definition_id": 278230,
+              "max_buy": 4000
+            },
+            {
+              "definition_id": 233731,
+              "max_buy": 6500
+            }
+          ]
+        },
+        "B": {
+          "kind": "broad_filtered",
+          "pairs": [
+            {
+              "club": 9,
+              "min_buy": 150,
+              "max_buy": 7000
+            },
+            {
+              "league": 13,
+              "min_buy": 150,
+              "max_buy": 7000
+            },
+            {
+              "league": 13,
+              "min_buy": 150,
+              "max_buy": 1000
+            }
+          ]
+        },
+        "C": {
+          "kind": "adaptive_hybrid",
+          "pairs": [
+            {
+              "league": 13,
+              "min_buy": 150,
+              "max_buy": 7000
+            },
+            {
+              "definition_id": "rank_1",
+              "max_buy": 7000
+            },
+            {
+              "definition_id": "rank_2",
+              "max_buy": 7000
+            }
+          ],
+          "rank_scope": "preceding_completed_block_only",
+          "valid_external_rank": "exact_pc_indicative_ask_ascending_then_definition_id",
+          "native_fallback_rank": "fresh_distinct_auction_count_descending_then_definition_id",
+          "initial_fallback": [
+            233731,
+            278230
+          ]
+        }
+      },
+      "pages": [
+        1,
+        2
+      ],
+      "count": 21
+    },
+    "actual_strategy_windows": [],
+    "actual_matched_blocks": 0,
+    "preflight_budget_separate": true,
+    "EA_request_budget_per_preflight_arm": 1,
+    "comparison": "UNAVAILABLE_NO_MATCHED_LIVE_WINDOWS"
+  },
+  "observed": {
+    "commands": 2,
+    "EA_requests": 1,
+    "fresh_authenticated_results": 0,
+    "rows": 0,
+    "unique_auctions": 0,
+    "exact_versions": [],
+    "duplicate_fraction": null,
+    "observation_age_seconds": [],
+    "expiry_seconds": [],
+    "errors": {
+      "schema_unrecognized": 1,
+      "HTTP_401": 1
+    },
+    "coverage": {
+      "attempted": [
+        {
+          "definition_id": 233731,
+          "max_buy": 7000,
+          "page": 1,
+          "count": 21,
+          "fresh": true
+        },
+        {
+          "definition_id": 233731,
+          "max_buy": 7000,
+          "page": 1,
+          "count": 21,
+          "fresh": true
+        }
+      ],
+      "successful_filter_page_combinations": [],
+      "market_denominator": null
+    },
+    "EA_wire_response_bytes": null,
+    "sanitized_response_bytes": 627,
+    "account_mutations": 0
+  },
+  "latency": {
+    "arms": {
+      "alarm_30s": {
+        "attempts": 1,
+        "fresh_authenticated_results": 0,
+        "EA_requests": 1,
+        "command_round_trip_ms": {
+          "n": 1,
+          "median_ms": 10397.477900027297,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_successful_result_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "local_result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "EA_server_latency_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "sanitized_response_bytes": 316,
+        "EA_wire_response_bytes": null,
+        "outcome": "service_failed"
+      },
+      "long_poll": {
+        "attempts": 1,
+        "fresh_authenticated_results": 0,
+        "EA_requests": 0,
+        "command_round_trip_ms": {
+          "n": 1,
+          "median_ms": 18.06789997499436,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_successful_result_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "queue_delivery_ms": {
+          "n": 1,
+          "median_ms": 0.04299997817724943,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "local_result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "EA_server_latency_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "sanitized_response_bytes": 311,
+        "EA_wire_response_bytes": null,
+        "outcome": "schema_unrecognized"
+      }
+    },
+    "p95_min_samples": 20,
+    "p95_method": "nearest_rank_ceil_0.95_n",
+    "native_is_EA_server_latency": false,
+    "subtract_assumed_alarm_delay": false,
+    "live_speedup": null,
+    "interpretation": "Failed command round trips only. The long-poll queue delivery is local Edge evidence. No successful-result, native-service or EA-only latency was measured. Baseline includes an unseparated alarm wait and the failed native read."
+  },
+  "revalidation": {
+    "status": "UNAVAILABLE_NO_FRESH_CANDIDATES",
+    "fresh_candidates": 0,
+    "attempts": 0,
+    "results": [],
+    "outcomes": {
+      "unchanged": null,
+      "BIN_changed": null,
+      "identity_changed": null,
+      "expired": null,
+      "unavailable_auction": null
+    },
+    "limitation": "No auctions were returned; no changed-BIN, identity, expiry or unavailable-auction outcome was observed. Absence in bounded offset pages would not prove sale or market-wide absence."
+  },
+  "prerequisites": [
+    "Restore a valid EA session through normal Web App sign-in, completing any EA challenge normally; the stale rendered market UI and attached health are insufficient.",
+    "Select the FC27 PC persona and normally reattach the separate discovery extension on the official HTTPS Web App. Verify a fresh authenticated HTTP 200 market GET before starting windows.",
+    "Resolve the selected-persona schema guard through a reviewed read-only platform projection if normal PC selection still fails. Do not force or bypass the platform guard.",
+    "For baseline/alternative comparison, use the reviewed instrumented alarm_30s and long_poll modes, reload/reattach normally, and retain identical EA request caps and minimum 30-second pacing."
+  ],
+  "coverage_limitations": [
+    "Zero seconds of authenticated live observation; the 30-minute target and all alternating A/B/C windows remain unobserved.",
+    "Two preflight commands, one EA request returning 401; no retries after that authentication failure.",
+    "The baseline is the existing read-only alarm bridge. Its native and local timing components cannot be separated. It is not a matched experiment against the instrumented alternative.",
+    "Response sizes are sanitized projected JSON bytes, not EA wire bytes; EA wire sizes and server latency are unknown.",
+    "Background EA traffic was not measured. Coverage denominators, auction yield, profitability, arrival rate and throughput are unavailable.",
+    "Historical and synthetic T3 runs were not added to the live samples. No mocks substitute for live evidence.",
+    "The two preflights use independent pseudonym keys and cannot establish cross-arm auction identity or deduplication.",
+    "T3 preflight window -1 is an out-of-window marker, not a completed observation window."
+  ],
+  "throughput_benchmark_success": false,
+  "inputs_sha256": {
+    "access-inspection.json": "fe995be9f9312360adb753eba23fa8898bd87b263c1863036af23c1903bd6662",
+    "preflight.json": "69134cb95352b967fc8c84ae874f2d2582336043fcf2da7790104aa863d31cb6",
+    "baseline-preflight.json": "07fe6b390b9004f92d7f5de208d489addc690371178ef6deee5971c6aa69f6ff",
+    "access-end.json": "483203134d35d0833712d7024fb9c817c073e08ffe3e2000840a3a8950aa6994",
+    "auth-stop-health.json": "7628c7dc3b7eac646c6f17353b9b8b34b6d5024993ecaa17c6e42bd5ff351f12"
+  },
+  "sources_sha256": {
+    "docs/research/001b/protocol.json": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+    "experiments/market_discovery/browser/page.js": "f349041d9f2eae90406daf561a2558d1532d70978dd4208294b36cb93d719f25",
+    "experiments/market_discovery/browser/worker.js": "5aef5133350759fec21989303fe37119a0cbf275f8829b0402c5106a7ab1185c",
+    "experiments/market_discovery/browser/manifest.json": "9ddeaea84f0d24267bef626fe74be00c2971486595d880e3853e8b8dcfa5de20",
+    "browser/read-bridge/page.js": "564f24c465aaf74f7b07cb6b087033f4a0d17ea3d73c430a59bfda430a26cb9f",
+    "browser/read-bridge/worker.js": "96b3be6fafb266a8d5af93e7da841660d04ed38ab2763f8027564929298ab9a8",
+    "browser/transaction-bridge/worker.js": "b933c5cdcd4640643c81d86a3604f99e4c44c766ada21cef33175927f0335818"
+  },
+  "replay": [
+    "{python}",
+    "-m",
+    "experiments.market_discovery.t4_evidence",
+    "--run",
+    "experiments/market_discovery/runs/t4-live-20261111T220200Z",
+    "--output",
+    "private-captures/t4-report-replay.json"
+  ]
+}
