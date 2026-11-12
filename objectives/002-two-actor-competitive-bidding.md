@@ -51,7 +51,7 @@ On its next scheduled acquisition cycle (initially every 600 seconds):
 
    `max_affordable_bid = estimated_target_sale - floor(estimated_target_sale / 20) - X`
 
-   Round **down** to a legal bid increment and respect exact-card price restrictions as verified by Objective 001C. Require a viable bid above the current/starting auction requirement. Treat expected profit as **projected**, never realized.
+   Round **down** to a legal bid increment (hundreds) and respect exact-card price restrictions as verified by Objective 001C. Require a viable bid above the current/starting auction requirement. Treat expected profit as **projected**, never realized.
 5. If admissible, place **only the minimum legal initial bid**; do not jump directly to `max_affordable_bid`. Freshly verify auction identity, current price, time remaining and account capacity before a bid, then independently reconcile the bid result.
 6. Add the auction to the shared registry upon confirmed enrollment, storing exact card version, auction identity, current bid, our bid, max cap, estimated target resale, X, timestamps and unresolved status. Prevent duplicate enrollment or write retries on ambiguous outcomes.
 7. Continue through candidates, yielding to the higher-priority Bidder when API work conflicts, until no eligible opportunities remain or an admission limit is reached. The 10-minute cadence is a **cycle scheduling target**, not a promise that a potentially long acquisition batch completes within ten minutes.
