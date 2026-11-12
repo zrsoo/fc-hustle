@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-11-12T07:06:03.699094+00:00",
+  "scope": "Offline checks plus retained LIVE evidence validation; no new EA requests",
+  "focused_protocol_tests": 5,
+  "focused_analysis_tests": 8,
+  "full_suite_tests": 196,
+  "full_suite_exit_code": 0,
+  "legacy_001b_precommit_audit": "PASS",
+  "live_evidence_integrity": "PASS",
+  "benchmark_completion": "BLOCKED",
+  "remaining_budget": {
+    "A": 16,
+    "B": 24,
+    "C": 24
+  },
+  "stop": "Local bridge detached; no 401 observed; no market requests after stop"
+}

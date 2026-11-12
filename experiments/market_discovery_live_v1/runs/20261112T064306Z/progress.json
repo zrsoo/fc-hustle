@@ -1,0 +1,13 @@
+{
+  "updated_utc": "2026-11-12T06:48:38.752811+00:00",
+  "mode": "LIVE_READ_ONLY",
+  "window": 1,
+  "strategy": "B",
+  "slot": 0,
+  "commands_completed": 9,
+  "EA_requests": 8,
+  "last_status": null,
+  "last_error": "bridge_not_attached",
+  "auction_rows": 0,
+  "account_mutations": 0
+}

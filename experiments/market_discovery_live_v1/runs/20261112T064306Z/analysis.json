@@ -1,0 +1,1184 @@
+{
+  "schema": 1,
+  "data_lineage": "LIVE_READ_ONLY",
+  "protocol_completion": "PARTIAL_STOPPED",
+  "protocol_sha256": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+  "observation_interval": {
+    "start_utc": "2026-11-12T06:43:37.178462+00:00",
+    "end_utc": "2026-11-12T06:48:38.759589+00:00",
+    "monotonic_seconds": 301.5811275000451
+  },
+  "window_intervals": [
+    {
+      "window": 0,
+      "strategy": "A",
+      "scheduled_start_utc": "2026-11-12T06:43:37.178462+00:00",
+      "scheduled_end_utc": "2026-11-12T06:48:37.178462+00:00",
+      "observed_seconds": 300,
+      "completed": true,
+      "commands": 8,
+      "EA_requests": 8
+    },
+    {
+      "window": 1,
+      "strategy": "B",
+      "scheduled_start_utc": "2026-11-12T06:48:37.178462+00:00",
+      "scheduled_end_utc": "2026-11-12T06:53:37.178462+00:00",
+      "observed_seconds": 1.5811275000451133,
+      "completed": false,
+      "commands": 1,
+      "EA_requests": 0
+    }
+  ],
+  "arms": {
+    "A": {
+      "commands": 8,
+      "EA_requests": 8,
+      "completed_windows": 1,
+      "allocated_observation_seconds": 300,
+      "unique_auctions": 35,
+      "unique_exact_versions": 2,
+      "response_rows": 47,
+      "discovery_only_unique_auctions": 35,
+      "discovery_only_unique_versions": 2,
+      "auctions_per_EA_request": 4.375,
+      "versions_per_EA_request": 0.25,
+      "auctions_per_observation_minute": 7.0,
+      "versions_per_observation_minute": 0.4,
+      "duplicate_fraction": 0.25531914893617025,
+      "BIN_distribution_all_response_rows": {
+        "n": 47,
+        "min": 200,
+        "q25": 6100,
+        "median": 6500,
+        "q75": 6800,
+        "max": 7000
+      },
+      "BIN_distribution_distinct_auctions_latest": {
+        "n": 35,
+        "min": 200,
+        "q25": 6100,
+        "median": 6700,
+        "q75": 6900,
+        "max": 7000
+      },
+      "HTTP_status_counts": {
+        "200": 8
+      },
+      "native_error_counts": {},
+      "fresh_network_responses": 8,
+      "cache_only_responses": 0,
+      "empty_responses": 3,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 8,
+          "median_ms": 0.05530001362785697,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 8,
+          "median_ms": 1784.5999755859375,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 8,
+          "median_ms": 113.25,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "page_total_ms": {
+          "n": 8,
+          "median_ms": 113.25,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 8,
+          "median_ms": 4.816472126636654,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_post_round_trip_ms": {
+          "n": 8,
+          "median_ms": 3.900000035762787,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "run_request_end_to_end_ms": {
+          "n": 8,
+          "median_ms": 1921.8306500115432,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 8,
+          "median_ms": 1945.7903999718837,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      },
+      "pagination": {
+        "pages": [
+          {
+            "page": 1,
+            "returned_rows": 21,
+            "visible_rows": 20,
+            "lookahead_trade_id": "trade:93460f1dcbb36e3c163da26f",
+            "expiry_nondecreasing": true,
+            "BIN_nondecreasing": false,
+            "native_has_more": null,
+            "truncation_possible": true,
+            "exhaustive": false
+          },
+          {
+            "page": 2,
+            "returned_rows": 8,
+            "visible_rows": 8,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": true,
+            "BIN_nondecreasing": false,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 1,
+            "returned_rows": 5,
+            "visible_rows": 5,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": true,
+            "BIN_nondecreasing": false,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 2,
+            "returned_rows": 0,
+            "visible_rows": 0,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": null,
+            "BIN_nondecreasing": null,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 1,
+            "returned_rows": 10,
+            "visible_rows": 10,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": true,
+            "BIN_nondecreasing": false,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 2,
+            "returned_rows": 0,
+            "visible_rows": 0,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": null,
+            "BIN_nondecreasing": null,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 1,
+            "returned_rows": 3,
+            "visible_rows": 3,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": true,
+            "BIN_nondecreasing": true,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          },
+          {
+            "page": 2,
+            "returned_rows": 0,
+            "visible_rows": 0,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": null,
+            "BIN_nondecreasing": null,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          }
+        ],
+        "pairs": [
+          {
+            "overlap_trade_ids": [],
+            "unique_in_pair": 29,
+            "lookahead_reappeared": false,
+            "offset_instability_possible": true,
+            "exhaustive": false
+          },
+          {
+            "overlap_trade_ids": [],
+            "unique_in_pair": 5,
+            "lookahead_reappeared": false,
+            "offset_instability_possible": true,
+            "exhaustive": false
+          },
+          {
+            "overlap_trade_ids": [],
+            "unique_in_pair": 10,
+            "lookahead_reappeared": false,
+            "offset_instability_possible": true,
+            "exhaustive": false
+          },
+          {
+            "overlap_trade_ids": [],
+            "unique_in_pair": 3,
+            "lookahead_reappeared": false,
+            "offset_instability_possible": true,
+            "exhaustive": false
+          }
+        ],
+        "coverage_limit": "bounded expiry-ordered offset pages; no market denominator"
+      },
+      "unique_priceable_discovery_auctions_with_assumed_rules": 29,
+      "indicative_modeled_candidates_by_X": {
+        "100": 1,
+        "250": 0,
+        "500": 0,
+        "1000": 0
+      },
+      "indicative_candidates_per_EA_request_by_X": {
+        "100": 0.125,
+        "250": 0.0,
+        "500": 0.0,
+        "1000": 0.0
+      },
+      "indicative_candidates_per_observation_minute_by_X": {
+        "100": 0.2,
+        "250": 0.0,
+        "500": 0.0,
+        "1000": 0.0
+      },
+      "fully_validated_executable_opportunities_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "verified_executable_opportunities_observed": 0,
+      "native_caps_and_ticks": "UNVERIFIED",
+      "model_evaluation_status_counts": {
+        "ACQUISITION_INACTIVE_OR_EXPIRING": 1,
+        "OK": 38,
+        "INSUFFICIENT_SAMPLES": 5
+      },
+      "modeled_candidate_trace": [
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:f5d3919b3bc04e8525905a60",
+          "item_id": "item:2b910441ef5aa24804beba24",
+          "acquisition_price": 6600,
+          "target_sale_price": 6300,
+          "expected_profit": -615,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:0a0493140f92eddf7b15d422",
+          "item_id": "item:cc217700601e28b5202e6044",
+          "acquisition_price": 6300,
+          "target_sale_price": 6300,
+          "expected_profit": -315,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:86e2f7b01f3669b9176a58b1",
+          "item_id": "item:9c466cfe07e7938059f004aa",
+          "acquisition_price": 6400,
+          "target_sale_price": 6300,
+          "expected_profit": -415,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:f29e7386b60ddd13e1e550a0",
+          "item_id": "item:17b74f448d494bed79b5ebdc",
+          "acquisition_price": 6700,
+          "target_sale_price": 6300,
+          "expected_profit": -715,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:d5976a426da6e73ad36413d5",
+          "item_id": "item:ea95b974afb89c34f056cea5",
+          "acquisition_price": 6800,
+          "target_sale_price": 6300,
+          "expected_profit": -815,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:813f8d9e5fc2ba882b11cda9",
+          "item_id": "item:155a832fddedc88af42e2481",
+          "acquisition_price": 6700,
+          "target_sale_price": 6300,
+          "expected_profit": -715,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:4b7330f4b713eb83051740bf",
+          "item_id": "item:02858b3256c96e2a507b537f",
+          "acquisition_price": 6900,
+          "target_sale_price": 6300,
+          "expected_profit": -915,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:984377b6110ee6b5d15dedb4",
+          "item_id": "item:9a9b6999c2516fe34bd5d391",
+          "acquisition_price": 6800,
+          "target_sale_price": 6300,
+          "expected_profit": -815,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:b65e683b9412d8743aece702",
+          "item_id": "item:d5c221e14302b416e01a1fd7",
+          "acquisition_price": 6500,
+          "target_sale_price": 6300,
+          "expected_profit": -515,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:4c9bd8b96727668e6affb911",
+          "item_id": "item:91e8de3f8b780f18eada5900",
+          "acquisition_price": 6100,
+          "target_sale_price": 6300,
+          "expected_profit": -115,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:1978f5d9caa67c5805b80353",
+          "item_id": "item:b2cd5dce4275d3636114e3cd",
+          "acquisition_price": 6400,
+          "target_sale_price": 6300,
+          "expected_profit": -415,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:978dee1f6d1e79e5b728b856",
+          "item_id": "item:bc356ba692ae6c53be6c05a5",
+          "acquisition_price": 5900,
+          "target_sale_price": 6300,
+          "expected_profit": 85,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:7c846c54661c3d18858835eb",
+          "item_id": "item:f060291411af472bfd88d6b9",
+          "acquisition_price": 6400,
+          "target_sale_price": 6300,
+          "expected_profit": -415,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:eb242fb46e4d70e91146bd73",
+          "item_id": "item:cf19ca74e90484fd06887eca",
+          "acquisition_price": 6500,
+          "target_sale_price": 6300,
+          "expected_profit": -515,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:ed27f00ac87b04520e781dcd",
+          "item_id": "item:08095335ed2da0496d9ef2a5",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:facf889b08f67d1bc8a0411e",
+          "item_id": "item:f19f258221d172d9088bb9aa",
+          "acquisition_price": 6900,
+          "target_sale_price": 6300,
+          "expected_profit": -915,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:a1c4887412e12d7aa57692d4",
+          "item_id": "item:3d343f0608f79ef2bbb147ab",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:ea5d73583237a948c7c2e959",
+          "item_id": "item:423dc30562649b3cebd85697",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:104e2f981eb2650bc597d3fd",
+          "item_id": "item:808e2c1af23fb54b14094f7f",
+          "acquisition_price": 6100,
+          "target_sale_price": 6300,
+          "expected_profit": -115,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:43:37.178885+00:00",
+          "window": 0,
+          "slot": 0,
+          "definition_id": 233731,
+          "trade_id": "trade:93460f1dcbb36e3c163da26f",
+          "item_id": "item:79ccc16f3ec68cc999f4c2dc",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 19,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:57d286512454090499be9682",
+          "item_id": "item:182caec25436a30ca9c872d2",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:30c1d892c019d08400375212",
+          "item_id": "item:5932b85a12440a8f26be407e",
+          "acquisition_price": 6800,
+          "target_sale_price": 6300,
+          "expected_profit": -815,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:7951486a0e07ec892b62a013",
+          "item_id": "item:0a5a8e787d578ed6c8f22e6f",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:dd3f73cbf6b66a185fc9cdfb",
+          "item_id": "item:a1080fa5927c0357eb85bc95",
+          "acquisition_price": 6800,
+          "target_sale_price": 6300,
+          "expected_profit": -815,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:857db54e402674190b507e4d",
+          "item_id": "item:4b454f855080dd49d1e22ad7",
+          "acquisition_price": 6900,
+          "target_sale_price": 6300,
+          "expected_profit": -915,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:dc88abe18ab96db62072d52e",
+          "item_id": "item:0ce407d5f31821f257d86c4f",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:f475a0e69140d9a147fdb0e9",
+          "item_id": "item:0df6845b077a1ecd26fdf769",
+          "acquisition_price": 7000,
+          "target_sale_price": 6300,
+          "expected_profit": -1015,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:44:07.179059+00:00",
+          "window": 0,
+          "slot": 1,
+          "definition_id": 233731,
+          "trade_id": "trade:a4e7bcf1d76a29c1cee3ab7c",
+          "item_id": "item:a59cc1fe2b0287e28847116e",
+          "acquisition_price": 6700,
+          "target_sale_price": 6300,
+          "expected_profit": -715,
+          "comparables_excluding_candidate": 27,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:0a0493140f92eddf7b15d422",
+          "item_id": "item:cc217700601e28b5202e6044",
+          "acquisition_price": 6300,
+          "target_sale_price": 6300,
+          "expected_profit": -315,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:86e2f7b01f3669b9176a58b1",
+          "item_id": "item:9c466cfe07e7938059f004aa",
+          "acquisition_price": 6400,
+          "target_sale_price": 6200,
+          "expected_profit": -510,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:b65e683b9412d8743aece702",
+          "item_id": "item:d5c221e14302b416e01a1fd7",
+          "acquisition_price": 6500,
+          "target_sale_price": 6200,
+          "expected_profit": -610,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:4c9bd8b96727668e6affb911",
+          "item_id": "item:91e8de3f8b780f18eada5900",
+          "acquisition_price": 6100,
+          "target_sale_price": 6300,
+          "expected_profit": -115,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:1978f5d9caa67c5805b80353",
+          "item_id": "item:b2cd5dce4275d3636114e3cd",
+          "acquisition_price": 6400,
+          "target_sale_price": 6200,
+          "expected_profit": -510,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:978dee1f6d1e79e5b728b856",
+          "item_id": "item:bc356ba692ae6c53be6c05a5",
+          "acquisition_price": 5900,
+          "target_sale_price": 6300,
+          "expected_profit": 85,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:7c846c54661c3d18858835eb",
+          "item_id": "item:f060291411af472bfd88d6b9",
+          "acquisition_price": 6400,
+          "target_sale_price": 6200,
+          "expected_profit": -510,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:eb242fb46e4d70e91146bd73",
+          "item_id": "item:cf19ca74e90484fd06887eca",
+          "acquisition_price": 6500,
+          "target_sale_price": 6200,
+          "expected_profit": -610,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:104e2f981eb2650bc597d3fd",
+          "item_id": "item:808e2c1af23fb54b14094f7f",
+          "acquisition_price": 6100,
+          "target_sale_price": 6300,
+          "expected_profit": -115,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        },
+        {
+          "observed_utc": "2026-11-12T06:45:37.178957+00:00",
+          "window": 0,
+          "slot": 4,
+          "definition_id": 233731,
+          "trade_id": "trade:7f966b612b4e02f3909a869e",
+          "item_id": "item:65ab2365faac3e2c84a7bb5f",
+          "acquisition_price": 5800,
+          "target_sale_price": 6300,
+          "expected_profit": 185,
+          "comparables_excluding_candidate": 17,
+          "scenario_hits": [
+            100
+          ],
+          "rule_lineage": "HYPOTHETICAL_CAPS_AND_INCREMENT_SCHEDULE_NOT_EXECUTABLE"
+        }
+      ],
+      "revalidations": [
+        {
+          "status": "MATCH_ON_FRESH_PAGE",
+          "selection": "LOWEST_POSITIVE_BIN_DIAGNOSTIC_ONLY_RULES_UNAVAILABLE",
+          "candidate": {
+            "definition_id": 278230,
+            "trade_id": "trade:3daa92afa2c6c1ab1da1527e",
+            "item_id": "item:8bfc0e1258d54cae4fb47b63",
+            "BIN": 200,
+            "original_observed_utc": "2026-11-12T06:44:37.178938+00:00"
+          },
+          "requests": 2,
+          "matches": [
+            {
+              "slot": 6,
+              "observed_utc": "2026-11-12T06:46:37.178984+00:00",
+              "reasons": [],
+              "age_at_response_seconds": 4.474743
+            }
+          ],
+          "reasons": [],
+          "counts_as_profitable_opportunity": false,
+          "absence_means_sold": false,
+          "executable_revalidation_rate": null,
+          "window": 0
+        }
+      ],
+      "diagnostic_revalidation_attempts": 1,
+      "diagnostic_revalidation_matches": 1,
+      "diagnostic_revalidation_match_fraction": 1.0,
+      "profitable_executable_revalidation_rate": null,
+      "realized_profit": null
+    },
+    "B": {
+      "commands": 1,
+      "EA_requests": 0,
+      "completed_windows": 0,
+      "allocated_observation_seconds": 1.5811275000451133,
+      "unique_auctions": 0,
+      "unique_exact_versions": 0,
+      "response_rows": 0,
+      "discovery_only_unique_auctions": 0,
+      "discovery_only_unique_versions": 0,
+      "auctions_per_EA_request": null,
+      "versions_per_EA_request": null,
+      "auctions_per_observation_minute": 0.0,
+      "versions_per_observation_minute": 0.0,
+      "duplicate_fraction": null,
+      "BIN_distribution_all_response_rows": {
+        "n": 0,
+        "min": null,
+        "q25": null,
+        "median": null,
+        "q75": null,
+        "max": null
+      },
+      "BIN_distribution_distinct_auctions_latest": {
+        "n": 0,
+        "min": null,
+        "q25": null,
+        "median": null,
+        "q75": null,
+        "max": null
+      },
+      "HTTP_status_counts": {},
+      "native_error_counts": {
+        "bridge_not_attached": 1
+      },
+      "fresh_network_responses": 0,
+      "cache_only_responses": 0,
+      "empty_responses": 0,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "page_total_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_post_round_trip_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "run_request_end_to_end_ms": {
+          "n": 1,
+          "median_ms": 28.16540002822876,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 1,
+          "median_ms": 1559.3303999630734,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      },
+      "pagination": {
+        "pages": [
+          {
+            "page": 1,
+            "returned_rows": 0,
+            "visible_rows": 0,
+            "lookahead_trade_id": null,
+            "expiry_nondecreasing": null,
+            "BIN_nondecreasing": null,
+            "native_has_more": null,
+            "truncation_possible": false,
+            "exhaustive": false
+          }
+        ],
+        "pairs": [],
+        "coverage_limit": "bounded expiry-ordered offset pages; no market denominator"
+      },
+      "unique_priceable_discovery_auctions_with_assumed_rules": 0,
+      "indicative_modeled_candidates_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "indicative_candidates_per_EA_request_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "indicative_candidates_per_observation_minute_by_X": {
+        "100": 0.0,
+        "250": 0.0,
+        "500": 0.0,
+        "1000": 0.0
+      },
+      "fully_validated_executable_opportunities_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "verified_executable_opportunities_observed": 0,
+      "native_caps_and_ticks": "UNVERIFIED",
+      "model_evaluation_status_counts": {},
+      "modeled_candidate_trace": [],
+      "revalidations": [
+        {
+          "status": "UNUSED_NO_VALID_ROWS",
+          "reason": "No diagnostic candidate",
+          "requests": 0,
+          "counts_as_profitable_opportunity": false,
+          "absence_means_sold": false,
+          "window": 1
+        }
+      ],
+      "diagnostic_revalidation_attempts": 0,
+      "diagnostic_revalidation_matches": 0,
+      "diagnostic_revalidation_match_fraction": null,
+      "profitable_executable_revalidation_rate": null,
+      "realized_profit": null
+    },
+    "C": {
+      "commands": 0,
+      "EA_requests": 0,
+      "completed_windows": 0,
+      "allocated_observation_seconds": 0,
+      "unique_auctions": 0,
+      "unique_exact_versions": 0,
+      "response_rows": 0,
+      "discovery_only_unique_auctions": 0,
+      "discovery_only_unique_versions": 0,
+      "auctions_per_EA_request": null,
+      "versions_per_EA_request": null,
+      "auctions_per_observation_minute": null,
+      "versions_per_observation_minute": null,
+      "duplicate_fraction": null,
+      "BIN_distribution_all_response_rows": {
+        "n": 0,
+        "min": null,
+        "q25": null,
+        "median": null,
+        "q75": null,
+        "max": null
+      },
+      "BIN_distribution_distinct_auctions_latest": {
+        "n": 0,
+        "min": null,
+        "q25": null,
+        "median": null,
+        "q75": null,
+        "max": null
+      },
+      "HTTP_status_counts": {},
+      "native_error_counts": {},
+      "fresh_network_responses": 0,
+      "cache_only_responses": 0,
+      "empty_responses": 0,
+      "latency": {
+        "queue_delivery_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "worker_poll_to_native_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "native_service_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "page_total_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_return_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "result_post_round_trip_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "run_request_end_to_end_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        },
+        "time_to_first_result_ms": {
+          "n": 0,
+          "median_ms": null,
+          "p95_ms": null,
+          "p95_method": "nearest_rank_ceil_0.95_n; n>=20"
+        }
+      },
+      "pagination": {
+        "pages": [],
+        "pairs": [],
+        "coverage_limit": "bounded expiry-ordered offset pages; no market denominator"
+      },
+      "unique_priceable_discovery_auctions_with_assumed_rules": 0,
+      "indicative_modeled_candidates_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "indicative_candidates_per_EA_request_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "indicative_candidates_per_observation_minute_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "fully_validated_executable_opportunities_by_X": {
+        "100": null,
+        "250": null,
+        "500": null,
+        "1000": null
+      },
+      "verified_executable_opportunities_observed": 0,
+      "native_caps_and_ticks": "UNVERIFIED",
+      "model_evaluation_status_counts": {},
+      "modeled_candidate_trace": [],
+      "revalidations": [],
+      "diagnostic_revalidation_attempts": 0,
+      "diagnostic_revalidation_matches": 0,
+      "diagnostic_revalidation_match_fraction": null,
+      "profitable_executable_revalidation_rate": null,
+      "realized_profit": null
+    }
+  },
+  "cross_strategy_overlap": {
+    "AB": {
+      "shared_auctions": 0,
+      "jaccard": 0.0
+    },
+    "AC": {
+      "shared_auctions": 0,
+      "jaccard": 0.0
+    },
+    "BC": {
+      "shared_auctions": 0,
+      "jaccard": null
+    }
+  },
+  "ranking_by_window": [
+    {
+      "window": 0,
+      "strategy": "A",
+      "ranking": [
+        233731,
+        278230
+      ]
+    },
+    {
+      "window": 1,
+      "strategy": "B",
+      "ranking": [
+        233731,
+        278230
+      ]
+    }
+  ],
+  "background": {
+    "status": "UNAVAILABLE_OBSERVER_NOT_ATTACHED",
+    "events_in_observation_interval": null,
+    "connected_heartbeat_samples": 0,
+    "total_heartbeat_samples": 194,
+    "earliest_buffered_event": null,
+    "latest_buffered_event": null,
+    "HTTP_status_counts": null,
+    "coverage": "Allowlisted game-request metadata only; no sequence numbers; identical metadata deduplicated; gaps and other EA traffic remain unknown",
+    "zero_background_assumed": false,
+    "comparison": "CONFOUNDED_BACKGROUND_UNMEASURED"
+  },
+  "pricing_lineage": {
+    "observations": "LIVE_READ_ONLY",
+    "rules": "HYPOTHETICAL_NOT_EXECUTABLE",
+    "verified_native_caps": false,
+    "verified_legal_increments": false,
+    "formula": "target_sale_price - target_sale_price // 20 - acquisition_price",
+    "candidate_self_excluded": true,
+    "no_future_observations": true,
+    "minimum_comparables": 5,
+    "sample_max_age_seconds": 120,
+    "minimum_remaining_seconds": 60
+  },
+  "hourly_yield_extrapolation": null,
+  "completed_sales_or_realized_profits_claimed": false,
+  "third_party_production_feed": "UNAVAILABLE_NOT_RETESTED_NO_PAID_ACCESS",
+  "account_mutations": 0
+}

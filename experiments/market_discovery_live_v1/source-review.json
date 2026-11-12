@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "status": "BLOCKED_PARTIAL_NOT_A_COMPLETED_COMPARISON",
+  "baseline_revision": "b17647c460f6dcdc71ec270f6719a4f555b56ac0",
+  "reviewed_utc": "2026-11-12T07:06:03.846421+00:00",
+  "local_files": {
+    "experiments/market_discovery_live_v1/__init__.py": "cd7636f0edd1f47b9cff1eb4892511f68a586e8d370611e3765cb6ac48d72271",
+    "experiments/market_discovery_live_v1/__main__.py": "fb90598c0ec03e075ec97b6e7430fcad8293a49482726d61a4731d9d24e6cfea",
+    "experiments/market_discovery_live_v1/analysis.py": "7bf22cfcdb10dc3681ba040e759c0a99fb399531f97a2d0f6b722c3d7e2bafba",
+    "experiments/market_discovery_live_v1/passive.py": "86d16eceb572d94caed9a9c2aec7ccdcbfb5523aa6e1d67a2336bb6c1637b832",
+    "experiments/market_discovery_live_v1/README.md": "a13eb12fc11f51c347c8e1b1b1b20c362107cf6fef86c28cb59b6cf4b3349bb6",
+    "experiments/market_discovery_live_v1/report.py": "abe0ffbac74e63d5594c36b21e7aad8978225e6621d78b4cdef37590c9b143e4",
+    "experiments/market_discovery_live_v1/run.py": "fb65dbb42a1f96db1af40cf47dd1b53a90b713d3add460bc5f50782f9e76bca7",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/analysis.json": "c9084a0c66810ce283f0658f3a14b9651a9a9dfd42865b7d9b00086f3d693340",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/checks.json": "fe0e91c5e7d0a6fff3d5402d5b687e7d5707603528baa65fef60a05a56171d43",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/entry.json": "b82494766a395ae612e9261976caeaeb5340abe95ec14359c197d284be6121ab",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/observations.json": "f1b5e1b1ca804acf00ce8a0d0a66a37e962be118fa740c9425ac0bf1e4150633",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/passive-heartbeats.jsonl": "9eeb55ece02e9a17bf0d4eecbf941f2b49809c0b03e1517f12945c1520dfc24b",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/passive-observations.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/preflight.json": "13ef70afa5a2a79b5400cde4619dfd34d6b58dda87f6bd7ed0a29bf3fd0a8574",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/progress.json": "5dab9f12482cab7cb3c940c55d67be27919b62ecdc3fc1112db4dcfab7864679",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/records.jsonl": "61326ef32ef26f11ab8661ee900f5fcf3ae92466a18a75ad0850750956be0325",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/REPORT.md": "1b30434e81cddd304865e93167c8e0df773bcdf41b662ae662fa48eb2e4b20e3",
+    "experiments/market_discovery_live_v1/runs/20261112T064306Z/validation.json": "6b7b243ace7573bb4f6995154f3d713d10b67afb6743228dab3589dfe96c591e",
+    "experiments/market_discovery_live_v1/validate.py": "38d191db0967d4a31936d63b3930dfbbe792328c7e853d797f393426e41ee44f",
+    "tests/test_market_discovery_live_analysis_v1.py": "4fdeec857a854be52c82dfbb226213b5bf257056397d4a9df572b13b72ddd7d2",
+    "tests/test_market_discovery_live_v1.py": "e2629cb52f175e8727f517ee8d387bfaef88453fd16c18a99eca77f2db842ddf"
+  },
+  "historical_files_modified": [],
+  "privacy_findings": [],
+  "protocol_amended": false,
+  "EA_requests": {
+    "preflight": 1,
+    "benchmark": 8,
+    "failed_B_command": 0
+  },
+  "completion_validation": {
+    "integrity_status": "PASS",
+    "benchmark_completion": "BLOCKED",
+    "integrity_errors": [],
+    "completion_gaps": [
+      "2700_observation_seconds_not_obtained",
+      "finite_benchmark_stopped_before_completion",
+      "matched_24_request_strategy_budgets_not_obtained",
+      "nine_completed_windows_missing"
+    ],
+    "completed_windows": 1,
+    "actual_EA_requests": 8,
+    "actual_EA_requests_by_strategy": {
+      "A": 8,
+      "B": 0,
+      "C": 0
+    },
+    "account_mutations": 0,
+    "pacing_proof": "Unchanged verified native 30-second guard plus protocol command-slot schedule; direct EA submission timestamps are not exposed",
+    "scope": "Sanitized observations, not cryptographic proof; partial integrity PASS is not a completed comparison."
+  }
+}

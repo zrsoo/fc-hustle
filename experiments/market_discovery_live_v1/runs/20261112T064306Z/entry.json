@@ -1,0 +1,32 @@
+{
+  "created_utc": "2026-11-12T06:43:06.779256+00:00",
+  "mode": "LIVE_READ_ONLY",
+  "protocol_path": "C:/hustle/fc-hustle/docs/research/001b/protocol.json",
+  "protocol_sha256": "fb07a97b0c5cc8f66faf5cc2dd90f3b222195368536200c0a7ab62cdf64ee515",
+  "strategy_order": [
+    "A",
+    "B",
+    "C",
+    "B",
+    "C",
+    "A",
+    "C",
+    "A",
+    "B"
+  ],
+  "source_revision": "b17647c",
+  "bridge": "experiments/market_discovery_followup_v1",
+  "port": 8771,
+  "protocol_amendment": null,
+  "account_mutations": 0,
+  "capture_source_hashes": {
+    "experiments/market_discovery_live_v1/run.py": "fb65dbb42a1f96db1af40cf47dd1b53a90b713d3add460bc5f50782f9e76bca7",
+    "experiments/market_discovery_live_v1/__main__.py": "fb90598c0ec03e075ec97b6e7430fcad8293a49482726d61a4731d9d24e6cfea",
+    "experiments/market_discovery/discovery.py": "b0d0070bbec5c45ccb09ad3209122c2d70114451b0bf39605fc6b477241d5229",
+    "experiments/market_discovery/model.py": "56eb6c244f9fb71e4bf214d5af31b42d851e01528d1f04d6b2cc035370d3ffad",
+    "experiments/market_discovery_followup_v1/server.py": "49a83b2783b5789105e3ccc02a6c71b912d8b7058e3a798ab56b9902471fddae",
+    "experiments/market_discovery_followup_v1/browser/page.js": "8dac7846bb998a0b40272166aa307d358000875bb4d487caec4e2f3162e5049a",
+    "experiments/market_discovery_followup_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/market_discovery_followup_v1/browser/worker.js": "80a949524cba8811176366adec020b5feea77d8b6017531508cb8dbd1fd5cfef"
+  }
+}
