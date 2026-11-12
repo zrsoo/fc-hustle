@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "FC discovery integration follow-up READ ONLY",
+  "version": "0.2.0",
+  "description": "Versioned PC persona fix and bounded long-poll read validation; no mutations.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8771/*"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "action": {
+    "default_title": "Attach read-only discovery integration follow-up"
+  }
+}

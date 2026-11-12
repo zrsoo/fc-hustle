@@ -1,0 +1,61 @@
+{
+  "recorded_at": "2026-11-11T23:28:36.744600+00:00",
+  "baseline_revision": "d44e47560da28d8f323a79d3e62c037ea9823b57",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/test_market_discovery_followup_v1.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 9,
+      "scope": "Synthetic regression, no EA calls"
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "tests_run": 183,
+      "scope": "Full deterministic regression suite"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_001b.py",
+        "--precommit"
+      ],
+      "exit_code": 0,
+      "scope": "Historical Objective 001B artifact/audit checks without its original commit-only gate"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_001b.py"
+      ],
+      "exit_code": 1,
+      "scope": "Original historical commit-only validator; existing task-entry commit already includes the observer file excluded by its T7 policy. No historical audit is rewritten.",
+      "errors": [
+        "missing_scoped_commit_or_unrelated_changes",
+        "preexisting_unrelated_change_committed:docs/research/browser-access/live-v2.json"
+      ]
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_final.py"
+      ],
+      "exit_code": 1,
+      "scope": "Original Objective 001 exact deliverable-set/commit gate predates Objective 001B and this additive follow-up; not rewritten."
+    }
+  ],
+  "historical_tracked_files_modified": [],
+  "account_mutations": 0
+}

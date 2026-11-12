@@ -1,0 +1,6 @@
+{
+  "created_at": "2026-11-11T23:05:44.220918+00:00",
+  "scope": "read_only_integration_followup",
+  "ea_request_min_gap_seconds": 30,
+  "account_mutations": 0
+}

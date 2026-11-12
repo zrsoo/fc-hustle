@@ -1,0 +1,29 @@
+{
+  "baseline_commit": "d44e47560da28d8f323a79d3e62c037ea9823b57",
+  "files": {
+    "docs/research/001b/t7/manifest.json": {
+      "sha256": "501dab629a7a9e1377cb2aa79be2a971086a153ada64c6d7c70f0ad65acfc26b",
+      "matches_task_entry_commit": true
+    },
+    "docs/research/001b/t7/entry.json": {
+      "sha256": "f60c80639a1541ff2533fa1785b47fbfd3a3d4a18638e5a0341652584c92deb5",
+      "matches_task_entry_commit": true
+    },
+    "docs/research/final/manifest.json": {
+      "sha256": "7c3d7482d2e1c2b8020a21f27b8c87f9d5885a7773845095edc4480d347f01a9",
+      "matches_task_entry_commit": true
+    },
+    "docs/research/transaction/live.json": {
+      "sha256": "6f98af8de9d3ed0d2b1ea8a45e17e2bc1e488a2a3c2cc31401ee135a5f9906fc",
+      "matches_task_entry_commit": true
+    },
+    "docs/research/browser-access/live-v2.json": {
+      "sha256": "8eb4dc3c495a02a92b533932ffe632c3b5b6f3e8dab605e325ebd5f608baa94c",
+      "matches_task_entry_commit": true
+    },
+    "experiments/market_discovery/source-review.json": {
+      "sha256": "b7e02a57194f43a4f640b63f7ed908f7a629ad2a55442b3539253092a365a3ad",
+      "matches_task_entry_commit": true
+    }
+  }
+}

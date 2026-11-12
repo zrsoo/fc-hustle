@@ -1,0 +1,37 @@
+{
+  "captured_at": "2026-11-11T23:15:04.225283+00:00",
+  "source": "sealed_original_research_bridge",
+  "request": {
+    "definition_id": 233731,
+    "max_buy": 7000,
+    "page": 1,
+    "count": 21,
+    "fresh": true
+  },
+  "response": {
+    "result": {
+      "auctions": null,
+      "cache_invalidated": null,
+      "credits": null,
+      "ea_error_code": null,
+      "error": "schema_unrecognized",
+      "has_more": null,
+      "items": null,
+      "network": [],
+      "platform": null,
+      "status": null,
+      "success": false
+    },
+    "timing": {
+      "native_service_ms": null,
+      "page_total_ms": 0.10000002384185791,
+      "worker_poll_to_native_ms": null
+    }
+  },
+  "delivery": {
+    "queue_delivery_ms": 0.04499999340623617,
+    "result_return_ms": null
+  },
+  "elapsed_ms": 57.676699943840504,
+  "account_mutations": 0
+}

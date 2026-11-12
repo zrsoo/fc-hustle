@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-11T23:23:03.047917+00:00",
+  "reason": "Passive original observer updated a sealed file during this follow-up. Preserve new observations separately, stop only its metadata sink, restore the exact committed bytes.",
+  "path": "docs/research/browser-access/live-v2.json",
+  "restored_sha256": "8eb4dc3c495a02a92b533932ffe632c3b5b6f3e8dab605e325ebd5f608baa94c",
+  "archived_sha256": "6ec91e4a0f09ab004d9fd38cdec7d13ed88acc500bb550f834d4c67532f0f5e9",
+  "archive": "experiments/market_discovery_followup_v1/runs/20261111T230544Z/observer-continuation.json"
+}

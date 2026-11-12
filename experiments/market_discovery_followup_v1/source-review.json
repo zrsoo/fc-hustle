@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "version": "001b-integration-followup-v1",
+  "reviewed_at": "2026-11-12T06:26:42.800716+00:00",
+  "baseline_commit": "d44e47560da28d8f323a79d3e62c037ea9823b57",
+  "scope": "Additive read-only persona correction and long-poll live validation. No credential/session changes, mutations, benchmark or Objective 002 implementation.",
+  "local_files": {
+    "experiments/market_discovery_followup_v1/__init__.py": "16bd9754aa418081787844b954951343f20a111db8c91cb50ac4cee30941f59f",
+    "experiments/market_discovery_followup_v1/__main__.py": "ef67bdf116acf7a51e9bfa1f571ee9311a76f7d75229f44b3fdbb4fb0072476a",
+    "experiments/market_discovery_followup_v1/browser/manifest.json": "2395db553a0f596319240044d5da8883faa69241c115ead5b79db6625eca2ffa",
+    "experiments/market_discovery_followup_v1/browser/page.js": "8dac7846bb998a0b40272166aa307d358000875bb4d487caec4e2f3162e5049a",
+    "experiments/market_discovery_followup_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/market_discovery_followup_v1/browser/worker.js": "80a949524cba8811176366adec020b5feea77d8b6017531508cb8dbd1fd5cfef",
+    "experiments/market_discovery_followup_v1/README.md": "79310d8ea7372d5c130ac5b05549df85e236ba0b6ae140bedcdc94888a07c91d",
+    "experiments/market_discovery_followup_v1/REPORT.md": "f7fa92ebb0d081ca452cd6a6bc93128ece4c9fed38518e8ea9e47423f7165a9e",
+    "experiments/market_discovery_followup_v1/server.py": "49a83b2783b5789105e3ccc02a6c71b912d8b7058e3a798ab56b9902471fddae",
+    "tests/market_discovery_followup_v1_checks.cjs": "653d3879a4eaa724211b7d5e92113085a6c82840fc4801cc49a7afe5d8c56905",
+    "tests/test_market_discovery_followup_v1.py": "717e465e521a74e181bb78078bff55fb622cf8c6c3abd9aa1b6eb0d88bc1b8cf"
+  },
+  "original_inputs": {
+    "experiments/market_discovery/browser/page.js": "f349041d9f2eae90406daf561a2558d1532d70978dd4208294b36cb93d719f25",
+    "experiments/market_discovery/browser/worker.js": "5aef5133350759fec21989303fe37119a0cbf275f8829b0402c5106a7ab1185c",
+    "experiments/market_discovery/bridge_server.py": "6188a597ad0f3180b4c2f0d4fb5ddc74d64404e7962910394b41e84194dc098d",
+    "experiments/market_discovery/model.py": "56eb6c244f9fb71e4bf214d5af31b42d851e01528d1f04d6b2cc035370d3ffad",
+    "fc_access/harness.py": "9ac36a71c0e862347cd495466b115eb92fd6ca9413fc5e6c2cba8b61d792e7f1",
+    "docs/research/001b/t7/manifest.json": "501dab629a7a9e1377cb2aa79be2a971086a153ada64c6d7c70f0ad65acfc26b",
+    "docs/research/final/manifest.json": "7c3d7482d2e1c2b8020a21f27b8c87f9d5885a7773845095edc4480d347f01a9",
+    "docs/research/transaction/live.json": "6f98af8de9d3ed0d2b1ea8a45e17e2bc1e488a2a3c2cc31401ee135a5f9906fc"
+  },
+  "evidence": {
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/baseline-search.json": "012273b621bab5c9fe3274e4a46493a9bbd32099a79dc4704fe07c6f4718f9f6",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/context.json": "d1bfca3ac620241a510ac0064dc2d3be91c1375168e7884f0d3561b0251489ae",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/historical-preservation.json": "c4771bed94078d7c12cebe85747d1e659878b50490cc22fc897333d790de268a",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/observer-continuation.json": "6ec91e4a0f09ab004d9fd38cdec7d13ed88acc500bb550f834d4c67532f0f5e9",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/offline-checks.json": "69ada95b3ef379f4eb0b1c7408f0229515f3baac30ef1febc915d9e723b573e5",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/original-guard-reproduction.json": "95e18568e80e48495e2497dd2ec52b086312c696b28670a66ef4fc12f3bc804e",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/preserved-seals.json": "9184d320c05cbfff96c0e66cb383006212c0ee7e4b01bd5dbcc2f7935337a5f9",
+    "experiments/market_discovery_followup_v1/runs/20261111T230544Z/public-persona-source-review.json": "cfe19b8d0973ac0cf023407caafb6330780e6136ab58d033c4882ad167d457ad",
+    "experiments/market_discovery_followup_v1/runs/20261112T062256Z/search.json": "142ca8d531ab151cf093284783fe3b1fa681c91ff3f0d357774b2e2f24b74087"
+  },
+  "public_source_review": "experiments/market_discovery_followup_v1/runs/20261111T230544Z/public-persona-source-review.json",
+  "live_validation": {
+    "command": [
+      "python",
+      "-m",
+      "experiments.market_discovery_followup_v1",
+      "validate",
+      "--input",
+      "experiments/market_discovery_followup_v1/runs/20261112T062256Z/search.json"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "errors": [],
+    "http_status": 200,
+    "market": "fc27_pc",
+    "definition_id": 233731,
+    "auctions": 21
+  },
+  "privacy_findings": [],
+  "historical_source_hashes_rewritten": false
+}
