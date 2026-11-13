@@ -1,0 +1,97 @@
+{
+  "at": 1794540490.659933,
+  "http_status": 200,
+  "request": {
+    "status_id": "1a248702fa0785e597781e65d089e79b"
+  },
+  "response": {
+    "hold": true
+  },
+  "before": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 14,
+    "mutations_reserved": 1,
+    "bid_writes_reserved": 1,
+    "gross_coins_reserved": 800,
+    "service": "fc-e2e-live-v2",
+    "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "after": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 14,
+    "mutations_reserved": 1,
+    "bid_writes_reserved": 1,
+    "gross_coins_reserved": 800,
+    "service": "fc-e2e-live-v2",
+    "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "argv": [
+    "{python}",
+    "-"
+  ],
+  "execution": "Explicit Python stdin decision coordinator; exact local RPC parameters retained. No EA request is made by HOLD."
+}

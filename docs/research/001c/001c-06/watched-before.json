@@ -1,0 +1,140 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_v1.capture",
+    "watched-before",
+    "watched",
+    "{}"
+  ],
+  "at": 1794539048.727972,
+  "http_status": 200,
+  "elapsed_ms": 160.27212142944336,
+  "request": {
+    "stage": "watched-before",
+    "operation": "watched",
+    "params": {}
+  },
+  "before": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794539948.1091454,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 1,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-v1",
+    "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+    "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+    "extension_id": "adjoadkfnhmdnmfemioehilkaikmfjcf",
+    "attached": true,
+    "peer": {
+      "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+      "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+      "worker": "182c31db-ad0a-4590-be0d-f9390bfd4a96",
+      "document": "3018b3bf-7345-44e0-ac50-13635a2c6f1f",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "after": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794539948.1091454,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 2,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-v1",
+    "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+    "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+    "extension_id": "adjoadkfnhmdnmfemioehilkaikmfjcf",
+    "attached": true,
+    "peer": {
+      "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+      "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+      "worker": "182c31db-ad0a-4590-be0d-f9390bfd4a96",
+      "document": "3018b3bf-7345-44e0-ac50-13635a2c6f1f",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "response": {
+    "cache_invalidated": true,
+    "caps": null,
+    "command_id": "45512e015c10b379cdd9434fa8e32e49",
+    "credits": null,
+    "duration_ms": 126.29999999701977,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 124.80000001192093,
+        "ended_at": "2026-11-13T03:04:08.873Z",
+        "method": "GET",
+        "payload_bytes": 44,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:08.748Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:04:08.874Z",
+    "operation": "watched",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": [],
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": []
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "completed_utc": "2026-11-12T18:07:05.304133+00:00",
+  "sequence": [
+    "inspect_entry_and_objectives",
+    "inspect_implementations_and_retained_evidence",
+    "run_offline_baselines",
+    "inspect_current_pinned_public_source",
+    "freeze_gap_map_and_bounded_plan",
+    "author_independent_artifact_checks"
+  ],
+  "reads": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "d1a8abd49b5ac1ff5600de3b7481563cd869fd2c1764089a4a12746aa76e0c3f",
+      "finding": "Preserve existing sessions/checkpoints; ordinary UI recovery is authorized but this audit needs no browser recovery or market request."
+    },
+    {
+      "path": "objectives/001c-competitive-bidding-readiness.md",
+      "sha256": "6cb57cb62f5ffe25edd3eca58c23d37f2abcf9802c267d48f1652ad052106a9f",
+      "finding": "Twelve live rows and four E2E paths require new independently assessed proof; task 001c-01 only scopes these prerequisites."
+    },
+    {
+      "path": "objectives/002-two-actor-competitive-bidding.md",
+      "sha256": "c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890",
+      "finding": "Two future actors share serialized execution, durable registry and mandatory append-only diagnostics; 600/25-second targets, 50 slots and sticky 5000-coin DRAINING."
+    },
+    {
+      "path": "docs/research/execution-architecture.md",
+      "sha256": "4b3c094013b407ad42c7c496728f2da64adea33bd1a7815bc355ea414acea290",
+      "finding": "Reuse exact identity, fsync intent, UNKNOWN reconciliation and nullable settlement; older Buy Now autonomous strategy and 30-second rate policy are superseded."
+    },
+    {
+      "path": "docs/research/obj002-handoff.md",
+      "sha256": "d97f536d47ad3d0692cdf8de36f676f498851211a0a0f952737c3d4bc1dc446f",
+      "finding": "S1-S4 durability, bridge, rules and offline faults precede live S5; S6 actor execution is excluded. L1-L8 remain historical release context with competitive-bidding substitutions."
+    },
+    {
+      "path": "docs/research/001b-obj002-addendum.md",
+      "sha256": "863c399c4c935daa311c4d46fb8ac0e9ef782479eebed813acd7a65f419aa727",
+      "finding": "No production external feed; original zero-window/failed-persona claims are historical, superseded by later follow-up and partial benchmark, not edited."
+    },
+    {
+      "path": "fc_access/pricing.py",
+      "sha256": "e5ff72b277c281a2e7b9bf70b48a40041887040b27b3e491d8426a3bb0361dd8",
+      "finding": "MarketKey/Observation/Rules/Policy/evaluate/profit are reusable; DEFAULT_BANDS and caller caps remain hypotheses; evaluate prices Buy Now acquisition, requiring explicit bid-cost adaptation."
+    },
+    {
+      "path": "fc_access/transaction.py",
+      "sha256": "4d77516444b6bab8a7bace6b3debd161182f24e6a72d550f0cd6c9a979db4053",
+      "finding": "Single-shot journal writes intent with fsync before send, snapshots independently read owned/transfer/coins, and restricted restart reconciliation avoids repeating buy; not a generic bid engine."
+    },
+    {
+      "path": "fc_access/transaction_server.py",
+      "sha256": "164984f6b8d2afde378da8e8fbc5b499fb015b4b608ddda78b82aebe6d4123f1",
+      "finding": "Volatile one-pending owner, delivered flag/deadline and busy rejection; transaction Origin accepts any extension-shaped ID. No durable scope/epoch pairing contract."
+    },
+    {
+      "path": "browser/transaction-bridge/page.js",
+      "sha256": "14e98cf360ba449507248ae15f3a401dbd9a8f79ac89f8f7c58e78cdce0fc70e",
+      "finding": "Only buy/move/list/relist commands, price bounds 200-500 buy and <=1000 listing; buy maps Item.bid at BIN after identity checks; ordinary bidding absent."
+    },
+    {
+      "path": "browser/transaction-bridge/read-page.js",
+      "sha256": "06b5b02dc89732922d68614f88d52dd5fd6147b7712c3ec9d7fee35c6bca129c",
+      "finding": "Allowlisted inventory/status mapping and native cache invalidation are references; no proven competitive watched/outcome provider."
+    },
+    {
+      "path": "browser/transaction-bridge/worker.js",
+      "sha256": "b933c5cdcd4640643c81d86a3604f99e4c44c766ada21cef33175927f0335818",
+      "finding": "30-second alarm and session-selected tab are research lifecycle references, not proven recovery or authentication."
+    },
+    {
+      "path": "experiments/market_discovery/bridge_server.py",
+      "sha256": "6188a597ad0f3180b4c2f0d4fb5ddc74d64404e7962910394b41e84194dc098d",
+      "finding": "Pinned extension Origin, single poll owner/pending command/deadline and <=20-second long poll; all ownership is in memory, no persistent epochs."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/server.py",
+      "sha256": "49a83b2783b5789105e3ccc02a6c71b912d8b7058e3a798ab56b9902471fddae",
+      "finding": "Port 8771 inherits the bounded search queue and adds safe persona/telemetry. Health/long-poll/persona/authentication remain separate readiness levels."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/browser/persona.js",
+      "sha256": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+      "finding": "Uppercase PC requires isPC=true and matching GamePlatform.PC; reject explicit console/conflicting values. Preserve verified mapping."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/browser/page.js",
+      "sha256": "8dac7846bb998a0b40272166aa307d358000875bb4d487caec4e2f3162e5049a",
+      "finding": "Current min_buy maps minBuy, max_buy maps maxBuy; max_bid unsupported. Pages 1/2, 21 rows, cache invalidation and separate bid/trade projections are reusable."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/browser/worker.js",
+      "sha256": "80a949524cba8811176366adec020b5feea77d8b6017531508cb8dbd1fd5cfef",
+      "finding": "Single running poll loop exits to WAIT on error; no onAlarm/onStartup revival in this version. Reattachment requires click; this is a plausible failure mechanism, not a proved root cause."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/REPORT.md",
+      "sha256": "f7fa92ebb0d081ca452cd6a6bc93128ece4c9fed38518e8ea9e47423f7165a9e",
+      "finding": "One 06:22:57Z authenticated PC search of definition 233731 returned 21 auctions; native 136.6ms, Python 172.421ms; no p95 or sustained reliability proof."
+    },
+    {
+      "path": "experiments/market_discovery_followup_v1/runs/20261112T062256Z/search.json",
+      "sha256": "142ca8d531ab151cf093284783fe3b1fa681c91ff3f0d357774b2e2f24b74087",
+      "finding": "Retained raw sanitized market evidence is historical only, including independent network presence, persona projection and exact identities."
+    },
+    {
+      "path": "experiments/market_discovery_live_v1/runs/20261112T064306Z/observations.json",
+      "sha256": "f1b5e1b1ca804acf00ce8a0d0a66a37e962be118fa740c9425ac0bf1e4150633",
+      "finding": "A completed first 300-second window consumed 8 EA calls; next B command failed bridge_not_attached with zero network; A16/B24/C24 budgets remain reserved for that campaign."
+    },
+    {
+      "path": "experiments/market_discovery_live_v1/runs/20261112T064306Z/REPORT.md",
+      "sha256": "1b30434e81cddd304865e93167c8e0df773bcdf41b662ae662fa48eb2e4b20e3",
+      "finding": "Passive observer unavailable; 1/9 windows, no comparative winner and unverified executable yield because caps/ticks absent. Do not replay completed discovery."
+    },
+    {
+      "path": "docs/research/capabilities/verification.json",
+      "sha256": "56a5ed8ffaa798e0d42eec5d3da4315f98f79b3c81f8f1c89f01c39de8ca5924",
+      "finding": "Historical Edge=14 authenticated reads, direct HTTP=0. Search field observations are useful context, not current account proof."
+    },
+    {
+      "path": "docs/research/transaction/live.json",
+      "sha256": "6f98af8de9d3ed0d2b1ea8a45e17e2bc1e488a2a3c2cc31401ee135a5f9906fc",
+      "finding": "One historical Buy Now acquisition of definition 278230 for 200; cached failure retained; later fresh ownership/debit and move/list independent readbacks."
+    },
+    {
+      "path": "docs/research/transaction/verification.json",
+      "sha256": "ee8e517dfbfcf6fe0177fae11885b789332a69552135f92556b6a5aafb3d57af",
+      "finding": "Purchase/movement/list/status verified historically at 200/250 listing for 3600 seconds with 3570 remaining; relist and settled profit unverified."
+    },
+    {
+      "path": "docs/research/capabilities/native-source-shapes.json",
+      "sha256": "906cd526017ed3b06bc2af88ae67bdb2368de885b42176897324e91b208396a8",
+      "finding": "Native entity/schema clues are retained read contracts, not verified price caps, auction capacity or ordinary-bid rules."
+    },
+    {
+      "path": "tests/test_browser_access.py",
+      "sha256": "6618c33e83e70707cd40df095d6c9ac2a30845bdccaa9293d99509d2d054f25f",
+      "finding": "Full baseline has one time-dependent failure at line 112 because the retained inspection exceeds 86400 seconds; preserve artifact and test."
+    },
+    {
+      "path": "tests/test_market_discovery_followup_v1.py",
+      "sha256": "717e465e521a74e181bb78078bff55fb622cf8c6c3abd9aa1b6eb0d88bc1b8cf",
+      "finding": "Offline persona, schema, transport and retained search assessment already exist; no need to repeat native discovery for this audit."
+    },
+    {
+      "path": "tests/test_market_pricing.py",
+      "sha256": "2ebb6b9b015a7db53bad9627357289a504792bb003506d82782c7c05ed366411",
+      "finding": "Existing pure estimator tests cover identity, independent samples, exclusions, stale data, outliers and tax arithmetic; rules verification is external to pure calculator."
+    },
+    {
+      "path": "tests/test_transaction.py",
+      "sha256": "3cb3c0ccba3fd4ae95575cd0cd916be700d03e45d5730a48f3cefa6ad9d1d794",
+      "finding": "Fault tests for intent persistence and single-shot recovery protect known purchase/list behavior; extend separately for competitive bids and stable scopes."
+    },
+    {
+      "path": "tests/test_transaction_bridge.py",
+      "sha256": "ebfa061782b4ee853bec52e701db57bba3d5ef0098697196fff83f24b54f1ca9",
+      "finding": "JavaScript fixture guards exercise the existing bridge; fixtures cannot establish current live bidding or lifecycle resilience."
+    },
+    {
+      "path": "tests/test_execution_artifacts.py",
+      "sha256": "38b3074664112a024f816eb4776592fc9e4521eeb4529b7450e7bb0fd87bdb5a",
+      "finding": "Architecture artifact checks verify planned interfaces/recovery matrices; fc_execution modules in old handoff remain plans."
+    }
+  ],
+  "current_attachment": "NOT_CHECKED",
+  "current_authentication": "NOT_CHECKED",
+  "new_EA_requests": 0,
+  "new_account_mutations": 0,
+  "no_completed_discovery_replay": true,
+  "future_002_execution": "GATED_ON_001C",
+  "current_audit_disposition": "COMPLETE_NO_LIVE_PROOF_CLAIM"
+}

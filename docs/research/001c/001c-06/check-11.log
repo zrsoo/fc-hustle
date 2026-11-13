@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "criterion": 5,
+      "status": "PASS",
+      "diagnostic": "No witnessed terminal state. UNKNOWN preserved; available balances reconciled, held/returned/paid amounts not invented."
+    }
+  ]
+}

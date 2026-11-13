@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "criterion": 0,
+      "status": "PASS",
+      "diagnostic": "Serialized finite run, immutable reservations and unresolved-write stop verified."
+    }
+  ]
+}

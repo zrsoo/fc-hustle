@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "checks": [
+    {
+      "id": "regression",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "started_utc": "2026-11-12T18:03:36.110917+00:00",
+      "ended_utc": "2026-11-12T18:04:00.703729+00:00",
+      "duration_seconds": 24.593,
+      "exit_code": 1,
+      "output": "baseline-regression.txt",
+      "output_sha256": "1d4a4b869a137913099efeb2e8c1690d6f757393b1f87a6eb05ad59d1c1066a3"
+    },
+    {
+      "id": "001b-precommit",
+      "command": [
+        "{python}",
+        "tests/validate_001b.py",
+        "--precommit"
+      ],
+      "started_utc": "2026-11-12T18:04:00.703890+00:00",
+      "ended_utc": "2026-11-12T18:04:02.336699+00:00",
+      "duration_seconds": 1.633,
+      "exit_code": 0,
+      "output": "baseline-001b-precommit.txt",
+      "output_sha256": "ede7315806f1ab513c12155dd512d4c8490c89a351822d8d276c7cf50db25982"
+    },
+    {
+      "id": "001b-historical-commit",
+      "command": [
+        "{python}",
+        "tests/validate_001b.py"
+      ],
+      "started_utc": "2026-11-12T18:04:02.336817+00:00",
+      "ended_utc": "2026-11-12T18:04:15.187901+00:00",
+      "duration_seconds": 12.851,
+      "exit_code": 1,
+      "output": "baseline-001b-historical-commit.txt",
+      "output_sha256": "3e396daef08c9c25563c1dfdea6c3e09d6983ab17617cb3813534cddebd309e5"
+    },
+    {
+      "id": "001-historical-final",
+      "command": [
+        "{python}",
+        "tests/validate_final.py"
+      ],
+      "started_utc": "2026-11-12T18:04:15.187997+00:00",
+      "ended_utc": "2026-11-12T18:04:17.649560+00:00",
+      "duration_seconds": 2.462,
+      "exit_code": 1,
+      "output": "baseline-001-historical-final.txt",
+      "output_sha256": "fcb326bcbd3cc8885943882889c7459aaef86b5d7a1e5fec752bcf79f410ed2b"
+    },
+    {
+      "id": "followup-retained",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery_followup_v1",
+        "validate",
+        "--input",
+        "experiments/market_discovery_followup_v1/runs/20261112T062256Z/search.json"
+      ],
+      "started_utc": "2026-11-12T18:04:17.649650+00:00",
+      "ended_utc": "2026-11-12T18:04:17.813904+00:00",
+      "duration_seconds": 0.164,
+      "exit_code": 0,
+      "output": "baseline-followup-retained.txt",
+      "output_sha256": "bbfc413e113922e5bc8c2695597f5c98f7febc533d9b2821f336df61a1b06b8b"
+    },
+    {
+      "id": "partial-benchmark-retained",
+      "command": [
+        "{python}",
+        "-m",
+        "experiments.market_discovery_live_v1.validate",
+        "--run-dir",
+        "experiments/market_discovery_live_v1/runs/20261112T064306Z"
+      ],
+      "started_utc": "2026-11-12T18:04:17.814014+00:00",
+      "ended_utc": "2026-11-12T18:04:17.998096+00:00",
+      "duration_seconds": 0.184,
+      "exit_code": 1,
+      "output": "baseline-partial-benchmark-retained.txt",
+      "output_sha256": "f2ee108e31e76fa32c9dca570fcbf032a2d6d0e8ceaff2fb556187c6d59a2a06"
+    }
+  ],
+  "new_EA_requests": 0,
+  "account_mutations": 0
+}

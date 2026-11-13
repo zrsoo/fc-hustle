@@ -1,0 +1,134 @@
+{
+  "stage": "owner-change",
+  "at": 1794537559.276839,
+  "elapsed_ms": 146.76642417907715,
+  "http_status": 200,
+  "command": {
+    "schema": 1,
+    "id": "6c6c3bb578a5d9b4e32709988c4f49ae",
+    "operation": "balance",
+    "params": {},
+    "evidence_key": "25252525252525252525252525252525",
+    "scope": "05050505050505050505050505050505",
+    "owner": "35353535353535353535353535353535",
+    "epoch": 5
+  },
+  "before": {
+    "service": "fc-durability-v1",
+    "boot": "ce5553d2b7fa22de6d0f947b84b46a56",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "35353535353535353535353535353535",
+      "epoch": 5
+    },
+    "attached": true,
+    "polling": true,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "document": "406565e4030a97aefb91b74b0e001d78",
+    "worker": "bd94dc3b037c66117af98bd229911501",
+    "page_checks": {
+      "bid_disabled": true,
+      "stale_epoch": true,
+      "wrong_owner": true,
+      "wrong_scope": true
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 6,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "after": {
+    "service": "fc-durability-v1",
+    "boot": "ce5553d2b7fa22de6d0f947b84b46a56",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "35353535353535353535353535353535",
+      "epoch": 5
+    },
+    "attached": true,
+    "polling": false,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "document": "406565e4030a97aefb91b74b0e001d78",
+    "worker": "bd94dc3b037c66117af98bd229911501",
+    "page_checks": {
+      "bid_disabled": true,
+      "stale_epoch": true,
+      "wrong_owner": true,
+      "wrong_scope": true
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 7,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "response": {
+    "command_id": "6c6c3bb578a5d9b4e32709988c4f49ae",
+    "coverage": {
+      "account_capacity": null,
+      "complete": false,
+      "evidence_id": null,
+      "has_more": null
+    },
+    "freshness": {
+      "network_at": null,
+      "observed_at": "2026-11-13T02:39:19.419Z",
+      "read_id": "6c6c3bb578a5d9b4e32709988c4f49ae",
+      "request_count": 0,
+      "source": "native"
+    },
+    "operation": "balance",
+    "result": {
+      "auctions": null,
+      "cache_invalidated": null,
+      "credits": null,
+      "ea_error_code": null,
+      "error": "schema_unrecognized",
+      "has_more": null,
+      "items": null,
+      "network": [],
+      "platform": "pc",
+      "status": 200,
+      "success": false
+    },
+    "schema": 1,
+    "timing": {
+      "native_service_ms": 116.90000000596046
+    }
+  }
+}

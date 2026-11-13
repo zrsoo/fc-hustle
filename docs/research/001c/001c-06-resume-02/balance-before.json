@@ -1,0 +1,141 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_live_v2.capture",
+    "balance-before",
+    "balance",
+    "{}"
+  ],
+  "at": 1794540334.8120382,
+  "http_status": 200,
+  "elapsed_ms": 124.6950626373291,
+  "request": {
+    "stage": "balance-before",
+    "operation": "balance",
+    "params": {}
+  },
+  "before": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": null,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 0,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-live-v2",
+    "boot": "f86341f8da155534c4e2352cc7283690",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "f86341f8da155534c4e2352cc7283690",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "after": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 1,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-live-v2",
+    "boot": "f86341f8da155534c4e2352cc7283690",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "f86341f8da155534c4e2352cc7283690",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "response": {
+    "cache_invalidated": false,
+    "caps": null,
+    "command_id": "7d3553550abbffcbe290c26528338e2a",
+    "credits": 16268,
+    "duration_ms": 77.20000000298023,
+    "error": null,
+    "network": [
+      {
+        "bid_amount": null,
+        "duration_ms": 71.29999999701977,
+        "ended_at": "2026-11-13T03:25:34.922Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:25:34.851Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:25:34.927Z",
+    "operation": "balance",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": null,
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": null
+  }
+}

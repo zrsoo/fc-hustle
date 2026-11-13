@@ -1,0 +1,18 @@
+{
+  "at": 1794539187.8300135,
+  "reason": "ACK_WITHOUT_INDEPENDENT_WATCHED_STATE",
+  "command_id": "6371060d0cef5803cffa1797eddc6264",
+  "unresolved_bid": true,
+  "additional_mutations_authorized": false,
+  "enforcement": "Persistent ledger meta.unreconciled blocks every further mutation; no replay or reset.",
+  "read_only_tail": {
+    "maximum_additional_commands": 4,
+    "purpose": "Post expected-expiry search, watched, owned and balance reconciliation only.",
+    "within_original_deadline": true
+  },
+  "evidence": [
+    "199849c88acb70645f63cc6b267dd65f",
+    "cc28531071d4e8054a09a7daa540e0ed"
+  ],
+  "coin_effect": "Observed spendable delta zero; acceptance, escrow and returned coins unresolved."
+}

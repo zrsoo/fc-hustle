@@ -1,0 +1,77 @@
+{
+  "classification": "DETERMINISTIC_SIMULATION",
+  "priority_order": [
+    "00000000000000000000000000000002",
+    "00000000000000000000000000000003",
+    "00000000000000000000000000000001"
+  ],
+  "skipped": [
+    [
+      "00000000000000000000000000000004",
+      "DEADLINE_SKIPPED"
+    ]
+  ],
+  "metrics": [
+    {
+      "command_id": "00000000000000000000000000000001",
+      "local_delivery_ms": 2.0
+    },
+    {
+      "command_id": "00000000000000000000000000000002",
+      "native_service_ms": 200.0,
+      "request_count": 1
+    },
+    {
+      "command_id": "00000000000000000000000000000003",
+      "native_service_ms": 199.99999999999997,
+      "request_count": 1
+    },
+    {
+      "command_id": "00000000000000000000000000000001",
+      "native_service_ms": 99.99999999999997,
+      "request_count": 0
+    }
+  ],
+  "burst_peak_active": 2,
+  "native_requests": 2,
+  "bulk_cycles": [
+    {
+      "rows_processed": 50,
+      "requests": 1,
+      "service_seconds": 0.2,
+      "cycle_seconds": 25
+    },
+    {
+      "rows_processed": 50,
+      "requests": 1,
+      "service_seconds": 0.2,
+      "cycle_seconds": 25
+    },
+    {
+      "rows_processed": 50,
+      "requests": 1,
+      "service_seconds": 0.2,
+      "cycle_seconds": 25
+    }
+  ],
+  "slow_cycle": {
+    "service_seconds": 51,
+    "missed_25_second_deadline": true,
+    "skipped": [
+      [
+        "0000000000000000000000000000001f",
+        "DEADLINE_SKIPPED"
+      ]
+    ]
+  },
+  "holding_calls_skipped": 50,
+  "holding_requests": 0,
+  "urgent_read_preempts_write": true,
+  "limits": [
+    "Synthetic write timing and priority are not live bid timings.",
+    "50 rows can be one bulk read; rebids, balance, economics and reconciliation are additional calls.",
+    "Transport idle polling consumes no EA request slot.",
+    "A 25-second target is not a guaranteed whole-queue cycle or EA-approved cadence.",
+    "Per-row work and write bursts can exceed the deadline; expired work is skipped."
+  ]
+}

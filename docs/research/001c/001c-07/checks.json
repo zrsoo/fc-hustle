@@ -1,0 +1,233 @@
+{
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_001c01_audit.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:24.099117+00:00",
+      "ended_at": "2026-11-13T06:17:25.089728+00:00",
+      "output": "check-00.txt",
+      "output_sha256": "484093ea9c3c53cc102576d3ca5ac892ef63eb200ee2e86959517d09af21bf95"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:25.089821+00:00",
+      "ended_at": "2026-11-13T06:17:27.158731+00:00",
+      "output": "check-01.txt",
+      "output_sha256": "0b3b57821960784a09cba4c0de5998fb0db8915402bc6ef524c2773e7a5288f5"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_bidding_v1_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:27.158842+00:00",
+      "ended_at": "2026-11-13T06:17:27.305859+00:00",
+      "output": "check-02.txt",
+      "output_sha256": "80727bba3026e08734a3db803c0a63da6e05f9cf6e830b3bfbab56a0b6a10fd7"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_watched_bulk_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:27.305929+00:00",
+      "ended_at": "2026-11-13T06:17:27.990052+00:00",
+      "output": "check-03.txt",
+      "output_sha256": "6ed0c762d6effd500734483ab5b1e5fdeb456a0bd888500523a8250a8fabe379"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:27.990174+00:00",
+      "ended_at": "2026-11-13T06:17:28.268441+00:00",
+      "output": "check-04.txt",
+      "output_sha256": "431dd47023b56283ace17d38fb934bd316300389efe962a863b90ea1c8d864d1"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:28.268548+00:00",
+      "ended_at": "2026-11-13T06:17:34.039287+00:00",
+      "output": "check-05.txt",
+      "output_sha256": "42a563fed5889ac71c8d7b91495e5c0d80c2f909bcea5e8344f1391b95b3ea39"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:34.039373+00:00",
+      "ended_at": "2026-11-13T06:17:34.293878+00:00",
+      "output": "check-06.txt",
+      "output_sha256": "07df7748fdb33e2a710c7676ff5ec9d48d9d53ad5c72536c8f4ef2181eb946ef"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:34.293988+00:00",
+      "ended_at": "2026-11-13T06:17:35.240095+00:00",
+      "output": "check-07.txt",
+      "output_sha256": "969301b856ca95e6bc614a4f9ba87cbf84fdceff4a475309184e58dc59282b3f"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:35.240201+00:00",
+      "ended_at": "2026-11-13T06:17:35.644396+00:00",
+      "output": "check-08.txt",
+      "output_sha256": "b3248e3f976b1b6051ca59d481522288935c96a78b5fe787059291a281329969"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_live_v2.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:35.644462+00:00",
+      "ended_at": "2026-11-13T06:17:37.037170+00:00",
+      "output": "check-09.txt",
+      "output_sha256": "49376c761bb3da1006f118c5d55c44187ddab00dbca14dbc41cc5fa426b1272c"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_reconcile_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:37.037296+00:00",
+      "ended_at": "2026-11-13T06:17:37.468080+00:00",
+      "output": "check-10.txt",
+      "output_sha256": "f9199d0cc403db232d299583adab1c82528fa9cf94a12c75f6f5351c974b7395"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_complete_artifacts.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:37.468153+00:00",
+      "ended_at": "2026-11-13T06:17:38.035478+00:00",
+      "output": "check-11.txt",
+      "output_sha256": "4d4becaa7fbd9f0e70ecf1114a36c8ec863a0908a4d63516e9bf977488c27844"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_001c06_complete.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:38.035591+00:00",
+      "ended_at": "2026-11-13T06:17:38.371907+00:00",
+      "output": "check-12.txt",
+      "output_sha256": "126f026b8e82561e1900ff2ec66db51c86c32f8f0bb5e5e36d51d3602c73285e"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:38.372010+00:00",
+      "ended_at": "2026-11-13T06:17:38.519305+00:00",
+      "output": "check-13.txt",
+      "output_sha256": "a8be2a2853fe1200ffee08143d235fe16758e47067a6ea1ebf74d9a485557a3c"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_transaction.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:38.519374+00:00",
+      "ended_at": "2026-11-13T06:17:39.843479+00:00",
+      "output": "check-14.txt",
+      "output_sha256": "6682e07acea2b887896e1637df4eed26a2b7a02f7f3b8fb832f329143427be2c"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:39.843546+00:00",
+      "ended_at": "2026-11-13T06:17:40.858821+00:00",
+      "output": "check-15.txt",
+      "output_sha256": "965b40c225a9890f2c76b021986fbfc0baee0f324a55d0bc7cda2b12ed5fdee0"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_search_validation_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:40.858910+00:00",
+      "ended_at": "2026-11-13T06:17:42.285052+00:00",
+      "output": "check-16.txt",
+      "output_sha256": "f59291e747a13689e11e3ba92cf82b3e2b5a99bb24edd4bab48afe271f37dac4"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_readiness_regressions.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T06:17:42.285196+00:00",
+      "ended_at": "2026-11-13T06:18:04.865452+00:00",
+      "output": "check-17.txt",
+      "output_sha256": "70942e172e3bcb347a975f6e20cbad346cbd33e5f73af99311dafec4bab3f6f9"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T06:18:04.865623+00:00",
+      "ended_at": "2026-11-13T06:18:05.111458+00:00",
+      "output": "check-18.txt",
+      "output_sha256": "be692d855944b9acb7acdcfd262752360b05162b34f1b63df19919c5f33ea8fb"
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T06:18:05.111560+00:00",
+      "ended_at": "2026-11-13T06:18:41.636727+00:00",
+      "output": "check-19.txt",
+      "output_sha256": "69671ee3db244275be2353f07ff7074bf155bb80049b3159e888aeebf6eca2f0"
+    }
+  ]
+}

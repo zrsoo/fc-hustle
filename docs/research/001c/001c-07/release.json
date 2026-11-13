@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "task": "001c-07",
+  "audited_at": "2026-11-13T06:19:39.871380+00:00",
+  "decision": "CONDITIONAL GO",
+  "actor_execution_authorized": false,
+  "current_evidence_scope": "Objective 001C retained observations; not a current account refresh",
+  "operations": [
+    {
+      "id": "search_filters",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "experiments/search_validation_v1/browser/page.js",
+        "fc_access/bidding_v1/adapter.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-04/native-source-contract.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-04/search-3.json",
+        "docs/research/001c/001c-06-resume-02/search-2.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-04/availability-2.json",
+        "docs/research/001c/001c-06-resume-02/availability-2.json"
+      ],
+      "scope": "Authenticated PC maxBid=1000/minBuy=10500; wire macr/minb and listing rows agree. Bounded pages only.",
+      "dependency": "Preserve lookahead/dedup; absence from a page is UNKNOWN; refresh before every entry.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "comparables",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/pricing.py",
+        "experiments/search_validation_v1/economics.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-04/native-source-contract.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/comparables-2.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-02/pricing-plan.json"
+      ],
+      "scope": "12 distinct exact-version PC asks after nine outliers; target 2800, projected tax 140, X=500, cap 2100. Distinct trade/item, not independently identified sellers.",
+      "dependency": "Ask-based projection; refresh >=5 independent samples and native caps; no realized price.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "card_caps",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/e2e_live_v2/policy.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-04/native-source-contract.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/caps-2.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-02/availability-2.json"
+      ],
+      "scope": "Current native card-specific price limits on sampled version 261855.",
+      "dependency": "Refresh per version; observed caps do not validate the whole increment schedule.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "legal_bid_ticks",
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "implementation": [
+        "fc_access/bidding_v1/rules.py",
+        "browser/e2e-live-v2/page.js"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-04/rules-and-availability.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/caps-2.json"
+      ],
+      "independent_proof": [],
+      "scope": "Client helper returns next absolute legal price; sampled 750 -> 800 acceptance belongs to opening_bid. Entire server bid/list tick schedule unproved.",
+      "dependency": "Review and prove sufficient tick bands; never add currentBid twice; do not round all bids to hundreds.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": ""
+    },
+    {
+      "id": "opening_bid",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "browser/e2e-live-v2/page.js",
+        "fc_access/e2e_live_v2/policy.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-01/source-review.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/opening-1.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-02/watched-after-opening.json",
+        "docs/research/001c/001c-06-resume-02/balance-after-opening.json",
+        "docs/research/001c/001c-06-resume-02/live-final.sqlite"
+      ],
+      "scope": "Minimum first participation 800 above existing 750, ordinary PUT, leading/highest at 800 and independent 800 spendable debit.",
+      "dependency": "Strict reusable rules provider still blocks native production writes; original 700 acceptance remains UNVERIFIED.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "leading_hold",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/bidding_v1/core.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-02/implementation.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/watched-after-opening.json",
+        "docs/research/001c/001c-06-resume-02/watched-cycle-2.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-02/hold-opening.json",
+        "docs/research/001c/001c-06-resume-02/hold-cycle-2.json",
+        "docs/research/001c/001c-06-resume-02/live-final.sqlite"
+      ],
+      "scope": "Two authoritative leading HOLD decisions; exactly one PUT in Resume 02 and unchanged command/exposure counters.",
+      "dependency": "Recompute only after new authoritative status; leading never raises our bid.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "active_outbid_rebid",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "fc_access/bidding_v1/core.py",
+        "fc_access/bidding_v1/adapter.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-01/source-review.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-03/watched.json"
+      ],
+      "independent_proof": [],
+      "scope": "Eventual closed/outbid does not witness an active outbid decision or a minimum personal rebid.",
+      "dependency": "Observe natural active outbid in a new bounded window; fresh balance/identity, smallest legal amount <= stored cap, independent readbacks.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "bulk_watchlist",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "experiments/watched_bulk_v1/browser/page.js",
+        "browser/e2e-live-v2/page.js"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-03/native-source-decoded.json",
+        "docs/research/001c/001c-03/native-repository-source.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-03/watched-4.json",
+        "docs/research/001c/001c-06-resume-02/watched-cycle-2.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-03/targets-after-fresh.txt",
+        "docs/research/001c/001c-06-resume-02/live-final.sqlite"
+      ],
+      "scope": "One authenticated native GET per fresh requestWatchedItems call; empty and one-auction state observed. Dirty inbox prevents cache-only results.",
+      "dependency": "No live 50-auction completeness proof; missing auction stays UNKNOWN. XHR instrumentation scoped to each command.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "watchlist_capacity",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "experiments/watched_bulk_v1/contract.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-03/native-repository-source.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-03/watched-4.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-03/inspect-3.json",
+        "docs/research/001c/001c-03/targets-after-fresh.txt"
+      ],
+      "scope": "Loaded inbox and server setting both report 50; platform split false.",
+      "dependency": "Reported capacity only; saturation/server truncation untested. Use min(configured 50, independently reported available account limit).",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "bulk_completeness_50",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "experiments/watched_bulk_v1/contract.py",
+        "fc_access/bidding_v1/core.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-03/native-repository-source.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/watched-cycle-2.json"
+      ],
+      "independent_proof": [],
+      "scope": "Only empty/single-entry live coverage. 50-row fixtures validate parsing and reconciliation, not server completeness.",
+      "dependency": "Validate larger known queue, pagination/truncation and removed/terminal cases; do not create 50 bids just to test parsing.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "loss",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/e2e_live_v2/policy.py",
+        "browser/e2e-resolution-v2/page.js"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-06-resume-01/source-contract.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-03/status.json",
+        "docs/research/001c/001c-06-resume-03/watched.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-03/unassigned.json",
+        "docs/research/001c/001c-06-resume-03/balance.json"
+      ],
+      "scope": "Same exact trade/item closed/outbid at 1200; independent full-version watched row supplies version 261855 while lite definition is 0.",
+      "dependency": "Observed after outage in separately bounded read-only window; do not claim in-window active outbid or a proven 700 enrollment.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "held_coins_refunds",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/bidding_v1/contracts.py",
+        "fc_access/e2e_live_v2/policy.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-02/implementation.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/balance-prebid-2.json",
+        "docs/research/001c/001c-06-resume-02/balance-after-opening.json",
+        "docs/research/001c/001c-06-resume-03/balance.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-06-resume-02/watched-after-opening.json",
+        "docs/research/001c/001c-06-resume-03/status.json"
+      ],
+      "scope": "Available coins 16268 -> 15468 -> 16268 and verified loss support 800 return. Held 800 inferred, direct held balance unavailable.",
+      "dependency": "Exact transient escrow/refund time and original 700 hold unknown. Do not double count pending refunds as spendable.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "won_transfer_list",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "fc_access/transaction.py",
+        "fc_access/e2e_live_v2/policy.py"
+      ],
+      "source_contract": [
+        "docs/research/obj002-handoff.md"
+      ],
+      "evidence": [],
+      "independent_proof": [],
+      "scope": "No competitive WON/owned item observed; zero move/list writes. Historical Buy Now move/list remains historical Objective 001.",
+      "dependency": "Require full-version exact physical ownership, actual paid price, then independently read back one move and one legal listing.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "timer_extension",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "browser/e2e-live-v2/page.js"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-03/native-source-decoded.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/availability-2.json",
+        "docs/research/001c/001c-06-resume-02/watched-cycle-3.json"
+      ],
+      "independent_proof": [],
+      "scope": "Countdowns 1037 -> 1036 -> 978 -> 929 -> 888; terminal -1. No near-expiry reset observed.",
+      "dependency": "Capture naturally occurring late traffic with correlated pre/post server expiry; no invented 30-second reset.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "cycle_25s",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "fc_access/bidding_v1/scheduler.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-05/scheduler.json"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/watched-cycle-1.json",
+        "docs/research/001c/001c-06-resume-02/watched-cycle-2.json",
+        "docs/research/001c/001c-06-resume-02/watched-cycle-3.json"
+      ],
+      "independent_proof": [],
+      "scope": "Native watched calls 76-106.6 ms; actual active start intervals 58.326, 48.736, 41.391 seconds. Requested 25-second sample interrupted.",
+      "dependency": "Complete actual deadline-aware whole-queue samples; include extra balance/economics/readback and rebid requests, not just bulk GET.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "sale_profit",
+      "classification": "UNVERIFIED",
+      "implementation": [
+        "fc_access/transaction_checks.py"
+      ],
+      "source_contract": [
+        "docs/research/obj002-handoff.md"
+      ],
+      "evidence": [],
+      "independent_proof": [],
+      "scope": "No competitive win, new card, listing, settled sale or realized profit in 001C.",
+      "dependency": "Independently reconcile attributable sale proceeds, tax, acquisition cost and any remaining unsold inventory.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": "live-UNVERIFIED"
+    },
+    {
+      "id": "bridge_resilience",
+      "classification": "LIVE_VERIFIED",
+      "implementation": [
+        "fc_access/durability_v1/store.py",
+        "browser/durability-v1/worker.js"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-05/REPORT.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-05/idle.json",
+        "docs/research/001c/001c-05/server-restart-verified.json",
+        "docs/research/001c/001c-05/extension-reload-verified.json"
+      ],
+      "independent_proof": [
+        "docs/research/001c/001c-05/final-verified.json",
+        "docs/research/001c/001c-05/owner-change-verified.json"
+      ],
+      "scope": "319.945-second idle, controlled host restart, extension reload and owner fencing observed; eight fresh authenticated GETs; no live writes.",
+      "dependency": "Finite lifecycle samples do not guarantee unattended reliability; two uncertain/failed deliveries remain disclosed.",
+      "provenance": "retained_001c_live",
+      "live_annotation": ""
+    },
+    {
+      "id": "durable_journal",
+      "classification": "OFFLINE_VALIDATED",
+      "implementation": [
+        "fc_access/bidding_v1/journal.py",
+        "fc_access/durability_v1/store.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-02/implementation.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/live-final.sqlite"
+      ],
+      "independent_proof": [
+        "tests/test_bidding_v1.py",
+        "tests/test_durability_v1.py"
+      ],
+      "scope": "FULL/WAL intent-before-send, append-only events, single dispatch, epoch fences and crash reconciliation tested.",
+      "dependency": "002 must integrate atomic shared registry/event lifecycle, diagnostics, freshness and source contracts; no actor loop exists.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": ""
+    },
+    {
+      "id": "queue_draining",
+      "classification": "OFFLINE_VALIDATED",
+      "implementation": [
+        "fc_access/bidding_v1/core.py",
+        "fc_access/bidding_v1/scheduler.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-02/implementation.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-05/scheduler.json"
+      ],
+      "independent_proof": [
+        "tests/test_bidding_v1.py",
+        "tests/test_durability_v1.py"
+      ],
+      "scope": "50 slots, sticky 5000 admission reserve, priority/deadline skip, HOLD, cap boundary, unknown retention and recovery covered by fixtures.",
+      "dependency": "Build shared actor ownership later; observed synthetic burst concurrency 2 is not authorization for parallel EA execution.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": ""
+    },
+    {
+      "id": "strict_rules_integration",
+      "classification": "BLOCKED",
+      "implementation": [
+        "fc_access/bidding_v1/rules.py",
+        "fc_access/durability_v1/adapter.py"
+      ],
+      "source_contract": [
+        "docs/research/001c/001c-02/implementation.md"
+      ],
+      "evidence": [
+        "docs/research/001c/001c-06-resume-02/caps-2.json"
+      ],
+      "independent_proof": [
+        "tests/test_bidding_v1.py"
+      ],
+      "scope": "Default RulesProvider requires reviewed LIVE_VERIFIED caps/increment coverage. Sampled acceptance does not satisfy that contract.",
+      "dependency": "Provide and independently validate reviewed rules artifact, harmonize current routes/dirty-cache/wire projection with adapter; keep default closed.",
+      "provenance": "source_or_offline_or_unwitnessed",
+      "live_annotation": ""
+    }
+  ],
+  "critical_prerequisites": [
+    "Strict reusable native rules and adapter integration",
+    "Natural active outbid/minimum rebid with independent readback",
+    "Conclusive competitive WON, exact physical ownership, paid cost and move/list readback",
+    "Actual whole-queue deadline/capacity evidence; 25 seconds remains a target"
+  ],
+  "continuation": {
+    "new_auctions_max": 1,
+    "seconds_max": 900,
+    "reads_max": 40,
+    "bid_writes_max": 2,
+    "mutations_max": 4,
+    "gross_coins_max": 2000,
+    "individual_bid_max": 1000,
+    "reserve": 5000,
+    "automatic_execution": false
+  },
+  "locked_strategy": "objectives/002-two-actor-competitive-bidding.md"
+}

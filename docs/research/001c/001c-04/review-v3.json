@@ -1,0 +1,9 @@
+{
+  "review": "Reviewed explicit native search plus optional exact-definition price limits DAO read, using current official compiled_2.js public method. Two read-only GETs maximum per command. Retains only exact definition/minimum/maximum from cap response. XHR values and identities stay in page; no account write. Node checks passed. Service 8778 preserves consumed-six checkpoint and adds host-side 31s pacing guard.",
+  "files": {
+    "experiments/search_validation_v1/browser/manifest.json": "e05e25f17b239ffa86b000c6928712a68600e4bf92c3656cc1283d4cb70d08d6",
+    "experiments/search_validation_v1/browser/page.js": "20d152fdb7880c3e481ad70761e0bf8b317f6fef382d3d274855bac12ad87d70",
+    "experiments/search_validation_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/search_validation_v1/browser/worker.js": "fa807b81c003ff04e9888bf40ba6931b07d466addd513f2903bdaebe2392cb8b"
+  }
+}

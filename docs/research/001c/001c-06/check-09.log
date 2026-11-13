@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "criterion": 3,
+      "status": "PASS",
+      "diagnostic": "Observed 0-to-750 price advance; personal outbid/rebid UNVERIFIED. Pending reconciliation prevented a further write."
+    }
+  ]
+}

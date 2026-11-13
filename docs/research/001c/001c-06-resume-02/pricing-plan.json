@@ -1,0 +1,33 @@
+{
+  "trade_id": "trade:d59ab1cf05df393676e66e4e",
+  "item_id": "item:c4a01aa3ed2e3986921c209e",
+  "definition_id": 261855,
+  "target": 2800,
+  "tax": 140,
+  "X": 500,
+  "cap": 2100,
+  "opening_minimum": 800,
+  "estimate": {
+    "status": "OK",
+    "target_sale_price": 2800,
+    "acquisition_price": 10500,
+    "tax": 140,
+    "expected_profit": -7840,
+    "X": 500,
+    "meets_threshold": false,
+    "sample_count": 12,
+    "rejected": [
+      [
+        "outlier",
+        9
+      ]
+    ],
+    "assumptions": [
+      "INDICATIVE_NOT_GUARANTEED",
+      "TAX_ROUNDING_UNVERIFIED",
+      "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+      "CALLER_SUPPLIED_CAPS"
+    ]
+  },
+  "rules_basis": "FRESH_NATIVE_CARD_CAPS_AND_OBSERVED_CLIENT_TICKS;SERVER_ACCEPTANCE_PENDING_REAL_BID"
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "criterion": 7,
+      "status": "PASS",
+      "diagnostic": "Every command and observed coin delta accounted; unresolved reservation, absent owned item and exact bounded continuation recorded."
+    }
+  ]
+}

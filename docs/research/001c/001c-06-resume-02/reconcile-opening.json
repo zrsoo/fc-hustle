@@ -1,0 +1,16 @@
+{
+  "at": 1794540490.6123955,
+  "argv": [
+    "{python}",
+    "-"
+  ],
+  "http_status": 200,
+  "request": {
+    "status_id": "1a248702fa0785e597781e65d089e79b",
+    "balance_id": "f2a8cebd83e7aa510f27c364f81598b8"
+  },
+  "response": {
+    "verified": true
+  },
+  "execution": "Explicit Python stdin decision coordinator; exact local RPC parameters retained. No EA request is made by HOLD."
+}

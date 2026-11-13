@@ -1,0 +1,1 @@
+{"status": "FAIL", "criteria": [0, 1, 2, 3, 4, 5, 6], "errors": {"0": ["artifact manifest differs from retained files"], "4": ["deliverable commit missing", "deliverables absent from HEAD", "commit changes unrelated files", "git verification failed"]}, "scope": "Historical evidence, retained artifacts, privacy and commit; no new live transaction."}

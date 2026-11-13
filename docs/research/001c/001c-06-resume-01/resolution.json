@@ -1,0 +1,277 @@
+{
+  "task": "001c-06",
+  "status": "NET_EFFECT_RECONCILED_NO_ACQUISITION",
+  "original_command_id": "6371060d0cef5803cffa1797eddc6264",
+  "original_checkpoint_unchanged": true,
+  "historical_bid_acceptance": "UNVERIFIED",
+  "not_a_verified_enrolled_loss": true,
+  "current_exact_trade_status": {
+    "bid_state": "none",
+    "buy_now_price": 10500,
+    "current_bid": 800,
+    "definition_id": 0,
+    "expires": -1,
+    "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+    "last_sale_price": 0,
+    "starting_bid": 700,
+    "trade_id": "trade:83105610f7508574b2e36139",
+    "trade_state": "closed",
+    "untradeable": false
+  },
+  "exact_identity_basis": {
+    "trade_id": "trade:83105610f7508574b2e36139",
+    "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+    "definition_id": 261855,
+    "definition_id_in_fresh_lite_read": 0,
+    "note": "Lite status omits full version (0); trade and physical-item hashes match the prior full-version search. No new full-version claim from the lite payload."
+  },
+  "current_unresolved_active_bid_exposure": 0,
+  "available_coins": 16268,
+  "observed_net_paid_cost": 0,
+  "peak_escrow_and_historical_refunds": "UNVERIFIED_BETWEEN_SNAPSHOTS",
+  "new_owned_item_found": false,
+  "reason": "Independent exact trade is terminal, not leading; fresh watchlist and unassigned are empty; unchanged independent available balance. No remaining live exposure/acquisition from original command; never replay it.",
+  "commands": [
+    {
+      "argv": [
+        "{python}",
+        "-m",
+        "fc_access.e2e_reconcile_v1.capture",
+        "status"
+      ],
+      "at": 1794540106.4366107,
+      "elapsed_ms": 192.69347190856934,
+      "response": {
+        "cache_invalidated": false,
+        "caps": null,
+        "command_id": "0c37de34c35cc2b90cede140d6ac93f4",
+        "credits": null,
+        "duration_ms": 114.90000000596046,
+        "error": null,
+        "network": [
+          {
+            "duration_ms": 112.19999998807907,
+            "ended_at": "2026-11-13T03:21:46.580Z",
+            "method": "GET",
+            "payload_bytes": 517,
+            "query": {},
+            "route": "/ut/game/fc27/trade/status/lite",
+            "session_header_present": true,
+            "started_at": "2026-11-13T03:21:46.468Z",
+            "status": 200
+          }
+        ],
+        "observed_at": "2026-11-13T03:21:46.582Z",
+        "operation": "status",
+        "persona": {
+          "accepted": true,
+          "is_pc": true,
+          "is_pc_type": "boolean",
+          "native_pc_constant": "PC",
+          "persona_present": true,
+          "platform_type": "string",
+          "platform_value": "PC",
+          "read_error": false,
+          "schema": 1
+        },
+        "rows": [
+          {
+            "bid_state": "none",
+            "buy_now_price": 10500,
+            "current_bid": 800,
+            "definition_id": 0,
+            "expires": -1,
+            "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+            "last_sale_price": 0,
+            "starting_bid": 700,
+            "trade_id": "trade:83105610f7508574b2e36139",
+            "trade_state": "closed",
+            "untradeable": false
+          }
+        ],
+        "schema": 1,
+        "status": 200,
+        "success": true,
+        "tiers": null,
+        "wire_rows": [
+          {
+            "bid_state": "none",
+            "buy_now_price": 10500,
+            "current_bid": 800,
+            "definition_id": 0,
+            "expires": -1,
+            "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+            "last_sale_price": 0,
+            "starting_bid": 700,
+            "trade_id": "trade:83105610f7508574b2e36139",
+            "trade_state": "closed",
+            "untradeable": false
+          }
+        ]
+      }
+    },
+    {
+      "argv": [
+        "{python}",
+        "-m",
+        "fc_access.e2e_reconcile_v1.capture",
+        "watched"
+      ],
+      "at": 1794540107.0958514,
+      "elapsed_ms": 166.03803634643555,
+      "response": {
+        "cache_invalidated": true,
+        "caps": null,
+        "command_id": "3da6836109515620726f58592f0a18a2",
+        "credits": null,
+        "duration_ms": 120.20000000298023,
+        "error": null,
+        "network": [
+          {
+            "duration_ms": 119.20000000298023,
+            "ended_at": "2026-11-13T03:21:47.248Z",
+            "method": "GET",
+            "payload_bytes": 44,
+            "query": {},
+            "route": "/ut/game/fc27/watchlist",
+            "session_header_present": true,
+            "started_at": "2026-11-13T03:21:47.129Z",
+            "status": 200
+          }
+        ],
+        "observed_at": "2026-11-13T03:21:47.249Z",
+        "operation": "watched",
+        "persona": {
+          "accepted": true,
+          "is_pc": true,
+          "is_pc_type": "boolean",
+          "native_pc_constant": "PC",
+          "persona_present": true,
+          "platform_type": "string",
+          "platform_value": "PC",
+          "read_error": false,
+          "schema": 1
+        },
+        "rows": [],
+        "schema": 1,
+        "status": 200,
+        "success": true,
+        "tiers": null,
+        "wire_rows": []
+      }
+    },
+    {
+      "argv": [
+        "{python}",
+        "-m",
+        "fc_access.e2e_reconcile_v1.capture",
+        "unassigned"
+      ],
+      "at": 1794540107.722488,
+      "elapsed_ms": 154.0985107421875,
+      "response": {
+        "cache_invalidated": true,
+        "caps": null,
+        "command_id": "2fa490da2a1844462f732b060d377779",
+        "credits": null,
+        "duration_ms": 114.1000000089407,
+        "error": null,
+        "network": [
+          {
+            "duration_ms": 113.70000000298023,
+            "ended_at": "2026-11-13T03:21:47.869Z",
+            "method": "GET",
+            "payload_bytes": 15,
+            "query": {},
+            "route": "/ut/game/fc27/purchased/items",
+            "session_header_present": true,
+            "started_at": "2026-11-13T03:21:47.756Z",
+            "status": 200
+          }
+        ],
+        "observed_at": "2026-11-13T03:21:47.870Z",
+        "operation": "unassigned",
+        "persona": {
+          "accepted": true,
+          "is_pc": true,
+          "is_pc_type": "boolean",
+          "native_pc_constant": "PC",
+          "persona_present": true,
+          "platform_type": "string",
+          "platform_value": "PC",
+          "read_error": false,
+          "schema": 1
+        },
+        "rows": [],
+        "schema": 1,
+        "status": 200,
+        "success": true,
+        "tiers": null,
+        "wire_rows": null
+      }
+    },
+    {
+      "argv": [
+        "{python}",
+        "-m",
+        "fc_access.e2e_reconcile_v1.capture",
+        "balance"
+      ],
+      "at": 1794540108.3361735,
+      "elapsed_ms": 148.81157875061035,
+      "response": {
+        "cache_invalidated": false,
+        "caps": null,
+        "command_id": "59f27c9d0f91392b514f4b34ea913748",
+        "credits": 16268,
+        "duration_ms": 120.29999999701977,
+        "error": null,
+        "network": [
+          {
+            "duration_ms": 118.5,
+            "ended_at": "2026-11-13T03:21:48.476Z",
+            "method": "GET",
+            "payload_bytes": 336,
+            "query": {},
+            "route": "/ut/game/fc27/user/credits",
+            "session_header_present": true,
+            "started_at": "2026-11-13T03:21:48.358Z",
+            "status": 200
+          }
+        ],
+        "observed_at": "2026-11-13T03:21:48.478Z",
+        "operation": "balance",
+        "persona": {
+          "accepted": true,
+          "is_pc": true,
+          "is_pc_type": "boolean",
+          "native_pc_constant": "PC",
+          "persona_present": true,
+          "platform_type": "string",
+          "platform_value": "PC",
+          "read_error": false,
+          "schema": 1
+        },
+        "rows": null,
+        "schema": 1,
+        "status": 200,
+        "success": true,
+        "tiers": null,
+        "wire_rows": null
+      }
+    }
+  ],
+  "native_requests": 4,
+  "mutations": 0,
+  "closed": true,
+  "next_window_limits": {
+    "auctions": 1,
+    "seconds": 900,
+    "reads": 40,
+    "bid_writes": 2,
+    "mutations": 4,
+    "gross_coins": 2000,
+    "individual_bid": 1000,
+    "reserve": 5000
+  }
+}

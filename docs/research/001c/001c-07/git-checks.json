@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "at": "2026-11-13T06:30:30.950186+00:00",
+      "output": "git-check-0.txt",
+      "output_sha256": "fd9f0fa4fef73d6a0083087337c32a5f58cb71da6ebc093d014ffe1b18d36c80"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        "browser/",
+        "fc_access/",
+        "experiments/",
+        "tests/",
+        "docs/research/001c-architecture-handoff.md",
+        "docs/research/001c-capability-matrix.md",
+        "docs/research/001c-e2e-report.md"
+      ],
+      "exit_code": 0,
+      "at": "2026-11-13T06:30:31.012439+00:00",
+      "output": "git-check-1.txt",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "interpretation": "Full staged diff-check rejects preserved test log whitespace (CRCRLF and blank EOF). Reviewed source and release handoff documents pass. Evidence bytes are preserved rather than normalized."
+}

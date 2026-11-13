@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "task": "001c-02",
+  "classification": "OFFLINE_VALIDATED",
+  "live_ea_requests": 0,
+  "live_account_mutations": 0,
+  "test_file": "tests/test_bidding_v1.py",
+  "criteria": [
+    {"index": 0, "paths": ["fc_access/bidding_v1/contracts.py", "browser/bidding-v1/persona.js"], "tests": ["ContractRulesTests.test_typed_contracts_and_search_filter_boundaries", "AdapterTests.test_native_javascript_contracts_and_historical_persona_regression"]},
+    {"index": 1, "paths": ["browser/bidding-v1/page.js", "fc_access/bidding_v1/adapter.py"], "tests": ["AdapterTests.test_bulk_50_rows_paging_identity_freshness_coverage_and_balance", "AdapterTests.test_native_javascript_contracts_and_historical_persona_regression", "AdapterTests.test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write"]},
+    {"index": 2, "paths": ["fc_access/bidding_v1/journal.py"], "tests": ["JournalTests.test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries", "JournalTests.test_ownership_epochs_unknown_and_independent_reconciliation", "JournalTests.test_process_crash_after_native_write_preserves_claim_and_prevents_replay", "JournalTests.test_reopen_after_intent_only_never_gains_dispatch_authority"]},
+    {"index": 3, "paths": ["fc_access/bidding_v1/rules.py", "fc_access/pricing.py"], "tests": ["ContractRulesTests.test_provenance_fails_closed_and_artifact_tampering", "ContractRulesTests.test_unsupported_caps_increment_gaps_and_boundaries", "ContractRulesTests.test_reuses_exact_version_five_comparable_outlier_pricing", "AdapterTests.test_native_mode_rejects_offline_rules_and_unsupported_profit_caps"]},
+    {"index": 4, "paths": ["fc_access/bidding_v1/journal.py", "fc_access/bidding_v1/adapter.py"], "tests": ["JournalTests.test_transaction_rollback_append_only_privacy_and_cli_trace", "JournalTests.test_stored_cap_cannot_increase_and_latency_is_durable", "AdapterTests.test_strict_result_schema_correlations_sanitization_and_cache_metadata"]},
+    {"index": 5, "paths": ["fc_access/bidding_v1/scheduler.py"], "tests": ["SchedulerTests.test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips", "SchedulerTests.test_zero_gap_and_25_second_50_row_bulk_cycle_model"]},
+    {"index": 6, "paths": ["fc_access/bidding_v1/core.py", "tests/bidding_v1_checks.cjs"], "tests": ["QueueDecisionTests.test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff", "QueueDecisionTests.test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal", "QueueDecisionTests.test_multiple_pending_reservations_replay_and_identity_conflict", "QueueDecisionTests.test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown", "JournalTests.test_process_crash_after_native_write_preserves_claim_and_prevents_replay", "JournalTests.test_unknown_on_invalid_response_exception_and_deadline_skip"]}
+  ]
+}

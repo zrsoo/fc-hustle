@@ -1,0 +1,15 @@
+http-00 403 https://example.test/manifest.json
+....................F...............................................................................................................................................................................
+======================================================================
+FAIL: test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_browser_access.py", line 112, in test_criterion_0_inspection_is_current_and_does_not_assume_cdp
+    self.assertLess(abs((utc_now() - datetime.fromisoformat(data["inspected_at"])).total_seconds()), 86400)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 98692.88728 not less than 86400
+
+----------------------------------------------------------------------
+Ran 196 tests in 24.139s
+
+FAILED (failures=1)

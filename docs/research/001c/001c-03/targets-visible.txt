@@ -1,0 +1,37 @@
+﻿TARGET_TEXT | Transfer Targets
+TARGET_TEXT | 0
+TARGET_TEXT | 40
+{"foreground_verified":true,"edge_control_verified":true,"extensions_manager":false,"official_tab":true}
+ControlType.Button | Minimize
+ControlType.Button | Maximize
+ControlType.Button | Close
+ControlType.Button | Back
+ControlType.Button | Refresh
+ControlType.Button | View site information
+ControlType.Button | Manage your passwords
+ControlType.Button | Edit favorite for this page (Ctrl+D)
+ControlType.Button | Extensions
+ControlType.Button | Favorites
+ControlType.Button | Personal Profile
+ControlType.Button | Settings and more (Alt+F)
+ControlType.Button | Chat
+ControlType.Button | 
+ControlType.Button |  1
+ControlType.Button |  Home
+ControlType.Button |  Squads
+ControlType.Button |  Transfers
+ControlType.Button |  Store
+ControlType.Button |  Club
+ControlType.Button |  SBC
+ControlType.Button |  Evolutions
+ControlType.Button |  Settings
+ControlType.Button | Search tabs
+ControlType.TabItem | FC Ultimate Team Web App - EA SPORTS Official Site - Memory usage - 190 MB
+ControlType.Button | Close tab
+ControlType.TabItem | FC27 Trading API Feasibility - Memory usage - 563 MB
+ControlType.Button | Close tab
+ControlType.TabItem | Settings - Sleeping - Memory usage - 258 MB
+ControlType.Button | Close tab
+ControlType.TabItem | Extensions - Memory usage - 39.6 MB
+ControlType.Button | Close tab
+ControlType.Button | New Tab

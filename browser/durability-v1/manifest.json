@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "FC27 durability READ ONLY 001c-05",
+  "version": "0.1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8779/*"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "action": {
+    "default_title": "Attach durability READ ONLY"
+  }
+}

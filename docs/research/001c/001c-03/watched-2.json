@@ -1,0 +1,27 @@
+{
+  "auctions": [],
+  "duration_ms": 0.3999999985098839,
+  "error": null,
+  "has_more": null,
+  "method": "services.Item.requestWatchedItems()",
+  "network": [],
+  "network_at": null,
+  "observed_at": "2026-11-13T01:37:11.930Z",
+  "operation": "watched",
+  "persona": {
+    "accepted": true,
+    "is_pc": true,
+    "is_pc_type": "boolean",
+    "native_pc_constant": "PC",
+    "persona_present": true,
+    "platform_type": "string",
+    "platform_value": "PC",
+    "read_error": false,
+    "schema": 1
+  },
+  "request_count": 0,
+  "schema": 1,
+  "sources": null,
+  "status": 304,
+  "success": true
+}

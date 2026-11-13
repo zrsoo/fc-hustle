@@ -1,0 +1,22 @@
+{
+  "findings": [
+    {
+      "check": "Initial JavaScript expiry simulation",
+      "result": "FAILED_EXPECTED_FALSE_GOT_TRUE",
+      "cause": "Fixture changed raw expiry after the adapter had taken its immutable sanitized snapshot.",
+      "fix": "Change raw expiry before fresh watched projection; retained adapter code unchanged."
+    },
+    {
+      "check": "Initial audit pricing comparison",
+      "result": "ASSERTION_FAILED",
+      "cause": "In-memory dataclass tuples compared directly with JSON arrays.",
+      "fix": "Normalize derived estimator output through JSON before comparing retained evidence. No live evidence changed."
+    },
+    {
+      "check": "Background server launch",
+      "result": "COMMAND_REJECTED_BY_TOOL_POLICY_BEFORE_EXECUTION",
+      "fix": "Used ordinary exec-managed background server session; no escalation or permission request."
+    }
+  ],
+  "live_retries": 0
+}

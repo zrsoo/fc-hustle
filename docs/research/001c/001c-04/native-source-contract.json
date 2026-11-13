@@ -1,0 +1,27 @@
+{
+  "task": "001c-04",
+  "note": "Reviewed local retained official source; no assertion of current server legality from source. Current route/caps and client helper results have separate actual browser observations.",
+  "excerpts": [
+    {
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+      "source_file_sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+      "source": "UTTransfersDAO.prototype.getItemMarketDataByDefId=function(t){var i=this,o=new EAObservable,e=new UTHttpRequest(this.authDelegate);return e.setPath(\"/ut/game/\".concat(GAME_NAME,\"/marketdata/pricelimits\")),e.setUrlVariables({defId:t.join(\",\")}),this.requestDelegate.send(e).observe(this,function(t,e){t.unobserve(i);t=new UTHttpResponseDTO;JSUtils.assignPropertyValues(e,t),e.success&&Array.isArray(e.response)?t.response={marketData:e.response.map(function(t){return{defId:t.defId,itemId:t.itemId,priceLimits:new UTValueBandVO(t.minPrice,t.maxPrice)}})}:t.response={marketData:[]},o.notify(t)}),o},",
+      "excerpt_sha256": "ca9227674aad076b9d4cfc0e6a3355696874ca77ec3b2457cf291526ebb9eb09"
+    },
+    {
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js",
+      "source_file_sha256": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+      "source": "UTCurrencyInputControl.getIncrementBelowVal=function(t){var e;return DebugUtils.Assert(0<=t,\"Expected a number value greater than or equal to zero.\"),!(t<=0)&&(e=JSUtils.find(UTCurrencyInputControl.PRICE_TIERS,function(e){return t>e.min}),0<t-e.inc)?Math.round((t-e.inc)/e.inc)*e.inc:0},UTCurrencyInputControl.getIncrementAboveVal=function(t){var e;return DebugUtils.Assert(t<=AUCTION_MAX_BID,\"Expected a number value no greater than the maximum auction limit.\"),!(t>=AUCTION_MAX_BID)&&(e=JSUtils.find(UTCurrencyInputControl.PRICE_TIERS,function(e){return t>=e.min}),t+e.inc<AUCTION_MAX_BID)?Math.round((t+e.inc)/e.inc)*e.inc:AUCTION_MAX_BID},",
+      "excerpt_sha256": "4efc3b0bef4882ecb7dde5739b3e52d1567638a02d757b68d6caa7ab76f8decf"
+    },
+    {
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_3.js",
+      "source_file_sha256": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+      "source": "UTQuickListPanelViewController.prototype.renderView=function(){var e=this.getView(),t=null==(t=this.item)?void 0:t.getAuctionData(),i=null==(i=this.item)?void 0:i.getPriceLimits(),i=(i&&e.setPriceLimits(i),null==(i=this.item)?void 0:i.lastSalePrice);e.setBoughtPrice(null!=i?i:0),t&&t.isValid()&&t.isExpired()&&t.tradeOwner&&(e.setBidValue(0<t.currentBid?t.currentBid:t.startingBid),e.setBuyNowValue(t.buyNowPrice))},",
+      "excerpt_sha256": "b3a44b5a90a8eb120b84c1bca67b1f6844ee832753ce4cf45b45dba5fc0c8ea5"
+    }
+  ]
+}

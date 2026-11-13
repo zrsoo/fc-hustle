@@ -1,0 +1,9 @@
+{
+  "review": "Read-only explicit search only; public numeric filters, presence-only authentication; no write service, arbitrary evaluation or auth export. Node VM checks passed before loading.",
+  "files": {
+    "experiments/search_validation_v1/browser/manifest.json": "731b24a6f0cb21a56eaa3e4bc5707b44cd2dd23ac2237b9ede19d7297ebbe8de",
+    "experiments/search_validation_v1/browser/page.js": "730836611e27e60cf9ebdb10b7cb54547f06eb4111cd12fc4d2b4ed0f51348df",
+    "experiments/search_validation_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/search_validation_v1/browser/worker.js": "ad11e659c7ddda1c65992bc235d610c674fa17be46ee39c09d395b0205de2aa2"
+  }
+}

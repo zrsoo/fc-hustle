@@ -1,0 +1,28 @@
+{
+  "at": 1794549533.670897,
+  "reason": "Supervisor quota interrupted after watched-cycle-3 and 25s sleep; process absent on resume. No cycle-4 dispatched.",
+  "argv": [
+    "{python}",
+    "-"
+  ],
+  "health": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": true,
+    "stopped": true,
+    "reads_reserved": 17,
+    "mutations_reserved": 1,
+    "bid_writes_reserved": 1,
+    "gross_coins_reserved": 800
+  },
+  "native_requests_after_deadline": 0
+}

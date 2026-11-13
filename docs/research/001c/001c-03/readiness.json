@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-11-13T01:48:32.736570+00:00",
+  "health": {
+    "service": "fc-watched-bulk-v1",
+    "bind": "127.0.0.1",
+    "extension_id": "bbdmlnhehokodegoodepjkoebhbhdhbc",
+    "attached": true,
+    "pending": false,
+    "delivered_reads": 4
+  },
+  "os_listener": {
+    "address": "127.0.0.1",
+    "port": 8775
+  },
+  "installed_extension_id": "bbdmlnhehokodegoodepjkoebhbhdhbc",
+  "attachment": "LOCAL_ONLY",
+  "persona_evidence": "inspect-3.json",
+  "authentication_and_market_evidence": "watched-4.json",
+  "browser_control_evidence": [
+    "edge-preflight.txt",
+    "edge-v2-attached.txt",
+    "targets-after-fresh.txt"
+  ],
+  "agents_reread_before_initial_recovery": true,
+  "agents_reread_before_refresh": true
+}

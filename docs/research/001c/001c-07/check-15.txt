@@ -1,0 +1,13 @@
+{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.2102, "live_performance": false}
+test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (__main__.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok
+test_capacity_is_independent_of_configured_queue_and_cached_status_unknown (__main__.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok
+test_fresh_empty_requires_network_persona_and_visible_comparison (__main__.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok
+test_native_JS_network_cache_privacy_schema_and_50_rows (__main__.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok
+test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ok
+test_request_cost_and_25_seconds_remain_bounded_extrapolation (__main__.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok
+test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (__main__.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.800s
+
+OK

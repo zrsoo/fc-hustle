@@ -1,0 +1,29 @@
+{
+  "at": 1794537138.8673372,
+  "health": {
+    "service": "fc-durability-v1",
+    "boot": "6f9c49b7d920f680d28be060ac2c9c76",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "15151515151515151515151515151515",
+      "epoch": 2
+    },
+    "attached": false,
+    "polling": false,
+    "persona": null,
+    "document": null,
+    "page_checks": null,
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 2,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_v1.capture",
+    "caps-1",
+    "caps",
+    "{\"definition_id\": 261855}"
+  ],
+  "at": 1794539063.0321548,
+  "http_status": 200,
+  "elapsed_ms": 144.84453201293945,
+  "request": {
+    "stage": "caps-1",
+    "operation": "caps",
+    "params": {
+      "definition_id": 261855
+    }
+  },
+  "before": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794539948.1091454,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 4,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-v1",
+    "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+    "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+    "extension_id": "adjoadkfnhmdnmfemioehilkaikmfjcf",
+    "attached": true,
+    "peer": {
+      "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+      "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+      "worker": "182c31db-ad0a-4590-be0d-f9390bfd4a96",
+      "document": "3018b3bf-7345-44e0-ac50-13635a2c6f1f",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "after": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794539948.1091454,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 5,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-v1",
+    "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+    "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+    "extension_id": "adjoadkfnhmdnmfemioehilkaikmfjcf",
+    "attached": true,
+    "peer": {
+      "boot": "4e22128d667fb2daf5c0bc0e4cc78d03",
+      "owner": "63cabba6b83068ef3d39b02d9fb4b695",
+      "worker": "182c31db-ad0a-4590-be0d-f9390bfd4a96",
+      "document": "3018b3bf-7345-44e0-ac50-13635a2c6f1f",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "response": {
+    "cache_invalidated": false,
+    "caps": [
+      {
+        "definition_id": 261855,
+        "maximum": 10500,
+        "minimum": 700
+      }
+    ],
+    "command_id": "30262517c77d7a1d74e3125470a2ab70",
+    "credits": null,
+    "duration_ms": 104.69999998807907,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 104.09999999403954,
+        "ended_at": "2026-11-13T03:04:23.169Z",
+        "method": "GET",
+        "payload_bytes": 81,
+        "query": {
+          "defId": 261855
+        },
+        "route": "/ut/game/fc27/marketdata/pricelimits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:23.065Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:04:23.169Z",
+    "operation": "caps",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": null,
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": [
+      {
+        "increment": 1000,
+        "minimum": 100000
+      },
+      {
+        "increment": 500,
+        "minimum": 50000
+      },
+      {
+        "increment": 250,
+        "minimum": 10000
+      },
+      {
+        "increment": 100,
+        "minimum": 1000
+      },
+      {
+        "increment": 50,
+        "minimum": 150
+      },
+      {
+        "increment": 150,
+        "minimum": 0
+      }
+    ],
+    "wire_rows": null
+  }
+}

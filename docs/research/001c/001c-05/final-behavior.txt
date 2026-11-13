@@ -1,0 +1,53 @@
+python : test_closed_live_window_and_executor_never_authorize_mutation 
+(__main__.HTTPTests.test_closed_live_window_and_executor_never_authorize_mutation) ... ok
+At line:2 char:80
++ ... heck-2.txt; python tests/test_durability_v1.py > docs/research/001c/0 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_closed_liv...utation) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_exact_origin_handshake_persona_and_stale_process_rejected 
+(__main__.HTTPTests.test_exact_origin_handshake_persona_and_stale_process_rejected) ... ok
+test_extension_reload_fences_orphan_poll_before_any_delivery 
+(__main__.HTTPTests.test_extension_reload_fences_orphan_poll_before_any_delivery) ... ok
+test_long_poll_delivery_once_and_malformed_result_timeout_no_retry 
+(__main__.HTTPTests.test_long_poll_delivery_once_and_malformed_result_timeout_no_retry) ... ok
+test_owner_change_between_claim_and_reply_rejects_old_page 
+(__main__.HTTPTests.test_owner_change_between_claim_and_reply_rejects_old_page) ... ok
+test_split_header_body_client_receives_real_origin_rejection 
+(__main__.HTTPTests.test_split_header_body_client_receives_real_origin_rejection) ... ok
+test_bad_or_missing_readback_stops_and_never_unlocks 
+(__main__.HarnessTests.test_bad_or_missing_readback_stops_and_never_unlocks) ... ok
+test_default_denies_mutations_and_explicit_limits_survive_reopen 
+(__main__.HarnessTests.test_default_denies_mutations_and_explicit_limits_survive_reopen) ... ok
+test_harness_process_dies_after_bid_and_restart_cannot_duplicate 
+(__main__.HarnessTests.test_harness_process_dies_after_bid_and_restart_cannot_duplicate) ... ok
+test_independent_readbacks_and_durable_accounting_enforced 
+(__main__.HarnessTests.test_independent_readbacks_and_durable_accounting_enforced) ... ok
+test_javascript_lifecycle_worker_and_page_contracts 
+(__main__.HarnessTests.test_javascript_lifecycle_worker_and_page_contracts) ... ok
+test_owner_takeover_after_ack_and_restart_reservation_stop 
+(__main__.HarnessTests.test_owner_takeover_after_ack_and_restart_reservation_stop) ... ok
+test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions 
+(__main__.HarnessTests.test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions) ... ok
+test_transfer_and_listing_require_conclusive_owned_identity_and_readback 
+(__main__.HarnessTests.test_transfer_and_listing_require_conclusive_owned_identity_and_readback) ... ok
+test_unknown_ack_stops_even_if_another_command_and_owner_are_available 
+(__main__.HarnessTests.test_unknown_ack_stops_even_if_another_command_and_owner_are_available) ... ok
+test_balance_native_credits_route_is_preserved_and_other_routes_rejected 
+(__main__.StoreTests.test_balance_native_credits_route_is_preserved_and_other_routes_rejected) ... ok
+test_claim_result_loss_restart_never_redelivers_or_resets_budget 
+(__main__.StoreTests.test_claim_result_loss_restart_never_redelivers_or_resets_budget) ... ok
+test_limits_expiry_and_malformed_commands_no_consumption 
+(__main__.StoreTests.test_limits_expiry_and_malformed_commands_no_consumption) ... ok
+test_real_process_crash_claim_and_lost_mutation_ack_stop_window 
+(__main__.StoreTests.test_real_process_crash_claim_and_lost_mutation_ack_stop_window) ... ok
+test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun 
+(__main__.StoreTests.test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun) ... ok
+test_scope_owner_epoch_result_correlation_and_duplicate_rejection 
+(__main__.StoreTests.test_scope_owner_epoch_result_correlation_and_duplicate_rejection) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 5.593s
+
+OK

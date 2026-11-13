@@ -1,0 +1,71 @@
+{
+  "stage": "server-restart",
+  "at": 1794537164.1674163,
+  "elapsed_ms": 26.151180267333984,
+  "http_status": 409,
+  "command": {
+    "schema": 1,
+    "id": "71b02d976eb00d66e676d2e452d3ba39",
+    "operation": "watched",
+    "params": {},
+    "evidence_key": "25252525252525252525252525252525",
+    "scope": "05050505050505050505050505050505",
+    "owner": "15151515151515151515151515151515",
+    "epoch": 2
+  },
+  "before": {
+    "service": "fc-durability-v1",
+    "boot": "6f9c49b7d920f680d28be060ac2c9c76",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "15151515151515151515151515151515",
+      "epoch": 2
+    },
+    "attached": false,
+    "polling": false,
+    "persona": null,
+    "document": null,
+    "page_checks": null,
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 2,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "after": {
+    "service": "fc-durability-v1",
+    "boot": "6f9c49b7d920f680d28be060ac2c9c76",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "15151515151515151515151515151515",
+      "epoch": 2
+    },
+    "attached": false,
+    "polling": false,
+    "persona": null,
+    "document": null,
+    "page_checks": null,
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 2,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "response": {
+    "error": "rejected"
+  }
+}

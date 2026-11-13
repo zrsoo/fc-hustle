@@ -1,0 +1,21 @@
+{
+  "native_read_ms": [
+    128.5,
+    178,
+    75.69999998807907,
+    62.29999999701977,
+    108.29999999701977,
+    62.599999994039536,
+    71,
+    81.30000001192093
+  ],
+  "native_read_min_ms": 62.29999999701977,
+  "native_read_max_ms": 178,
+  "live_write_timing": "UNVERIFIED",
+  "idle_native_calls": 0,
+  "whole_queue_25_second_guarantee": false,
+  "successful_native_gets_retained": 8,
+  "delivered_commands": 10,
+  "uncertain_or_failed_deliveries": 2,
+  "mutations": 0
+}

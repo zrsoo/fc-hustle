@@ -1,0 +1,45 @@
+{
+  "status": "UNRESOLVED",
+  "checks": [
+    {
+      "criterion": 0,
+      "status": "PASS",
+      "diagnostic": "Serialized finite run, immutable reservations and unresolved-write stop verified."
+    },
+    {
+      "criterion": 1,
+      "status": "UNRESOLVED",
+      "diagnostic": "UNRESOLVED: actual 700 native PUT returned 200/outbid at 750; independent watched readback empty and balance unchanged. Successful opening/escrow not established."
+    },
+    {
+      "criterion": 2,
+      "status": "UNRESOLVED",
+      "diagnostic": "UNRESOLVED: no live leading status; no HOLD can be claimed. Offline HOLD/no-extra-write guards pass separately."
+    },
+    {
+      "criterion": 3,
+      "status": "PASS",
+      "diagnostic": "Observed 0-to-750 price advance; personal outbid/rebid UNVERIFIED. Pending reconciliation prevented a further write."
+    },
+    {
+      "criterion": 4,
+      "status": "PASS",
+      "diagnostic": "Actual native/dispatch/readback and expiry observations retained; timer extension/25-second queue guarantee unverified."
+    },
+    {
+      "criterion": 5,
+      "status": "PASS",
+      "diagnostic": "No witnessed terminal state. UNKNOWN preserved; available balances reconciled, held/returned/paid amounts not invented."
+    },
+    {
+      "criterion": 6,
+      "status": "PASS",
+      "diagnostic": "No conclusive won physical item; transfer/list correctly withheld, no sale/profit inferred. Live won-handoff remains unverified."
+    },
+    {
+      "criterion": 7,
+      "status": "PASS",
+      "diagnostic": "Every command and observed coin delta accounted; unresolved reservation, absent owned item and exact bounded continuation recorded."
+    }
+  ]
+}

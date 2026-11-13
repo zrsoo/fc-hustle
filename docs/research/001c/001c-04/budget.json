@@ -1,0 +1,101 @@
+{
+  "task": "001c-04",
+  "maximum": 12,
+  "consumed": 9,
+  "commands": [
+    {
+      "command_id": "b836bb2d48dbee3495ec1a5a21fb5c31",
+      "params": {
+        "page": 1,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "count": 21
+      },
+      "delivered_at": 1794535332.839316
+    },
+    {
+      "command_id": "5761b10509dbb9b9c0350b52c4e80495",
+      "params": {
+        "page": 2,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "count": 21
+      },
+      "delivered_at": 1794535398.593712
+    },
+    {
+      "command_id": "52b13243a8e7472a5b371ac0b0bd900d",
+      "params": {
+        "page": 1,
+        "max_buy": 10000,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535428.6032765
+    },
+    {
+      "command_id": "9243dd4eb8d92f4915986c403ab42461",
+      "params": {
+        "page": 1,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "count": 21
+      },
+      "delivered_at": 1794535515.7991674
+    },
+    {
+      "command_id": "4c7c05fae3fe3cd1479d9c4d288f4030",
+      "params": {
+        "page": 1,
+        "max_buy": 10000,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535545.793358
+    },
+    {
+      "command_id": "a7bd042f45ea207ac035c6f3003ca8a2",
+      "params": {
+        "page": 1,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535575.7836428
+    },
+    {
+      "command_id": "c536ec481bc264fb511240b5313acc5c",
+      "params": {
+        "page": 1,
+        "with_caps": true,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535693.244901
+    },
+    {
+      "command_id": "2d8820f14c39b8851148b4b225668067",
+      "params": {
+        "page": 1,
+        "max_buy": 10000,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535753.2441833
+    },
+    {
+      "command_id": "a686bb56b467916445e4f05d57e4735b",
+      "params": {
+        "page": 1,
+        "max_bid": 1000,
+        "min_buy": 10500,
+        "definition_id": 227323,
+        "count": 21
+      },
+      "delivered_at": 1794535843.2508197
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "task": "001c-03",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.9896072999981698,
+      "stdout": "{\"fixture_rows\": 50, \"local_ingestion_and_ordering_ms\": 0.2235, \"live_performance\": false}\n",
+      "stderr": "test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (__main__.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok\ntest_capacity_is_independent_of_configured_queue_and_cached_status_unknown (__main__.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok\ntest_fresh_empty_requires_network_persona_and_visible_comparison (__main__.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok\ntest_native_JS_network_cache_privacy_schema_and_50_rows (__main__.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok\ntest_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ok\ntest_request_cost_and_25_seconds_remain_bounded_extrapolation (__main__.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok\ntest_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (__main__.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.772s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_watched_bulk_artifacts.py"
+      ],
+      "returncode": 0,
+      "duration_seconds": 0.6772553999908268,
+      "stdout": "",
+      "stderr": "test_all_acceptance_criteria_have_independent_artifact_evidence (__main__.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence) ... ok\ntest_historical_changed_deleted_and_fixture_promotions_are_detected (__main__.ArtifactTests.test_historical_changed_deleted_and_fixture_promotions_are_detected) ... ok\ntest_manifest_positive_schema_and_all_artifact_hashes (__main__.ArtifactTests.test_manifest_positive_schema_and_all_artifact_hashes) ... ok\ntest_public_source_matches_loaded_functions_and_static_decoding (__main__.ArtifactTests.test_public_source_matches_loaded_functions_and_static_decoding) ... ok\ntest_reject_missing_UI_and_capacity_coverage_promotions (__main__.ArtifactTests.test_reject_missing_UI_and_capacity_coverage_promotions) ... ok\ntest_reject_missing_native_auth_and_cached_empty_promotion (__main__.ArtifactTests.test_reject_missing_native_auth_and_cached_empty_promotion) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.494s\n\nOK\n"
+    }
+  ],
+  "earlier_regressions_observed_in_worker_tool_output": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "tests": 25,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_discovery_followup_v1.py"
+      ],
+      "tests": 9,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001c01_audit.py"
+      ],
+      "tests": 18,
+      "returncode": 0
+    }
+  ]
+}

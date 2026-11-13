@@ -1,0 +1,117 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_resolution_v2.capture",
+    "unassigned"
+  ],
+  "at": 1794549583.2988486,
+  "elapsed_ms": 161.82327270507812,
+  "http_status": 200,
+  "before": {
+    "owner": "12b00f02b9fa491265ab7bbe52f85928",
+    "deadline": 1794549702.0031447,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 2,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+    "attached": true,
+    "extension_id": "lbcbmemjljdjlpgelmibemcaobfonkjb",
+    "peer": {
+      "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+      "owner": "12b00f02b9fa491265ab7bbe52f85928",
+      "worker": "6b9f5a53-3101-4b74-b3b3-4ec2300913a4",
+      "document": "496bd635-3cd7-4366-ae8d-6c84a1619db8",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "after": {
+    "owner": "12b00f02b9fa491265ab7bbe52f85928",
+    "deadline": 1794549702.0031447,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 3,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+    "attached": true,
+    "extension_id": "lbcbmemjljdjlpgelmibemcaobfonkjb",
+    "peer": {
+      "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+      "owner": "12b00f02b9fa491265ab7bbe52f85928",
+      "worker": "6b9f5a53-3101-4b74-b3b3-4ec2300913a4",
+      "document": "496bd635-3cd7-4366-ae8d-6c84a1619db8",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "response": {
+    "cache_invalidated": true,
+    "caps": null,
+    "command_id": "025db71264a88923529933e6802645ae",
+    "credits": null,
+    "duration_ms": 118.29999999701977,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 116.90000000596046,
+        "ended_at": "2026-11-13T05:59:43.452Z",
+        "method": "GET",
+        "payload_bytes": 15,
+        "query": {},
+        "route": "/ut/game/fc27/purchased/items",
+        "session_header_present": true,
+        "started_at": "2026-11-13T05:59:43.335Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T05:59:43.453Z",
+    "operation": "unassigned",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": [],
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": null
+  }
+}

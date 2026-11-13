@@ -1,0 +1,9 @@
+{
+  "source_file_sha256": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+  "source_url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+  "method": "services.Item.transfersDao.getAuctionData(items)",
+  "function_sha256": "6097c4fd909171eb067c77ad088c8fd8bd18024f5848663774f5488becf11c2a",
+  "function_source": "function(t){var i=this,o=new EAObservable,e=new UTHttpRequest(this.authDelegate),r=[];return t.forEach(function(t){t=t.getAuctionData();t.isValid()&&(t.isUpdating=!0,r.push(t.tradeId))}),DebugUtils.Assert(0<r.length,\"Expected one or more items to retrieve auction data.\"),e.cache=!1,e.setPath(\"/ut/game/\".concat(GAME_NAME,\"/trade/status/lite\")),e.setUrlVariables({tradeIds:r.join(\",\")}),this.requestDelegate.send(e).observe(this,function(t,e){t.unobserve(i);t=new UTHttpResponseDTO;JSUtils.assignPropertyValues(e,t),e.success&&JSUtils.isObject(e.response)?t.response={items:factories.Item.generateItemsFromAuctionData(e.response.auctionInfo,e.response.duplicateItemIdList)}:t.response={items:[]},o.notify(t)}),o}",
+  "route": "/ut/game/fc27/trade/status/lite",
+  "classification": "SOURCE_CONFIRMED_ONLY_UNTIL_LIVE_CALL"
+}

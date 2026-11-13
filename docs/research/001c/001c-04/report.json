@@ -1,0 +1,201 @@
+{
+  "task": "001c-04",
+  "evaluated_at": "2026-11-13T02:11:03.481711+00:00",
+  "candidate_capture": "availability-2.json",
+  "comparable_capture": "comparables-3.json",
+  "rules_capture": "rules-and-availability.json",
+  "economics": {
+    "classification": "INDICATIVE_ASK_BASED_NOT_REALIZED",
+    "definition_id": 227323,
+    "platform": "pc",
+    "trade_id": "trade:e32196e4116d4d9e0bdcc192",
+    "item_id": "item:46c98d2eac24cf505500c3cb",
+    "evaluation_at": "2026-11-13T02:11:03.481711+00:00",
+    "estimate": {
+      "status": "OK",
+      "target_sale_price": 5900,
+      "acquisition_price": 11000,
+      "tax": 295,
+      "expected_profit": -5395,
+      "X": 500,
+      "meets_threshold": false,
+      "sample_count": 12,
+      "rejected": [
+        [
+          "inactive_or_expiring",
+          9
+        ]
+      ],
+      "assumptions": [
+        "INDICATIVE_NOT_GUARANTEED",
+        "TAX_ROUNDING_UNVERIFIED",
+        "FULL_INCREMENT_SCHEDULE_UNVERIFIED",
+        "CALLER_SUPPLIED_CAPS"
+      ]
+    },
+    "target": 5900,
+    "X": 500,
+    "tax": 295,
+    "unrounded_profitable_cap": 5105,
+    "client_tick_rounded_cap": 5100,
+    "minimum_client_bid": 700,
+    "projected_profit_at_minimum": 4905,
+    "search_maxBid": 1000,
+    "availability_at_checkpoint": "AVAILABLE_READ_ONLY",
+    "pricing_qualified_at_checkpoint": true,
+    "bid_authorized": false,
+    "fresh_prebid_availability_required": true,
+    "server_bid_tick_acceptance": "UNVERIFIED",
+    "server_listing_tick_acceptance": "UNVERIFIED",
+    "realized_sale_price": null,
+    "realized_profit": null
+  },
+  "pagination": {
+    "page_rows": [
+      21,
+      21
+    ],
+    "requested_starts": [
+      0,
+      20
+    ],
+    "page_overlap": [],
+    "unique_rows": 42,
+    "page1_lookahead": "trade:65f9851e426a0c0ec59c7cf0",
+    "lookahead_reappeared_on_page2": false,
+    "within_page_duplicates": [
+      0,
+      0,
+      0
+    ],
+    "expiry_nondecreasing": [
+      true,
+      true,
+      true
+    ],
+    "repeat_absent_from_first_page": [
+      "trade:217c29ebb02309b0ebe0019b",
+      "trade:86b3fd73c8878abb0480c697",
+      "trade:aa53494ef10f2440eb765749",
+      "trade:ad78d7e243856fcf9c0cec3c"
+    ],
+    "repeat_new_on_first_page": [
+      "trade:78480cf1c213a036dcd479fd",
+      "trade:ae7b2284aac2be582e76ce5a",
+      "trade:b79e327d5917fa2b88a443e5",
+      "trade:dcee95c3643220a18590b4cb"
+    ],
+    "repeat_changed": [
+      {
+        "trade_id": "trade:74bb4915df86406af240b86a",
+        "fields": [
+          "current_bid"
+        ]
+      }
+    ],
+    "complete_market_coverage": false,
+    "server_order_guaranteed": false,
+    "absence_interpretation": "ABSENT_IN_BOUNDED_SEARCH_NOT_PROOF_SOLD_LOST_OR_EXPIRED",
+    "fresh_prebid_availability_required": true
+  },
+  "search_assessments": {
+    "availability-1.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 1,
+      "semantics_nonempty_verified": true
+    },
+    "availability-2.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 2,
+      "semantics_nonempty_verified": true
+    },
+    "comparables-1.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 21,
+      "semantics_nonempty_verified": true
+    },
+    "comparables-2.json": {
+      "fresh_authenticated_pc": false,
+      "independent_wire_entity_match": false,
+      "native_filters_match": false,
+      "observed_filter_semantics": true,
+      "zero_results": true,
+      "row_count": 0,
+      "semantics_nonempty_verified": false
+    },
+    "comparables-3.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 21,
+      "semantics_nonempty_verified": true
+    },
+    "rules-and-availability.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 2,
+      "semantics_nonempty_verified": true
+    },
+    "search-1.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 21,
+      "semantics_nonempty_verified": true
+    },
+    "search-2.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 21,
+      "semantics_nonempty_verified": true
+    },
+    "search-3.json": {
+      "fresh_authenticated_pc": true,
+      "independent_wire_entity_match": true,
+      "native_filters_match": true,
+      "observed_filter_semantics": true,
+      "zero_results": false,
+      "row_count": 21,
+      "semantics_nonempty_verified": true
+    }
+  },
+  "account_mutations": 0,
+  "strategy_qualified_candidate": true,
+  "candidate_authorized_for_bid": false,
+  "strategy_qualification_scope": "Fresh native exact-PC asks and native card-specific caps, with observed native client ticks. Server bid/list tick acceptance remains UNVERIFIED; no write authorization.",
+  "integration_test_candidate": null,
+  "unavailable_evidence": [
+    "Server acceptance of ordinary bid increments and listing ticks for sampled card",
+    "Realized sale price and realized profit",
+    "Exhaustive market coverage and server ordering guarantee",
+    "Seller identities are not exposed: independent means distinct trade AND physical item, not verified distinct sellers"
+  ],
+  "required_before_any_bid": [
+    "Fresh exact physical item/trade/version availability within 30 seconds",
+    "Refresh comparables <=120s and card-specific rules <=300s",
+    "Validate native client minimum, stored profitable cap, balance, remaining time and durable one-shot intent",
+    "Resolve any unsupported constraint required by the bidder; this task sends no writes"
+  ]
+}

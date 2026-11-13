@@ -1,0 +1,170 @@
+{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.267, "live_performance": false}
+test_bulk_50_rows_paging_identity_freshness_coverage_and_balance (test_bidding_v1.AdapterTests.test_bulk_50_rows_paging_identity_freshness_coverage_and_balance) ... ok
+test_native_javascript_contracts_and_historical_persona_regression (test_bidding_v1.AdapterTests.test_native_javascript_contracts_and_historical_persona_regression) ... ok
+test_native_mode_rejects_offline_rules_and_unsupported_profit_caps (test_bidding_v1.AdapterTests.test_native_mode_rejects_offline_rules_and_unsupported_profit_caps) ... ok
+test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write (test_bidding_v1.AdapterTests.test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write) ... ok
+test_strict_result_schema_correlations_sanitization_and_cache_metadata (test_bidding_v1.AdapterTests.test_strict_result_schema_correlations_sanitization_and_cache_metadata) ... ok
+test_provenance_fails_closed_and_artifact_tampering (test_bidding_v1.ContractRulesTests.test_provenance_fails_closed_and_artifact_tampering) ... ok
+test_reuses_exact_version_five_comparable_outlier_pricing (test_bidding_v1.ContractRulesTests.test_reuses_exact_version_five_comparable_outlier_pricing) ... ok
+test_typed_contracts_and_search_filter_boundaries (test_bidding_v1.ContractRulesTests.test_typed_contracts_and_search_filter_boundaries) ... ok
+test_unsupported_caps_increment_gaps_and_boundaries (test_bidding_v1.ContractRulesTests.test_unsupported_caps_increment_gaps_and_boundaries) ... ok
+test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries (test_bidding_v1.JournalTests.test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries) ... ok
+test_ownership_epochs_unknown_and_independent_reconciliation (test_bidding_v1.JournalTests.test_ownership_epochs_unknown_and_independent_reconciliation) ... ok
+test_process_crash_after_native_write_preserves_claim_and_prevents_replay (test_bidding_v1.JournalTests.test_process_crash_after_native_write_preserves_claim_and_prevents_replay) ... ok
+test_process_crash_before_send_never_replays_unknown_intent_or_claim (test_bidding_v1.JournalTests.test_process_crash_before_send_never_replays_unknown_intent_or_claim) ... ok
+test_reopen_after_intent_only_never_gains_dispatch_authority (test_bidding_v1.JournalTests.test_reopen_after_intent_only_never_gains_dispatch_authority) ... ok
+test_stored_cap_cannot_increase_and_latency_is_durable (test_bidding_v1.JournalTests.test_stored_cap_cannot_increase_and_latency_is_durable) ... ok
+test_transaction_rollback_append_only_privacy_and_cli_trace (test_bidding_v1.JournalTests.test_transaction_rollback_append_only_privacy_and_cli_trace) ... ok
+test_unknown_on_invalid_response_exception_and_deadline_skip (test_bidding_v1.JournalTests.test_unknown_on_invalid_response_exception_and_deadline_skip) ... ok
+test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff (test_bidding_v1.QueueDecisionTests.test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff) ... ok
+test_account_cap_and_insufficient_reserve (test_bidding_v1.QueueDecisionTests.test_account_cap_and_insufficient_reserve) ... ok
+test_admission_and_draining_are_one_atomic_checkpoint (test_bidding_v1.QueueDecisionTests.test_admission_and_draining_are_one_atomic_checkpoint) ... ok
+test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown (test_bidding_v1.QueueDecisionTests.test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown) ... ok
+test_multiple_pending_reservations_replay_and_identity_conflict (test_bidding_v1.QueueDecisionTests.test_multiple_pending_reservations_replay_and_identity_conflict) ... ok
+test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal (test_bidding_v1.QueueDecisionTests.test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal) ... ok
+test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips (test_bidding_v1.SchedulerTests.test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips) ... ok
+test_zero_gap_and_25_second_50_row_bulk_cycle_model (test_bidding_v1.SchedulerTests.test_zero_gap_and_25_second_50_row_bulk_cycle_model) ... ok
+test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (test_watched_bulk_v1.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok
+test_capacity_is_independent_of_configured_queue_and_cached_status_unknown (test_watched_bulk_v1.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok
+test_fresh_empty_requires_network_persona_and_visible_comparison (test_watched_bulk_v1.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok
+test_native_JS_network_cache_privacy_schema_and_50_rows (test_watched_bulk_v1.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok
+test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (test_watched_bulk_v1.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ERROR
+test_request_cost_and_25_seconds_remain_bounded_extrapolation (test_watched_bulk_v1.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok
+test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (test_watched_bulk_v1.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
+test_all_acceptance_criteria_have_independent_artifact_evidence (test_watched_bulk_artifacts.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence) ... ok
+test_historical_changed_deleted_and_fixture_promotions_are_detected (test_watched_bulk_artifacts.ArtifactTests.test_historical_changed_deleted_and_fixture_promotions_are_detected) ... ok
+test_manifest_positive_schema_and_all_artifact_hashes (test_watched_bulk_artifacts.ArtifactTests.test_manifest_positive_schema_and_all_artifact_hashes) ... ok
+test_public_source_matches_loaded_functions_and_static_decoding (test_watched_bulk_artifacts.ArtifactTests.test_public_source_matches_loaded_functions_and_static_decoding) ... ok
+test_reject_missing_UI_and_capacity_coverage_promotions (test_watched_bulk_artifacts.ArtifactTests.test_reject_missing_UI_and_capacity_coverage_promotions) ... ok
+test_reject_missing_native_auth_and_cached_empty_promotion (test_watched_bulk_artifacts.ArtifactTests.test_reject_missing_native_auth_and_cached_empty_promotion) ... ok
+test_0_independent_wire_and_actual_fc27_query_names_required (test_search_validation_v1.Contracts.test_0_independent_wire_and_actual_fc27_query_names_required) ... ok
+test_0_native_javascript_query_projection_empty_privacy_and_rejection (test_search_validation_v1.Contracts.test_0_native_javascript_query_projection_empty_privacy_and_rejection) ... ok
+test_1_fresh_availability_identity_price_change_missing_and_staleness (test_search_validation_v1.Contracts.test_1_fresh_availability_identity_price_change_missing_and_staleness) ... ok
+test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence (test_search_validation_v1.Contracts.test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence) ... ok
+test_2_exact_version_resource_id_not_asset_and_native_caps_authentication (test_search_validation_v1.Contracts.test_2_exact_version_resource_id_not_asset_and_native_caps_authentication) ... ok
+test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers (test_search_validation_v1.Contracts.test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers) ... ok
+test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap (test_search_validation_v1.Contracts.test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap) ... ok
+test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales (test_search_validation_v1.Contracts.test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales) ... ok
+test_6_schema_rejects_sensitive_extra_fields_and_raw_identities (test_search_validation_v1.Contracts.test_6_schema_rejects_sensitive_extra_fields_and_raw_identities) ... ok
+test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart (test_search_validation_v1.Contracts.test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart) ... ok
+test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts (test_search_validation_artifacts.Artifacts.test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts) ... ok
+test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement (test_search_validation_artifacts.Artifacts.test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement) ... ok
+test_2_sample_version_item_trade_native_caps_and_client_server_separation (test_search_validation_artifacts.Artifacts.test_2_sample_version_item_trade_native_caps_and_client_server_separation) ... ok
+test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding (test_search_validation_artifacts.Artifacts.test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding) ... ok
+test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics (test_search_validation_artifacts.Artifacts.test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics) ... ok
+test_6_every_delivery_accounted_once_with_failed_read_not_promoted (test_search_validation_artifacts.Artifacts.test_6_every_delivery_accounted_once_with_failed_read_not_promoted) ... ok
+test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (test_search_validation_artifacts.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping) ... ok
+test_both_sides_of_every_band_and_caps (test_market_pricing.PricingTests.test_both_sides_of_every_band_and_caps) ... ok
+test_duplicate_pages_and_candidate_cannot_inflate_sample_size (test_market_pricing.PricingTests.test_duplicate_pages_and_candidate_cannot_inflate_sample_size) ... ok
+test_exact_threshold_equality_one_coin_each_side_and_break_even (test_market_pricing.PricingTests.test_exact_threshold_equality_one_coin_each_side_and_break_even) ... ok
+test_explicit_validation_errors (test_market_pricing.PricingTests.test_explicit_validation_errors) ... ok
+test_fixture_expected_targets_tax_and_thresholds (test_market_pricing.PricingTests.test_fixture_expected_targets_tax_and_thresholds) ... ok
+test_invalid_observations_cannot_supply_missing_fifth_sample (test_market_pricing.PricingTests.test_invalid_observations_cannot_supply_missing_fifth_sample) ... ok
+test_order_invariance_including_conflicting_and_repeated_samples (test_market_pricing.PricingTests.test_order_invariance_including_conflicting_and_repeated_samples) ... ok
+test_revalidate_candidate_price_expiry_and_snapshot (test_market_pricing.PricingTests.test_revalidate_candidate_price_expiry_and_snapshot) ... ok
+test_stale_future_cached_expired_closed_and_exact_boundaries (test_market_pricing.PricingTests.test_stale_future_cached_expired_closed_and_exact_boundaries) ... ok
+test_tax_uses_floor_not_bankers_rounding_or_floating_point (test_market_pricing.PricingTests.test_tax_uses_floor_not_bankers_rounding_or_floating_point) ... ok
+test_variant_platform_game_and_base_id_must_not_be_combined (test_market_pricing.PricingTests.test_variant_platform_game_and_base_id_must_not_be_combined) ... ok
+test_authenticated_direct_http_request_and_sanitized_account_search_responses (test_integration_harness.Tests.test_authenticated_direct_http_request_and_sanitized_account_search_responses) ... ok
+test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy (test_integration_harness.Tests.test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy) ... ok
+test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof (test_integration_harness.Tests.test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof) ... ok
+test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate (test_integration_harness.Tests.test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate) ... ok
+test_finite_plan_relevant_pages_ceiling_filters_and_invalidation (test_integration_harness.Tests.test_finite_plan_relevant_pages_ceiling_filters_and_invalidation) ... ok
+test_human_blocker_check_depends_only_on_attachment_health (test_integration_harness.Tests.test_human_blocker_check_depends_only_on_attachment_health) ... ok
+test_javascript_runtime_and_cli_explicit_commands (test_integration_harness.Tests.test_javascript_runtime_and_cli_explicit_commands) ... ok
+test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200 (test_integration_harness.Tests.test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200) ... ok
+test_native_snapshot_and_purchased_alias_need_independent_authentication (test_integration_harness.Tests.test_native_snapshot_and_purchased_alias_need_independent_authentication) ... ok
+test_read_only_command_filter_and_bounds_contract (test_integration_harness.Tests.test_read_only_command_filter_and_bounds_contract) ... ok
+test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields (test_integration_harness.Tests.test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields) ... ok
+test_three_identity_namespaces_no_float_loss_and_private_projection (test_integration_harness.Tests.test_three_identity_namespaces_no_float_loss_and_private_projection) ... ok
+test_host_origin_pinning_routes_duplicate_json_and_mutation_rejection (test_market_discovery_transport.TransportTests.test_host_origin_pinning_routes_duplicate_json_and_mutation_rejection) ... ok
+test_javascript_search_only_and_both_worker_modes (test_market_discovery_transport.TransportTests.test_javascript_search_only_and_both_worker_modes) ... ok
+test_long_poll_wakes_on_command_and_real_client_times_delivery (test_market_discovery_transport.TransportTests.test_long_poll_wakes_on_command_and_real_client_times_delivery) ... ok
+test_single_delivery_result_matching_privacy_and_expiry (test_market_discovery_transport.TransportTests.test_single_delivery_result_matching_privacy_and_expiry) ... ok
+test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (test_market_discovery_followup_v1.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication) ... ok
+test_live_assessment_requires_each_independent_layer (test_market_discovery_followup_v1.FollowupHTTPTests.test_live_assessment_requires_each_independent_layer) ... ok
+test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate (test_market_discovery_followup_v1.FollowupHTTPTests.test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate) ... ok
+test_existing_output_fails_before_any_browser_or_ea_operation (test_market_discovery_followup_v1.PersonaTests.test_existing_output_fails_before_any_browser_or_ea_operation) ... ok
+test_javascript_persona_pacing_identity_and_worker (test_market_discovery_followup_v1.PersonaTests.test_javascript_persona_pacing_identity_and_worker) ... ok
+test_malformed_native_reply_is_rejected_before_any_persistence (test_market_discovery_followup_v1.PersonaTests.test_malformed_native_reply_is_rejected_before_any_persistence) ... ok
+test_native_and_valid_alternative_projections (test_market_discovery_followup_v1.PersonaTests.test_native_and_valid_alternative_projections) ... ok
+test_reject_console_unknown_conflicting_malformed_and_private_projection (test_market_discovery_followup_v1.PersonaTests.test_reject_console_unknown_conflicting_malformed_and_private_projection) ... ok
+test_sealed_source_hashes_and_followup_extension_permissions (test_market_discovery_followup_v1.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions) ... ok
+test_assessor_rejects_mutations_for_every_criterion (test_transaction.TransactionTests.test_assessor_rejects_mutations_for_every_criterion) ... ok
+test_cached_postpurchase_readback_resumes_only_remaining_stages (test_transaction.TransactionTests.test_cached_postpurchase_readback_resumes_only_remaining_stages) ... ok
+test_complete_fixture_and_no_eligible_relist (test_transaction.TransactionTests.test_complete_fixture_and_no_eligible_relist) ... ok
+test_crash_between_intent_and_response_survives_restart (test_transaction.TransactionTests.test_crash_between_intent_and_response_survives_restart) ... ok
+test_eligible_expired_relist_requires_readback (test_transaction.TransactionTests.test_eligible_expired_relist_requires_readback) ... ok
+test_every_ambiguous_write_reconciled_without_retry (test_transaction.TransactionTests.test_every_ambiguous_write_reconciled_without_retry) ... ok
+test_low_cost_exact_match_and_typed_write_bounds (test_transaction.TransactionTests.test_low_cost_exact_match_and_typed_write_bounds) ... ok
+test_near_expiry_broad_row_seeds_exact_version_search_before_selecting_auction (test_transaction.TransactionTests.test_near_expiry_broad_row_seeds_exact_version_search_before_selecting_auction) ... ok
+test_no_http_ack_or_code_only_evidence_counts_as_transaction (test_transaction.TransactionTests.test_no_http_ack_or_code_only_evidence_counts_as_transaction) ... ok
+test_unapplied_buy_timeout_stops_and_rerun_only_reconciles (test_transaction.TransactionTests.test_unapplied_buy_timeout_stops_and_rerun_only_reconciles) ... ok
+test_unapplied_move_and_listing_never_retried (test_transaction.TransactionTests.test_unapplied_move_and_listing_never_retried) ... ok
+test_actual_javascript_with_synthetic_native_observables (test_transaction_bridge.BridgeTests.test_actual_javascript_with_synthetic_native_observables) ... ok
+test_prerequisite_only_checks_human_attachment (test_transaction_bridge.BridgeTests.test_prerequisite_only_checks_human_attachment) ... ok
+test_real_loopback_protocol_at_most_once_dispatch_and_late_reply (test_transaction_bridge.BridgeTests.test_real_loopback_protocol_at_most_once_dispatch_and_late_reply) ... ok
+test_closed_live_window_and_executor_never_authorize_mutation (test_durability_v1.HTTPTests.test_closed_live_window_and_executor_never_authorize_mutation) ... ok
+test_exact_origin_handshake_persona_and_stale_process_rejected (test_durability_v1.HTTPTests.test_exact_origin_handshake_persona_and_stale_process_rejected) ... ok
+test_extension_reload_fences_orphan_poll_before_any_delivery (test_durability_v1.HTTPTests.test_extension_reload_fences_orphan_poll_before_any_delivery) ... ok
+test_long_poll_delivery_once_and_malformed_result_timeout_no_retry (test_durability_v1.HTTPTests.test_long_poll_delivery_once_and_malformed_result_timeout_no_retry) ... ok
+test_owner_change_between_claim_and_reply_rejects_old_page (test_durability_v1.HTTPTests.test_owner_change_between_claim_and_reply_rejects_old_page) ... ok
+test_bad_or_missing_readback_stops_and_never_unlocks (test_durability_v1.HarnessTests.test_bad_or_missing_readback_stops_and_never_unlocks) ... ok
+test_default_denies_mutations_and_explicit_limits_survive_reopen (test_durability_v1.HarnessTests.test_default_denies_mutations_and_explicit_limits_survive_reopen) ... ok
+test_harness_process_dies_after_bid_and_restart_cannot_duplicate (test_durability_v1.HarnessTests.test_harness_process_dies_after_bid_and_restart_cannot_duplicate) ... ok
+test_independent_readbacks_and_durable_accounting_enforced (test_durability_v1.HarnessTests.test_independent_readbacks_and_durable_accounting_enforced) ... ok
+test_javascript_lifecycle_worker_and_page_contracts (test_durability_v1.HarnessTests.test_javascript_lifecycle_worker_and_page_contracts) ... ok
+test_owner_takeover_after_ack_and_restart_reservation_stop (test_durability_v1.HarnessTests.test_owner_takeover_after_ack_and_restart_reservation_stop) ... ok
+test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions (test_durability_v1.HarnessTests.test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions) ... ok
+test_transfer_and_listing_require_conclusive_owned_identity_and_readback (test_durability_v1.HarnessTests.test_transfer_and_listing_require_conclusive_owned_identity_and_readback) ... ok
+test_unknown_ack_stops_even_if_another_command_and_owner_are_available (test_durability_v1.HarnessTests.test_unknown_ack_stops_even_if_another_command_and_owner_are_available) ... ok
+test_balance_native_credits_route_is_preserved_and_other_routes_rejected (test_durability_v1.StoreTests.test_balance_native_credits_route_is_preserved_and_other_routes_rejected) ... ok
+test_claim_result_loss_restart_never_redelivers_or_resets_budget (test_durability_v1.StoreTests.test_claim_result_loss_restart_never_redelivers_or_resets_budget) ... ok
+test_limits_expiry_and_malformed_commands_no_consumption (test_durability_v1.StoreTests.test_limits_expiry_and_malformed_commands_no_consumption) ... ok
+test_real_process_crash_claim_and_lost_mutation_ack_stop_window (test_durability_v1.StoreTests.test_real_process_crash_claim_and_lost_mutation_ack_stop_window) ... ok
+test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun (test_durability_v1.StoreTests.test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun) ... ok
+test_scope_owner_epoch_result_correlation_and_duplicate_rejection (test_durability_v1.StoreTests.test_scope_owner_epoch_result_correlation_and_duplicate_rejection) ... ok
+
+======================================================================
+ERROR: test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (test_watched_bulk_v1.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 133, in test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset
+    with self.assertRaises(urllib.error.HTTPError) as cm:post(path,value,origin)
+                                                         ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 131, in post
+    return urllib.request.urlopen(urllib.request.Request(base+path,data=json.dumps(payload).encode(),headers=h),timeout=3)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 489, in open
+    response = self._open(req, data)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1360, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1335, in do_open
+    r = h.getresponse()
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 304, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+
+----------------------------------------------------------------------
+Ran 125 tests in 17.962s
+
+FAILED (errors=1)

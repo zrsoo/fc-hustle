@@ -1,0 +1,249 @@
+{
+  "schema": 1,
+  "authority": "objectives/001c-competitive-bidding-readiness.md",
+  "strategy_authority": "objectives/002-two-actor-competitive-bidding.md",
+  "current_live_status": "UNVERIFIED",
+  "rows": [
+    {
+      "id": "search_filters",
+      "requirement": "MaxBid=1000 + MinBuy=10500 search combination",
+      "actors": [
+        "Bid Acquirer"
+      ],
+      "dispositions": [
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "experiments/market_discovery_followup_v1/browser/page.js",
+        "experiments/market_discovery_followup_v1/browser/worker.js",
+        "experiments/market_discovery/model.py"
+      ],
+      "gap": "Preserve uppercase PC projection, full identities, paging and minBuy; add max_bid across Python/worker/page schemas as maxBid, never maxBuy.",
+      "proof": "Authenticated maxBid=1000/minBuy=10500 wire criteria and semantics; zero eligible results are valid; bound pages, deduplicate lookahead and recheck disappearance.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "pricing_cap",
+      "requirement": "Minimum 5 exact-PC comparable pricing / max bid",
+      "actors": [
+        "Bid Acquirer",
+        "Bidder"
+      ],
+      "dispositions": [
+        "REUSE",
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/pricing.py",
+        "experiments/market_discovery/opportunity.py"
+      ],
+      "gap": "Reuse robust exact-version estimator and candidate exclusion; separate ordinary bid cost from acquisition.buy_now_price; add verified native rules provenance and cap floor.",
+      "proof": "Five independent fresh exact-PC BIN asks after rejection; X=500, tax=floor(target/20), cap rounded down; missing caps/ticks prohibit executable claims.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "opening_bid",
+      "requirement": "Native ordinary opening bid",
+      "actors": [
+        "Bid Acquirer"
+      ],
+      "dispositions": [
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/transaction.py",
+        "browser/transaction-bridge/page.js"
+      ],
+      "gap": "Buy-only bid call is a reference; add one-shot ordinary minimum bid with fresh eligibility, strict identity, durable intent and independent result schema.",
+      "proof": "One genuine ordinary bid, then separate watched/leading and coin reads; HTTP 200 is only an acknowledgement.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "leading_hold",
+      "requirement": "Already-leading HOLD",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "experiments/market_discovery_followup_v1/browser/page.js"
+      ],
+      "gap": "Retained bid_state projection is not a decision engine; typed fresh highest state must yield reason-coded HOLD and zero extra writes.",
+      "proof": "Observed leading watched state plus command/native-write ledger proves no additional bid.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "bulk_watchlist",
+      "requirement": "Native watched-auctions bulk refresh",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "browser/transaction-bridge/read-page.js"
+      ],
+      "gap": "Add requestWatchedItems allowlisted adapter with complete/unknown coverage metadata and separate bid/trade states; supplemental bulk status only if current native evidence supports it.",
+      "proof": "Real authenticated watched response, network routes/count/bytes/duration/freshness and visible Transfer Targets comparison; cache/unknown schema is not verified empty.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "queue_50",
+      "requirement": "Up-to-50 queue/status processing",
+      "actors": [
+        "Bid Acquirer",
+        "Bidder"
+      ],
+      "dispositions": [
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "docs/research/obj002-handoff.md"
+      ],
+      "gap": "Planned store only; typed 50-row ingestion/dedup/deadlines, queue cap, reserve=5000 and sticky DRAINING seam without actor loops.",
+      "proof": "50-auction deterministic fixtures including unknown/cap-exhausted slots; current native capacity/pagination if accessible; no 50 live enrollments.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "outbid_rebid",
+      "requirement": "Outbid + minimal rebid within cap",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/pricing.py",
+        "fc_access/transaction.py"
+      ],
+      "gap": "Add minimum-next-legal bid decision, held/spendable checks, stored immutable cap, STOP_COMPETING and pending-intent suppression.",
+      "proof": "Only genuine natural outbid can prove live minimal rebid; otherwise UNVERIFIED with fixture HOLD/REBID/cap-equality/over-cap/unknown tests.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "terminal_outcomes",
+      "requirement": "Lost and won terminal classifications",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/transaction_checks.py"
+      ],
+      "gap": "Adapt independent identity/readback assessor; add WON/LOST/UNKNOWN reconciliation, complete coverage and slot-release rules.",
+      "proof": "Witnessed terminal status plus independent owned/account evidence; absent or incomplete watched row remains UNKNOWN; unobserved branch UNVERIFIED.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "coins",
+      "requirement": "Coin escrow/return/available balance",
+      "actors": [
+        "Bid Acquirer",
+        "Bidder"
+      ],
+      "dispositions": [
+        "REUSE",
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/transaction.py",
+        "fc_access/harness.py"
+      ],
+      "gap": "Reuse currency reads, adapt attributable debit checks to holds/refunds and uncertain intents; never spend assumed refunds.",
+      "proof": "Genuine fresh pre/post spendable measurements tied to bid/outbid/terminal observations; separate escrow, actual cost, returned funds and unrelated account activity.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "won_transfer_list",
+      "requirement": "Won physical item \u2192 transfer/list",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "REUSE",
+        "ADAPT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "fc_access/transaction.py",
+        "fc_access/transaction_checks.py",
+        "browser/transaction-bridge/page.js"
+      ],
+      "gap": "Reuse native move/list mappings and exact physical-item readbacks; adapt versioned contract to current rules only after conclusive auction win.",
+      "proof": "Actual won physical item, final cost, independent destination and active listing/trade/price/duration evidence; historical Buy Now is reuse-only, no sale/profit claim.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "extension_timing",
+      "requirement": "Bid extension and 25-second monitored refresh",
+      "actors": [
+        "Bidder"
+      ],
+      "dispositions": [
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "experiments/market_discovery_followup_v1/server.py",
+        "experiments/market_discovery/bridge_server.py"
+      ],
+      "gap": "Adapt component timers; implement injected-clock priority scheduler; 30-second guard is a local arbitrary default, not EA rule; 25 seconds is a whole-queue target.",
+      "proof": "Active-auction pre/post absolute expiry and natural bid timestamps; quantify requests/refresh and actual refresh duration; no observed reset means UNVERIFIED.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    },
+    {
+      "id": "lifecycle_journal",
+      "requirement": "Connection/restart, no duplicate bid, diagnostic timeline",
+      "actors": [
+        "Bid Acquirer",
+        "Bidder"
+      ],
+      "dispositions": [
+        "ADAPT",
+        "IMPLEMENT",
+        "PROVE"
+      ],
+      "implementation_paths": [
+        "experiments/market_discovery_followup_v1/browser/worker.js",
+        "fc_access/transaction.py",
+        "fc_access/transaction_server.py"
+      ],
+      "gap": "Adapt one-owner/deadline/durable intent concepts; add stable scope/epochs, robust reattachment, transactional append-only journal and restart reconciliation.",
+      "proof": "Real idle/restart/reattach browser integration plus crash/late-result/wrong-scope/duplicate-write fixtures; CLI chronological reason-coded trace and no blind redispatch.",
+      "live_status": "UNVERIFIED",
+      "new_live_evidence": []
+    }
+  ]
+}

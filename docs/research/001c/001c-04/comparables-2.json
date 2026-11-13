@@ -1,0 +1,24 @@
+{
+  "cache_invalidated": false,
+  "command_id": "4c7c05fae3fe3cd1479d9c4d288f4030",
+  "criteria": null,
+  "duration_ms": 0,
+  "error": "experiment_pacing",
+  "has_more": null,
+  "method": "services.Item.searchTransferMarket(criteria,page)",
+  "native_rules": null,
+  "network": [],
+  "observed_at": "2026-11-13T02:05:45.796Z",
+  "params": {
+    "count": 21,
+    "definition_id": 227323,
+    "max_buy": 10000,
+    "page": 1
+  },
+  "persona": null,
+  "rows": null,
+  "schema": 2,
+  "status": null,
+  "success": false,
+  "wire_rows": null
+}

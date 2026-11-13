@@ -1,0 +1,51 @@
+{
+  "account": {
+    "cached_count_after": 0,
+    "cached_count_before": 0,
+    "inbox_capacity": 50,
+    "inbox_dirty_before": false,
+    "platform_split": false,
+    "server_setting_capacity": 50
+  },
+  "auctions": [],
+  "cache_invalidated": true,
+  "duration_ms": 70.39999999850988,
+  "error": null,
+  "has_more": null,
+  "method": "services.Item.requestWatchedItems()",
+  "network": [
+    {
+      "duration_ms": 69.5,
+      "ended_at": "2026-11-13T01:44:53.174Z",
+      "method": "GET",
+      "pagination": {
+        "count": null,
+        "start": null
+      },
+      "payload_bytes": 44,
+      "route": "/ut/game/fc27/watchlist",
+      "session_header_present": true,
+      "started_at": "2026-11-13T01:44:53.104Z",
+      "status": 200
+    }
+  ],
+  "network_at": "2026-11-13T01:44:53.174Z",
+  "observed_at": "2026-11-13T01:44:53.174Z",
+  "operation": "watched",
+  "persona": {
+    "accepted": true,
+    "is_pc": true,
+    "is_pc_type": "boolean",
+    "native_pc_constant": "PC",
+    "persona_present": true,
+    "platform_type": "string",
+    "platform_value": "PC",
+    "read_error": false,
+    "schema": 1
+  },
+  "request_count": 1,
+  "schema": 2,
+  "sources": null,
+  "status": 200,
+  "success": true
+}

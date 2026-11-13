@@ -1,0 +1,10 @@
+{
+  "status": "UNRESOLVED",
+  "checks": [
+    {
+      "criterion": 1,
+      "status": "UNRESOLVED",
+      "diagnostic": "UNRESOLVED: actual 700 native PUT returned 200/outbid at 750; independent watched readback empty and balance unchanged. Successful opening/escrow not established."
+    }
+  ]
+}

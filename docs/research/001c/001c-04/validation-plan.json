@@ -1,0 +1,16 @@
+{
+  "task": "001c-04",
+  "validators": [
+    {"command": ["{python}", "tests/test_search_validation_v1.py"], "criteria": [0,1,2,3,4,5,6], "timeout": 120},
+    {"command": ["{python}", "tests/test_search_validation_artifacts.py"], "criteria": [0,1,2,3,4,5,6], "timeout": 120}
+  ],
+  "criteria_checks": {
+    "0": "Authenticated PC network, DTO/query mapping, separate wire/entity starting/current/BIN conformance, native zero-result fixture",
+    "1": "Actual paging, lookahead, overlap, repeated changes/absence; fault-tested fresh prebid identity/price/expiry guard",
+    "2": "Special-version resource/base distinction, physical/trade identities, authenticated native caps, native client boundary probes and server UNVERIFIED distinction",
+    "3": "Independent fresh exact PC comparable selection and recomputation, five surviving asks minimum, candidate exclusion/dedup/outlier faults",
+    "4": "Independent 5900 target, X500, floor tax 295, raw cap5105 and client downward rounding5100; separate search1000 and no realized claims",
+    "5": "Replay qualified pricing checkpoint with no write authorization, recorded unsupported evidence and null integration-only candidate because pricing opportunity exists",
+    "6": "Current observed contract parser, native JS fixture/privacy/fault tests, source/retained hash checks, read-only budget and preserved prior artifacts"
+  }
+}

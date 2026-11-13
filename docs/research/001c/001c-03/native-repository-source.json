@@ -1,0 +1,61 @@
+{
+  "repository_methods": [
+    {
+      "length": 192,
+      "name": "setDirty",
+      "owner": "repositories.Item",
+      "sha256": "e444ef433eb8f2e03262599163189487c1f4362a08576a09eb3b0d8d2af3cce4",
+      "source": "function(t){t?this.setCacheTimestamp(t,0,0):(this.unassigned.setCacheTimestamp(0,0),this.transfer.setCacheTimestamp(0,0),this.inbox.setCacheTimestamp(0,0),this.storage.setCacheTimestamp(0,0))}"
+    },
+    {
+      "length": 270,
+      "name": "isDirty",
+      "owner": "repositories.Item",
+      "sha256": "1989f198d9fb582c4a14432863c1b8919e462fc6ad8418ea9a5d304c8926a4a4",
+      "source": "function(t){switch(t){case ItemPile.PURCHASED:return this.unassigned.isCacheExpired();case ItemPile.TRANSFER:return this.transfer.isCacheExpired();case ItemPile.INBOX:return this.inbox.isCacheExpired();case ItemPile.STORAGE:return this.storage.isCacheExpired()}return!0}"
+    },
+    {
+      "length": 38,
+      "name": "setPileSize",
+      "owner": "repositories.Item",
+      "sha256": "1b12fcda2f53d96e5c179341522e5bf46c5172a12c18ff1df8eced70d3761b85",
+      "source": "function(t,e){this.pileSizes.set(t,e)}"
+    },
+    {
+      "length": 143,
+      "name": "getPileSize",
+      "owner": "repositories.Item",
+      "sha256": "13cdcdae1f362ad42c1c74ac143e90dba9f019ea7f789987487eeca5c5fb193c",
+      "source": "function(t){t=this.pileSizes.get(t);return DebugUtils.Assert(JSUtils.isNumber(t),\"Unsupported pile requested when retrieving pile size.\"),t||0}"
+    },
+    {
+      "length": 325,
+      "name": "isPileFull",
+      "owner": "repositories.Item",
+      "sha256": "4b9e9b254aba33054b4829f6ddbe9576a4e37ece1ae3589cf90bbecca6474aad",
+      "source": "function(t){var e=0,i=this.pileSizes.get(t);switch(t){case ItemPile.PURCHASED:e=this.unassigned.length;break;case ItemPile.TRANSFER:e=this.transfer.length;break;case ItemPile.INBOX:e=this.inbox.length;break;case ItemPile.STORAGE:e=this.storage.length;break;case ItemPile.CLUB:case ItemPile.EVOLUTION:return!1}return(i||0)<=e}"
+    },
+    {
+      "length": 38,
+      "name": "getWatchedItems",
+      "owner": "repositories.Item",
+      "sha256": "9b50e375193fb92dde08f184d127ace3c398dfd1c49324f66c08686b94bbfbb2",
+      "source": "function(){return this.inbox.values()}"
+    },
+    {
+      "length": 122,
+      "name": "setWatchedItems",
+      "owner": "repositories.Item",
+      "sha256": "8fd53f00a108b103c5269e61e3d020b223df7d02ada42b6451aa517c81e7041f",
+      "source": "function(t){var e=this;this.inbox.clear(),t.forEach(function(t){return e.inbox.set(t.id,t)},this),this.inbox.endOfList=!0}"
+    }
+  ],
+  "server_settings_capacity_assignment": ">0x0?_0x38b421[\"maxAge\"]:0x258);var _0x294ca6=_0x10ceb8[\"serverSettings\"][\"getSettingByKey\"](UTServerSettingsRepository[\"KEY\"][\"TRANSFER_LIST_SIZE\"]),_0x22ad5e=_0x10ceb8[\"serverSettings\"][\"getSettingByKey\"](UTServerSettingsRepository[\"KEY\"][\"TRANSFER_TARGET_SIZE\"]),_0x49d758=_0x10ceb8[\"serverSettings\"][\"getSettingByKey\"](UTServerSettingsRepository[\"KEY\"][\"STORAGE_PILE_LIMIT\"]),_0x51a9d8=_0x10ceb8[\"serverSettings\"][\"getSettingByKey\"](UTServerSettingsRepository[\"KEY\"][\"MAX_ALLOWED_SQUADS\"]);_0x49d758>0x0&&repositories[\"Item\"][\"setPileSize\"](ItemPile[\"STORAGE\"],_0x49d758),_0x294ca6>0x0&&repositories[\"Item\"][\"setPileSize\"](ItemPile[\"TRANSFER\"],_0x294ca6),_0x22ad5e>0x0&&repositories[\"Item\"][\"setPileSize\"](ItemPile[\"INBOX\"],_0x22ad5e),_0x51a9d8>0x0&&(_0x10ceb8[\"maxAllowedSquads\"]=_0x51a9d8);}var _0xbfb0f9={};_0xbfb0f9[\"settings\"]=_0x10ceb8[\"serverSettings\"][\"getSettings\"](),_0x15e99f[\"response\"]=_0xbfb0f9,_0x499339[\"notify\"](_0x15e99f);}),_0x499339;},_0x7afecd[\"",
+  "classification": "SOURCE_CONFIRMED_ONLY",
+  "loaded_method_match": true,
+  "public_hashes": {
+    "compiled_2.js": "2cc8aec08628ea78c361b16456c93d672e1e80219ed246af0ace61f1b1018f83",
+    "compiled_3.js": "2442488651aa9c9fe68f7dd20dd8418e71affa3060f97f49876bbf77f6f9c80a",
+    "ocompiled.js": "90c120d41798623f756f1732010db21fd3c849e695abfce4e968700fd84fb9a2"
+  }
+}

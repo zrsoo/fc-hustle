@@ -1,0 +1,11 @@
+test_all_acceptance_criteria_have_independent_artifact_evidence (__main__.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence) ... ok
+test_historical_changed_deleted_and_fixture_promotions_are_detected (__main__.ArtifactTests.test_historical_changed_deleted_and_fixture_promotions_are_detected) ... ok
+test_manifest_positive_schema_and_all_artifact_hashes (__main__.ArtifactTests.test_manifest_positive_schema_and_all_artifact_hashes) ... ok
+test_public_source_matches_loaded_functions_and_static_decoding (__main__.ArtifactTests.test_public_source_matches_loaded_functions_and_static_decoding) ... ok
+test_reject_missing_UI_and_capacity_coverage_promotions (__main__.ArtifactTests.test_reject_missing_UI_and_capacity_coverage_promotions) ... ok
+test_reject_missing_native_auth_and_cached_empty_promotion (__main__.ArtifactTests.test_reject_missing_native_auth_and_cached_empty_promotion) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.489s
+
+OK

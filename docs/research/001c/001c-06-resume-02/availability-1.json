@@ -1,0 +1,153 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_live_v2.capture",
+    "availability-1",
+    "search",
+    "{\"definition_id\": 256630, \"max_bid\": 1000, \"min_buy\": 10500, \"page\": 1, \"count\": 21}"
+  ],
+  "at": 1794540436.9702349,
+  "http_status": 200,
+  "elapsed_ms": 248.86727333068848,
+  "request": {
+    "stage": "availability-1",
+    "operation": "search",
+    "params": {
+      "definition_id": 256630,
+      "max_bid": 1000,
+      "min_buy": 10500,
+      "page": 1,
+      "count": 21
+    }
+  },
+  "before": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 6,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-live-v2",
+    "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "after": {
+    "limits": {
+      "seconds": 900,
+      "reads": 40,
+      "mutations": 4,
+      "bid_writes": 2,
+      "gross_coins": 2000,
+      "auctions": 1,
+      "individual_bid": 1000,
+      "reserve": 5000
+    },
+    "deadline": 1794541234.8407023,
+    "expired": false,
+    "stopped": false,
+    "reads_reserved": 7,
+    "mutations_reserved": 0,
+    "bid_writes_reserved": 0,
+    "gross_coins_reserved": 0,
+    "service": "fc-e2e-live-v2",
+    "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+    "owner": "be55ccda72a5a3743b151b9afae17888",
+    "extension_id": "aaapeoocheaplbcbplmkphaipllgoagf",
+    "attached": true,
+    "peer": {
+      "boot": "90be0dd1fff1c40e2b0fd645cae9f053",
+      "owner": "be55ccda72a5a3743b151b9afae17888",
+      "worker": "82513701-542f-4935-bcfb-bfe7a4813854",
+      "document": "13814f13-f6f6-4018-913c-daac7aebef9e",
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      }
+    }
+  },
+  "response": {
+    "cache_invalidated": true,
+    "caps": null,
+    "command_id": "4ea831b11fd36c7a672e51dd0b6df14b",
+    "credits": null,
+    "duration_ms": 216.5,
+    "error": null,
+    "network": [
+      {
+        "bid_amount": null,
+        "duration_ms": 215.90000000596046,
+        "ended_at": "2026-11-13T03:27:17.213Z",
+        "method": "GET",
+        "payload_bytes": 33,
+        "query": {
+          "definitionId": 256630,
+          "macr": 1000,
+          "minb": 10500,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:27:16.997Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:27:17.213Z",
+    "operation": "search",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": [],
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": []
+  }
+}

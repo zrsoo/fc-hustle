@@ -1,0 +1,891 @@
+docs/research/001c/001c-05/check-1.txt:182: new blank line at EOF.
+docs/research/001c/001c-05/coalesced-regression.txt:1: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_bidding_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:2: trailing whitespace.
++test_bulk_50_rows_paging_identity_freshness_coverage_and_balance (__main__.AdapterTests.test_bulk_50_rows_paging_identity_freshness_coverage_and_balance) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:3: trailing whitespace.
++test_native_javascript_contracts_and_historical_persona_regression (__main__.AdapterTests.test_native_javascript_contracts_and_historical_persona_regression) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:4: trailing whitespace.
++test_native_mode_rejects_offline_rules_and_unsupported_profit_caps (__main__.AdapterTests.test_native_mode_rejects_offline_rules_and_unsupported_profit_caps) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:5: trailing whitespace.
++test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write (__main__.AdapterTests.test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:6: trailing whitespace.
++test_strict_result_schema_correlations_sanitization_and_cache_metadata (__main__.AdapterTests.test_strict_result_schema_correlations_sanitization_and_cache_metadata) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:7: trailing whitespace.
++test_provenance_fails_closed_and_artifact_tampering (__main__.ContractRulesTests.test_provenance_fails_closed_and_artifact_tampering) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:8: trailing whitespace.
++test_reuses_exact_version_five_comparable_outlier_pricing (__main__.ContractRulesTests.test_reuses_exact_version_five_comparable_outlier_pricing) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:9: trailing whitespace.
++test_typed_contracts_and_search_filter_boundaries (__main__.ContractRulesTests.test_typed_contracts_and_search_filter_boundaries) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:10: trailing whitespace.
++test_unsupported_caps_increment_gaps_and_boundaries (__main__.ContractRulesTests.test_unsupported_caps_increment_gaps_and_boundaries) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:11: trailing whitespace.
++test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries (__main__.JournalTests.test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:12: trailing whitespace.
++test_ownership_epochs_unknown_and_independent_reconciliation (__main__.JournalTests.test_ownership_epochs_unknown_and_independent_reconciliation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:13: trailing whitespace.
++test_process_crash_after_native_write_preserves_claim_and_prevents_replay (__main__.JournalTests.test_process_crash_after_native_write_preserves_claim_and_prevents_replay) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:14: trailing whitespace.
++test_process_crash_before_send_never_replays_unknown_intent_or_claim (__main__.JournalTests.test_process_crash_before_send_never_replays_unknown_intent_or_claim) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:15: trailing whitespace.
++test_reopen_after_intent_only_never_gains_dispatch_authority (__main__.JournalTests.test_reopen_after_intent_only_never_gains_dispatch_authority) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:16: trailing whitespace.
++test_stored_cap_cannot_increase_and_latency_is_durable (__main__.JournalTests.test_stored_cap_cannot_increase_and_latency_is_durable) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:17: trailing whitespace.
++test_transaction_rollback_append_only_privacy_and_cli_trace (__main__.JournalTests.test_transaction_rollback_append_only_privacy_and_cli_trace) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:18: trailing whitespace.
++test_unknown_on_invalid_response_exception_and_deadline_skip (__main__.JournalTests.test_unknown_on_invalid_response_exception_and_deadline_skip) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:19: trailing whitespace.
++test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff (__main__.QueueDecisionTests.test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:20: trailing whitespace.
++test_account_cap_and_insufficient_reserve (__main__.QueueDecisionTests.test_account_cap_and_insufficient_reserve) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:21: trailing whitespace.
++test_admission_and_draining_are_one_atomic_checkpoint (__main__.QueueDecisionTests.test_admission_and_draining_are_one_atomic_checkpoint) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:22: trailing whitespace.
++test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown (__main__.QueueDecisionTests.test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:23: trailing whitespace.
++test_multiple_pending_reservations_replay_and_identity_conflict (__main__.QueueDecisionTests.test_multiple_pending_reservations_replay_and_identity_conflict) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:24: trailing whitespace.
++test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal (__main__.QueueDecisionTests.test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:25: trailing whitespace.
++test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips (__main__.SchedulerTests.test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:26: trailing whitespace.
++test_zero_gap_and_25_second_50_row_bulk_cycle_model (__main__.SchedulerTests.test_zero_gap_and_25_second_50_row_bulk_cycle_model) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:27: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:28: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:29: trailing whitespace.
++Ran 25 tests in 1.778s
+docs/research/001c/001c-05/coalesced-regression.txt:30: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:31: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:32: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:33: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_watched_bulk_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:34: trailing whitespace.
++{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.1985, "live_performance": false}
+docs/research/001c/001c-05/coalesced-regression.txt:35: trailing whitespace.
++test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (__main__.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:36: trailing whitespace.
++test_capacity_is_independent_of_configured_queue_and_cached_status_unknown (__main__.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:37: trailing whitespace.
++test_fresh_empty_requires_network_persona_and_visible_comparison (__main__.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:38: trailing whitespace.
++test_native_JS_network_cache_privacy_schema_and_50_rows (__main__.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:39: trailing whitespace.
++test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:40: trailing whitespace.
++test_request_cost_and_25_seconds_remain_bounded_extrapolation (__main__.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:41: trailing whitespace.
++test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (__main__.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:42: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:43: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:44: trailing whitespace.
++Ran 7 tests in 0.726s
+docs/research/001c/001c-05/coalesced-regression.txt:45: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:46: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:47: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:48: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_watched_bulk_artifacts.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:49: trailing whitespace.
++test_all_acceptance_criteria_have_independent_artifact_evidence (__main__.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:50: trailing whitespace.
++test_historical_changed_deleted_and_fixture_promotions_are_detected (__main__.ArtifactTests.test_historical_changed_deleted_and_fixture_promotions_are_detected) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:51: trailing whitespace.
++test_manifest_positive_schema_and_all_artifact_hashes (__main__.ArtifactTests.test_manifest_positive_schema_and_all_artifact_hashes) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:52: trailing whitespace.
++test_public_source_matches_loaded_functions_and_static_decoding (__main__.ArtifactTests.test_public_source_matches_loaded_functions_and_static_decoding) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:53: trailing whitespace.
++test_reject_missing_UI_and_capacity_coverage_promotions (__main__.ArtifactTests.test_reject_missing_UI_and_capacity_coverage_promotions) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:54: trailing whitespace.
++test_reject_missing_native_auth_and_cached_empty_promotion (__main__.ArtifactTests.test_reject_missing_native_auth_and_cached_empty_promotion) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:55: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:56: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:57: trailing whitespace.
++Ran 6 tests in 0.562s
+docs/research/001c/001c-05/coalesced-regression.txt:58: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:59: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:60: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:61: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_search_validation_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:62: trailing whitespace.
++test_0_independent_wire_and_actual_fc27_query_names_required (__main__.Contracts.test_0_independent_wire_and_actual_fc27_query_names_required) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:63: trailing whitespace.
++test_0_native_javascript_query_projection_empty_privacy_and_rejection (__main__.Contracts.test_0_native_javascript_query_projection_empty_privacy_and_rejection) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:64: trailing whitespace.
++test_1_fresh_availability_identity_price_change_missing_and_staleness (__main__.Contracts.test_1_fresh_availability_identity_price_change_missing_and_staleness) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:65: trailing whitespace.
++test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence (__main__.Contracts.test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:66: trailing whitespace.
++test_2_exact_version_resource_id_not_asset_and_native_caps_authentication (__main__.Contracts.test_2_exact_version_resource_id_not_asset_and_native_caps_authentication) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:67: trailing whitespace.
++test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers (__main__.Contracts.test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:68: trailing whitespace.
++test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap (__main__.Contracts.test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:69: trailing whitespace.
++test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales (__main__.Contracts.test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:70: trailing whitespace.
++test_6_schema_rejects_sensitive_extra_fields_and_raw_identities (__main__.Contracts.test_6_schema_rejects_sensitive_extra_fields_and_raw_identities) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:71: trailing whitespace.
++test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart (__main__.Contracts.test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:72: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:73: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:74: trailing whitespace.
++Ran 10 tests in 1.216s
+docs/research/001c/001c-05/coalesced-regression.txt:75: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:76: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:77: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:78: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_search_validation_artifacts.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:79: trailing whitespace.
++test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts (__main__.Artifacts.test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:80: trailing whitespace.
++test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement (__main__.Artifacts.test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:81: trailing whitespace.
++test_2_sample_version_item_trade_native_caps_and_client_server_separation (__main__.Artifacts.test_2_sample_version_item_trade_native_caps_and_client_server_separation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:82: trailing whitespace.
++test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding (__main__.Artifacts.test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:83: trailing whitespace.
++test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics (__main__.Artifacts.test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:84: trailing whitespace.
++test_6_every_delivery_accounted_once_with_failed_read_not_promoted (__main__.Artifacts.test_6_every_delivery_accounted_once_with_failed_read_not_promoted) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:85: trailing whitespace.
++test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (__main__.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:86: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:87: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:88: trailing whitespace.
++Ran 7 tests in 0.093s
+docs/research/001c/001c-05/coalesced-regression.txt:89: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:90: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:91: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:92: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_pricing.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:93: trailing whitespace.
++...........
+docs/research/001c/001c-05/coalesced-regression.txt:94: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:95: trailing whitespace.
++Ran 11 tests in 0.011s
+docs/research/001c/001c-05/coalesced-regression.txt:96: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:97: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:98: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:99: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_integration_harness.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:100: trailing whitespace.
++test_authenticated_direct_http_request_and_sanitized_account_search_responses (__main__.Tests.test_authenticated_direct_http_request_and_sanitized_account_search_responses) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:101: trailing whitespace.
++test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy (__main__.Tests.test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:102: trailing whitespace.
++test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof (__main__.Tests.test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:103: trailing whitespace.
++test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate (__main__.Tests.test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:104: trailing whitespace.
++test_finite_plan_relevant_pages_ceiling_filters_and_invalidation (__main__.Tests.test_finite_plan_relevant_pages_ceiling_filters_and_invalidation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:105: trailing whitespace.
++test_human_blocker_check_depends_only_on_attachment_health (__main__.Tests.test_human_blocker_check_depends_only_on_attachment_health) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:106: trailing whitespace.
++test_javascript_runtime_and_cli_explicit_commands (__main__.Tests.test_javascript_runtime_and_cli_explicit_commands) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:107: trailing whitespace.
++test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200 (__main__.Tests.test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:108: trailing whitespace.
++test_native_snapshot_and_purchased_alias_need_independent_authentication (__main__.Tests.test_native_snapshot_and_purchased_alias_need_independent_authentication) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:109: trailing whitespace.
++test_read_only_command_filter_and_bounds_contract (__main__.Tests.test_read_only_command_filter_and_bounds_contract) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:110: trailing whitespace.
++test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields (__main__.Tests.test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:111: trailing whitespace.
++test_three_identity_namespaces_no_float_loss_and_private_projection (__main__.Tests.test_three_identity_namespaces_no_float_loss_and_private_projection) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:112: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:113: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:114: trailing whitespace.
++Ran 12 tests in 1.808s
+docs/research/001c/001c-05/coalesced-regression.txt:115: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:116: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:117: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:118: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_discovery_transport.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:119: trailing whitespace.
++....
+docs/research/001c/001c-05/coalesced-regression.txt:120: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:121: trailing whitespace.
++Ran 4 tests in 2.856s
+docs/research/001c/001c-05/coalesced-regression.txt:122: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:123: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:124: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:125: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_discovery_followup_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:126: trailing whitespace.
++test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (__main__.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:127: trailing whitespace.
++test_live_assessment_requires_each_independent_layer (__main__.FollowupHTTPTests.test_live_assessment_requires_each_independent_layer) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:128: trailing whitespace.
++test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate (__main__.FollowupHTTPTests.test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:129: trailing whitespace.
++test_existing_output_fails_before_any_browser_or_ea_operation (__main__.PersonaTests.test_existing_output_fails_before_any_browser_or_ea_operation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:130: trailing whitespace.
++test_javascript_persona_pacing_identity_and_worker (__main__.PersonaTests.test_javascript_persona_pacing_identity_and_worker) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:131: trailing whitespace.
++test_malformed_native_reply_is_rejected_before_any_persistence (__main__.PersonaTests.test_malformed_native_reply_is_rejected_before_any_persistence) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:132: trailing whitespace.
++test_native_and_valid_alternative_projections (__main__.PersonaTests.test_native_and_valid_alternative_projections) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:133: trailing whitespace.
++test_reject_console_unknown_conflicting_malformed_and_private_projection (__main__.PersonaTests.test_reject_console_unknown_conflicting_malformed_and_private_projection) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:134: trailing whitespace.
++test_sealed_source_hashes_and_followup_extension_permissions (__main__.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:135: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:136: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:137: trailing whitespace.
++Ran 9 tests in 2.213s
+docs/research/001c/001c-05/coalesced-regression.txt:138: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:139: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:140: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:141: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_transaction.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:142: trailing whitespace.
++...........
+docs/research/001c/001c-05/coalesced-regression.txt:143: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:144: trailing whitespace.
++Ran 11 tests in 1.189s
+docs/research/001c/001c-05/coalesced-regression.txt:145: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:146: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:147: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:148: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_transaction_bridge.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:149: trailing whitespace.
++...
+docs/research/001c/001c-05/coalesced-regression.txt:150: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:151: trailing whitespace.
++Ran 3 tests in 1.792s
+docs/research/001c/001c-05/coalesced-regression.txt:152: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:153: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:154: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:155: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_durability_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/coalesced-regression.txt:156: trailing whitespace.
++test_closed_live_window_and_executor_never_authorize_mutation (__main__.HTTPTests.test_closed_live_window_and_executor_never_authorize_mutation) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:157: trailing whitespace.
++test_exact_origin_handshake_persona_and_stale_process_rejected (__main__.HTTPTests.test_exact_origin_handshake_persona_and_stale_process_rejected) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:158: trailing whitespace.
++test_extension_reload_fences_orphan_poll_before_any_delivery (__main__.HTTPTests.test_extension_reload_fences_orphan_poll_before_any_delivery) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:159: trailing whitespace.
++test_long_poll_delivery_once_and_malformed_result_timeout_no_retry (__main__.HTTPTests.test_long_poll_delivery_once_and_malformed_result_timeout_no_retry) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:160: trailing whitespace.
++test_owner_change_between_claim_and_reply_rejects_old_page (__main__.HTTPTests.test_owner_change_between_claim_and_reply_rejects_old_page) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:161: trailing whitespace.
++test_bad_or_missing_readback_stops_and_never_unlocks (__main__.HarnessTests.test_bad_or_missing_readback_stops_and_never_unlocks) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:162: trailing whitespace.
++test_default_denies_mutations_and_explicit_limits_survive_reopen (__main__.HarnessTests.test_default_denies_mutations_and_explicit_limits_survive_reopen) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:163: trailing whitespace.
++test_harness_process_dies_after_bid_and_restart_cannot_duplicate (__main__.HarnessTests.test_harness_process_dies_after_bid_and_restart_cannot_duplicate) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:164: trailing whitespace.
++test_independent_readbacks_and_durable_accounting_enforced (__main__.HarnessTests.test_independent_readbacks_and_durable_accounting_enforced) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:165: trailing whitespace.
++test_javascript_lifecycle_worker_and_page_contracts (__main__.HarnessTests.test_javascript_lifecycle_worker_and_page_contracts) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:166: trailing whitespace.
++test_owner_takeover_after_ack_and_restart_reservation_stop (__main__.HarnessTests.test_owner_takeover_after_ack_and_restart_reservation_stop) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:167: trailing whitespace.
++test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions (__main__.HarnessTests.test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:168: trailing whitespace.
++test_transfer_and_listing_require_conclusive_owned_identity_and_readback (__main__.HarnessTests.test_transfer_and_listing_require_conclusive_owned_identity_and_readback) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:169: trailing whitespace.
++test_unknown_ack_stops_even_if_another_command_and_owner_are_available (__main__.HarnessTests.test_unknown_ack_stops_even_if_another_command_and_owner_are_available) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:170: trailing whitespace.
++test_balance_native_credits_route_is_preserved_and_other_routes_rejected (__main__.StoreTests.test_balance_native_credits_route_is_preserved_and_other_routes_rejected) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:171: trailing whitespace.
++test_claim_result_loss_restart_never_redelivers_or_resets_budget (__main__.StoreTests.test_claim_result_loss_restart_never_redelivers_or_resets_budget) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:172: trailing whitespace.
++test_limits_expiry_and_malformed_commands_no_consumption (__main__.StoreTests.test_limits_expiry_and_malformed_commands_no_consumption) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:173: trailing whitespace.
++test_real_process_crash_claim_and_lost_mutation_ack_stop_window (__main__.StoreTests.test_real_process_crash_claim_and_lost_mutation_ack_stop_window) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:174: trailing whitespace.
++test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun (__main__.StoreTests.test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:175: trailing whitespace.
++test_scope_owner_epoch_result_correlation_and_duplicate_rejection (__main__.StoreTests.test_scope_owner_epoch_result_correlation_and_duplicate_rejection) ... ok
+docs/research/001c/001c-05/coalesced-regression.txt:176: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:177: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/coalesced-regression.txt:178: trailing whitespace.
++Ran 20 tests in 5.043s
+docs/research/001c/001c-05/coalesced-regression.txt:179: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:180: trailing whitespace.
++OK
+docs/research/001c/001c-05/coalesced-regression.txt:181: trailing whitespace.
++
+docs/research/001c/001c-05/coalesced-regression.txt:181: new blank line at EOF.
+docs/research/001c/001c-05/final-artifacts.txt:1: trailing whitespace.
++python : test_0_actual_server_restart_page_refresh_extension_reload_and_budget_preservation 
+docs/research/001c/001c-05/final-artifacts.txt:2: trailing whitespace.
++(__main__.Artifacts.test_0_actual_server_restart_page_refresh_extension_reload_and_budget_preservation) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:3: trailing whitespace.
++At line:2 char:200
+docs/research/001c/001c-05/final-artifacts.txt:4: trailing whitespace.
+++ ... STEXITCODE; python tests/test_durability_artifacts.py > docs/research ...
+docs/research/001c/001c-05/final-artifacts.txt:5: trailing whitespace.
+++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+docs/research/001c/001c-05/final-artifacts.txt:6: trailing whitespace.
++    + CategoryInfo          : NotSpecified: (test_0_actual_s...rvation) ... ok:String) [], RemoteException
+docs/research/001c/001c-05/final-artifacts.txt:7: trailing whitespace.
++    + FullyQualifiedErrorId : NativeCommandError
+docs/research/001c/001c-05/final-artifacts.txt:8: trailing whitespace.
++ 
+docs/research/001c/001c-05/final-artifacts.txt:9: trailing whitespace.
++test_0_genuine_idle_read_is_after_historical_failure_boundary_and_costs_one_call 
+docs/research/001c/001c-05/final-artifacts.txt:10: trailing whitespace.
++(__main__.Artifacts.test_0_genuine_idle_read_is_after_historical_failure_boundary_and_costs_one_call) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:11: trailing whitespace.
++test_1_actual_edge_persona_fences_host_owner_rejections_and_safe_correlations 
+docs/research/001c/001c-05/final-artifacts.txt:12: trailing whitespace.
++(__main__.Artifacts.test_1_actual_edge_persona_fences_host_owner_rejections_and_safe_correlations) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:13: trailing whitespace.
++test_2_delivery_accounting_is_durable_no_duplicate_and_early_probe_never_delivered 
+docs/research/001c/001c-05/final-artifacts.txt:14: trailing whitespace.
++(__main__.Artifacts.test_2_delivery_accounting_is_durable_no_duplicate_and_early_probe_never_delivered) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:15: trailing whitespace.
++test_3_scheduler_metrics_and_live_latency_are_separately_classified 
+docs/research/001c/001c-05/final-artifacts.txt:16: trailing whitespace.
++(__main__.Artifacts.test_3_scheduler_metrics_and_live_latency_are_separately_classified) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:17: trailing whitespace.
++test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write 
+docs/research/001c/001c-05/final-artifacts.txt:18: trailing whitespace.
++(__main__.Artifacts.test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:19: trailing whitespace.
++test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded 
+docs/research/001c/001c-05/final-artifacts.txt:20: trailing whitespace.
++(__main__.Artifacts.test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:21: trailing whitespace.
++test_source_and_checkpoint_manifest_detects_changes 
+docs/research/001c/001c-05/final-artifacts.txt:22: trailing whitespace.
++(__main__.Artifacts.test_source_and_checkpoint_manifest_detects_changes) ... ok
+docs/research/001c/001c-05/final-artifacts.txt:23: trailing whitespace.
++
+docs/research/001c/001c-05/final-artifacts.txt:24: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-artifacts.txt:25: trailing whitespace.
++Ran 8 tests in 0.056s
+docs/research/001c/001c-05/final-artifacts.txt:26: trailing whitespace.
++
+docs/research/001c/001c-05/final-artifacts.txt:27: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-behavior.txt:1: trailing whitespace.
++python : test_closed_live_window_and_executor_never_authorize_mutation 
+docs/research/001c/001c-05/final-behavior.txt:2: trailing whitespace.
++(__main__.HTTPTests.test_closed_live_window_and_executor_never_authorize_mutation) ... ok
+docs/research/001c/001c-05/final-behavior.txt:3: trailing whitespace.
++At line:2 char:80
+docs/research/001c/001c-05/final-behavior.txt:4: trailing whitespace.
+++ ... heck-2.txt; python tests/test_durability_v1.py > docs/research/001c/0 ...
+docs/research/001c/001c-05/final-behavior.txt:5: trailing whitespace.
+++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+docs/research/001c/001c-05/final-behavior.txt:6: trailing whitespace.
++    + CategoryInfo          : NotSpecified: (test_closed_liv...utation) ... ok:String) [], RemoteException
+docs/research/001c/001c-05/final-behavior.txt:7: trailing whitespace.
++    + FullyQualifiedErrorId : NativeCommandError
+docs/research/001c/001c-05/final-behavior.txt:8: trailing whitespace.
++ 
+docs/research/001c/001c-05/final-behavior.txt:9: trailing whitespace.
++test_exact_origin_handshake_persona_and_stale_process_rejected 
+docs/research/001c/001c-05/final-behavior.txt:10: trailing whitespace.
++(__main__.HTTPTests.test_exact_origin_handshake_persona_and_stale_process_rejected) ... ok
+docs/research/001c/001c-05/final-behavior.txt:11: trailing whitespace.
++test_extension_reload_fences_orphan_poll_before_any_delivery 
+docs/research/001c/001c-05/final-behavior.txt:12: trailing whitespace.
++(__main__.HTTPTests.test_extension_reload_fences_orphan_poll_before_any_delivery) ... ok
+docs/research/001c/001c-05/final-behavior.txt:13: trailing whitespace.
++test_long_poll_delivery_once_and_malformed_result_timeout_no_retry 
+docs/research/001c/001c-05/final-behavior.txt:14: trailing whitespace.
++(__main__.HTTPTests.test_long_poll_delivery_once_and_malformed_result_timeout_no_retry) ... ok
+docs/research/001c/001c-05/final-behavior.txt:15: trailing whitespace.
++test_owner_change_between_claim_and_reply_rejects_old_page 
+docs/research/001c/001c-05/final-behavior.txt:16: trailing whitespace.
++(__main__.HTTPTests.test_owner_change_between_claim_and_reply_rejects_old_page) ... ok
+docs/research/001c/001c-05/final-behavior.txt:17: trailing whitespace.
++test_split_header_body_client_receives_real_origin_rejection 
+docs/research/001c/001c-05/final-behavior.txt:18: trailing whitespace.
++(__main__.HTTPTests.test_split_header_body_client_receives_real_origin_rejection) ... ok
+docs/research/001c/001c-05/final-behavior.txt:19: trailing whitespace.
++test_bad_or_missing_readback_stops_and_never_unlocks 
+docs/research/001c/001c-05/final-behavior.txt:20: trailing whitespace.
++(__main__.HarnessTests.test_bad_or_missing_readback_stops_and_never_unlocks) ... ok
+docs/research/001c/001c-05/final-behavior.txt:21: trailing whitespace.
++test_default_denies_mutations_and_explicit_limits_survive_reopen 
+docs/research/001c/001c-05/final-behavior.txt:22: trailing whitespace.
++(__main__.HarnessTests.test_default_denies_mutations_and_explicit_limits_survive_reopen) ... ok
+docs/research/001c/001c-05/final-behavior.txt:23: trailing whitespace.
++test_harness_process_dies_after_bid_and_restart_cannot_duplicate 
+docs/research/001c/001c-05/final-behavior.txt:24: trailing whitespace.
++(__main__.HarnessTests.test_harness_process_dies_after_bid_and_restart_cannot_duplicate) ... ok
+docs/research/001c/001c-05/final-behavior.txt:25: trailing whitespace.
++test_independent_readbacks_and_durable_accounting_enforced 
+docs/research/001c/001c-05/final-behavior.txt:26: trailing whitespace.
++(__main__.HarnessTests.test_independent_readbacks_and_durable_accounting_enforced) ... ok
+docs/research/001c/001c-05/final-behavior.txt:27: trailing whitespace.
++test_javascript_lifecycle_worker_and_page_contracts 
+docs/research/001c/001c-05/final-behavior.txt:28: trailing whitespace.
++(__main__.HarnessTests.test_javascript_lifecycle_worker_and_page_contracts) ... ok
+docs/research/001c/001c-05/final-behavior.txt:29: trailing whitespace.
++test_owner_takeover_after_ack_and_restart_reservation_stop 
+docs/research/001c/001c-05/final-behavior.txt:30: trailing whitespace.
++(__main__.HarnessTests.test_owner_takeover_after_ack_and_restart_reservation_stop) ... ok
+docs/research/001c/001c-05/final-behavior.txt:31: trailing whitespace.
++test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions 
+docs/research/001c/001c-05/final-behavior.txt:32: trailing whitespace.
++(__main__.HarnessTests.test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions) ... ok
+docs/research/001c/001c-05/final-behavior.txt:33: trailing whitespace.
++test_transfer_and_listing_require_conclusive_owned_identity_and_readback 
+docs/research/001c/001c-05/final-behavior.txt:34: trailing whitespace.
++(__main__.HarnessTests.test_transfer_and_listing_require_conclusive_owned_identity_and_readback) ... ok
+docs/research/001c/001c-05/final-behavior.txt:35: trailing whitespace.
++test_unknown_ack_stops_even_if_another_command_and_owner_are_available 
+docs/research/001c/001c-05/final-behavior.txt:36: trailing whitespace.
++(__main__.HarnessTests.test_unknown_ack_stops_even_if_another_command_and_owner_are_available) ... ok
+docs/research/001c/001c-05/final-behavior.txt:37: trailing whitespace.
++test_balance_native_credits_route_is_preserved_and_other_routes_rejected 
+docs/research/001c/001c-05/final-behavior.txt:38: trailing whitespace.
++(__main__.StoreTests.test_balance_native_credits_route_is_preserved_and_other_routes_rejected) ... ok
+docs/research/001c/001c-05/final-behavior.txt:39: trailing whitespace.
++test_claim_result_loss_restart_never_redelivers_or_resets_budget 
+docs/research/001c/001c-05/final-behavior.txt:40: trailing whitespace.
++(__main__.StoreTests.test_claim_result_loss_restart_never_redelivers_or_resets_budget) ... ok
+docs/research/001c/001c-05/final-behavior.txt:41: trailing whitespace.
++test_limits_expiry_and_malformed_commands_no_consumption 
+docs/research/001c/001c-05/final-behavior.txt:42: trailing whitespace.
++(__main__.StoreTests.test_limits_expiry_and_malformed_commands_no_consumption) ... ok
+docs/research/001c/001c-05/final-behavior.txt:43: trailing whitespace.
++test_real_process_crash_claim_and_lost_mutation_ack_stop_window 
+docs/research/001c/001c-05/final-behavior.txt:44: trailing whitespace.
++(__main__.StoreTests.test_real_process_crash_claim_and_lost_mutation_ack_stop_window) ... ok
+docs/research/001c/001c-05/final-behavior.txt:45: trailing whitespace.
++test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun 
+docs/research/001c/001c-05/final-behavior.txt:46: trailing whitespace.
++(__main__.StoreTests.test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun) ... ok
+docs/research/001c/001c-05/final-behavior.txt:47: trailing whitespace.
++test_scope_owner_epoch_result_correlation_and_duplicate_rejection 
+docs/research/001c/001c-05/final-behavior.txt:48: trailing whitespace.
++(__main__.StoreTests.test_scope_owner_epoch_result_correlation_and_duplicate_rejection) ... ok
+docs/research/001c/001c-05/final-behavior.txt:49: trailing whitespace.
++
+docs/research/001c/001c-05/final-behavior.txt:50: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-behavior.txt:51: trailing whitespace.
++Ran 21 tests in 5.593s
+docs/research/001c/001c-05/final-behavior.txt:52: trailing whitespace.
++
+docs/research/001c/001c-05/final-behavior.txt:53: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:1: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_bidding_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:2: trailing whitespace.
++test_bulk_50_rows_paging_identity_freshness_coverage_and_balance (__main__.AdapterTests.test_bulk_50_rows_paging_identity_freshness_coverage_and_balance) ... ok
+docs/research/001c/001c-05/final-regressions.txt:3: trailing whitespace.
++test_native_javascript_contracts_and_historical_persona_regression (__main__.AdapterTests.test_native_javascript_contracts_and_historical_persona_regression) ... ok
+docs/research/001c/001c-05/final-regressions.txt:4: trailing whitespace.
++test_native_mode_rejects_offline_rules_and_unsupported_profit_caps (__main__.AdapterTests.test_native_mode_rejects_offline_rules_and_unsupported_profit_caps) ... ok
+docs/research/001c/001c-05/final-regressions.txt:5: trailing whitespace.
++test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write (__main__.AdapterTests.test_one_shot_bid_minimum_intent_first_unknown_and_no_duplicate_write) ... ok
+docs/research/001c/001c-05/final-regressions.txt:6: trailing whitespace.
++test_strict_result_schema_correlations_sanitization_and_cache_metadata (__main__.AdapterTests.test_strict_result_schema_correlations_sanitization_and_cache_metadata) ... ok
+docs/research/001c/001c-05/final-regressions.txt:7: trailing whitespace.
++test_provenance_fails_closed_and_artifact_tampering (__main__.ContractRulesTests.test_provenance_fails_closed_and_artifact_tampering) ... ok
+docs/research/001c/001c-05/final-regressions.txt:8: trailing whitespace.
++test_reuses_exact_version_five_comparable_outlier_pricing (__main__.ContractRulesTests.test_reuses_exact_version_five_comparable_outlier_pricing) ... ok
+docs/research/001c/001c-05/final-regressions.txt:9: trailing whitespace.
++test_typed_contracts_and_search_filter_boundaries (__main__.ContractRulesTests.test_typed_contracts_and_search_filter_boundaries) ... ok
+docs/research/001c/001c-05/final-regressions.txt:10: trailing whitespace.
++test_unsupported_caps_increment_gaps_and_boundaries (__main__.ContractRulesTests.test_unsupported_caps_increment_gaps_and_boundaries) ... ok
+docs/research/001c/001c-05/final-regressions.txt:11: trailing whitespace.
++test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries (__main__.JournalTests.test_intent_precedes_send_ack_requires_reconciliation_no_blind_retries) ... ok
+docs/research/001c/001c-05/final-regressions.txt:12: trailing whitespace.
++test_ownership_epochs_unknown_and_independent_reconciliation (__main__.JournalTests.test_ownership_epochs_unknown_and_independent_reconciliation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:13: trailing whitespace.
++test_process_crash_after_native_write_preserves_claim_and_prevents_replay (__main__.JournalTests.test_process_crash_after_native_write_preserves_claim_and_prevents_replay) ... ok
+docs/research/001c/001c-05/final-regressions.txt:14: trailing whitespace.
++test_process_crash_before_send_never_replays_unknown_intent_or_claim (__main__.JournalTests.test_process_crash_before_send_never_replays_unknown_intent_or_claim) ... ok
+docs/research/001c/001c-05/final-regressions.txt:15: trailing whitespace.
++test_reopen_after_intent_only_never_gains_dispatch_authority (__main__.JournalTests.test_reopen_after_intent_only_never_gains_dispatch_authority) ... ok
+docs/research/001c/001c-05/final-regressions.txt:16: trailing whitespace.
++test_stored_cap_cannot_increase_and_latency_is_durable (__main__.JournalTests.test_stored_cap_cannot_increase_and_latency_is_durable) ... ok
+docs/research/001c/001c-05/final-regressions.txt:17: trailing whitespace.
++test_transaction_rollback_append_only_privacy_and_cli_trace (__main__.JournalTests.test_transaction_rollback_append_only_privacy_and_cli_trace) ... ok
+docs/research/001c/001c-05/final-regressions.txt:18: trailing whitespace.
++test_unknown_on_invalid_response_exception_and_deadline_skip (__main__.JournalTests.test_unknown_on_invalid_response_exception_and_deadline_skip) ... ok
+docs/research/001c/001c-05/final-regressions.txt:19: trailing whitespace.
++test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff (__main__.QueueDecisionTests.test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff) ... ok
+docs/research/001c/001c-05/final-regressions.txt:20: trailing whitespace.
++test_account_cap_and_insufficient_reserve (__main__.QueueDecisionTests.test_account_cap_and_insufficient_reserve) ... ok
+docs/research/001c/001c-05/final-regressions.txt:21: trailing whitespace.
++test_admission_and_draining_are_one_atomic_checkpoint (__main__.QueueDecisionTests.test_admission_and_draining_are_one_atomic_checkpoint) ... ok
+docs/research/001c/001c-05/final-regressions.txt:22: trailing whitespace.
++test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown (__main__.QueueDecisionTests.test_hold_minimum_legal_rebid_caps_pending_deadlines_unknown) ... ok
+docs/research/001c/001c-05/final-regressions.txt:23: trailing whitespace.
++test_multiple_pending_reservations_replay_and_identity_conflict (__main__.QueueDecisionTests.test_multiple_pending_reservations_replay_and_identity_conflict) ... ok
+docs/research/001c/001c-05/final-regressions.txt:24: trailing whitespace.
++test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal (__main__.QueueDecisionTests.test_sticky_5000_draining_survives_restart_until_all_confirmed_terminal) ... ok
+docs/research/001c/001c-05/final-regressions.txt:25: trailing whitespace.
++test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips (__main__.SchedulerTests.test_configurable_cadence_local_latency_priority_bursts_concurrency_and_skips) ... ok
+docs/research/001c/001c-05/final-regressions.txt:26: trailing whitespace.
++test_zero_gap_and_25_second_50_row_bulk_cycle_model (__main__.SchedulerTests.test_zero_gap_and_25_second_50_row_bulk_cycle_model) ... ok
+docs/research/001c/001c-05/final-regressions.txt:27: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:28: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:29: trailing whitespace.
++Ran 25 tests in 1.769s
+docs/research/001c/001c-05/final-regressions.txt:30: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:31: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:32: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:33: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_watched_bulk_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:34: trailing whitespace.
++{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.1999, "live_performance": false}
+docs/research/001c/001c-05/final-regressions.txt:35: trailing whitespace.
++test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (__main__.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok
+docs/research/001c/001c-05/final-regressions.txt:36: trailing whitespace.
++test_capacity_is_independent_of_configured_queue_and_cached_status_unknown (__main__.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok
+docs/research/001c/001c-05/final-regressions.txt:37: trailing whitespace.
++test_fresh_empty_requires_network_persona_and_visible_comparison (__main__.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok
+docs/research/001c/001c-05/final-regressions.txt:38: trailing whitespace.
++test_native_JS_network_cache_privacy_schema_and_50_rows (__main__.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok
+docs/research/001c/001c-05/final-regressions.txt:39: trailing whitespace.
++test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ok
+docs/research/001c/001c-05/final-regressions.txt:40: trailing whitespace.
++test_request_cost_and_25_seconds_remain_bounded_extrapolation (__main__.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:41: trailing whitespace.
++test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (__main__.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
+docs/research/001c/001c-05/final-regressions.txt:42: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:43: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:44: trailing whitespace.
++Ran 7 tests in 0.848s
+docs/research/001c/001c-05/final-regressions.txt:45: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:46: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:47: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:48: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_watched_bulk_artifacts.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:49: trailing whitespace.
++test_all_acceptance_criteria_have_independent_artifact_evidence (__main__.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence) ... ok
+docs/research/001c/001c-05/final-regressions.txt:50: trailing whitespace.
++test_historical_changed_deleted_and_fixture_promotions_are_detected (__main__.ArtifactTests.test_historical_changed_deleted_and_fixture_promotions_are_detected) ... ok
+docs/research/001c/001c-05/final-regressions.txt:51: trailing whitespace.
++test_manifest_positive_schema_and_all_artifact_hashes (__main__.ArtifactTests.test_manifest_positive_schema_and_all_artifact_hashes) ... ok
+docs/research/001c/001c-05/final-regressions.txt:52: trailing whitespace.
++test_public_source_matches_loaded_functions_and_static_decoding (__main__.ArtifactTests.test_public_source_matches_loaded_functions_and_static_decoding) ... ok
+docs/research/001c/001c-05/final-regressions.txt:53: trailing whitespace.
++test_reject_missing_UI_and_capacity_coverage_promotions (__main__.ArtifactTests.test_reject_missing_UI_and_capacity_coverage_promotions) ... ok
+docs/research/001c/001c-05/final-regressions.txt:54: trailing whitespace.
++test_reject_missing_native_auth_and_cached_empty_promotion (__main__.ArtifactTests.test_reject_missing_native_auth_and_cached_empty_promotion) ... ok
+docs/research/001c/001c-05/final-regressions.txt:55: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:56: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:57: trailing whitespace.
++Ran 6 tests in 0.505s
+docs/research/001c/001c-05/final-regressions.txt:58: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:59: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:60: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:61: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_search_validation_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:62: trailing whitespace.
++test_0_independent_wire_and_actual_fc27_query_names_required (__main__.Contracts.test_0_independent_wire_and_actual_fc27_query_names_required) ... ok
+docs/research/001c/001c-05/final-regressions.txt:63: trailing whitespace.
++test_0_native_javascript_query_projection_empty_privacy_and_rejection (__main__.Contracts.test_0_native_javascript_query_projection_empty_privacy_and_rejection) ... ok
+docs/research/001c/001c-05/final-regressions.txt:64: trailing whitespace.
++test_1_fresh_availability_identity_price_change_missing_and_staleness (__main__.Contracts.test_1_fresh_availability_identity_price_change_missing_and_staleness) ... ok
+docs/research/001c/001c-05/final-regressions.txt:65: trailing whitespace.
++test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence (__main__.Contracts.test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence) ... ok
+docs/research/001c/001c-05/final-regressions.txt:66: trailing whitespace.
++test_2_exact_version_resource_id_not_asset_and_native_caps_authentication (__main__.Contracts.test_2_exact_version_resource_id_not_asset_and_native_caps_authentication) ... ok
+docs/research/001c/001c-05/final-regressions.txt:67: trailing whitespace.
++test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers (__main__.Contracts.test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers) ... ok
+docs/research/001c/001c-05/final-regressions.txt:68: trailing whitespace.
++test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap (__main__.Contracts.test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap) ... ok
+docs/research/001c/001c-05/final-regressions.txt:69: trailing whitespace.
++test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales (__main__.Contracts.test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales) ... ok
+docs/research/001c/001c-05/final-regressions.txt:70: trailing whitespace.
++test_6_schema_rejects_sensitive_extra_fields_and_raw_identities (__main__.Contracts.test_6_schema_rejects_sensitive_extra_fields_and_raw_identities) ... ok
+docs/research/001c/001c-05/final-regressions.txt:71: trailing whitespace.
++test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart (__main__.Contracts.test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart) ... ok
+docs/research/001c/001c-05/final-regressions.txt:72: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:73: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:74: trailing whitespace.
++Ran 10 tests in 1.220s
+docs/research/001c/001c-05/final-regressions.txt:75: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:76: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:77: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:78: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_search_validation_artifacts.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:79: trailing whitespace.
++test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts (__main__.Artifacts.test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts) ... ok
+docs/research/001c/001c-05/final-regressions.txt:80: trailing whitespace.
++test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement (__main__.Artifacts.test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement) ... ok
+docs/research/001c/001c-05/final-regressions.txt:81: trailing whitespace.
++test_2_sample_version_item_trade_native_caps_and_client_server_separation (__main__.Artifacts.test_2_sample_version_item_trade_native_caps_and_client_server_separation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:82: trailing whitespace.
++test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding (__main__.Artifacts.test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding) ... ok
+docs/research/001c/001c-05/final-regressions.txt:83: trailing whitespace.
++test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics (__main__.Artifacts.test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics) ... ok
+docs/research/001c/001c-05/final-regressions.txt:84: trailing whitespace.
++test_6_every_delivery_accounted_once_with_failed_read_not_promoted (__main__.Artifacts.test_6_every_delivery_accounted_once_with_failed_read_not_promoted) ... ok
+docs/research/001c/001c-05/final-regressions.txt:85: trailing whitespace.
++test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (__main__.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping) ... ok
+docs/research/001c/001c-05/final-regressions.txt:86: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:87: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:88: trailing whitespace.
++Ran 7 tests in 0.093s
+docs/research/001c/001c-05/final-regressions.txt:89: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:90: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:91: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:92: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_pricing.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:93: trailing whitespace.
++...........
+docs/research/001c/001c-05/final-regressions.txt:94: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:95: trailing whitespace.
++Ran 11 tests in 0.013s
+docs/research/001c/001c-05/final-regressions.txt:96: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:97: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:98: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:99: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_integration_harness.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:100: trailing whitespace.
++test_authenticated_direct_http_request_and_sanitized_account_search_responses (__main__.Tests.test_authenticated_direct_http_request_and_sanitized_account_search_responses) ... ok
+docs/research/001c/001c-05/final-regressions.txt:101: trailing whitespace.
++test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy (__main__.Tests.test_bridge_real_http_roundtrip_origin_duplicate_timeout_and_privacy) ... ok
+docs/research/001c/001c-05/final-regressions.txt:102: trailing whitespace.
++test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof (__main__.Tests.test_direct_unavailable_errors_and_no_redirect_or_false_http_200_proof) ... ok
+docs/research/001c/001c-05/final-regressions.txt:103: trailing whitespace.
++test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate (__main__.Tests.test_exact_definition_survives_absent_wire_properties_and_platform_groups_stay_separate) ... ok
+docs/research/001c/001c-05/final-regressions.txt:104: trailing whitespace.
++test_finite_plan_relevant_pages_ceiling_filters_and_invalidation (__main__.Tests.test_finite_plan_relevant_pages_ceiling_filters_and_invalidation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:105: trailing whitespace.
++test_human_blocker_check_depends_only_on_attachment_health (__main__.Tests.test_human_blocker_check_depends_only_on_attachment_health) ... ok
+docs/research/001c/001c-05/final-regressions.txt:106: trailing whitespace.
++test_javascript_runtime_and_cli_explicit_commands (__main__.Tests.test_javascript_runtime_and_cli_explicit_commands) ... ok
+docs/research/001c/001c-05/final-regressions.txt:107: trailing whitespace.
++test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200 (__main__.Tests.test_live_assessor_rejects_wrong_variant_platform_ceiling_missing_account_and_untyped_200) ... ok
+docs/research/001c/001c-05/final-regressions.txt:108: trailing whitespace.
++test_native_snapshot_and_purchased_alias_need_independent_authentication (__main__.Tests.test_native_snapshot_and_purchased_alias_need_independent_authentication) ... ok
+docs/research/001c/001c-05/final-regressions.txt:109: trailing whitespace.
++test_read_only_command_filter_and_bounds_contract (__main__.Tests.test_read_only_command_filter_and_bounds_contract) ... ok
+docs/research/001c/001c-05/final-regressions.txt:110: trailing whitespace.
++test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields (__main__.Tests.test_retention_boundary_rejects_sensitive_unknown_or_wrongly_typed_fields) ... ok
+docs/research/001c/001c-05/final-regressions.txt:111: trailing whitespace.
++test_three_identity_namespaces_no_float_loss_and_private_projection (__main__.Tests.test_three_identity_namespaces_no_float_loss_and_private_projection) ... ok
+docs/research/001c/001c-05/final-regressions.txt:112: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:113: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:114: trailing whitespace.
++Ran 12 tests in 1.980s
+docs/research/001c/001c-05/final-regressions.txt:115: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:116: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:117: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:118: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_discovery_transport.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:119: trailing whitespace.
++....
+docs/research/001c/001c-05/final-regressions.txt:120: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:121: trailing whitespace.
++Ran 4 tests in 2.838s
+docs/research/001c/001c-05/final-regressions.txt:122: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:123: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:124: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:125: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_market_discovery_followup_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:126: trailing whitespace.
++test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (__main__.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication) ... ok
+docs/research/001c/001c-05/final-regressions.txt:127: trailing whitespace.
++test_live_assessment_requires_each_independent_layer (__main__.FollowupHTTPTests.test_live_assessment_requires_each_independent_layer) ... ok
+docs/research/001c/001c-05/final-regressions.txt:128: trailing whitespace.
++test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate (__main__.FollowupHTTPTests.test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate) ... ok
+docs/research/001c/001c-05/final-regressions.txt:129: trailing whitespace.
++test_existing_output_fails_before_any_browser_or_ea_operation (__main__.PersonaTests.test_existing_output_fails_before_any_browser_or_ea_operation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:130: trailing whitespace.
++test_javascript_persona_pacing_identity_and_worker (__main__.PersonaTests.test_javascript_persona_pacing_identity_and_worker) ... ok
+docs/research/001c/001c-05/final-regressions.txt:131: trailing whitespace.
++test_malformed_native_reply_is_rejected_before_any_persistence (__main__.PersonaTests.test_malformed_native_reply_is_rejected_before_any_persistence) ... ok
+docs/research/001c/001c-05/final-regressions.txt:132: trailing whitespace.
++test_native_and_valid_alternative_projections (__main__.PersonaTests.test_native_and_valid_alternative_projections) ... ok
+docs/research/001c/001c-05/final-regressions.txt:133: trailing whitespace.
++test_reject_console_unknown_conflicting_malformed_and_private_projection (__main__.PersonaTests.test_reject_console_unknown_conflicting_malformed_and_private_projection) ... ok
+docs/research/001c/001c-05/final-regressions.txt:134: trailing whitespace.
++test_sealed_source_hashes_and_followup_extension_permissions (__main__.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions) ... ok
+docs/research/001c/001c-05/final-regressions.txt:135: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:136: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:137: trailing whitespace.
++Ran 9 tests in 2.206s
+docs/research/001c/001c-05/final-regressions.txt:138: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:139: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:140: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:141: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_transaction.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:142: trailing whitespace.
++...........
+docs/research/001c/001c-05/final-regressions.txt:143: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:144: trailing whitespace.
++Ran 11 tests in 1.183s
+docs/research/001c/001c-05/final-regressions.txt:145: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:146: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:147: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:148: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_transaction_bridge.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:149: trailing whitespace.
++...
+docs/research/001c/001c-05/final-regressions.txt:150: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:151: trailing whitespace.
++Ran 3 tests in 1.754s
+docs/research/001c/001c-05/final-regressions.txt:152: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:153: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:154: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:155: trailing whitespace.
++{"command": ["{python}", "tests/run_offline_suite.py", "tests/test_durability_v1.py"], "returncode": 0}
+docs/research/001c/001c-05/final-regressions.txt:156: trailing whitespace.
++test_closed_live_window_and_executor_never_authorize_mutation (__main__.HTTPTests.test_closed_live_window_and_executor_never_authorize_mutation) ... ok
+docs/research/001c/001c-05/final-regressions.txt:157: trailing whitespace.
++test_exact_origin_handshake_persona_and_stale_process_rejected (__main__.HTTPTests.test_exact_origin_handshake_persona_and_stale_process_rejected) ... ok
+docs/research/001c/001c-05/final-regressions.txt:158: trailing whitespace.
++test_extension_reload_fences_orphan_poll_before_any_delivery (__main__.HTTPTests.test_extension_reload_fences_orphan_poll_before_any_delivery) ... ok
+docs/research/001c/001c-05/final-regressions.txt:159: trailing whitespace.
++test_long_poll_delivery_once_and_malformed_result_timeout_no_retry (__main__.HTTPTests.test_long_poll_delivery_once_and_malformed_result_timeout_no_retry) ... ok
+docs/research/001c/001c-05/final-regressions.txt:160: trailing whitespace.
++test_owner_change_between_claim_and_reply_rejects_old_page (__main__.HTTPTests.test_owner_change_between_claim_and_reply_rejects_old_page) ... ok
+docs/research/001c/001c-05/final-regressions.txt:161: trailing whitespace.
++test_split_header_body_client_receives_real_origin_rejection (__main__.HTTPTests.test_split_header_body_client_receives_real_origin_rejection) ... ok
+docs/research/001c/001c-05/final-regressions.txt:162: trailing whitespace.
++test_bad_or_missing_readback_stops_and_never_unlocks (__main__.HarnessTests.test_bad_or_missing_readback_stops_and_never_unlocks) ... ok
+docs/research/001c/001c-05/final-regressions.txt:163: trailing whitespace.
++test_default_denies_mutations_and_explicit_limits_survive_reopen (__main__.HarnessTests.test_default_denies_mutations_and_explicit_limits_survive_reopen) ... ok
+docs/research/001c/001c-05/final-regressions.txt:164: trailing whitespace.
++test_harness_process_dies_after_bid_and_restart_cannot_duplicate (__main__.HarnessTests.test_harness_process_dies_after_bid_and_restart_cannot_duplicate) ... ok
+docs/research/001c/001c-05/final-regressions.txt:165: trailing whitespace.
++test_independent_readbacks_and_durable_accounting_enforced (__main__.HarnessTests.test_independent_readbacks_and_durable_accounting_enforced) ... ok
+docs/research/001c/001c-05/final-regressions.txt:166: trailing whitespace.
++test_javascript_lifecycle_worker_and_page_contracts (__main__.HarnessTests.test_javascript_lifecycle_worker_and_page_contracts) ... ok
+docs/research/001c/001c-05/final-regressions.txt:167: trailing whitespace.
++test_owner_takeover_after_ack_and_restart_reservation_stop (__main__.HarnessTests.test_owner_takeover_after_ack_and_restart_reservation_stop) ... ok
+docs/research/001c/001c-05/final-regressions.txt:168: trailing whitespace.
++test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions (__main__.HarnessTests.test_stale_cache_balance_deadline_amount_exposure_and_owner_preconditions) ... ok
+docs/research/001c/001c-05/final-regressions.txt:169: trailing whitespace.
++test_transfer_and_listing_require_conclusive_owned_identity_and_readback (__main__.HarnessTests.test_transfer_and_listing_require_conclusive_owned_identity_and_readback) ... ok
+docs/research/001c/001c-05/final-regressions.txt:170: trailing whitespace.
++test_unknown_ack_stops_even_if_another_command_and_owner_are_available (__main__.HarnessTests.test_unknown_ack_stops_even_if_another_command_and_owner_are_available) ... ok
+docs/research/001c/001c-05/final-regressions.txt:171: trailing whitespace.
++test_balance_native_credits_route_is_preserved_and_other_routes_rejected (__main__.StoreTests.test_balance_native_credits_route_is_preserved_and_other_routes_rejected) ... ok
+docs/research/001c/001c-05/final-regressions.txt:172: trailing whitespace.
++test_claim_result_loss_restart_never_redelivers_or_resets_budget (__main__.StoreTests.test_claim_result_loss_restart_never_redelivers_or_resets_budget) ... ok
+docs/research/001c/001c-05/final-regressions.txt:173: trailing whitespace.
++test_limits_expiry_and_malformed_commands_no_consumption (__main__.StoreTests.test_limits_expiry_and_malformed_commands_no_consumption) ... ok
+docs/research/001c/001c-05/final-regressions.txt:174: trailing whitespace.
++test_real_process_crash_claim_and_lost_mutation_ack_stop_window (__main__.StoreTests.test_real_process_crash_claim_and_lost_mutation_ack_stop_window) ... ok
+docs/research/001c/001c-05/final-regressions.txt:175: trailing whitespace.
++test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun (__main__.StoreTests.test_scheduler_measurement_checks_priority_burst_staleness_cache_and_overrun) ... ok
+docs/research/001c/001c-05/final-regressions.txt:176: trailing whitespace.
++test_scope_owner_epoch_result_correlation_and_duplicate_rejection (__main__.StoreTests.test_scope_owner_epoch_result_correlation_and_duplicate_rejection) ... ok
+docs/research/001c/001c-05/final-regressions.txt:177: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:178: trailing whitespace.
++----------------------------------------------------------------------
+docs/research/001c/001c-05/final-regressions.txt:179: trailing whitespace.
++Ran 21 tests in 5.602s
+docs/research/001c/001c-05/final-regressions.txt:180: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:181: trailing whitespace.
++OK
+docs/research/001c/001c-05/final-regressions.txt:182: trailing whitespace.
++
+docs/research/001c/001c-05/final-regressions.txt:182: new blank line at EOF.
+docs/research/001c/001c-05/second-check-1.txt:220: new blank line at EOF.
+docs/research/001c/001c-07/check-17.txt:182: new blank line at EOF.

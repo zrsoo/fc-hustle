@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T02:40:55.117722+00:00",
+  "files": {
+    "browser/durability-v1/manifest.json": "b2d02276b67be4bb88fddf9ca9f969ab29741524c937f2c3302872b6e883f0b0",
+    "browser/durability-v1/page.js": "99a3051d51e65156c39df8ef1ef7e567894af5966d4f44a52aadb4edce771a9d",
+    "browser/durability-v1/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "browser/durability-v1/worker.js": "716f5704b31eefd6924e708fe2cfb8f2a47f73f998e641f284a7da670adf1641"
+  },
+  "reviewed": [
+    "Retained confirmed-capabilities and read-bridge source establish user/credits route and post-request numeric wallet projection",
+    "only numeric coins.amount/credits.amount/credits fields inspected; no authentication data",
+    "bid remains disabled; worker-generation fencing unchanged"
+  ]
+}

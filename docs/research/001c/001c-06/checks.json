@@ -1,0 +1,162 @@
+{
+  "at": "2026-11-13T03:13:35.432040+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_v1.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-00.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_e2e_artifacts.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-01.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-02.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-03.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-04.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_transaction.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-05.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "0"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-06.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "1"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "expectation_met": true,
+      "output": "check-07.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "2"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "expectation_met": true,
+      "output": "check-08.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "3"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-09.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-10.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "5"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-11.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "6"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-12.log"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py",
+        "--criterion",
+        "7"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "expectation_met": true,
+      "output": "check-13.log"
+    }
+  ],
+  "interpretation": "Unit/artifact checks passing do not satisfy missing live evidence. Live criteria 1 and 2 intentionally remain nonzero/unresolved."
+}

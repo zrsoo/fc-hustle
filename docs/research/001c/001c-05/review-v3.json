@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-13T02:37:56.446257+00:00",
+  "files": {
+    "browser/durability-v1/manifest.json": "b2d02276b67be4bb88fddf9ca9f969ab29741524c937f2c3302872b6e883f0b0",
+    "browser/durability-v1/page.js": "61ea97eefe4e3c3c29e80c2eaedadd69bb45a8786a6708eb888e7ab9f3332631",
+    "browser/durability-v1/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "browser/durability-v1/worker.js": "716f5704b31eefd6924e708fe2cfb8f2a47f73f998e641f284a7da670adf1641"
+  },
+  "reviewed": [
+    "Public worker generation distinguishes reloaded extension from orphan poll; not EA authentication material",
+    "hello supersedes orphan poll; old result cannot match new peer",
+    "unchanged zero-mutation native command gate, current persona and official page checks"
+  ]
+}

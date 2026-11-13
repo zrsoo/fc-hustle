@@ -1,0 +1,38 @@
+{
+  "at": 1794537091.2292037,
+  "health": {
+    "service": "fc-durability-v1",
+    "boot": "6a8c27081925508480ad320b8c8d9d39",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "15151515151515151515151515151515",
+      "epoch": 1
+    },
+    "attached": true,
+    "polling": true,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 2,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "pid": 9940
+}

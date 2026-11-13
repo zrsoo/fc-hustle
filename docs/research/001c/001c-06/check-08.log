@@ -1,0 +1,10 @@
+{
+  "status": "UNRESOLVED",
+  "checks": [
+    {
+      "criterion": 2,
+      "status": "UNRESOLVED",
+      "diagnostic": "UNRESOLVED: no live leading status; no HOLD can be claimed. Offline HOLD/no-extra-write guards pass separately."
+    }
+  ]
+}

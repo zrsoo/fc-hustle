@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-13T01:43:47.407656+00:00",
+  "review": "Read-only watched request preceded by source-confirmed repositories.Item.setDirty(ItemPile.INBOX); native pile-size and TRANSFER_TARGET_SIZE numeric projections; source methods only; no account writes; original two reads consumed; endpoint 8775 leaves old local services idle without terminating other processes.",
+  "files": {
+    "experiments/watched_bulk_v1/browser/manifest.json": "414d322d118de74e2b3abd39ce87bee9f449ce198fcd96f9bbe04c687d109e91",
+    "experiments/watched_bulk_v1/browser/page.js": "92d480017048ba55946327edc0e8e2c55faf66f1a6a804b4d4dda9be27a57e1e",
+    "experiments/watched_bulk_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/watched_bulk_v1/browser/worker.js": "728a3c2a1afafb27e6fcbc46b649c40059f2df7bb1ac12a649003dd2fa458eec"
+  }
+}

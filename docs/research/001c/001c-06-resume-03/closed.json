@@ -1,0 +1,40 @@
+{
+  "at": 1794549584.560753,
+  "http_status": 200,
+  "response": {
+    "closed": true
+  },
+  "health": {
+    "owner": "12b00f02b9fa491265ab7bbe52f85928",
+    "deadline": 1794549702.0031447,
+    "stopped": true,
+    "expired": false,
+    "commands_reserved": 4,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+    "attached": true,
+    "extension_id": "lbcbmemjljdjlpgelmibemcaobfonkjb",
+    "peer": {
+      "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+      "owner": "12b00f02b9fa491265ab7bbe52f85928",
+      "worker": "6b9f5a53-3101-4b74-b3b3-4ec2300913a4",
+      "document": "496bd635-3cd7-4366-ae8d-6c84a1619db8",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  }
+}

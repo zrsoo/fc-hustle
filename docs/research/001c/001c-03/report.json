@@ -1,0 +1,124 @@
+{
+  "task": "001c-03",
+  "classification": "LIVE_VERIFIED",
+  "scope": "Authenticated empty watchlist and loaded account capacity only; nonempty coverage and terminal states remain UNVERIFIED.",
+  "captures": [
+    "watched-1.json",
+    "watched-2.json",
+    "watched-3.json",
+    "watched-4.json"
+  ],
+  "assessments": [
+    {
+      "fresh": true,
+      "rows": 0,
+      "empty_verified": false,
+      "visible_count_matches": false,
+      "complete_nonempty_watchlist_proved": false,
+      "account_capacity": null,
+      "missing_state": "UNKNOWN",
+      "queue_configuration": 50
+    },
+    {
+      "fresh": false,
+      "rows": 0,
+      "empty_verified": false,
+      "visible_count_matches": false,
+      "complete_nonempty_watchlist_proved": false,
+      "account_capacity": null,
+      "missing_state": "UNKNOWN",
+      "queue_configuration": 50
+    },
+    {
+      "fresh": true,
+      "rows": 0,
+      "empty_verified": false,
+      "visible_count_matches": false,
+      "complete_nonempty_watchlist_proved": false,
+      "account_capacity": 50,
+      "missing_state": "UNKNOWN",
+      "queue_configuration": 50
+    },
+    {
+      "fresh": true,
+      "rows": 0,
+      "empty_verified": true,
+      "visible_count_matches": true,
+      "complete_nonempty_watchlist_proved": false,
+      "account_capacity": 50,
+      "missing_state": "UNKNOWN",
+      "queue_configuration": 50
+    }
+  ],
+  "timing": {
+    "samples": 3,
+    "observed_queue_sizes": [
+      0
+    ],
+    "native_requests_per_sample": [
+      1,
+      1,
+      1
+    ],
+    "native_service_ms": [
+      247.69999999552965,
+      70.39999999850988,
+      120.79999999701977
+    ],
+    "configured_queue_size": 50,
+    "live_50_verified": false,
+    "sustained_25_second_cycle_verified": false
+  },
+  "native_watched_invocations": 4,
+  "observed_EA_requests": 3,
+  "account_mutations": 0,
+  "configured_queue_size": 50,
+  "observed_reported_inbox_capacity": 50,
+  "observed_server_setting_capacity": 50,
+  "platform_split": false,
+  "supplemental": {
+    "invoked": false,
+    "reason": "No observed missing auctions; full empty repository and UI agree; platform split disabled. No speculative older-game endpoint invoked.",
+    "source_supported_alternative": "services.Item.itemDao.getWatchPile(true)",
+    "classification": "SOURCE_CONFIRMED_ONLY",
+    "missing_state": "UNKNOWN"
+  },
+  "coverage": {
+    "has_more": null,
+    "pagination_observed": false,
+    "native_method_has_paging_parameters": false,
+    "complete_empty_account_at_observation": true,
+    "complete_nonempty_account": false,
+    "saturation_test": false
+  },
+  "unproved": [
+    "nonempty watchlist schema on live account",
+    "50-row live completeness or server truncation",
+    "capacity saturation and hard server maximum",
+    "active leading and outbid field reliability",
+    "independently verified known enrolled auctions",
+    "won/lost/expired/removed outcomes",
+    "competitor bid freshness and countdown reset",
+    "sustained 25-second whole-queue refresh at 50 auctions"
+  ],
+  "instrumentation_scope": "FC27 XHR sends during each bounded native invocation only; UI navigation and startup requests outside commands excluded. Fetch is not instrumented. Loaded current native route uses XHR, witnessed in three fresh calls.",
+  "constraints": {
+    "per_call_native_method_invocations": 1,
+    "experiment_gap_seconds": 30,
+    "gap_is_EA_requirement": false,
+    "maximum_invocations": 6,
+    "consumed_invocations": 4
+  },
+  "readiness_evidence": "readiness.json",
+  "visible_evidence": [
+    "transfers-summary.txt",
+    "targets-after-fresh.txt"
+  ],
+  "source_evidence": [
+    "inspect-1.json",
+    "inspect-2.json",
+    "inspect-3.json",
+    "native-source-decoded.json",
+    "native-repository-source.json"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "classification": "ONE_REAL_ORDINARY_PRICE_ACCEPTANCE_ONLY",
+  "definition_id": 261855,
+  "platform": "pc",
+  "observed_current_bid_before": 750,
+  "minimum_invoked_and_wire_bid": 800,
+  "independent_leading_bid": 800,
+  "independent_available_debit": 800,
+  "full_server_increment_schedule": "UNVERIFIED",
+  "listing_tick_acceptance_this_run": "UNVERIFIED",
+  "strict_reusable_rules_provider_was_not_relabeled": true
+}

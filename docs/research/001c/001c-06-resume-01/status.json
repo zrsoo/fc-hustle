@@ -1,0 +1,145 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_reconcile_v1.capture",
+    "status"
+  ],
+  "at": 1794540106.4366107,
+  "elapsed_ms": 192.69347190856934,
+  "http_status": 200,
+  "before": {
+    "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+    "deadline": null,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 0,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "28a9f91b08442ce774a77deca8969808",
+    "attached": true,
+    "extension_id": "aflicijipiafoomcepdmmmbhnhfhoemf",
+    "peer": {
+      "boot": "28a9f91b08442ce774a77deca8969808",
+      "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+      "worker": "0faf0e8a-a195-4a12-ba53-a0a4f3a9fb18",
+      "document": "cc9921dd-c356-4605-a32e-026e3b0a1faa",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "after": {
+    "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+    "deadline": 1794540226.450494,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 1,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "28a9f91b08442ce774a77deca8969808",
+    "attached": true,
+    "extension_id": "aflicijipiafoomcepdmmmbhnhfhoemf",
+    "peer": {
+      "boot": "28a9f91b08442ce774a77deca8969808",
+      "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+      "worker": "0faf0e8a-a195-4a12-ba53-a0a4f3a9fb18",
+      "document": "cc9921dd-c356-4605-a32e-026e3b0a1faa",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "response": {
+    "cache_invalidated": false,
+    "caps": null,
+    "command_id": "0c37de34c35cc2b90cede140d6ac93f4",
+    "credits": null,
+    "duration_ms": 114.90000000596046,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 112.19999998807907,
+        "ended_at": "2026-11-13T03:21:46.580Z",
+        "method": "GET",
+        "payload_bytes": 517,
+        "query": {},
+        "route": "/ut/game/fc27/trade/status/lite",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:21:46.468Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:21:46.582Z",
+    "operation": "status",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": [
+      {
+        "bid_state": "none",
+        "buy_now_price": 10500,
+        "current_bid": 800,
+        "definition_id": 0,
+        "expires": -1,
+        "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+        "last_sale_price": 0,
+        "starting_bid": 700,
+        "trade_id": "trade:83105610f7508574b2e36139",
+        "trade_state": "closed",
+        "untradeable": false
+      }
+    ],
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": [
+      {
+        "bid_state": "none",
+        "buy_now_price": 10500,
+        "current_bid": 800,
+        "definition_id": 0,
+        "expires": -1,
+        "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+        "last_sale_price": 0,
+        "starting_bid": 700,
+        "trade_id": "trade:83105610f7508574b2e36139",
+        "trade_state": "closed",
+        "untradeable": false
+      }
+    ]
+  }
+}

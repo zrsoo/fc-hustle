@@ -1,0 +1,141 @@
+{
+  "stage": "balance-verified",
+  "at": 1794537701.3435774,
+  "elapsed_ms": 125.9622573852539,
+  "http_status": 200,
+  "command": {
+    "schema": 1,
+    "id": "516ce66e6c2623b207dd10746f101a01",
+    "operation": "balance",
+    "params": {},
+    "evidence_key": "25252525252525252525252525252525",
+    "scope": "05050505050505050505050505050505",
+    "owner": "35353535353535353535353535353535",
+    "epoch": 6
+  },
+  "before": {
+    "service": "fc-durability-v1",
+    "boot": "ca816062379cf57a1460b8b8dc85a37e",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "35353535353535353535353535353535",
+      "epoch": 6
+    },
+    "attached": true,
+    "polling": true,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "document": "8ba71f6b82b57dc03a3d1da038ffab26",
+    "worker": "8f01c7bab36c9df43f8dce6d9d96b49d",
+    "page_checks": {
+      "bid_disabled": true,
+      "stale_epoch": true,
+      "wrong_owner": true,
+      "wrong_scope": true
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 8,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "after": {
+    "service": "fc-durability-v1",
+    "boot": "ca816062379cf57a1460b8b8dc85a37e",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "35353535353535353535353535353535",
+      "epoch": 6
+    },
+    "attached": true,
+    "polling": true,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "document": "8ba71f6b82b57dc03a3d1da038ffab26",
+    "worker": "8f01c7bab36c9df43f8dce6d9d96b49d",
+    "page_checks": {
+      "bid_disabled": true,
+      "stale_epoch": true,
+      "wrong_owner": true,
+      "wrong_scope": true
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 9,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": false,
+      "expired": false
+    }
+  },
+  "response": {
+    "command_id": "516ce66e6c2623b207dd10746f101a01",
+    "coverage": {
+      "account_capacity": null,
+      "complete": false,
+      "evidence_id": null,
+      "has_more": null
+    },
+    "freshness": {
+      "network_at": "2026-11-13T02:41:41.376Z",
+      "observed_at": "2026-11-13T02:41:41.446Z",
+      "read_id": "516ce66e6c2623b207dd10746f101a01",
+      "request_count": 1,
+      "source": "native"
+    },
+    "operation": "balance",
+    "result": {
+      "auctions": null,
+      "cache_invalidated": null,
+      "credits": 16268,
+      "ea_error_code": null,
+      "error": null,
+      "has_more": null,
+      "items": null,
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "path": "/ut/game/fc27/user/credits",
+          "session_header_present": true,
+          "status": 200
+        }
+      ],
+      "platform": "pc",
+      "status": 200,
+      "success": true
+    },
+    "schema": 1,
+    "timing": {
+      "native_service_ms": 71
+    }
+  }
+}

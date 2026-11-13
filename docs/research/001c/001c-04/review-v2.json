@@ -1,0 +1,9 @@
+{
+  "review": "Explicit native search only; projects native client currency tiers and selected numeric tick probes; source-only client legality is separate from EA server acceptance. No bid or listing invocation. Node tests passed. Additive listener 8777 preserves consumed-three budget.",
+  "files": {
+    "experiments/search_validation_v1/browser/manifest.json": "e5a7d67f5abf21f903b1ff2258a6ea8fd4a9b6c591b573e17c8040a555fe86d5",
+    "experiments/search_validation_v1/browser/page.js": "9df0975e6d16e82ba72f5a1092d5c9177b24e0b9c7f696bbc69c37c7de28b586",
+    "experiments/search_validation_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/search_validation_v1/browser/worker.js": "18032c13e3ea62db2ded8996630c302539d264ac6419a7fed760605beb6f4dd3"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "at": 1794537784.7621603,
+  "health": {
+    "service": "fc-durability-v1",
+    "boot": "ca816062379cf57a1460b8b8dc85a37e",
+    "extension_id": "dgcldmlgghjmcikfmgghgpjjjilgadma",
+    "owner": {
+      "scope": "05050505050505050505050505050505",
+      "owner": "35353535353535353535353535353535",
+      "epoch": 6
+    },
+    "attached": true,
+    "polling": true,
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "document": "8ba71f6b82b57dc03a3d1da038ffab26",
+    "worker": "8f01c7bab36c9df43f8dce6d9d96b49d",
+    "page_checks": {
+      "bid_disabled": true,
+      "stale_epoch": true,
+      "wrong_owner": true,
+      "wrong_scope": true
+    },
+    "window": {
+      "deadline": 1794538525.9583948,
+      "read_limit": 12,
+      "mutation_limit": 0,
+      "exposure_limit": 0,
+      "reads_reserved": 10,
+      "mutations_reserved": 0,
+      "exposure_reserved": 0,
+      "stopped": true,
+      "expired": false
+    }
+  },
+  "response": {
+    "closed": true
+  }
+}

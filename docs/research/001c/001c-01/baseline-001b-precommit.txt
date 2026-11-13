@@ -1,0 +1,1 @@
+{"status": "PASS", "criteria": [0, 1, 2, 3, 4], "errors": {}, "scope": "Offline retained evidence and scoped commit; current live access unverified."}

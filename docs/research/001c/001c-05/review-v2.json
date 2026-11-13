@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-13T02:35:07.400095+00:00",
+  "files": {
+    "browser/durability-v1/manifest.json": "b2d02276b67be4bb88fddf9ca9f969ab29741524c937f2c3302872b6e883f0b0",
+    "browser/durability-v1/page.js": "61ea97eefe4e3c3c29e80c2eaedadd69bb45a8786a6708eb888e7ab9f3332631",
+    "browser/durability-v1/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "browser/durability-v1/worker.js": "6ad37bfc8a6e558ce6425d3cd7ee5a76aa12b9bbcc5d9741c03037434f987074"
+  },
+  "reviewed": [
+    "stopped window exits local poll loop without native work; no other extension changes",
+    "same zero-mutation page/worker, exact origin, current public persona and ownership checks"
+  ]
+}

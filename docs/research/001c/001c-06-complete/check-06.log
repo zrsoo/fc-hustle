@@ -1,0 +1,21 @@
+test_ack_without_watched_state_cannot_reconcile (__main__.LedgerTests.test_ack_without_watched_state_cannot_reconcile) ... ok
+test_exhaustion_and_deadline_persist (__main__.LedgerTests.test_exhaustion_and_deadline_persist) ... ok
+test_handoff_without_conclusive_ownership_rejected (__main__.LedgerTests.test_handoff_without_conclusive_ownership_rejected) ... ok
+test_journal_append_only (__main__.LedgerTests.test_journal_append_only) ... ok
+test_mutation_coin_and_per_bid_limits (__main__.LedgerTests.test_mutation_coin_and_per_bid_limits) ... ok
+test_one_auction_and_pending_ack_block_all_further_writes (__main__.LedgerTests.test_one_auction_and_pending_ack_block_all_further_writes) ... ok
+test_read_limit (__main__.LedgerTests.test_read_limit) ... ok
+test_serialized_duplicate_no_redelivery_and_restart_preserves_limits (__main__.LedgerTests.test_serialized_duplicate_no_redelivery_and_restart_preserves_limits) ... ok
+test_actual_javascript_adapter (__main__.PageTests.test_actual_javascript_adapter) ... ok
+test_cap_and_spendable_reserve (__main__.PolicyTests.test_cap_and_spendable_reserve) ... ok
+test_expiry_and_cached_reads_fail (__main__.PolicyTests.test_expiry_and_cached_reads_fail) ... ok
+test_five_fresh_exact_economics_and_ordinary_minimum (__main__.PolicyTests.test_five_fresh_exact_economics_and_ordinary_minimum) ... ok
+test_leading_holds_and_rebid_requires_actual_outbid (__main__.PolicyTests.test_leading_holds_and_rebid_requires_actual_outbid) ... ok
+test_missing_never_loss_win_requires_paid_and_physical_owned (__main__.PolicyTests.test_missing_never_loss_win_requires_paid_and_physical_owned) ... ok
+test_reject_fewer_than_five_wrong_version_duplicate_and_stale (__main__.PolicyTests.test_reject_fewer_than_five_wrong_version_duplicate_and_stale) ... ok
+test_tick_boundaries (__main__.PolicyTests.test_tick_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.785s
+
+OK

@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "task": "001c-01",
+  "checks": [
+    {
+      "id": "acceptance",
+      "command": [
+        "{python}",
+        "tests/test_001c01_audit.py"
+      ],
+      "started_utc": "2026-11-13T01:02:38.751120+00:00",
+      "ended_utc": "2026-11-13T01:02:39.665884+00:00",
+      "duration_seconds": 0.915,
+      "exit_code": 0,
+      "tests_run": 18,
+      "output": "verified-acceptance.txt",
+      "output_sha256": "1e91d6b55db9aad988e056bdb6ac2f47a9afd25da20f21ccb9e2c20f6d739ff8"
+    },
+    {
+      "id": "regression",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "started_utc": "2026-11-13T01:02:39.666054+00:00",
+      "ended_utc": "2026-11-13T01:03:04.881007+00:00",
+      "duration_seconds": 25.215,
+      "exit_code": 1,
+      "tests_run": 214,
+      "output": "verified-regression.txt",
+      "output_sha256": "de6bf5ee26af484d6d1314e7286e2009d7cb1a8897fd3ebc508347308b7dd035"
+    }
+  ],
+  "new_EA_requests": 0,
+  "account_mutations": 0,
+  "scope": "18 audit checks pass. The full 214-test suite has two historical age failures: inspection age, and the unchanged browser trace crossing its 24-hour freshness cutoff during interruption. No live recapture or historical edit."
+}

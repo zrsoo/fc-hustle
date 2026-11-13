@@ -1,0 +1,75 @@
+{"foreground_verified":true,"edge_control_verified":true,"observed_at":"2026-11-13T02:35:48.9497840Z","extensions_manager":true,"official_tab":false}
+ControlType.Button | Minimize
+ControlType.Button | Maximize
+ControlType.Button | Close
+ControlType.Button | Back
+ControlType.Button | Refresh
+ControlType.Button | View site information
+ControlType.Button | Add this page to favorites (Ctrl+D)
+ControlType.Button | Extensions
+ControlType.Button | Favorites
+ControlType.Button | Personal Profile
+ControlType.Button | Settings and more (Alt+F)
+ControlType.Button | Chat
+ControlType.Button | Extensions menu
+ControlType.Button | Load unpacked
+ControlType.Button | Pack extension
+ControlType.Button | Update
+ControlType.Button | Turn on Cookie-Editor
+ControlType.Button | service worker; (Inactive)
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Turn on FC configuration observer
+ControlType.Button | service worker
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC discovery integration follow-up READ ONLY
+ControlType.Button | service worker; (Inactive)
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC discovery research SEARCH ONLY
+ControlType.Button | service worker; (Inactive)
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC one-shot transaction bridge
+ControlType.Button | service worker
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC read capability bridge
+ControlType.Button | service worker
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC27 durability READ ONLY 001c-05
+ControlType.Button | service worker; (Inactive)
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC27 search READ ONLY 001c-04
+ControlType.Button | service worker
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on FC27 watched bulk READ ONLY 001c-03
+ControlType.Button | service worker
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Reload
+ControlType.Button | Turn on Google Docs Offline
+ControlType.Button | Details
+ControlType.Button | Remove
+ControlType.Button | Discover extensions and themes from Edge Add-ons
+ControlType.Button | Search tabs
+ControlType.TabItem | FC Ultimate Team Web App - EA SPORTS Official Site - Memory usage - 186 MB
+ControlType.Button | Close tab
+ControlType.TabItem | FC27 Trading API Feasibility - Memory usage - 563 MB
+ControlType.Button | Close tab
+ControlType.TabItem | Settings - Sleeping - Memory usage - 258 MB
+ControlType.Button | Close tab
+ControlType.TabItem | Extensions - Memory usage - 50.7 MB
+ControlType.Button | Close tab
+ControlType.Button | New Tab

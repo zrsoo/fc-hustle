@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-11-12T18:07:05.299117+00:00",
+  "repository": "liusihang/fc27-copilot",
+  "branch": "main",
+  "revision": "fa0fdde132715b2c09a4cff1e51736a1794d635e",
+  "revision_endpoint": "https://api.github.com/repos/liusihang/fc27-copilot/commits/main",
+  "url": "https://raw.githubusercontent.com/liusihang/fc27-copilot/fa0fdde132715b2c09a4cff1e51736a1794d635e/extension/content/page-inject.js",
+  "sha256": "ee3a7bbc2cf12bdb420f881b0dcbc038a03c06a9be1abd59c0dbc76413a024c0",
+  "line_count": 2157,
+  "same_as_retained_transaction_pin": true,
+  "executed_upstream_code": false,
+  "current_account_live_proof": false,
+  "findings": [
+    {
+      "id": "ordinary_bid",
+      "lines": [
+        1624,
+        1633
+      ],
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "finding": "placeBid delegates to Item.bid; acknowledgement needs independent reconciliation.",
+      "span_sha256": "4d2e7e49e81f6ba319ed5444f6008091c7eeb4b7265940da838e54cdb86a05ce"
+    },
+    {
+      "id": "bid_lookup",
+      "lines": [
+        1243,
+        1259
+      ],
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "finding": "Lookup constrains maximum BIN using the offered bid; unsuitable for high-BIN low-opening-bid candidates.",
+      "span_sha256": "4adfdd40371f3b9bbdaa582924c9e020d20dd8b4d799e897ad2d62b777458bb6"
+    },
+    {
+      "id": "watched",
+      "lines": [
+        1723,
+        1727
+      ],
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "finding": "One native watched-items invocation projects an array; network fanout, coverage, cache freshness and account limits remain unknown.",
+      "span_sha256": "340a90ddb13d45e5151547b24b3b60db2222c6698df853a294d80d1a820632c1"
+    },
+    {
+      "id": "status",
+      "lines": [
+        303,
+        321
+      ],
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "finding": "Projection merges trade and bid states, accepts several item-array shapes, and defaults an unrecognized payload to empty; preserve separate states and reject unknown shapes.",
+      "span_sha256": "c68429bcbb7209ae39dd64198f9cc18358eb6f0aa224ba01cc79cd2454196208"
+    },
+    {
+      "id": "search",
+      "lines": [
+        1596,
+        1609
+      ],
+      "classification": "SOURCE_CONFIRMED_ONLY",
+      "finding": "Search maps BIN bounds, not a maximum-bid filter.",
+      "span_sha256": "c4ecb370dbdfc65eae5178111a8b1cd541eef4064c1b868b7fc5734fc61bc302"
+    },
+    {
+      "id": "rules",
+      "lines": [
+        1,
+        2157
+      ],
+      "classification": "UNVERIFIED",
+      "finding": "No selected price-range, next-bid, pile-size or bulk-trade-status provider found by symbol scan; absence is scoped to this file, not the native app.",
+      "span_sha256": "ee3a7bbc2cf12bdb420f881b0dcbc038a03c06a9be1abd59c0dbc76413a024c0"
+    }
+  ],
+  "excerpts": [
+    {
+      "line": 310,
+      "text": "tradeState: readValue(auction, ['tradeState', 'bidState']),"
+    },
+    {
+      "line": 1249,
+      "text": "criteria.maxBuy = Number(params.price);"
+    },
+    {
+      "line": 1631,
+      "text": "loaded.appServices.Item.bid(loaded.item, Number(params.bid))"
+    },
+    {
+      "line": 1725,
+      "text": "const response = await observeOnce(appServices.Item.requestWatchedItems());"
+    }
+  ],
+  "absent_symbols": {
+    "priceLimits": 0,
+    "priceRange": 0,
+    "getPriceLimits": 0,
+    "requestPrice": 0,
+    "minPrice": 0,
+    "maxPrice": 0,
+    "getNextBid": 0,
+    "requestTradeStatus": 0,
+    "requestPileSize": 0,
+    "getPilesize": 0,
+    "maxBid": 0
+  },
+  "treatment": "Reference inspection only; no upstream runtime installed. Historical earlier-game endpoints/caps are questions, not FC27 contracts. Review license before code reuse."
+}

@@ -1,0 +1,647 @@
+[
+  {
+    "id": "a769b30ea2445cda3f5e6a13c5d31856",
+    "stage": "balance-before",
+    "operation": "balance",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539048.0940664,
+    "created": 1794539048.1091247,
+    "delivered": 1794539048.121691,
+    "observed_at": "2026-11-13T03:04:08.254Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 123.09999999403954,
+        "ended_at": "2026-11-13T03:04:08.250Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:08.127Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 5.309104919433594,
+    "native_ms": 123.09999999403954,
+    "page_ms": 127.29999999701977,
+    "host_ms": 169.3882942199707,
+    "rows": 0,
+    "credits": 16268
+  },
+  {
+    "id": "45512e015c10b379cdd9434fa8e32e49",
+    "stage": "watched-before",
+    "operation": "watched",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539048.727972,
+    "created": 1794539048.7329473,
+    "delivered": 1794539048.7438238,
+    "observed_at": "2026-11-13T03:04:08.874Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 124.80000001192093,
+        "ended_at": "2026-11-13T03:04:08.873Z",
+        "method": "GET",
+        "payload_bytes": 44,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:08.748Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.176139831542969,
+    "native_ms": 124.80000001192093,
+    "page_ms": 126.29999999701977,
+    "host_ms": 160.27212142944336,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "aca66d20808fb01c399939d5cc5fccd7",
+    "stage": "search-1",
+    "operation": "search",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "max_bid": 1000,
+      "min_buy": 10500,
+      "page": 1,
+      "count": 21
+    },
+    "at": 1794539049.3662338,
+    "created": 1794539049.3857238,
+    "delivered": 1794539049.3984957,
+    "observed_at": "2026-11-13T03:04:09.654Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 246.1000000089407,
+        "ended_at": "2026-11-13T03:04:09.649Z",
+        "method": "GET",
+        "payload_bytes": 25193,
+        "query": {
+          "macr": 1000,
+          "minb": 10500,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:09.403Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.50444221496582,
+    "native_ms": 246.1000000089407,
+    "page_ms": 251.70000000298023,
+    "host_ms": 305.7208061218262,
+    "rows": 21,
+    "credits": null
+  },
+  {
+    "id": "985583b239837ab25c53450f4d7c2fe6",
+    "stage": "comparables-1",
+    "operation": "search",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "definition_id": 261855,
+      "page": 1,
+      "count": 21
+    },
+    "at": 1794539062.3755732,
+    "created": 1794539062.3916173,
+    "delivered": 1794539062.3973267,
+    "observed_at": "2026-11-13T03:04:22.539Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 135.20000000298023,
+        "ended_at": "2026-11-13T03:04:22.537Z",
+        "method": "GET",
+        "payload_bytes": 25194,
+        "query": {
+          "definitionId": 261855,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:22.402Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.673242568969727,
+    "native_ms": 135.20000000298023,
+    "page_ms": 137.5,
+    "host_ms": 172.73330688476562,
+    "rows": 21,
+    "credits": null
+  },
+  {
+    "id": "30262517c77d7a1d74e3125470a2ab70",
+    "stage": "caps-1",
+    "operation": "caps",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "definition_id": 261855
+    },
+    "at": 1794539063.0321548,
+    "created": 1794539063.0479739,
+    "delivered": 1794539063.0604553,
+    "observed_at": "2026-11-13T03:04:23.169Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 104.09999999403954,
+        "ended_at": "2026-11-13T03:04:23.169Z",
+        "method": "GET",
+        "payload_bytes": 81,
+        "query": {
+          "defId": 261855
+        },
+        "route": "/ut/game/fc27/marketdata/pricelimits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:23.065Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.544734954833984,
+    "native_ms": 104.09999999403954,
+    "page_ms": 104.69999998807907,
+    "host_ms": 144.84453201293945,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "79141d02e01838c6fcc520bae94f3f34",
+    "stage": "availability-1",
+    "operation": "search",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "definition_id": 261855,
+      "max_bid": 1000,
+      "min_buy": 10500,
+      "page": 1,
+      "count": 21
+    },
+    "at": 1794539063.664939,
+    "created": 1794539063.6811159,
+    "delivered": 1794539063.6939442,
+    "observed_at": "2026-11-13T03:04:23.930Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 228.8999999910593,
+        "ended_at": "2026-11-13T03:04:23.927Z",
+        "method": "GET",
+        "payload_bytes": 12024,
+        "query": {
+          "definitionId": 261855,
+          "macr": 1000,
+          "minb": 10500,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:23.698Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.05573844909668,
+    "native_ms": 228.8999999910593,
+    "page_ms": 232.40000000596046,
+    "host_ms": 282.6244831085205,
+    "rows": 10,
+    "credits": null
+  },
+  {
+    "id": "f9b8d3f5c4fe1a16d495f26b83efec12",
+    "stage": "balance-prebid",
+    "operation": "balance",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539064.412078,
+    "created": 1794539064.4381673,
+    "delivered": 1794539064.4499824,
+    "observed_at": "2026-11-13T03:04:24.527Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 69.90000000596046,
+        "ended_at": "2026-11-13T03:04:24.525Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:24.455Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 5.017518997192383,
+    "native_ms": 69.90000000596046,
+    "page_ms": 71.79999999701977,
+    "host_ms": 126.1286735534668,
+    "rows": 0,
+    "credits": 16268
+  },
+  {
+    "id": "6371060d0cef5803cffa1797eddc6264",
+    "stage": "opening-1",
+    "operation": "bid",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "trade_id": "trade:83105610f7508574b2e36139",
+      "item_id": "item:178f6a3fd2bc1c19690e3ffe",
+      "definition_id": 261855,
+      "amount": 700,
+      "status_operation": "search",
+      "status_id": "79141d02e01838c6fcc520bae94f3f34",
+      "balance_id": "f9b8d3f5c4fe1a16d495f26b83efec12",
+      "caps_id": "30262517c77d7a1d74e3125470a2ab70",
+      "comparables_id": "985583b239837ab25c53450f4d7c2fe6",
+      "cap": 1500
+    },
+    "at": 1794539078.7216866,
+    "created": 1794539078.7390003,
+    "delivered": 1794539078.751528,
+    "observed_at": "2026-11-13T03:04:38.928Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 170.30000001192093,
+        "ended_at": "2026-11-13T03:04:38.927Z",
+        "method": "PUT",
+        "payload_bytes": 1499,
+        "query": {},
+        "route": "/ut/game/fc27/trade/:trade/bid",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:38.756Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.472017288208008,
+    "native_ms": 170.30000001192093,
+    "page_ms": 171.70000000298023,
+    "host_ms": 213.56582641601562,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "6ab892eaefee64471f6f819f9d1d54bf",
+    "stage": "watched-after-opening",
+    "operation": "watched",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539079.4960415,
+    "created": 1794539079.5171394,
+    "delivered": 1794539079.531899,
+    "observed_at": "2026-11-13T03:04:39.615Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 71.70000000298023,
+        "ended_at": "2026-11-13T03:04:39.614Z",
+        "method": "GET",
+        "payload_bytes": 44,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:39.543Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 11.101007461547852,
+    "native_ms": 71.70000000298023,
+    "page_ms": 72.79999999701977,
+    "host_ms": 131.69455528259277,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "cc28531071d4e8054a09a7daa540e0ed",
+    "stage": "balance-after-opening",
+    "operation": "balance",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539080.161476,
+    "created": 1794539080.1629283,
+    "delivered": 1794539080.1748314,
+    "observed_at": "2026-11-13T03:04:40.260Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 73.59999999403954,
+        "ended_at": "2026-11-13T03:04:40.255Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:04:40.181Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 6.168603897094727,
+    "native_ms": 73.59999999403954,
+    "page_ms": 78.70000000298023,
+    "host_ms": 112.22314834594727,
+    "rows": 0,
+    "credits": 16268
+  },
+  {
+    "id": "672cc3ba9fbf6218043905f849f2c142",
+    "stage": "availability-after-opening",
+    "operation": "search",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "definition_id": 261855,
+      "max_bid": 1000,
+      "min_buy": 10500,
+      "page": 1,
+      "count": 21
+    },
+    "at": 1794539110.1223462,
+    "created": 1794539110.1407042,
+    "delivered": 1794539110.14396,
+    "observed_at": "2026-11-13T03:05:10.366Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 210.59999999403954,
+        "ended_at": "2026-11-13T03:05:10.365Z",
+        "method": "GET",
+        "payload_bytes": 12033,
+        "query": {
+          "definitionId": 261855,
+          "macr": 1000,
+          "minb": 10500,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:05:10.154Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 10.040044784545898,
+    "native_ms": 210.59999999403954,
+    "page_ms": 213,
+    "host_ms": 263.91029357910156,
+    "rows": 10,
+    "credits": null
+  },
+  {
+    "id": "199849c88acb70645f63cc6b267dd65f",
+    "stage": "watched-reconcile",
+    "operation": "watched",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539110.9475055,
+    "created": 1794539110.9488938,
+    "delivered": 1794539110.9516404,
+    "observed_at": "2026-11-13T03:05:11.033Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 74.70000000298023,
+        "ended_at": "2026-11-13T03:05:11.033Z",
+        "method": "GET",
+        "payload_bytes": 44,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:05:10.958Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 6.359577178955078,
+    "native_ms": 74.70000000298023,
+    "page_ms": 75.19999998807907,
+    "host_ms": 94.01535987854004,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "e6617073c0fccd6cd35597c4fec52bc8",
+    "stage": "unassigned-after-opening",
+    "operation": "unassigned",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539150.2224047,
+    "created": 1794539150.2401779,
+    "delivered": 1794539150.2544208,
+    "observed_at": "2026-11-13T03:05:50.385Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 120.29999999701977,
+        "ended_at": "2026-11-13T03:05:50.384Z",
+        "method": "GET",
+        "payload_bytes": 15,
+        "query": {},
+        "route": "/ut/game/fc27/purchased/items",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:05:50.264Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 9.579181671142578,
+    "native_ms": 120.29999999701977,
+    "page_ms": 122.20000000298023,
+    "host_ms": 176.18608474731445,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "751cfd425d40b5073e3896c0bb113ffd",
+    "stage": "transfer-list-reconcile",
+    "operation": "transfer_list",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539185.4700189,
+    "created": 1794539185.4937122,
+    "delivered": 1794539185.507809,
+    "observed_at": "2026-11-13T03:06:25.627Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 105.8999999910593,
+        "ended_at": "2026-11-13T03:06:25.623Z",
+        "method": "GET",
+        "payload_bytes": 9247,
+        "query": {},
+        "route": "/ut/game/fc27/tradepile",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:06:25.518Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 10.190963745117188,
+    "native_ms": 105.8999999910593,
+    "page_ms": 110.59999999403954,
+    "host_ms": 165.3120517730713,
+    "rows": 8,
+    "credits": null
+  },
+  {
+    "id": "89a330f0a7aa92d1598638cdf88492a3",
+    "stage": "search-after-expiry",
+    "operation": "search",
+    "state": "ACKNOWLEDGED",
+    "params": {
+      "definition_id": 261855,
+      "max_bid": 1000,
+      "min_buy": 10500,
+      "page": 1,
+      "count": 21
+    },
+    "at": 1794539239.9948852,
+    "created": 1794539240.009406,
+    "delivered": 1794539240.0115182,
+    "observed_at": "2026-11-13T03:07:20.207Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 187.80000001192093,
+        "ended_at": "2026-11-13T03:07:20.204Z",
+        "method": "GET",
+        "payload_bytes": 10845,
+        "query": {
+          "definitionId": 261855,
+          "macr": 1000,
+          "minb": 10500,
+          "num": 21,
+          "start": 0
+        },
+        "route": "/ut/game/fc27/transfermarket",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:07:20.016Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.481792449951172,
+    "native_ms": 187.80000001192093,
+    "page_ms": 191,
+    "host_ms": 219.67101097106934,
+    "rows": 9,
+    "credits": null
+  },
+  {
+    "id": "7dfd2f881e09ec4e3ce14eb37979dd92",
+    "stage": "watched-after-expiry",
+    "operation": "watched",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539240.6666791,
+    "created": 1794539240.682848,
+    "delivered": 1794539240.6947918,
+    "observed_at": "2026-11-13T03:07:20.772Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 72.59999999403954,
+        "ended_at": "2026-11-13T03:07:20.772Z",
+        "method": "GET",
+        "payload_bytes": 44,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:07:20.699Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.208087921142578,
+    "native_ms": 72.59999999403954,
+    "page_ms": 73.40000000596046,
+    "host_ms": 119.82917785644531,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "8d794a65116b5d5e8613f961514cbc51",
+    "stage": "unassigned-after-expiry",
+    "operation": "unassigned",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539241.241979,
+    "created": 1794539241.2570322,
+    "delivered": 1794539241.2701275,
+    "observed_at": "2026-11-13T03:07:21.340Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 65.59999999403954,
+        "ended_at": "2026-11-13T03:07:21.340Z",
+        "method": "GET",
+        "payload_bytes": 15,
+        "query": {},
+        "route": "/ut/game/fc27/purchased/items",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:07:21.275Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 4.872560501098633,
+    "native_ms": 65.59999999403954,
+    "page_ms": 65.8999999910593,
+    "host_ms": 106.34660720825195,
+    "rows": 0,
+    "credits": null
+  },
+  {
+    "id": "22945ae1e8505481aed369908657d4cc",
+    "stage": "balance-final",
+    "operation": "balance",
+    "state": "ACKNOWLEDGED",
+    "params": {},
+    "at": 1794539241.8230343,
+    "created": 1794539241.841198,
+    "delivered": 1794539241.8549602,
+    "observed_at": "2026-11-13T03:07:21.936Z",
+    "http_status": 200,
+    "native_status": 200,
+    "network": [
+      {
+        "duration_ms": 70.40000000596046,
+        "ended_at": "2026-11-13T03:07:21.934Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:07:21.864Z",
+        "status": 200
+      }
+    ],
+    "dispatch_ms": 9.039878845214844,
+    "native_ms": 70.40000000596046,
+    "page_ms": 72.79999999701977,
+    "host_ms": 118.85571479797363,
+    "rows": 0,
+    "credits": 16268
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-13T01:33:50.276703+00:00",
+  "review": "Read-only inspect and watched commands only; strict official tab; pseudonymized auction IDs; session-header presence only; no credential access, no account writes, no autonomous loop; six native watched invocations max per server lifetime plus 30-second page guard. Historical files preserved.",
+  "files": {
+    "experiments/watched_bulk_v1/browser/manifest.json": "be1e008fd3803ebc7558e0d57e51d19847607ca451fe8dd174db1df7c0e77d34",
+    "experiments/watched_bulk_v1/browser/page.js": "779a3ac024a296102bdae5c07b3d9150627fd20c6b9711f264df577b7a099c94",
+    "experiments/watched_bulk_v1/browser/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "experiments/watched_bulk_v1/browser/worker.js": "ef8ada2466be0e1da759c53ce48df3f84a7a9fb900665b4514fabcfa23ef4287"
+  }
+}

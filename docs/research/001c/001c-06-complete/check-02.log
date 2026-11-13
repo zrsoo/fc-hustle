@@ -1,0 +1,16 @@
+test_0_finite_serialization_ownership_and_preservation (__main__.CompleteArtifactTests.test_0_finite_serialization_ownership_and_preservation) ... ok
+test_1_acquirer_minimum_actual_body_and_independent_balance (__main__.CompleteArtifactTests.test_1_acquirer_minimum_actual_body_and_independent_balance) ... ok
+test_2_already_leading_holds_have_zero_additional_writes (__main__.CompleteArtifactTests.test_2_already_leading_holds_have_zero_additional_writes) ... ok
+test_3_real_competition_and_unwitnessed_rebid_are_distinct (__main__.CompleteArtifactTests.test_3_real_competition_and_unwitnessed_rebid_are_distinct) ... ok
+test_4_real_timings_expiry_and_interrupted_cycle_not_fabricated (__main__.CompleteArtifactTests.test_4_real_timings_expiry_and_interrupted_cycle_not_fabricated) ... ok
+test_5_exact_loss_and_coin_return_not_missing_coverage (__main__.CompleteArtifactTests.test_5_exact_loss_and_coin_return_not_missing_coverage) ... ok
+test_6_no_conclusive_won_item_means_no_handoff_or_profit_claim (__main__.CompleteArtifactTests.test_6_no_conclusive_won_item_means_no_handoff_or_profit_claim) ... ok
+test_7_all_commands_privacy_and_bounded_remaining_work (__main__.CompleteArtifactTests.test_7_all_commands_privacy_and_bounded_remaining_work) ... ok
+test_validator_rejects_bid_body_amount_not_equal_to_actual_minimum (__main__.CompleteArtifactTests.test_validator_rejects_bid_body_amount_not_equal_to_actual_minimum) ... ok
+test_validator_rejects_fake_leading_even_if_capture_and_ledger_both_changed (__main__.CompleteArtifactTests.test_validator_rejects_fake_leading_even_if_capture_and_ledger_both_changed) ... ok
+test_validator_rejects_invented_terminal_state_or_missing_coverage (__main__.CompleteArtifactTests.test_validator_rejects_invented_terminal_state_or_missing_coverage) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.422s
+
+OK

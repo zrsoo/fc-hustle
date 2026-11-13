@@ -1,0 +1,91 @@
+{
+  "at": "2026-11-13T02:52:13.974512+00:00",
+  "commands": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "returncode": 0,
+      "output": "check-0.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_readiness_regressions.py"
+      ],
+      "returncode": 0,
+      "output": "check-1.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 1,
+      "output": "check-2.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "output": "check-3.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "returncode": 0,
+      "output": "final-behavior.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_readiness_regressions.py"
+      ],
+      "returncode": 0,
+      "output": "final-regressions.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_artifacts.py"
+      ],
+      "returncode": 0,
+      "output": "final-artifacts.txt"
+    }
+  ],
+  "earlier_observations": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_v1.py"
+      ],
+      "result": "One initial run errored with WinError 10053 in the existing rejection test; immediate independent rerun passed. Prior sources were preserved."
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_readiness_regressions.py"
+      ],
+      "result": "Both initial plain-client runs failed the legacy watched-bulk HTTP rejection test with WinError 10053. checks-first/second.json and first/second-check logs preserve these results. Complete-request fixture passes the same unchanged assertions."
+    }
+  ],
+  "finalized_at": "2026-11-13T02:54:33.330883+00:00",
+  "relevant_tests": 126,
+  "http_fixture": "Legacy suites use run_offline_suite.py to send header and byte-body together; actual responses/assertions unchanged, no retries. New server also passes a genuine split-write rejection test without this fixture.",
+  "unresolved_failures": [
+    "test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)",
+    "test_review_matches_executed_bridge_sources_and_retained_metadata (test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata)"
+  ]
+}

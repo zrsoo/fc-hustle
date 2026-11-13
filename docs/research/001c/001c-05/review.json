@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-13T02:25:10.985802+00:00",
+  "files": {
+    "browser/durability-v1/manifest.json": "b2d02276b67be4bb88fddf9ca9f969ab29741524c937f2c3302872b6e883f0b0",
+    "browser/durability-v1/page.js": "61ea97eefe4e3c3c29e80c2eaedadd69bb45a8786a6708eb888e7ab9f3332631",
+    "browser/durability-v1/persona.js": "c3fe5995cdd8f7e1c3ff5a573823c9dfa4293046484b891794219abc638462ec",
+    "browser/durability-v1/worker.js": "35279cf4cb57201c7d276fbef52466985f3d0c558d9cbf301b6b98aa53a6b6ba"
+  },
+  "reviewed": [
+    "official HTTPS EA tab check before injection",
+    "only native read commands accepted; bid rejected before native invoke",
+    "header capture retains presence boolean only",
+    "no credential/cookie storage or retrieval",
+    "loopback exact Origin pinned to local extension path",
+    "local long-poll recovery via alarms/startup; no native actor loop",
+    "durable immutable zero-mutation live window; new campaign only"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "task": "001c-01",
+  "phase": "AUDIT_ONLY",
+  "current_execution": {
+    "EA_requests": 0,
+    "account_mutations": 0,
+    "browser_recovery": false
+  },
+  "future_run": {
+    "status": "PLANNED_NOT_EXECUTED",
+    "frozen_before_first_write": true,
+    "restart_or_recovery_resets_budgets": false,
+    "max_total_seconds": 2160,
+    "max_foreground_native_requests": 94,
+    "max_aggregate_EA_requests": 120,
+    "count_service_fanout": true,
+    "background_traffic": "PASSIVELY_COUNT_OR_BLOCK_LIVE_WRITES",
+    "windows": [
+      {
+        "id": "R0",
+        "seconds": 180,
+        "max_native_requests": 6,
+        "max_mutations": 0,
+        "purpose": "Same-scope fresh authentication, coins, owned/transfer/watch coverage and native rules readiness."
+      },
+      {
+        "id": "R1",
+        "seconds": 300,
+        "max_native_requests": 10,
+        "max_mutations": 0,
+        "purpose": "Bounded search and exact-card comparables; record genuine zero eligibility."
+      },
+      {
+        "id": "R2",
+        "seconds": 600,
+        "max_native_requests": 8,
+        "max_mutations": 0,
+        "purpose": "One idle interval and one local server restart/reattachment; reconcile ownership before any writes."
+      },
+      {
+        "id": "E2E",
+        "seconds": 900,
+        "max_native_requests": 60,
+        "max_mutations": 4,
+        "purpose": "One opening bid, HOLD, optional natural-outbid rebid, optional won-item move/list; target one bulk refresh per 25 seconds only if supported."
+      },
+      {
+        "id": "R3",
+        "seconds": 180,
+        "max_native_requests": 10,
+        "max_mutations": 0,
+        "purpose": "Read-only closing coins, unresolved holds and owned/transfer/listing snapshots; no extended wait for a natural sale."
+      }
+    ],
+    "budgets": {
+      "max_enrolled_auctions": 1,
+      "max_opening_bid_attempts": 1,
+      "max_rebid_attempts": 1,
+      "max_move_attempts": 1,
+      "max_listing_attempts": 1,
+      "max_mutation_attempts": 4,
+      "max_per_bid_coins": 500,
+      "max_total_gross_bid_exposure_coins": 1000,
+      "max_simultaneous_liability_coins": 500,
+      "reserve_new_entry_coins": 5000,
+      "unknown_attempt_consumes_budget": true,
+      "refunds_replenish_test_budget": false,
+      "bid_limit_rule": "min(500, verified legal profitable cap, actual spendable); minimum legal bid only; enforce reserve on new entry",
+      "integration_fallback": "Separately label INTEGRATION_ONLY if no strategic candidate; same bounds and native rules, no profitability claim; never automatic economic relaxation"
+    },
+    "prewrite_gates": [
+      "reviewed_versioned_adapter_and_fault_tests",
+      "durable_intent_before_dispatch",
+      "single_command_owner_and_account_epoch",
+      "fresh_authenticated_fc27_pc_readbacks",
+      "exact_trade_item_version_and_eligibility",
+      "verified_native_caps_and_relevant_ticks",
+      "five_fresh_independent_comparables_for_strategy",
+      "spendable_reserve_and_exposure_ledger",
+      "passive_aggregate_request_accounting",
+      "independent_assessor_ready",
+      "no_prior_unknown_intent"
+    ],
+    "stop_conditions": [
+      "window_or_request_or_mutation_or_coin_budget_exhausted",
+      "detached_or_wrong_tab_or_persona_or_account_scope",
+      "auth_401_or_login_or_captcha_or_2fa_challenge",
+      "restriction_or_access_denial",
+      "rate_limit_429_or_retry_after",
+      "server_5xx_or_timeout_or_unknown_write",
+      "stale_or_conflicting_identity_or_incomplete_status",
+      "missing_native_caps_ticks_or_comparables",
+      "journal_failure_or_duplicate_intent_or_external_account_activity",
+      "unavailable_candidate_or_no_eligible_opportunity"
+    ],
+    "stop_policy": "Stop new writes immediately, retain UNKNOWN, bounded read-only reconciliation only when healthy; honor Retry-After even beyond remaining window; no catch-up or blind mutation retry.",
+    "timing_policy": "25-second whole-queue target requires measured native fanout/latency; preserve sealed 30-second experiment guards. Future version may configure/remove local guard offline, never call it an EA requirement.",
+    "unobserved_policy": "Natural outbid, outcome, timer extension, capacity and sale stay UNVERIFIED if not witnessed; no extra windows or fabricated competition.",
+    "accounting_obligations": [
+      "persistent_local_scope_and_stable_auction_item_command_ids",
+      "utc_and_monotonic_times_process_epoch_actor_reason_codes",
+      "fsync_or_transactional_intent_before_dispatch",
+      "immutable_requested_acknowledged_independently_verified_events",
+      "pricing_inputs_rejections_target_tax_X_and_cap",
+      "fresh_before_after_watched_owned_coins_and_transfer_snapshots",
+      "each_attempt_amount_and_gross_exposure_including_unknown",
+      "held_refunded_spendable_actual_cost_separate_nullable",
+      "network_route_count_status_freshness_bytes_and_component_latency",
+      "expiry_before_after_and_coverage_metadata",
+      "closing_unresolved_intents_holds_coins_owned_unsold_items_and_active_listings",
+      "actual_sale_proceeds_and_tax_only_if_attributable_settlement",
+      "sanitized_allowlist_no_auth_values",
+      "checkpoint_budget_survives_restart_and_closing_read_only_continuation"
+    ]
+  },
+  "scope": {
+    "autonomous_actor_loops": false,
+    "mass_enrollment": false,
+    "fabricated_competition": false,
+    "third_party_subscription_spending": false,
+    "credential_export": false,
+    "challenge_bypass": false,
+    "repeat_completed_discovery_campaigns": false,
+    "allowed_this_task": [
+      "repository_read",
+      "public_source_inspection",
+      "offline_tests",
+      "new_audit_artifacts"
+    ],
+    "future_allowed_mutations": [
+      "ordinary_opening_bid",
+      "conditional_minimum_rebid",
+      "won_item_move",
+      "won_item_list"
+    ],
+    "future_forbidden_mutations": [
+      "buy_now",
+      "cancel",
+      "relist",
+      "sold_cleanup",
+      "watch_mass_enrollment"
+    ]
+  }
+}

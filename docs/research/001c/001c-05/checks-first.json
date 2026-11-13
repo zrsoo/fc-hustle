@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-13T02:44:37.674773+00:00",
+  "commands": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "returncode": 0,
+      "output": "check-0.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_readiness_regressions.py"
+      ],
+      "returncode": 1,
+      "output": "check-1.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 1,
+      "output": "check-2.txt"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "output": "check-3.txt"
+    }
+  ],
+  "earlier_observations": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_v1.py"
+      ],
+      "result": "One initial run errored with WinError 10053 in the existing rejection test; immediate independent rerun passed. Prior sources were preserved."
+    }
+  ]
+}

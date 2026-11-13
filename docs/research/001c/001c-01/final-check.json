@@ -1,0 +1,27 @@
+{
+  "task": "001c-01",
+  "checked_utc": "2026-11-13T01:04:12.195072+00:00",
+  "command": [
+    "{python}",
+    "tests/test_001c01_audit.py"
+  ],
+  "exit_code": 0,
+  "output": "final-acceptance.txt",
+  "output_sha256": "045b1d22e6d4f7273a368d49dccc81f4dbda3363d03319a8e771a6f70495d7a2",
+  "inputs_sha256": {
+    "docs/research/001c-01-audit.md": "bf0f6bc50f83e7eb69daf9c55eabe9b465af569a8306d9978835d4fda033ea8b",
+    "tests/test_001c01_audit.py": "a8e0096932fbcdeae22a699fed25a498b3ac5901fc868fae5a9d33be4456562d",
+    "docs/research/001c/001c-01/baseline.json": "02ab595e4b59dcd036c944191d9d2f2d6de198b37aa2be951200116d721ba72e",
+    "docs/research/001c/001c-01/entry.json": "18eb3f62fc0a8d50b6ee92f1a38efeb483fc6d31aa347a33e3d84cd716c4d0d2",
+    "docs/research/001c/001c-01/gap-map.json": "6ad5f29e27373f6afc2cbdbd370ca14f34409436e578e40e0e30884233c9de94",
+    "docs/research/001c/001c-01/preservation.json": "eebff6361b8b27790589d9c80c4d44dd5df0a12a153a4dd9e21df2c4f31f65b4",
+    "docs/research/001c/001c-01/review-ledger.json": "17d40325426e88375934f0829b87437a92087a7156d7afb470815609cfd67a18",
+    "docs/research/001c/001c-01/source-review.json": "37383d63c22c153afe49b9819fbaa080d05005488860052f6b87f369b93c63cf",
+    "docs/research/001c/001c-01/validation-plan.json": "7864e430a9ebf33f41a195ec54bde8685f153e7668db6f3745a617e91d8c22a4",
+    "docs/research/001c/001c-01/verification.json": "770242a9d5c0acc11df1cf7d7f63c9c6b007e1e335add6d6199dd9d6ab33dd80"
+  },
+  "preserved_files": 229,
+  "preservation_mismatches": [],
+  "new_EA_requests": 0,
+  "account_mutations": 0
+}

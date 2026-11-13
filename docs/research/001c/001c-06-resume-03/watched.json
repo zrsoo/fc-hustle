@@ -1,0 +1,145 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_resolution_v2.capture",
+    "watched"
+  ],
+  "at": 1794549582.6447656,
+  "elapsed_ms": 193.96615028381348,
+  "http_status": 200,
+  "before": {
+    "owner": "12b00f02b9fa491265ab7bbe52f85928",
+    "deadline": 1794549702.0031447,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 1,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+    "attached": true,
+    "extension_id": "lbcbmemjljdjlpgelmibemcaobfonkjb",
+    "peer": {
+      "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+      "owner": "12b00f02b9fa491265ab7bbe52f85928",
+      "worker": "6b9f5a53-3101-4b74-b3b3-4ec2300913a4",
+      "document": "496bd635-3cd7-4366-ae8d-6c84a1619db8",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "after": {
+    "owner": "12b00f02b9fa491265ab7bbe52f85928",
+    "deadline": 1794549702.0031447,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 2,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+    "attached": true,
+    "extension_id": "lbcbmemjljdjlpgelmibemcaobfonkjb",
+    "peer": {
+      "boot": "6de772936d87b4de8b017f9df0aa3bd2",
+      "owner": "12b00f02b9fa491265ab7bbe52f85928",
+      "worker": "6b9f5a53-3101-4b74-b3b3-4ec2300913a4",
+      "document": "496bd635-3cd7-4366-ae8d-6c84a1619db8",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "response": {
+    "cache_invalidated": true,
+    "caps": null,
+    "command_id": "f944bbdb84bb9ffded4ed92fa97c1c3d",
+    "credits": null,
+    "duration_ms": 164.1000000089407,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 162.69999998807907,
+        "ended_at": "2026-11-13T05:59:42.831Z",
+        "method": "GET",
+        "payload_bytes": 1201,
+        "query": {},
+        "route": "/ut/game/fc27/watchlist",
+        "session_header_present": true,
+        "started_at": "2026-11-13T05:59:42.668Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T05:59:42.832Z",
+    "operation": "watched",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": [
+      {
+        "bid_state": "outbid",
+        "buy_now_price": 10500,
+        "current_bid": 1200,
+        "definition_id": 261855,
+        "expires": -1,
+        "item_id": "item:c4a01aa3ed2e3986921c209e",
+        "last_sale_price": 0,
+        "starting_bid": 700,
+        "trade_id": "trade:d59ab1cf05df393676e66e4e",
+        "trade_state": "closed",
+        "untradeable": true
+      }
+    ],
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": [
+      {
+        "bid_state": "outbid",
+        "buy_now_price": 10500,
+        "current_bid": 1200,
+        "definition_id": 261855,
+        "expires": -1,
+        "item_id": "item:c4a01aa3ed2e3986921c209e",
+        "last_sale_price": 0,
+        "starting_bid": 700,
+        "trade_id": "trade:d59ab1cf05df393676e66e4e",
+        "trade_state": "closed",
+        "untradeable": true
+      }
+    ]
+  }
+}

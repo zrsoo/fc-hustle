@@ -1,0 +1,36 @@
+http-00 403 https://example.test/manifest.json
+......................................F....F..........................................................................................................................................................................
+======================================================================
+FAIL: test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_browser_access.py", line 112, in test_criterion_0_inspection_is_current_and_does_not_assume_cdp
+    self.assertLess(abs((utc_now() - datetime.fromisoformat(data["inspected_at"])).total_seconds()), 86400)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 123837.670539 not less than 86400
+
+======================================================================
+FAIL: test_review_matches_executed_bridge_sources_and_retained_metadata (test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_browser_access.py", line 91, in test_review_matches_executed_bridge_sources_and_retained_metadata
+    self.assertEqual(validate_live(json.loads((directory / "live-v2.json").read_text())), [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['criterion_1_authenticated_fc27_page_not_[213 chars]nce'] != []
+
+First list contains 6 additional elements.
+First extra element 0:
+'criterion_1_authenticated_fc27_page_not_reached'
+
++ []
+- ['criterion_1_authenticated_fc27_page_not_reached',
+-  'criterion_3_current_client_identifiers_unobserved',
+-  'criterion_3_current_host_prefix_unproven_or_ambiguous',
+-  'criterion_3_request_lifecycle_unobserved',
+-  'no_current_page_observations',
+-  'stale_live_evidence']
+
+----------------------------------------------------------------------
+Ran 214 tests in 24.835s
+
+FAILED (failures=2)

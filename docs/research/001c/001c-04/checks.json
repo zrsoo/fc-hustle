@@ -1,0 +1,83 @@
+{
+  "task": "001c-04",
+  "acceptance": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_v1.py"
+      ],
+      "exit_code": 0,
+      "output": "test_0_independent_wire_and_actual_fc27_query_names_required (__main__.Contracts.test_0_independent_wire_and_actual_fc27_query_names_required) ... ok\r\ntest_0_native_javascript_query_projection_empty_privacy_and_rejection (__main__.Contracts.test_0_native_javascript_query_projection_empty_privacy_and_rejection) ... ok\r\ntest_1_fresh_availability_identity_price_change_missing_and_staleness (__main__.Contracts.test_1_fresh_availability_identity_price_change_missing_and_staleness) ... ok\r\ntest_1_pagination_coverage_and_live_changes_cannot_establish_global_absence (__main__.Contracts.test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence) ... ok\r\ntest_2_exact_version_resource_id_not_asset_and_native_caps_authentication (__main__.Contracts.test_2_exact_version_resource_id_not_asset_and_native_caps_authentication) ... ok\r\ntest_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers (__main__.Contracts.test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers) ... ok\r\ntest_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap (__main__.Contracts.test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap) ... ok\r\ntest_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales (__main__.Contracts.test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales) ... ok\r\ntest_6_schema_rejects_sensitive_extra_fields_and_raw_identities (__main__.Contracts.test_6_schema_rejects_sensitive_extra_fields_and_raw_identities) ... ok\r\ntest_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart (__main__.Contracts.test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 10 tests in 1.199s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_artifacts.py"
+      ],
+      "exit_code": 0,
+      "output": "test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts (__main__.Artifacts.test_0_fresh_authenticated_pc_dto_query_wire_and_start_current_bin_contracts) ... ok\r\ntest_1_real_paging_repeated_lookahead_changed_and_prebid_requirement (__main__.Artifacts.test_1_real_paging_repeated_lookahead_changed_and_prebid_requirement) ... ok\r\ntest_2_sample_version_item_trade_native_caps_and_client_server_separation (__main__.Artifacts.test_2_sample_version_item_trade_native_caps_and_client_server_separation) ... ok\r\ntest_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding (__main__.Artifacts.test_3_4_independent_fresh_ask_selection_robust_target_tax_cap_and_rounding) ... ok\r\ntest_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics (__main__.Artifacts.test_5_6_truthful_qualification_no_authorization_no_sales_and_reproducible_economics) ... ok\r\ntest_6_every_delivery_accounted_once_with_failed_read_not_promoted (__main__.Artifacts.test_6_every_delivery_accounted_once_with_failed_read_not_promoted) ... ok\r\ntest_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (__main__.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 7 tests in 0.145s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "regression": {
+    "command": [
+      "{python}",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_*.py"
+    ],
+    "exit_code": 1,
+    "tests": 269,
+    "passed": 267,
+    "failures": [
+      {
+        "test": "test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp",
+        "reason": "Unchanged retained inspection is older than 86400 seconds; observed age 128177.050893 seconds."
+      },
+      {
+        "test": "test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata",
+        "reason": "Unchanged Objective 001 live-v2 evidence is stale; six current-live proof checks fail."
+      }
+    ],
+    "historical_files_preserved": true
+  },
+  "targeted_regressions": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "tests": 25
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_watched_bulk_artifacts.py"
+      ],
+      "exit_code": 0,
+      "tests": 6
+    }
+  ],
+  "note": "Acceptance replays capture freshness at actual recorded evaluation time. It does not make fresh EA calls. checks.json is excluded from its own artifact manifest to avoid a validation cycle."
+}

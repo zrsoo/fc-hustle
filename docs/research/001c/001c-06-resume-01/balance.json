@@ -1,0 +1,117 @@
+{
+  "argv": [
+    "{python}",
+    "-m",
+    "fc_access.e2e_reconcile_v1.capture",
+    "balance"
+  ],
+  "at": 1794540108.3361735,
+  "elapsed_ms": 148.81157875061035,
+  "http_status": 200,
+  "before": {
+    "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+    "deadline": 1794540226.450494,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 3,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "28a9f91b08442ce774a77deca8969808",
+    "attached": true,
+    "extension_id": "aflicijipiafoomcepdmmmbhnhfhoemf",
+    "peer": {
+      "boot": "28a9f91b08442ce774a77deca8969808",
+      "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+      "worker": "0faf0e8a-a195-4a12-ba53-a0a4f3a9fb18",
+      "document": "cc9921dd-c356-4605-a32e-026e3b0a1faa",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "after": {
+    "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+    "deadline": 1794540226.450494,
+    "stopped": false,
+    "expired": false,
+    "commands_reserved": 4,
+    "command_limit": 4,
+    "seconds_limit": 120,
+    "mutation_limit": 0,
+    "service": "fc-e2e-reconciliation-v1",
+    "boot": "28a9f91b08442ce774a77deca8969808",
+    "attached": true,
+    "extension_id": "aflicijipiafoomcepdmmmbhnhfhoemf",
+    "peer": {
+      "boot": "28a9f91b08442ce774a77deca8969808",
+      "owner": "ed0d39adec5d60025a5e29ac7a26254b",
+      "worker": "0faf0e8a-a195-4a12-ba53-a0a4f3a9fb18",
+      "document": "cc9921dd-c356-4605-a32e-026e3b0a1faa",
+      "original_trade_resource_match": true,
+      "persona": {
+        "accepted": true,
+        "is_pc": true,
+        "is_pc_type": "boolean",
+        "native_pc_constant": "PC",
+        "persona_present": true,
+        "platform_type": "string",
+        "platform_value": "PC",
+        "read_error": false,
+        "schema": 1
+      },
+      "source_match": true
+    }
+  },
+  "response": {
+    "cache_invalidated": false,
+    "caps": null,
+    "command_id": "59f27c9d0f91392b514f4b34ea913748",
+    "credits": 16268,
+    "duration_ms": 120.29999999701977,
+    "error": null,
+    "network": [
+      {
+        "duration_ms": 118.5,
+        "ended_at": "2026-11-13T03:21:48.476Z",
+        "method": "GET",
+        "payload_bytes": 336,
+        "query": {},
+        "route": "/ut/game/fc27/user/credits",
+        "session_header_present": true,
+        "started_at": "2026-11-13T03:21:48.358Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T03:21:48.478Z",
+    "operation": "balance",
+    "persona": {
+      "accepted": true,
+      "is_pc": true,
+      "is_pc_type": "boolean",
+      "native_pc_constant": "PC",
+      "persona_present": true,
+      "platform_type": "string",
+      "platform_value": "PC",
+      "read_error": false,
+      "schema": 1
+    },
+    "rows": null,
+    "schema": 1,
+    "status": 200,
+    "success": true,
+    "tiers": null,
+    "wire_rows": null
+  }
+}

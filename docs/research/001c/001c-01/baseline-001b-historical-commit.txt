@@ -1,0 +1,1 @@
+{"status": "FAIL", "criteria": [0, 1, 2, 3, 4], "errors": {"4": ["missing_scoped_commit_or_unrelated_changes", "preexisting_unrelated_change_committed:docs/research/browser-access/live-v2.json"]}, "scope": "Offline retained evidence and scoped commit; current live access unverified."}

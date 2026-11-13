@@ -1,0 +1,13 @@
+test_0_actual_server_restart_page_refresh_extension_reload_and_budget_preservation (__main__.Artifacts.test_0_actual_server_restart_page_refresh_extension_reload_and_budget_preservation) ... ok
+test_0_genuine_idle_read_is_after_historical_failure_boundary_and_costs_one_call (__main__.Artifacts.test_0_genuine_idle_read_is_after_historical_failure_boundary_and_costs_one_call) ... ok
+test_1_actual_edge_persona_fences_host_owner_rejections_and_safe_correlations (__main__.Artifacts.test_1_actual_edge_persona_fences_host_owner_rejections_and_safe_correlations) ... ok
+test_2_delivery_accounting_is_durable_no_duplicate_and_early_probe_never_delivered (__main__.Artifacts.test_2_delivery_accounting_is_durable_no_duplicate_and_early_probe_never_delivered) ... ok
+test_3_scheduler_metrics_and_live_latency_are_separately_classified (__main__.Artifacts.test_3_scheduler_metrics_and_live_latency_are_separately_classified) ... ok
+test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write (__main__.Artifacts.test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write) ... ok
+test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded (__main__.Artifacts.test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded) ... ok
+test_source_and_checkpoint_manifest_detects_changes (__main__.Artifacts.test_source_and_checkpoint_manifest_detects_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.042s
+
+OK
