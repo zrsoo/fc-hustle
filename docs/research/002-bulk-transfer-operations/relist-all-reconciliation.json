@@ -1,0 +1,45 @@
+{
+  "operation": "bulk_relist_all",
+  "mutation_command_id": "b5f40caf74204c85dc9a6b30453e11e6",
+  "before_read_id": "784b0935ab363cff5a486b77ca34586e",
+  "after_read_id": "ec476d2366e80e3a7e03ca07839d6411",
+  "result": {
+    "outcome": "CONFIRMED",
+    "relisted": [
+      {
+        "item_id": "item:34540558edb339a26932446d",
+        "old_trade_id": "trade:1120c585e1274cdfd9fc98a7",
+        "new_trade_id": "trade:a81cfb6241ee263e68692ab2",
+        "starting_bid": 200,
+        "buy_now_price": 250,
+        "expires": 3600
+      },
+      {
+        "item_id": "item:6c1821fd50efcf26deca9cb1",
+        "old_trade_id": "trade:7d9d8a003cde43cf2eb8be7b",
+        "new_trade_id": "trade:5101b056da54f4fdef96d191",
+        "starting_bid": 45000,
+        "buy_now_price": 46000,
+        "expires": 3600
+      },
+      {
+        "item_id": "item:6b630821fa38e4c83ee1f3aa",
+        "old_trade_id": "trade:83b9e8966e5b647b720234bb",
+        "new_trade_id": "trade:c6c99019d7a03ff6f5e5d8e7",
+        "starting_bid": 13750,
+        "buy_now_price": 14250,
+        "expires": 3600
+      },
+      {
+        "item_id": "item:baedbe1a7c161538497cdc85",
+        "old_trade_id": "trade:05233e668e6070caf29b3e9c",
+        "new_trade_id": "trade:86431fe277f64521fb6091da",
+        "starting_bid": 6000,
+        "buy_now_price": 6200,
+        "expires": 3600
+      }
+    ],
+    "occupancy_delta": 0,
+    "duration_contract": "server_default_observed_one_hour_not_request_parameter"
+  }
+}

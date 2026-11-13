@@ -31,7 +31,8 @@ async function poll(){
       const c=await post('/next',peer);
       if(c){
         if(Object.keys(peer.context).some(k=>c.context[k]!==peer.context[k]) || Object.keys(peer.fences).some(k=>c.fences[k]!==peer.fences[k]))throw Error('stale_command');
-        const results=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:c=>window.__fcProductionV1.execute(c),args:[c]});
+        if(c.operation?.startsWith('bulk_'))await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',files:['bulk-transfer.js']});
+        const results=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:c=>c.operation?.startsWith('bulk_')?window.__fcBulkTransferV1.execute(c):window.__fcProductionV1.execute(c),args:[c]});
         // No retry of execution or result delivery, even after an ACK is lost.
         await post('/result',{peer,id:c.id,result:results[0]?.result});
       }

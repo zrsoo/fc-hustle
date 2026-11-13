@@ -1,0 +1,153 @@
+{
+  "started_at": "2026-11-13T20:43:22.729378+00:00",
+  "command": {
+    "schema": 2,
+    "id": "b5f40caf74204c85dc9a6b30453e11e6",
+    "operation": "bulk_relist_all",
+    "params": {
+      "before_read_id": "784b0935ab363cff5a486b77ca34586e",
+      "expected_item_ids": [
+        "item:34540558edb339a26932446d",
+        "item:6b630821fa38e4c83ee1f3aa",
+        "item:6c1821fd50efcf26deca9cb1",
+        "item:baedbe1a7c161538497cdc85"
+      ],
+      "expected_inventory_ids": [
+        "item:0eb531d104feb860cffcade7",
+        "item:34540558edb339a26932446d",
+        "item:5859eff756a310898bae2ece",
+        "item:6b630821fa38e4c83ee1f3aa",
+        "item:6c1821fd50efcf26deca9cb1",
+        "item:baedbe1a7c161538497cdc85",
+        "item:d9eeec4640229a959c3145fb"
+      ],
+      "expected_sold_count": 0,
+      "expected_expired_count": 4,
+      "duration_seconds": 3600
+    },
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "e90d3a6e668f2028dac89e5e7ceee8f4",
+      "epoch": 16,
+      "host_epoch": "ccbbd2e0c2f4a378c1360b9f560f779c",
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    }
+  },
+  "phase": "RESPONSE_RECORDED",
+  "health_before": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "profile": "finite-bulk-transfer-research",
+    "host_epoch": "ccbbd2e0c2f4a378c1360b9f560f779c",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 16
+    },
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "e90d3a6e668f2028dac89e5e7ceee8f4",
+        "epoch": 16,
+        "host_epoch": "ccbbd2e0c2f4a378c1360b9f560f779c",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+      }
+    },
+    "attached": true,
+    "mutations_enabled": true,
+    "bid_enabled": false,
+    "bulk_only_once_each": true,
+    "authorization": {
+      "sold": 5,
+      "expired": 4
+    },
+    "consumed_bulk_operations": [
+      "bulk_clear_sold"
+    ],
+    "budget": {
+      "deadline": 1794603122.8184369,
+      "reads": 5,
+      "inspections": 2
+    }
+  },
+  "response": {
+    "callback": {
+      "error_code": null,
+      "item_ids": [],
+      "status": 200,
+      "success": true
+    },
+    "command_id": "b5f40caf74204c85dc9a6b30453e11e6",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "error": null,
+    "fences": {
+      "document": "e90d3a6e668f2028dac89e5e7ceee8f4",
+      "epoch": 16,
+      "host_epoch": "ccbbd2e0c2f4a378c1360b9f560f779c",
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    },
+    "inventory": null,
+    "network": [
+      {
+        "body_kind": "empty",
+        "ended_at": "2026-11-13T20:43:23.303Z",
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "PUT",
+        "path": "/ut/game/fc27/auctionhouse/relist",
+        "query_empty": true,
+        "request_body": null,
+        "response": {
+          "keys": [
+            "tradeIdList",
+            "dynamicObjectivesUpdates"
+          ],
+          "kind": "json",
+          "other_key_count": 0,
+          "trade_ids": [
+            "trade:86431fe277f64521fb6091da",
+            "trade:c6c99019d7a03ff6f5e5d8e7",
+            "trade:a81cfb6241ee263e68692ab2",
+            "trade:5101b056da54f4fdef96d191"
+          ]
+        },
+        "session_header_present": true,
+        "started_at": "2026-11-13T20:43:22.755Z",
+        "status": 200
+      }
+    ],
+    "observed_at": "2026-11-13T20:43:23.304Z",
+    "operation": "bulk_relist_all",
+    "schema": 2,
+    "sources": [],
+    "status": 200,
+    "success": true
+  },
+  "finished_at": "2026-11-13T20:43:23.310129+00:00"
+}

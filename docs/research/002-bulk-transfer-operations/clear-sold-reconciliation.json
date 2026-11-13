@@ -1,0 +1,17 @@
+{
+  "operation": "bulk_clear_sold",
+  "mutation_command_id": "9259f48e2f78c40ff6dc093c462faaad",
+  "before_read_id": "f204b8270f12c9c07cde8e59fecb5ff8",
+  "after_read_id": "f1fe05ccc906ab648e1c452d1ccab3b9",
+  "result": {
+    "outcome": "CONFIRMED",
+    "removed": [
+      "item:5709bad48e1f38e59465dc18",
+      "item:667414cd5f800b38311dc827",
+      "item:918c2f0e64ff7532869be540",
+      "item:be1bd853bf0166855f3647ca",
+      "item:d67692089850cd9c44d7b20c"
+    ],
+    "occupancy_delta": -5
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "started_at": "2026-11-13T20:22:16.467477+00:00",
+  "command": {
+    "schema": 2,
+    "id": "5ddb6e99681f8f799b8c53512f438a9f",
+    "operation": "bulk_inspect",
+    "params": {},
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "28f2d9d185045e877df85829ab185eaf",
+      "epoch": 12,
+      "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+      "owner": "fa328e289bf026f6509848742349b8b8",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    }
+  },
+  "phase": "RESPONSE_RECORDED",
+  "health_before": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "profile": "finite-bulk-transfer-research",
+    "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+    "owner": {
+      "context": {
+        "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+        "game": "fc27",
+        "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+        "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+        "platform": "pc"
+      },
+      "owner": "fa328e289bf026f6509848742349b8b8",
+      "epoch": 12
+    },
+    "peer": {
+      "context": {
+        "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+        "game": "fc27",
+        "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+        "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "28f2d9d185045e877df85829ab185eaf",
+        "epoch": 12,
+        "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+        "owner": "fa328e289bf026f6509848742349b8b8",
+        "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+      }
+    },
+    "attached": true,
+    "mutations_enabled": false,
+    "bid_enabled": false,
+    "budget": {
+      "deadline": 1794603122.8184369,
+      "reads": 0,
+      "inspections": 0
+    }
+  },
+  "response": {
+    "callback": null,
+    "command_id": "5ddb6e99681f8f799b8c53512f438a9f",
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "error": null,
+    "fences": {
+      "document": "28f2d9d185045e877df85829ab185eaf",
+      "epoch": 12,
+      "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+      "owner": "fa328e289bf026f6509848742349b8b8",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    },
+    "inventory": null,
+    "names": [
+      "relistExpiredAuctions",
+      "clearSoldItems"
+    ],
+    "network": [],
+    "observed_at": "2026-11-13T20:22:16.500Z",
+    "operation": "bulk_inspect",
+    "schema": 2,
+    "sources": [
+      {
+        "name": "clearSoldItems",
+        "owner": "services.Item",
+        "source": "function(_0x4dfaec){var _0x1c57b8=_0x16df02,_0x1e03a9=this,_0x4d3116=new EAObservable(),_0x5874f6=new UTServiceResponseDTO(),_0x592488=[],_0x2c0e52=function(_0x2c4a43,_0x497b86){var _0x255e86=a0_0x351b;_0x2c4a43[_0x255e86(0x11e6)](_0x1e03a9),_0x5874f6[_0x255e86(0x77d)]=_0x497b86[_0x255e86(0x77d)],_0x5874f6[_0x255e86(0x257)]=_0x497b86[_0x255e86(0x257)],_0x5874f6[_0x255e86(0x610)]=_0x497b86[_0x255e86(0x610)];if(_0x5874f6[_0x255e86(0x77d)]){if(!_0x4dfaec)repositories[_0x255e86(0x1076)][_0x255e86(0xbf4)](ItemPile[_0x255e86(0x8f2)]),_0x1e03a9[_0x255e86(0x4b1)]()[_0x255e86(0x678)](_0x1e03a9,function(_0x37b427,_0x19ca5e){var _0x5542e9=_0x255e86,_0x30697a;_0x37b427[_0x5542e9(0x11e6)](_0x1e03a9);if(_0x19ca5e[_0x5542e9(0x77d)]&&JSUtils[_0x5542e9(0x64a)](_0x19ca5e[_0x5542e9(0x6cc)])){var _0x381c1f=_0x19ca5e[_0x5542e9(0x6cc)][_0x5542e9(0xdb3)],_0x227947=_0x592488[_0x5542e9(0x5d1)](function(_0x3b716a){var _0x3ca117=_0x5542e9;return!JSUtils[_0x3ca117(0xd23)](JSUtils[_0x3ca117(0xce0)](_0x381c1f,function(_0x409bc3){var _0x557dfd=_0x3ca117;return _0x3b716a[_0x557dfd(0xe45)](_0x409bc3);}));})[_0x5542e9(0x53c)](function(_0xfb4cd6){return _0xfb4cd6['id'];}),_0x4c34ae={};_0x4c34ae[_0x5542e9(0xfa8)]=_0x227947,_0x5874f6[_0x5542e9(0x9f7)]=_0x4c34ae;}_0x4d3116[_0x5542e9(0x40e)](_0x5874f6),getDefaultDispatcher()[_0x5542e9(0x40e)](AppNotification[_0x5542e9(0xcb7)],_0x1e03a9,(_0x30697a=_0x5874f6[_0x5542e9(0x9f7)])!==null&&_0x30697a!==void 0x0?_0x30697a:{});});else{_0x1e03a9[_0x255e86(0xd5c)](_0x4dfaec);var _0x59c476={};_0x59c476[_0x255e86(0xfa8)]=[_0x4dfaec['id']],_0x5874f6[_0x255e86(0x9f7)]=_0x59c476,_0x4d3116[_0x255e86(0x40e)](_0x5874f6),getDefaultDispatcher()[_0x255e86(0x40e)](AppNotification[_0x255e86(0xcb7)],_0x1e03a9,_0x5874f6[_0x255e86(0x9f7)]);}}else{var _0x3ccc04={};_0x3ccc04[_0x255e86(0xfa8)]=[],_0x5874f6[_0x255e86(0x9f7)]=_0x3ccc04,_0x4d3116[_0x255e86(0x40e)](_0x5874f6);}};return!_0x4dfaec?this[_0x1c57b8(0x4b1)]()[_0x1c57b8(0x678)](this,function(_0x59a278,_0x35462f){var _0x17b3a6=_0x1c57b8;_0x59a278[_0x17b3a6(0x11e6)](_0x1e03a9),_0x35462f[_0x17b3a6(0x77d)]&&JSUtils[_0x17b3a6(0x64a)](_0x35462f[_0x17b3a6(0x6cc)])&&(_0x592488=_0x35462f[_0x17b3a6(0x6cc)][_0x17b3a6(0xdb3)]),_0x1e03a9[_0x17b3a6(0x14c8)][_0x17b3a6(0x127b)]()[_0x17b3a6(0x678)](_0x1e03a9,_0x2c0e52);}):(DebugUtils[_0x1c57b8(0x1595)](_0x4dfaec[_0x1c57b8(0x10d2)]()[_0x1c57b8(0xd23)](),_0x1c57b8(0x9d9)),this[_0x1c57b8(0x14c8)][_0x1c57b8(0x127b)](_0x4dfaec[_0x1c57b8(0x10d2)]()[_0x1c57b8(0x976)])[_0x1c57b8(0x678)](this,_0x2c0e52)),_0x4d3116;}"
+      },
+      {
+        "name": "relistExpiredAuctions",
+        "owner": "services.Item",
+        "source": "function(){var _0x19c8b8=_0x16df02,_0x37e325=this,_0x4963b5=new EAObservable(),_0x1b5ce2=new UTServiceResponseDTO();return this[_0x19c8b8(0x14c8)][_0x19c8b8(0x1195)]()[_0x19c8b8(0x678)](this,function(_0x55723e,_0x2f2cb2){var _0x45412c=_0x19c8b8,_0x2a6a0b;_0x55723e[_0x45412c(0x11e6)](_0x37e325),_0x1b5ce2[_0x45412c(0x77d)]=_0x2f2cb2[_0x45412c(0x77d)],_0x1b5ce2[_0x45412c(0x257)]=_0x2f2cb2[_0x45412c(0x257)],_0x1b5ce2[_0x45412c(0x610)]=_0x2f2cb2[_0x45412c(0x610)];if(_0x2f2cb2[_0x45412c(0x77d)]&&JSUtils[_0x45412c(0x64a)](_0x2f2cb2[_0x45412c(0x6cc)]))repositories[_0x45412c(0x1076)][_0x45412c(0xbf4)](ItemPile[_0x45412c(0x8f2)]);else{if(((_0x2a6a0b=_0x2f2cb2[_0x45412c(0x610)])===null||_0x2a6a0b===void 0x0?void 0x0:_0x2a6a0b[_0x45412c(0xc18)])===UtasErrorCode[_0x45412c(0xe6d)]){var _0x7fb895=services[_0x45412c(0x407)][_0x45412c(0xc97)]();_0x7fb895&&(_0x7fb895[_0x45412c(0x1264)]=TradeAccessLevel[_0x45412c(0xd56)]);}}_0x4963b5[_0x45412c(0x40e)](_0x1b5ce2);}),_0x4963b5;}"
+      },
+      {
+        "name": "requestTransferItems",
+        "owner": "services.Item",
+        "source": "function(){var _0x1d8647=_0x16df02;return this[_0x1d8647(0x429)][_0x1d8647(0x14da)]();}"
+      },
+      {
+        "name": "removeSold",
+        "owner": "services.Item.transfersDao",
+        "source": "function(t){var i=this,o=new EAObservable,e=new UTHttpRequest(this.authDelegate),t=null!=t?t:\"sold\";return e.requestType=HttpRequestMethod.DELETE,e.setPath(\"/ut/game/\".concat(GAME_NAME,\"/trade/\").concat(t)),this.requestDelegate.send(e).observe(this,function(t,e){t.unobserve(i);t=new UTHttpResponseDTO;JSUtils.assignPropertyValues(e,t),o.notify(t)}),o}"
+      },
+      {
+        "name": "relistExpiredAuctions",
+        "owner": "services.Item.transfersDao",
+        "source": "function(){var r=this,n=new EAObservable,t=new UTHttpRequest(this.authDelegate);return t.requestType=HttpRequestMethod.PUT,t.setPath(\"/ut/game/\".concat(GAME_NAME,\"/auctionhouse/relist\")),this.requestDelegate.send(t).observe(this,function(t,e){var i=new UTHttpResponseDTO,o=null;t.unobserve(r),JSUtils.assignPropertyValues(e,i),e.success&&JSUtils.isObject(e.response)?(o=e.response.dynamicObjectivesUpdates?r.updateFactory.createObjectivesUpdate(e.response.dynamicObjectivesUpdates):null,i.response={auctionIds:e.response.tradeIdList?e.response.tradeIdList.map(function(t){return t.idStr}):[]}):i.response={auctionIds:[]},n.notify(i),o&&getDefaultDispatcher().notify(AppNotification.OBJECTIVE_UPDATE,r,o)}),n}"
+      },
+      {
+        "name": "getTransferItems",
+        "owner": "repositories.Item",
+        "source": "function(){return this.transfer.values()}"
+      },
+      {
+        "name": "setTransferItems",
+        "owner": "repositories.Item",
+        "source": "function(t){var e=this;this.transfer.clear(),t.forEach(function(t){return e.transfer.set(t.id,t)},this),this.transfer.endOfList=!0}"
+      },
+      {
+        "name": "getPileSize",
+        "owner": "repositories.Item",
+        "source": "function(t){t=this.pileSizes.get(t);return DebugUtils.Assert(JSUtils.isNumber(t),\"Unsupported pile requested when retrieving pile size.\"),t||0}"
+      },
+      {
+        "name": "_clearSold",
+        "owner": "UTTransferListViewController.prototype",
+        "source": "function _clearSold(){var e=this.getView();e&&(e.setInteractionState(!1),services.Item.clearSoldItems().observe(this,function _clearSoldComplete(e,t){e.unobserve(this),this.refreshList()}))}"
+      },
+      {
+        "name": "_relistAll",
+        "owner": "UTTransferListViewController.prototype",
+        "source": "function _relistAll(){var e=this.getView();function _relistAllComplete(e,t){e.unobserve(this),gClickShield.hideShield(EAClickShieldView.Shield.LOADING),getAppMain().getNetworkErrorController().checkCriticalStatus(t.status)?getAppMain().getNetworkErrorController().handleStatus(t.status):(t.status===HttpStatusCode.FORBIDDEN?services.Notification.queue([services.Localization.localize(\"popup.error.relistall.forbidden.message\"),UINotificationType.NEGATIVE]):t.success||services.Notification.queue([services.Localization.localize(\"popup.error.relistall\"),UINotificationType.NEGATIVE]),this.refreshList())}e&&(TelemetryManager.trackEvent(TelemetryManager.Sections.AUCTIONS,TelemetryManager.Categories.BUTTON_PRESS,\"Transfer List - Re-List All\"),e.setInteractionState(!1),utils.PopupManager.showConfirmation(utils.PopupManager.Confirmations.CONFIRM_RELIST_ALL,{params:[]},function _relistAllConfirmed(){gClickShield.showShield(EAClickShieldView.Shield.LOADING),services.Item.relistExpiredAuctions().observe(this,_relistAllComplete)}.bind(this),function _relistAllCancelled(){e&&e.setInteractionState(!0)}.bind(this)))}"
+      }
+    ],
+    "status": null,
+    "success": true
+  },
+  "finished_at": "2026-11-13T20:22:16.506169+00:00"
+}

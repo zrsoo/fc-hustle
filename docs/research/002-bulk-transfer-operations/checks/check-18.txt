@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "capabilities": {
+    "bulk_clear_sold": "PASS",
+    "bulk_relist_all": "PASS"
+  },
+  "explicit_EA_requests": 9,
+  "GETs": 7,
+  "mutation_requests": 2,
+  "native_bulk_invocations": {
+    "clear_sold": 1,
+    "relist_all": 1
+  },
+  "sold_removed": 5,
+  "expired_relisted": 4,
+  "prices_preserved": true,
+  "duration_seconds": 3600,
+  "unrelated_active_preserved": 3,
+  "scope": "Actual four-item bulk relist after explicit expanded authorization; no scheduled jobs or actors."
+}

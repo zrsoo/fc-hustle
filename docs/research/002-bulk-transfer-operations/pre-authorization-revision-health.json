@@ -1,0 +1,47 @@
+{
+  "service": "fc-production-v1",
+  "schema": 2,
+  "profile": "finite-bulk-transfer-research",
+  "host_epoch": "1525e9de841d78aa35be71d14a229c54",
+  "owner": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "epoch": 15
+  },
+  "peer": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "e90d3a6e668f2028dac89e5e7ceee8f4",
+      "epoch": 15,
+      "host_epoch": "1525e9de841d78aa35be71d14a229c54",
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    }
+  },
+  "attached": true,
+  "mutations_enabled": true,
+  "bid_enabled": false,
+  "bulk_only_once_each": true,
+  "authorization": {
+    "sold": 2,
+    "expired": 1
+  },
+  "consumed_bulk_operations": [],
+  "budget": {
+    "deadline": 1794603122.8184369,
+    "reads": 2,
+    "inspections": 2
+  }
+}

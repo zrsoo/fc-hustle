@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "decision": "CONDITIONAL GO",
+  "preserved_files": 645,
+  "facts": {
+    "identity": {
+      "trade_id": "trade:d59ab1cf05df393676e66e4e",
+      "item_id": "item:c4a01aa3ed2e3986921c209e",
+      "definition_id": 261855
+    },
+    "commands": 44,
+    "bid_attempts": 2,
+    "requested_amounts": [
+      700,
+      800
+    ],
+    "verified_opening": 800,
+    "original_700_acceptance": "UNVERIFIED",
+    "holds": 2,
+    "initial_spendable": 16268,
+    "after_opening_spendable": 15468,
+    "final_spendable": 16268,
+    "returned_available_coins": 800,
+    "gross_reservations": 1500,
+    "paid_acquisition_cost": 0,
+    "new_owned_items": [],
+    "unsold_test_cards": [],
+    "unresolved_active_bids": [],
+    "remaining_target": "EXPIRED_OUTBID;LEFT_IN_PLACE",
+    "terminal": "LOST",
+    "terminal_price": 1200,
+    "held_balance_direct": null,
+    "sale_proceeds": null,
+    "realized_profit": null,
+    "reported_capacity": 50,
+    "live_50_completeness": false,
+    "live_25s_cycle": false,
+    "watched_native_ms": [
+      76,
+      93.79999999701977,
+      91.79999999701977,
+      106.59999999403954,
+      97.59999999403954
+    ],
+    "bid_native_ms": 343.70000000298023,
+    "bid_host_ms": 377.3982524871826,
+    "refresh_intervals_s": [
+      58.326,
+      48.736,
+      41.391
+    ],
+    "pricing": {
+      "target": 2800,
+      "tax": 140,
+      "X": 500,
+      "cap": 2100,
+      "opening_minimum": 800
+    },
+    "expiry": [
+      {
+        "capture": "docs/research/001c/001c-06-resume-02/watched-after-opening.json",
+        "at": "2026-11-13T03:28:01.276Z",
+        "expires": 1036
+      },
+      {
+        "capture": "docs/research/001c/001c-06-resume-02/watched-cycle-1.json",
+        "at": "2026-11-13T03:28:59.602Z",
+        "expires": 978
+      },
+      {
+        "capture": "docs/research/001c/001c-06-resume-02/watched-cycle-2.json",
+        "at": "2026-11-13T03:29:48.338Z",
+        "expires": 929
+      },
+      {
+        "capture": "docs/research/001c/001c-06-resume-02/watched-cycle-3.json",
+        "at": "2026-11-13T03:30:29.729Z",
+        "expires": 888
+      }
+    ]
+  }
+}

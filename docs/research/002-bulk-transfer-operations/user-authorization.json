@@ -1,0 +1,14 @@
+{
+  "original_scope": {
+    "sold": 2,
+    "expired": 1
+  },
+  "additional_user_authorization": {
+    "sold": 5,
+    "expired": 4
+  },
+  "account_selection": "User-designated saved account; unique matching saved suggestion selected through Edge UI, then NEXT and SIGN IN",
+  "credential_values_extracted": false,
+  "initial_inventory_account_confirmation": "Initial 12-row read is quarantined; it predates explicit login selection and must not authorize writes in the new account context.",
+  "budgets_must_remain_unchanged": true
+}

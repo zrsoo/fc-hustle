@@ -3,7 +3,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const hex=n=>n.toString(16).padStart(32,'0');
 const context={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_namespace:hex(3)};
 let owner={context,owner:hex(4),epoch:1},host=hex(5),document=hex(7),next=null,mode='ok';
-let stored={},executions=0,posts=[],badge='',files=[],personaOK=true,official=true;
+let stored={},executions=0,bulkExecutions=0,posts=[],badge='',files=[],personaOK=true,official=true;
 const listeners={},page={document,attach(c,f){return personaOK;},execute(c){executions++;return {command_id:c.id,safe:true};}};
 const chrome={
   storage:{session:{async get(){return stored;},async set(v){Object.assign(stored,v);}}},
@@ -14,7 +14,7 @@ const chrome={
     if(c.files){files.push(...c.files);return [];}
     // Execute the actual injected callback against the page-double, rather
     // than returning a fabricated worker handshake without checking its code.
-    sandbox.window={__fcProductionV1:page};
+    sandbox.window={__fcProductionV1:page,__fcBulkTransferV1:{execute(c){bulkExecutions++;return {command_id:c.id,research:true};}}};
     sandbox.injectArgs=c.args;
     const value=await vm.runInContext('('+c.func.toString()+')(...injectArgs)',sandbox);
     return [{result:JSON.parse(JSON.stringify(value))}];
@@ -58,6 +58,8 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
   next=cmd(26);await alarm();assert.equal(executions,3,'explicit new document/host/epoch selection works');
   personaOK=false;next=cmd(27);await alarm();assert.equal(executions,3);next=null;personaOK=true;
   official=false;await alarm();assert.equal(executions,3);assert.equal(badge,'WAIT');
+  official=true;next={...cmd(28),operation:'bulk_inspect'};await alarm();
+  assert.equal(executions,3);assert.equal(bulkExecutions,1);assert(files.includes('bulk-transfer.js'));
   assert(!JSON.stringify(posts).includes('SECRET_NATIVE_ERROR'));
   console.log('PASS production worker: explicit tab, local-only idle, fences, dropped ACK, no replay, reload requires rebind, persona and no secret retention');
 })().catch(e=>{console.error(e);process.exitCode=1;});

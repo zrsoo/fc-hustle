@@ -1,0 +1,41 @@
+{
+  "service": "fc-production-v1",
+  "schema": 2,
+  "profile": "finite-bulk-transfer-research",
+  "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+  "owner": {
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "owner": "fa328e289bf026f6509848742349b8b8",
+    "epoch": 12
+  },
+  "peer": {
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "28f2d9d185045e877df85829ab185eaf",
+      "epoch": 12,
+      "host_epoch": "62b35fa200ab3e860fc48c62cbdb7cc2",
+      "owner": "fa328e289bf026f6509848742349b8b8",
+      "worker_epoch": "73716681bbf6aa030267f3ed0c54c4ae"
+    }
+  },
+  "attached": true,
+  "mutations_enabled": false,
+  "bid_enabled": false,
+  "budget": {
+    "deadline": 1794603122.8184369,
+    "reads": 1,
+    "inspections": 1
+  }
+}

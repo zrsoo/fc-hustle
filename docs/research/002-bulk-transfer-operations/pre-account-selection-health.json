@@ -1,0 +1,32 @@
+{
+  "service": "fc-production-v1",
+  "schema": 2,
+  "profile": "finite-bulk-transfer-research",
+  "host_epoch": "ddae1cc2c9c3a566118cbd6fd02ba47c",
+  "owner": {
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "owner": "fa328e289bf026f6509848742349b8b8",
+    "epoch": 13
+  },
+  "peer": null,
+  "attached": false,
+  "mutations_enabled": true,
+  "bid_enabled": false,
+  "bulk_only_once_each": true,
+  "authorization": {
+    "sold": 2,
+    "expired": 1
+  },
+  "consumed_bulk_operations": [],
+  "budget": {
+    "deadline": 1794603122.8184369,
+    "reads": 1,
+    "inspections": 1
+  }
+}

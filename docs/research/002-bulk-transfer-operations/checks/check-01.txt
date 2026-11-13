@@ -1,0 +1,20 @@
+test_actual_five_sold_four_expired_inventory_is_outside_original_authorization (__main__.BulkContracts.test_actual_five_sold_four_expired_inventory_is_outside_original_authorization) ... ok
+test_clear_reconciliation_requires_exact_removal_and_unchanged_unsold (__main__.BulkContracts.test_clear_reconciliation_requires_exact_removal_and_unchanged_unsold) ... ok
+test_multiple_expired_fixture_is_not_claimed_as_live_proof (__main__.BulkContracts.test_multiple_expired_fixture_is_not_claimed_as_live_proof) ... ok
+test_native_states_filter_only_sold_and_expired_owned_entries (__main__.BulkContracts.test_native_states_filter_only_sold_and_expired_owned_entries) ... ok
+test_relist_preserves_physical_item_and_prices_requires_one_hour (__main__.BulkContracts.test_relist_preserves_physical_item_and_prices_requires_one_hour) ... ok
+test_actual_page_contract (__main__.BulkJavascript.test_actual_page_contract) ... ok
+test_ambiguous_extra_request_wrong_route_and_private_fields_are_rejected (__main__.BulkJournal.test_ambiguous_extra_request_wrong_route_and_private_fields_are_rejected) ... ok
+test_explicit_user_revision_preserves_consumed_budgets_and_cannot_reset_intents (__main__.BulkJournal.test_explicit_user_revision_preserves_consumed_budgets_and_cannot_reset_intents) ... ok
+test_finite_cli_refuses_recorded_write_before_reading_or_contacting_EA (__main__.BulkJournal.test_finite_cli_refuses_recorded_write_before_reading_or_contacting_EA) ... ok
+test_intent_before_claim_duplicate_operation_and_restart_never_redispatch (__main__.BulkJournal.test_intent_before_claim_duplicate_operation_and_restart_never_redispatch) ... ok
+test_lost_native_callback_is_unknown_until_a_separate_read_proves_removal (__main__.BulkJournal.test_lost_native_callback_is_unknown_until_a_separate_read_proves_removal) ... ok
+test_production_default_rejects_bulk_dialect (__main__.BulkJournal.test_production_default_rejects_bulk_dialect) ... ok
+test_requested_login_selection_quarantines_previous_inventory_without_reset (__main__.BulkJournal.test_requested_login_selection_quarantines_previous_inventory_without_reset) ... ok
+test_unconfirmed_ack_requires_independent_readback_and_preserves_events (__main__.BulkJournal.test_unconfirmed_ack_requires_independent_readback_and_preserves_events) ... ok
+test_unexpected_counts_stale_wrong_fences_and_price_duration_contracts_block (__main__.BulkJournal.test_unexpected_counts_stale_wrong_fences_and_price_duration_contracts_block) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.610s
+
+OK
