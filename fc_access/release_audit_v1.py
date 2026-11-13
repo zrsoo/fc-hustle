@@ -51,6 +51,10 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def mutable_artifact(path):
+    return Path(path).name == "live.sqlite" or path.endswith(("-wal", "-shm"))
+
+
 def read(path):
     return (ROOT / path).read_bytes()
 

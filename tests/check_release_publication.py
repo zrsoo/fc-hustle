@@ -34,8 +34,8 @@ def validate():
     expected = set(manifest["files"]) | set(manifest["git_sealed_control_files"])
     a.require(changed == expected, "publication_scope_mismatch")
     for path in sorted(expected):
-        a.require(path != "AGENTS.md" and not any(p in path for p in (".orchestrator/", "private-captures/", "__pycache__", "-wal", "-shm"))
-                  and not path.endswith("/live.sqlite"), "excluded_or_unrelated_file_published")
+        a.require(path != "AGENTS.md" and not any(p in path for p in (".orchestrator/", "private-captures/", "__pycache__"))
+                  and not a.mutable_artifact(path), "excluded_or_unrelated_file_published")
         raw = a.read(path)
         a.require(git("show", "HEAD:" + path) == raw, "committed_bytes_differ:" + path)
         if path in manifest["files"]:

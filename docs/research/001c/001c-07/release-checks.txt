@@ -22,6 +22,6 @@ test_6_historical_seals_and_every_preexisting_file_intact (__main__.ReleaseTests
 test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets (__main__.ReleaseTests.test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets) ... ok
 
 ----------------------------------------------------------------------
-Ran 22 tests in 0.849s
+Ran 22 tests in 0.930s
 
 OK

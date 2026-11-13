@@ -16,7 +16,7 @@ def main():
     included = []
     excluded = []
     for path in sorted(candidates - {""}):
-        if path == "AGENTS.md" or any(x in path for x in ("__pycache__", "-wal", "-shm", ".orchestrator/", "private-captures/")) or path.endswith("/live.sqlite"):
+        if path == "AGENTS.md" or any(x in path for x in ("__pycache__", ".orchestrator/", "private-captures/")) or a.mutable_artifact(path):
             excluded.append(path)
             continue
         a.require(path.startswith(("browser/", "fc_access/", "experiments/", "docs/research/", "tests/")), "unreviewed_publication_scope")

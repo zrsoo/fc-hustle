@@ -266,12 +266,14 @@ class ReleaseTests(unittest.TestCase):
         for path, digest in m["files"].items():
             raw = a.read(path)
             self.assertEqual(a.sha(raw), digest, path)
-            self.assertFalse(any(part in path for part in ("private-captures/", ".orchestrator/", "__pycache__", "-wal", "-shm")))
-            self.assertFalse(path.endswith("/live.sqlite"))
+            self.assertFalse(any(part in path for part in ("private-captures/", ".orchestrator/", "__pycache__")))
+            self.assertFalse(a.mutable_artifact(path))
             if path.endswith(".json"):
                 a.private_fields(json.loads(raw))
         source = a.read("fc_access/release_audit_v1.py").decode()
         self.assertNotIn("while True", source)
+        self.assertFalse(a.mutable_artifact(a.BASE + "001c-05/edge-wallet-attached.txt"))
+        self.assertTrue(a.mutable_artifact(a.BASE + "001c-05/live.sqlite-wal"))
 
 
 if __name__ == "__main__":
