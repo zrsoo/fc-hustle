@@ -48,7 +48,7 @@ def select_comparables(rows, candidate, prices, *, now):
             reject('invalid'); continue
         groups.setdefault(row['trade_id'], []).append(wrapped)
         items.setdefault(row['item']['item_id'], set()).add(row['trade_id'])
-    accepted = []
+    accepted, copy_counts = [], {}
     for trade, copies in sorted(groups.items()):
         if any(c['row']['trade_id'] == candidate['trade_id'] or
                c['row']['item']['item_id'] == candidate['item']['item_id'] for c in copies):
@@ -79,17 +79,24 @@ def select_comparables(rows, candidate, prices, *, now):
                 reason = 'outside_card_limits'
             elif wrapped.get('max_buy') is not None and r['buy_now_price'] > wrapped['max_buy']:
                 reason = 'outside_inclusive_max_buy'
-            elif not prices.legal(r['buy_now_price']):
-                reason = 'illegal_bin'
             if reason:
                 reject(reason)
             else:
                 valid.append(wrapped)
         if valid:
             accepted.append(deepcopy(max(valid, key=lambda c: stamp(c['network_at']))))
-            if len(valid) > 1:
-                excluded['duplicate'] = excluded.get('duplicate', 0)+len(valid)-1
-    return accepted, dict(sorted(excluded.items()))
+            copy_counts[trade] = len(valid)
+    legality = prices.legal_many(c['row']['buy_now_price'] for c in accepted)
+    legal = []
+    for wrapped in accepted:
+        count = copy_counts[wrapped['row']['trade_id']]
+        if legality[wrapped['row']['buy_now_price']]:
+            legal.append(wrapped)
+            if count > 1:
+                excluded['duplicate'] = excluded.get('duplicate', 0)+count-1
+        else:
+            excluded['illegal_bin'] = excluded.get('illegal_bin', 0)+count
+    return legal, dict(sorted(excluded.items()))
 
 
 class PricingService:

@@ -50,7 +50,10 @@ class NativeAdapter:
         return self.read(command_id, 'transfer_list')
 
     def status_support(self, command_id):
-        """Local source/mapping inspection, with zero EA requests."""
+        """Local function availability/mapping inspection, with zero EA requests.
+
+        Only a successful known_status read validates authenticated native behavior.
+        """
         return self.read(command_id, 'status_support')
 
     def known_status(self, command_id, *, trade_id, item_id, definition_id):

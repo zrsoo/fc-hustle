@@ -8,6 +8,7 @@ from contextlib import contextmanager
 import json
 import secrets
 import sqlite3
+from fc_access.sqlite_timing import TimedConnection
 from datetime import datetime, timezone
 from .contracts import command, context, fields, fences, integer, parse_response, token
 
@@ -20,7 +21,7 @@ class Store:
         self.now = now or (lambda: datetime.now(timezone.utc))
         self.authorize_bid = authorize_bid
         self.host_epoch = secrets.token_hex(16)
-        self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
+        self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False, factory=TimedConnection)
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.execute('PRAGMA synchronous=FULL')
         self.db.executescript('''

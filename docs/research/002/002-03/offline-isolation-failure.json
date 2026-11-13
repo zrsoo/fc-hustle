@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "task": "002-03",
+  "mode": "LIVE_READ_ONLY",
+  "status": "FAILURE/BLOCKED",
+  "attempt": 1,
+  "started_at": "2026-11-13T21:35:38.046618+00:00",
+  "operations": [],
+  "cache_reads": [],
+  "hard_stop": true,
+  "dependent_tasks_allowed": false,
+  "automatic_repairs": false,
+  "automatic_reruns": false,
+  "account_mutations": 0,
+  "stage": "PREPARATION",
+  "reason": "AssertionError",
+  "stopped_ns": 136923275128800,
+  "finished_at": "2026-11-13T21:35:38.061311+00:00"
+}

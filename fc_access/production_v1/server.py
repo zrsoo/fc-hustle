@@ -48,10 +48,12 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
-    def send(self, code, value):
+    def send(self, code, value, *, sqlite_ms=None):
         body = json.dumps(value, separators=(',', ':'), allow_nan=False).encode()
         try:
             self.send_response(code)
+            if sqlite_ms is not None:
+                self.send_header('X-FC-SQLite-Ms', str(sqlite_ms))
             for k, v in {'Content-Type': 'application/json', 'Content-Length': str(len(body)),
                          'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'}.items():
                 self.send_header(k, v)
@@ -149,13 +151,14 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(200, {'accepted': True})
                 if s.peer is None:
                     raise ValueError('attachment_required')
+                sqlite_start = s.store.db.sqlite_ms
                 self.peer(s.peer)
                 s.store.enqueue(v, s.peer); s.condition.notify_all()
                 end = time.monotonic()+s.wait_seconds
                 while True:
                     r = s.store.result(v['id'])
                     if r is not None:
-                        return self.send(200, r)
+                        return self.send(200, r, sqlite_ms=s.store.db.sqlite_ms-sqlite_start)
                     if time.monotonic() >= end:
                         s.store.uncertain(v['id'])
                         return self.send(504, {'error': 'timeout_no_retry'})

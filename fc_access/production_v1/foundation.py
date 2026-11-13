@@ -41,6 +41,7 @@ class ScheduledExecutor:
         self.clock, self.sleep, self.observe = clock, sleep, observe
         self.scheduler = Scheduler(clock, concurrency=1, min_native_interval=interval)
         self.pending, self.results, self.errors, self.metrics = {}, {}, {}, []
+        self.local_metrics = []
         self.lock = threading.RLock()
 
     def attach(self, value, owner, epoch):
@@ -76,14 +77,18 @@ class ScheduledExecutor:
             c, enqueued = self.pending.pop(work.command_id)
             started = self.clock()
             metric = dict(kind='EXECUTOR_METRIC', command_id=c['id'],
+                          operation=c['operation'],
                           interval_seconds=self.scheduler.interval,
                           queue_ms=(started-enqueued)*1000, delivery_ms=None,
                           native_service_ms=None, request_count=None)
             try:
-                v = parse_response(self.executor.execute(c), c, now=self.now(), source=self.source,
+                raw = self.executor.execute(c)
+                delivered = self.clock()
+                v = parse_response(raw, c, now=self.now(), source=self.source,
                                    pricing_rows=c['operation'] == 'search' and c['params']['purpose'] == 'pricing')
                 metric.update(native_service_ms=v['timing']['native_service_ms'],
                               request_count=v['freshness']['request_count'])
+                self.split_timing(metric, v, (delivered-started)*1000)
                 self.results[c['id']] = v
             except Exception:
                 self.errors[c['id']] = TimeoutError('delivery_unknown_no_retry')
@@ -97,12 +102,36 @@ class ScheduledExecutor:
                 self.observe(metric)
             return c['id']
 
+    def split_timing(self, metric, response, delivered_ms):
+        t = response['timing']
+        sql = getattr(self.executor, 'last_sqlite_ms', None)
+        metric.update(ea_rtt_ms=t.get('ea_rtt_ms'), native_helper_ms=t.get('native_helper_ms'),
+                      transport_sqlite_ms=sql,
+                      browser_bridge_ms=max(0, delivered_ms-t['native_service_ms']-(sql or 0)),
+                      browser_other_ms=(t['native_service_ms']-t['ea_rtt_ms']-t['native_helper_ms'])
+                          if 'ea_rtt_ms' in t else None)
+
     def execute(self, c):
+        enqueued = self.clock()
         with self.lock:
             if c['operation'] in LOCAL_OPERATIONS:
                 # Local client helpers use the same lock but no native cadence.
-                return self.executor.execute(c)
+                started = self.clock()
+                metric = dict(kind='EXECUTOR_METRIC', command_id=c['id'], operation=c['operation'],
+                              queue_ms=(started-enqueued)*1000, request_count=None)
+                try:
+                    raw = self.executor.execute(c)
+                    delivered = self.clock()
+                    v = parse_response(raw, c, now=self.now(), source=self.source)
+                    metric.update(native_service_ms=v['timing']['native_service_ms'], request_count=0)
+                    self.split_timing(metric, v, (delivered-started)*1000)
+                    return v
+                finally:
+                    metric['roundtrip_ms'] = (self.clock()-started)*1000
+                    self.local_metrics.append(metric)
+                    self.observe(metric)
             cid = self.submit(c)
+            self.pending[cid] = (self.pending[cid][0], enqueued)
             while cid not in self.results and cid not in self.errors:
                 if self.run_one() is None:
                     if cid in self.results or cid in self.errors:
@@ -125,6 +154,8 @@ class Registry:
                'NOT_TRADEABLE', 'NATIVE_ACK', 'TIMEOUT', 'INVALID_RESULT', 'SERVICE_ERROR'}
 
     def __init__(self, journal, value, owner, *, after_epoch=0):
+        self.diagnostic_logging_ms = 0.0
+        self.diagnostic_sqlite_ms = 0.0
         self.journal, self.context, self.owner = journal, deepcopy(context(value)), token(owner)
         self.scope = scope_for(value)
         journal.db.executescript('''
@@ -147,6 +178,14 @@ class Registry:
         self.journal._owner(self.scope, self.owner, self.epoch)
 
     def _append(self, body, trade=None):
+        start, sqlite_start = time.perf_counter(), self.journal.db.sqlite_ms
+        try:
+            return self._append_body(body, trade)
+        finally:
+            self.diagnostic_logging_ms += (time.perf_counter()-start)*1000
+            self.diagnostic_sqlite_ms += self.journal.db.sqlite_ms-sqlite_start
+
+    def _append_body(self, body, trade=None):
         if trade is not None:
             token(trade, 'trade')
         encoded = json.dumps(body, sort_keys=True, allow_nan=False)
@@ -265,6 +304,26 @@ class Foundation:
 
     def close(self):
         self.cache.close(); self.journal.close()
+
+    def timing_summary(self):
+        """Cumulative actual observations; take deltas around the desired window.
+
+        Diagnostic wall time includes its SQLite subset. Browser bridge is the
+        measured transport residual (IPC, polling, HTTP and serialization), not
+        EA RTT. Legacy responses leave unavailable split timings unknown.
+        """
+        metrics = self.executor.metrics+self.executor.local_metrics
+        def total(key):
+            values = [m.get(key) for m in metrics]
+            return sum(values) if all(v is not None for v in values) else None
+        return dict(commands=len(metrics), ea_rtt_ms=total('ea_rtt_ms'),
+            executor_queue_ms=total('queue_ms'), browser_bridge_ms=total('browser_bridge_ms'),
+            native_helper_ms=total('native_helper_ms'), browser_other_ms=total('browser_other_ms'),
+            transport_sqlite_ms=total('transport_sqlite_ms'),
+            sqlite_ms=self.journal.db.sqlite_ms+self.cache.db.sqlite_ms,
+            diagnostic_logging_ms=self.registry.diagnostic_logging_ms,
+            diagnostic_sqlite_ms=self.registry.diagnostic_sqlite_ms,
+            diagnostic_non_sqlite_ms=max(0, self.registry.diagnostic_logging_ms-self.registry.diagnostic_sqlite_ms))
 
     def read(self, operation, params=None):
         self.registry.check()

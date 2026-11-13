@@ -77,7 +77,7 @@ function setup(mode='ok'){
     for(const [k,n]of [['open','open'],['header','setRequestHeader'],['send','send']])assert.equal(XHR.prototype[n],originals[k]);
     return r;
   }
-  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,get captured(){return captured;},now:()=>new Clock().toISOString(),switchPersona:p=>{persona=p;}};
+  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
 }
 const pricing={purpose:'pricing',definition_id:7654321,page:1,count:21,fresh:true};
 const discovery={...pricing,purpose:'discovery',max_bid:1000,min_buy:11000};

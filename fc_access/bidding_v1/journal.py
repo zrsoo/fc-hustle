@@ -9,6 +9,7 @@ import argparse
 import json
 import math
 import sqlite3
+from fc_access.sqlite_timing import TimedConnection
 
 from .contracts import BidIntent, BidResult, Outcome, State, instant, integer, token
 
@@ -74,9 +75,9 @@ class Journal:
         self._tickets = {}
         if readonly:
             from pathlib import Path
-            self.db = sqlite3.connect(Path(path).resolve().as_uri()+"?mode=ro", uri=True, timeout=5, isolation_level=None)
+            self.db = sqlite3.connect(Path(path).resolve().as_uri()+"?mode=ro", uri=True, timeout=5, isolation_level=None, factory=TimedConnection)
         else:
-            self.db = sqlite3.connect(path, timeout=5, isolation_level=None)
+            self.db = sqlite3.connect(path, timeout=5, isolation_level=None, factory=TimedConnection)
             self.db.execute("PRAGMA journal_mode=WAL")
             self.db.execute("PRAGMA synchronous=FULL")
             self.db.executescript("""

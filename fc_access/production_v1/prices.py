@@ -77,6 +77,16 @@ class NativePrices:
             raise ValueError('helper_disagreement')
         return self.above(lower) == value
 
+    def legal_many(self, values):
+        """Two dependency rounds, deduplicated and bounded by the wire limit."""
+        self.check()
+        values = list(dict.fromkeys(integer(v, 1) for v in values))
+        lowers = self.service.helpers([('below', v) for v in values])
+        if any(lower >= value for value, lower in zip(values, lowers)):
+            raise ValueError('helper_disagreement')
+        uppers = self.service.helpers([('above', v) for v in lowers])
+        return dict(zip(values, (upper == value for value, upper in zip(values, uppers))))
+
     def floor(self, value):
         """Greatest native tick <= integer value; caps do not constrain bids.
 
@@ -172,14 +182,38 @@ class PriceService:
     def __init__(self, adapter, command_ids):
         self.adapter, self.command_ids = adapter, command_ids
         self.loaded, self.latest = {}, {}
+        self.memo, self.memo_context = {}, None
+
+    def helpers(self, probes):
+        probes = list(probes)
+        for direction, value in probes:
+            if direction not in {'above', 'below'}:
+                raise ValueError('invalid_helper_direction')
+            integer(value)
+        a = self.adapter
+        binding = (deepcopy(a.context), deepcopy(a.fences), a.source)
+        if binding != self.memo_context:
+            self.memo.clear()
+            self.memo_context = binding
+        missing = list(dict.fromkeys(p for p in probes if p not in self.memo))
+        for offset in range(0, len(missing), 32):
+            batch = missing[offset:offset+32]
+            response = a.price_helpers(self.command_ids(),
+                [dict(direction=d, value=v) for d, v in batch])
+            if binding != (a.context, a.fences, a.source):
+                self.memo.clear()
+                raise ValueError('rules_context_changed')
+            # Publish only a fully validated successful batch, never failures.
+            self.memo.update((p, r['price']) for p, r in zip(batch, response['result']['probes']))
+        return [self.memo[p] for p in probes]
 
     def helper(self, direction, value):
-        integer(value)
-        response = self.adapter.price_helpers(self.command_ids(), [{'direction': direction, 'value': value}])
-        return response['result']['probes'][0]['price']
+        return self.helpers([(direction, value)])[0]
 
     def load(self, *, key, now=None):
         key = CardKey(key.definition_id, key.platform, key.game)
+        # A fresh cap snapshot is a new native legality context.
+        self.memo.clear()
         # Availability is independent of cap authentication and persona validation.
         self.adapter.price_helpers(self.command_ids())
         response = self.adapter.caps(self.command_ids(), key.definition_id)

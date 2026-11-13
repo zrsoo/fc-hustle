@@ -1,5 +1,6 @@
 """Explicit loopback executor for the reviewed production extension on port 8784."""
 import json
+import math
 import time
 from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHandler
 from urllib.error import HTTPError
@@ -17,12 +18,17 @@ class EdgeExecutor:
             raise ValueError('invalid_transport')
         self.base, self.attach_timeout = f'http://127.0.0.1:{port}', attach_timeout
         self.http = build_opener(ProxyHandler({}), NoRedirect())
+        self.last_sqlite_ms = None
 
     def request(self, path, value=None):
         req = Request(self.base+path, data=json.dumps(value).encode() if value is not None else None,
                       headers={'Content-Type': 'application/json'} if value is not None else {})
         try:
             with self.http.open(req, timeout=30) as r:
+                ms = r.headers.get('X-FC-SQLite-Ms')
+                self.last_sqlite_ms = float(ms) if ms is not None else None
+                if self.last_sqlite_ms is not None and (not math.isfinite(self.last_sqlite_ms) or self.last_sqlite_ms < 0):
+                    raise ValueError('invalid_transport_timing')
                 return json.loads(r.read(262145))
         except HTTPError as e:
             # Never propagate an HTTP body, URL or native exception text.
@@ -57,4 +63,5 @@ class EdgeExecutor:
 
     def execute(self, c):
         command(c)
+        self.last_sqlite_ms = None
         return self.request('/run', c)

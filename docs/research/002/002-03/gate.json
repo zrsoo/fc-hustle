@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "task": "002-03",
+  "mode": "LIVE_READ_ONLY",
+  "status": "FAILURE/BLOCKED",
+  "attempt": 1,
+  "started_at": "2026-11-13T21:40:43.084736+00:00",
+  "operations": [],
+  "cache_reads": [],
+  "hard_stop": true,
+  "dependent_tasks_allowed": false,
+  "automatic_repairs": false,
+  "automatic_reruns": false,
+  "account_mutations": 0,
+  "stage": "DESKTOP_PREFLIGHT",
+  "live_command_attempted": true,
+  "preflight_failure": {
+    "component": "subprocess_desktop_inspection_output",
+    "exception": "UnicodeDecodeError",
+    "encoding": "cp1252",
+    "byte": "0x81",
+    "consequence": "AttributeError_stdout_None_before_run"
+  },
+  "timing_breakdown": {
+    "valuation_elapsed_seconds": null,
+    "diagnostic": "valuation_not_started"
+  },
+  "actual_pricing_GETs": 0,
+  "final_decision": null,
+  "resumption_requires": "subsequent_explicit_user_instruction",
+  "reason": "desktop_inspection_decode_failed_before_valuation",
+  "stopped_ns": 137228314923200,
+  "finished_at": "2026-11-13T21:40:43.101109+00:00",
+  "evidence_sha256": "f512ad1d70ef70b56cf8ff57ba1a48f3c99e3ab4593dd809a52170a58d9640e7"
+}

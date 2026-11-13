@@ -3,6 +3,7 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sqlite3
+from fc_access.sqlite_timing import TimedConnection
 
 TTL_SECONDS = 86400
 DEFAULT_CACHE_PATH = Path('private-captures/production-v1/completed-quotes.sqlite3')
@@ -12,7 +13,7 @@ class QuoteCache:
     def __init__(self, path=DEFAULT_CACHE_PATH):
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
-        self.db = sqlite3.connect(path)
+        self.db = sqlite3.connect(path, factory=TimedConnection)
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.execute('PRAGMA synchronous=FULL')
         self.db.execute('''CREATE TABLE IF NOT EXISTS completed_quotes_v1(

@@ -40,8 +40,8 @@ def local_read(a, state):
     r = parse_response(a.executor.execute(c), c)
     state['source_inspections'].append(dict(command=c, response=r))
     save(CHECKPOINT, state)
-    if not r['result']['success'] or not r['result']['source_match']:
-        raise ValueError('source_unsupported_no_native_request')
+    if not r['result']['success'] or not r['result']['function_available']:
+        raise ValueError('service_unavailable_no_native_request')
     return r
 
 

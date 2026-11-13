@@ -23,7 +23,7 @@ ERRORS = {'invalid_command', 'wrong_page', 'bridge_busy', 'persona_unverified',
           'service_unavailable', 'service_timeout', 'service_failed', 'schema_unrecognized',
           'unsafe_identity', 'stale_source', 'unauthenticated', 'ambiguous_network',
           'invalid_preconditions', 'internal_error', 'helpers_unavailable', 'helper_disagreement',
-          'status_source_unsupported', 'known_identity_unavailable'}
+          'status_source_unsupported', 'known_identity_unavailable'}  # old error retained for sealed responses
 LOCAL_OPERATIONS = {'price_helpers', 'status_support'}
 CONTEXT = {'account', 'persona', 'game', 'platform', 'identity_namespace'}
 FENCES = {'owner', 'epoch', 'host_epoch', 'worker_epoch', 'document'}
@@ -189,6 +189,19 @@ def auction(v):
         raise ValueError('invalid_auction')
 
 
+def timing(value):
+    """Legacy captures may lack the split; missing timings mean unknown."""
+    if type(value) is not dict or set(value) not in (
+            {'native_service_ms'}, {'native_service_ms', 'ea_rtt_ms', 'native_helper_ms'}):
+        raise ValueError('invalid_timing')
+    for ms in value.values():
+        if type(ms) not in (int, float) or not math.isfinite(ms) or ms < 0:
+            raise ValueError('invalid_timing')
+    if value.get('ea_rtt_ms', 0)+value.get('native_helper_ms', 0) > value['native_service_ms']:
+        raise ValueError('invalid_timing')
+    return value
+
+
 def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=False):
     """Validate actual routes; no legacy route substitution or raw payload retention."""
     command(c)
@@ -235,6 +248,8 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
                     integer(row[k], -1 if k == 'expires' else 0)
                 if row['trade_state'] not in {'active', 'closed', 'expired', 'inactive', None} or row['bid_state'] not in {'none', 'highest', 'outbid', 'buyNow', 'sold', None} or row['native_is_won'] is not None and type(row['native_is_won']) is not bool:
                     raise ValueError('invalid_auction')
+                if op == 'status' and (row['trade_state'] is None or row['bid_state'] is None):
+                    raise ValueError('invalid_status_state')
             if identity in identities:
                 raise ValueError('duplicate_identity')
             identities.add(identity)
@@ -278,9 +293,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     fields(v['coverage'], {'complete', 'has_more'})
     if v['coverage']['complete'] is not False or v['coverage']['has_more'] is not None and type(v['coverage']['has_more']) is not bool:
         raise ValueError('unsupported_coverage')
-    t = fields(v['timing'], {'native_service_ms'})['native_service_ms']
-    if type(t) not in (int, float) or not math.isfinite(t) or t < 0:
-        raise ValueError('invalid_timing')
+    timing(v['timing'])
     if r['success']:
         current = now or datetime.now(timezone.utc)
         if not authenticated or network_at is None or not 0 <= (current-network_at).total_seconds() <= max_age or not 0 <= (observed-network_at).total_seconds() <= max_age:
@@ -325,14 +338,12 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
 
 
 def parse_status_support(v, c, *, now=None, source='native', max_age=30):
-    """Local-only inspected function fingerprint. Never a market/auth read."""
-    r = fields(v['result'], {'success', 'error', 'source_sha256', 'source_match', 'retained_count', 'network'})
+    """Local function availability only. Never a market/authentication claim."""
+    r = fields(v['result'], {'success', 'error', 'function_available', 'retained_count', 'network'})
     if type(r['success']) is not bool or r['error'] not in ERRORS | {None} or r['success'] != (r['error'] is None):
         raise ValueError('invalid_result')
-    if r['source_sha256'] is not None and (not isinstance(r['source_sha256'], str) or not re.fullmatch('[a-f0-9]{64}', r['source_sha256'])):
-        raise ValueError('invalid_source_digest')
-    if type(r['source_match']) is not bool or r['source_match'] != (r['source_sha256'] == '6097c4fd909171eb067c77ad088c8fd8bd18024f5848663774f5488becf11c2a'):
-        raise ValueError('unsupported_status_source')
+    if type(r['function_available']) is not bool:
+        raise ValueError('invalid_function_availability')
     integer(r['retained_count'])
     f = fields(v['freshness'], {'observed_at', 'network_at', 'request_count', 'read_id', 'source'})
     if r['network'] != [] or f['network_at'] is not None or type(f['request_count']) is not int or f['request_count'] != 0 or f['read_id'] != c['id'] or f['source'] != source or source not in {'native', 'fixture'}:
@@ -342,9 +353,7 @@ def parse_status_support(v, c, *, now=None, source='native', max_age=30):
         raise ValueError('stale_local_source')
     if fields(v['coverage'], {'complete', 'has_more'}) != {'complete': False, 'has_more': None}:
         raise ValueError('unsupported_coverage')
-    ms = fields(v['timing'], {'native_service_ms'})['native_service_ms']
-    if type(ms) not in (int, float) or not math.isfinite(ms) or ms < 0:
-        raise ValueError('invalid_timing')
+    timing(v['timing'])
     return v
 
 
@@ -364,9 +373,7 @@ def parse_helpers(v, c, *, now, source, max_age):
     fields(v['coverage'], {'complete', 'has_more'})
     if v['coverage']['complete'] is not False or v['coverage']['has_more'] is not None:
         raise ValueError('invalid_local_coverage')
-    t = fields(v['timing'], {'native_service_ms'})['native_service_ms']
-    if type(t) not in (int, float) or not math.isfinite(t) or t < 0:
-        raise ValueError('invalid_timing')
+    timing(v['timing'])
     if type(r['probes']) is not list or len(r['probes']) > 32:
         raise ValueError('invalid_helper_probes')
     if r['success']:

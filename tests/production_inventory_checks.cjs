@@ -1,5 +1,5 @@
 'use strict';
-// Executes production JS and the exact retained reviewed native DAO function.
+// Executes production JS and the retained native DAO as a behavioral fixture.
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const {webcrypto}=require('node:crypto');
 const {setup,ctx,hex}=require('./production_page_checks.cjs');
@@ -30,7 +30,7 @@ async function read(h,op,params={}){
 }
 (async()=>{
   let h=setup();nativeDAO(h);
-  let support=await read(h,'status_support');assert(support.result.source_match);assert.equal(support.result.retained_count,0);assert.equal(support.freshness.request_count,0);
+  let support=await read(h,'status_support');assert(support.result.function_available);assert.equal(support.result.retained_count,0);assert.equal(support.freshness.request_count,0);
   const methods={watched:['INBOX','requestWatchedItems','auctions'],unassigned:['PURCHASED','requestUnassignedItems','items'],transfer_list:['TRANSFER','requestTransferItems','auctions']};
   for(const [op,[pile,method,field]] of Object.entries(methods)){
     h=setup();let wins=0;
@@ -85,12 +85,12 @@ async function read(h,op,params={}){
   assert.equal((await read(h,'status',{...p,item_id:'item:'+'e'.repeat(24)})).result.error,'known_identity_unavailable');
   assert.equal(h.calls.length,attempts);
   assert(h.api.attach(ctx,{...h.fences,epoch:2}));h.fences.epoch=2;
-  support=await read(h,'status_support');assert.equal(support.result.retained_count,0);assert(support.result.source_match);
+  support=await read(h,'status_support');assert.equal(support.result.retained_count,0);assert(support.result.function_available);
   const before=h.calls.length;assert.equal((await read(h,'status',p)).result.error,'known_identity_unavailable');assert.equal(h.calls.length,before);
   // A genuinely new page cannot reverse a pseudonym. Explicit fresh full read required.
   h=setup();nativeDAO(h);assert.equal((await read(h,'status',p)).result.error,'known_identity_unavailable');assert.equal(h.calls.length,0);
   await read(h,'watched');assert((await read(h,'status',p)).result.success);
-  h=setup();await read(h,'watched');assert.equal((await read(h,'status',p)).result.error,'status_source_unsupported');assert.equal(h.calls.filter(x=>x==='status').length,0);
+  h=setup();await read(h,'watched');assert.equal((await read(h,'status',p)).result.error,'service_unavailable');assert.equal(h.calls.filter(x=>x==='status').length,0);
   if(process.argv[2])fs.writeFileSync(process.argv[2],JSON.stringify(samples));
   console.log('PASS inventory: 50 exact rows, dirty-before-read, cache/auth/route failures, reviewed DAO execution, lite omissions, unknown IDs, reconnect fence and reacquisition');
 })().catch(e=>{console.error(e);process.exitCode=1;});

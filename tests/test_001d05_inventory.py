@@ -19,7 +19,8 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from fc_access.production_v1.adapter import NativeAdapter
-from fc_access.production_v1.contracts import parse_response, stamp, ROUTES, VERSION
+from fc_access.production_v1.contracts import stamp, ROUTES, VERSION
+from historical_contracts import parse_response
 from fc_access.production_v1.inventory import KnownTrade, compare_lite_identity, watched_status
 from fc_access.production_v1 import investigate_reads, investigate_status
 from test_001d02_contract import make_command, reply, hexid

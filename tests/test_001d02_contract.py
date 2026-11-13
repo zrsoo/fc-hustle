@@ -337,6 +337,7 @@ class ContractAcceptance(unittest.TestCase):
                     reused = {'fc_access.bidding_v1.contracts', 'fc_access.bidding_v1.core',
                               'fc_access.bidding_v1.journal', 'fc_access.bidding_v1.scheduler'}
                     self.assertTrue(n.module.startswith('fc_access.production_v1') or
+                                    n.module == 'fc_access.sqlite_timing' or
                                     (p.name == 'foundation.py' and n.module in reused), (p, n.module))
         for phrase in ('schema 2', 'IMPLEMENTED', 'OFFLINE_VALIDATED', 'LIVE-UNVERIFIED', 'maxBuy', 'maxb', 'inclusive',
                        'identity_namespace', 'unrelated', '001d-01', 'No live EA requests', 'durable_intent', 'D2', 'D5'):
