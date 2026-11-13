@@ -1,0 +1,1 @@
+{"status": "FAILURE/BLOCKED", "diagnostic": "gate_not_PASS_items_4_through_12_blocked"}

@@ -80,7 +80,7 @@ def stamp(value):
 @dataclass(frozen=True)
 class Search:
     purpose: str
-    definition_id: int
+    definition_id: int | None = None
     page: int = 1
     count: int = 21
     fresh: bool = True
@@ -89,7 +89,8 @@ class Search:
     max_buy: int | None = None
 
     def __post_init__(self):
-        integer(self.definition_id, 1)
+        if self.definition_id is not None or self.purpose != 'discovery':
+            integer(self.definition_id, 1)
         if type(self.page) is not int or self.page != 1 or type(self.count) is not int or self.count != 21 or self.fresh is not True:
             raise ValueError('invalid_search_page')
         for v in (self.max_bid, self.min_buy, self.max_buy):
@@ -107,7 +108,7 @@ class Search:
             raise ValueError('invalid_search_purpose')
 
     @classmethod
-    def discovery(cls, definition_id):
+    def discovery(cls, definition_id=None):
         return cls('discovery', definition_id, max_bid=1000, min_buy=11000)
 
     @classmethod
@@ -253,7 +254,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
             if identity in identities:
                 raise ValueError('duplicate_identity')
             identities.add(identity)
-            if op == 'search' and i['definition_id'] != c['params']['definition_id']:
+            if op == 'search' and 'definition_id' in c['params'] and i['definition_id'] != c['params']['definition_id']:
                 raise ValueError('wrong_exact_definition')
             if op == 'status' and (row['trade_id'] != c['params']['trade_id'] or
                     i['item_id'] != c['params']['item_id'] or
@@ -313,9 +314,10 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
             for k, wire in [('max_bid', 'macr'), ('min_buy', 'minb'), ('max_buy', 'maxb')]:
                 if k in p:
                     expected_query[wire] = p[k]
-            if len(set(q) & {'definitionId', 'defId'}) != 1:
-                raise ValueError('missing_exact_wire_definition')
-            expected_query['definitionId' if 'definitionId' in q else 'defId'] = p['definition_id']
+            if 'definition_id' in p:
+                if len(set(q) & {'definitionId', 'defId'}) != 1:
+                    raise ValueError('missing_exact_wire_definition')
+                expected_query['definitionId' if 'definitionId' in q else 'defId'] = p['definition_id']
             if q != expected_query:
                 raise ValueError('wire_criteria_mismatch')
         if op == 'caps' and net[0]['query'] != {'defId': c['params']['definition_id']}:

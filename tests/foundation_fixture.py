@@ -71,7 +71,8 @@ class Page:
         query = {}
         if op == 'search':
             p = c['params']
-            query = dict(start=0, num=21, definitionId=p['definition_id'])
+            query = dict(start=0, num=21)
+            if 'definition_id' in p: query['definitionId']=p['definition_id']
             for field, wire in [('max_bid','macr'),('min_buy','minb'),('max_buy','maxb')]:
                 if field in p: query[wire] = p[field]
             r['auctions'] = [deepcopy(self.candidate)] if p['purpose'] == 'discovery' else [auction(123, 12000, 100)]

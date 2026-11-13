@@ -1,0 +1,39 @@
+{
+  "health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "75600cecba7351f325896c5ee29e607d",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 21
+    },
+    "attached": false,
+    "peer": null,
+    "mutations_enabled": false
+  },
+  "activation": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "epoch": 22
+  },
+  "response": {
+    "accepted": true
+  },
+  "EA_commands": 0,
+  "reviewed_service_restarted": true,
+  "reviewed_extension_reloaded": true,
+  "official_document_reloaded": true
+}

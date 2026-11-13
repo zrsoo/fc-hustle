@@ -53,8 +53,10 @@
     if (['watched','balance','unassigned','transfer_list'].includes(c.operation)) return Object.keys(p).length === 0;
     if (c.operation === 'caps') return keys(p,'definition_id') && num(p.definition_id) > 0;
     if (c.operation === 'search') {
-      if (p.page !== 1 || p.count !== 21 || p.fresh !== true || !(num(p.definition_id) > 0)) return false;
-      if (p.purpose === 'discovery') return keys(p,'purpose,definition_id,page,count,fresh,max_bid,min_buy') && p.max_bid === 1000 && p.min_buy === 11000;
+      if (p.page !== 1 || p.count !== 21 || p.fresh !== true) return false;
+      if (p.purpose === 'discovery') return (keys(p,'purpose,page,count,fresh,max_bid,min_buy') ||
+        keys(p,'purpose,definition_id,page,count,fresh,max_bid,min_buy') && num(p.definition_id)>0) && p.max_bid === 1000 && p.min_buy === 11000;
+      if (!(num(p.definition_id)>0))return false;
       return p.purpose === 'pricing' && (keys(p,'purpose,definition_id,page,count,fresh') || keys(p,'purpose,definition_id,page,count,fresh,max_buy') && num(p.max_buy) > 0);
     }
     return keys(p,'trade_id,item_id,definition_id,amount,minimum,cap,deadline,status_read_id,balance_read_id') &&
@@ -162,7 +164,7 @@
       }
       let invoke;
       if(op==='search'){
-        const q=new UTSearchCriteriaDTO();q.type='player';q.defId=[p.definition_id];q.count=21;
+        const q=new UTSearchCriteriaDTO();q.type='player';if(p.definition_id!==undefined)q.defId=[p.definition_id];q.count=21;
         for(const [k,v] of Object.entries({max_bid:'maxBid',min_buy:'minBuy',max_buy:'maxBuy'}))if(p[k]!==undefined)q[v]=p[k];
         if(typeof services.Item.clearTransferMarketCache!=='function')throw Error('service_unavailable');
         services.Item.clearTransferMarketCache();r.cache_invalidated=true;invoke=()=>services.Item.searchTransferMarket(q,1);
@@ -208,8 +210,10 @@
       if(n[0].status!==r.status)throw Error('schema_unrecognized');
       if(op==='search'){
         const q=n[0].query,expected={start:0,num:21};
-        if(['definitionId','defId'].filter(k=>Object.hasOwn(q,k)).length!==1)throw Error('schema_unrecognized');
-        expected[Object.hasOwn(q,'definitionId')?'definitionId':'defId']=p.definition_id;
+        if(p.definition_id!==undefined){
+          if(['definitionId','defId'].filter(k=>Object.hasOwn(q,k)).length!==1)throw Error('schema_unrecognized');
+          expected[Object.hasOwn(q,'definitionId')?'definitionId':'defId']=p.definition_id;
+        }
         for(const [k,wire] of [['max_bid','macr'],['min_buy','minb'],['max_buy','maxb']])if(p[k]!==undefined)expected[wire]=p[k];
         if(!equal(q,expected))throw Error('schema_unrecognized');
       }
@@ -226,7 +230,7 @@
         if(!Array.isArray(rows)||rows.length>(op==='search'?21:100))throw Error('schema_unrecognized');
         if(op==='unassigned')r.items=await Promise.all(rows.map(raw=>item(raw,c.context.identity_namespace)));
         else r.auctions=await Promise.all(rows.map(raw=>auction(raw,c,at)));
-        if(op==='search' && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
+        if(op==='search' && p.definition_id!==undefined && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
         if(op==='status' && (r.auctions.length>1 || r.auctions.some(a=>a.trade_id!==p.trade_id || a.item.item_id!==p.item_id ||
           a.item.definition_id && a.item.definition_id!==p.definition_id)))throw Error('schema_unrecognized');
         const identities=(r.auctions??r.items).map(x=>x.trade_id??x.item_id);

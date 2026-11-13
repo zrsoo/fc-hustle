@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "task": "002-03",
+  "mode": "LIVE_READ_ONLY",
+  "status": "FAILURE/BLOCKED",
+  "attempt": 3,
+  "started_at": "2026-11-13T23:17:13.826571+00:00",
+  "operations": [
+    {
+      "command": {
+        "schema": 2,
+        "id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+        "operation": "search",
+        "params": {
+          "purpose": "discovery",
+          "page": 1,
+          "count": 21,
+          "fresh": true,
+          "max_bid": 1000,
+          "min_buy": 11000
+        },
+        "context": {
+          "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+          "game": "fc27",
+          "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+          "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "8726334bbb0a366a50d4ad37c9176e49",
+          "epoch": 23,
+          "host_epoch": "75600cecba7351f325896c5ee29e607d",
+          "owner": "3e5ad73a0453bcb4338421575d06857f",
+          "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+        }
+      },
+      "stage": "BOUNDED_DISCOVERY",
+      "state": "RESERVED_BEFORE_DELIVERY",
+      "start_ns": 143031540199400
+    }
+  ],
+  "cache_reads": [],
+  "hard_stop": true,
+  "dependent_tasks_allowed": false,
+  "automatic_repairs": false,
+  "automatic_reruns": false,
+  "account_mutations": 0,
+  "stage": "BOUNDED_DISCOVERY",
+  "attempt_id": "20261114-bounded-discovery-03",
+  "authorization": {
+    "authority": "explicit_user_third_attempt_with_bounded_cross_version_discovery",
+    "additional_attempts": 1,
+    "original": {
+      "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+      "previous_checkpoint": "docs/research/002/002-03/gate.json",
+      "previous_status": "FAILURE/BLOCKED",
+      "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+      "additional_attempts": 1
+    },
+    "second_checkpoint": "docs/research/002/002-03/attempts/20261114-preflight-remediation-01/gate.json",
+    "second_capture_sha256": "d37aff90db19e382d394798be9cf0f08afea256614e7771d488a8c6a3c69050d"
+  },
+  "execution_budget": {
+    "attempts": 1,
+    "ea_GETs": 9,
+    "pricing_GETs": 2,
+    "local_helper_batches": 64,
+    "discovery_GETs": 3,
+    "discovery_seconds": 180
+  },
+  "live_command_attempted": true,
+  "desktop": {
+    "foreground_verified": true,
+    "edge_control_verified": true,
+    "observed_at": "2026-11-13T23:17:15.0549422Z",
+    "extensions_manager": false,
+    "official_tab": true
+  },
+  "health_before": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "75600cecba7351f325896c5ee29e607d",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 22
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "8726334bbb0a366a50d4ad37c9176e49",
+        "epoch": 22,
+        "host_epoch": "75600cecba7351f325896c5ee29e607d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+      }
+    },
+    "mutations_enabled": false
+  },
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "fences": {
+    "document": "8726334bbb0a366a50d4ad37c9176e49",
+    "epoch": 23,
+    "host_epoch": "75600cecba7351f325896c5ee29e607d",
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+  },
+  "discovery_deadline_ns": 143211525698200,
+  "discovery_cache_checks": [],
+  "discovery_reads": [],
+  "reason": "delivery_unknown_no_retry",
+  "stopped_ns": 143053580884100,
+  "finished_at": "2026-11-13T23:17:48.367069+00:00",
+  "evidence_sha256": "788424caa615f54f3127c7f8b5b5709651600914eaa3343808f55fb453a72040"
+}

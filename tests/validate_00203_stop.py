@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from fc_access.production_v1.gate_00203 import CHECKPOINT, digest, need, require_pass, Window, selected_checkpoint, validate_attempt, AUTHORIZED_ATTEMPT
+from fc_access.production_v1.gate_00203 import CHECKPOINT, digest, need, require_pass, Window, selected_checkpoint, validate_attempt, AUTHORIZED_ATTEMPT, THIRD_ATTEMPT
 from unittest.mock import patch
 
 
@@ -41,6 +41,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     group=parser.add_mutually_exclusive_group()
     group.add_argument('--original',action='store_true')
-    group.add_argument('--attempt',choices=[AUTHORIZED_ATTEMPT])
+    group.add_argument('--attempt',choices=[AUTHORIZED_ATTEMPT,THIRD_ATTEMPT])
     args=parser.parse_args()
     print(json.dumps(validate(CHECKPOINT if args.original else selected_checkpoint(args.attempt))))

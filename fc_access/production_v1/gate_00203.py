@@ -25,6 +25,8 @@ CHECKPOINT = OUT/'gate.json'
 AUTHORIZED_ATTEMPT = '20261114-preflight-remediation-01'
 REMEDIATION_CHECKPOINT = OUT/'attempts'/AUTHORIZED_ATTEMPT/'gate.json'
 AUTHORITY = 'explicit_user_one_additional_read_only_encoding_remediation_attempt'
+THIRD_ATTEMPT = '20261114-bounded-discovery-03'
+THIRD_CHECKPOINT = OUT/'attempts'/THIRD_ATTEMPT/'gate.json'
 JOURNAL = ROOT/'private-captures/final-remediation/foundation.sqlite3'
 CACHE = JOURNAL.with_name('completed-quotes.sqlite3')
 LIMIT_NS = 30_000_000_000
@@ -46,7 +48,7 @@ def digest(value):
 
 
 class Window:
-    def __init__(self, path=None, *, clock=time.monotonic_ns, authorization=None):
+    def __init__(self, path=None, *, clock=time.monotonic_ns, authorization=None, attempt_id=AUTHORIZED_ATTEMPT):
         self.path, self.clock = Path(path if path is not None else CHECKPOINT), clock
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.state = dict(schema=1, task='002-03', mode='LIVE_READ_ONLY', status='RUNNING',
@@ -54,8 +56,10 @@ class Window:
             hard_stop=True, dependent_tasks_allowed=False, automatic_repairs=False,
             automatic_reruns=False, account_mutations=0, stage='PREPARATION')
         if authorization is not None:
-            self.state.update(attempt=2, attempt_id=AUTHORIZED_ATTEMPT, authorization=authorization,
-                              execution_budget=dict(attempts=1,ea_GETs=7,pricing_GETs=2,local_helper_batches=64))
+            third=attempt_id==THIRD_ATTEMPT
+            self.state.update(attempt=3 if third else 2, attempt_id=attempt_id, authorization=authorization,
+                              execution_budget=dict(attempts=1,ea_GETs=9 if third else 7,pricing_GETs=2,local_helper_batches=64))
+            if third:self.state['execution_budget'].update(discovery_GETs=3,discovery_seconds=180)
             validate_attempt(self.state)
         # Exclusive creation consumes the attempt even if the process crashes.
         with self.path.open('x', encoding='utf-8') as f:
@@ -72,6 +76,8 @@ class Window:
     def check(self):
         need(self.state['status'] == 'RUNNING', 'gate_stopped_no_more_work')
         start = self.state.get('valuation_start_ns')
+        if start is None and self.state.get('discovery_deadline_ns') is not None:
+            need(self.clock()<self.state['discovery_deadline_ns'], 'bounded_discovery_deadline')
         if start is not None and self.clock()-start >= LIMIT_NS:
             raise TimeoutError('hard_30_second_deadline')
 
@@ -97,7 +103,11 @@ class ReadOnlyGateExecutor(EdgeExecutor):
         local = op == 'price_helpers'
         previous = s['operations']
         need(sum(e['command']['operation'] == 'price_helpers' for e in previous) < 64 if local else
-             sum(e['command']['operation'] != 'price_helpers' for e in previous) < 7, 'finite_budget_exhausted')
+             sum(e['command']['operation'] != 'price_helpers' for e in previous) < s.get('execution_budget',{}).get('ea_GETs',7), 'finite_budget_exhausted')
+        if s.get('attempt')==3 and 'valuation_start_ns' not in s:
+            need(s['stage']=='BOUNDED_DISCOVERY' and op=='search' and c['params']==Search.discovery().params(),
+                 'no_valuation_warmup_during_discovery')
+            need(len(previous)<3,'bounded_discovery_request_budget')
         if op == 'search' and c['params']['purpose'] == 'pricing':
             need(s['stage'] == 'UNCACHED_VALUATION', 'pricing_outside_single_valuation')
             need(sum(e['command']['operation'] == 'search' and
@@ -240,6 +250,24 @@ def admission_proof(s, *, source='native'):
             queries.append(e)
         operations[c['id']] = e
     need(len(queries) == 2, 'two_real_pricing_GETs_required')
+    if s['attempt']==3:
+        from .gate_00203_discovery import discovery_candidates
+        initial=[e for e in s['operations'] if e['start_ns']<s['valuation_start_ns']]
+        need(1<=len(initial)<=3 and all(e['stage']=='BOUNDED_DISCOVERY' and
+             e['command']['operation']=='search' and e['command']['params']==Search.discovery().params() and
+             e['finish_ns']<=s['valuation_start_ns'] for e in initial),'unbounded_discovery_or_valuation_warmup')
+        selected=operations[s['discovery_read_id']]
+        need(s['selection']['read_id']==s['discovery_read_id'] and
+             any(r==candidate for r in discovery_candidates(selected['response'],now=stamp(s['valuation_start_at']))),
+             'selected_auction_not_fresh_native_discovery')
+        need(s['selection']['definition_id']==definition and s['selection']['trade_id']==candidate['trade_id'] and
+             s['selection']['item_id']==candidate['item']['item_id'] and
+             selected['finish_ns']<=s['selection']['selected_ns']<=s['valuation_start_ns']<s['discovery_deadline_ns'],
+             'selected_identity_or_discovery_deadline')
+        need(any(c['definition_id']==definition and c['read_id']==s['discovery_read_id'] and
+             c['inventory']==s['cache_inventory'] for c in s['discovery_cache_checks']), 'selection_cache_evidence_missing')
+        need(sum(e['command']['operation']!='price_helpers' for e in s['operations'])<=9 and
+             sum(e['command']['operation']=='price_helpers' for e in s['operations'])<=64,'finite_budget_exhausted')
     quote = s['uncached_quote']; qe = quote['evidence']
     need(quote['completed'] and quote['status'] == 'COMPLETE' and qe['cache_hit'] is False and
          qe['price_searches'] == 2 and qe['source'] == source, 'uncached_quote_required')
@@ -324,10 +352,11 @@ def admission_proof(s, *, source='native'):
 
 def selected_checkpoint(attempt=None):
     if attempt is not None:
+        if attempt==THIRD_ATTEMPT:return THIRD_CHECKPOINT
         need(attempt == AUTHORIZED_ATTEMPT, 'unknown_authorized_attempt')
         return REMEDIATION_CHECKPOINT
     # A new RUNNING/failed checkpoint blocks dependencies; never fall back.
-    return REMEDIATION_CHECKPOINT if REMEDIATION_CHECKPOINT.exists() else CHECKPOINT
+    return THIRD_CHECKPOINT if THIRD_CHECKPOINT.exists() else REMEDIATION_CHECKPOINT if REMEDIATION_CHECKPOINT.exists() else CHECKPOINT
 
 
 def original_failure():
@@ -351,9 +380,26 @@ def validate_attempt(s):
     if type(s.get('attempt')) is int and s['attempt'] == 1:
         need('attempt_id' not in s and 'authorization' not in s, 'wrong_gate_attempt_identity')
         return
+    if type(s.get('attempt')) is int and s['attempt']==3:
+        need(s.get('attempt_id')==THIRD_ATTEMPT and s.get('authorization')==third_authorization(),
+             'wrong_gate_attempt_authorization')
+        return
     need(type(s.get('attempt')) is int and s['attempt'] == 2 and
          s.get('attempt_id') == AUTHORIZED_ATTEMPT and s.get('authorization') == original_failure(),
          'wrong_gate_attempt_authorization')
+
+
+def third_authorization():
+    original=original_failure()
+    raw=REMEDIATION_CHECKPOINT.read_bytes();old=json.loads(raw.decode('utf8'))
+    validate_attempt(old)
+    need(old['status']=='FAILURE/BLOCKED' and old['reason']=='no_real_eligible_candidate_single_discovery' and
+         'valuation_start_ns' not in old and old['hard_stop'] is True and old['dependent_tasks_allowed'] is False,
+         'second_failed_prevaluation_checkpoint_required')
+    need(old['evidence_sha256']==digest({k:v for k,v in old.items() if k!='evidence_sha256'}),'second_failed_evidence_changed')
+    return dict(authority='explicit_user_third_attempt_with_bounded_cross_version_discovery',additional_attempts=1,
+                original=original,second_checkpoint=REMEDIATION_CHECKPOINT.relative_to(ROOT).as_posix(),
+                second_capture_sha256=hashlib.sha256(raw).hexdigest())
 
 
 def require_pass(path=None):

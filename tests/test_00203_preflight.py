@@ -68,6 +68,11 @@ class Desktop(unittest.TestCase):
 
 
 class AdditionalAttempt(unittest.TestCase):
+    def setUp(self):
+        temporary=tempfile.TemporaryDirectory();self.addCleanup(temporary.cleanup)
+        patcher=patch.object(gate,'THIRD_CHECKPOINT',Path(temporary.name)/'absent-third.json')
+        patcher.start();self.addCleanup(patcher.stop)
+
     def test_new_attempt_real_foundation_offline_proof_and_original_rejection(self):
         from test_00203_gate import Gate
         with tempfile.TemporaryDirectory() as d:

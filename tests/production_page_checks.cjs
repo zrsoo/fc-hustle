@@ -41,13 +41,16 @@ function setup(mode='ok'){
   const services={User:{getUser:()=>user,requestCurrencies:()=>response('balance',{credits:90000})},Item:{
     clearTransferMarketCache(){events.push('clear');},
     searchTransferMarket(q,page){
-      captured={...q,defId:Array.from(q.defId),page};
-      assert.deepEqual(Array.from(q.defId),[7654321]);assert.equal(q.count,21);assert.equal(page,1);assert.equal(q.type,'player');
-      const wire={start:0,num:21,definitionId:q.defId[0]};
+      captured={...q,...(q.defId===undefined?{}:{defId:Array.from(q.defId)}),page};
+      if(mode==='broad')assert.equal(q.defId,undefined);else assert.deepEqual(Array.from(q.defId),[7654321]);
+      assert.equal(q.count,21);assert.equal(page,1);assert.equal(q.type,'player');
+      const wire={start:0,num:21};if(q.defId!==undefined)wire.definitionId=q.defId[0];
       if(q.maxBid!==undefined)wire.macr=q.maxBid;if(q.minBuy!==undefined)wire.minb=q.minBuy;
       if(q.maxBuy!==undefined)wire[mode==='wrongMaxBuy'?'macr':'maxb']=q.maxBuy;
       // Native maxBuy is inclusive: include the equality row in the response.
-      return response('search',{items:[raw()],hasMore:false},wire);
+      const rows=[raw()];if(mode==='broad')rows.push({...raw(),id:'10000000000000000002',definitionId:7654322,
+        getAuctionData:()=>({...raw().getAuctionData(),tradeId:'20000000000000000002'})});
+      return response('search',{items:rows,hasMore:false},wire);
     },
     requestWatchedItems:()=>response('watched',{items:[raw()],hasMore:false}),
     requestUnassignedItems:()=>response('unassigned',{items:[raw()]}),
@@ -82,6 +85,11 @@ function setup(mode='ok'){
 const pricing={purpose:'pricing',definition_id:7654321,page:1,count:21,fresh:true};
 const discovery={...pricing,purpose:'discovery',max_bid:1000,min_buy:11000};
 if(require.main===module)(async()=>{
+  const wide=setup('broad'),broad=wide.command('search',{purpose:'discovery',page:1,count:21,fresh:true,max_bid:1000,min_buy:11000});
+  const wideResult=await wide.execute(broad);assert(wideResult.result.success,JSON.stringify(wideResult));
+  assert.deepEqual(wideResult.result.network[0].query,{start:0,num:21,macr:1000,minb:11000});
+  assert.deepEqual(wideResult.result.auctions.map(a=>a.item.definition_id),[7654321,7654322]);
+  assert.equal((await wide.execute(wide.command('search',{purpose:'pricing',page:1,count:21,fresh:true}))).result.error,'invalid_command');
   let h=setup();
   for(const [op,params,field] of [['search',discovery,'auctions'],['search',pricing,'auctions'],['search',{...pricing,max_buy:15000},'auctions'],
     ['watched',{},'auctions'],['balance',{},'credits'],['unassigned',{},'items'],['transfer_list',{},'auctions'],['caps',{definition_id:7654321},'caps']]){

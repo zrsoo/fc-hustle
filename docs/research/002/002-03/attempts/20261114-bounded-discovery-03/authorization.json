@@ -1,0 +1,25 @@
+{
+  "attempt_id": "20261114-bounded-discovery-03",
+  "authorization": {
+    "authority": "explicit_user_third_attempt_with_bounded_cross_version_discovery",
+    "additional_attempts": 1,
+    "original": {
+      "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+      "previous_checkpoint": "docs/research/002/002-03/gate.json",
+      "previous_status": "FAILURE/BLOCKED",
+      "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+      "additional_attempts": 1
+    },
+    "second_checkpoint": "docs/research/002/002-03/attempts/20261114-preflight-remediation-01/gate.json",
+    "second_capture_sha256": "d37aff90db19e382d394798be9cf0f08afea256614e7771d488a8c6a3c69050d"
+  },
+  "budget": {
+    "discovery_GETs": 3,
+    "discovery_seconds": 180,
+    "total_EA_GETs": 9,
+    "pricing_GETs": 2,
+    "local_helper_batches": 64,
+    "valuations": 1
+  },
+  "mutations": 0
+}

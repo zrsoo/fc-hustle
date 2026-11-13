@@ -1,0 +1,86 @@
+{
+  "command_id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+  "command": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "8726334bbb0a366a50d4ad37c9176e49",
+      "epoch": 23,
+      "host_epoch": "75600cecba7351f325896c5ee29e607d",
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+    },
+    "id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+    "operation": "search",
+    "params": {
+      "count": 21,
+      "fresh": true,
+      "max_bid": 1000,
+      "min_buy": 11000,
+      "page": 1,
+      "purpose": "discovery"
+    },
+    "schema": 2
+  },
+  "transport_state": "UNKNOWN",
+  "response": null,
+  "events": [
+    {
+      "sequence": 4,
+      "command_id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+      "event": "RESERVED"
+    },
+    {
+      "sequence": 5,
+      "command_id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+      "event": "DELIVERED"
+    },
+    {
+      "sequence": 6,
+      "command_id": "5a8f52c3a0a494dd7c298c57a5b37d97",
+      "event": "TIMEOUT_NO_RETRY"
+    }
+  ],
+  "local_health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "75600cecba7351f325896c5ee29e607d",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 23
+    },
+    "attached": false,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "8726334bbb0a366a50d4ad37c9176e49",
+        "epoch": 23,
+        "host_epoch": "75600cecba7351f325896c5ee29e607d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+      }
+    },
+    "mutations_enabled": false
+  },
+  "read_only_diagnostic": true,
+  "recorded_discovery_to_stop_ms": 22040.6847,
+  "limitation": "EA request occurrence, HTTP status, returned rows and browser failure cause cannot be determined from the retained missing acknowledgement. No replay was sent."
+}
