@@ -108,7 +108,7 @@ On its next scheduled acquisition cycle (initially every 600 seconds):
 
 The acquisition discovery filter (`maxBid=1000`, `minBuy=11000`) **does not apply to comparable pricing searches**. Reuse 001D's exact two-search pricing API; 002 must not add further queries. Pricing always uses the exact-version PC `maxBuy` filter only on its second search; both searches are fixed to page 1 and at most 21 returned rows each. The second `maxBuy=first_min` is intentionally **inclusive**; if the returned page contains only listings priced at `first_min`, the result remains `first_min`. Do not assume EA sorts by BIN or that two pages cover the entire market. The accepted risk is that a cheaper listing may exist outside both samples or the cache may become stale during its 24-hour TTL.
 
-Validate on the retained 001C version-261855 first-page fixture: the cheapest valid BIN was 1,500 even though the old estimator returned 2,800. With an empty/equally priced second search, the result must remain 1,500; a genuinely cheaper second-search BIN lowers it. Validate first-page early rejection, equivalent-card cache reuse, TTL expiry, no valid comparables, excluded 600/10,000 defaults, partial rejection-only evidence, unsorted pages and second-request exactly-once behavior. `last_sale_price` must be recorded but must not affect either calculation. The algorithm replaces, rather than calls, the legacy MAD estimator in `fc_access/pricing.py`; preserve safe identity, legal-price and tax helpers. Do not rewrite the historic 001C evidence or claim the production estimator has already been updated.
+Validate on the retained 001C version-261855 first-page fixture: the cheapest valid BIN was 1,500 even though the old estimator returned 2,800. With an empty/equally priced second search, the result must remain 1,500; a genuinely cheaper second-search BIN lowers it. Validate first-page early rejection, equivalent-card cache reuse, TTL expiry, no valid comparables, excluded 600/10,000 defaults, partial rejection-only evidence, unsorted pages and second-request exactly-once behavior. `last_sale_price` must be recorded but must not affect either calculation. The production two-search estimator and completed 24-hour cache were delivered by 001D and live read-only verified in final remediation; Objective 002 must reuse, not reimplement, them. Preserve safe identity, legal-price/tax helpers and historical 001C evidence.
 
 ## Actor 2 — Bidder
 
@@ -155,33 +155,30 @@ The durable auction registry is the **current state**; separately maintain an **
 ## Intended actor coordination
 
 ```text
-Acquirer (every ~10 min):
-    if DRAINING or enrolled_count >= max_enrolled_auctions:
-        do not enroll
-    else:
-        search maxBid=1000, minBuy=11000
-        for each new eligible auction:
-            if reserve admission would fail:
-                enter DRAINING; break
-            estimate resale and maximum bid
-            submit minimum legal first bid; reconcile outcome
-            enroll confirmed auction
-            if enrolled_count reaches cap: stop
+Acquirer (every ~600 sec):
+    get fresh complete Transfer List and durable pending/unresolved reservations
+    if coin DRAINING or unresolved >= 50 or combined occupied+pending+unresolved >= 50
+       or capacity UNKNOWN: pause new enrollment
+    else: discover maxBid=1000, minBuy=11000
+          price using cached or two-search uncached valuation with Bidder priority
+          atomically reserve one potential win, bid smallest legal first bid,
+          independently reconcile, no duplicate/ambiguous retries
 
-Bidder (queue refresh target ~25 sec, prioritized):
-    for each unresolved enrolled auction, nearest expiry first:
-        refresh authoritative bid status
-        if leading: no bid
-        elif outbid and next_legal_bid <= cap and spendable:
-            submit next_legal_bid; reconcile
-        elif outbid and next_legal_bid > cap:
-            stop competing, continue tracking
-        if terminal won: verify owned item; hand off to resale
-        if terminal lost: reconcile funds; release slot
+Bidder (independent target ~25 sec):
+    fresh bulk watched status for unresolved enrolled auctions
+    leading => HOLD; outbid => smallest legal next bid if <= stored cap and spendable
+    LOST => release unresolved reservation
+    WON => prove exact owned card and paid cost; atomically move reservation
+           unresolved -> pending resale -> Transfer List occupied upon readback
+    UNKNOWN => reconcile, no blind retry
 
-Acquirer DRAINING:
-    no new bids until ALL enrolled auctions are confirmed resolved
-    after queue empty: resume only on future eligible cycle if balance permits
+Transfer List maintenance (same prioritized native executor):
+    detected sold => one verified sold-only bulk clear, then fresh slot readback
+    every 3660s => one verified bulk relist of all expired items at existing prices,
+                  with new 3600s duration, then fresh item/trade readback
+
+Sticky coin DRAINING does not clear when capacity returns; only after all
+unresolved auctions end WON/LOST and funds permit at a subsequent cycle.
 ```
 
 ## Relationship to completed 001C and new 001D
@@ -199,7 +196,7 @@ Acquirer DRAINING:
 3. **Known auction status when watched coverage is missing:** Use 001D's scoped investigation of `services.Item.transfersDao.getAuctionData` / `/trade/status/lite`, previously exercised for one historical ID; validate support for real 002 enrolled trade IDs. Lite `definition_id=0` means omitted, not conflicting. Missing/inconclusive status stays UNKNOWN.
 4. **25-second refresh and capacity:** Run the actual independent Python Bidder under concurrent Acquirer activity; measure start-to-start intervals, EA request fanout, fresh bulk watched coverage, deadline misses/reconnect and queue growth. 001C tested 50-row fixtures, but only empty/one-item native reads; do not fabricate 50 actual bids to claim coverage.
 5. **Expiry/funds:** Instrument natural near-expiry pre/post timestamps and actual spendable credits; no established 30-second reset or complete transient escrow/refund timing.
-6. **Settlement/unsold cards:** Observe attributable card sale/coin proceeds before claiming realized profit. Require a product decision for listing duration before live resale and for relisting behavior before unattended unsold-item automation.
+6. **Settlement/unsold cards:** Observe attributable card sales/coin proceeds before claiming realized profit; **duration=3600s, every-3660s relist-all expired at original prices for 3600s, and sold-only bulk clear on detection are locked**. The exact FC27 single-operation bulk semantics remain item 9 live investigations, not undecided policy.
 
 Every remaining investigation must identify its exact API and needed real event; missing natural events are reported LIVE-UNVERIFIED, not fictional success or open-ended research prerequisites.
 
@@ -210,8 +207,8 @@ Every remaining investigation must identify its exact API and needed real event;
 3. Reuse 001D's production bridge, runtime native legal prices, two-query min-BIN valuation/24h cache, fresh balance/watch/status and conditional bid APIs; never recreate MAD/five-comparable valuation or static signed-rule gates.
 4. Verified outcome lifecycle: first auction bid → leading/outbid → optional minimum-increment rebids → confirmed won/lost → exact won-card move/list with **Buy Now = stored resale_price, starting bid = previous native legal tick**, and no unnecessary bids while leading.
 5. Operator configuration, current queue/coins/actor status, **persistent per-auction event journal** and structured execution/profit records, with queryable human-readable timelines and sanitized trace export.
-6. Deterministic test coverage for two-request minimum-BIN valuation (default 600/10,000 listings, high ask clusters, genuine low BIN listings, first-page early rejection, no valid samples, empty/equal/cheaper second result, strict max-two-page-1 searches, inclusive `maxBuy`, 24-hour exact-version PC cache hit/expiry, unsorted paging, `last_sale_price` logged but never used), cap equality/rounding, winning-at-low-bid behavior, outbid competitions, losing over cap, 50-slot queue saturation, 5,000-coin DRAINING stickiness, balance changes, simultaneous actor requests, stale status, restart/unknown responses, chronological reason-coded bid decisions, crash-safe event replay/reconciliation, and won-item handoff.
-7. Bounded independently assessed actor-dependent live validation **after 001D foundation handoff**; do not infer bid/win/list success from an HTTP acknowledgement alone. Record projected profit separately from realized settled profit.
+6. Deterministic test coverage for two-request minimum-BIN valuation (default 600/10,000 listings, high ask clusters, genuine low BIN listings, first-page early rejection, no valid samples, empty/equal/cheaper second result, strict max-two-page-1 searches, inclusive `maxBuy`, 24-hour exact-version PC cache hit/expiry, unsorted paging, `last_sale_price` logged but never used), cap equality/rounding, winning-at-low-bid behavior, outbid competitions, losing over cap, 50-slot unresolved auction queue saturation, independent 50-slot occupied+pending+unresolved capacity, atomic reservation transitions, sold-only clear and 61-minute bulk relist with 3600s duration, 5,000-coin DRAINING stickiness, balance changes, simultaneous actor requests, stale status, restart/unknown responses, chronological reason-coded bid decisions, crash-safe event replay/reconciliation, and won-item handoff.
+7. Targeted actor-dependent live validation followed by **item 12's final comprehensive real E2E run** across both actors and transfer-list listing, relist and clearing; never infer success from an HTTP acknowledgement alone, and record projected profit separately from realized settled profit.
 
 **Acceptance:** Items 1–11 pass (item 3 must meet real strict <30s uncached valuation-to-fresh-eligible-decision or STOP further fixes), separate auction queue <=50 and combined occupied+pending+unresolved <=50, sticky coin DRAINING preserved, single-operation FC27 bulk clear/relist verified, one-hour fixed-price listing enforced. **Item 12 must be the final comprehensive actual-live E2E run across Acquirer, Bidder and resale/relisting/clearing**; unobserved required events mean PARTIAL, not FULL PASS.
 
