@@ -2,3 +2,5 @@
 * -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The pre-existing objective already had a normalized Git blob and CRLF checkout.
 objectives/001-fc27-api-research.md text eol=crlf
+# Verbatim unittest output includes trailing spaces on two subtest heading lines.
+docs/research/001d/final-remediation/python-after-first-repair.txt -whitespace
