@@ -1,0 +1,29 @@
+
+--- STDERR ---
+test_access_challenge_stops_without_replay (__main__.LedgerTests.test_access_challenge_stops_without_replay) ... ok
+test_ack_without_watched_state_cannot_reconcile (__main__.LedgerTests.test_ack_without_watched_state_cannot_reconcile) ... ok
+test_conclusive_win_allows_one_transfer_but_blocks_duplicate_pending_write (__main__.LedgerTests.test_conclusive_win_allows_one_transfer_but_blocks_duplicate_pending_write) ... ok
+test_exhaustion_and_deadline_persist (__main__.LedgerTests.test_exhaustion_and_deadline_persist) ... ok
+test_handoff_without_conclusive_ownership_rejected (__main__.LedgerTests.test_handoff_without_conclusive_ownership_rejected) ... ok
+test_journal_append_only (__main__.LedgerTests.test_journal_append_only) ... ok
+test_mutation_coin_and_per_bid_limits (__main__.LedgerTests.test_mutation_coin_and_per_bid_limits) ... ok
+test_one_auction_and_pending_ack_block_all_further_writes (__main__.LedgerTests.test_one_auction_and_pending_ack_block_all_further_writes) ... ok
+test_paid_cost_mismatch_blocks_handoff (__main__.LedgerTests.test_paid_cost_mismatch_blocks_handoff) ... ok
+test_read_limit (__main__.LedgerTests.test_read_limit) ... ok
+test_serialized_duplicate_no_redelivery_and_restart_preserves_limits (__main__.LedgerTests.test_serialized_duplicate_no_redelivery_and_restart_preserves_limits) ... ok
+test_success_without_actual_bid_amount_stops (__main__.LedgerTests.test_success_without_actual_bid_amount_stops) ... ok
+test_valid_listing_requires_native_owned_win_and_legal_price (__main__.LedgerTests.test_valid_listing_requires_native_owned_win_and_legal_price) ... ok
+test_actual_javascript_adapter (__main__.PageTests.test_actual_javascript_adapter) ... ok
+test_cap_and_spendable_reserve (__main__.PolicyTests.test_cap_and_spendable_reserve) ... ok
+test_expiry_and_cached_reads_fail (__main__.PolicyTests.test_expiry_and_cached_reads_fail) ... ok
+test_first_participation_above_existing_bid_is_minimum_ordinary_entry (__main__.PolicyTests.test_first_participation_above_existing_bid_is_minimum_ordinary_entry) ... ok
+test_five_fresh_exact_economics_and_ordinary_minimum (__main__.PolicyTests.test_five_fresh_exact_economics_and_ordinary_minimum) ... ok
+test_leading_holds_and_rebid_requires_actual_outbid (__main__.PolicyTests.test_leading_holds_and_rebid_requires_actual_outbid) ... ok
+test_missing_never_loss_win_requires_paid_and_physical_owned (__main__.PolicyTests.test_missing_never_loss_win_requires_paid_and_physical_owned) ... ok
+test_reject_fewer_than_five_wrong_version_duplicate_and_stale (__main__.PolicyTests.test_reject_fewer_than_five_wrong_version_duplicate_and_stale) ... ok
+test_tick_boundaries (__main__.PolicyTests.test_tick_boundaries) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 1.003s
+
+OK

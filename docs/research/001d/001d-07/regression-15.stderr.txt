@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\validate_001c06_complete.py", line 45, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "C:\hustle\fc-hustle\tests\validate_001c06_complete.py", line 41, in main
+    r,checks=validate()
+             ~~~~~~~~^^
+  File "C:\hustle\fc-hustle\tests\validate_001c06_complete.py", line 15, in validate
+    r=inspect();check(r==load(FINAL/'report.json'),'retained_summary_disagrees_with_independent_proof')
+  File "C:\hustle\fc-hustle\fc_access\e2e_live_v2\audit.py", line 149, in inspect
+    old=original_inspect();prior=first_resolution()
+  File "C:\hustle\fc-hustle\fc_access\e2e_v1\audit.py", line 81, in inspect
+    for name,digest in entry['preserve'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical alteration: '+name
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: historical alteration: fc_access/pricing.py

@@ -1,0 +1,17 @@
+
+--- STDERR ---
+test_0_independent_wire_and_actual_fc27_query_names_required (__main__.Contracts.test_0_independent_wire_and_actual_fc27_query_names_required) ... ok
+test_0_native_javascript_query_projection_empty_privacy_and_rejection (__main__.Contracts.test_0_native_javascript_query_projection_empty_privacy_and_rejection) ... ok
+test_1_fresh_availability_identity_price_change_missing_and_staleness (__main__.Contracts.test_1_fresh_availability_identity_price_change_missing_and_staleness) ... ok
+test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence (__main__.Contracts.test_1_pagination_coverage_and_live_changes_cannot_establish_global_absence) ... ok
+test_2_exact_version_resource_id_not_asset_and_native_caps_authentication (__main__.Contracts.test_2_exact_version_resource_id_not_asset_and_native_caps_authentication) ... ok
+test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers (__main__.Contracts.test_3_five_independent_pc_exact_comps_candidate_exclusion_and_outliers) ... ok
+test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap (__main__.Contracts.test_4_native_client_tick_boundaries_caps_floor_tax_and_search_vs_cap) ... ok
+test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales (__main__.Contracts.test_5_6_fail_closed_rules_estimates_no_bid_and_no_realized_sales) ... ok
+test_6_schema_rejects_sensitive_extra_fields_and_raw_identities (__main__.Contracts.test_6_schema_rejects_sensitive_extra_fields_and_raw_identities) ... ok
+test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart (__main__.Contracts.test_6_transport_rejects_write_bad_origin_and_consumed_budget_survives_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.261s
+
+OK

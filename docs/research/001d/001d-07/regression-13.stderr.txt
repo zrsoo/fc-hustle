@@ -1,0 +1,20 @@
+setUpClass (__main__.CompleteArtifactTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (__main__.CompleteArtifactTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_e2e_complete_artifacts.py", line 16, in setUpClass
+    def setUpClass(cls):cls.r=inspect()
+                              ~~~~~~~^^
+  File "C:\hustle\fc-hustle\fc_access\e2e_live_v2\audit.py", line 149, in inspect
+    old=original_inspect();prior=first_resolution()
+  File "C:\hustle\fc-hustle\fc_access\e2e_v1\audit.py", line 81, in inspect
+    for name,digest in entry['preserve'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical alteration: '+name
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: historical alteration: fc_access/pricing.py
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.027s
+
+FAILED (errors=1)

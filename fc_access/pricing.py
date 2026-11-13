@@ -1,4 +1,7 @@
-"""Deterministic, offline indicative pricing proof. No transport or order execution.
+"""Historical offline estimator and shared identity/tax helpers.
+
+Production callers use PricingService/Quote (re-exported here); evaluate is
+retained solely for historical experiments and their immutable replay evidence.
 
 All prices are integer coins. A threshold match is a modeled opportunity, never
 an authorization to buy or a promise that a listing will sell.
@@ -7,6 +10,9 @@ from dataclasses import dataclass
 from datetime import datetime
 from fractions import Fraction
 from statistics import median
+from fc_access.production_v1.prices import NativePrices
+from fc_access.production_v1.pricing import PricingService, Quote
+from fc_access.production_v1.price_cache import QuoteCache
 
 
 @dataclass(frozen=True)
@@ -89,6 +95,9 @@ def _key(value):
 
 
 def validate_rules(rules):
+    if isinstance(rules, NativePrices):
+        rules.check()
+        return
     if (not isinstance(rules, Rules) or not _key(rules.key) or
             not _int(rules.minimum, 1) or not _int(rules.maximum, rules.minimum) or
             not _date(rules.observed_at) or not isinstance(rules.bands, tuple) or not rules.bands):
@@ -107,6 +116,8 @@ def floor_price(price, rules):
     Return None rather than round UP above a conservative target/minimum.
     Works even if a supplied cap is between increments or bands have gaps.
     """
+    if isinstance(rules, NativePrices):
+        return rules.floor(price)
     validate_rules(rules)
     if not _int(price):
         raise ValueError("invalid_price")
@@ -156,11 +167,12 @@ def evaluate(key, observations, acquisition, rules, *, now, X, policy=Policy()):
     if rules is None:
         return result("MISSING_CAPS")
     validate_rules(rules)
-    if rules.key != key:
+    if (rules.key.definition_id, rules.key.platform, rules.key.game) != (key.definition_id, key.platform, key.game):
         return result("RULES_MARKET_MISMATCH")
-    age = (now-rules.observed_at).total_seconds()
-    if not 0 <= age <= policy.rules_max_age:
-        return result("STALE_RULES")
+    if not isinstance(rules, NativePrices):
+        age = (now-rules.observed_at).total_seconds()
+        if not 0 <= age <= policy.rules_max_age:
+            return result("STALE_RULES")
     if floor_price(rules.maximum, rules) is None:
         return result("NO_LEGAL_PRICE")
 

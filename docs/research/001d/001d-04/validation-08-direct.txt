@@ -1,0 +1,54 @@
+{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.2002, "live_performance": false}
+
+--- STDERR ---
+test_50_queue_dedup_conflict_missing_expiry_and_deadline_order (__main__.Behavior.test_50_queue_dedup_conflict_missing_expiry_and_deadline_order) ... ok
+test_capacity_is_independent_of_configured_queue_and_cached_status_unknown (__main__.Behavior.test_capacity_is_independent_of_configured_queue_and_cached_status_unknown) ... ok
+test_fresh_empty_requires_network_persona_and_visible_comparison (__main__.Behavior.test_fresh_empty_requires_network_persona_and_visible_comparison) ... ok
+test_native_JS_network_cache_privacy_schema_and_50_rows (__main__.Behavior.test_native_JS_network_cache_privacy_schema_and_50_rows) ... ok
+test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset) ... ERROR
+test_request_cost_and_25_seconds_remain_bounded_extrapolation (__main__.Behavior.test_request_cost_and_25_seconds_remain_bounded_extrapolation) ... ok
+test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (__main__.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
+
+======================================================================
+ERROR: test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (__main__.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 133, in test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset
+    with self.assertRaises(urllib.error.HTTPError) as cm:post(path,value,origin)
+                                                         ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 131, in post
+    return urllib.request.urlopen(urllib.request.Request(base+path,data=json.dumps(payload).encode(),headers=h),timeout=3)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 489, in open
+    response = self._open(req, data)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1360, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1335, in do_open
+    r = h.getresponse()
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 304, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.797s
+
+FAILED (errors=1)

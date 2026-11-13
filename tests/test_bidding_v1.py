@@ -24,6 +24,7 @@ from fc_access.bidding_v1.rules import RulesProvider, estimate_cap, minimum_bid
 from fc_access.bidding_v1.scheduler import Scheduler, Work
 from fc_access.harness import empty_result, project_auction
 from fc_access.pricing import MarketKey, Observation
+from native_price_fixture import native_rules, completed_quote
 
 NOW = datetime(2030, 1, 1, tzinfo=timezone.utc)
 SCOPE, OWNER, KEY = "a"*32, "b"*32, "c"*32
@@ -67,10 +68,7 @@ class Fixture:
         self.rules, self.provider = self.load_rules()
 
     def load_rules(self):
-        raw = json.dumps(self.doc).encode()
-        self.rules_path.write_bytes(raw)
-        provider = RulesProvider([hashlib.sha256(raw).hexdigest()], allow_offline=True)
-        return provider.load(self.rules_path, key=MarketKey(123, "pc"), now=NOW), provider
+        return native_rules(self.doc['key']['definition_id'], self.doc['minimum'], self.doc['maximum'])
 
     def journal(self):
         j = Journal(self.path / "events.sqlite", now=lambda: self.clock)
@@ -80,6 +78,9 @@ class Fixture:
     def observations(self):
         return [Observation(f"t{i}", f"i{i}", MarketKey(123, "pc"), price, NOW, 400)
                 for i, price in enumerate((12000, 12250, 12500, 12750, 13000))]
+
+    def quote(self):
+        return completed_quote(self.rules, self.path/'quotes.sqlite')
 
 
 class ContractRulesTests(Fixture, unittest.TestCase):
@@ -104,46 +105,36 @@ class ContractRulesTests(Fixture, unittest.TestCase):
         self.assertFalse(replace(fresh(), network_at=None).fresh(NOW))
         self.assertFalse(fresh().fresh(NOW-timedelta(seconds=1)))
 
-    def test_provenance_fails_closed_and_artifact_tampering(self):
+    def test_native_context_and_exact_card_validation_replace_artifact_gates(self):
         key = MarketKey(123, "pc")
-        with self.assertRaisesRegex(ValueError, "unreviewed"):
-            RulesProvider([]).load(self.rules_path, key=key, now=NOW)
-        with self.assertRaisesRegex(ValueError, "provenance"):
-            RulesProvider(self.provider.reviewed_hashes).load(self.rules_path, key=key, now=NOW)
-        for key2, now in ((MarketKey(124, "pc"), NOW), (key, NOW+timedelta(seconds=301)), (key, NOW-timedelta(seconds=1))):
-            with self.assertRaises(ValueError):
-                self.provider.load(self.rules_path, key=key2, now=now)
-        self.rules_path.write_text("{}")
+        self.assertIs(self.provider.validate(self.rules,key=key,now=NOW+timedelta(days=1)),self.rules)
         with self.assertRaises(ValueError):
-            self.provider.validate(self.rules, key=key, now=NOW)
+            self.provider.validate(self.rules,key=MarketKey(124,'pc'),now=NOW)
+        self.provider.adapter.fences['epoch']+=1
+        with self.assertRaisesRegex(ValueError,'context_changed'):
+            self.provider.validate(self.rules,key=key,now=NOW)
 
-    def test_unsupported_caps_increment_gaps_and_boundaries(self):
-        for change in (lambda: self.doc.update(maximum=19999),
-                       lambda: self.doc["bands"][1].update(start=1100),
-                       lambda: self.doc["bands"][0].update(step=60)):
-            original = json.loads(json.dumps(self.doc))
-            change()
-            with self.assertRaises(ValueError):
-                self.load_rules()
-            self.doc = original
+    def test_native_caps_and_helper_boundaries(self):
+        # An off-grid listing cap is observed data, not whole-market certification.
+        self.doc.update(maximum=19999)
+        offgrid,_=self.load_rules()
+        self.assertEqual(offgrid.validate_listing(19999).status,'NEEDS_RECONCILIATION')
+        self.doc.update(maximum=20000)
         rules, _ = self.load_rules()
         for current, expected in ((0, 150), (150, 200), (950, 1000), (1000, 1100),
-                                  (9900, 10000), (10000, 10250), (19750, 20000), (20000, None)):
+                                  (9900, 10000), (10000, 10250), (19750, 20000), (20000, 20250)):
             self.assertEqual(minimum_bid(status(current=current), rules), expected)
         with self.assertRaises(ValueError):
             minimum_bid(status(current=151), rules)
         with self.assertRaises(ValueError):
             minimum_bid(replace(status(), identity=replace(status().identity, definition_id=999)), rules)
 
-    def test_reuses_exact_version_five_comparable_outlier_pricing(self):
-        key = MarketKey(123, "pc")
-        observations = [Observation(f"t{i}", f"i{i}", key, price, NOW, 400) for i, price in enumerate((12000, 12250, 12500, 12750, 13000, 20000))]
-        result, cap = estimate_cap(status(), observations, self.rules, self.provider, now=NOW)
-        self.assertEqual((result.status, result.sample_count, result.target_sale_price, cap), ("OK", 5, 12000, 10750))
-        self.assertIn(("outlier", 1), result.rejected)
-        wrong = [replace(row, key=MarketKey(999, "pc")) for row in observations]
-        self.assertIsNone(estimate_cap(status(), wrong, self.rules, self.provider, now=NOW)[1])
-        self.assertIsNone(estimate_cap(status(), observations[:4]*2, self.rules, self.provider, now=NOW)[1])
+    def test_consumes_completed_quote_and_rejects_legacy_observations(self):
+        result, cap = estimate_cap(status(), self.quote(), self.rules, self.provider, now=NOW)
+        self.assertEqual((result.status, result.evidence['sample_count'], result.resale_price, cap),
+                         ('COMPLETE', 5, 12000, 10750))
+        with self.assertRaisesRegex(ValueError, 'completed_quote'):
+            estimate_cap(status(), self.observations(), self.rules, self.provider, now=NOW)
 
 
 class QueueDecisionTests(Fixture, unittest.TestCase):
@@ -558,7 +549,7 @@ class AdapterTests(Fixture, unittest.TestCase):
         page, j = FakePage(), self.journal()
         adapter = NativeAdapter(page, j, self.provider, scope=SCOPE, owner=OWNER, evidence_key=KEY, now=lambda: NOW, fixture=True)
         i = intent()
-        self.assertEqual(adapter.bid_once(i, status(), balance(), self.rules, observations=self.observations()).outcome, Outcome.ACKNOWLEDGED)
+        self.assertEqual(adapter.bid_once(i, status(), balance(), self.rules, quote=self.quote()).outcome, Outcome.ACKNOWLEDGED)
         self.assertEqual(page.commands[0]["operation"], "bid")
         self.assertEqual(page.commands[0]["params"]["amount"], 150)
         data = next(e["data"] for e in j.trace() if e["reason"] == "INTENT_DURABLE")
@@ -567,18 +558,18 @@ class AdapterTests(Fixture, unittest.TestCase):
         self.assertEqual(hashlib.sha256(json.dumps(data["comparables"], sort_keys=True).encode()).hexdigest(), data["pricing_digest"])
         self.assertTrue(all(r["trade_id"].startswith("trade:") for r in data["comparables"]))
         with self.assertRaises(ValueError):
-            adapter.bid_once(i, status(), balance(), self.rules, observations=self.observations())
+            adapter.bid_once(i, status(), balance(), self.rules, quote=self.quote())
         self.assertEqual(len(page.commands), 1)
         leading = replace(status(state=State.LEADING, current=150), freshness=fresh(800))
         adapter.reconcile(i.command_id, leading, balance(n=901))
         outbid = replace(leading, state=State.OUTBID)
         with self.assertRaises(ValueError):
-            adapter.bid_once(intent(outbid, n=101, amount=250, b=balance(n=901)), outbid, balance(n=901), self.rules, observations=self.observations())
+            adapter.bid_once(intent(outbid, n=101, amount=250, b=balance(n=901)), outbid, balance(n=901), self.rules, quote=self.quote())
         page.fail = True
-        result = adapter.bid_once(intent(outbid, n=102, amount=200, b=balance(n=901)), outbid, balance(n=901), self.rules, observations=self.observations())
+        result = adapter.bid_once(intent(outbid, n=102, amount=200, b=balance(n=901)), outbid, balance(n=901), self.rules, quote=self.quote())
         self.assertEqual(result.outcome, Outcome.UNKNOWN)
         with self.assertRaises(ValueError):
-            adapter.bid_once(intent(outbid, n=103, amount=200, b=balance(n=901)), outbid, balance(n=901), self.rules, observations=self.observations())
+            adapter.bid_once(intent(outbid, n=103, amount=200, b=balance(n=901)), outbid, balance(n=901), self.rules, quote=self.quote())
         self.assertEqual(sum(c["operation"] == "bid" for c in page.commands), 2)
 
     def test_native_javascript_contracts_and_historical_persona_regression(self):
@@ -591,15 +582,15 @@ class AdapterTests(Fixture, unittest.TestCase):
     def test_native_mode_rejects_offline_rules_and_unsupported_profit_caps(self):
         page, j = FakePage(), self.journal()
         adapter = NativeAdapter(page, j, self.provider, scope=SCOPE, owner=OWNER, evidence_key=KEY, now=lambda: NOW)
-        with self.assertRaisesRegex(ValueError, "live_rules"):
-            adapter.bid_once(intent(), status(), balance(), self.rules, observations=self.observations())
+        with self.assertRaisesRegex(ValueError, "native_prices"):
+            adapter.bid_once(intent(), status(), balance(), self.rules, quote=self.quote())
         with self.assertRaisesRegex(ValueError, "source"):
             adapter.balance(cid(40))
         adapter.fixture = True
         with self.assertRaisesRegex(ValueError, "profitable_cap"):
-            adapter.bid_once(replace(intent(), cap=20000), status(), balance(), self.rules, observations=self.observations())
+            adapter.bid_once(replace(intent(), cap=20000), status(), balance(), self.rules, quote=self.quote())
         with self.assertRaisesRegex(ValueError, "profitable_cap"):
-            adapter.bid_once(intent(), status(), balance(), self.rules, observations=self.observations()[:4])
+            adapter.bid_once(intent(), status(), balance(), self.rules, quote=None)
         self.assertFalse(any(c["operation"] == "bid" for c in page.commands))
 
 

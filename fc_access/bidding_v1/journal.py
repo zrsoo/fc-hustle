@@ -130,12 +130,13 @@ class Journal:
             for reason, data, trade_id, command_id in events:
                 self._event(scope, reason, data, trade_id, command_id)
 
-    def session(self, scope, owner):
+    def session(self, scope, owner, *, after_epoch=0):
         token(scope)
         token(owner)
+        integer(after_epoch)
         with self.transaction():
             row = self.db.execute("SELECT epoch FROM sessions WHERE scope=?", (scope,)).fetchone()
-            epoch = row[0]+1 if row else 1
+            epoch = max(row[0] if row else 0, after_epoch)+1
             self.db.execute("INSERT OR REPLACE INTO sessions VALUES(?,?,?)", (scope, owner, epoch))
             self._event(scope, "SESSION_STARTED", {"owner": owner, "epoch": epoch})
         return epoch

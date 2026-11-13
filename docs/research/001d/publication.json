@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "task": "001d-01",
+  "published_utc": "2026-11-13T13:45:45.527819+00:00",
+  "phase": "PRE_CHANGE_GAP_MAP",
+  "existing_files_changed": [],
+  "new_code_files_at_publication": [],
+  "production_migrations_implemented": false,
+  "sha256": {
+    "docs/research/001d/baseline-00.txt": "65bfb74f837220084cdca6c086e3335c9c84c5e90804760d624fcf03a17c1920",
+    "docs/research/001d/baseline-01.txt": "477907b8ca8cd635a92226c7913ecd7aaf010e34885adf3afe81bf7b5609932b",
+    "docs/research/001d/baseline-02.txt": "4958f1bd62cd5f0e7513bfcdff755caa78046c3603900fa7dead5ed70fd4cd24",
+    "docs/research/001d/baseline-03.txt": "b660161e3de7ce4f9fed2d4b3b3e9f707d5a2f5db23e14b153cf13285c373e9c",
+    "docs/research/001d/baseline-04.txt": "c4578023539704e74cf4d54ffe5a601892bff0c4f125e22c24e9f0ff7d8b29e4",
+    "docs/research/001d/baseline-05.txt": "ef3684a48d82f6c0793f0d2d7f883c875bdd4e872bf63ee9d1144e671501c553",
+    "docs/research/001d/baseline-06.txt": "fd9ab8876f70a514a9df1232beabb8c96a4987b5e1f85131c80a8fc48e1015b8",
+    "docs/research/001d/baseline-07.txt": "e145f350cb3816c122cce42fb4374a13e607bec768e6c7640ab1187e25bb61fd",
+    "docs/research/001d/baseline-08.txt": "b239d5275a71a2ee443a5a7d3e443f20bbfe850ad97c15edd611e1d8f7386c39",
+    "docs/research/001d/baseline-09.txt": "dcbc00a3d9c9c1e7c9cd63d90a389bec68a6fbdc41f2114efdd4e27603b4ea31",
+    "docs/research/001d/baseline-10.txt": "0cca73818906d2771ae3168c3bbb7c3c7f2e02345f2a70ea7ee586ab97895037",
+    "docs/research/001d/baseline-11.txt": "54d1fe58eda560174bb3c9e5ef457d4eaee1b63f8e1d19709d2fe2e1f78ca037",
+    "docs/research/001d/baseline.json": "9ba2d8548560ca136e3a1d1f44a78ac8ba54ad612a811fdba9859d414d0bb79e",
+    "docs/research/001d/entry.json": "3db3e30610a056bc5678ec0a601bf0f2ea7831f8dab3a32624723bf8cfe2ea2f",
+    "docs/research/001d/execution-plan.json": "5c72e351b16f60f21ec9fc56cfeff64318c12d68574dc17d24467d71d3c53475",
+    "docs/research/001d/REPORT.md": "81043644bbc1d7c75cb31424a3dae1c024ba92e21175d14276602dae6f1a3843",
+    "docs/research/001d/seal-audit.json": "c07dd1b36d1d573d20d2dfeb52c075386de6a4aa1d384d46c5c70d07a49e6a11"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "task": "001d-03",
+  "reason": "Authorized native price service migration; original evidence unchanged",
+  "paths": {
+    "fc_access/bidding_v1/adapter.py": {
+      "before_sha256": "8bdca5313665eb4a6c3ed9f60cc246a67bec6aeb5d14af2320431ba5b26ba92d",
+      "after_sha256": "2be230c5577f058699792c23e143cb2c669525344a419c803ce1c2a79e6481f3"
+    },
+    "fc_access/bidding_v1/rules.py": {
+      "before_sha256": "e902a3ff10f83378b7088c03e4cc9823b6039a4bf6455cb38bf7e667daef717d",
+      "after_sha256": "2da17dbc826f5ecee6eab72b5a3c0fe687e6895c645c7015f22586e6ed7b02ca"
+    },
+    "fc_access/durability_v1/harness.py": {
+      "before_sha256": "fd376aeff70d8b6bf9e267ea6b91db2cd2b0ed7ecfe4ae8eade3c734e2976a38",
+      "after_sha256": "db156e8ca9229e4689ce993f644e7e388bfa96628caea2a2cda7dfa9935c4f36"
+    },
+    "fc_access/pricing.py": {
+      "before_sha256": "e5ff72b277c281a2e7b9bf70b48a40041887040b27b3e491d8426a3bb0361dd8",
+      "after_sha256": "1bbd3a0401b9ce574443f4180969f2e91ce0980b2413d8e1c61f8d690237daca"
+    },
+    "tests/test_bidding_v1.py": {
+      "before_sha256": "620632fecc9877250597b2258d9f25257a60efdb30f9a883e297455d982a09f2",
+      "after_sha256": "d1758f200d5f55b46203df240514bd93ec8978843670ecab315d39861b331599"
+    }
+  }
+}

@@ -88,7 +88,7 @@ class BoundedHarness:
         except BaseException:
             self.db.execute('ROLLBACK');raise
 
-    def bid_once(self,intent,status,balance,rules,*,observations,readback):
+    def bid_once(self,intent,status,balance,rules,*,quote,readback):
         a=self.adapter
         if (intent.scope,intent.owner,intent.epoch)!=(a.scope,a.owner,a.epoch):
             raise ValueError('unowned_intent')
@@ -100,7 +100,7 @@ class BoundedHarness:
             raise ValueError('native_preconditions_required')
         self._reserve(intent.command_id,'bid',intent.amount,intent.identity)
         try:
-            result=a.bid_once(intent,status,balance,rules,observations=observations)
+            result=a.bid_once(intent,status,balance,rules,quote=quote)
             # UNKNOWN always ends this window; no automatic retry or continuation.
             if result.outcome!=Outcome.ACKNOWLEDGED:
                 raise ValueError('uncertain_acknowledgment')
@@ -117,7 +117,7 @@ class BoundedHarness:
             self.stop(intent.command_id)
             raise
 
-    def won_action_once(self,cid,kind,status,proof,*,send,readback,rules=None,price=None):
+    def won_action_once(self,cid,kind,status,proof,*,send,readback,rules=None,price=None,profit_threshold=500):
         if kind not in ('transfer','list') or not isinstance(proof,OwnedProof):
             raise ValueError('invalid_won_action')
         a=self.adapter
@@ -132,12 +132,15 @@ class BoundedHarness:
         if kind=='list':
             from fc_access.pricing import MarketKey
             prices=a.provider.validate(rules,key=MarketKey(proof.identity.definition_id,'pc'),now=self.now())
-            if not a.fixture and rules.provenance.classification!='LIVE_VERIFIED':
-                raise ValueError('live_listing_rules_required')
+            if not a.fixture and rules.source!='native':
+                raise ValueError('native_listing_prices_required')
             integer(price,1)
-            from fc_access.pricing import floor_price
-            if price<prices.minimum or price>prices.maximum or floor_price(price,prices)!=price:
+            pair=prices.validate_listing(price)
+            if pair.status!='LISTABLE':
                 raise ValueError('invalid_listing_price')
+            integer(profit_threshold)
+            if price-price//20-proof.paid<profit_threshold:
+                raise ValueError('unprofitable_listing')
         self._reserve(cid,kind,0,proof.identity)
         before=instant(self.now())
         try:

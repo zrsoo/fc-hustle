@@ -1,0 +1,106 @@
+{
+  "task": "001d-03",
+  "new_EA_requests": 0,
+  "live_mutations": 0,
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:03.475687+00:00",
+      "elapsed_seconds": 1.4783554000023287,
+      "output": "validation-00.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:04.954083+00:00",
+      "elapsed_seconds": 4.020991199999116,
+      "output": "validation-01.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d01_inventory.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:08.975153+00:00",
+      "elapsed_seconds": 4.265279300001566,
+      "output": "validation-02.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:13.240512+00:00",
+      "elapsed_seconds": 2.042995099996915,
+      "output": "validation-03.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:15.283577+00:00",
+      "elapsed_seconds": 5.814970599996741,
+      "output": "validation-04.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:21.098592+00:00",
+      "elapsed_seconds": 0.19849719999183435,
+      "output": "validation-05.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_search_validation_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:21.297147+00:00",
+      "elapsed_seconds": 1.4898529000056442,
+      "output": "validation-06.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:22.787045+00:00",
+      "elapsed_seconds": 1.0776101000083145,
+      "output": "validation-07.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_live_v2.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:28:23.864733+00:00",
+      "elapsed_seconds": 1.2048743000050308,
+      "output": "validation-08.txt"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.2062, "live_performance": false}

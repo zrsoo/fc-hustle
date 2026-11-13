@@ -1,0 +1,324 @@
+{
+  "task": "001d-03",
+  "window": "001D-S2",
+  "phase": "COMPLETED",
+  "context": {
+    "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+    "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+    "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+    "game": "fc27",
+    "platform": "pc"
+  },
+  "owner": "fa328e289bf026f6509848742349b8b8",
+  "epoch": 1,
+  "definition_id": 261855,
+  "reserved_native_requests": 1,
+  "reserved_helper_evaluations": 8,
+  "live_mutations": 0,
+  "recurring_actors": 0,
+  "observations": [
+    {
+      "command": {
+        "schema": 2,
+        "id": "76379aad8bce169463e694771ebd5f4b",
+        "operation": "price_helpers",
+        "params": {
+          "version": 1,
+          "probes": []
+        },
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "game": "fc27",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        }
+      },
+      "response": {
+        "command_id": "76379aad8bce169463e694771ebd5f4b",
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        },
+        "freshness": {
+          "network_at": null,
+          "observed_at": "2026-11-13T14:20:58.352Z",
+          "read_id": "76379aad8bce169463e694771ebd5f4b",
+          "request_count": 0,
+          "source": "native"
+        },
+        "operation": "price_helpers",
+        "result": {
+          "above_available": true,
+          "below_available": true,
+          "error": null,
+          "network": [],
+          "probes": [],
+          "success": true,
+          "version": 1
+        },
+        "schema": 2,
+        "timing": {
+          "native_service_ms": 0
+        }
+      }
+    },
+    {
+      "command": {
+        "schema": 2,
+        "id": "dcc5420c5df88470d9caadbecd005a5a",
+        "operation": "caps",
+        "params": {
+          "definition_id": 261855
+        },
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "game": "fc27",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        }
+      },
+      "response": {
+        "command_id": "dcc5420c5df88470d9caadbecd005a5a",
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        },
+        "freshness": {
+          "network_at": "2026-11-13T14:20:58.390Z",
+          "observed_at": "2026-11-13T14:20:58.479Z",
+          "read_id": "dcc5420c5df88470d9caadbecd005a5a",
+          "request_count": 1,
+          "source": "native"
+        },
+        "operation": "caps",
+        "result": {
+          "auctions": null,
+          "cache_invalidated": false,
+          "caps": {
+            "definition_id": 261855,
+            "maximum": 10500,
+            "minimum": 700
+          },
+          "credits": null,
+          "error": null,
+          "items": null,
+          "network": [
+            {
+              "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+              "method": "GET",
+              "path": "/ut/game/fc27/marketdata/pricelimits",
+              "query": {
+                "defId": 261855
+              },
+              "session_header_present": true,
+              "status": 200
+            }
+          ],
+          "status": 200,
+          "success": true
+        },
+        "schema": 2,
+        "timing": {
+          "native_service_ms": 88.59999999403954
+        }
+      }
+    },
+    {
+      "command": {
+        "schema": 2,
+        "id": "1b248ca0594c88e8b2aa39cf13c98400",
+        "operation": "price_helpers",
+        "params": {
+          "version": 1,
+          "probes": [
+            {
+              "direction": "above",
+              "value": 750
+            },
+            {
+              "direction": "above",
+              "value": 950
+            },
+            {
+              "direction": "above",
+              "value": 1000
+            },
+            {
+              "direction": "above",
+              "value": 9900
+            },
+            {
+              "direction": "below",
+              "value": 1500
+            },
+            {
+              "direction": "below",
+              "value": 1000
+            },
+            {
+              "direction": "below",
+              "value": 10000
+            },
+            {
+              "direction": "below",
+              "value": 700
+            }
+          ]
+        },
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "game": "fc27",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        }
+      },
+      "response": {
+        "command_id": "1b248ca0594c88e8b2aa39cf13c98400",
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null
+        },
+        "fences": {
+          "document": "b184045a01828746a9a2a51d8f363a08",
+          "epoch": 1,
+          "host_epoch": "819c93226f5bd2ec68b38a708fec6902",
+          "owner": "fa328e289bf026f6509848742349b8b8",
+          "worker_epoch": "378af5aaae6f7af67229653b2c2552f5"
+        },
+        "freshness": {
+          "network_at": null,
+          "observed_at": "2026-11-13T14:20:58.524Z",
+          "read_id": "1b248ca0594c88e8b2aa39cf13c98400",
+          "request_count": 0,
+          "source": "native"
+        },
+        "operation": "price_helpers",
+        "result": {
+          "above_available": true,
+          "below_available": true,
+          "error": null,
+          "network": [],
+          "probes": [
+            {
+              "direction": "above",
+              "price": 800,
+              "value": 750
+            },
+            {
+              "direction": "above",
+              "price": 1000,
+              "value": 950
+            },
+            {
+              "direction": "above",
+              "price": 1100,
+              "value": 1000
+            },
+            {
+              "direction": "above",
+              "price": 10000,
+              "value": 9900
+            },
+            {
+              "direction": "below",
+              "price": 1400,
+              "value": 1500
+            },
+            {
+              "direction": "below",
+              "price": 950,
+              "value": 1000
+            },
+            {
+              "direction": "below",
+              "price": 9900,
+              "value": 10000
+            },
+            {
+              "direction": "below",
+              "price": 650,
+              "value": 700
+            }
+          ],
+          "success": true,
+          "version": 1
+        },
+        "schema": 2,
+        "timing": {
+          "native_service_ms": 0.29999999701976776
+        }
+      }
+    }
+  ],
+  "started_at": "2026-11-13T14:20:58.330831+00:00",
+  "deadline": "2026-11-13T14:22:28.330831+00:00",
+  "helper_availability": "NATIVE_CLIENT_OBSERVED",
+  "caps_evidence": "AUTHENTICATED_EXACT_CARD_GET_OBSERVED",
+  "pair": {
+    "buy_now_price": 1500,
+    "starting_bid": 1400,
+    "status": "PAIR_OBSERVED"
+  },
+  "transaction_verification": "UNVERIFIED_NO_BID_OR_LISTING_EXECUTED",
+  "finished_at": "2026-11-13T14:20:58.532064+00:00",
+  "elapsed_seconds": 0.201244
+}

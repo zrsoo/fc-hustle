@@ -1,0 +1,15 @@
+
+--- STDERR ---
+test_criteria_0_2_5_artifacts_and_historical_migration (__main__.ContractAcceptance.test_criteria_0_2_5_artifacts_and_historical_migration) ... ok
+test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation (__main__.ContractAcceptance.test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation) ... ok
+test_criteria_1_3_search_identity_wire_and_payload_negative_cases (__main__.ContractAcceptance.test_criteria_1_3_search_identity_wire_and_payload_negative_cases) ... ok
+test_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget (__main__.ContractAcceptance.test_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget) ... ok
+test_criteria_1_4_response_allowlists_and_full_correlation_are_enforced (__main__.ContractAcceptance.test_criteria_1_4_response_allowlists_and_full_correlation_are_enforced) ... ok
+test_criteria_1_6_independent_readbacks_and_namespace_boundaries (__main__.ContractAcceptance.test_criteria_1_6_independent_readbacks_and_namespace_boundaries) ... ok
+test_criterion_4_actual_localhost_transport_pin_delivery_and_timeout (__main__.ContractAcceptance.test_criterion_4_actual_localhost_transport_pin_delivery_and_timeout) ... ok
+test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged (__main__.ContractAcceptance.test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.817s
+
+OK

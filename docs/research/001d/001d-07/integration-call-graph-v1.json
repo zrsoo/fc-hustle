@@ -1,0 +1,449 @@
+{
+  "artifact": "objective-002-integration-call-graph",
+  "version": "1.0.0",
+  "task": "001d-07",
+  "compatibility": {
+    "wire_schema": 2,
+    "price_service": 1,
+    "quote": 1,
+    "registry": 1,
+    "journal": 1
+  },
+  "executable_authority": "fc_access/production_v1/contracts.py",
+  "nodes": [
+    {
+      "id": "read",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "Foundation.read",
+      "contract": "Adapter-owned schema-2 read response",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "admit",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "Foundation.admit",
+      "contract": "Reason-coded registry decision; BID is eligibility, no dispatch",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "bid",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "Foundation.bid",
+      "contract": "Explicit guarded write seam; ACK is unresolved, not win",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "dispatch_intent",
+      "path": "fc_access/production_v1/adapter.py",
+      "symbol": "NativeAdapter.dispatch_intent",
+      "contract": "Native legality/economics/fresh identity/coins guards, then injected durable bridge and one-use send callback",
+      "sha256": "751300255934de4e0b7e239fca595d2f68ad692c1edc11cdedaf86c27a151d3c"
+    },
+    {
+      "id": "reconcile",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "Foundation.reconcile",
+      "contract": "Independent adapter-owned watched/credits; missing stays UNKNOWN",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "registry",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "Registry",
+      "contract": "Registry schema 1: current() inspects state, decision() appends, events(trade) exposes append-only history",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "adapter",
+      "path": "fc_access/production_v1/adapter.py",
+      "symbol": "NativeAdapter.read",
+      "contract": "Validated retained command/response; schema 2",
+      "sha256": "751300255934de4e0b7e239fca595d2f68ad692c1edc11cdedaf86c27a151d3c"
+    },
+    {
+      "id": "known_status",
+      "path": "fc_access/production_v1/adapter.py",
+      "symbol": "NativeAdapter.known_status",
+      "contract": "Known trade/item/full version mapping required in same document",
+      "sha256": "751300255934de4e0b7e239fca595d2f68ad692c1edc11cdedaf86c27a151d3c"
+    },
+    {
+      "id": "prices",
+      "path": "fc_access/production_v1/prices.py",
+      "symbol": "PriceService.load",
+      "contract": "Context-bound NativePrices from exact-card caps and loaded client helpers",
+      "sha256": "b0e0555deb298c6ede1a722b74e9133b7436bebb5c746ddb7cf252007475c9a5"
+    },
+    {
+      "id": "quote",
+      "path": "fc_access/production_v1/pricing.py",
+      "symbol": "PricingService.quote",
+      "contract": "Quote version 1; COMPLETE/REJECT/INCOMPLETE; completed is independent of eligibility",
+      "sha256": "06e9fcd443be944fa583cfe97673d4749db2b5cbabc7a1b5eb2b5d06cade4d50"
+    },
+    {
+      "id": "cache",
+      "path": "fc_access/production_v1/price_cache.py",
+      "symbol": "QuoteCache.get",
+      "contract": "Completed-only 86400-second observation; zero price searches on valid hit",
+      "sha256": "00b0c32508a52837400db5c2a02333d0c55cd0da0bcb90dba9708f3fb1aed360"
+    },
+    {
+      "id": "decide",
+      "path": "fc_access/bidding_v1/core.py",
+      "symbol": "decide",
+      "contract": "Legal minimum under cap, fresh balance/status, HOLD/REJECT/BID decision",
+      "sha256": "433e72d78209472865306da09b3988f148b975f7e221af55e1dccbd0774b6d87"
+    },
+    {
+      "id": "queue",
+      "path": "fc_access/bidding_v1/core.py",
+      "symbol": "AuctionQueue.admit",
+      "contract": "Capacity/reservations/deadline admission",
+      "sha256": "433e72d78209472865306da09b3988f148b975f7e221af55e1dccbd0774b6d87"
+    },
+    {
+      "id": "scheduler",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "ScheduledExecutor.execute",
+      "contract": "Finite serialized work, concurrency 1, priority/deadline/pacing",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "edge",
+      "path": "fc_access/production_v1/executor.py",
+      "symbol": "EdgeExecutor.execute",
+      "contract": "Loopback /run only; no direct authenticated EA HTTP",
+      "sha256": "eb7913bb9634bbe7f2829571837deb8a94667c3855fe0cc6c670346ec6c5b27d"
+    },
+    {
+      "id": "server",
+      "path": "fc_access/production_v1/server.py",
+      "symbol": "Handler.do_POST",
+      "contract": "Pinned local origin and validated command/result delivery",
+      "sha256": "7d7b054ecbfb7641f89897764637ecda8bf0954b2cfe0f5fa804548fe12196fc"
+    },
+    {
+      "id": "store",
+      "path": "fc_access/production_v1/store.py",
+      "symbol": "Store.enqueue",
+      "contract": "Reserve/claim before delivery, restart UNKNOWN, no redelivery",
+      "sha256": "443c2b7063395d57f0e7f5e38ad727babf61976f228a4377a6802528610ac91f"
+    },
+    {
+      "id": "worker",
+      "path": "browser/production-v1/worker.js",
+      "symbol": null,
+      "contract": "One native command owner, /next and /result transport",
+      "sha256": "da2130823681bfb3c599fc0f5da355e232a87c19c3eb61938098343d93f1a051"
+    },
+    {
+      "id": "page",
+      "path": "browser/production-v1/page.js",
+      "symbol": null,
+      "contract": "Reviewed native services, dirty-before-read and sanitized actual XHR evidence",
+      "sha256": "d9d339bd261191044b13855612406d645c7815230d599dff8e32b44a6d58119c"
+    },
+    {
+      "id": "intent",
+      "path": "fc_access/bidding_v1/journal.py",
+      "symbol": "Journal.intend",
+      "contract": "Durable UNKNOWN intent before any send",
+      "sha256": "6c1616d20a67f578a41da1cf95a0ee3147ad06a77abf57239d2216df59bcd17b"
+    },
+    {
+      "id": "dispatch",
+      "path": "fc_access/bidding_v1/journal.py",
+      "symbol": "Journal.dispatch",
+      "contract": "One-use dispatch ticket, committed PENDING; no blind retry",
+      "sha256": "6c1616d20a67f578a41da1cf95a0ee3147ad06a77abf57239d2216df59bcd17b"
+    },
+    {
+      "id": "authority",
+      "path": "fc_access/production_v1/foundation.py",
+      "symbol": "JournalAuthority",
+      "contract": "Optional server composition checks committed exact current intent/claim",
+      "sha256": "1287a012c378c90c5b3f6e80db5aea5e40fc44465a9ffe4c773cac9e2e2eef9b"
+    },
+    {
+      "id": "readbacks",
+      "path": "fc_access/bidding_v1/journal.py",
+      "symbol": "Journal.reconcile",
+      "contract": "Independent fresh post-dispatch status/coins; ACK does not clear fence",
+      "sha256": "6c1616d20a67f578a41da1cf95a0ee3147ad06a77abf57239d2216df59bcd17b"
+    }
+  ],
+  "edges": [
+    {
+      "source": "read",
+      "target": "adapter",
+      "kind": "call",
+      "condition": "explicit operation"
+    },
+    {
+      "source": "admit",
+      "target": "prices",
+      "kind": "call",
+      "condition": "eligible full exact candidate and fresh coins"
+    },
+    {
+      "source": "admit",
+      "target": "quote",
+      "kind": "call",
+      "condition": "prices loaded"
+    },
+    {
+      "source": "quote",
+      "target": "cache",
+      "kind": "call",
+      "condition": "check completed cache before search"
+    },
+    {
+      "source": "quote",
+      "target": "adapter",
+      "kind": "call",
+      "condition": "cache miss: one or two price searches; no third"
+    },
+    {
+      "source": "prices",
+      "target": "adapter",
+      "kind": "call",
+      "condition": "caps/helper operations"
+    },
+    {
+      "source": "admit",
+      "target": "decide",
+      "kind": "call",
+      "condition": "completed quote"
+    },
+    {
+      "source": "admit",
+      "target": "queue",
+      "kind": "call",
+      "condition": "eligible minimum under profitable cap"
+    },
+    {
+      "source": "admit",
+      "target": "registry",
+      "kind": "state",
+      "condition": "append decision; no write dispatched"
+    },
+    {
+      "source": "bid",
+      "target": "dispatch_intent",
+      "kind": "call",
+      "condition": "explicit caller and independently fresh admission evidence"
+    },
+    {
+      "source": "dispatch_intent",
+      "target": "intent",
+      "kind": "call",
+      "condition": "injected Foundation IntentBridge after native guards"
+    },
+    {
+      "source": "intent",
+      "target": "dispatch",
+      "kind": "sequence",
+      "condition": "Foundation IntentBridge commits FULL INTENT_DURABLE before calling Journal.dispatch/PENDING"
+    },
+    {
+      "source": "dispatch",
+      "target": "scheduler",
+      "kind": "callback",
+      "condition": "adapter one-use send callback only after committed durable dispatch claim"
+    },
+    {
+      "source": "known_status",
+      "target": "adapter",
+      "kind": "call",
+      "condition": "mapping exists, else fail before EA request"
+    },
+    {
+      "source": "adapter",
+      "target": "scheduler",
+      "kind": "call",
+      "condition": "same single-owner executor"
+    },
+    {
+      "source": "scheduler",
+      "target": "edge",
+      "kind": "call",
+      "condition": "deadline/pacing permits"
+    },
+    {
+      "source": "edge",
+      "target": "server",
+      "kind": "local_http",
+      "condition": "/run"
+    },
+    {
+      "source": "server",
+      "target": "authority",
+      "kind": "call",
+      "condition": "bid only; default service rejects mutations"
+    },
+    {
+      "source": "server",
+      "target": "store",
+      "kind": "call",
+      "condition": "validated reservation"
+    },
+    {
+      "source": "store",
+      "target": "worker",
+      "kind": "local_http",
+      "condition": "claim via /next"
+    },
+    {
+      "source": "worker",
+      "target": "page",
+      "kind": "native",
+      "condition": "reviewed explicit selected tab"
+    },
+    {
+      "source": "page",
+      "target": "worker",
+      "kind": "return",
+      "condition": "strict sanitized result"
+    },
+    {
+      "source": "worker",
+      "target": "server",
+      "kind": "local_http",
+      "condition": "/result"
+    },
+    {
+      "source": "server",
+      "target": "edge",
+      "kind": "return",
+      "condition": "correlated schema 2 result"
+    },
+    {
+      "source": "reconcile",
+      "target": "readbacks",
+      "kind": "call",
+      "condition": "fresh independently issued watched and credits after dispatch"
+    },
+    {
+      "source": "readbacks",
+      "target": "registry",
+      "kind": "state",
+      "condition": "resolve only with proof; never resend"
+    }
+  ],
+  "operations": {
+    "search": {
+      "method": "GET",
+      "path": "/ut/game/fc27/transfermarket"
+    },
+    "watched": {
+      "method": "GET",
+      "path": "/ut/game/fc27/watchlist"
+    },
+    "balance": {
+      "method": "GET",
+      "path": "/ut/game/fc27/user/credits"
+    },
+    "unassigned": {
+      "method": "GET",
+      "path": "/ut/game/fc27/purchased/items"
+    },
+    "transfer_list": {
+      "method": "GET",
+      "path": "/ut/game/fc27/tradepile"
+    },
+    "caps": {
+      "method": "GET",
+      "path": "/ut/game/fc27/marketdata/pricelimits"
+    },
+    "status": {
+      "method": "GET",
+      "path": "/ut/game/fc27/trade/status/lite"
+    },
+    "bid": {
+      "method": "PUT",
+      "path": "/ut/game/fc27/trade/:trade/bid"
+    }
+  },
+  "local_operations": [
+    "price_helpers",
+    "status_support"
+  ],
+  "entrypoints": {
+    "read": "read",
+    "admission": "admit",
+    "explicit_future_write": "bid",
+    "reconciliation": "reconcile",
+    "inspect": "registry"
+  },
+  "context_fields": [
+    "account",
+    "persona",
+    "game",
+    "platform",
+    "identity_namespace"
+  ],
+  "fence_fields": [
+    "owner",
+    "epoch",
+    "host_epoch",
+    "worker_epoch",
+    "document"
+  ],
+  "startup": {
+    "import_or_json_load_starts_actors": false,
+    "codex_supervisor_required": false,
+    "separately_running_service_required": true,
+    "address": "127.0.0.1:8784",
+    "reviewed_extension": "browser/production-v1",
+    "service_argv": [
+      "{python}",
+      "-m",
+      "fc_access.production_v1.server",
+      "--database",
+      "private-captures/production-v1/transport.sqlite3"
+    ],
+    "service_default_mutations": false,
+    "future_authority_composition": "Server(transport_path, intent_database=foundation_path)",
+    "one_shot_argv": [
+      "{python}",
+      "-m",
+      "fc_access.production_v1.once",
+      "--context",
+      "public-context.json",
+      "--definition-id",
+      "261855",
+      "--interval",
+      "0.2"
+    ],
+    "note": "Commands are reference only, not run by this publication. Foundation construction attaches; JSON loading and imports do not. once reads/quotes/admits and exits without bid. Live use requires separately authorized scope."
+  },
+  "invariants": {
+    "native_concurrency": 1,
+    "retry_ambiguous": false,
+    "missing_row": "UNKNOWN",
+    "closed_highest": "PENDING",
+    "confirmed_win_requires": "independent exact owned physical item and actual paid cost",
+    "production_bid_ceiling": null,
+    "discovery_max_bid": 1000,
+    "discovery_min_buy": 11000,
+    "pricing_max_searches": 2,
+    "second_max_buy": "first_min inclusive",
+    "cache_ttl_seconds": 86400,
+    "resale_bin": "sampled resale_price",
+    "listing_start": "native below(resale_price)",
+    "production_move_list_operations": false
+  },
+  "dependencies": [
+    "002-REBID",
+    "002-WIN-COST",
+    "002-MOVE-LIST-SETTLE",
+    "002-POLL-LOAD",
+    "002-TIMER-REFUND",
+    "002-STATUS-RECONNECT",
+    "002-STATUS-HISTORY",
+    "002-UNSOLD-RULES",
+    "D1-R2-WIRE",
+    "D5-LIVE-INTEGRATION"
+  ]
+}

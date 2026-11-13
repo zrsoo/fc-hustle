@@ -1,0 +1,57 @@
+{
+  "contract": "fc-production-native",
+  "schema_version": 2,
+  "authoritative_paths": [
+    "fc_access/production_v1/contracts.py",
+    "fc_access/production_v1/adapter.py",
+    "fc_access/production_v1/executor.py",
+    "fc_access/production_v1/server.py",
+    "fc_access/production_v1/store.py",
+    "browser/production-v1/page.js",
+    "browser/production-v1/worker.js",
+    "browser/production-v1/persona.js",
+    "browser/production-v1/manifest.json"
+  ],
+  "command_fields": ["schema", "id", "operation", "params", "context", "fences"],
+  "response_fields": ["schema", "command_id", "operation", "context", "fences", "result", "freshness", "coverage", "timing"],
+  "context_fields": ["account", "persona", "game", "platform", "identity_namespace"],
+  "fence_fields": ["owner", "epoch", "host_epoch", "worker_epoch", "document"],
+  "item_fields": ["item_id", "definition_id", "untradeable", "last_sale_price"],
+  "auction_fields": ["trade_id", "item", "starting_bid", "current_bid", "buy_now_price", "expires", "trade_state", "bid_state", "native_is_won"],
+  "result_fields": ["success", "error", "status", "credits", "items", "auctions", "caps", "cache_invalidated", "network"],
+  "freshness_fields": ["observed_at", "network_at", "request_count", "read_id", "source"],
+  "network_fields": ["host", "method", "path", "query", "status", "session_header_present"],
+  "query_fields": ["start", "num", "definitionId", "defId", "macr", "minb", "maxb"],
+  "operations": {
+    "search": {"method": "GET", "path": "/ut/game/fc27/transfermarket"},
+    "watched": {"method": "GET", "path": "/ut/game/fc27/watchlist"},
+    "balance": {"method": "GET", "path": "/ut/game/fc27/user/credits"},
+    "unassigned": {"method": "GET", "path": "/ut/game/fc27/purchased/items"},
+    "transfer_list": {"method": "GET", "path": "/ut/game/fc27/tradepile"},
+    "caps": {"method": "GET", "path": "/ut/game/fc27/marketdata/pricelimits"},
+    "bid": {"method": "PUT", "path": "/ut/game/fc27/trade/:trade/bid"}
+  },
+  "search": {
+    "required": ["purpose", "definition_id", "page", "count", "fresh"],
+    "page": 1,
+    "count": 21,
+    "fresh": true,
+    "discovery": {"max_bid": 1000, "min_buy": 11000},
+    "pricing": {"optional": ["max_buy"], "inclusive": true},
+    "native_mapping": {"definition_id": "defId", "max_bid": "maxBid", "min_buy": "minBuy", "max_buy": "maxBuy"},
+    "observed_wire_mapping": {"definition_id": "definitionId", "max_bid": "macr", "min_buy": "minb", "max_buy": "maxb"}
+  },
+  "constraints": {
+    "additional_fields": false,
+    "native_concurrency": 1,
+    "response_max_age_seconds": 30,
+    "max_successful_native_requests_per_command": 1,
+    "native_timeout_ms": 15000,
+    "automatic_retry": false,
+    "legacy_route_relabeling": false,
+    "production_lifetime_limit": null,
+    "production_read_count_limit": null,
+    "production_bid_ceiling": null,
+    "installed_transport_mutations_enabled": false
+  }
+}

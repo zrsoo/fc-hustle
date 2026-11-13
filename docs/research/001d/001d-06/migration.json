@@ -1,0 +1,31 @@
+{
+  "task": "001d-06",
+  "purpose": "Versioned source evolution; sealed evidence unchanged",
+  "paths": {
+    "fc_access/bidding_v1/journal.py": {
+      "before_sha256": "5d0a0b571223ae7dd07c42f8ebb097e1e68b44ae27095a4c28dde949b72fd562",
+      "after_sha256": "6c1616d20a67f578a41da1cf95a0ee3147ad06a77abf57239d2216df59bcd17b",
+      "snapshot": "before/fc_access/bidding_v1/journal.py"
+    },
+    "fc_access/production_v1/server.py": {
+      "before_sha256": "9361f373a4934d130592857d7244c91918cc8fd305bedfa4e415a220bc08f903",
+      "after_sha256": "7d7b054ecbfb7641f89897764637ecda8bf0954b2cfe0f5fa804548fe12196fc",
+      "snapshot": "before/fc_access/production_v1/server.py"
+    },
+    "fc_access/production_v1/store.py": {
+      "before_sha256": "667a2054a334bbf91b72f9d399ceb404330d2b49b1aa0c8a2521290d7b72c5e2",
+      "after_sha256": "443c2b7063395d57f0e7f5e38ad727babf61976f228a4377a6802528610ac91f",
+      "snapshot": "before/fc_access/production_v1/store.py"
+    },
+    "tests/test_001d05_inventory.py": {
+      "before_sha256": "076da517967b6d090e6bf34d8a9411a2a66618e7892604c121a1c108e423664d",
+      "after_sha256": "72ce412c605b9080232589e7c79b35167276f5fe75e23bbb3bf33625cd5ea86c",
+      "snapshot": "before/tests/test_001d05_inventory.py"
+    },
+    "tests/test_001d02_contract.py": {
+      "before_sha256": "11bd24f5781bff6824b32c6eb133228b2c7958d11d1a5a5615011192b74d456f",
+      "after_sha256": "a233f7541045b48b662db99d305493c19e5cadf4696aae5f6bd8c81cf8d9722f",
+      "snapshot": "before/tests/test_001d02_contract.py"
+    }
+  }
+}

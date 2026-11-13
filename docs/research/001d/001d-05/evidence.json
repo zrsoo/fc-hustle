@@ -1,0 +1,74 @@
+{
+  "task": "001d-05",
+  "recorded_at": "2026-11-13T15:01:50.719135+00:00",
+  "new_native_requests": 6,
+  "local_source_inspections": 3,
+  "live_mutations": 0,
+  "objective_001d_native_requests_including_prior_s2": 7,
+  "prior_s2_helpers_consumed": 8,
+  "r2_probes": 0,
+  "production_paths": [
+    "browser/production-v1/page.js:execute",
+    "browser/production-v1/page.js:auction",
+    "fc_access/production_v1/contracts.py:parse_response",
+    "fc_access/production_v1/contracts.py:parse_status_support",
+    "fc_access/production_v1/adapter.py:NativeAdapter",
+    "fc_access/production_v1/adapter.py:NativeAdapter.known_status",
+    "fc_access/production_v1/inventory.py:watched_status",
+    "fc_access/production_v1/inventory.py:compare_lite_identity",
+    "fc_access/production_v1/server.py:Server",
+    "fc_access/production_v1/store.py:Store"
+  ],
+  "objective_002_dependencies": [
+    {
+      "id": "002-STATUS-RECONNECT",
+      "prerequisite": "A real enrolled exact native trade mapping reacquired after document/epoch change.",
+      "validation": "Fresh full-identity read followed by independently correlated status GET under Objective 002 budget; absent mapping remains UNKNOWN."
+    },
+    {
+      "id": "002-STATUS-HISTORY",
+      "prerequisite": "An available native ID plus retained exact identity in the same identity namespace, not an unrelated historical pseudonym.",
+      "validation": "Read-only known-ID lookup with exact physical item and full-version proof, or explicit UNKNOWN when no native mapping is recoverable."
+    },
+    {
+      "id": "002-NATURAL-OUTCOMES",
+      "prerequisite": "Naturally occurring enrolled outcomes and independent exact owned-item/paid-cost evidence.",
+      "validation": "Verify missing rows stay UNKNOWN and closed/highest stays PENDING until independent ownership/cost proof; never create trades in 001D."
+    }
+  ],
+  "sha256": {
+    "AGENTS.md": "d1a8abd49b5ac1ff5600de3b7481563cd869fd2c1764089a4a12746aa76e0c3f",
+    "browser/production-v1/page.js": "d9d339bd261191044b13855612406d645c7815230d599dff8e32b44a6d58119c",
+    "docs/research/001c/001c-06-resume-01/source-contract.json": "7e793df90cc631e35a53cbbb028f57f6e13b4373d2ee34fe5715d69761eebb0c",
+    "docs/research/001d/001d-02/protocol.json": "63bfc2db00b34d3ae674a0aaf252631cf23520e8aadb1742acc3d096c95ab16d",
+    "docs/research/001d/001d-03/s2-checkpoint.json": "d9bc1953c88d5fa0e27905346a85e809f28f6eee1bf098a3620d9898ba79f3c5",
+    "docs/research/001d/001d-05/GAP-MAP.md": "c93c13ef535ceb5ae109727a5bff679374b942d0aa3e2a8be158de0397c12bef",
+    "docs/research/001d/001d-05/REPORT.md": "37c3c8c96aba551d1692bd3f6c3073917ee80146a426dd0bd926122727fa2550",
+    "docs/research/001d/001d-05/edge-extension-reloaded.txt": "69b1f4a2943338f93425e1d603970083b8f10145b4d4fc0df70d85ad41b93ff6",
+    "docs/research/001d/001d-05/edge-manager.txt": "3db848fda4329bf131b9c24d27e72e6d51efa5671e56fbf290df325c9eb3756e",
+    "docs/research/001d/001d-05/edge-r1-inspection.txt": "19f19890970e58848f8857b693a2853d0a98be8cd0799d1c028e52bf25aea7a8",
+    "docs/research/001d/001d-05/edge-reconnect-attached.txt": "356ef24a8b62a05cef3c55114f05467a6bcca3a18446fab8f488ddb21431d3df",
+    "docs/research/001d/001d-05/edge-reconnect-inspection.txt": "a88039614952669188423367e179b1cc8c7e3a4f984de1631ab900cacd68b50c",
+    "docs/research/001d/001d-05/edge-reconnect-reattached.txt": "e25220a0a6de47d28850cb06ce38aeb6930961e4db5caaf05dee229f03fd25db",
+    "docs/research/001d/001d-05/edge-reconnect-refreshed.txt": "f5d9c6d98d78fa13348c3dec2de93ff39d05d667d50b793d8adec567f8ffefb2",
+    "docs/research/001d/001d-05/edge-s1-attached.txt": "52aa3c77b55cf91e769cbbde69b56ad8eece09df07356b72d6bdc1fb96a9d581",
+    "docs/research/001d/001d-05/edge-s1-refreshed.txt": "26bcc8a1b806c23fb2741c2400f80b2a068ae3cc1104e5ba82ced09a7f5bf2dd",
+    "docs/research/001d/001d-05/edge-s1-selected.txt": "6fcf81e50578ed232709168fb5b86bd504ba18ebd2d947c7295e4546887e4e1f",
+    "docs/research/001d/001d-05/r1-checkpoint.json": "83cea72b31697a6ca056e3f1e40e3d6816d74fcc7ebb6eb4fba8e6f47f424fce",
+    "docs/research/001d/001d-05/s1-checkpoint.json": "4ffa946446d9b25c7d6a1ef01cf45173d8cb58d66d9e188c7d67597878ac57ab",
+    "docs/research/001d/001d-05/transport-evidence.json": "29232200828173225c46c22c8b764fe57a190c95c821e981fb20fdbdc02d633f",
+    "docs/research/001d/execution-plan.json": "5c72e351b16f60f21ec9fc56cfeff64318c12d68574dc17d24467d71d3c53475",
+    "fc_access/production_v1/adapter.py": "751300255934de4e0b7e239fca595d2f68ad692c1edc11cdedaf86c27a151d3c",
+    "fc_access/production_v1/contracts.py": "a3a0eeb2775261a0d0dfd8770b10fea29727d70b603ee942f6a10ca902b0c09a",
+    "fc_access/production_v1/inventory.py": "8fb941ddc5c48e89ec5e02bdf6fbc840ce0690d18f058e8cc37f8fd7d1a3d103",
+    "fc_access/production_v1/investigate_reads.py": "74e81c5235099be3cf29298607612c56843f9e00304c1c0057d8c9b8b9713e1e",
+    "fc_access/production_v1/investigate_status.py": "3b49d55a165c785568e8ac9c42cc99004cbe1819626ee58687152f899ef63103",
+    "fc_access/production_v1/server.py": "9361f373a4934d130592857d7244c91918cc8fd305bedfa4e415a220bc08f903",
+    "fc_access/production_v1/store.py": "667a2054a334bbf91b72f9d399ceb404330d2b49b1aa0c8a2521290d7b72c5e2",
+    "tests/production_inventory_checks.cjs": "e2263d828f7fa2137c58593e6e34520707bd8d10caddc5ac82ef6e3bf62e1da8",
+    "tests/production_page_checks.cjs": "5c71910b73a55608d6ea7da19f11719ff7437a6e9437178f3e184937f418a6e2",
+    "tests/record_001d05_evidence.py": "bb270ed933eacc2157ca05213c5fd4d234022ad3c1024e4ea32acf3f4690c980",
+    "tests/test_001d02_contract.py": "11bd24f5781bff6824b32c6eb133228b2c7958d11d1a5a5615011192b74d456f",
+    "tests/test_001d05_inventory.py": "076da517967b6d090e6bf34d8a9411a2a66618e7892604c121a1c108e423664d"
+  }
+}

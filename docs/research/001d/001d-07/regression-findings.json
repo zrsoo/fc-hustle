@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "baseline": "docs/research/001d/baseline.json",
+  "checks_before_this_publication": true,
+  "failures": [
+    {
+      "check_index": 13,
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_complete_artifacts.py"
+      ],
+      "failing_cases": [
+        "setUpClass (__main__.CompleteArtifactTests)"
+      ],
+      "summary": [
+        "FAILED (errors=1)"
+      ],
+      "classification": "UNCHANGED_HISTORICAL_CHECK_ON_MIGRATED_SOURCE",
+      "diagnostic": "Current source hashes differ from original historical pins after authorized 001d-03/04 migrations; no historical capture is repaired. See migration manifests and task-entry preservation."
+    },
+    {
+      "check_index": 14,
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_release_audit.py"
+      ],
+      "failing_cases": [
+        "test_0_independent_real_capture_ledger_and_wire_audit (__main__.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit)",
+        "test_6_historical_seals_and_every_preexisting_file_intact (__main__.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact)",
+        "test_5_decision_requires_prerequisites_and_precise_finite_continuation (__main__.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation)",
+        "test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets (__main__.ReleaseTests.test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets)"
+      ],
+      "summary": [
+        "FAILED (failures=2, errors=2)"
+      ],
+      "classification": "MIXED_PREEXISTING_DRIFT_AND_SUPERSEDED_SOURCE_CONTRACTS",
+      "diagnostic": "Earlier Objective 002 hash drift and aged browser evidence persist. Additional source/hash/import/static-rule expectations refer to pre-001D pricing/adapter/harness bytes. These failures predate 001d-07; all such sources/tests match its entry snapshot. See exact per-case logs; failures remain failures."
+    },
+    {
+      "check_index": 15,
+      "command": [
+        "{python}",
+        "tests/validate_001c06_complete.py"
+      ],
+      "failing_cases": [],
+      "summary": [],
+      "classification": "UNCHANGED_HISTORICAL_CHECK_ON_MIGRATED_SOURCE",
+      "diagnostic": "Current source hashes differ from original historical pins after authorized 001d-03/04 migrations; no historical capture is repaired. See migration manifests and task-entry preservation."
+    },
+    {
+      "check_index": 16,
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py"
+      ],
+      "failing_cases": [],
+      "summary": [],
+      "classification": "UNCHANGED_HISTORICAL_CHECK_ON_MIGRATED_SOURCE",
+      "diagnostic": "Current source hashes differ from original historical pins after authorized 001d-03/04 migrations; no historical capture is repaired. See migration manifests and task-entry preservation."
+    },
+    {
+      "check_index": 17,
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "failing_cases": [
+        "setUpClass (test_e2e_artifacts.ArtifactTests)",
+        "setUpClass (test_e2e_complete_artifacts.CompleteArtifactTests)",
+        "test_0_independent_real_capture_ledger_and_wire_audit (test_release_audit.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit)",
+        "test_6_historical_seals_and_every_preexisting_file_intact (test_release_audit.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact)",
+        "test_criterion_1_changed_objective_bridge_evidence_and_deleted_observer_rows_fail (test_001b_scope.ScopeTests.test_criterion_1_changed_objective_bridge_evidence_and_deleted_observer_rows_fail)",
+        "test_criterion_1_immutable_files_match_historical_manifest_and_entry_lock (test_001b_scope.ScopeTests.test_criterion_1_immutable_files_match_historical_manifest_and_entry_lock)",
+        "test_criterion_0_all_historical_seals_and_followup_bytes_remain_unchanged (test_001c01_audit.EntryAndBaselineTests.test_criterion_0_all_historical_seals_and_followup_bytes_remain_unchanged)",
+        "test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file (test_001c01_audit.EntryAndBaselineTests.test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file)",
+        "test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay (test_001c01_audit.GapAndInspectionTests.test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay)",
+        "test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)",
+        "test_review_matches_executed_bridge_sources_and_retained_metadata (test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata)",
+        "test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write (test_durability_artifacts.Artifacts.test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write)",
+        "test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded (test_durability_artifacts.Artifacts.test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded)",
+        "test_source_and_checkpoint_manifest_detects_changes (test_durability_artifacts.Artifacts.test_source_and_checkpoint_manifest_detects_changes)",
+        "test_proof_has_no_network_orders_or_continuous_runner (test_market_artifacts.MarketArtifactTests.test_proof_has_no_network_orders_or_continuous_runner)",
+        "test_review_pins_preserved_sources_baseline_and_license_boundary (test_market_discovery_artifacts.ArtifactTests.test_review_pins_preserved_sources_baseline_and_license_boundary)",
+        "test_sealed_source_hashes_and_followup_extension_permissions (test_market_discovery_followup_v1.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions)",
+        "test_5_decision_requires_prerequisites_and_precise_finite_continuation (test_release_audit.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation)",
+        "test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets (test_release_audit.ReleaseTests.test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets)",
+        "test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (test_search_validation_artifacts.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping)",
+        "test_criteria_4_5_reproduce_cli_and_refuse_overwrite (test_t5_pricing_artifacts.T5ArtifactTests.test_criteria_4_5_reproduce_cli_and_refuse_overwrite)",
+        "test_criterion_0_preserved_calculator_and_recomputable_historical_comparison (test_t5_pricing_artifacts.T5ArtifactTests.test_criterion_0_preserved_calculator_and_recomputable_historical_comparison)",
+        "test_criterion_6_no_network_in_offline_report_no_mutator_or_scheduler_dependency (test_t5_pricing_artifacts.T5ArtifactTests.test_criterion_6_no_network_in_offline_report_no_mutator_or_scheduler_dependency)",
+        "test_all_acceptance_criteria_have_independent_artifact_evidence (test_watched_bulk_artifacts.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence)"
+      ],
+      "summary": [
+        "FAILED (failures=20, errors=4)"
+      ],
+      "classification": "MIXED_PREEXISTING_DRIFT_AND_SUPERSEDED_SOURCE_CONTRACTS",
+      "diagnostic": "Earlier Objective 002 hash drift and aged browser evidence persist. Additional source/hash/import/static-rule expectations refer to pre-001D pricing/adapter/harness bytes. These failures predate 001d-07; all such sources/tests match its entry snapshot. See exact per-case logs; failures remain failures."
+    }
+  ],
+  "assertion_changes": [],
+  "resealed_artifacts": [],
+  "note": "Raw baseline comparisons are not a fully green suite. Wrapped Windows HTTP fixture coalescing changes no assertions; direct discovery is retained separately."
+}

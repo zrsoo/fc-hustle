@@ -1,0 +1,13 @@
+
+--- STDERR ---
+test_all_mutations_denied_and_not_reserved (__main__.LedgerTests.test_all_mutations_denied_and_not_reserved) ... ok
+test_four_reads_and_deadline_are_finite (__main__.LedgerTests.test_four_reads_and_deadline_are_finite) ... ok
+test_serialization_once_only_and_restart_does_not_reset (__main__.LedgerTests.test_serialization_once_only_and_restart_does_not_reset) ... ok
+test_all_mutations_denied_and_not_reserved (__main__.ResolutionLedgerTests.test_all_mutations_denied_and_not_reserved) ... ok
+test_four_reads_and_deadline_are_finite (__main__.ResolutionLedgerTests.test_four_reads_and_deadline_are_finite) ... ok
+test_serialization_once_only_and_restart_does_not_reset (__main__.ResolutionLedgerTests.test_serialization_once_only_and_restart_does_not_reset) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.197s
+
+OK

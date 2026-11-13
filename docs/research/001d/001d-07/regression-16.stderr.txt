@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\check_e2e_v1_acceptance.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "C:\hustle\fc-hustle\tests\check_e2e_v1_acceptance.py", line 27, in main
+    r=inspect();assert r==load(DIRECTORY/'report.json'),'retained report disagrees with independent derivation'
+  File "C:\hustle\fc-hustle\fc_access\e2e_v1\audit.py", line 81, in inspect
+    for name,digest in entry['preserve'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical alteration: '+name
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: historical alteration: fc_access/pricing.py

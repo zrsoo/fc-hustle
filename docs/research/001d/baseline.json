@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "task": "001d-01",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:46.472383+00:00",
+      "ended_utc": "2026-11-13T13:40:48.562292+00:00",
+      "duration_seconds": 2.09,
+      "exit_code": 0,
+      "output": "baseline-00.txt",
+      "output_sha256": "65bfb74f837220084cdca6c086e3335c9c84c5e90804760d624fcf03a17c1920"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:48.563296+00:00",
+      "ended_utc": "2026-11-13T13:40:54.582476+00:00",
+      "duration_seconds": 6.019,
+      "exit_code": 0,
+      "output": "baseline-01.txt",
+      "output_sha256": "477907b8ca8cd635a92226c7913ecd7aaf010e34885adf3afe81bf7b5609932b"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:54.583069+00:00",
+      "ended_utc": "2026-11-13T13:40:54.780269+00:00",
+      "duration_seconds": 0.197,
+      "exit_code": 0,
+      "output": "baseline-02.txt",
+      "output_sha256": "4958f1bd62cd5f0e7513bfcdff755caa78046c3603900fa7dead5ed70fd4cd24"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_search_validation_v1.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:54.781049+00:00",
+      "ended_utc": "2026-11-13T13:40:56.285043+00:00",
+      "duration_seconds": 1.504,
+      "exit_code": 0,
+      "output": "baseline-03.txt",
+      "output_sha256": "b660161e3de7ce4f9fed2d4b3b3e9f707d5a2f5db23e14b153cf13285c373e9c"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:56.285875+00:00",
+      "ended_utc": "2026-11-13T13:40:57.282004+00:00",
+      "duration_seconds": 0.996,
+      "exit_code": 0,
+      "output": "baseline-04.txt",
+      "output_sha256": "c4578023539704e74cf4d54ffe5a601892bff0c4f125e22c24e9f0ff7d8b29e4"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_live_v2.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:57.282601+00:00",
+      "ended_utc": "2026-11-13T13:40:58.478886+00:00",
+      "duration_seconds": 1.196,
+      "exit_code": 0,
+      "output": "baseline-05.txt",
+      "output_sha256": "ef3684a48d82f6c0793f0d2d7f883c875bdd4e872bf63ee9d1144e671501c553"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_reconcile_v1.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:58.479558+00:00",
+      "ended_utc": "2026-11-13T13:40:58.884383+00:00",
+      "duration_seconds": 0.405,
+      "exit_code": 0,
+      "output": "baseline-06.txt",
+      "output_sha256": "fd9ab8876f70a514a9df1232beabb8c96a4987b5e1f85131c80a8fc48e1015b8"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_complete_artifacts.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:58.884882+00:00",
+      "ended_utc": "2026-11-13T13:40:59.564971+00:00",
+      "duration_seconds": 0.68,
+      "exit_code": 0,
+      "output": "baseline-07.txt",
+      "output_sha256": "e145f350cb3816c122cce42fb4374a13e607bec768e6c7640ab1187e25bb61fd"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_release_audit.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:40:59.565684+00:00",
+      "ended_utc": "2026-11-13T13:41:00.399682+00:00",
+      "duration_seconds": 0.834,
+      "exit_code": 1,
+      "output": "baseline-08.txt",
+      "output_sha256": "b239d5275a71a2ee443a5a7d3e443f20bbfe850ad97c15edd611e1d8f7386c39"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_001c06_complete.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:41:00.400260+00:00",
+      "ended_utc": "2026-11-13T13:41:00.737822+00:00",
+      "duration_seconds": 0.338,
+      "exit_code": 0,
+      "output": "baseline-09.txt",
+      "output_sha256": "dcbc00a3d9c9c1e7c9cd63d90a389bec68a6fbdc41f2114efdd4e27603b4ea31"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:41:00.738693+00:00",
+      "ended_utc": "2026-11-13T13:41:00.998938+00:00",
+      "duration_seconds": 0.26,
+      "exit_code": 1,
+      "output": "baseline-10.txt",
+      "output_sha256": "0cca73818906d2771ae3168c3bbb7c3c7f2e02345f2a70ea7ee586ab97895037"
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "timeout": 180,
+      "started_utc": "2026-11-13T13:41:00.999509+00:00",
+      "ended_utc": "2026-11-13T13:41:39.491773+00:00",
+      "duration_seconds": 38.492,
+      "exit_code": 1,
+      "output": "baseline-11.txt",
+      "output_sha256": "54d1fe58eda560174bb3c9e5ef457d4eaee1b63f8e1d19709d2fe2e1f78ca037"
+    }
+  ]
+}

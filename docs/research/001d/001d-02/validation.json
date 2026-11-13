@@ -1,0 +1,133 @@
+{
+  "task": "001d-02",
+  "new_EA_requests": 0,
+  "live_mutations": 0,
+  "recurring_actors": 0,
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d02_contract.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:42.933605+00:00",
+      "ended_utc": "2026-11-13T14:08:46.569487+00:00",
+      "elapsed_seconds": 3.636,
+      "output": "validation-00.txt",
+      "output_sha256": "e0decfbebd40b2a5616dd3c0a6bd4a68685f37872996a26291cfacdcf22271f3"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d01_inventory.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:46.569702+00:00",
+      "ended_utc": "2026-11-13T14:08:49.245036+00:00",
+      "elapsed_seconds": 2.675,
+      "output": "validation-01.txt",
+      "output_sha256": "0ae0a19e44fce606d35569603da43071eb1094282082f52dda1268fc1b1f5922"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:49.245129+00:00",
+      "ended_utc": "2026-11-13T14:08:51.328087+00:00",
+      "elapsed_seconds": 2.083,
+      "output": "validation-02.txt",
+      "output_sha256": "2078ebb0cce4a9c5283c542b3b92c2dbb9922b1e9133da92b12481ea73762fe1"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:51.328175+00:00",
+      "ended_utc": "2026-11-13T14:08:57.037330+00:00",
+      "elapsed_seconds": 5.709,
+      "output": "validation-03.txt",
+      "output_sha256": "c7a4eae39613c6b61e2aa7a29569fc4c543075ff0d4e6b8c0170b944c033eedb"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_live_v2.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:57.037407+00:00",
+      "ended_utc": "2026-11-13T14:08:58.317029+00:00",
+      "elapsed_seconds": 1.28,
+      "output": "validation-04.txt",
+      "output_sha256": "900b3e099ecea48d83d9a8cb7356214b2a6c97724a82cc66b1fb1a1acd77691f"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:58.317101+00:00",
+      "ended_utc": "2026-11-13T14:08:58.496072+00:00",
+      "elapsed_seconds": 0.179,
+      "output": "validation-05.txt",
+      "output_sha256": "e5d7bd76ebc2092330f0add789850748409eb2305e6c8f30954644d475a3f444"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_search_validation_v1.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:58.496175+00:00",
+      "ended_utc": "2026-11-13T14:08:59.954672+00:00",
+      "elapsed_seconds": 1.458,
+      "output": "validation-06.txt",
+      "output_sha256": "b0ec93af5a165c24f03e4aa9a5da8cfe03fa68ba6b13640f719162a97e275920"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:08:59.954797+00:00",
+      "ended_utc": "2026-11-13T14:09:00.974745+00:00",
+      "elapsed_seconds": 1.02,
+      "output": "validation-07.txt",
+      "output_sha256": "9afe7a7c290c39c03dfe73c92dd85dee7d0b0560d497cd9e2258641b8f9dd114"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_complete_artifacts.py"
+      ],
+      "timeout": 120,
+      "exit_code": 0,
+      "started_utc": "2026-11-13T14:09:00.974875+00:00",
+      "ended_utc": "2026-11-13T14:09:01.560884+00:00",
+      "elapsed_seconds": 0.586,
+      "output": "validation-08.txt",
+      "output_sha256": "71dcaab0432a517494612bcfe074a197951b067fbeadc1a15648356eba55d5b9"
+    }
+  ]
+}

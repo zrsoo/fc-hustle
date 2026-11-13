@@ -129,13 +129,13 @@ class NativeAdapter:
         self.journal.record(self.scope, "BALANCE_OBSERVED", {"read_id": command_id, "spendable": value.spendable, "held": value.held})
         return value
 
-    def bid_once(self, intent, status, balance, rules, *, observations, X=500):
+    def bid_once(self, intent, status, balance, rules, *, quote, X=500):
         if not isinstance(intent, BidIntent) or (intent.scope, intent.owner, intent.epoch) != (self.scope, self.owner, self.epoch):
             raise ValueError("unowned_intent")
         self.provider.validate(rules, key=MarketKey(intent.identity.definition_id, intent.identity.platform), now=self.now())
-        if not self.fixture and (rules.provenance.classification != "LIVE_VERIFIED" or
+        if not self.fixture and (rules.source != "native" or
                 status.freshness.source != "native" or balance.freshness.source != "native"):
-            raise ValueError("native_write_requires_live_rules_and_reads")
+            raise ValueError("native_write_requires_native_prices_and_reads")
         if (intent.identity != status.identity or intent.status_read_id != status.freshness.read_id
                 or intent.balance_read_id != balance.freshness.read_id or instant(intent.deadline) > instant(status.deadline)):
             raise ValueError("intent_snapshot_mismatch")
@@ -143,26 +143,21 @@ class NativeAdapter:
         if decision.amount != intent.amount:
             self.journal.record(self.scope, decision.reason, trade_id=status.identity.trade_id)
             raise ValueError("bid_not_eligible")
-        if not isinstance(observations, (list, tuple)) or len(observations) > 100:
-            raise ValueError("bounded_comparables_required")
-        estimate, cap = estimate_cap(status, observations, rules, self.provider, now=self.now(), X=X)
+        estimate, cap = estimate_cap(status, quote, rules, self.provider, now=self.now(), X=X)
         if cap is None or intent.cap > cap:
             raise ValueError("unsupported_profitable_cap")
-        def pseudonym(value, namespace):
-            try:
-                return token(value, namespace)
-            except ValueError:
-                return namespace+":"+hashlib.sha256(f"{self.evidence_key}|{namespace}|{value}".encode()).hexdigest()[:24]
-
-        inputs = [{"trade_id": pseudonym(o.trade_id, "trade"), "item_id": pseudonym(o.item_id, "item"),
-                   "definition_id": o.key.definition_id, "platform": o.key.platform, "ask": o.buy_now_price,
-                   "at": instant(o.observed_at).isoformat(), "expires": o.expires, "active": o.active,
-                   "network_fresh": o.network_fresh} for o in observations]
+        inputs = [{"trade_id": o['row']['trade_id'], "item_id": o['row']['item']['item_id'],
+                   "definition_id": o['row']['item']['definition_id'], "platform": quote.evidence['platform'],
+                   "ask": o['row']['buy_now_price'], "at": o['network_at'], "expires": o['row']['expires'],
+                   "active": True, "network_fresh": True} for o in quote.evidence['comparables']]
         digest = hashlib.sha256(json.dumps(inputs, sort_keys=True).encode()).hexdigest()
-        data = {"spendable": balance.spendable, "held": balance.held, "rules_digest": rules.provenance.sha256,
-                "pricing_digest": digest, "target": estimate.target_sale_price, "tax": estimate.tax,
-                "profit_threshold": X, "samples": estimate.sample_count,
-                "expected_profit": estimate.target_sale_price-estimate.tax-intent.amount, "comparables": inputs}
+        runtime_digest = hashlib.sha256(json.dumps({"version": self.provider.version, "caps_read_id": rules.caps_read_id,
+            "definition_id": rules.key.definition_id, "minimum": rules.minimum, "maximum": rules.maximum,
+            "context": rules.context, "fences": rules.fences}, sort_keys=True).encode()).hexdigest()
+        data = {"spendable": balance.spendable, "held": balance.held, "rules_digest": runtime_digest,
+                "pricing_digest": digest, "target": estimate.resale_price, "tax": estimate.tax,
+                "profit_threshold": X, "samples": estimate.evidence['sample_count'],
+                "expected_profit": estimate.resale_price-estimate.tax-intent.amount, "comparables": inputs}
         self.journal.record(self.scope, decision.reason, {"amount": intent.amount, "cap": intent.cap}, trade_id=status.identity.trade_id)
         self.journal.intend(intent, data)
 

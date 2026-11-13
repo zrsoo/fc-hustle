@@ -1,0 +1,71 @@
+
+--- STDERR ---
+test_0_actual_wire_amount_and_balance_debit_required (__main__.ReleaseTests.test_0_actual_wire_amount_and_balance_debit_required) ... ok
+test_0_capture_must_match_separate_ledger (__main__.ReleaseTests.test_0_capture_must_match_separate_ledger) ... ok
+test_0_duplicate_delivery_events_rejected_even_with_single_command_row (__main__.ReleaseTests.test_0_duplicate_delivery_events_rejected_even_with_single_command_row) ... ok
+test_0_duplicate_mutations_with_same_or_different_command_ids_rejected (__main__.ReleaseTests.test_0_duplicate_mutations_with_same_or_different_command_ids_rejected) ... ok
+test_0_false_leading_even_with_matching_native_projections_is_rejected (__main__.ReleaseTests.test_0_false_leading_even_with_matching_native_projections_is_rejected) ... ok
+test_0_fixtures_and_historical_transaction_cannot_be_labelled_live (__main__.ReleaseTests.test_0_fixtures_and_historical_transaction_cannot_be_labelled_live) ... ok
+test_0_independent_real_capture_ledger_and_wire_audit (__main__.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit) ... ERROR
+test_0_lost_is_not_missing_or_fabricated_won (__main__.ReleaseTests.test_0_lost_is_not_missing_or_fabricated_won) ... ok
+test_0_missing_authoritative_readback_rejected (__main__.ReleaseTests.test_0_missing_authoritative_readback_rejected) ... ok
+test_0_missing_operation_proof_cannot_borrow_unrelated_live_read (__main__.ReleaseTests.test_0_missing_operation_proof_cannot_borrow_unrelated_live_read) ... ok
+test_0_native_network_and_persona_are_required_even_for_200 (__main__.ReleaseTests.test_0_native_network_and_persona_are_required_even_for_200) ... ok
+test_0_readback_must_follow_ack_and_match_physical_identity (__main__.ReleaseTests.test_0_readback_must_follow_ack_and_match_physical_identity) ... ok
+test_0_separate_post_outage_window_cannot_be_relabelled_in_window (__main__.ReleaseTests.test_0_separate_post_outage_window_cannot_be_relabelled_in_window) ... ok
+test_1_matrix_contains_each_contract_evidence_class_and_dependency (__main__.ReleaseTests.test_1_matrix_contains_each_contract_evidence_class_and_dependency) ... ok
+test_2_report_matches_all_native_commands_results_timestamps_and_amounts (__main__.ReleaseTests.test_2_report_matches_all_native_commands_results_timestamps_and_amounts) ... ok
+test_3_handoff_has_resolvable_contracts_measured_timings_and_integration_gates (__main__.ReleaseTests.test_3_handoff_has_resolvable_contracts_measured_timings_and_integration_gates) ... ok
+test_4_fifty_row_fixture_cannot_prove_live_capacity_or_cycle (__main__.ReleaseTests.test_4_fifty_row_fixture_cannot_prove_live_capacity_or_cycle) ... ok
+test_4_only_five_capability_classes_and_unwitnessed_events_remain_explicit (__main__.ReleaseTests.test_4_only_five_capability_classes_and_unwitnessed_events_remain_explicit) ... ok
+test_5_decision_requires_prerequisites_and_precise_finite_continuation (__main__.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation) ... FAIL
+test_6_exact_executed_test_results_outputs_hashes_and_known_failures_retained (__main__.ReleaseTests.test_6_exact_executed_test_results_outputs_hashes_and_known_failures_retained) ... ok
+test_6_historical_seals_and_every_preexisting_file_intact (__main__.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact) ... ERROR
+test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets (__main__.ReleaseTests.test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets) ... ok
+
+======================================================================
+ERROR: test_0_independent_real_capture_ledger_and_wire_audit (__main__.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 31, in test_0_independent_real_capture_ledger_and_wire_audit
+    result = a.audit()
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 321, in audit
+    preserved = preserve(reader) if check_preservation else None
+                ~~~~~~~~^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 81, in preserve
+    require(sha(reader(path)) == expected, "preexisting_bytes_changed:" + path)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 39, in require
+    raise ValueError(why)
+ValueError: preexisting_bytes_changed:objectives/002-two-actor-competitive-bidding.md
+
+======================================================================
+ERROR: test_6_historical_seals_and_every_preexisting_file_intact (__main__.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 255, in test_6_historical_seals_and_every_preexisting_file_intact
+    self.assertEqual(a.preserve(), 645)
+                     ~~~~~~~~~~^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 81, in preserve
+    require(sha(reader(path)) == expected, "preexisting_bytes_changed:" + path)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 39, in require
+    raise ValueError(why)
+ValueError: preexisting_bytes_changed:objectives/002-two-actor-competitive-bidding.md
+
+======================================================================
+FAIL: test_5_decision_requires_prerequisites_and_precise_finite_continuation (__main__.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 228, in test_5_decision_requires_prerequisites_and_precise_finite_continuation
+    self.assertEqual(hashlib.sha256(a.read(strategy)).hexdigest(), entry["sha256"][strategy])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7' != 'c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890'
+- fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7
++ c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890
+
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.633s
+
+FAILED (failures=1, errors=2)

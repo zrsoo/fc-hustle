@@ -1,0 +1,12 @@
+test_c0_c1_actual_native_projection_parses_and_adapter_preserves_all_rows (__main__.InventoryAcceptance.test_c0_c1_actual_native_projection_parses_and_adapter_preserves_all_rows) ... ok
+test_c0_c1_reject_forged_cache_only_routes_auth_source_status_and_freshness (__main__.InventoryAcceptance.test_c0_c1_reject_forged_cache_only_routes_auth_source_status_and_freshness) ... ok
+test_c0_c3_c5_c6_report_paths_budget_dependencies_and_evidence_manifest (__main__.InventoryAcceptance.test_c0_c3_c5_c6_report_paths_budget_dependencies_and_evidence_manifest) ... ok
+test_c2_c3_lite_zero_and_omitted_preserve_retained_identity_and_true_mismatch_fails (__main__.InventoryAcceptance.test_c2_c3_lite_zero_and_omitted_preserve_retained_identity_and_true_mismatch_fails) ... ok
+test_c2_missing_unknown_and_closed_highest_pending_even_native_won (__main__.InventoryAcceptance.test_c2_missing_unknown_and_closed_highest_pending_even_native_won) ... ok
+test_c3_c4_c5_actual_live_windows_routes_status_source_and_exact_counts (__main__.InventoryAcceptance.test_c3_c4_c5_actual_live_windows_routes_status_source_and_exact_counts) ... ok
+test_c4_c6_own_control_separate_gates_sealed_history_and_no_replay (__main__.InventoryAcceptance.test_c4_c6_own_control_separate_gates_sealed_history_and_no_replay) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.206s
+
+OK

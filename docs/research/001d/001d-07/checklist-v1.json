@@ -1,0 +1,328 @@
+{
+  "schema": 1,
+  "task": "001d-07",
+  "readiness": "001D PARTIAL",
+  "fixes": [
+    {
+      "id": "D1",
+      "status": "IMPLEMENTED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/contracts.py",
+        "fc_access/production_v1/adapter.py",
+        "fc_access/production_v1/executor.py",
+        "fc_access/production_v1/server.py",
+        "fc_access/production_v1/store.py",
+        "browser/production-v1/page.js",
+        "browser/production-v1/worker.js",
+        "browser/production-v1/persona.js",
+        "browser/production-v1/manifest.json"
+      ],
+      "reused_paths": [],
+      "implementation": "One strict wire schema 2 and native route. Credits stays /user/credits, not /user/currencies. Exact defId/count=21/page=1; discovery maxBid=1000/minBuy=11000 is separate from pricing maxBuy -> maxb. No production 1000 bid ceiling. Identity/context/fences, positive allowlists, source freshness and UNKNOWN ambiguity are preserved.",
+      "evidence_sources": [
+        "docs/research/001d/001d-02/REPORT.md",
+        "docs/research/001d/001d-02/protocol.json",
+        "docs/research/001d/001d-05/r1-checkpoint.json",
+        "docs/research/001c/001c-04/comparables-3.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d02_contract.py"
+      ],
+      "bounded_read_only": "LIVE_VERIFIED only for subsequent R1/S1 fresh inventory/credits/status and S2 caps/helpers. New pricing search wire and final foundation live composition remain LIVE-UNVERIFIED.",
+      "outstanding_dependencies": [
+        "D1-R2-WIRE",
+        "D5-LIVE-INTEGRATION"
+      ]
+    },
+    {
+      "id": "D2",
+      "status": "VERIFIED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/prices.py",
+        "fc_access/production_v1/adapter.py",
+        "fc_access/production_v1/contracts.py",
+        "browser/production-v1/page.js",
+        "fc_access/bidding_v1/rules.py",
+        "fc_access/bidding_v1/adapter.py",
+        "fc_access/durability_v1/harness.py",
+        "fc_access/pricing.py",
+        "tests/native_price_fixture.py",
+        "tests/native_price_rpc.cjs",
+        "tests/test_bidding_v1.py"
+      ],
+      "reused_paths": [],
+      "implementation": "Native exact-card caps plus absolute above/below helpers replace static approved-rule hashes and certification gates. Opening uses startingBid; rebid uses above(currentBid). Profit ceiling rounds down. Context/cap/coins/fresh-read and durable-intent checks remain.",
+      "evidence_sources": [
+        "docs/research/001d/001d-03/REPORT.md",
+        "docs/research/001d/001d-03/migration.json",
+        "docs/research/001d/001d-03/s2-checkpoint.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d03_native_prices.py",
+        "tests/test_bidding_v1.py",
+        "tests/test_durability_v1.py"
+      ],
+      "bounded_read_only": "LIVE_VERIFIED read-only helpers and one exact-card caps GET for 261855: minimum 700, maximum 10500. Eight local evaluations include above(750)=800 and below(1500)=1400. Client helper availability is not transaction acceptance; new bid/list acceptance is LIVE-UNVERIFIED.",
+      "outstanding_dependencies": [
+        "002-REBID",
+        "002-MOVE-LIST-SETTLE"
+      ]
+    },
+    {
+      "id": "D3",
+      "status": "IMPLEMENTED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/pricing.py",
+        "fc_access/production_v1/price_cache.py",
+        "fc_access/production_v1/contracts.py",
+        "fc_access/production_v1/store.py",
+        "fc_access/pricing.py",
+        "fc_access/bidding_v1/rules.py",
+        "fc_access/bidding_v1/adapter.py",
+        "fc_access/durability_v1/harness.py",
+        "tests/test_bidding_v1.py",
+        "tests/test_durability_v1.py"
+      ],
+      "reused_paths": [],
+      "implementation": "One-shot quote takes minimum valid independent BIN, excluding paired 600/10000 templates without dropping genuine 1500/1700 offers. First-cap candidate rejection uses one search; eligible misses use exactly two with inclusive maxBuy=first_min. Successful empty second differs from failure/ambiguity. Completed-only durable 86400-second account/game/platform/version cache uses zero searches on hit. last_sale_price is diagnostic only; fixed resale BIN and 5% tax determine cap.",
+      "evidence_sources": [
+        "docs/research/001d/001d-04/REPORT.md",
+        "docs/research/001d/001d-04/migration.json",
+        "docs/research/001c/001c-06-resume-02/comparables-2.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d04_pricing.py",
+        "tests/test_market_pricing.py"
+      ],
+      "bounded_read_only": "LIVE-UNVERIFIED for new two-search production quote/cache integration. Retained 261855 first page independently demonstrates minimum 1500 rather than old modeled 2800; no new live searches were run.",
+      "outstanding_dependencies": [
+        "D1-R2-WIRE",
+        "D5-LIVE-INTEGRATION"
+      ]
+    },
+    {
+      "id": "D4",
+      "status": "VERIFIED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/inventory.py",
+        "fc_access/production_v1/adapter.py",
+        "fc_access/production_v1/contracts.py",
+        "fc_access/production_v1/store.py",
+        "fc_access/production_v1/server.py",
+        "browser/production-v1/page.js",
+        "fc_access/production_v1/investigate_reads.py",
+        "fc_access/production_v1/investigate_status.py"
+      ],
+      "reused_paths": [],
+      "implementation": "Dirty INBOX/PURCHASED/TRANSFER before watched/unassigned/transfer_list; strict actual authenticated fresh GET and independent command IDs. Bulk identity/native states retained. Missing row -> UNKNOWN; closed/highest -> PENDING until independent owned-item proof. Lite definition 0/null is unobserved, not a mismatched card.",
+      "evidence_sources": [
+        "docs/research/001d/001d-05/REPORT.md",
+        "docs/research/001d/001d-05/r1-checkpoint.json",
+        "docs/research/001d/001d-05/transport-evidence.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d05_inventory.py"
+      ],
+      "bounded_read_only": "LIVE_VERIFIED R1: four GET 200s; watched 1 row, unassigned 0, transfer list 8, balance 16268. This proves these bounded fresh reads only. Completeness, a win, paid cost and 50-slot capacity remain LIVE-UNVERIFIED.",
+      "outstanding_dependencies": [
+        "002-WIN-COST",
+        "002-POLL-LOAD"
+      ]
+    },
+    {
+      "id": "S1",
+      "status": "PARTIAL",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/inventory.py",
+        "fc_access/production_v1/adapter.py",
+        "fc_access/production_v1/contracts.py",
+        "browser/production-v1/page.js",
+        "fc_access/production_v1/investigate_status.py"
+      ],
+      "reused_paths": [
+        "browser/e2e-resolution-v2/page.js"
+      ],
+      "implementation": "KnownTrade lookup requires retained full trade/item/version in the same document and reviewed getAuctionData source. Native IDs stay page-local. Reconnect clears mappings; fresh full-identity read is required. Lite rows cannot overwrite full-version proof.",
+      "evidence_sources": [
+        "docs/research/001d/001d-05/REPORT.md",
+        "docs/research/001d/001d-05/s1-checkpoint.json",
+        "docs/research/001d/001d-05/transport-evidence.json",
+        "docs/research/001c/001c-06-resume-01/source-contract.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d05_inventory.py"
+      ],
+      "bounded_read_only": "LIVE_VERIFIED for one retained current-document trade: full watched plus status GET 200, closed/outbid/current_bid=1200, definition_id=0. Reconnect local inspection showed retained_count=0 and sent zero EA requests. Lookup after reacquisition and unresolved enrolled-trade outcomes remain LIVE-UNVERIFIED.",
+      "outstanding_dependencies": [
+        "002-STATUS-RECONNECT",
+        "002-STATUS-HISTORY",
+        "002-WIN-COST"
+      ]
+    },
+    {
+      "id": "S2",
+      "status": "VERIFIED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/prices.py",
+        "fc_access/production_v1/investigate_s2.py"
+      ],
+      "reused_paths": [],
+      "implementation": "Standalone validation fixes BIN=resale_price and start=below(resale_price), checks reciprocal legal prices inside exact-card limits. No legal lower start -> UNLISTABLE; missing/conflicting evidence -> NEEDS_RECONCILIATION. No listing dispatcher exists in production.",
+      "evidence_sources": [
+        "docs/research/001d/001d-03/REPORT.md",
+        "docs/research/001d/001d-03/s2-checkpoint.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d03_native_prices.py"
+      ],
+      "bounded_read_only": "LIVE_VERIFIED only as local client arithmetic plus authenticated caps: 1500/1400 lies within observed 700..10500. Server listing acceptance, ownership, chosen duration, unsold/relisting and settlement remain LIVE-UNVERIFIED.",
+      "outstanding_dependencies": [
+        "002-MOVE-LIST-SETTLE",
+        "002-UNSOLD-RULES"
+      ]
+    },
+    {
+      "id": "D5",
+      "status": "IMPLEMENTED",
+      "implementation_class": "IMPLEMENTED/OFFLINE_VALIDATED",
+      "changed_paths": [
+        "fc_access/production_v1/foundation.py",
+        "fc_access/production_v1/once.py",
+        "fc_access/production_v1/executor.py",
+        "fc_access/production_v1/store.py",
+        "fc_access/production_v1/server.py",
+        "fc_access/bidding_v1/journal.py",
+        "tests/foundation_fixture.py",
+        "tests/test_001d06_foundation.py"
+      ],
+      "reused_paths": [
+        "fc_access/bidding_v1/core.py",
+        "fc_access/bidding_v1/scheduler.py",
+        "fc_access/durability_v1/store.py"
+      ],
+      "implementation": "Foundation composes adapter -> native prices/quote -> admission -> serial prioritized scheduler -> durable journal/registry. Admission records BID eligibility without dispatch. Explicit bid seam requires durable INTENT_DURABLE/PENDING before send. Restart/dropped result stays UNKNOWN, duplicates cannot retry, old epochs are fenced. Append-only registry, spendable balance, reservations, deadlines and separate delivery/native metrics are retained. No actor loops.",
+      "evidence_sources": [
+        "docs/research/001d/001d-06/REPORT.md",
+        "docs/research/001d/001d-06/migration.json"
+      ],
+      "offline_tests": [
+        "tests/test_001d06_foundation.py",
+        "tests/test_bidding_v1.py",
+        "tests/test_durability_v1.py"
+      ],
+      "bounded_read_only": "LIVE-UNVERIFIED for final foundation composition. Only finite fixtures, including 2500 bid under 10750 cap, priority/deadlines/crashes/reconciliation. Local service 127.0.0.1:8784 is still separately required; default service rejects mutations. No live actors or bids.",
+      "outstanding_dependencies": [
+        "D5-LIVE-INTEGRATION",
+        "002-REBID",
+        "002-WIN-COST",
+        "002-POLL-LOAD"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "002-REBID",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "A real enrolled auction where this account is actively outbid before expiry.",
+      "missing_operation": "Observe active personal outbid, compute the smallest native legal rebid under the stored profitable cap, durably dispatch once and independently read back.",
+      "required_evidence": "Fresh exact auction and spendable coins, intent/PUT amount, post-write watched/status and coins; leading must HOLD without a write."
+    },
+    {
+      "id": "002-WIN-COST",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "A naturally won competitive auction from an enrolled trade.",
+      "missing_operation": "Correlate terminal trade with independent exact owned physical item and actual paid acquisition cost.",
+      "required_evidence": "Full version/trade/item identity plus purchased or owned readback and independent balance/paid-cost reconciliation; closed/highest or isWon alone remains PENDING."
+    },
+    {
+      "id": "002-MOVE-LIST-SETTLE",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "Confirmed competitive ownership and paid cost, plus chosen listing duration.",
+      "missing_operation": "Implement the production move/list lifecycle; list fixed sampled BIN with starting bid exactly one native tick below, read back the listing and later sale settlement.",
+      "required_evidence": "Durable move/list commands, exact physical item readbacks, sale/settled proceeds, tax, paid cost and realized profit. Objective 001 Buy Now evidence does not prove this branch."
+    },
+    {
+      "id": "002-POLL-LOAD",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "Independent Python Acquirer/Bidder ownership, scheduling and real queue demand.",
+      "missing_operation": "Implement recurring 600-second discovery and near-25-second prioritized Bidder polling, reconnect handling and practical 50-slot watchlist coverage.",
+      "required_evidence": "Sustained cycle/latency/priority/deadline metrics under Acquirer load, truncation and expiry checks; fifty mocked rows and finite scheduler runs prove no live capacity guarantee."
+    },
+    {
+      "id": "002-TIMER-REFUND",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "Natural near-expiry competitive bidding and held-funds transitions.",
+      "missing_operation": "Observe timer extensions/resets and transient debit/hold/refund timing independently over the natural auction lifecycle.",
+      "required_evidence": "Timestamped exact-trade expires/state plus spendable/held balance observations; historical 800 debit/return is only one observed case."
+    },
+    {
+      "id": "002-STATUS-RECONNECT",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "A full exact native mapping reacquired after document/epoch change for a real enrolled trade.",
+      "missing_operation": "Reacquire full identity, then correlate a new status GET; reconcile unresolved or missing enrolled trades without blind retries.",
+      "required_evidence": "Same complete context/namespace, exact trade/item/full version and independent read IDs. Missing mapping or row remains UNKNOWN; lite version 0/null is VERSION_UNOBSERVED."
+    },
+    {
+      "id": "002-STATUS-HISTORY",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "A retained native trade ID in the same identity namespace with independent exact physical identity.",
+      "missing_operation": "Resolve historical enrolled-trade status only when its mapping exists; never infer a native ID or cross-key identity from pseudonyms.",
+      "required_evidence": "Full identity plus read-only known-status evidence, otherwise explicit UNKNOWN. One R1/S1 row does not resolve unrelated 001C pseudonyms or newly enrolled trades."
+    },
+    {
+      "id": "002-UNSOLD-RULES",
+      "status": "DEFERRED TO 002",
+      "owner": "Objective 002",
+      "prerequisite": "Product decisions for listing duration, unsold handling and relisting policy.",
+      "missing_operation": "Define duration, expiry detection, whether/when to relist, price policy and retry/reconciliation rules before implementing unsold/relisting actions.",
+      "required_evidence": "Approved rules plus exact unsold-item/listing readback and a later observed relist/settlement; no invented rules in 001D."
+    },
+    {
+      "id": "D1-R2-WIRE",
+      "status": "INVESTIGATION REQUIRED",
+      "owner": "Future bounded integration validation",
+      "prerequisite": "A separately authorized bounded read-only window; the unused R2 allowance is not automatically a new window.",
+      "missing_operation": "Observe new production pricing search with exact defId/page 1/count 21, then inclusive maxBuy=first_min emitted as maxb, if the candidate remains eligible.",
+      "required_evidence": "Correlated fresh authenticated sanitized wire captures with criteria and exclusions; native mocks and old 001C maxb evidence do not prove the new route live."
+    },
+    {
+      "id": "D5-LIVE-INTEGRATION",
+      "status": "INVESTIGATION REQUIRED",
+      "owner": "Future bounded integration validation",
+      "prerequisite": "The final foundation composed with its separate localhost service and reviewed attached official FC27 PC tab.",
+      "missing_operation": "Run a separately authorized finite read/quote/admission integration with the final foundation and retain independent native results; do not call bid in 001D.",
+      "required_evidence": "Current attachment/persona/authentication/native-result gates and finite registry/quote evidence. D5 fixtures do not prove final live service composition."
+    }
+  ],
+  "evidence_classes": [
+    "IMPLEMENTED/OFFLINE_VALIDATED",
+    "LIVE_VERIFIED",
+    "LIVE-UNVERIFIED"
+  ],
+  "scope": {
+    "this_task_native_requests": 0,
+    "this_task_live_bids": 0,
+    "this_task_purchases": 0,
+    "this_task_item_moves": 0,
+    "this_task_listings": 0,
+    "this_task_recurring_actors": 0,
+    "objective_001d_explicit_native_requests": 7,
+    "objective_001d_local_helper_evaluations": 8,
+    "r2_searches": 0,
+    "sealed_histories_changed": false,
+    "traffic_scope": "Explicit experiment commands only; Web App background/startup traffic was not globally instrumented."
+  }
+}

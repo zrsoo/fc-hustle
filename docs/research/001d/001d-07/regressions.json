@@ -1,0 +1,436 @@
+{
+  "schema": 1,
+  "task": "001d-07",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d01_inventory.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:09.734221+00:00",
+      "ended_at": "2026-11-13T15:21:15.621576+00:00",
+      "elapsed_seconds": 5.88736510000308,
+      "tests_run": [
+        12
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-00.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-00.stderr.txt",
+          "sha256": "445a06dc08aa9f9d6389da1733fafd4c4e1a0a53573b1647ac4107886338b7e1"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:15.622057+00:00",
+      "ended_at": "2026-11-13T15:21:19.845676+00:00",
+      "elapsed_seconds": 4.223625200000242,
+      "tests_run": [
+        8
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-01.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-01.stderr.txt",
+          "sha256": "26c8a02050b920580ed3aff21756c5c44e23b20051c05e7f80a0cb32acd8b7a1"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:19.845764+00:00",
+      "ended_at": "2026-11-13T15:21:21.286040+00:00",
+      "elapsed_seconds": 1.4402805999998236,
+      "tests_run": [
+        10
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-02.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-02.stderr.txt",
+          "sha256": "407aacd1900856313b57fab6bd3dde568d1603980f2dc305b3139133cccac14b"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d04_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:21.286110+00:00",
+      "ended_at": "2026-11-13T15:21:22.349768+00:00",
+      "elapsed_seconds": 1.0636622000019997,
+      "tests_run": [
+        17
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-03.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-03.stderr.txt",
+          "sha256": "ce55b7a9c89f20af9bb26a07dd9fdd3666f4303da065bc996f0511b719ed7dfa"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d05_inventory.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:22.349816+00:00",
+      "ended_at": "2026-11-13T15:21:23.803894+00:00",
+      "elapsed_seconds": 1.4540827000018908,
+      "tests_run": [
+        7
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-04.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-04.stderr.txt",
+          "sha256": "0cec5ec1582b3e741c7bac519f2811294cabd40eeccd1e4a16d1d6cd2c1de5a4"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d06_foundation.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:23.803944+00:00",
+      "ended_at": "2026-11-13T15:21:27.304467+00:00",
+      "elapsed_seconds": 3.5005445000133477,
+      "tests_run": [
+        16
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-05.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-05.stderr.txt",
+          "sha256": "ddc850428e904ab3a8139a60dcda5c2d440312caeb7c557609a570345f651ba8"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:27.304548+00:00",
+      "ended_at": "2026-11-13T15:21:29.505736+00:00",
+      "elapsed_seconds": 2.2012110999930883,
+      "tests_run": [
+        25
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-06.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-06.stderr.txt",
+          "sha256": "ea1cd8df7ef5156cc1ba751b62ec0e6e1e0b14346bdb50d8c800107f4d6b5c12"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:29.505830+00:00",
+      "ended_at": "2026-11-13T15:21:35.505368+00:00",
+      "elapsed_seconds": 5.999544000005699,
+      "tests_run": [
+        21
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-07.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-07.stderr.txt",
+          "sha256": "aee2f47b88441ae4a31aa387b0185769d4a4f21b1615ff0b26c628337e2c7622"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:35.505440+00:00",
+      "ended_at": "2026-11-13T15:21:35.742836+00:00",
+      "elapsed_seconds": 0.23739920000662096,
+      "tests_run": [
+        11
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-08.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-08.stderr.txt",
+          "sha256": "a8be2a2853fe1200ffee08143d235fe16758e47067a6ea1ebf74d9a485557a3c"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_search_validation_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:35.742905+00:00",
+      "ended_at": "2026-11-13T15:21:37.274824+00:00",
+      "elapsed_seconds": 1.531923899994581,
+      "tests_run": [
+        10
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-09.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-09.stderr.txt",
+          "sha256": "c1eff4eac14c53ed763cd102199891de9d4c2a2b83c283ec6d161fcadc7d035c"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:37.274904+00:00",
+      "ended_at": "2026-11-13T15:21:38.343880+00:00",
+      "elapsed_seconds": 1.0689808999886736,
+      "tests_run": [
+        7
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-10.stdout.txt",
+          "sha256": "ec87dcb5d243144a48952313abd8736584ba15199277f07b694f6d1285b3aa2f"
+        },
+        "stderr": {
+          "path": "regression-10.stderr.txt",
+          "sha256": "16606f506d9c476c2e10a7ecfc1fa16a71a805f9bbdbe2ea62b8b7ed83335dc2"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_live_v2.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:38.343933+00:00",
+      "ended_at": "2026-11-13T15:21:39.512336+00:00",
+      "elapsed_seconds": 1.1684105999884196,
+      "tests_run": [
+        22
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-11.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-11.stderr.txt",
+          "sha256": "390ad9dc5679188a1cf10667aecf25cf32b7f40d89d249fe4db632f59f81d8d7"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_reconcile_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T15:21:39.512397+00:00",
+      "ended_at": "2026-11-13T15:21:39.934315+00:00",
+      "elapsed_seconds": 0.4219389000063529,
+      "tests_run": [
+        6
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-12.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-12.stderr.txt",
+          "sha256": "a978117fb437037f157e8a47ec4a1d2d9378b9deede9152f38375fd44b164dca"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_e2e_complete_artifacts.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T15:21:39.934407+00:00",
+      "ended_at": "2026-11-13T15:21:40.188187+00:00",
+      "elapsed_seconds": 0.253784699991229,
+      "tests_run": [
+        0
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-13.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-13.stderr.txt",
+          "sha256": "db2815768130eadfe3e743b63c56966b9fb3f600833bb51b712d2f5083bc5c3e"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_release_audit.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T15:21:40.188271+00:00",
+      "ended_at": "2026-11-13T15:21:40.949242+00:00",
+      "elapsed_seconds": 0.7609752999996999,
+      "tests_run": [
+        22
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-14.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-14.stderr.txt",
+          "sha256": "a16d36b30d23adfa4195ca0dad126bb20b22cce12d83749371d2e843afd4049c"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_001c06_complete.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T15:21:40.949290+00:00",
+      "ended_at": "2026-11-13T15:21:41.178194+00:00",
+      "elapsed_seconds": 0.22891879999951925,
+      "tests_run": [],
+      "streams": {
+        "stdout": {
+          "path": "regression-15.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-15.stderr.txt",
+          "sha256": "0e34a67d8e97b2362a9c638461d0f2f64bd23b30faf6f7ee97d418ac3bdd3bc9"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_e2e_v1_acceptance.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T15:21:41.178306+00:00",
+      "ended_at": "2026-11-13T15:21:41.423865+00:00",
+      "elapsed_seconds": 0.2455609999888111,
+      "tests_run": [],
+      "streams": {
+        "stdout": {
+          "path": "regression-16.stdout.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "regression-16.stderr.txt",
+          "sha256": "34a333c66d2b2583996dd520de3e930d701df9dcc3735bee19d5e579e0a47cd3"
+        }
+      }
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-13T15:21:41.423916+00:00",
+      "ended_at": "2026-11-13T15:22:37.012057+00:00",
+      "elapsed_seconds": 55.588146099995356,
+      "tests_run": [
+        434
+      ],
+      "streams": {
+        "stdout": {
+          "path": "regression-17.stdout.txt",
+          "sha256": "2110220255e0e309665c6aeebbce87f199bdbf3c853c714a3aa6898d6fe24780"
+        },
+        "stderr": {
+          "path": "regression-17.stderr.txt",
+          "sha256": "e081dcf3899291f7ab83fbad61843c161200ea036d14824002be7bbc84c8c63f"
+        }
+      }
+    }
+  ],
+  "new_EA_requests": 0,
+  "live_mutations": 0,
+  "recurring_actors": 0,
+  "assertion_changes": [],
+  "historical_capture_changes": []
+}

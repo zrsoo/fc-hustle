@@ -1,0 +1,19 @@
+
+--- STDERR ---
+test_all_criteria_report_references_exist_and_scope_is_audit_only (__main__.InventoryAcceptance.test_all_criteria_report_references_exist_and_scope_is_audit_only) ... ok
+test_criterion_0_every_missing_row_decision_or_gap_is_rejected (__main__.InventoryAcceptance.test_criterion_0_every_missing_row_decision_or_gap_is_rejected) ... ok
+test_criterion_0_prechange_map_published_before_validator_code (__main__.InventoryAcceptance.test_criterion_0_prechange_map_published_before_validator_code) ... ok
+test_criterion_1_inventory_citations_and_actual_findings (__main__.InventoryAcceptance.test_criterion_1_inventory_citations_and_actual_findings) ... ok
+test_criterion_1_wrong_route_or_fabricated_evidence_is_rejected (__main__.InventoryAcceptance.test_criterion_1_wrong_route_or_fabricated_evidence_is_rejected) ... ok
+test_criterion_2_changed_or_deleted_evidence_source_seal_and_log_rejected (__main__.InventoryAcceptance.test_criterion_2_changed_or_deleted_evidence_source_seal_and_log_rejected) ... ok
+test_criterion_2_exact_baselines_and_all_existing_bytes_preserved (__main__.InventoryAcceptance.test_criterion_2_exact_baselines_and_all_existing_bytes_preserved) ... ok
+test_criterion_2_failure_exit_or_output_hash_cannot_be_hidden (__main__.InventoryAcceptance.test_criterion_2_failure_exit_or_output_hash_cannot_be_hidden) ... ok
+test_criterion_3_every_weakened_budget_route_and_invariant_is_rejected (__main__.InventoryAcceptance.test_criterion_3_every_weakened_budget_route_and_invariant_is_rejected) ... ok
+test_criterion_3_read_only_numeric_budgets_routes_recovery_and_stops (__main__.InventoryAcceptance.test_criterion_3_read_only_numeric_budgets_routes_recovery_and_stops) ... ok
+test_criterion_4_authority_call_graph_and_historical_separation (__main__.InventoryAcceptance.test_criterion_4_authority_call_graph_and_historical_separation) ... ok
+test_criterion_4_missing_authority_or_historical_boundary_rejected (__main__.InventoryAcceptance.test_criterion_4_missing_authority_or_historical_boundary_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 2.499s
+
+OK

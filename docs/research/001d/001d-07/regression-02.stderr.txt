@@ -1,0 +1,15 @@
+test_c0_paths_runtime_dependencies_and_version (__main__.NativePriceAcceptance.test_c0_paths_runtime_dependencies_and_version) ... ok
+test_c1_c4_helper_contract_rejects_forgery_and_network_claims (__main__.NativePriceAcceptance.test_c1_c4_helper_contract_rejects_forgery_and_network_claims) ... ok
+test_c1_exact_card_caps_and_absolute_helpers_not_bid_limits (__main__.NativePriceAcceptance.test_c1_exact_card_caps_and_absolute_helpers_not_bid_limits) ... ok
+test_c2_c4_cap_refresh_invalidates_prior_snapshot_and_reciprocal_disagreement (__main__.NativePriceAcceptance.test_c2_c4_cap_refresh_invalidates_prior_snapshot_and_reciprocal_disagreement) ... ok
+test_c2_c4_unavailable_mismatch_disagreement_fail_explicitly (__main__.NativePriceAcceptance.test_c2_c4_unavailable_mismatch_disagreement_fail_explicitly) ... ok
+test_c2_opening_rebids_boundaries_and_integer_downward_caps (__main__.NativePriceAcceptance.test_c2_opening_rebids_boundaries_and_integer_downward_caps) ... ok
+test_c3_c5_legacy_listing_rejects_pair_and_profit_failures_before_reservation (__main__.NativePriceAcceptance.test_c3_c5_legacy_listing_rejects_pair_and_profit_failures_before_reservation) ... ok
+test_c3_fixed_listing_pair_and_no_lower_start (__main__.NativePriceAcceptance.test_c3_fixed_listing_pair_and_no_lower_start) ... ok
+test_c5_write_guards_and_no_live_writes (__main__.NativePriceAcceptance.test_c5_write_guards_and_no_live_writes) ... ok
+test_c6_bounded_s2_artifact_is_actual_read_only_scoped_evidence (__main__.NativePriceAcceptance.test_c6_bounded_s2_artifact_is_actual_read_only_scoped_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.313s
+
+OK

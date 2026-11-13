@@ -1,0 +1,109 @@
+{
+  "task": "001d-04",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d04_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:21.278688+00:00",
+      "elapsed_seconds": 1.0679584000026807,
+      "output": "validation-00.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:22.346695+00:00",
+      "elapsed_seconds": 1.5577402000053553,
+      "output": "validation-01.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:23.904489+00:00",
+      "elapsed_seconds": 3.833585400003358,
+      "output": "validation-02.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d01_inventory.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:27.738157+00:00",
+      "elapsed_seconds": 4.465817699994659,
+      "output": "validation-03.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:32.204016+00:00",
+      "elapsed_seconds": 2.042691199996625,
+      "output": "validation-04.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:34.246788+00:00",
+      "elapsed_seconds": 5.946227499996894,
+      "output": "validation-05.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:40.193061+00:00",
+      "elapsed_seconds": 0.16467860000557266,
+      "output": "validation-06.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_search_validation_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:44:40.357785+00:00",
+      "elapsed_seconds": 1.5036706999962917,
+      "output": "validation-07.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-13T14:45:19.102855+00:00",
+      "elapsed_seconds": 0.9737223999982234,
+      "output": "validation-08.txt"
+    }
+  ],
+  "new_EA_requests": 0,
+  "live_mutations": 0,
+  "direct_fixture_probe": {
+    "command": [
+      "{python}",
+      "tests/test_watched_bulk_v1.py"
+    ],
+    "exit_code": 1,
+    "started_at": "2026-11-13T14:44:41.861501+00:00",
+    "elapsed_seconds": 1.0165416999952868,
+    "output": "validation-08-direct.txt",
+    "diagnostic": "Windows HTTP fixture splits header/body writes; WinError 10053. Existing coalescing runner preserves assertions and sends once."
+  }
+}

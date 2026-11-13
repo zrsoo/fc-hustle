@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "task": "001d-01",
+  "executed": {
+    "native_requests": 0,
+    "mutations": 0,
+    "actors": 0,
+    "browser_recovery": false
+  },
+  "future_probe_only": true,
+  "max_native_requests": 10,
+  "max_seconds": 300,
+  "max_mutations": 0,
+  "native_concurrency": 1,
+  "max_local_helper_evaluations": 8,
+  "windows": [
+    {
+      "id": "R1-fresh-reads",
+      "max_native_requests": 4,
+      "seconds": 60,
+      "operations": [
+        "watched",
+        "balance",
+        "unassigned",
+        "transfer_list"
+      ]
+    },
+    {
+      "id": "R2-pricing-wire",
+      "max_native_requests": 3,
+      "seconds": 90,
+      "operations": [
+        "caps",
+        "search",
+        "search"
+      ]
+    },
+    {
+      "id": "S1-known-status",
+      "max_native_requests": 2,
+      "seconds": 60,
+      "operations": [
+        "status",
+        "watched"
+      ]
+    },
+    {
+      "id": "S2-list-pair",
+      "max_native_requests": 1,
+      "seconds": 90,
+      "operations": [
+        "caps"
+      ]
+    }
+  ],
+  "routes": {
+    "watched": {
+      "method": "GET",
+      "path": "/ut/game/fc27/watchlist"
+    },
+    "balance": {
+      "method": "GET",
+      "path": "/ut/game/fc27/user/credits"
+    },
+    "unassigned": {
+      "method": "GET",
+      "path": "/ut/game/fc27/purchased/items"
+    },
+    "transfer_list": {
+      "method": "GET",
+      "path": "/ut/game/fc27/tradepile"
+    },
+    "search": {
+      "method": "GET",
+      "path": "/ut/game/fc27/transfermarket"
+    },
+    "caps": {
+      "method": "GET",
+      "path": "/ut/game/fc27/marketdata/pricelimits"
+    },
+    "status": {
+      "method": "GET",
+      "path": "/ut/game/fc27/trade/status/lite"
+    }
+  },
+  "pricing": {
+    "page": 1,
+    "count": 21,
+    "max_searches": 2,
+    "second_criterion": "maxBuy",
+    "wire_criterion": "maxb",
+    "inclusive": true,
+    "max_buy": "first_min",
+    "discovery_filters_allowed": false,
+    "early_reject_requests": 1,
+    "completed_cache_hit_requests": 0,
+    "ttl_seconds": 86400
+  },
+  "helpers": {
+    "above": [
+      750,
+      950,
+      1000,
+      9900
+    ],
+    "below": [
+      1500,
+      1000,
+      10000,
+      "card_minimum"
+    ]
+  },
+  "required_recovery": [
+    "reread_AGENTS",
+    "same_task_checkpoints",
+    "own_desktop_access",
+    "verified_Edge_tab_and_foreground",
+    "localhost_service",
+    "reviewed_extension",
+    "normal_UI_saved_autofill_only",
+    "no_credential_or_session_extraction",
+    "separate_attachment_persona_auth_native_gates"
+  ],
+  "required_stops": [
+    "CAPTCHA_2FA_security_or_missing_credentials",
+    "desktop_control_failure",
+    "wrong_tab_persona_account_game_platform",
+    "attachment_absent",
+    "changed_unreviewed_source",
+    "known_trade_mapping_absent",
+    "cache_only_stale_mismatched_malformed_ambiguous",
+    "failed_or_timeout",
+    "401_403_429_Retry_After",
+    "unexpected_route_method_fanout",
+    "budget_or_deadline_exhausted"
+  ],
+  "invariants": {
+    "reserve_before_delivery": true,
+    "count_actual_fanout": true,
+    "count_uncertain_attempts": true,
+    "preserve_counts_and_deadlines": true,
+    "retry_ambiguous_commands": false,
+    "reset_budget_on_recovery": false,
+    "replay_completed_windows": false,
+    "account_background_or_stop": true,
+    "direct_authenticated_python_http": false,
+    "invent_auctions": false,
+    "live_writes": false,
+    "recurring_actors": false,
+    "modify_sealed_evidence": false
+  },
+  "deferred": [
+    "active_personal_outbid_rebid",
+    "competitive_WON_owned_paid_move_list",
+    "settled_sale_profit",
+    "sustained_25s_under_Acquirer_load",
+    "live_50_slot_completeness",
+    "natural_expiry_refund_timing",
+    "listing_duration_unsold_relisting_decisions"
+  ]
+}

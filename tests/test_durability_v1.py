@@ -214,7 +214,7 @@ class HarnessTests(Fixture,unittest.TestCase):
     def readback(self,cid):
         return replace(status(state=State.LEADING,current=150),freshness=fresh(800)),balance(n=901)
     def bid(self,h,**kw):
-        return h.bid_once(intent(epoch=h.adapter.epoch),status(),balance(),self.rules,observations=self.observations(),readback=kw.get('readback',self.readback))
+        return h.bid_once(intent(epoch=h.adapter.epoch),status(),balance(),self.rules,quote=self.quote(),readback=kw.get('readback',self.readback))
     def test_default_denies_mutations_and_explicit_limits_survive_reopen(self):
         h,a=self.harness(mutations=0)
         with self.assertRaises(ValueError):self.bid(h)
@@ -248,11 +248,11 @@ class HarnessTests(Fixture,unittest.TestCase):
         for s,b in ((replace(status(),freshness=fresh(at=NOW-timedelta(seconds=31))),balance()),
                      (status(),replace(balance(),freshness=replace(fresh(900),request_count=0))),
                      (status(),replace(balance(),freshness=fresh(1)))):
-            with self.assertRaises(ValueError):h.bid_once(intent(s,b=b),s,b,self.rules,observations=self.observations(),readback=self.readback)
+            with self.assertRaises(ValueError):h.bid_once(intent(s,b=b),s,b,self.rules,quote=self.quote(),readback=self.readback)
         self.clock+=timedelta(seconds=61)
         s,b=status(at=self.clock),balance(at=self.clock)
         with self.assertRaisesRegex(ValueError,'window_mutation'):
-            h.bid_once(intent(s,b=b),s,b,self.rules,observations=self.observations(),readback=self.readback)
+            h.bid_once(intent(s,b=b),s,b,self.rules,quote=self.quote(),readback=self.readback)
         self.assertEqual(a.executor.commands,[])
     def test_owner_takeover_after_ack_and_restart_reservation_stop(self):
         h,a=self.harness(mutations=3)

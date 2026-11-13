@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "task": "001d-01",
+  "seals": [
+    {
+      "path": "docs/research/final/manifest.json",
+      "key": "sha256",
+      "files": 100,
+      "mismatches": [
+        {
+          "path": "docs/research/browser-access/live-v2.json",
+          "expected": "52dce27e9351371ef7f5fdb63085ad14b9bcb20141c724ce7e90ab604c8f467f",
+          "actual": "8eb4dc3c495a02a92b533932ffe632c3b5b6f3e8dab605e325ebd5f608baa94c"
+        }
+      ]
+    },
+    {
+      "path": "docs/research/001b/preservation.json",
+      "key": "static_sha256",
+      "files": 102,
+      "mismatches": []
+    },
+    {
+      "path": "docs/research/001b/t7/manifest.json",
+      "key": "sha256",
+      "files": 79,
+      "mismatches": []
+    },
+    {
+      "path": "docs/research/001c/001c-06-complete/manifest.json",
+      "key": "files",
+      "files": 131,
+      "mismatches": []
+    },
+    {
+      "path": "docs/research/001c/001c-01/preservation.json",
+      "key": "sha256",
+      "files": 229,
+      "mismatches": [
+        {
+          "path": "objectives/002-two-actor-competitive-bidding.md",
+          "expected": "c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890",
+          "actual": "fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7"
+        }
+      ]
+    },
+    {
+      "path": "docs/research/001c/001c-07/entry.json",
+      "key": "sha256",
+      "files": 645,
+      "mismatches": [
+        {
+          "path": "objectives/002-two-actor-competitive-bidding.md",
+          "expected": "c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890",
+          "actual": "fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7"
+        }
+      ]
+    }
+  ],
+  "policy": "Retain original seal bytes and current task-entry bytes; disclose existing drift without resealing."
+}

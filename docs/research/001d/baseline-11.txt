@@ -1,0 +1,143 @@
+http-00 403 https://example.test/manifest.json
+{"fixture_rows": 50, "local_ingestion_and_ordering_ms": 0.208, "live_performance": false}
+
+--- STDERR ---
+.....................F.....F...................................F....F.......................................................................................................................................................................................................E...........F.E.................................................................................................E..
+======================================================================
+ERROR: test_0_independent_real_capture_ledger_and_wire_audit (test_release_audit.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 31, in test_0_independent_real_capture_ledger_and_wire_audit
+    result = a.audit()
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 321, in audit
+    preserved = preserve(reader) if check_preservation else None
+                ~~~~~~~~^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 81, in preserve
+    require(sha(reader(path)) == expected, "preexisting_bytes_changed:" + path)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 39, in require
+    raise ValueError(why)
+ValueError: preexisting_bytes_changed:objectives/002-two-actor-competitive-bidding.md
+
+======================================================================
+ERROR: test_6_historical_seals_and_every_preexisting_file_intact (test_release_audit.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 255, in test_6_historical_seals_and_every_preexisting_file_intact
+    self.assertEqual(a.preserve(), 645)
+                     ~~~~~~~~~~^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 81, in preserve
+    require(sha(reader(path)) == expected, "preexisting_bytes_changed:" + path)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\fc_access\release_audit_v1.py", line 39, in require
+    raise ValueError(why)
+ValueError: preexisting_bytes_changed:objectives/002-two-actor-competitive-bidding.md
+
+======================================================================
+ERROR: test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset (test_watched_bulk_v1.Behavior.test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 133, in test_pinned_loopback_server_denies_other_origins_writes_and_budget_reset
+    with self.assertRaises(urllib.error.HTTPError) as cm:post(path,value,origin)
+                                                         ~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_watched_bulk_v1.py", line 131, in post
+    return urllib.request.urlopen(urllib.request.Request(base+path,data=json.dumps(payload).encode(),headers=h),timeout=3)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 489, in open
+    response = self._open(req, data)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 506, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 466, in _call_chain
+    result = func(*args)
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1360, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py", line 1335, in do_open
+    r = h.getresponse()
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 304, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+
+======================================================================
+FAIL: test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file (test_001c01_audit.EntryAndBaselineTests.test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_001c01_audit.py", line 312, in test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file
+    self.assertFalse(preservation_defects(lock))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ['objectives/002-two-actor-competitive-bidding.md'] is not false
+
+======================================================================
+FAIL: test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay (test_001c01_audit.GapAndInspectionTests.test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_001c01_audit.py", line 394, in test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay
+    check_review(artifact("review-ledger"))
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_001c01_audit.py", line 209, in check_review
+    need(digest(read(row["path"])) == row["sha256"], "read input changed: " + row["path"])
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_001c01_audit.py", line 122, in need
+    raise AssertionError(message)
+AssertionError: read input changed: objectives/002-two-actor-competitive-bidding.md
+
+======================================================================
+FAIL: test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_browser_access.py", line 112, in test_criterion_0_inspection_is_current_and_does_not_assume_cdp
+    self.assertLess(abs((utc_now() - datetime.fromisoformat(data["inspected_at"])).total_seconds()), 86400)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 169340.462746 not less than 86400
+
+======================================================================
+FAIL: test_review_matches_executed_bridge_sources_and_retained_metadata (test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_browser_access.py", line 91, in test_review_matches_executed_bridge_sources_and_retained_metadata
+    self.assertEqual(validate_live(json.loads((directory / "live-v2.json").read_text())), [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['criterion_1_authenticated_fc27_page_not_[213 chars]nce'] != []
+
+First list contains 6 additional elements.
+First extra element 0:
+'criterion_1_authenticated_fc27_page_not_reached'
+
++ []
+- ['criterion_1_authenticated_fc27_page_not_reached',
+-  'criterion_3_current_client_identifiers_unobserved',
+-  'criterion_3_current_host_prefix_unproven_or_ambiguous',
+-  'criterion_3_request_lifecycle_unobserved',
+-  'no_current_page_observations',
+-  'stale_live_evidence']
+
+======================================================================
+FAIL: test_5_decision_requires_prerequisites_and_precise_finite_continuation (test_release_audit.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_release_audit.py", line 228, in test_5_decision_requires_prerequisites_and_precise_finite_continuation
+    self.assertEqual(hashlib.sha256(a.read(strategy)).hexdigest(), entry["sha256"][strategy])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7' != 'c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890'
+- fc44f278164a6c4ad451572b7ccb612ed496458106e54cff3d7f853ea04299b7
++ c96320b5e6e37acda78a3e427b5b6f9aeff32d0cb34f436e55d7620dbafe5890
+
+
+----------------------------------------------------------------------
+Ran 383 tests in 38.020s
+
+FAILED (failures=5, errors=3)

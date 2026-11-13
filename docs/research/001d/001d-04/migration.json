@@ -1,0 +1,30 @@
+{
+  "task": "001d-04",
+  "reason": "Completed quote API replaces production observation-estimator coupling; historical evidence unchanged",
+  "paths": {
+    "fc_access/bidding_v1/adapter.py": {
+      "before_sha256": "2be230c5577f058699792c23e143cb2c669525344a419c803ce1c2a79e6481f3",
+      "after_sha256": "2a729e5dd0b437825fef3cc0fe4cbe01381f95c7ced0bd686b70bd11c3296467"
+    },
+    "fc_access/bidding_v1/rules.py": {
+      "before_sha256": "2da17dbc826f5ecee6eab72b5a3c0fe687e6895c645c7015f22586e6ed7b02ca",
+      "after_sha256": "12a74e17fb59dc41410422601e922438759c8f2de194263a7c9ad0d6268f42ed"
+    },
+    "fc_access/durability_v1/harness.py": {
+      "before_sha256": "db156e8ca9229e4689ce993f644e7e388bfa96628caea2a2cda7dfa9935c4f36",
+      "after_sha256": "fe44d200dab194a09c7b9e82bfe1ca789b89d709fcd56918c61841f570df8775"
+    },
+    "fc_access/pricing.py": {
+      "before_sha256": "1bbd3a0401b9ce574443f4180969f2e91ce0980b2413d8e1c61f8d690237daca",
+      "after_sha256": "769437a63b5ef4a4a1b107fbbddb8c036c27e6ade0d20baf8aaf9b3f4092cc1b"
+    },
+    "tests/test_bidding_v1.py": {
+      "before_sha256": "d1758f200d5f55b46203df240514bd93ec8978843670ecab315d39861b331599",
+      "after_sha256": "1b5aef065882469ce699dd1bc3e33b909e8c7c75c6ea9a05264cf0d4e4f8475c"
+    },
+    "tests/test_durability_v1.py": {
+      "before_sha256": "4ae660e3b95994d93541f3c9885b5d5367941cb20063429d57a01fd5404446a7",
+      "after_sha256": "fee7e9a5c42127ad3a9a2c8804baa3a9fea31b11ec901fcbeecfc19ab163677e"
+    }
+  }
+}
