@@ -17,12 +17,14 @@ from fc_access.e2e_resolution_v2.server import validate_result as validate_resol
 RESOLUTION=ROOT/'docs/research/001c/001c-06-resume-03'
 FINAL=ROOT/'docs/research/001c/001c-06-complete'
 
+from fc_access.evidence import evidence_hashes
+
 def load(p):return json.loads(Path(p).read_text())
 def check(condition,reason):
     if not condition:raise ValueError(reason)
 def normalized(v):return json.loads(json.dumps(v))
 def preservation(directory):
-    for name,digest in load(directory/'entry.json')['preserve'].items():
+    for name,digest in evidence_hashes(load(directory/'entry.json')['preserve']).items():
         check(hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical_bytes_changed:'+name)
 
 def read_run(directory=DIRECTORY):

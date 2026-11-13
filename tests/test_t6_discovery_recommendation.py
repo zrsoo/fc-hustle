@@ -29,6 +29,8 @@ FILES = {
 }
 
 
+from fc_access.evidence import evidence_hashes
+
 def load(path):
     return json.loads(path.read_text(encoding='utf-8'))
 
@@ -336,7 +338,7 @@ class RecommendationTests(unittest.TestCase):
     def test_reproducible_report_cli_exclusive_output_and_no_network(self):
         with patch.object(socket, 'socket', side_effect=AssertionError('T6 must stay offline')):
             self.assertEqual(build_report(), self.report)
-        for path, digest in self.report['inputs_sha256'].items():
+        for path, digest in evidence_hashes(self.report['inputs_sha256']).items():
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(), digest, path)
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp)/'report.json'

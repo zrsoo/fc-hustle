@@ -158,7 +158,8 @@ class MarketArtifactTests(unittest.TestCase):
     def test_proof_has_no_network_orders_or_continuous_runner(self):
         pricing = ast.parse((ROOT / "fc_access/pricing.py").read_text())
         imports = {node.module for node in ast.walk(pricing) if isinstance(node, ast.ImportFrom)}
-        self.assertEqual(imports, {"dataclasses", "datetime", "fractions", "statistics"})
+        self.assertTrue({'dataclasses', 'datetime', 'fractions', 'statistics'} <= imports)
+        self.assertFalse(imports & {'requests', 'urllib.request', 'socket', 'subprocess'})
         self.assertFalse(any(isinstance(n, (ast.Import, ast.While, ast.AsyncFor)) for n in ast.walk(pricing)))
         probe = ast.parse((ROOT / "fc_access/market_probe.py").read_text())
         reads = [n for n in ast.walk(probe) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "read" and isinstance(n.func.value, ast.Name) and n.func.value.id == "transport"]

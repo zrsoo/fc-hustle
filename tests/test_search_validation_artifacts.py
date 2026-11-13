@@ -14,6 +14,8 @@ from experiments.search_validation_v1.validation import assess,validate,availabi
 from experiments.search_validation_v1.economics import coverage,evaluate,caps
 
 D=ROOT/'docs/research/001c/001c-04'
+from fc_access.evidence import evidence_hashes
+
 def load(name):return json.loads((D/name).read_text(encoding='utf-8'))
 def canonical(value):return json.dumps(value,sort_keys=True)
 
@@ -129,10 +131,12 @@ class Artifacts(unittest.TestCase):
         self.assertTrue(all((b-a).total_seconds()>=30 for a,b in zip(starts,starts[1:])))
 
     def test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping(self):
+        from js_contract import check_js
+        check_js(self, 'search_validation_v1_checks.cjs')
         for name in ('review-v3.json','manifest.json'):
-            for path,digest in load(name)['files'].items():
+            for path,digest in evidence_hashes(load(name)['files']).items():
                 self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
-        for path,digest in load('entry.json')['preserve'].items():
+        for path,digest in evidence_hashes(load('entry.json')['preserve']).items():
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
         page=(ROOT/'experiments/search_validation_v1/browser/page.js').read_text(encoding='utf-8')
         for forbidden in ('services.Item.bid(', 'services.Item.list(', 'document.cookie','getSelectedPersona().id','localStorage'):

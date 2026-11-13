@@ -11,6 +11,7 @@ import subprocess
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fc_access import release_audit_v1 as a
+from fc_access.evidence import is_evidence
 
 
 def git(*args):
@@ -38,7 +39,7 @@ def validate():
                   and not a.mutable_artifact(path), "excluded_or_unrelated_file_published")
         raw = a.read(path)
         a.require(git("show", "HEAD:" + path) == raw, "committed_bytes_differ:" + path)
-        if path in manifest["files"]:
+        if is_evidence(path) and path in manifest["files"]:
             a.require(hashlib.sha256(raw).hexdigest() == manifest["files"][path], "payload_hash_mismatch:" + path)
         if path.endswith(".json"):
             a.private_fields(json.loads(raw))

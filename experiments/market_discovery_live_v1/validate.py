@@ -8,6 +8,8 @@ from experiments.market_discovery.model import PROTOCOL, TIMINGS, reply, search,
 from experiments.market_discovery_followup_v1.server import persona_projection
 
 
+from fc_access.evidence import evidence_hashes
+
 def validate(directory):
     directory = Path(directory)
     errors, incomplete = [], []
@@ -15,7 +17,7 @@ def validate(directory):
     frozen = json.loads(PROTOCOL.read_text())
     if entry['protocol_sha256'] != hashlib.sha256(PROTOCOL.read_bytes()).hexdigest():
         errors.append('frozen_protocol_hash_changed')
-    for path, digest in entry['capture_source_hashes'].items():
+    for path, digest in evidence_hashes(entry['capture_source_hashes']).items():
         if hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest:
             errors.append('capture_source_changed:'+path)
     preflight = json.loads((directory/'preflight.json').read_text())

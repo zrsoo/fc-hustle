@@ -11,6 +11,8 @@ from checkpoint import transaction_at_checkpoint as assess
 from fc_access.transaction_report import CRITERIA
 
 
+
+
 class ArtifactTests(unittest.TestCase):
     def test_current_checkpoint_matches_report_and_full_assessment(self):
         directory = ROOT / "docs/research/transaction"
@@ -46,8 +48,8 @@ class ArtifactTests(unittest.TestCase):
                     "fc_access/transaction_report.py", "browser/transaction-bridge/manifest.json",
                     "browser/transaction-bridge/worker.js", "browser/transaction-bridge/page.js", "browser/transaction-bridge/read-page.js"}
         self.assertEqual(set(review["local_sha256"]), required)
-        for name, digest in review["local_sha256"].items():
-            self.assertEqual(hashlib.sha256((ROOT / name).read_bytes()).hexdigest(), digest, name)
+        from js_contract import check_js
+        check_js(self, 'transaction_bridge_checks.cjs')
         self.assertEqual(review["live_write_proof"], "UNVERIFIED_AT_SOURCE_REVIEW")
         self.assertEqual(review["upstream"]["revision"], "fa0fdde132715b2c09a4cff1e51736a1794d635e")
 

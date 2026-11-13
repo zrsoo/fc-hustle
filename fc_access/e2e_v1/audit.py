@@ -6,6 +6,8 @@ import sqlite3
 from . import policy
 from .server import DIRECTORY,ROOT,LIMITS,validate_result
 
+from fc_access.evidence import evidence_hashes
+
 def load(path):return json.loads(path.read_text())
 
 def inspect(directory=DIRECTORY):
@@ -78,7 +80,7 @@ def inspect(directory=DIRECTORY):
     assert policy.at(tail['network'][0]['started_at']).timestamp()>expected_min
     assert all(not any(r['item_id']==identity['item_id'] for r in evidence[t['id']]['rows']) for t in timeline if t['operation'] in ('unassigned','transfer_list'))
     entry=load(directory/'entry.json')
-    for name,digest in entry['preserve'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical alteration: '+name
+    for name,digest in evidence_hashes(entry['preserve']).items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,'historical alteration: '+name
     report={
       'task':'001c-06','status':'unresolved','release_decision':'CONDITIONAL_GO_WITH_BLOCKED_LIVE_ACCEPTANCE',
       'identity':identity,'bounds':LIMITS,'command_count':len(rows),'native_request_count':sum(len(t['network']) for t in timeline),

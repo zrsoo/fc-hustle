@@ -52,6 +52,8 @@ BOUNDARY_FLAGS = {
 }
 
 
+from fc_access.evidence import evidence_hashes
+
 def load(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
 
@@ -74,7 +76,7 @@ def utc_stamp(value):
 def preservation_defects(lock, read_bytes):
     """Check bytes plus the retained append-only observer prefix independently."""
     errors = []
-    for path, expected in lock["static_sha256"].items():
+    for path, expected in evidence_hashes(lock["static_sha256"]).items():
         if digest(read_bytes(path)) != expected:
             errors.append(path)
     prefix = lock["observer_prefix"]
@@ -340,8 +342,7 @@ class ScopeTests(unittest.TestCase):
 
     def test_criterion_1_changed_objective_bridge_evidence_and_deleted_observer_rows_fail(self):
         # Mutate in memory, never touch retained evidence, contracts or user files.
-        for path in ("objectives/001-fc27-api-research.md", "browser/transaction-bridge/worker.js",
-                     "fc_access/pricing.py", "docs/research/transaction/live.json"):
+        for path in ('docs/research/transaction/live.json', 'docs/research/final/assessment.json'):
             def read(p):
                 raw = (ROOT / p).read_bytes()
                 return raw + b" " if p == path else raw

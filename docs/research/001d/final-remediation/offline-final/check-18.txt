@@ -1,0 +1,12 @@
+test_c0_c3_finite_python_foundation_consumes_contract_without_live_writes (__main__.HandoffAcceptance.test_c0_c3_finite_python_foundation_consumes_contract_without_live_writes) ... ok
+test_c0_focused_and_baseline_runs_have_real_outputs_and_disclosed_failures (__main__.HandoffAcceptance.test_c0_focused_and_baseline_runs_have_real_outputs_and_disclosed_failures) ... ok
+test_c1_c2_c3_c4_c6_missing_evidence_and_overclaims_fail_without_rewriting_files (__main__.HandoffAcceptance.test_c1_c2_c3_c4_c6_missing_evidence_and_overclaims_fail_without_rewriting_files) ... ok
+test_c1_c4_c6_complete_checklist_dependencies_and_partial_readiness (__main__.HandoffAcceptance.test_c1_c4_c6_complete_checklist_dependencies_and_partial_readiness) ... ok
+test_c2_c5_retained_live_scope_reparses_routes_identity_freshness_and_counts (__main__.HandoffAcceptance.test_c2_c5_retained_live_scope_reparses_routes_identity_freshness_and_counts) ... ok
+test_c3_versioned_graph_resolves_to_current_code_and_offline_consumer_exits (__main__.HandoffAcceptance.test_c3_versioned_graph_resolves_to_current_code_and_offline_consumer_exits) ... ok
+test_c5_preserves_every_entry_byte_and_all_sealed_history (__main__.HandoffAcceptance.test_c5_preserves_every_entry_byte_and_all_sealed_history) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.916s
+
+OK

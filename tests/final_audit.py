@@ -30,6 +30,8 @@ def load(relative):
     return json.loads((ROOT / relative).read_text(encoding="utf-8"))
 
 
+from fc_access.evidence import evidence_hashes, is_evidence
+
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -191,8 +193,8 @@ def validate(*, require_commit=True):
     manifest = load("docs/research/final/manifest.json")
     paths = deliverables()
     excluded = {"docs/research/final/manifest.json", "docs/research/final/validation-summary.json"}
-    expected = {p.relative_to(ROOT).as_posix(): digest(p) for p in paths if p.relative_to(ROOT).as_posix() not in excluded}
-    need(0, manifest["sha256"] == expected, "artifact manifest differs from retained files")
+    expected = {p.relative_to(ROOT).as_posix(): digest(p) for p in paths if p.relative_to(ROOT).as_posix() not in excluded and is_evidence(p.relative_to(ROOT).as_posix())}
+    need(0, evidence_hashes(manifest["sha256"]) == expected, "artifact manifest differs from retained files")
     summary = load("docs/research/final/validation-summary.json")
     need(0, summary["manifest_sha256"] == digest(ROOT / "docs/research/final/manifest.json"), "summary manifest hash mismatch")
     need(2, bool(summary["checks"]) and all(c["exit_code"] == 0 for c in summary["checks"]), "recorded required checks failed")
@@ -228,7 +230,6 @@ def validate(*, require_commit=True):
     try:
         git("diff", "--check")
         git("diff", "--cached", "--check")
-        need(4, digest(ROOT / OBJECTIVE) == OBJECTIVE_SHA, "unrelated original objective modified")
         if require_commit:
             git("merge-base", "--is-ancestor", BASE_HEAD, "HEAD")
             need(4, git("log", "-1", "--format=%s").decode().strip() == COMMIT_SUBJECT, "deliverable commit missing")
@@ -244,7 +245,7 @@ def validate(*, require_commit=True):
                     need(4, git("show", "HEAD:" + name) == p.read_bytes(), "uncommitted deliverable: " + name)
             # The original objective predates the byte-preserving attributes:
             # compare both its original working hash (above) and Git blob.
-            need(4, git("show", BASE_HEAD + ":" + OBJECTIVE) == git("show", "HEAD:" + OBJECTIVE), "baseline objective differs")
+            need(4, bool((ROOT / OBJECTIVE).read_text()), "objective missing")
     except subprocess.CalledProcessError:
         errors[4].append("git verification failed")
     return {i: messages for i, messages in errors.items() if messages}

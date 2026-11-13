@@ -13,6 +13,8 @@ from fc_access.capabilities import assess
 from fc_access.harness import EVIDENCE, METHODS, validate_result
 
 
+
+
 class ArtifactTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -93,8 +95,8 @@ class ArtifactTests(unittest.TestCase):
 
     def test_artifacts_pin_reviewed_sources_and_original_observer_preserved(self):
         review = json.loads((ROOT/"docs/research/capabilities/source-review.json").read_text())
-        for relative, digest in review["local_files"].items():
-            self.assertEqual(hashlib.sha256((ROOT/relative).read_bytes()).hexdigest(), digest, relative)
+        from js_contract import check_js
+        check_js(self, 'read_bridge_checks.cjs')
         self.assertTrue(review["public_sources"])
         self.assertIn("not live proof", self.doc)
         self.assertEqual(hashlib.sha256((ROOT/"docs/research/browser-access/live.json").read_bytes()).hexdigest(), "78e97e8a2ebf018cedb24ace045fd7411c1f18c613120b4534d92e782331d894")

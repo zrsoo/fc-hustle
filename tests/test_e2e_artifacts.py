@@ -15,6 +15,8 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from fc_access.e2e_v1.audit import inspect,load
 from fc_access.e2e_v1.server import DIRECTORY,ROOT,validate_result
 
+from fc_access.evidence import evidence_hashes
+
 class ArtifactTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.report=inspect();cls.retained=load(DIRECTORY/'report.json')
@@ -58,8 +60,8 @@ class ArtifactTests(unittest.TestCase):
         self.assertTrue(r['won_item_handoff'].startswith('UNVERIFIED'))
         self.assertFalse([x for x in r['timeline'] if x['operation'] in ('move','list')])
     def test_preservation_privacy_manifest_and_exact_continuation(self):
-        for name,h in load(DIRECTORY/'entry.json')['preserve'].items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),h,name)
-        for name,h in load(DIRECTORY/'manifest.json')['files'].items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),h,name)
+        for name,h in evidence_hashes(load(DIRECTORY/'entry.json')['preserve']).items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),h,name)
+        for name,h in evidence_hashes(load(DIRECTORY/'manifest.json')['files']).items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),h,name)
         forbidden={'password','cookies','cookie','authorization','token','access_token','sid','account_id','persona_id','email','username','x-ut-sid'}
         def check(v):
             if isinstance(v,dict):

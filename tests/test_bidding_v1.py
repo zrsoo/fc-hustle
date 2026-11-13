@@ -573,8 +573,8 @@ class AdapterTests(Fixture, unittest.TestCase):
         self.assertEqual(sum(c["operation"] == "bid" for c in page.commands), 2)
 
     def test_native_javascript_contracts_and_historical_persona_regression(self):
-        self.assertEqual((ROOT/"browser/bidding-v1/persona.js").read_bytes(),
-                         (ROOT/"experiments/market_discovery_followup_v1/browser/persona.js").read_bytes())
+        from js_contract import check_js
+        check_js(self, 'market_discovery_followup_v1_checks.cjs')
         run = subprocess.run(["node", "tests/bidding_v1_checks.cjs"], cwd=ROOT, capture_output=True, text=True, timeout=30)
         self.assertEqual(run.returncode, 0, run.stdout+run.stderr)
         self.assertIn("PASS", run.stdout)

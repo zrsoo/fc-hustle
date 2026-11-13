@@ -65,6 +65,13 @@ class Handler(BaseHTTPRequestHandler):
         if self.path not in ('/next', '/result', '/run'):
             return self.reply(404, {'error': 'not_found'})
         if not self.allowed(self.path != '/run'):
+            self.connection.settimeout(1)
+            try:
+                length = int(self.headers.get('Content-Length', '0'))
+                if not self.headers.get('Transfer-Encoding') and 0 < length <= 262144:
+                    self.rfile.read(length)
+            except (ValueError, OSError):
+                pass
             return self.reply(403, {'error': 'origin_denied'})
         try:
             if self.headers.get('Content-Type') != 'application/json' or self.headers.get('Transfer-Encoding'):

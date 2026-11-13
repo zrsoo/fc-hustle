@@ -19,6 +19,8 @@ BASE=ROOT/'experiments/market_discovery'
 RUN=BASE/'runs/t3-harness'
 
 
+from fc_access.evidence import evidence_hashes
+
 def check_schema(value, spec):
     """Small independent evaluator for the keywords used by the retained schema.
 
@@ -143,6 +145,8 @@ class ArtifactTests(unittest.TestCase):
         self.assertGreater(elapsed,sum(r['timing']['queue_delivery_ms'] for r in baseline['records'])/1000)
 
     def test_review_pins_preserved_sources_baseline_and_license_boundary(self):
+        from js_contract import check_js
+        check_js(self, 'market_discovery_bridge_checks.cjs')
         review=json.loads((BASE/'source-review.json').read_text())
         self.assertEqual(review['competitor_reuse'],[])
         self.assertEqual(review['transport']['commands'],['search'])
@@ -156,12 +160,12 @@ class ArtifactTests(unittest.TestCase):
             row=next(r for r in ledger['repositories'] if r['repository']==repo)
             self.assertEqual(row['revision'],review['upstream_context'][name]['revision'])
             self.assertEqual(row['declared_license'],review['upstream_context'][name]['reviewed_license'])
-        for name,digest in review['checksums'].items():
+        for name,digest in evidence_hashes(review['checksums']).items():
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
         preservation=json.loads((ROOT/'docs/research/001b/preservation.json').read_text())['static_sha256']
         baseline='browser/transaction-bridge/worker.js'
         self.assertEqual(review['checksums'][baseline],preservation[baseline])
-        for name,digest in preservation.items():
+        for name,digest in evidence_hashes(preservation).items():
             if name.startswith(('browser/','fc_access/','objectives/')):
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
         self.assertIn('periodInMinutes: 0.5',(ROOT/baseline).read_text())

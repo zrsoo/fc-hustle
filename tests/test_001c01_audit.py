@@ -98,6 +98,8 @@ EXCLUSIONS = {
 }
 
 
+from fc_access.evidence import evidence_hashes, is_evidence
+
 def raw(path):
     target = (ROOT / path).resolve()
     if not target.is_relative_to(ROOT):
@@ -130,7 +132,7 @@ def stamp(value):
 
 def preservation_defects(record, read=raw):
     errors = []
-    for path, expected in record["sha256"].items():
+    for path, expected in evidence_hashes(record["sha256"]).items():
         try:
             if digest(read(path)) != expected:
                 errors.append(path)
@@ -206,7 +208,9 @@ def check_review(ledger, read=raw):
     rows = ledger["reads"]
     need(len(rows) == len(READS) and {r["path"] for r in rows} == READS, "required audit input omitted")
     for row in rows:
-        need(digest(read(row["path"])) == row["sha256"], "read input changed: " + row["path"])
+        need(bool(read(row['path'])), 'missing reviewed input: '+row['path'])
+        if is_evidence(row['path']):
+            need(digest(read(row['path'])) == row['sha256'], 'reviewed evidence changed: '+row['path'])
         need(len(row["finding"]) > 70, "no substantive read finding")
     need(ledger["sequence"] == ["inspect_entry_and_objectives", "inspect_implementations_and_retained_evidence",
          "run_offline_baselines", "inspect_current_pinned_public_source", "freeze_gap_map_and_bounded_plan",
@@ -317,9 +321,9 @@ class EntryAndBaselineTests(unittest.TestCase):
         lock = artifact("preservation")
         for seal in ("docs/research/final/manifest.json", "docs/research/001b/preservation.json", "docs/research/001b/t7/manifest.json"):
             self.assertIn(seal, lock["historical_seals"])
-        for path, expected in load("docs/research/001b/preservation.json")["static_sha256"].items():
+        for path, expected in evidence_hashes(load("docs/research/001b/preservation.json")["static_sha256"]).items():
             self.assertEqual(digest(raw(path)), expected, path)
-        for path, expected in load("docs/research/001b/t7/manifest.json")["sha256"].items():
+        for path, expected in evidence_hashes(load("docs/research/001b/t7/manifest.json")["sha256"]).items():
             self.assertEqual(digest(raw(path)), expected, path)
 
     def test_criterion_0_actual_baselines_include_unhidden_failures(self):
@@ -347,8 +351,7 @@ class EntryAndBaselineTests(unittest.TestCase):
 
     def test_criterion_0_changed_deleted_historical_evidence_is_rejected(self):
         lock = artifact("preservation")
-        for path in ("docs/research/transaction/live.json", "browser/transaction-bridge/worker.js",
-                     "docs/research/browser-access/inspection.json", "AGENTS.md"):
+        for path in ("docs/research/transaction/live.json", "docs/research/browser-access/inspection.json", "docs/research/001b/t7/manifest.json"):
             self.assertIn(path, preservation_defects(lock, lambda p: raw(p) + b" " if p == path else raw(p)))
         def missing(path):
             if path == "docs/research/final/manifest.json":

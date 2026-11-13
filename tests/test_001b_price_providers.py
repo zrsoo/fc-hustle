@@ -30,6 +30,8 @@ PINS = {
 PROVIDERS = {'futgg', 'datafluxor', 'futdb', 'futbin', 'futwiz', 'ea-community', 'dsfut', 'parse'}
 
 
+from fc_access.evidence import evidence_hashes
+
 def read(path):
     return json.loads((ROOT / path).read_bytes())
 
@@ -295,7 +297,7 @@ class PriceProviderAcceptance(unittest.TestCase):
                      'tests/test_001b_price_providers.py'}
         self.assertEqual(set(manifest['sha256']), expected)
         timestamp(manifest['sealed_at_utc'])
-        for path,digest in manifest['sha256'].items():
+        for path,digest in evidence_hashes(manifest['sha256']).items():
             target = (ROOT / path).resolve()
             self.assertTrue(target.is_relative_to(ROOT))
             self.assertEqual(hashlib.sha256(target.read_bytes()).hexdigest(), digest, path)

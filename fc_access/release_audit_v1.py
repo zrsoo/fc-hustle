@@ -34,6 +34,8 @@ LIVE_REFERENCES = {
     "bridge_resilience": ("001c-05/idle.json", "001c-05/server-restart-verified.json", "001c-05/extension-reload-verified.json")}
 
 
+from fc_access.evidence import evidence_hashes
+
 def require(ok, why):
     if not ok:
         raise ValueError(why)
@@ -77,13 +79,13 @@ def private_fields(value):
 
 def preserve(reader=read):
     entry = load(OUT + "entry.json", reader)
-    for path, expected in entry["sha256"].items():
+    for path, expected in evidence_hashes(entry["sha256"]).items():
         require(sha(reader(path)) == expected, "preexisting_bytes_changed:" + path)
     # Independently re-read the actual historical seal maps, not just the new entry.
     for path, key in (("docs/research/001b/preservation.json", "static_sha256"),
                       ("docs/research/001b/t7/manifest.json", "sha256"),
                       ("docs/research/001c/001c-06-complete/manifest.json", "files")):
-        for target, expected in load(path, reader)[key].items():
+        for target, expected in evidence_hashes(load(path, reader)[key]).items():
             require(sha(reader(target)) == expected, "sealed_bytes_changed:" + target)
     return len(entry["sha256"])
 

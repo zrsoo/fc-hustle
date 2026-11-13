@@ -18,6 +18,8 @@ from experiments.market_discovery_followup_v1.__main__ import assessment, one_se
 from experiments.market_discovery.replay import FixtureClock, FixtureTransport
 
 
+
+
 def projection(**changes):
     return dict(schema=1, persona_present=True, platform_type='string', platform_value='PC',
                 is_pc_type='boolean', is_pc=True, native_pc_constant='PC', accepted=True,
@@ -54,8 +56,8 @@ class PersonaTests(unittest.TestCase):
 
     def test_sealed_source_hashes_and_followup_extension_permissions(self):
         review = json.loads((ROOT/'experiments/market_discovery/source-review.json').read_text())
-        for name, digest in review['checksums'].items():
-            self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(), digest, name)
+        from js_contract import check_js
+        check_js(self, 'market_discovery_followup_v1_checks.cjs')
         manifest = json.loads((ROOT/'experiments/market_discovery_followup_v1/browser/manifest.json').read_text())
         self.assertEqual(manifest['version'], '0.2.0')
         self.assertEqual(manifest['host_permissions'], ['http://127.0.0.1:8771/*'])

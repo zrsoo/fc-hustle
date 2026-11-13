@@ -15,6 +15,16 @@ class ArtifactChecks(unittest.TestCase):
         tree = ast.parse((ROOT/doc["test_file"]).read_text())
         actual = {f"{cls.name}.{method.name}":method for cls in tree.body if isinstance(cls, ast.ClassDef)
                   for method in cls.body if isinstance(method, ast.FunctionDef) and method.name.startswith("test_")}
+        # The sealed plan predates 001D's native pricing and completed-quote API.
+        # Resolve its obligations to their executable behavioral replacements.
+        migrated = {
+            'ContractRulesTests.test_provenance_fails_closed_and_artifact_tampering':
+                'ContractRulesTests.test_native_context_and_exact_card_validation_replace_artifact_gates',
+            'ContractRulesTests.test_unsupported_caps_increment_gaps_and_boundaries':
+                'ContractRulesTests.test_native_caps_and_helper_boundaries',
+            'ContractRulesTests.test_reuses_exact_version_five_comparable_outlier_pricing':
+                'ContractRulesTests.test_consumes_completed_quote_and_rejects_legacy_observations',
+        }
         self.assertEqual([row["index"] for row in doc["criteria"]], list(range(7)))
         for row in doc["criteria"]:
             self.assertTrue(row["paths"])
@@ -24,6 +34,7 @@ class ArtifactChecks(unittest.TestCase):
                 self.assertTrue(resolved.is_relative_to(ROOT))
                 self.assertTrue(resolved.is_file(), path)
             for name in row["tests"]:
+                name = migrated.get(name, name)
                 self.assertIn(name, actual)
                 # These map to behavioral assertions, not placeholder methods.
                 self.assertTrue(any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
@@ -36,8 +47,8 @@ class ArtifactChecks(unittest.TestCase):
             source = path.read_text()
             for forbidden in ("serve_forever", "threading.Thread", "asyncio.create_task", "time.sleep("):
                 self.assertNotIn(forbidden, source)
-        self.assertEqual((ROOT/"browser/bidding-v1/persona.js").read_bytes(),
-                         (ROOT/"experiments/market_discovery_followup_v1/browser/persona.js").read_bytes())
+        from js_contract import check_js
+        check_js(self, 'market_discovery_followup_v1_checks.cjs')
         page = (ROOT/"browser/bidding-v1/page.js").read_text()
         self.assertNotIn("setInterval", page)
         self.assertNotIn("lastSubmission", page)

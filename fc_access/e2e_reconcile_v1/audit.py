@@ -5,6 +5,8 @@ import sqlite3
 from .server import DIRECTORY,ROOT,OPERATIONS,validate_result
 from fc_access.e2e_v1.policy import at
 
+from fc_access.evidence import evidence_hashes
+
 def inspect():
     db=sqlite3.connect((DIRECTORY/'live-final.sqlite').as_uri()+'?mode=ro&immutable=1',uri=True)
     assert db.execute('PRAGMA integrity_check').fetchone()==('ok',)
@@ -33,7 +35,7 @@ def inspect():
     assert captures['unassigned']['response']['rows']==[]
     assert captures['balance']['response']['credits']==original['initial_spendable']==original['final_spendable']==16268
     entry=json.loads((DIRECTORY/'entry.json').read_text())
-    for name,digest in entry['preserve'].items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
+    for name,digest in evidence_hashes(entry['preserve']).items():assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
     return {'task':'001c-06','status':'NET_EFFECT_RECONCILED_NO_ACQUISITION','original_command_id':original['unresolved_bid_commands'][0],
       'original_checkpoint_unchanged':True,'historical_bid_acceptance':'UNVERIFIED','not_a_verified_enrolled_loss':True,
       'current_exact_trade_status':row,'exact_identity_basis':{'trade_id':identity['trade_id'],'item_id':identity['item_id'],'definition_id':identity['definition_id'],

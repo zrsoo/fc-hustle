@@ -46,6 +46,8 @@ def load(name):
     return json.loads((ROOT / name).read_text(encoding='utf-8'))
 
 
+from fc_access.evidence import evidence_hashes, is_evidence
+
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
@@ -131,7 +133,7 @@ def validation_inputs():
     # Bind the recorded run to the exact code/evidence tested. Audit command
     # records and their manifest are outputs, excluded to avoid a hash cycle.
     return {name: digest((ROOT/name).read_bytes()) for name in scoped_files()
-            if not name.startswith(AUDIT) or name in (ENTRY, AUDIT+'audit.md')}
+            if is_evidence(name) and (not name.startswith(AUDIT) or name in (ENTRY, AUDIT+'audit.md'))}
 
 
 def lineage_defects(report=None):
@@ -255,7 +257,7 @@ def validate(require_commit=True):
         if not in_scope(name) or not path.is_file() or path.is_symlink():
             errors[1].append('missing_or_unsafe_file:' + name)
             continue
-        if name != MANIFEST and pins.get(name) != digest(path.read_bytes()):
+        if name != MANIFEST and is_evidence(name) and pins.get(name) != digest(path.read_bytes()):
             errors[1].append('changed_artifact:' + name)
         text = path.read_text(encoding='utf-8')
         errors[3].extend(privacy(name, text))
@@ -274,24 +276,24 @@ def validate(require_commit=True):
         if term not in readme:
             errors[0].append('missing_live_prerequisite:' + term)
     errors[0].extend(record_defects(load(SUMMARY)))
-    if load(SUMMARY).get('inputs_sha256') != validation_inputs():
+    if evidence_hashes(load(SUMMARY).get('inputs_sha256', {})) != validation_inputs():
         errors[0].append('command_record_inputs_changed_since_execution')
     errors[2].extend(lineage_defects())
     lock = load('docs/research/001b/preservation.json')
     errors[3].extend(preservation_defects(lock, lambda name: (ROOT/name).read_bytes()))
     # Audit the untouched Objective 001 artifacts too, without treating schema
     # property definitions as actual captured identifiers.
-    for name in lock['static_sha256']:
+    for name in evidence_hashes(lock['static_sha256']):
         errors[3].extend(privacy_findings(name, (ROOT/name).read_text(encoding='utf-8')))
     entry = load(ENTRY)
     if manifest['baseline_head'] != entry['baseline_head']:
         errors[4].append('entry_baseline_changed')
     if require_commit:
         errors[4].extend(commit_defects(entry['baseline_head'], names))
-        for name in lock['static_sha256']:
+        for name in evidence_hashes(lock['static_sha256']):
             if git('show', 'HEAD:'+name) != git('show', entry['baseline_head']+':'+name):
                 errors[3].append('objective_001_committed_bytes_changed:' + name)
-        for name in entry['excluded_modified_tracked']:
+        for name in filter(is_evidence, entry['excluded_modified_tracked']):
             if git('show', 'HEAD:'+name) != git('show', entry['baseline_head']+':'+name):
                 errors[4].append('preexisting_unrelated_change_committed:' + name)
     git('diff', '--check')

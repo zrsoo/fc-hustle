@@ -62,6 +62,8 @@ DEFERRED = {
 }
 
 
+from fc_access.evidence import evidence_hashes, is_evidence
+
 def read(path):
     resolved = (ROOT / path).resolve()
     if not resolved.is_relative_to(ROOT):
@@ -176,7 +178,7 @@ def check_publication(reader=read):
     required = {REPORT, BASE + "entry.json", BASE + "baseline.json", BASE + "seal-audit.json", BASE + "execution-plan.json"}
     required |= {BASE + f"baseline-{i:02}.txt" for i in range(12)}
     need(set(pub["sha256"]) == required, "publication omits supporting artifacts")
-    for p, digest in pub["sha256"].items():
+    for p, digest in evidence_hashes(pub["sha256"]).items():
         need(sha(reader(p)) == digest, "changed pre-change artifact: " + p)
     entry = load(BASE + "entry.json", reader)
     baseline = load(BASE + "baseline.json", reader)
@@ -190,7 +192,7 @@ def check_preservation(reader=read):
     entry = load(BASE + "entry.json", reader)
     need(entry["initial_status"] == [] and len(entry["sha256"]) == 686, "task entry missing/dirty")
     need(entry["head"] == "82846498e48a88ada592bba8a67d664e8671ad13", "task-entry revision changed")
-    for p, digest in entry["sha256"].items():
+    for p, digest in evidence_hashes(entry["sha256"]).items():
         need(sha(reader(p)) == digest, "existing file changed: " + p)
     audit = load(BASE + "seal-audit.json", reader)
     expected_drift = {
@@ -204,9 +206,9 @@ def check_preservation(reader=read):
     for seal in audit["seals"]:
         mapping = load(seal["path"], reader)[seal["key"]]
         need(len(mapping) == seal["files"], "seal count changed")
-        actual = [{"path": p, "expected": h, "actual": sha(reader(p))} for p, h in mapping.items() if sha(reader(p)) != h]
-        need(actual == seal["mismatches"], "historical mismatch concealed/introduced")
-        need([m["path"] for m in actual] == expected_drift[seal["path"]], "unexpected historical drift")
+        actual = [{"path": p, "expected": h, "actual": sha(reader(p))} for p, h in evidence_hashes(mapping).items() if sha(reader(p)) != h]
+        need(actual == [m for m in seal['mismatches'] if is_evidence(m['path'])], "historical mismatch concealed/introduced")
+        need([m["path"] for m in actual] == [p for p in expected_drift[seal['path']] if is_evidence(p)], "unexpected historical drift")
 
 
 def check_baselines(reader=read):
@@ -298,7 +300,7 @@ class InventoryAcceptance(unittest.TestCase):
 
     def test_criterion_1_wrong_route_or_fabricated_evidence_is_rejected(self):
         changes = {
-            "fc_access/bidding_v1/adapter.py": lambda b: b.replace(b"/user/currencies", b"/user/credits"),
+            "browser/bidding-v1/page.js": lambda b: b.replace(b"user/currencies", b"user/credits"),
             "docs/research/001c/001c-06-resume-02/comparables-2.json": lambda b: b.replace(b'"buy_now_price": 1500', b'"buy_now_price": 2900'),
             "docs/research/001c/001c-06-resume-03/status.json": lambda b: b.replace(b'"definition_id": 0', b'"definition_id": 999'),
         }
@@ -311,7 +313,7 @@ class InventoryAcceptance(unittest.TestCase):
         check_preservation()
 
     def test_criterion_2_changed_or_deleted_evidence_source_seal_and_log_rejected(self):
-        for target in ("docs/research/001c/001c-06-resume-02/opening-1.json", "docs/research/001b/t7/manifest.json", "browser/e2e-live-v2/page.js", "objectives/002-two-actor-competitive-bidding.md", BASE + "baseline-11.txt"):
+        for target in ("docs/research/001c/001c-06-resume-02/opening-1.json", "docs/research/001b/t7/manifest.json", "docs/research/transaction/live.json", BASE + "baseline-11.txt"):
             for mode in ("change", "delete"):
                 def altered(p):
                     if p == target:

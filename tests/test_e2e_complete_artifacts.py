@@ -11,6 +11,8 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from fc_access.e2e_live_v2.audit import inspect,read_run,read_resolution,load,ROOT,DIRECTORY,RESOLUTION,FINAL
 
+from fc_access.evidence import evidence_hashes
+
 class CompleteArtifactTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.r=inspect()
@@ -18,7 +20,7 @@ class CompleteArtifactTests(unittest.TestCase):
         r=self.r;self.assertTrue(all(w['closed'] for w in r['windows']));self.assertEqual(r['actual_bid_writes_total'],2)
         self.assertEqual(r['windows'][2]['limits']['reads'],40);self.assertEqual(r['windows'][3]['mutations'],0)
         self.assertEqual(r,load(FINAL/'report.json'))
-        for name,digest in load(FINAL/'manifest.json')['files'].items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
+        for name,digest in evidence_hashes(load(FINAL/'manifest.json')['files']).items():self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),digest,name)
     def test_1_acquirer_minimum_actual_body_and_independent_balance(self):
         r=self.r;p=r['pricing'];self.assertEqual((p['target'],p['tax'],p['X'],p['cap'],p['opening_minimum']),(2800,140,500,2100,800))
         self.assertEqual(p['estimate']['sample_count'],12);self.assertIn(['outlier',9],p['estimate']['rejected'])

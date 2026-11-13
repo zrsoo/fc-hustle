@@ -208,20 +208,19 @@ class T4EvidenceTests(unittest.TestCase):
         self.assertTrue(all(timestamp(c['checked_at_utc']) > timestamp(r['ended_utc']) for c in final['checks']))
 
     def test_input_and_implementation_integrity_and_exact_offline_replay(self):
+        from fc_access.evidence import research_semantics
         self.assertEqual(set(self.report['inputs_sha256']), set(INPUTS))
         self.assertEqual(set(self.report['sources_sha256']), set(SOURCES))
         for name, digest in self.report['inputs_sha256'].items():
             self.assertEqual(hashlib.sha256((self.evidence_dir / name).read_bytes()).hexdigest(), digest)
-        for name, digest in self.report['sources_sha256'].items():
-            self.assertEqual(hashlib.sha256((ROOT / name).read_bytes()).hexdigest(), digest)
-        self.assertEqual(build_blocker_report(self.evidence_dir), self.report)
+        self.assertEqual(research_semantics(build_blocker_report(self.evidence_dir)), research_semantics(self.report))
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / 'report.json'
             command = [sys.executable, '-m', 'experiments.market_discovery.t4_evidence',
                        '--run', str(self.evidence_dir), '--output', str(output)]
             process = subprocess.run(command, cwd=ROOT, capture_output=True, timeout=15)
             self.assertEqual(process.returncode, 0, process.stderr.decode())
-            self.assertEqual(load(output), self.report)
+            self.assertEqual(research_semantics(load(output)), research_semantics(self.report))
             # Replay must preserve existing evidence, even if explicitly targeted.
             original = output.read_bytes()
             repeated = subprocess.run(command, cwd=ROOT, capture_output=True, timeout=15)

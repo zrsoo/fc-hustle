@@ -1,5 +1,15 @@
 # FC workspace instructions
 
+## Behavioral verification and evidence integrity
+
+- Never assert hashes or byte identity of source code, test files, instructions,
+  configuration, or other mutable implementation files in tests, audit validators,
+  or CI. Test behavior and contracts instead, including negative cases.
+- Historical source hashes are descriptive provenance only and must not be
+  enforced against the current tree. Preserve integrity checks for captured EA
+  responses, transaction evidence, immutable experiment logs, and sealed historical
+  evidence. Runtime hashes used for identity or correlation remain valid.
+
 ## Authorized browser/session recovery
 
 - The user authorizes ordinary recovery in the existing official EA FC Web App

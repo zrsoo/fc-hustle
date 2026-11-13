@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "actual_GETs": 17,
+  "pricing_searches_per_attempt": [
+    2,
+    2
+  ],
+  "final_resale": 6000,
+  "profitable_cap": 5200,
+  "valid_unique": 35,
+  "exclusions": {
+    "default_templates": 0,
+    "candidate": 0,
+    "duplicate": 1
+  },
+  "cache_hit_searches": 0,
+  "known_status_reconnect": "PASS",
+  "integration_decision": "BID_ELIGIBLE_DECISION_ONLY",
+  "live_account_mutations": 0,
+  "limits": "Observed minimum; live default-template count is zero; no bid eligibility claim from stale reads."
+}

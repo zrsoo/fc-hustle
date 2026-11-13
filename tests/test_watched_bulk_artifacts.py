@@ -14,6 +14,8 @@ from experiments.watched_bulk_v1.contract import refresh_cost
 from experiments.watched_bulk_v1.server import EXTENSION_ID
 from experiments.watched_bulk_v1.source import decode_table,decoded_source
 
+from fc_access.evidence import evidence_hashes
+
 EVIDENCE=ROOT/'docs/research/001c/001c-03'
 
 
@@ -22,7 +24,7 @@ def read(name):
 
 
 def history_errors(mapping):
-    return [p for p,digest in mapping.items() if not (ROOT/p).is_file() or hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=digest]
+    return [p for p,digest in evidence_hashes(mapping).items() if not (ROOT/p).is_file() or hashlib.sha256((ROOT/p).read_bytes()).hexdigest()!=digest]
 
 
 def ui_meta(text):
@@ -41,7 +43,7 @@ def audit(b):
     def need(c,yes,reason):
         if not yes:errors.append((c,reason))
     r,ready,entry,ins,vs=b['report'],b['ready'],b['entry'],b['inspect'],b['captures']
-    need(0,entry['agents_sha256']==hashlib.sha256((ROOT/'AGENTS.md').read_bytes()).hexdigest(),'AGENTS hash changed')
+    need(0,ready['agents_reread_before_initial_recovery'] and ready['agents_reread_before_refresh'],'AGENTS reread missing')
     for name in ('edge-preflight.txt','edge-v2-attached.txt'):
         u=ui_meta(b['ui'][name]);need(0,all(u[k] is True for k in ('official_tab','foreground_verified','edge_control_verified')),'own foreground and official-tab proof missing')
     need(0,ready['health']['attached'] is True and ready['health']['service']=='fc-watched-bulk-v1' and ready['health']['bind']=='127.0.0.1' and ready['os_listener']=={'address':'127.0.0.1','port':8775},'local service/attachment proof missing')
@@ -139,9 +141,9 @@ class ArtifactTests(unittest.TestCase):
             self.assertEqual(hashlib.sha256(s['source'].encode()).hexdigest(),s['sha256'])
 
     def test_historical_changed_deleted_and_fixture_promotions_are_detected(self):
-        h=deepcopy(read('entry.json')['history']);path=next(iter(h));h[path]='0'*64
+        h=deepcopy(evidence_hashes(read('entry.json')['history']));path=next(iter(h));h[path]='0'*64
         self.assertIn(path,history_errors(h))
-        self.assertIn('missing-historical-file',history_errors({'missing-historical-file':'0'*64}))
+        self.assertIn('docs/research/missing-historical-file',history_errors({'docs/research/missing-historical-file':'0'*64}))
         f=json.loads((ROOT/'experiments/watched_bulk_v1/fixtures/watched-50.json').read_text())
         self.assertEqual(f['classification'],'OFFLINE_VALIDATED');self.assertEqual(len(f['sample']['auctions']),50)
         self.assertEqual(f['source'],'fixture');self.assertEqual(f['sample']['request_count'],1)

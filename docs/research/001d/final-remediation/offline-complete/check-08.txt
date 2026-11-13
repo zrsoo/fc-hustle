@@ -1,0 +1,1 @@
+PASS: follow-up persona, strict rejection, identity/privacy, 30-second pacing and long-poll worker; synthetic only.

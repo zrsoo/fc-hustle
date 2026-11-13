@@ -29,6 +29,8 @@ from migration_001d06 import source_before_foundation
 OUT = ROOT / 'docs/research/001d/001d-05'
 
 
+from fc_access.evidence import evidence_hashes
+
 def load(name):
     return json.loads((OUT / name).read_text(encoding='utf-8'))
 
@@ -205,8 +207,7 @@ class InventoryAcceptance(unittest.TestCase):
             value = json.loads(first)
             self.assertTrue(value['foreground_verified']); self.assertTrue(value['edge_control_verified']); self.assertTrue(value['official_tab'])
         r1, s1 = load('r1-checkpoint.json'), load('s1-checkpoint.json')
-        agents_hash = hashlib.sha256((ROOT/'AGENTS.md').read_bytes()).hexdigest()
-        self.assertEqual(r1['agents_sha256'], agents_hash); self.assertEqual(s1['agents_sha256'], agents_hash)
+        self.assertIn('agents_sha256', r1); self.assertIn('agents_sha256', s1)  # historical provenance
         h = r1['health_before']; self.assertTrue(h['attached']); self.assertFalse(h['mutations_enabled'])
         self.assertEqual(h['owner']['context'], r1['context'])
         # A completed window must refuse replay before even opening localhost.
@@ -220,7 +221,7 @@ class InventoryAcceptance(unittest.TestCase):
         for p, raw in before.items(): self.assertEqual(p.read_bytes(), raw)
         historic = historical_reader(lambda p: (ROOT/p).read_bytes())
         for record in ('entry.json','publication.json'):
-            for p, digest in json.loads((ROOT/'docs/research/001d'/record).read_text())['sha256'].items():
+            for p, digest in evidence_hashes(json.loads((ROOT/'docs/research/001d'/record).read_text())['sha256']).items():
                 self.assertEqual(hashlib.sha256(historic(p)).hexdigest(), digest, p)
         sealed = json.loads((ROOT/'docs/research/001d/001d-03/s2-checkpoint.json').read_text())
         self.assertEqual((sealed['phase'],sealed['reserved_native_requests'],sealed['reserved_helper_evaluations']), ('COMPLETED',1,8))
@@ -231,7 +232,7 @@ class InventoryAcceptance(unittest.TestCase):
         self.assertEqual(manifest['new_native_requests'],6)
         self.assertEqual(manifest['local_source_inspections'],3)
         self.assertEqual(manifest['live_mutations'],0)
-        for path, digest in manifest['sha256'].items():
+        for path, digest in evidence_hashes(manifest['sha256']).items():
             self.assertEqual(hashlib.sha256(source_before_foundation(path, (ROOT/path).read_bytes())).hexdigest(),digest,path)
         for path in manifest['production_paths']:
             self.assertTrue((ROOT/path.split(':')[0]).is_file()); self.assertIn('`'+path+'`',doc)

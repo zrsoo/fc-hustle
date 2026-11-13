@@ -41,7 +41,16 @@ class Handler(BaseHTTPRequestHandler):
         return self.reply(200,{'service':'fc-search-validation-v1','extension_id':EXTENSION_ID,'attached':time.monotonic()-self.server.attached_at<65,'pending':self.server.pending is not None,'consumed':self.server.budget['consumed'],'maximum':self.server.budget['maximum']})
     def do_POST(self):
         if self.path not in ('/next','/result','/run'):return self.reply(404,{'error':'not_found'})
-        if not self.allowed(self.path!='/run'):return self.reply(403,{'error':'origin_denied'})
+        if not self.allowed(self.path!='/run'):
+            # Consume a bounded body before closing: Windows otherwise resets
+            # a client still writing its body, hiding the actual 403 response.
+            self.connection.settimeout(1)
+            try:
+                size=int(self.headers.get('Content-Length','0'))
+                if not self.headers.get('Transfer-Encoding') and 0<size<=262144:
+                    self.rfile.read(size)
+            except (ValueError,OSError):pass
+            return self.reply(403,{'error':'origin_denied'})
         try:
             size=int(self.headers.get('Content-Length','0'))
             if not 0<size<=262144 or self.headers.get('Content-Type')!='application/json' or self.headers.get('Transfer-Encoding'):raise ValueError()

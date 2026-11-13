@@ -11,10 +11,12 @@ import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from fc_access.e2e_live_v2.audit import inspect,load,FINAL,ROOT,check
 
+from fc_access.evidence import evidence_hashes
+
 def validate():
     r=inspect();check(r==load(FINAL/'report.json'),'retained_summary_disagrees_with_independent_proof')
     check(r['command_timeline']==load(FINAL/'timeline.json'),'aggregate_timeline_changed')
-    for name,h in load(FINAL/'manifest.json')['files'].items():check(hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==h,'sealed_content_changed:'+name)
+    for name,h in evidence_hashes(load(FINAL/'manifest.json')['files']).items():check(hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==h,'sealed_content_changed:'+name)
     bids=[t for t in r['timeline'] if t['operation']=='bid'];hold=[e for e in r['journal_events'] if e['reason']=='HOLD']
     checks=[
       (r['original_limits_preserved'] and len(bids)==1 and all(w['closed'] for w in r['windows']),

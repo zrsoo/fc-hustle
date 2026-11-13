@@ -21,11 +21,13 @@ from experiments.market_discovery.opportunity import normalized, revalidate
 from experiments.market_discovery.t5_pricing import OUTPUT, T2, T4, build_report, historical_comparison, source_snapshot
 
 
+from fc_access.evidence import evidence_hashes, research_semantics
+
 def load(path): return json.loads(path.read_text(encoding='utf-8'))
 
 
 def semantic(report):
-    result = json.loads(json.dumps(report))
+    result = research_semantics(json.loads(json.dumps(report)))
     for f in result['demonstration']['flows']:
         f['events'] = [e['state'] for e in f['events']]
         for key in ('latency', 'search_to_prepared_intent_ms', 'full_flow_ms'):
@@ -51,7 +53,7 @@ class T5ArtifactTests(unittest.TestCase):
         self.assertEqual(b['hypothetical_rules_only']['estimate']['expected_profit'], -57)
         self.assertTrue(all(m['missing_observed_rules']['estimate']['status'] == 'MISSING_CAPS'
                             for m in report['historical']['markets']))
-        for path, digest in report['inputs_sha256'].items():
+        for path, digest in evidence_hashes(report['inputs_sha256']).items():
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(), digest, path)
 
     def test_criteria_0_1_rejected_accessible_sandbox_never_becomes_PC_production_price(self):
@@ -178,7 +180,7 @@ class T5ArtifactTests(unittest.TestCase):
                     self.assertFalse(any(t in a.name for a in node.names for t in ('transaction', 'fc_execution', 'schedule', 'requests', 'urllib')))
                 self.assertNotIsInstance(node, ast.While)
         preservation = load(ROOT/'docs/research/001b/preservation.json')['static_sha256']
-        for name, digest in preservation.items():
+        for name, digest in evidence_hashes(preservation).items():
             if name.startswith(('browser/', 'fc_access/', 'objectives/')):
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(), digest, name)
         self.assertEqual(self.report['account_mutations'], 0)

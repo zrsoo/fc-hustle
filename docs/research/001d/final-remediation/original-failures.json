@@ -1,0 +1,175 @@
+{
+  "original_tests": 434,
+  "failures": 20,
+  "errors": 4,
+  "cases": [
+    {
+      "kind": "ERROR",
+      "case": "setUpClass (test_e2e_artifacts.ArtifactTests)",
+      "root_cause": "The historical E2E auditor stopped in setup because fc_access/pricing.py changed after the capture.",
+      "fix": "Limit preservation to immutable evidence, then run the original wire/ledger/economics/UNKNOWN/ownership reconciliation checks.",
+      "behavioral_coverage": "test_e2e_artifacts (8 restored tests); test_e2e_complete_artifacts (11 restored tests)"
+    },
+    {
+      "kind": "ERROR",
+      "case": "setUpClass (test_e2e_complete_artifacts.CompleteArtifactTests)",
+      "root_cause": "The historical E2E auditor stopped in setup because fc_access/pricing.py changed after the capture.",
+      "fix": "Limit preservation to immutable evidence, then run the original wire/ledger/economics/UNKNOWN/ownership reconciliation checks.",
+      "behavioral_coverage": "test_e2e_artifacts (8 restored tests); test_e2e_complete_artifacts (11 restored tests)"
+    },
+    {
+      "kind": "ERROR",
+      "case": "test_0_independent_real_capture_ledger_and_wire_audit (test_release_audit.ReleaseTests.test_0_independent_real_capture_ledger_and_wire_audit)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "ERROR",
+      "case": "test_6_historical_seals_and_every_preexisting_file_intact (test_release_audit.ReleaseTests.test_6_historical_seals_and_every_preexisting_file_intact)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_1_changed_objective_bridge_evidence_and_deleted_observer_rows_fail (test_001b_scope.ScopeTests.test_criterion_1_changed_objective_bridge_evidence_and_deleted_observer_rows_fail)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_1_immutable_files_match_historical_manifest_and_entry_lock (test_001b_scope.ScopeTests.test_criterion_1_immutable_files_match_historical_manifest_and_entry_lock)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_0_all_historical_seals_and_followup_bytes_remain_unchanged (test_001c01_audit.EntryAndBaselineTests.test_criterion_0_all_historical_seals_and_followup_bytes_remain_unchanged)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file (test_001c01_audit.EntryAndBaselineTests.test_criterion_0_entry_matches_recorded_git_tree_and_preserves_user_file)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay (test_001c01_audit.GapAndInspectionTests.test_criterion_2_required_reads_hashes_and_no_completed_discovery_replay)",
+      "root_cause": "The evolved Objective 002 strategy file was required to match an obsolete source digest.",
+      "fix": "Keep provenance descriptive; validate required read paths and locked two-search strategy semantics.",
+      "behavioral_coverage": "test_001c01_audit.check_review; test_release_audit; production quote/cache tests"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_0_inspection_is_current_and_does_not_assume_cdp (test_browser_access.BrowserAccessTests.test_criterion_0_inspection_is_current_and_does_not_assume_cdp)",
+      "root_cause": "A deterministic historical inspection was aged against the current wall clock.",
+      "fix": "Compare historical inspection and verification checkpoint times; retain separate current-access negative tests.",
+      "behavioral_coverage": "test_browser_access.BrowserAccessTests.test_archives_cannot_prove_current_access_or_poison_valid_current_evidence"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_review_matches_executed_bridge_sources_and_retained_metadata (test_browser_access.BrowserAccessTests.test_review_matches_executed_bridge_sources_and_retained_metadata)",
+      "root_cause": "A retained historical live trace was assessed as current, causing legitimate stale-access rejection.",
+      "fix": "Replay the immutable trace at its recorded receipt; execute current observer JS rather than source hashes.",
+      "behavioral_coverage": "browser_observer_checks.cjs; browser-access stale/poisoned/missing-live negative cases"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write (test_durability_artifacts.Artifacts.test_4_6_harness_has_no_actor_loop_and_live_campaign_cannot_write)",
+      "root_cause": "The test required the removed static listing-rules error and old source review hashes.",
+      "fix": "Expect native_listing_prices_required; run the durability page contract and preserve ownership/legality/readback guards.",
+      "behavioral_coverage": "test_001d03_native_prices.test_c3_c5_legacy_listing_rejects_pair_and_profit_failures_before_reservation; test_durability_v1"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded (test_durability_artifacts.Artifacts.test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_source_and_checkpoint_manifest_detects_changes (test_durability_artifacts.Artifacts.test_source_and_checkpoint_manifest_detects_changes)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_proof_has_no_network_orders_or_continuous_runner (test_market_artifacts.MarketArtifactTests.test_proof_has_no_network_orders_or_continuous_runner)",
+      "root_cause": "The exact import-set assertion rejected authorized production pricing re-exports.",
+      "fix": "Allow pricing re-exports while retaining forbidden network imports, no loops, finite replay and executable pricing tests.",
+      "behavioral_coverage": "test_market_pricing; test_001d04_pricing; no-network replay guards"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_review_pins_preserved_sources_baseline_and_license_boundary (test_market_discovery_artifacts.ArtifactTests.test_review_pins_preserved_sources_baseline_and_license_boundary)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "market_discovery_bridge_checks.cjs; historical evidence hashes, permissions and license-boundary assertions"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_sealed_source_hashes_and_followup_extension_permissions (test_market_discovery_followup_v1.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "market_discovery_followup_v1_checks.cjs; PC/non-PC/missing-persona and extension permission assertions"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_5_decision_requires_prerequisites_and_precise_finite_continuation (test_release_audit.ReleaseTests.test_5_decision_requires_prerequisites_and_precise_finite_continuation)",
+      "root_cause": "The evolved Objective 002 strategy file was required to match an obsolete source digest.",
+      "fix": "Keep provenance descriptive; validate required read paths and locked two-search strategy semantics.",
+      "behavioral_coverage": "test_001c01_audit.check_review; test_release_audit; production quote/cache tests"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets (test_release_audit.ReleaseTests.test_6_payload_manifest_checks_all_versioned_artifacts_and_no_secrets)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "test_remediation.EvidencePolicy; current Python and Node contract suites"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping (test_search_validation_artifacts.Artifacts.test_6_reviewed_extension_preserved_history_and_complete_acceptance_mapping)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "search_validation_v1_checks.cjs; native search/economics/route/budget integrity tests"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criteria_4_5_reproduce_cli_and_refuse_overwrite (test_t5_pricing_artifacts.T5ArtifactTests.test_criteria_4_5_reproduce_cli_and_refuse_overwrite)",
+      "root_cause": "Replay equality included mutable implementation digests; economic outputs still matched.",
+      "fix": "Normalize only source-hash provenance; compare all economic results, captured-input hashes, states and exclusive-output behavior.",
+      "behavioral_coverage": "test_t5_pricing_artifacts; test_remediation.EvidencePolicy.test_replay_ignores_only_source_provenance_keeps_economics_and_evidence"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_0_preserved_calculator_and_recomputable_historical_comparison (test_t5_pricing_artifacts.T5ArtifactTests.test_criterion_0_preserved_calculator_and_recomputable_historical_comparison)",
+      "root_cause": "A historical T5 mixed input manifest pinned fc_access/pricing.py rather than its behavior.",
+      "fix": "Preserve captured evidence hashes and historical estimator assertions; production has separate two-search tests.",
+      "behavioral_coverage": "test_market_pricing; test_t5_pricing; test_001d04_pricing"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_criterion_6_no_network_in_offline_report_no_mutator_or_scheduler_dependency (test_t5_pricing_artifacts.T5ArtifactTests.test_criterion_6_no_network_in_offline_report_no_mutator_or_scheduler_dependency)",
+      "root_cause": "Replay equality included mutable implementation digests; economic outputs still matched.",
+      "fix": "Normalize only source-hash provenance; compare all economic results, captured-input hashes, states and exclusive-output behavior.",
+      "behavioral_coverage": "test_t5_pricing_artifacts; test_remediation.EvidencePolicy.test_replay_ignores_only_source_provenance_keeps_economics_and_evidence"
+    },
+    {
+      "kind": "FAIL",
+      "case": "test_all_acceptance_criteria_have_independent_artifact_evidence (test_watched_bulk_artifacts.ArtifactTests.test_all_acceptance_criteria_have_independent_artifact_evidence)",
+      "root_cause": "A historical mixed manifest enforced old implementation bytes against evolved source.",
+      "fix": "Enforce only captured/sealed evidence entries; verify the evolving implementation with behavioral contracts.",
+      "behavioral_coverage": "watched_bulk_v1_checks.cjs; fresh/cache/route/persona/schema/identity and fixture-promotion negatives"
+    }
+  ]
+}

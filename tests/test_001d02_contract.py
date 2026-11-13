@@ -33,6 +33,8 @@ hexid = lambda n: f'{n:032x}'
 CONTEXT_VALUE = dict(account=hexid(1), persona=hexid(2), game='fc27', platform='pc', identity_namespace=hexid(3))
 
 
+from fc_access.evidence import evidence_hashes
+
 def make_command(op='balance', params=None, n=10, host=None):
     return dict(schema=VERSION, id=hexid(n), operation=op, params=params or {}, context=deepcopy(CONTEXT_VALUE),
                 fences=dict(owner=hexid(4), epoch=1, host_epoch=host or hexid(5), worker_epoch=hexid(6), document=hexid(7)))
@@ -316,7 +318,7 @@ class ContractAcceptance(unittest.TestCase):
         pub = json.loads((ROOT/'docs/research/001d/publication.json').read_text())
         entry = json.loads((ROOT/'docs/research/001d/entry.json').read_text())
         historical=historical_reader(lambda p:(ROOT/p).read_bytes())
-        for p, digest in (pub['sha256'] | entry['sha256']).items():
+        for p, digest in (evidence_hashes(pub['sha256'] | entry['sha256'])).items():
             self.assertEqual(hashlib.sha256(historical(p)).hexdigest(), digest, p)
         live = json.loads((ROOT/'docs/research/001c/001c-06-resume-02/balance-after-opening.json').read_text())['response']
         self.assertTrue(live['success'])

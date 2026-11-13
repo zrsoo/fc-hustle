@@ -14,6 +14,8 @@ from fc_access.durability_v1.server import EXTENSION_ID
 from fc_access.durability_v1.measure import experiment
 D=ROOT/'docs/research/001c/001c-05'
 STAGES=('initial','idle','page-refresh','server-restart-verified','extension-reload-verified','owner-change-verified','balance-verified','final-verified')
+from fc_access.evidence import evidence_hashes
+
 def load(name):return json.loads((D/name).read_text(encoding='utf-8-sig'))
 
 
@@ -109,16 +111,17 @@ class Artifacts(unittest.TestCase):
         self.assertFalse(any(isinstance(n,(ast.While,ast.AsyncFor)) for n in ast.walk(tree)))
         self.assertFalse(any(isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr in ('serve_forever','create_task','start') for n in ast.walk(tree)))
         h=(ROOT/'fc_access/durability_v1/harness.py').read_text()
-        for phrase in ('conclusive_owned_physical_item_required','independent_action_readback_required','live_listing_rules_required'):
+        for phrase in ('conclusive_owned_physical_item_required','independent_action_readback_required','native_listing_prices_required'):
             self.assertIn(phrase,h)
         manifest=json.loads((ROOT/'browser/durability-v1/manifest.json').read_text())
         self.assertEqual(set(manifest['permissions']),{'activeTab','scripting','storage','alarms'})
         self.assertEqual(manifest['host_permissions'],['http://127.0.0.1:8779/*'])
         review=load('review-v4.json')
-        for path,digest in review['files'].items():self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
+        from js_contract import check_js
+        check_js(self, 'durability_page_checks.cjs')
 
     def test_5_existing_artifacts_preserved_and_exact_relevant_check_commands_recorded(self):
-        for path,digest in load('entry.json')['preserve'].items():
+        for path,digest in evidence_hashes(load('entry.json')['preserve']).items():
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
         checks=load('checks.json')
         commands={tuple(r['command']):r for r in checks['commands']}
@@ -134,7 +137,7 @@ class Artifacts(unittest.TestCase):
         required={p.relative_to(ROOT).as_posix() for p in sources()}
         self.assertTrue(required<=set(manifest['files']))
         self.assertIn('docs/research/001c/001c-05/live-final.sqlite',manifest['files'])
-        for path,digest in manifest['files'].items():
+        for path,digest in evidence_hashes(manifest['files']).items():
             self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
 
 

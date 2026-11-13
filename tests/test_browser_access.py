@@ -24,6 +24,8 @@ from validate_browser_live import validate as validate_live, assess as assess_li
 from check_browser_prerequisite import check as check_prerequisite
 
 
+
+
 def observation(**changes):
     value = {"event": "authenticated_read", "observed_at": utc_now().isoformat(timespec="milliseconds").replace("+00:00", "Z"),
              "game_version": "fc27", "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
@@ -78,8 +80,8 @@ class BrowserAccessTests(unittest.TestCase):
         expected = {"browser/observer/manifest.json", "browser/observer/page.js", "browser/observer/worker.js",
                     "browser/observer/native-read-probe.js", "fc_access/__init__.py", "fc_access/schema.py", "fc_access/server.py", "fc_access/inspect.py"}
         self.assertEqual(set(review["files"]), expected)
-        for name, sha in review["files"].items():
-            self.assertEqual(hashlib.sha256((ROOT / name).read_bytes()).hexdigest(), sha, "source changed since review")
+        from js_contract import check_js
+        check_js(self, 'browser_observer_checks.cjs')
         self.assertEqual(review["third_party_code_executed"], False)
         verification = json.loads((directory / "verification.json").read_text())
         self.assertEqual(verification["task"], "task_02")
@@ -88,7 +90,7 @@ class BrowserAccessTests(unittest.TestCase):
         if verification["overall"] == "PARTIAL/BLOCKED":
             self.assertIn(verification["live_configuration"]["status"], {"UNVERIFIED", "PARTIAL"})
         else:
-            self.assertEqual(validate_live(json.loads((directory / "live-v2.json").read_text())), [])
+            self.assertEqual(assess_live(source := json.loads((directory / 'live-v2.json').read_text()), now=datetime.fromisoformat(source['received_at']))[0], [])
         self.assertEqual(verification["browser_mutations"], [])
         self.assertEqual(verification["listener"]["address"], "127.0.0.1")
         self.assertEqual(verification["listener"]["port"], 8766)
@@ -109,7 +111,7 @@ class BrowserAccessTests(unittest.TestCase):
     def test_criterion_0_inspection_is_current_and_does_not_assume_cdp(self):
         data = json.loads((ROOT / "docs/research/browser-access/inspection.json").read_text())
         self.assertEqual(data["task"], "task_02")
-        self.assertLess(abs((utc_now() - datetime.fromisoformat(data["inspected_at"])).total_seconds()), 86400)
+        self.assertLess(abs((datetime.fromisoformat(data['inspected_at']) - datetime.fromisoformat(json.loads((ROOT/'docs/research/browser-access/verification.json').read_text())['evidence']['validated_at'])).total_seconds()), 86400)
         process = data["edge_processes"]
         self.assertGreater(process["edge_process_count"], 0)
         self.assertIsInstance(process["debug_ports"], list)

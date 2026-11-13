@@ -1,4 +1,4 @@
-# Preserve the exact bytes used by retained source/evidence SHA-256 references.
+# Preserve historical evidence bytes. Verify evolving source behavior with tests.
 * -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # The pre-existing objective already had a normalized Git blob and CRLF checkout.
 objectives/001-fc27-api-research.md text eol=crlf

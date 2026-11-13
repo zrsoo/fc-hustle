@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "scope": "BOUNDED_E2E_COMPLETE_WITH_EXPLICIT_LIVE_UNVERIFIED_BRANCHES",
+  "release": "CONDITIONAL_GO;NOT_FULL_GO",
+  "checks": [
+    {
+      "criterion": 0,
+      "status": "PASS",
+      "evidence": "Serialized, durable finite windows; expiry/ambiguity stopped further writes; closed checkpoints preserved."
+    },
+    {
+      "criterion": 1,
+      "status": "PASS",
+      "evidence": "Real filtered exact-PC search, 12 comparables, native caps, minimum 800 ordinary entry, independent leading and 800 available-coin debit."
+    },
+    {
+      "criterion": 2,
+      "status": "PASS",
+      "evidence": "Two fresh authoritative leading HOLD events, one bid PUT total in that window; no added command or write."
+    },
+    {
+      "criterion": 3,
+      "status": "PASS",
+      "evidence": "Genuine competitive price movement and independently witnessed eventual loss; active-outbid/rebid was not witnessed before interruption and remains live-UNVERIFIED."
+    },
+    {
+      "criterion": 4,
+      "status": "PASS",
+      "evidence": "Actual bulk/dispatch/readback/pre-expiry timings plus terminal expiry retained. Interrupted 25-second sample and timer extension remain live-UNVERIFIED."
+    },
+    {
+      "criterion": 5,
+      "status": "PASS",
+      "evidence": "Fresh exact-trade and full-version watched CLOSED/OUTBID prove LOST; observed 800 available-coin recovery, zero acquisition cost. Missing coverage stays UNKNOWN."
+    },
+    {
+      "criterion": 6,
+      "status": "PASS",
+      "evidence": "No conclusive WON item: transfer/list correctly withheld; guarded WON/ownership/listing behavior is fixture-tested, live handoff remains UNVERIFIED."
+    },
+    {
+      "criterion": 7,
+      "status": "PASS",
+      "evidence": "All 44 native requests and both bid commands chronologically accounted; zero net spend/new unsold cards, retained historical ambiguity and exact bounded continuation disclosed."
+    }
+  ],
+  "live_unverified": [
+    "active outbid/rebid",
+    "timer extension",
+    "25-second whole-queue cycle",
+    "WON physical-item transfer/list",
+    "sale/profit"
+  ]
+}
