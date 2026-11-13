@@ -21,7 +21,7 @@ This objective fixes the initial product behavior. **Do not build or run Objecti
 acquirer:
   search_interval_seconds: 600     # Every ~10 minutes; target cadence
   max_search_bid: 1000             # Search filter, not per-auction maximum spend
-  min_search_buy_now: 10500        # Search filter, not expected resale value
+  min_search_buy_now: 11000        # Search filter, not expected resale value
   min_available_coins: 5000        # Coin-reserve / drain threshold
   max_enrolled_auctions: 50        # Maximum unresolved auctions in shared queue
 
@@ -44,9 +44,9 @@ All numeric settings are configurable, with these defaults. Search filters selec
 
 On its next scheduled acquisition cycle (initially every 600 seconds):
 
-1. Search the authenticated **FC27 PC player transfer market** with `maxBid=1000` and `minBuy=10500` (in EA native criteria terms). Fetch as many qualifying auction candidates as practical, handling bounded pagination, duplicates and search-result ordering. Verify the actual live filter semantics: “maximum bid” and “minimum Buy Now” must not be confused with current bid, starting bid or max BIN.
+1. Search the authenticated **FC27 PC player transfer market** with `maxBid=1000` and `minBuy=11000` (in EA native criteria terms). Fetch as many qualifying auction candidates as practical, handling bounded pagination, duplicates and search-result ordering. Verify the actual live filter semantics: “maximum bid” and “minimum Buy Now” must not be confused with current bid, starting bid or max BIN.
 2. Ignore auctions already enrolled, conclusively resolved, unavailable, ineligible, or without trustworthy pricing.
-3. For each distinct **exact player card/version** on PC, obtain at least **five independent comparable active BIN listings**. Reuse `fc_access/pricing.py` and the existing independent-sample/outlier protections: deduplicate, exclude the candidate auction and physical item, reject stale/invalid/mismatched observations, apply the conservative resale estimator and legal price rounding. Do **not** average five unrelated players. External prices may aid discovery but cannot silently substitute for comparable live PC listings.
+3. For each distinct **exact player card/version** on PC, obtain at least **five independent comparable active BIN listings**. Reuse the tested identity, freshness, deduplication and tax computations in `fc_access/pricing.py`, but **revise and validate its resale-price estimator before autonomous bidding**: exclude recognizable default/uninformative listings (in particular, 600 starting bid / 10,000 BIN), reject inflated asks without automatically classifying genuinely cheap executable BIN listings as outliers, and anchor the estimated achievable resale price conservatively to the lowest credible current market supply. The 001C sampled-version result of target 2,800 despite actual 1,500/1,700 BIN asks illustrates the current symmetric-MAD failure mode. Record the low-ask evidence, accepted/rejected prices and rationale; if confidence in the obtainable resale price is insufficient, skip enrollment. Do **not** average five unrelated players. `last_sale_price` can be a diagnostic signal but is not by itself independently verified recent market-wide sale evidence. External prices may aid discovery but cannot silently substitute for comparable live PC listings.
 4. Calculate the auction's maximum acceptable final bid (coin integer):
 
    `max_affordable_bid = estimated_target_sale - floor(estimated_target_sale / 20) - X`
@@ -63,6 +63,10 @@ On its next scheduled acquisition cycle (initially every 600 seconds):
 - **DRAINING is sticky:** While draining, the Acquirer creates **no new auction enrollments**, even if the coin balance temporarily increases or queue slots open. Let the entire enrolled queue resolve **WON or LOST** first. Then exit draining; admission resumes only on a future acquisition cycle **if the reserve test passes**. If coins remain too low, stay paused.
 - The coin floor governs **new enrollment only**. It does **not** stop the Bidder from managing existing auctions; the Bidder still obeys each auction's profit cap and actual spendable-balance constraints.
 - If both the queue cap and coin threshold apply, **DRAINING takes precedence**.
+
+### Valuation validation requirement
+
+The market discovery filter (`maxBid=1000`, `minBuy=11000`) **does not apply to comparable-price searches**. A default 600/10,000 listing would already fall below the prior 10,500 discovery minimum, but may still contaminate an unfiltered exact-version pricing sample unless explicitly excluded. Preserve the raw sanitized price distribution and separately log filtered default-template asks, suspicious high-priced asks, and genuine low-priced executable listings. Test valuation against the retained 001C version-261855 snapshot and adversarial cases with repeated high-price clusters and real cheap BINs. A high-price cluster must not justify a resale target far above currently buyable lower-priced listings without documented credible reasons. This change is a strategy specification; do not rewrite 001C's historical observations or claim the pricing implementation is already fixed.
 
 ## Actor 2 — Bidder
 
@@ -113,7 +117,7 @@ Acquirer (every ~10 min):
     if DRAINING or enrolled_count >= max_enrolled_auctions:
         do not enroll
     else:
-        search maxBid=1000, minBuy=10500
+        search maxBid=1000, minBuy=11000
         for each new eligible auction:
             if reserve admission would fail:
                 enter DRAINING; break
@@ -154,7 +158,7 @@ Acquirer DRAINING:
 3. Native search-filter integration, reliable comparable pricing, legal bid computation, bid-state observations and conditional bid placement.
 4. Verified outcome lifecycle: initial bid → leading/outbid → optional minimum-increment rebids → confirmed won/lost → won-item move/list workflow, with no unnecessary bids while leading.
 5. Operator configuration, current queue/coins/actor status, **persistent per-auction event journal** and structured execution/profit records, with queryable human-readable timelines and sanitized trace export.
-6. Deterministic test coverage for cap equality/rounding, winning-at-low-bid behavior, outbid competitions, losing over cap, 50-slot queue saturation, 5,000-coin DRAINING stickiness, balance changes, simultaneous actor requests, stale status, restart/unknown responses, chronological reason-coded bid decisions, crash-safe event replay/reconciliation, and won-item handoff.
+6. Deterministic test coverage for current valuation pitfalls (default 600/10,000 listings, high ask clusters, genuine low BIN listings, stale samples), cap equality/rounding, winning-at-low-bid behavior, outbid competitions, losing over cap, 50-slot queue saturation, 5,000-coin DRAINING stickiness, balance changes, simultaneous actor requests, stale status, restart/unknown responses, chronological reason-coded bid decisions, crash-safe event replay/reconciliation, and won-item handoff.
 7. Bounded independently assessed live validation **after 001C prerequisites**; do not infer bid/win/list success from an HTTP acknowledgement alone. Record projected profit separately from realized settled profit.
 
 **Acceptance:** demonstrate both actors following these invariants without duplicate bids or unverified state transitions; at full capacity no 51st enrollment; at coin reserve no new enrollment until queue drain is complete; when leading at 3,000 with a 6,000 cap, do not rebid; when outbid, advance by the smallest legal step only if within cap. Explicitly report any live prerequisite not yet verified. Don't claim sustained 25-second monitoring, safe EA pacing, successful profit or fully autonomous production readiness without evidence.
