@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import sqlite3
+import subprocess
 import time
 
 from .contracts import Search, parse_response, stamp
@@ -21,6 +22,9 @@ from .prices import CardKey
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT/'docs/research/002/002-03'
 CHECKPOINT = OUT/'gate.json'
+AUTHORIZED_ATTEMPT = '20261114-preflight-remediation-01'
+REMEDIATION_CHECKPOINT = OUT/'attempts'/AUTHORIZED_ATTEMPT/'gate.json'
+AUTHORITY = 'explicit_user_one_additional_read_only_encoding_remediation_attempt'
 JOURNAL = ROOT/'private-captures/final-remediation/foundation.sqlite3'
 CACHE = JOURNAL.with_name('completed-quotes.sqlite3')
 LIMIT_NS = 30_000_000_000
@@ -42,13 +46,17 @@ def digest(value):
 
 
 class Window:
-    def __init__(self, path=None, *, clock=time.monotonic_ns):
+    def __init__(self, path=None, *, clock=time.monotonic_ns, authorization=None):
         self.path, self.clock = Path(path if path is not None else CHECKPOINT), clock
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.state = dict(schema=1, task='002-03', mode='LIVE_READ_ONLY', status='RUNNING',
             attempt=1, started_at=utc(), operations=[], cache_reads=[],
             hard_stop=True, dependent_tasks_allowed=False, automatic_repairs=False,
             automatic_reruns=False, account_mutations=0, stage='PREPARATION')
+        if authorization is not None:
+            self.state.update(attempt=2, attempt_id=AUTHORIZED_ATTEMPT, authorization=authorization,
+                              execution_budget=dict(attempts=1,ea_GETs=7,pricing_GETs=2,local_helper_batches=64))
+            validate_attempt(self.state)
         # Exclusive creation consumes the attempt even if the process crashes.
         with self.path.open('x', encoding='utf-8') as f:
             json.dump(self.state, f); f.flush(); os.fsync(f.fileno())
@@ -184,7 +192,8 @@ def evaluate_window(f, w, discovery, candidate):
 
 def admission_proof(s, *, source='native'):
     """Independent recorded-response assessor. No browser/network/file mutation."""
-    need(s['task'] == '002-03' and s['mode'] == 'LIVE_READ_ONLY' and s['attempt'] == 1, 'wrong_gate')
+    need(s['task'] == '002-03' and s['mode'] == 'LIVE_READ_ONLY', 'wrong_gate')
+    validate_attempt(s)
     need(s['health_before']['service'] == 'fc-production-v1' and s['health_before']['attached'] and
          s['health_before']['mutations_enabled'] is False, 'read_only_attachment_required')
     need(s['context']['game'] == 'fc27' and s['context']['platform'] == 'pc', 'official_FC27_PC_required')
@@ -313,8 +322,42 @@ def admission_proof(s, *, source='native'):
                 definition_id=definition, decision='BID/ELIGIBLE', bid_dispatches=0)
 
 
-def require_pass(path=CHECKPOINT):
-    s = json.loads(Path(path).read_text(encoding='utf-8'))
+def selected_checkpoint(attempt=None):
+    if attempt is not None:
+        need(attempt == AUTHORIZED_ATTEMPT, 'unknown_authorized_attempt')
+        return REMEDIATION_CHECKPOINT
+    # A new RUNNING/failed checkpoint blocks dependencies; never fall back.
+    return REMEDIATION_CHECKPOINT if REMEDIATION_CHECKPOINT.exists() else CHECKPOINT
+
+
+def original_failure():
+    raw = CHECKPOINT.read_bytes()
+    old = json.loads(raw.decode('utf-8'))
+    need(old['attempt'] == 1 and old['status'] == 'FAILURE/BLOCKED' and
+         old['stage'] == 'DESKTOP_PREFLIGHT' and old['operations'] == [] and
+         old['cache_reads'] == [] and old['actual_pricing_GETs'] == 0 and
+         old['preflight_failure']['encoding'] == 'cp1252' and
+         old['preflight_failure']['byte'] == '0x81' and
+         old['hard_stop'] is True and old['dependent_tasks_allowed'] is False,
+         'original_encoding_failure_required')
+    need(old['evidence_sha256'] == digest({k:v for k,v in old.items() if k != 'evidence_sha256'}),
+         'original_failed_evidence_changed')
+    return dict(authority=AUTHORITY, previous_checkpoint='docs/research/002/002-03/gate.json',
+                previous_status='FAILURE/BLOCKED', previous_capture_sha256=hashlib.sha256(raw).hexdigest(),
+                additional_attempts=1)
+
+
+def validate_attempt(s):
+    if type(s.get('attempt')) is int and s['attempt'] == 1:
+        need('attempt_id' not in s and 'authorization' not in s, 'wrong_gate_attempt_identity')
+        return
+    need(type(s.get('attempt')) is int and s['attempt'] == 2 and
+         s.get('attempt_id') == AUTHORIZED_ATTEMPT and s.get('authorization') == original_failure(),
+         'wrong_gate_attempt_authorization')
+
+
+def require_pass(path=None):
+    s = json.loads(Path(path if path is not None else selected_checkpoint()).read_text(encoding='utf-8'))
     need(s['status'] == 'PASS' and s['dependent_tasks_allowed'] is True and
          s['hard_stop'] is False and s['automatic_reruns'] is False and s['automatic_repairs'] is False,
          'gate_not_PASS_items_4_through_12_blocked')
@@ -322,9 +365,9 @@ def require_pass(path=CHECKPOINT):
     return admission_proof(s)
 
 
-def run(*, desktop, definition_id=DEFINITION_ID):
+def run(*, desktop, definition_id=DEFINITION_ID, window=None):
     # A prior RUNNING, failed, blocked, or passed window is never overwritten.
-    w = Window()
+    w = window if window is not None else Window()
     f = None
     try:
         h = EdgeExecutor().request('/health')
@@ -358,13 +401,66 @@ def run(*, desktop, definition_id=DEFINITION_ID):
     return {k:w.state.get(k) for k in ('status','reason','elapsed_ns','hard_stop','dependent_tasks_allowed')}
 
 
-if __name__ == '__main__':
-    import subprocess
+def desktop_preflight():
+    """Strict UTF-8 JSON transport. Never parse or retain unrelated UI labels."""
+    try:
+        inspection = subprocess.run(['powershell','-NoProfile','-File',str(ROOT/'fc_access/production_v1/ui.ps1'),
+                                     '-Action','preflight-json'], capture_output=True, text=False,
+                                    check=False, timeout=20)
+    except subprocess.TimeoutExpired:
+        raise ValueError('desktop_subprocess_timeout') from None
+    except OSError:
+        raise ValueError('desktop_subprocess_unavailable') from None
+    need(inspection.returncode == 0, 'desktop_subprocess_failed')
+    raw = inspection.stdout
+    need(type(raw) is bytes and 0 < len(raw) <= 16384, 'desktop_output_missing_or_unbounded')
+    def unique_fields(pairs):
+        result = {}
+        for key,value in pairs:
+            need(key not in result, 'duplicate_desktop_field')
+            result[key] = value
+        return result
+    try:
+        desktop = json.loads(raw.decode('utf-8-sig', errors='strict'), object_pairs_hook=unique_fields)
+    except UnicodeDecodeError:
+        raise ValueError('desktop_output_invalid_utf8') from None
+    except (ValueError, RecursionError):
+        raise ValueError('desktop_output_invalid_json') from None
+    need(type(desktop) is dict and set(desktop) == {
+        'observed_at','edge_control_verified','foreground_verified','official_tab','extensions_manager'},
+        'desktop_output_invalid_schema')
+    need(all(type(desktop[k]) is bool for k in ('edge_control_verified','foreground_verified','official_tab','extensions_manager')),
+         'desktop_output_invalid_schema')
+    try:
+        need(isinstance(desktop['observed_at'], str), 'desktop_output_invalid_timestamp')
+        observed = stamp(desktop['observed_at'])
+        need(0 <= (datetime.now(timezone.utc)-observed).total_seconds() <= 30, 'desktop_output_stale')
+    except (TypeError, ValueError, OverflowError):
+        raise ValueError('desktop_output_invalid_or_stale_timestamp') from None
+    need(desktop['official_tab'] and desktop['foreground_verified'] and desktop['edge_control_verified'] and
+         not desktop['extensions_manager'], 'official_Edge_tab_required')
+    return desktop
+
+
+def main(argv=None):
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--attempt', choices=[AUTHORIZED_ATTEMPT], required=True)
+    args = parser.parse_args(argv)
     # Reread current recovery instructions and verify this worker's own UI access.
     (ROOT/'AGENTS.md').read_text(encoding='utf-8')
-    need(not CHECKPOINT.exists(), 'existing_gate_checkpoint_no_rerun')
-    inspection = subprocess.run(['powershell','-NoProfile','-File',str(ROOT/'fc_access/production_v1/ui.ps1'),
-                                 '-Action','inspect'], capture_output=True, text=True, check=True, timeout=20)
-    desktop = json.loads(next(line for line in inspection.stdout.splitlines() if line.startswith('{')))
-    need(desktop['official_tab'] and desktop['foreground_verified'], 'official_Edge_tab_required')
-    print(json.dumps(run(desktop=desktop)))
+    # Consume the separate authorized slot BEFORE desktop/service/native work.
+    w = Window(selected_checkpoint(args.attempt), authorization=original_failure())
+    w.state.update(stage='DESKTOP_PREFLIGHT', live_command_attempted=True)
+    w.save()
+    try:
+        desktop = desktop_preflight()
+    except Exception as error:
+        reason = str(error) if type(error) is ValueError and str(error).replace('_','').isalnum() else type(error).__name__
+        w.stop(reason)
+        return {k:w.state.get(k) for k in ('status','reason','elapsed_ns','hard_stop','dependent_tasks_allowed')}
+    return run(desktop=desktop, window=w)
+
+
+if __name__ == '__main__':
+    print(json.dumps(main()))

@@ -1,0 +1,23 @@
+{
+  "mode": "OFFLINE_BEFORE_NEW_LIVE_ATTEMPT",
+  "EA_requests": 0,
+  "checks": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "started_utc": "2026-11-13T22:57:08.190828+00:00",
+      "finished_utc": "2026-11-13T22:58:13.920868+00:00",
+      "exit_code": 1,
+      "tests_run": 533,
+      "output": "check-00.txt",
+      "output_sha256": "867d20e350f24e9f4e4fbb84a22b5908cfbe72a8797094317bb102cc884886bf"
+    }
+  ]
+}

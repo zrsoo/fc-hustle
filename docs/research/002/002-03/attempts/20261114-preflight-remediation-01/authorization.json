@@ -1,0 +1,18 @@
+{
+  "attempt_id": "20261114-preflight-remediation-01",
+  "authorization": {
+    "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+    "previous_checkpoint": "docs/research/002/002-03/gate.json",
+    "previous_status": "FAILURE/BLOCKED",
+    "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+    "additional_attempts": 1
+  },
+  "read_only": true,
+  "mutations": 0,
+  "budget": {
+    "attempts": 1,
+    "ea_GETs": 7,
+    "pricing_GETs": 2,
+    "helper_batches": 64
+  }
+}

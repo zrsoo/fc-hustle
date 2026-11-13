@@ -16,11 +16,11 @@ from profile_00202 import TimedPage, Clock, CONTEXT
 
 
 class Gate(unittest.TestCase):
-    def scenario(self, directory, *, slow=False, missing=False, stale=False, failure=False):
+    def scenario(self, directory, *, slow=False, missing=False, stale=False, failure=False, authorization=None):
         clock = Clock(); page = TimedPage(directory, clock)
         page.candidate['starting_bid'] = 150
         path = Path(directory)/'gate.json'
-        w = gate.Window(path, clock=lambda: int(clock.monotonic()*1e9))
+        w = gate.Window(path, clock=lambda: int(clock.monotonic()*1e9), authorization=authorization)
         recorder = gate.ReadOnlyGateExecutor(w)
         recorder.attach, recorder.ownership_epoch = page.attach, page.ownership_epoch
         def deliver(c):

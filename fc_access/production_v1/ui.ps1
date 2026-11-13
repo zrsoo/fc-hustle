@@ -1,5 +1,6 @@
-param([string]$Action='inspect',[string]$Name='',[string]$Url='')
+param([string]$Action='inspect',[string]$Name='',[string]$Url='', [switch]$JsonOnly)
 $ErrorActionPreference='Stop'
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type -AssemblyName System.Windows.Forms
@@ -82,12 +83,13 @@ if($Action -eq 'navigate'){
  [System.Windows.Forms.SendKeys]::SendWait($Name);[System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
  Start-Sleep -Milliseconds 500
  Activate (Find-Name 'Select Folder')
-} elseif($Action -ne 'inspect') {throw 'unknown_action'}
+} elseif($Action -notin @('inspect','preflight-json')) {throw 'unknown_action'}
 Start-Sleep -Milliseconds 350
 $bar=Find-Name 'Address and search bar'
 $value=$bar.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value
 $official=$value -match '^(https://)?(www\.)?ea\.com/(?:[a-z]{2}-[a-z]{2}/)?ea-sports-fc/ultimate-team/web-app/?$'
 @{observed_at=[DateTime]::UtcNow.ToString('o');edge_control_verified=$true;foreground_verified=([FCDesktop]::GetForegroundWindow() -eq $h);official_tab=$official;extensions_manager=($value -like 'edge://extensions*')}|ConvertTo-Json -Compress
+if($JsonOnly -or $Action -eq 'preflight-json'){return}
 foreach($e in $w.FindAll($scope,$all)) {
  $type=$e.Current.ControlType.ProgrammaticName
  if($type -in 'ControlType.Button','ControlType.TabItem','ControlType.CheckBox'){

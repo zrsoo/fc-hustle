@@ -1,0 +1,202 @@
+{
+  "schema": 1,
+  "task": "002-03",
+  "mode": "LIVE_READ_ONLY",
+  "status": "FAILURE/BLOCKED",
+  "attempt": 2,
+  "started_at": "2026-11-13T23:03:22.849244+00:00",
+  "operations": [
+    {
+      "command": {
+        "schema": 2,
+        "id": "2fc19b5ea22ec0bb5412270a21977bb9",
+        "operation": "search",
+        "params": {
+          "purpose": "discovery",
+          "definition_id": 261855,
+          "page": 1,
+          "count": 21,
+          "fresh": true,
+          "max_bid": 1000,
+          "min_buy": 11000
+        },
+        "context": {
+          "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+          "game": "fc27",
+          "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+          "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "bbd4a5a748a579633e337b486139cef2",
+          "epoch": 20,
+          "host_epoch": "f268fc6a23e3951a1264d576240073f1",
+          "owner": "3e5ad73a0453bcb4338421575d06857f",
+          "worker_epoch": "b1675086a7b3a3c9121f68fcc1291cac"
+        }
+      },
+      "stage": "DISCOVERY",
+      "state": "RESPONSE_RECORDED",
+      "start_ns": 142204679805900,
+      "response": {
+        "command_id": "2fc19b5ea22ec0bb5412270a21977bb9",
+        "context": {
+          "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+          "game": "fc27",
+          "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+          "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null
+        },
+        "fences": {
+          "document": "bbd4a5a748a579633e337b486139cef2",
+          "epoch": 20,
+          "host_epoch": "f268fc6a23e3951a1264d576240073f1",
+          "owner": "3e5ad73a0453bcb4338421575d06857f",
+          "worker_epoch": "b1675086a7b3a3c9121f68fcc1291cac"
+        },
+        "freshness": {
+          "network_at": "2026-11-13T23:03:39.476Z",
+          "observed_at": "2026-11-13T23:03:39.692Z",
+          "read_id": "2fc19b5ea22ec0bb5412270a21977bb9",
+          "request_count": 1,
+          "source": "native"
+        },
+        "operation": "search",
+        "result": {
+          "auctions": [],
+          "cache_invalidated": true,
+          "caps": null,
+          "credits": null,
+          "error": null,
+          "items": null,
+          "network": [
+            {
+              "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+              "method": "GET",
+              "path": "/ut/game/fc27/transfermarket",
+              "query": {
+                "definitionId": 261855,
+                "macr": 1000,
+                "minb": 11000,
+                "num": 21,
+                "start": 0
+              },
+              "session_header_present": true,
+              "status": 200
+            }
+          ],
+          "status": 200,
+          "success": true
+        },
+        "schema": 2,
+        "timing": {
+          "ea_rtt_ms": 210.30000001192093,
+          "native_helper_ms": 0,
+          "native_service_ms": 216.30000001192093
+        }
+      },
+      "finish_ns": 142204922603600,
+      "evidence_sha256": "90444a194b52f0f94da074c98e3d214884cc44441c7336d22e3240f870012080"
+    }
+  ],
+  "cache_reads": [],
+  "hard_stop": true,
+  "dependent_tasks_allowed": false,
+  "automatic_repairs": false,
+  "automatic_reruns": false,
+  "account_mutations": 0,
+  "stage": "DISCOVERY",
+  "attempt_id": "20261114-preflight-remediation-01",
+  "authorization": {
+    "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+    "previous_checkpoint": "docs/research/002/002-03/gate.json",
+    "previous_status": "FAILURE/BLOCKED",
+    "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+    "additional_attempts": 1
+  },
+  "execution_budget": {
+    "attempts": 1,
+    "ea_GETs": 7,
+    "pricing_GETs": 2,
+    "local_helper_batches": 64
+  },
+  "live_command_attempted": true,
+  "health_before": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "f268fc6a23e3951a1264d576240073f1",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 19
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "bbd4a5a748a579633e337b486139cef2",
+        "epoch": 19,
+        "host_epoch": "f268fc6a23e3951a1264d576240073f1",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "b1675086a7b3a3c9121f68fcc1291cac"
+      }
+    },
+    "mutations_enabled": false
+  },
+  "desktop": {
+    "foreground_verified": true,
+    "edge_control_verified": true,
+    "observed_at": "2026-11-13T23:03:24.0209293Z",
+    "extensions_manager": false,
+    "official_tab": true
+  },
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "cache_inventory": [
+    {
+      "path": "private-captures\\final-remediation\\completed-quotes.sqlite3",
+      "rows": [
+        [
+          "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "fc27",
+          "pc",
+          233731,
+          1794588897.116
+        ]
+      ],
+      "exact_key_rows": []
+    }
+  ],
+  "fences": {
+    "document": "bbd4a5a748a579633e337b486139cef2",
+    "epoch": 20,
+    "host_epoch": "f268fc6a23e3951a1264d576240073f1",
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "worker_epoch": "b1675086a7b3a3c9121f68fcc1291cac"
+  },
+  "reason": "no_real_eligible_candidate_single_discovery",
+  "stopped_ns": 142204928605900,
+  "finished_at": "2026-11-13T23:03:39.714789+00:00",
+  "evidence_sha256": "df52e3454b811f4e3ba51a671ff4fd383e25b7ce39166b1cc52d4069b6cc07d6"
+}
