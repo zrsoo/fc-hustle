@@ -1,0 +1,22 @@
+{
+  "mode": "OFFLINE_BEFORE_FIFTH_ATTEMPT",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "started_utc": "2026-11-14T02:14:00.069142+00:00",
+      "finished_utc": "2026-11-14T02:15:09.730630+00:00",
+      "exit_code": 1,
+      "tests_run": 549,
+      "output": "check-00.txt",
+      "output_sha256": "9207feb47ace050cfbbae6321a312a1e68f75da911c72c513fc7ce25a83b407d"
+    }
+  ]
+}

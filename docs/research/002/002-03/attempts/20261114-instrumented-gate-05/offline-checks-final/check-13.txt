@@ -1,0 +1,1 @@
+PASS inventory: 50 exact rows, dirty-before-read, cache/auth/route failures, reviewed DAO execution, lite omissions, unknown IDs, reconnect fence and reacquisition

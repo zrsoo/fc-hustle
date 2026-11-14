@@ -1,0 +1,76 @@
+{
+  "mode": "OFFLINE_RETAINED_EVIDENCE_ONLY",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_gate.py",
+        "--attempt",
+        "20261114-instrumented-gate-05"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "output": "check-00.txt",
+      "output_sha256": "9fc6db3aeeef60a2bf19f11e3efb3b0cf4f2d3793c1bc2978bdb81d04c70e9af"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-instrumented-gate-05"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output": "check-01.txt",
+      "output_sha256": "54bb89d8cd56113248a1064d50a9dd0b436208b240c4017c8820237928cb4b82"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-preflight-remediation-01"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output": "check-02.txt",
+      "output_sha256": "6da29b17c346a76b6b6f9f475cb70e7c04d52c2b8fe5160a8c84fe27d1b29fdd"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-bounded-discovery-03"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output": "check-03.txt",
+      "output_sha256": "4be0203edb1ff14d182f6cb53f12dfcce1cd1990dc3716a9f57a976db1bee675"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-authenticated-retry-04"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output": "check-04.txt",
+      "output_sha256": "52d5d3deb9cbcad03e593a84a7804fcccd9e53100f5a686ce2b30896fdf78de8"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--original"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "output": "check-05.txt",
+      "output_sha256": "ccd27a8e144b8e7a4b6183935ae07339506ddf927e87c2bda746d56154fa5383"
+    }
+  ]
+}

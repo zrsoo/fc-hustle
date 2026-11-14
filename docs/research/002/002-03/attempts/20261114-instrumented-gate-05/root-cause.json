@@ -1,0 +1,19 @@
+{
+  "mode": "OFFLINE_ANALYSIS_OF_RETAINED_LIVE_DIAGNOSTICS",
+  "search_command_id": "0cfebb45bc0e2c23789c0bc5ba64d05d",
+  "native_search_HTTP_status": 200,
+  "observed_search_window_GETs": 2,
+  "observed_authentication_GETs": 1,
+  "second_GET_classification": "unrecognized FC27 path; actual endpoint was sanitized to /unexpected; its purpose is unknown",
+  "browser_failure": "ambiguous_network",
+  "server_rejection": "wrong_native_route",
+  "rejection_sequence": 43,
+  "worker_failure": "local_rejected at post_result",
+  "transport_final": "UNKNOWN / TIMEOUT_NO_RETRY",
+  "valuation_started": false,
+  "performance_elapsed_seconds": null,
+  "mutations": 0,
+  "confirmed_chain": "All-FC27 capture observed a second GET; exact-one-request guard rejected native success; the strict per-operation route validator rejected the failure envelope; no result was persisted and the caller timed out.",
+  "proposed_fix_executed": false,
+  "previous_failures_unchanged": true
+}

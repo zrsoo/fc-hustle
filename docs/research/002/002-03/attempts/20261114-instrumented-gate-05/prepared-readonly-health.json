@@ -1,0 +1,34 @@
+{
+  "service": "fc-production-v1",
+  "schema": 2,
+  "host_epoch": "2dc5c28c3f00faa5aeb6b13c2eecdb7d",
+  "owner": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "epoch": 28
+  },
+  "attached": true,
+  "peer": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "9c0c1bd7e60f39c1bdce7b1c94c729f7",
+      "epoch": 28,
+      "host_epoch": "2dc5c28c3f00faa5aeb6b13c2eecdb7d",
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "worker_epoch": "4cdb57333e4d306f89e8024c97bbecd9"
+    }
+  },
+  "mutations_enabled": false
+}

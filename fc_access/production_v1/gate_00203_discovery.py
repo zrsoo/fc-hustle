@@ -50,9 +50,10 @@ def discover(f,w):
 
 def run(*,attempt=gate.THIRD_ATTEMPT):
     (gate.ROOT/'AGENTS.md').read_text(encoding='utf8')
-    fourth=attempt==gate.FOURTH_ATTEMPT
-    gate.need(attempt in {gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT},'unknown_authorized_attempt')
-    w=gate.Window(gate.selected_checkpoint(attempt),authorization=gate.fourth_authorization() if fourth else gate.third_authorization(),attempt_id=attempt)
+    fourth=attempt in {gate.FOURTH_ATTEMPT,gate.FIFTH_ATTEMPT}
+    gate.need(attempt in {gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT,gate.FIFTH_ATTEMPT},'unknown_authorized_attempt')
+    authority=gate.fifth_authorization() if attempt==gate.FIFTH_ATTEMPT else gate.fourth_authorization() if fourth else gate.third_authorization()
+    w=gate.Window(gate.selected_checkpoint(attempt),authorization=authority,attempt_id=attempt)
     f=None;s=w.state
     try:
         s.update(stage='DESKTOP_PREFLIGHT',live_command_attempted=True);w.save()
@@ -85,5 +86,5 @@ def run(*,attempt=gate.THIRD_ATTEMPT):
 if __name__=='__main__':
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--attempt',choices=[gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT],default=gate.THIRD_ATTEMPT)
+    parser.add_argument('--attempt',choices=[gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT,gate.FIFTH_ATTEMPT],default=gate.THIRD_ATTEMPT)
     print(json.dumps(run(attempt=parser.parse_args().attempt)))

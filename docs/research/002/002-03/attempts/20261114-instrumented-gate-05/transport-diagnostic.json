@@ -1,0 +1,438 @@
+[
+  {
+    "command": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "9c0c1bd7e60f39c1bdce7b1c94c729f7",
+        "epoch": 29,
+        "host_epoch": "2dc5c28c3f00faa5aeb6b13c2eecdb7d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "4cdb57333e4d306f89e8024c97bbecd9"
+      },
+      "id": "332a7c2ce8e5d99d07643fe3ef50f22b",
+      "operation": "balance",
+      "params": {},
+      "schema": 2
+    },
+    "state": "ACKNOWLEDGED",
+    "result": {
+      "command_id": "332a7c2ce8e5d99d07643fe3ef50f22b",
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "coverage": {
+        "complete": false,
+        "has_more": null
+      },
+      "fences": {
+        "document": "9c0c1bd7e60f39c1bdce7b1c94c729f7",
+        "epoch": 29,
+        "host_epoch": "2dc5c28c3f00faa5aeb6b13c2eecdb7d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "4cdb57333e4d306f89e8024c97bbecd9"
+      },
+      "freshness": {
+        "network_at": "2026-11-14T02:18:40.284Z",
+        "observed_at": "2026-11-14T02:18:40.397Z",
+        "read_id": "332a7c2ce8e5d99d07643fe3ef50f22b",
+        "request_count": 1,
+        "source": "native"
+      },
+      "operation": "balance",
+      "result": {
+        "auctions": null,
+        "cache_invalidated": false,
+        "caps": null,
+        "credits": 62127,
+        "error": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "method": "GET",
+            "path": "/ut/game/fc27/user/credits",
+            "query": {},
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "status": 200,
+        "success": true
+      },
+      "schema": 2,
+      "timing": {
+        "ea_rtt_ms": 109,
+        "native_helper_ms": 0,
+        "native_service_ms": 112.90000000596046
+      }
+    },
+    "events": [
+      {
+        "sequence": 29,
+        "event": "RESERVED"
+      },
+      {
+        "sequence": 30,
+        "event": "DELIVERED"
+      },
+      {
+        "sequence": 31,
+        "event": {
+          "at": "2026-11-14T02:18:40.280718+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:40.278Z",
+              "detail": {},
+              "stage": "WORKER_EXECUTE"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 32,
+        "event": {
+          "at": "2026-11-14T02:18:40.400187+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:40.397Z",
+              "detail": {},
+              "stage": "WORKER_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 33,
+        "event": {
+          "at": "2026-11-14T02:18:40.405138+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:40.283Z",
+              "detail": {},
+              "stage": "PAGE_ENTER"
+            },
+            {
+              "at": "2026-11-14T02:18:40.284Z",
+              "detail": {},
+              "stage": "NATIVE_INVOKE"
+            },
+            {
+              "at": "2026-11-14T02:18:40.394Z",
+              "detail": {
+                "request_count": 1,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:18:40.396Z",
+              "detail": {
+                "status": 200,
+                "success": true
+              },
+              "stage": "NATIVE_CALLBACK"
+            },
+            {
+              "at": "2026-11-14T02:18:40.397Z",
+              "detail": {
+                "data_type": "object"
+              },
+              "stage": "NATIVE_DATA"
+            },
+            {
+              "at": "2026-11-14T02:18:40.397Z",
+              "detail": {
+                "request_count": 1,
+                "success": true
+              },
+              "stage": "PAGE_FINISHED"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 34,
+        "event": {
+          "at": "2026-11-14T02:18:40.409751+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:40.407Z",
+              "detail": {},
+              "stage": "WORKER_POST_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 35,
+        "event": "ACKNOWLEDGED"
+      },
+      {
+        "sequence": 36,
+        "event": {
+          "at": "2026-11-14T02:18:40.418767+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:40.416Z",
+              "detail": {},
+              "stage": "WORKER_ACK"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "command": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "9c0c1bd7e60f39c1bdce7b1c94c729f7",
+        "epoch": 29,
+        "host_epoch": "2dc5c28c3f00faa5aeb6b13c2eecdb7d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "4cdb57333e4d306f89e8024c97bbecd9"
+      },
+      "id": "0cfebb45bc0e2c23789c0bc5ba64d05d",
+      "operation": "search",
+      "params": {
+        "count": 21,
+        "fresh": true,
+        "max_bid": 1000,
+        "min_buy": 11000,
+        "page": 1,
+        "purpose": "discovery"
+      },
+      "schema": 2
+    },
+    "state": "UNKNOWN",
+    "result": null,
+    "events": [
+      {
+        "sequence": 37,
+        "event": "RESERVED"
+      },
+      {
+        "sequence": 38,
+        "event": "DELIVERED"
+      },
+      {
+        "sequence": 39,
+        "event": {
+          "at": "2026-11-14T02:18:42.313963+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:42.311Z",
+              "detail": {},
+              "stage": "WORKER_EXECUTE"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 40,
+        "event": {
+          "at": "2026-11-14T02:18:43.013887+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:43.012Z",
+              "detail": {},
+              "stage": "WORKER_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 41,
+        "event": {
+          "at": "2026-11-14T02:18:43.029370+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:42.316Z",
+              "detail": {},
+              "stage": "PAGE_ENTER"
+            },
+            {
+              "at": "2026-11-14T02:18:42.317Z",
+              "detail": {
+                "definition_count": 0,
+                "definition_type": "array"
+              },
+              "stage": "NATIVE_DATA"
+            },
+            {
+              "at": "2026-11-14T02:18:42.317Z",
+              "detail": {},
+              "stage": "NATIVE_INVOKE"
+            },
+            {
+              "at": "2026-11-14T02:18:42.915Z",
+              "detail": {
+                "request_count": 1,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:18:43.010Z",
+              "detail": {
+                "request_count": 2,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:18:43.011Z",
+              "detail": {
+                "status": 200,
+                "success": true
+              },
+              "stage": "NATIVE_CALLBACK"
+            },
+            {
+              "at": "2026-11-14T02:18:43.011Z",
+              "detail": {
+                "error": "ambiguous_network",
+                "error_class": "Error"
+              },
+              "stage": "PAGE_FAILURE"
+            },
+            {
+              "at": "2026-11-14T02:18:43.011Z",
+              "detail": {
+                "error": "ambiguous_network",
+                "request_count": 2,
+                "success": false
+              },
+              "stage": "PAGE_FINISHED"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 42,
+        "event": {
+          "at": "2026-11-14T02:18:43.034034+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:43.032Z",
+              "detail": {},
+              "stage": "WORKER_POST_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 43,
+        "event": {
+          "at": "2026-11-14T02:18:43.037781+00:00",
+          "kind": "RESULT_REJECTED",
+          "reason": "wrong_native_route",
+          "summary": {
+            "correlation_matches": true,
+            "envelope_type": "object",
+            "error": "ambiguous_network",
+            "network": [
+              {
+                "method": "GET",
+                "path": "/ut/game/fc27/transfermarket",
+                "query": {
+                  "macr": 1000,
+                  "minb": 11000,
+                  "num": 21,
+                  "start": 0
+                },
+                "session_header_present": true,
+                "status": 200
+              },
+              {
+                "method": "GET",
+                "path": "/unexpected",
+                "query": {},
+                "session_header_present": true,
+                "status": 200
+              }
+            ],
+            "result_shape": {
+              "auctions": "null",
+              "cache_invalidated": "boolean",
+              "caps": "null",
+              "credits": "null",
+              "error": "string",
+              "items": "null",
+              "network": "array",
+              "status": "number",
+              "success": "boolean"
+            },
+            "row_count": null,
+            "row_shapes": [],
+            "status": 200,
+            "success": false,
+            "timing": {
+              "ea_rtt_ms": 689.1999999880791,
+              "native_helper_ms": 0,
+              "native_service_ms": 694.7000000178814
+            },
+            "top_field_count": 9,
+            "top_shape": {
+              "command_id": "string",
+              "context": "object",
+              "coverage": "object",
+              "fences": "object",
+              "freshness": "object",
+              "operation": "string",
+              "result": "object",
+              "schema": "number",
+              "timing": "object"
+            }
+          }
+        }
+      },
+      {
+        "sequence": 44,
+        "event": {
+          "at": "2026-11-14T02:18:43.041534+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:18:43.039Z",
+              "detail": {
+                "reason": "local_rejected",
+                "worker_stage": "post_result"
+              },
+              "stage": "WORKER_FAILURE"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 45,
+        "event": "TIMEOUT_NO_RETRY"
+      }
+    ]
+  }
+]
