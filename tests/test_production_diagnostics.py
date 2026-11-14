@@ -8,7 +8,7 @@ import time
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from fc_access.production_v1.store import Store
-from fc_access.production_v1.contracts import Search,empty_result,auction
+from fc_access.production_v1.contracts import Search,empty_result,auction,parse_response,METADATA_PATH
 from fc_access.production_v1.diagnostics import result_summary
 from native_price_fixture import auction as fixture_auction
 
@@ -89,6 +89,66 @@ class Diagnostics(unittest.TestCase):
        patch.object(probe.gate,'desktop_preflight',side_effect=AssertionError('no desktop')):
    with self.assertRaises(FileExistsError):probe.run()
   self.assertEqual(json.loads(checkpoint.read_text()),dict(preserved=True))
+
+ def test_native_metadata_executed_page_envelopes_cross_python_boundary(self):
+  import subprocess
+  target=Path(self.temp.name)/'page.json'
+  subprocess.run(['node','tests/production_metadata_checks.cjs',str(target)],check=True,capture_output=True)
+  samples=json.loads(target.read_text())
+  for sample in samples:
+   parsed=parse_response(sample['response'],sample['command'],now=datetime.fromisoformat(sample['now']))
+   self.assertEqual(parsed['freshness']['request_count'],len(parsed['result']['network']))
+  sample=samples[0];self.assertTrue(sample['response']['result']['success'])
+  malformed=deepcopy(sample['response']);row=deepcopy(malformed['result']['auctions'][0])
+  row['item']['definition_id']=[];malformed['result']['auctions'].append(row)
+  parsed=parse_response(malformed,sample['command'],now=datetime.fromisoformat(sample['now']),pricing_rows=True)
+  self.assertIsNone(parsed['result']['auctions'][1])
+  for change in ('duplicate_target','duplicate_metadata','wrong_def','wrong_host','no_auth','unfinished','unexpected_write','wrong_filter'):
+   v=deepcopy(sample['response']);net=v['result']['network']
+   if change=='duplicate_target':net.append(deepcopy(net[0]))
+   elif change=='duplicate_metadata':net.append(deepcopy(net[1]))
+   elif change=='wrong_def':net[1]['query']['defIds']=[999999]
+   elif change=='wrong_host':net[1]['host']='utas.other.ea.com'
+   elif change=='no_auth':net[1]['session_header_present']=False
+   elif change=='unfinished':net[1]['status']=None
+   elif change=='unexpected_write':net[1]['method']='PUT'
+   elif change=='wrong_filter':net[0]['query']['maxb']=100
+   v['freshness']['request_count']=len(net)
+   with self.subTest(change=change),self.assertRaises(ValueError):
+    parse_response(v,sample['command'],now=datetime.fromisoformat(sample['now']))
+
+ def test_failed_unknown_traffic_is_acknowledged_as_failure_not_lost_or_retried(self):
+  r=self.value['result'];r.update(success=False,error='ambiguous_network',auctions=None)
+  r['network'].append(dict(host='utas.test.ea.com',method='OTHER',path='/unexpected',query={},status=None,session_header_present=True))
+  self.value['freshness'].update(request_count=2,network_at=None)
+  self.store.finish(self.peer,self.c['id'],self.value)
+  self.assertFalse(self.store.result(self.c['id'])['result']['success'])
+  self.assertIsNone(self.store.claim(self.peer))
+  with self.assertRaises(ValueError):self.store.finish(self.peer,self.c['id'],self.value)
+  self.assertEqual(self.store.db.execute('SELECT COUNT(*) FROM commands').fetchone()[0],1)
+
+ def test_metadata_roundtrips_true_counts_and_sanitized_diagnostics(self):
+  n=deepcopy(self.value['result']['network'][0]);n.update(path=METADATA_PATH,query={'defIds':[fixture_auction()['item']['definition_id']]})
+  self.value['result']['network'].append(n);self.value['freshness']['request_count']=2
+  self.store.finish(self.peer,self.c['id'],self.value)
+  self.assertEqual(self.store.result(self.c['id']),self.value)
+  self.assertEqual(result_summary(self.value,self.c)['network'][1]['query'],n['query'])
+
+ def test_repair_probes_cannot_dispatch_writes_extra_reads_or_reopen_consumed_state(self):
+  from fc_access.production_v1 import repair_probe as probe
+  for kind,params in probe.PROBES.items():
+   state=dict(probe=kind,status='RUNNING',deadline_ns=time.monotonic_ns()+10_000_000_000,operations=[])
+   executor=probe.DiagnosticExecutor(state)
+   with patch.object(probe.EdgeExecutor,'execute',side_effect=AssertionError('no browser call')):
+    for op,p in [('bid',{}),('search',params),('caps',{'definition_id':123})]:
+     with self.assertRaisesRegex(ValueError,'diagnostic_read_only_budget'):executor.execute(dict(operation=op,params=p))
+    state['operations']=[{},{}]
+    with self.assertRaisesRegex(ValueError,'diagnostic_read_only_budget'):executor.execute(dict(operation='balance',params={}))
+   out=Path(self.temp.name)/'probe'/kind;out.mkdir(parents=True)
+   (out/'checkpoint.json').write_text('{"consumed":true}')
+   with patch.object(probe,'OUT',out.parent),patch.object(probe.gate,'desktop_preflight',side_effect=AssertionError('no desktop')):
+    with self.assertRaises(FileExistsError):probe.run(kind)
+   self.assertEqual(json.loads((out/'checkpoint.json').read_text()),dict(consumed=True))
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

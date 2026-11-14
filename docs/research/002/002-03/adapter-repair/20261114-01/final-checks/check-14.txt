@@ -1,0 +1,1 @@
+PASS native metadata fanout: two truthful GETs, exact version correlation, duplicate/unknown/write rejection, single dispatch

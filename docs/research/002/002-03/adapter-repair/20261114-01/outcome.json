@@ -1,0 +1,38 @@
+{
+  "status": "READY_TO_RESUME_ITEM_4",
+  "python_tests": 554,
+  "node_suites": 20,
+  "all_final_exit_codes_zero": true,
+  "live_gate": {
+    "status": "PASS",
+    "elapsed_seconds": 12.0698056,
+    "pricing_GETs": 2,
+    "definition_id": 278046,
+    "decision": "BID/ELIGIBLE",
+    "bid_dispatches": 0
+  },
+  "smoke_native_search_invocations": 2,
+  "smoke_wire_GETs": 5,
+  "gate_wire_GETs": 8,
+  "gate_native_commands": 34,
+  "gate_timed_commands": 32,
+  "account_mutations": 0,
+  "observed_post_gate_offline_issue": {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_00203*.py",
+      "-v"
+    ],
+    "result": "27 tests; 1 failure; 0 errors",
+    "test": "test_original_failure_immutable_new_attempt_independent_budget_and_selection",
+    "root_cause": "Temporary second-attempt selector fixture isolated third/fourth/fifth paths but omitted the newly added sixth path; after the real sixth checkpoint existed it correctly took precedence.",
+    "fix": "Isolate the sixth checkpoint path in the fixture too. Preserve selector assertions and all historical checkpoints.",
+    "final_result": "Full 554-test discovery passes"
+  }
+}

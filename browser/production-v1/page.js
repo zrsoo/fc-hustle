@@ -15,6 +15,7 @@
     status:['GET','/ut/game/fc27/trade/status/lite'],
     bid:['PUT','/ut/game/fc27/trade/:trade/bid']};
   const operation = op => Object.hasOwn(routes,op) || ['price_helpers','status_support'].includes(op);
+  const metadataPath='/ut/game/fc27/attributes/metadata';
   const empty = error => ({success:false,error,status:null,credits:null,items:null,auctions:null,caps:null,cache_invalidated:false,network:[]});
   let binding = null, nativeUser = null, nativePersona = null, busy = false, poisoned = false;
   const selected = () => services.User.getUser?.()?.getSelectedPersona?.();
@@ -124,6 +125,12 @@
             const values=u.searchParams.getAll(k);if(values.length!==1 || !/^\d+$/.test(values[0]) || num(Number(values[0]))===null) throw Error('bad_query');
             query[k]=Number(values[0]);
           }
+          if(path===metadataPath && u.searchParams.has('defIds')){
+            const values=u.searchParams.getAll('defIds'),ids=values.length===1?values[0].split(','):[];
+            if(!ids.length || ids.length>21 || ids.some(x=>!/^\d+$/.test(x)||!(num(Number(x))>0)))throw Error('bad_query');
+            query.defIds=ids.map(Number);
+            if([...u.searchParams.keys()].some(k=>k!=='defIds'))throw Error('bad_query');
+          }
           if(c.operation==='status' && path===routes.status[1]){
             const e=known.get(c.params.trade_id);
             const values=u.searchParams.getAll('tradeIds');
@@ -131,7 +138,7 @@
             query.trade_id=c.params.trade_id; // exact wire match; never export the native ID
           }
           // Unknown paths are represented by a constant, never a raw identifier.
-          m={host:u.hostname,method:['GET','PUT'].includes(method)?method:'OTHER',path:Object.values(routes).some(r=>r[1]===path)?path:'/unexpected',query,status:null,session_header_present:false};
+          m={host:u.hostname,method:['GET','PUT'].includes(method)?method:'OTHER',path:path===metadataPath || Object.values(routes).some(r=>r[1]===path)?path:'/unexpected',query,status:null,session_header_present:false};
         }
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
@@ -212,9 +219,15 @@
       const response=await observe(invoke(),c.id);await new Promise(resolve=>setTimeout(resolve,0));
       r.status=Number.isInteger(response?.status) && response.status>=100 && response.status<=599?response.status:null;
       if(response?.success!==true)throw Error('service_failed');
-      const n=r.network;
-      if(n.length!==1 || n[0].method!==routes[op][0] || n[0].path!==routes[op][1])throw Error('ambiguous_network');
-      if(!n[0].session_header_present || !(n[0].status>=200 && n[0].status<300))throw Error('unauthenticated');
+      // A special-version search can fetch attributes before its observable completes.
+      // Keep every observation and require exactly one intended request, plus at most
+      // one narrowly reviewed read-only metadata request. Never ignore unknown traffic.
+      const targets=r.network.filter(n=>n.method===routes[op][0] && n.path===routes[op][1]);
+      const auxiliary=r.network.filter(n=>n.method==='GET' && n.path===metadataPath && op==='search');
+      if(targets.length!==1 || auxiliary.length>1 || targets.length+auxiliary.length!==r.network.length)throw Error('ambiguous_network');
+      const n=targets;
+      if(r.network.some(x=>!x.session_header_present || !(x.status>=200 && x.status<300)))throw Error('unauthenticated');
+      if(auxiliary.some(x=>x.host!==n[0].host))throw Error('ambiguous_network');
       if(n[0].status!==r.status)throw Error('schema_unrecognized');
       if(op==='search'){
         const q=n[0].query,expected={start:0,num:21};
@@ -240,6 +253,8 @@
         if(op==='unassigned')r.items=await Promise.all(rows.map(raw=>item(raw,c.context.identity_namespace,false,c.id)));
         else r.auctions=await Promise.all(rows.map(raw=>auction(raw,c,at)));
         if(op==='search' && p.definition_id!==undefined && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
+        if(auxiliary.some(x=>!keys(x.query,'defIds') || !x.query.defIds?.length ||
+            x.query.defIds.some(d=>!r.auctions.some(a=>a.item.definition_id===d))))throw Error('schema_unrecognized');
         if(op==='status' && (r.auctions.length>1 || r.auctions.some(a=>a.trade_id!==p.trade_id || a.item.item_id!==p.item_id ||
           a.item.definition_id && a.item.definition_id!==p.definition_id)))throw Error('schema_unrecognized');
         const identities=(r.auctions??r.items).map(x=>x.trade_id??x.item_id);

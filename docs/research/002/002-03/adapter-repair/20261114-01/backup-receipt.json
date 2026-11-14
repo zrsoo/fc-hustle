@@ -1,0 +1,29 @@
+{
+  "local_backup_directory": "private-captures/adapter-repair-20261114/backup-20261114T022713Z",
+  "created_utc": "20261114T022713Z",
+  "head": "897968c69488d2507193634c79085453a5325345",
+  "git_tag": "backup/adapter-repair-20261114T022713Z",
+  "sqlite_backups": [
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "backup": "002-bulk-transfer-operations-production-readonly-after.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "backup": "final-remediation-foundation.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "backup": "final-remediation-completed-quotes.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": ".orchestrator/state.db",
+      "backup": ".orchestrator-state.db",
+      "integrity": "ok"
+    }
+  ],
+  "bundle": "repository.bundle"
+}

@@ -31,6 +31,8 @@ FOURTH_ATTEMPT = '20261114-authenticated-retry-04'
 FOURTH_CHECKPOINT = OUT/'attempts'/FOURTH_ATTEMPT/'gate.json'
 FIFTH_ATTEMPT = '20261114-instrumented-gate-05'
 FIFTH_CHECKPOINT = OUT/'attempts'/FIFTH_ATTEMPT/'gate.json'
+SIXTH_ATTEMPT = '20261114-adapter-repair-gate-06'
+SIXTH_CHECKPOINT = OUT/'attempts'/SIXTH_ATTEMPT/'gate.json'
 JOURNAL = ROOT/'private-captures/final-remediation/foundation.sqlite3'
 CACHE = JOURNAL.with_name('completed-quotes.sqlite3')
 LIMIT_NS = 30_000_000_000
@@ -60,12 +62,14 @@ class Window:
             hard_stop=True, dependent_tasks_allowed=False, automatic_repairs=False,
             automatic_reruns=False, account_mutations=0, stage='PREPARATION')
         if authorization is not None:
-            broad=attempt_id in {THIRD_ATTEMPT,FOURTH_ATTEMPT,FIFTH_ATTEMPT}
-            fourth=attempt_id in {FOURTH_ATTEMPT,FIFTH_ATTEMPT}
-            self.state.update(attempt=5 if attempt_id==FIFTH_ATTEMPT else 4 if fourth else 3 if broad else 2, attempt_id=attempt_id, authorization=authorization,
+            broad=attempt_id in {THIRD_ATTEMPT,FOURTH_ATTEMPT,FIFTH_ATTEMPT,SIXTH_ATTEMPT}
+            fourth=attempt_id in {FOURTH_ATTEMPT,FIFTH_ATTEMPT,SIXTH_ATTEMPT}
+            self.state.update(attempt=6 if attempt_id==SIXTH_ATTEMPT else 5 if attempt_id==FIFTH_ATTEMPT else 4 if fourth else 3 if broad else 2, attempt_id=attempt_id, authorization=authorization,
                               execution_budget=dict(attempts=1,ea_GETs=10 if fourth else 9 if broad else 7,pricing_GETs=2,local_helper_batches=64))
             if broad:self.state['execution_budget'].update(discovery_GETs=3,discovery_seconds=180)
             if fourth:self.state['execution_budget']['authentication_GETs']=1
+            if attempt_id==SIXTH_ATTEMPT:
+                self.state['execution_budget'].update(ea_GETs=16,native_network_commands=10,metadata_GETs=6)
             validate_attempt(self.state)
         # Exclusive creation consumes the attempt even if the process crashes.
         with self.path.open('x', encoding='utf-8') as f:
@@ -109,9 +113,9 @@ class ReadOnlyGateExecutor(EdgeExecutor):
         local = op == 'price_helpers'
         previous = s['operations']
         need(sum(e['command']['operation'] == 'price_helpers' for e in previous) < 64 if local else
-             sum(e['command']['operation'] != 'price_helpers' for e in previous) < s.get('execution_budget',{}).get('ea_GETs',7), 'finite_budget_exhausted')
-        if s.get('attempt') in {3,4,5} and 'valuation_start_ns' not in s:
-            if s['attempt'] in {4,5} and s['stage']=='AUTHENTICATION':
+             sum(e['command']['operation'] != 'price_helpers' for e in previous) < s.get('execution_budget',{}).get('native_network_commands',s.get('execution_budget',{}).get('ea_GETs',7)), 'finite_budget_exhausted')
+        if s.get('attempt') in {3,4,5,6} and 'valuation_start_ns' not in s:
+            if s['attempt'] in {4,5,6} and s['stage']=='AUTHENTICATION':
                 need(op=='balance' and c['params']=={} and not previous,'one_authentication_read_required')
             else:
                 need(s['stage']=='BOUNDED_DISCOVERY' and op=='search' and c['params']==Search.discovery().params(),
@@ -131,6 +135,8 @@ class ReadOnlyGateExecutor(EdgeExecutor):
         entry.update(response=r, finish_ns=w.clock(), state='RESPONSE_RECORDED',
                      evidence_sha256=digest(dict(command=c, response=r)))
         w.save(); w.check()
+        if s.get('attempt')==6:
+            need(sum(len(e.get('response',{}).get('result',{}).get('network',[])) for e in previous)<=16,'finite_wire_budget_exhausted')
         need(r['result']['success'], 'native_operation_failed')
         need(set(r['timing']) == {'native_service_ms', 'ea_rtt_ms', 'native_helper_ms'},
              'current_instrumented_page_required')
@@ -259,10 +265,10 @@ def admission_proof(s, *, source='native'):
             queries.append(e)
         operations[c['id']] = e
     need(len(queries) == 2, 'two_real_pricing_GETs_required')
-    if s['attempt'] in {3,4,5}:
+    if s['attempt'] in {3,4,5,6}:
         from .gate_00203_discovery import discovery_candidates
         initial=[e for e in s['operations'] if e['start_ns']<s['valuation_start_ns']]
-        if s['attempt'] in {4,5}:
+        if s['attempt'] in {4,5,6}:
             auth=[e for e in initial if e['stage']=='AUTHENTICATION']
             need(len(auth)==1 and auth[0]['command']['operation']=='balance' and
                  auth[0]['command']['id']==s['authenticated_read_id'] and
@@ -285,8 +291,10 @@ def admission_proof(s, *, source='native'):
              'selected_identity_or_discovery_deadline')
         need(any(c['definition_id']==definition and c['read_id']==s['discovery_read_id'] and
              c['inventory']==s['cache_inventory'] for c in s['discovery_cache_checks']), 'selection_cache_evidence_missing')
-        need(sum(e['command']['operation']!='price_helpers' for e in s['operations'])<=(10 if s['attempt'] in {4,5} else 9) and
+        need(sum(e['command']['operation']!='price_helpers' for e in s['operations'])<=(10 if s['attempt'] in {4,5,6} else 9) and
              sum(e['command']['operation']=='price_helpers' for e in s['operations'])<=64,'finite_budget_exhausted')
+        if s['attempt']==6:
+            need(sum(len(e['response']['result']['network']) for e in s['operations'])<=16,'finite_wire_budget_exhausted')
     quote = s['uncached_quote']; qe = quote['evidence']
     need(quote['completed'] and quote['status'] == 'COMPLETE' and qe['cache_hit'] is False and
          qe['price_searches'] == 2 and qe['source'] == source, 'uncached_quote_required')
@@ -371,13 +379,14 @@ def admission_proof(s, *, source='native'):
 
 def selected_checkpoint(attempt=None):
     if attempt is not None:
+        if attempt==SIXTH_ATTEMPT:return SIXTH_CHECKPOINT
         if attempt==FIFTH_ATTEMPT:return FIFTH_CHECKPOINT
         if attempt==FOURTH_ATTEMPT:return FOURTH_CHECKPOINT
         if attempt==THIRD_ATTEMPT:return THIRD_CHECKPOINT
         need(attempt == AUTHORIZED_ATTEMPT, 'unknown_authorized_attempt')
         return REMEDIATION_CHECKPOINT
     # A new RUNNING/failed checkpoint blocks dependencies; never fall back.
-    return FIFTH_CHECKPOINT if FIFTH_CHECKPOINT.exists() else FOURTH_CHECKPOINT if FOURTH_CHECKPOINT.exists() else THIRD_CHECKPOINT if THIRD_CHECKPOINT.exists() else REMEDIATION_CHECKPOINT if REMEDIATION_CHECKPOINT.exists() else CHECKPOINT
+    return SIXTH_CHECKPOINT if SIXTH_CHECKPOINT.exists() else FIFTH_CHECKPOINT if FIFTH_CHECKPOINT.exists() else FOURTH_CHECKPOINT if FOURTH_CHECKPOINT.exists() else THIRD_CHECKPOINT if THIRD_CHECKPOINT.exists() else REMEDIATION_CHECKPOINT if REMEDIATION_CHECKPOINT.exists() else CHECKPOINT
 
 
 def original_failure():
@@ -398,6 +407,10 @@ def original_failure():
 
 
 def validate_attempt(s):
+    if type(s.get('attempt')) is int and s['attempt']==6:
+        need(s.get('attempt_id')==SIXTH_ATTEMPT and s.get('authorization')==sixth_authorization(),
+             'wrong_gate_attempt_authorization')
+        return
     if type(s.get('attempt')) is int and s['attempt'] == 1:
         need('attempt_id' not in s and 'authorization' not in s, 'wrong_gate_attempt_identity')
         return
@@ -455,6 +468,16 @@ def fifth_authorization():
                 previous=fourth_authorization(),fourth_checkpoint=FOURTH_CHECKPOINT.relative_to(ROOT).as_posix(),
                 fourth_capture_sha256=hashlib.sha256(raw).hexdigest(),diagnostic_checkpoint=diagnostic.relative_to(ROOT).as_posix(),
                 diagnostic_capture_sha256=hashlib.sha256(dr).hexdigest())
+
+
+def sixth_authorization():
+    raw=FIFTH_CHECKPOINT.read_bytes();old=json.loads(raw.decode('utf8'));validate_attempt(old)
+    need(old['status']=='FAILURE/BLOCKED' and old['hard_stop'] is True and 'valuation_start_ns' not in old,
+         'fifth_prevaluation_failure_required')
+    need(old['evidence_sha256']==digest({k:v for k,v in old.items() if k!='evidence_sha256'}),'fifth_failed_evidence_changed')
+    return dict(authority='explicit_user_take_over_backup_investigate_fix_read_only_E2E_then_recheck',additional_attempts=1,
+                previous=fifth_authorization(),fifth_checkpoint=FIFTH_CHECKPOINT.relative_to(ROOT).as_posix(),
+                fifth_capture_sha256=hashlib.sha256(raw).hexdigest())
 
 
 def require_pass(path=None):

@@ -1,7 +1,7 @@
 """Typed metadata only, including for rejected/untrusted result envelopes."""
 from datetime import datetime,timezone
 import math
-from .contracts import fields,integer,stamp,ERRORS,ROUTES
+from .contracts import fields,integer,stamp,ERRORS,ROUTES,METADATA_PATH
 
 STAGES={'PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA',
         'ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED','WORKER_EXECUTE','WORKER_RESULT',
@@ -12,7 +12,7 @@ REASONS={'invalid_fields','invalid_result','invalid_status','invalid_cache_evide
  'invalid_network_status','invalid_query','invalid_request_source','unsupported_freshness','unsupported_coverage',
  'invalid_timing','stale_or_unauthenticated_source','native_status_mismatch','operation_payload_mismatch','cache_only_source',
  'missing_exact_wire_definition','wire_criteria_mismatch','response_correlation_mismatch','invalid_time','timezone_required',
- 'unknown_or_duplicate_result','wrong_result_peer','stale_peer','reattach_required'}
+ 'unknown_or_duplicate_result','wrong_result_peer','stale_peer','reattach_required','wire_metadata_identity_mismatch'}
 
 def typename(value):
     if value is None:return 'null'
@@ -63,10 +63,13 @@ def result_summary(value,command):
         if type(n) is not dict:continue
         query=n.get('query') if type(n.get('query')) is dict else {}
         result['network'].append(dict(method=n.get('method') if type(n.get('method')) is str and n['method'] in {'GET','PUT','OTHER'} else 'other',
-            path=n.get('path') if type(n.get('path')) is str and n['path'] in {p for _,p in ROUTES.values()} else '/unexpected',
+            path=n.get('path') if type(n.get('path')) is str and n['path'] in {p for _,p in ROUTES.values()} | {METADATA_PATH} else '/unexpected',
             status=n.get('status') if type(n.get('status')) is int and 100<=n['status']<=599 else None,
             session_header_present=n.get('session_header_present') is True,
             query={k:query[k] for k in ('start','num','definitionId','defId','macr','minb','maxb') if type(query.get(k)) is int and 0<=query[k]<=2**53-1}))
+        ids=query.get('defIds')
+        if type(ids) is list and 1<=len(ids)<=21 and all(type(d) is int and 0<d<=2**53-1 for d in ids):
+            result['network'][-1]['query']['defIds']=list(ids)
     t=v.get('timing') if type(v.get('timing')) is dict else {}
     result['timing']={k:t[k] if type(t.get(k)) in {int,float} and math.isfinite(t[k]) and 0<=t[k]<=120000 else typename(t.get(k)) for k in ('native_service_ms','ea_rtt_ms','native_helper_ms')}
     return result

@@ -25,9 +25,15 @@ function setup(mode='ok'){
       const done=()=>{
         if(mode!=='cache'){
           const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid'}[op];
-          const wire=()=>{const x=new XHR();x.open(op==='bid'?'PUT':'GET','https://utas.test.ea.com/ut/game/fc27/'+path+'?'+new URLSearchParams({...query,private:secret}));
+          const wire=(route=path,params=query,method=op==='bid'?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'?params:{...params,private:secret}));
             if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send();};
           wire();if(mode==='fanout')wire();
+          if(mode.startsWith('metadata')){
+            wire('attributes/metadata',{defIds:mode==='metadataWrongVersion'?'999999':'7654321'});
+            if(mode==='metadataDuplicate')wire('attributes/metadata',{defIds:'7654321'});
+          }
+          if(mode==='unknownRead')wire('unknown',{});
+          if(mode==='unexpectedWrite')wire('item',{},'PUT');
         }
         time+=mode==='stale'?31000:8;
         if(mode==='switchDuring')persona={platform:'PC',isPC:true};

@@ -22,12 +22,14 @@ class ThirdAttempt(unittest.TestCase):
         patcher.start();self.addCleanup(patcher.stop)
         fifth=patch.object(gate,'FIFTH_CHECKPOINT',Path(temporary.name)/'absent-fifth.json')
         fifth.start();self.addCleanup(fifth.stop)
+        sixth=patch.object(gate,'SIXTH_CHECKPOINT',Path(temporary.name)/'absent-sixth.json')
+        sixth.start();self.addCleanup(sixth.stop)
 
-    def scenario(self,directory,*,slow=False,empty=False,fourth=False,fifth=False):
+    def scenario(self,directory,*,slow=False,empty=False,fourth=False,fifth=False,sixth=False):
         clock=Clock();page=TimedPage(directory,clock);page.candidate['starting_bid']=150
         w=gate.Window(Path(directory)/'gate.json',clock=lambda:int(clock.monotonic()*1e9),
-                      authorization=gate.fifth_authorization() if fifth else gate.fourth_authorization() if fourth else gate.third_authorization(),
-                      attempt_id=gate.FIFTH_ATTEMPT if fifth else gate.FOURTH_ATTEMPT if fourth else gate.THIRD_ATTEMPT)
+                      authorization=gate.sixth_authorization() if sixth else gate.fifth_authorization() if fifth else gate.fourth_authorization() if fourth else gate.third_authorization(),
+                      attempt_id=gate.SIXTH_ATTEMPT if sixth else gate.FIFTH_ATTEMPT if fifth else gate.FOURTH_ATTEMPT if fourth else gate.THIRD_ATTEMPT)
         recorder=gate.ReadOnlyGateExecutor(w)
         recorder.attach,recorder.ownership_epoch=page.attach,page.ownership_epoch
         def deliver(c):
@@ -46,7 +48,7 @@ class ThirdAttempt(unittest.TestCase):
                 w.state.update(health_before=dict(service='fc-production-v1',attached=True,mutations_enabled=False),
                     context=CONTEXT,fences=deepcopy(f.adapter.fences),desktop=dict(official_tab=True,foreground_verified=True,edge_control_verified=True))
                 try:
-                    if fourth or fifth:
+                    if fourth or fifth or sixth:
                         w.state['stage']='AUTHENTICATION'
                         auth=f.read('balance');w.state['authenticated_read_id']=auth['command_id']
                     discovery,candidate=third.discover(f,w)
@@ -56,6 +58,18 @@ class ThirdAttempt(unittest.TestCase):
                 except Exception as e:w.stop(str(e))
                 return deepcopy(w.state),page.bid_calls
             finally:f.close();page.close()
+
+    def test_sixth_uses_separate_consumed_slot_and_preserves_prior_failure_chain(self):
+        with patch.object(gate,'FOURTH_CHECKPOINT',gate.OUT/'attempts'/gate.FOURTH_ATTEMPT/'gate.json'),\
+             patch.object(gate,'FIFTH_CHECKPOINT',gate.OUT/'attempts'/gate.FIFTH_ATTEMPT/'gate.json'):
+            for slow in (False,True):
+                with self.subTest(slow=slow),tempfile.TemporaryDirectory() as d:
+                    s,bids=self.scenario(d,sixth=True,slow=slow)
+                    self.assertEqual(s['attempt'],6);self.assertEqual(bids,0)
+                    self.assertEqual(s['status'],'FAILURE/BLOCKED' if slow else 'PASS',s.get('reason'))
+                    self.assertEqual(s['execution_budget']['ea_GETs'],16)
+                    if not slow:self.assertEqual(gate.require_pass(Path(d)/'gate.json')['pricing_GETs'],2)
+                    with self.assertRaises(FileExistsError):gate.Window(Path(d)/'gate.json')
 
     def test_fifth_single_authorized_gate_real_foundation_and_failure_stop(self):
         with patch.object(gate,'FOURTH_CHECKPOINT',gate.OUT/'attempts'/gate.FOURTH_ATTEMPT/'gate.json'):

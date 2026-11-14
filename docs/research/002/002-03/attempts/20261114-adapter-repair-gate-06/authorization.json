@@ -1,0 +1,52 @@
+{
+  "attempt_id": "20261114-adapter-repair-gate-06",
+  "authorization": {
+    "authority": "explicit_user_take_over_backup_investigate_fix_read_only_E2E_then_recheck",
+    "additional_attempts": 1,
+    "previous": {
+      "authority": "explicit_user_ok_run_one_instrumented_performance_gate",
+      "additional_attempts": 1,
+      "previous": {
+        "authority": "explicit_user_try_again_after_normal_login_recovery",
+        "additional_attempts": 1,
+        "previous": {
+          "authority": "explicit_user_third_attempt_with_bounded_cross_version_discovery",
+          "additional_attempts": 1,
+          "original": {
+            "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+            "previous_checkpoint": "docs/research/002/002-03/gate.json",
+            "previous_status": "FAILURE/BLOCKED",
+            "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+            "additional_attempts": 1
+          },
+          "second_checkpoint": "docs/research/002/002-03/attempts/20261114-preflight-remediation-01/gate.json",
+          "second_capture_sha256": "d37aff90db19e382d394798be9cf0f08afea256614e7771d488a8c6a3c69050d"
+        },
+        "third_checkpoint": "docs/research/002/002-03/attempts/20261114-bounded-discovery-03/gate.json",
+        "third_capture_sha256": "5a4fec9e3b991f13f15d7574d69b5222ce64da4958e50a53c60ecda596f7e718"
+      },
+      "fourth_checkpoint": "docs/research/002/002-03/attempts/20261114-authenticated-retry-04/gate.json",
+      "fourth_capture_sha256": "f9db94cfc5a6b990f26a62e5f9b886268a9faea68a45838469cf328cb377b1cd",
+      "diagnostic_checkpoint": "docs/research/002/002-03/adapter-diagnosis/20261114-01/checkpoint.json",
+      "diagnostic_capture_sha256": "2607d74d1af3255585063a3e7b19d41c10b5abb660d2f6f9cd90548262b43721"
+    },
+    "fifth_checkpoint": "docs/research/002/002-03/attempts/20261114-instrumented-gate-05/gate.json",
+    "fifth_capture_sha256": "59cbd9bb7420c941cd66c3f83cfc66f9a0886f2c606f4dcd3f72e573342a8d89"
+  },
+  "mode": "LIVE_READ_ONLY",
+  "authority_text": "User authorized backup, investigation, fix, end-to-end test, report commit/push and orchestrator recheck; no actor work here.",
+  "budget": {
+    "attempts": 1,
+    "authentication_commands": 1,
+    "discovery_commands": 3,
+    "discovery_seconds": 180,
+    "timed_native_GET_commands": 6,
+    "pricing_GETs": 2,
+    "maximum_metadata_GETs": 6,
+    "total_EA_GETs": 16,
+    "local_helper_batches": 64,
+    "account_mutations": 0
+  },
+  "preserves_five_failed_checkpoints": true,
+  "metadata_contract_probe_is_not_valuation": true
+}

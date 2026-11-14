@@ -1,0 +1,33 @@
+{
+  "mode": "PASSIVE_FINAL_HANDOFF_VALIDATION",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "tests/validate_adapter_repair.py"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"repair_probe_EA_GETs\": 5, \"metadata_fanout\": \"LIVE_VERIFIED\", \"gate\": {\"status\": \"PASS\", \"elapsed_seconds\": 12.0698056, \"pricing_GETs\": 2, \"definition_id\": 278046, \"decision\": \"BID/ELIGIBLE\", \"bid_dispatches\": 0}}\r\n"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_gate.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "output": "{\"checkpoint\": \"docs\\\\research\\\\002\\\\002-03\\\\attempts\\\\20261114-adapter-repair-gate-06\\\\gate.json\", \"status\": \"PASS\", \"elapsed_seconds\": 12.0698056, \"pricing_GETs\": 2, \"definition_id\": 278046, \"decision\": \"BID/ELIGIBLE\", \"bid_dispatches\": 0}\r\n"
+    },
+    {
+      "command": [
+        "python",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"attempt\": 6, \"outcome\": \"PASS\", \"dependent_tasks_allowed\": true, \"rerun_rejected\": true}\r\n"
+    }
+  ]
+}

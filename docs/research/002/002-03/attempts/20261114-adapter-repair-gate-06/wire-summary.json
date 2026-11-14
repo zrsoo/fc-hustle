@@ -1,0 +1,138 @@
+[
+  {
+    "command_id": "23bc5df06af958051c68c0146c83811a",
+    "stage": "AUTHENTICATION",
+    "operation": "balance",
+    "method": "GET",
+    "path": "/ut/game/fc27/user/credits",
+    "query": {},
+    "status": 200,
+    "session_header_present": true,
+    "auctions": null,
+    "credits": 62127,
+    "caps": null
+  },
+  {
+    "command_id": "21e815849d3fa01cc21fe2ad621b4809",
+    "stage": "BOUNDED_DISCOVERY",
+    "operation": "search",
+    "method": "GET",
+    "path": "/ut/game/fc27/transfermarket",
+    "query": {
+      "macr": 1000,
+      "minb": 11000,
+      "num": 21,
+      "start": 0
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": 21,
+    "credits": null,
+    "caps": null
+  },
+  {
+    "command_id": "3ef7de467b91b2336105097f6cd027d8",
+    "stage": "UNCACHED_VALUATION",
+    "operation": "caps",
+    "method": "GET",
+    "path": "/ut/game/fc27/marketdata/pricelimits",
+    "query": {
+      "defId": 278046
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": null,
+    "credits": null,
+    "caps": {
+      "definition_id": 278046,
+      "maximum": 11000,
+      "minimum": 700
+    }
+  },
+  {
+    "command_id": "74e8bf60be74f25239b829afab315c4f",
+    "stage": "UNCACHED_VALUATION",
+    "operation": "search",
+    "method": "GET",
+    "path": "/ut/game/fc27/transfermarket",
+    "query": {
+      "definitionId": 278046,
+      "num": 21,
+      "start": 0
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": 21,
+    "credits": null,
+    "caps": null
+  },
+  {
+    "command_id": "8cead29a54db34edb9ae58e175a06a73",
+    "stage": "UNCACHED_VALUATION",
+    "operation": "search",
+    "method": "GET",
+    "path": "/ut/game/fc27/transfermarket",
+    "query": {
+      "definitionId": 278046,
+      "maxb": 5200,
+      "num": 21,
+      "start": 0
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": 20,
+    "credits": null,
+    "caps": null
+  },
+  {
+    "command_id": "4e18ec4cb3ce0db649f198b513f8953d",
+    "stage": "FRESH_FINAL_ADMISSION",
+    "operation": "search",
+    "method": "GET",
+    "path": "/ut/game/fc27/transfermarket",
+    "query": {
+      "definitionId": 278046,
+      "macr": 1000,
+      "minb": 11000,
+      "num": 21,
+      "start": 0
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": 18,
+    "credits": null,
+    "caps": null
+  },
+  {
+    "command_id": "95d7bdeb1927a462b777149582e69afc",
+    "stage": "FRESH_FINAL_ADMISSION",
+    "operation": "balance",
+    "method": "GET",
+    "path": "/ut/game/fc27/user/credits",
+    "query": {},
+    "status": 200,
+    "session_header_present": true,
+    "auctions": null,
+    "credits": 62127,
+    "caps": null
+  },
+  {
+    "command_id": "ac45c441b87e032932684761ad455d6d",
+    "stage": "FRESH_FINAL_ADMISSION",
+    "operation": "caps",
+    "method": "GET",
+    "path": "/ut/game/fc27/marketdata/pricelimits",
+    "query": {
+      "defId": 278046
+    },
+    "status": 200,
+    "session_header_present": true,
+    "auctions": null,
+    "credits": null,
+    "caps": {
+      "definition_id": 278046,
+      "maximum": 11000,
+      "minimum": 700
+    }
+  }
+]

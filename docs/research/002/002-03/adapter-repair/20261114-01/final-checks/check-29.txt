@@ -1,0 +1,14 @@
+{
+  "diagnostic_status": "PASS",
+  "EA_GETs": 2,
+  "broad_searches": 1,
+  "search_rows": 21,
+  "mutations": 0,
+  "pricing_GETs": 0,
+  "performance_gates": 0,
+  "prior_checkpoints_unchanged": true,
+  "prior_failure_reproduced": false,
+  "underlying_search_root_cause": "NOT_CONFIRMED",
+  "behavior_fix_executed": false,
+  "interpretation": "The instrumented production search succeeded; the earlier rejection/transport hypothesis was not reproduced."
+}

@@ -9,6 +9,7 @@ import math
 import re
 
 VERSION = 2
+METADATA_PATH = '/ut/game/fc27/attributes/metadata'
 ROUTES = {
     'search': ('GET', '/ut/game/fc27/transfermarket'),
     'watched': ('GET', '/ut/game/fc27/watchlist'),
@@ -273,22 +274,31 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
         raise ValueError('invalid_network')
     for n in net:
         fields(n, {'host', 'method', 'path', 'query', 'status', 'session_header_present'})
-        if not isinstance(n['host'], str) or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com', n['host']) or (n['method'], n['path']) != ROUTES[op]:
+        if not isinstance(n['host'], str) or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com', n['host']) or \
+                n['method'] not in {'GET', 'PUT', 'OTHER'} or n['path'] not in {p for _, p in ROUTES.values()} | {METADATA_PATH, '/unexpected'}:
             raise ValueError('wrong_native_route')
-        if type(n['status']) is not int or not 100 <= n['status'] <= 599 or type(n['session_header_present']) is not bool:
+        if (n['status'] is not None and (type(n['status']) is not int or not 100 <= n['status'] <= 599)) or type(n['session_header_present']) is not bool:
             raise ValueError('invalid_network_status')
-        allowed = {'trade_id'} if op == 'status' else {'start', 'num', 'definitionId', 'defId', 'macr', 'minb', 'maxb'}
+        allowed = {'start', 'num', 'definitionId', 'defId', 'macr', 'minb', 'maxb', 'trade_id', 'defIds'}
         if type(n['query']) is not dict or set(n['query']) - allowed:
             raise ValueError('invalid_query')
         for k, x in n['query'].items():
-            token(x, 'trade') if k == 'trade_id' else integer(x)
+            if k == 'trade_id':token(x, 'trade')
+            elif k == 'defIds':
+                if type(x) is not list or not 1 <= len(x) <= 21:raise ValueError('invalid_query')
+                for definition in x:integer(definition, 1)
+            else:integer(x)
     f = fields(v['freshness'], {'observed_at', 'network_at', 'request_count', 'read_id', 'source'})
     observed = stamp(f['observed_at'])
     network_at = stamp(f['network_at']) if f['network_at'] is not None else None
     integer(f['request_count'])
     if f['read_id'] != c['id'] or f['source'] != source or source not in {'native', 'fixture'} or f['request_count'] != len(net):
         raise ValueError('invalid_request_source')
-    authenticated = len(net) == 1 and net[0]['session_header_present'] and 200 <= net[0]['status'] < 300
+    target = [n for n in net if (n['method'], n['path']) == ROUTES[op]]
+    auxiliary = [n for n in net if op == 'search' and (n['method'], n['path']) == ('GET', METADATA_PATH)]
+    supported = len(target) == 1 and len(auxiliary) <= 1 and len(target)+len(auxiliary) == len(net)
+    authenticated = supported and all(n['session_header_present'] and type(n['status']) is int and
+        200 <= n['status'] < 300 and n['host'] == target[0]['host'] for n in net)
     if network_at is not None and (not authenticated or network_at > observed):
         raise ValueError('unsupported_freshness')
     fields(v['coverage'], {'complete', 'has_more'})
@@ -296,10 +306,11 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
         raise ValueError('unsupported_coverage')
     timing(v['timing'])
     if r['success']:
+        if not supported:raise ValueError('wrong_native_route')
         current = now or datetime.now(timezone.utc)
         if not authenticated or network_at is None or not 0 <= (current-network_at).total_seconds() <= max_age or not 0 <= (observed-network_at).total_seconds() <= max_age:
             raise ValueError('stale_or_unauthenticated_source')
-        if r['status'] != net[0]['status']:
+        if r['status'] != target[0]['status']:
             raise ValueError('native_status_mismatch')
         expected = {'search': 'auctions', 'watched': 'auctions', 'transfer_list': 'auctions',
                     'unassigned': 'items', 'balance': 'credits', 'caps': 'caps', 'status': 'auctions'}.get(op)
@@ -309,7 +320,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
         if op in {'search', 'watched', 'unassigned', 'transfer_list'} and not r['cache_invalidated']:
             raise ValueError('cache_only_source')
         if op == 'search':
-            q, p = net[0]['query'], c['params']
+            q, p = target[0]['query'], c['params']
             expected_query = {'start': 0, 'num': 21}
             for k, wire in [('max_bid', 'macr'), ('min_buy', 'minb'), ('max_buy', 'maxb')]:
                 if k in p:
@@ -320,11 +331,15 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
                 expected_query['definitionId' if 'definitionId' in q else 'defId'] = p['definition_id']
             if q != expected_query:
                 raise ValueError('wire_criteria_mismatch')
-        if op == 'caps' and net[0]['query'] != {'defId': c['params']['definition_id']}:
+            definitions = {a['item']['definition_id'] for a in r['auctions'] if type(a) is dict and
+                type(a.get('item')) is dict and type(a['item'].get('definition_id')) is int}
+            if any(set(n['query']) != {'defIds'} or not set(n['query']['defIds']) <= definitions for n in auxiliary):
+                raise ValueError('wire_metadata_identity_mismatch')
+        if op == 'caps' and target[0]['query'] != {'defId': c['params']['definition_id']}:
             raise ValueError('wire_caps_identity_mismatch')
-        if op in {'watched', 'unassigned', 'transfer_list', 'balance'} and net[0]['query'] != {}:
+        if op in {'watched', 'unassigned', 'transfer_list', 'balance'} and target[0]['query'] != {}:
             raise ValueError('unexpected_read_query')
-        if op == 'status' and net[0]['query'] != {'trade_id': c['params']['trade_id']}:
+        if op == 'status' and target[0]['query'] != {'trade_id': c['params']['trade_id']}:
             raise ValueError('wire_status_identity_mismatch')
     if pricing_rows and r['auctions'] is not None:
         # Preserve cardinality/exclusion evidence without retaining unknown keys,

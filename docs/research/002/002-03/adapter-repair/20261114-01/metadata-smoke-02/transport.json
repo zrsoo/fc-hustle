@@ -1,0 +1,794 @@
+[
+  {
+    "command": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "31982d8fd9ccf96f702b8ed1d03b20ff",
+        "epoch": 33,
+        "host_epoch": "54b2a2466c035173f0b23fc2506b7818",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "0530263342abf58b52fb41d82bd7dd33"
+      },
+      "id": "a5708468800fbc87849c8117243d04df",
+      "operation": "balance",
+      "params": {},
+      "schema": 2
+    },
+    "state": "ACKNOWLEDGED",
+    "result": {
+      "command_id": "a5708468800fbc87849c8117243d04df",
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "coverage": {
+        "complete": false,
+        "has_more": null
+      },
+      "fences": {
+        "document": "31982d8fd9ccf96f702b8ed1d03b20ff",
+        "epoch": 33,
+        "host_epoch": "54b2a2466c035173f0b23fc2506b7818",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "0530263342abf58b52fb41d82bd7dd33"
+      },
+      "freshness": {
+        "network_at": "2026-11-14T02:38:34.871Z",
+        "observed_at": "2026-11-14T02:38:34.942Z",
+        "read_id": "a5708468800fbc87849c8117243d04df",
+        "request_count": 1,
+        "source": "native"
+      },
+      "operation": "balance",
+      "result": {
+        "auctions": null,
+        "cache_invalidated": false,
+        "caps": null,
+        "credits": 62127,
+        "error": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "method": "GET",
+            "path": "/ut/game/fc27/user/credits",
+            "query": {},
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "status": 200,
+        "success": true
+      },
+      "schema": 2,
+      "timing": {
+        "ea_rtt_ms": 68.40000000596046,
+        "native_helper_ms": 0,
+        "native_service_ms": 70.80000001192093
+      }
+    },
+    "events": [
+      {
+        "sequence": 62,
+        "event": "RESERVED"
+      },
+      {
+        "sequence": 63,
+        "event": "DELIVERED"
+      },
+      {
+        "sequence": 64,
+        "event": {
+          "at": "2026-11-14T02:38:34.868515+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:34.867Z",
+              "detail": {},
+              "stage": "WORKER_EXECUTE"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 65,
+        "event": {
+          "at": "2026-11-14T02:38:34.945545+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:34.943Z",
+              "detail": {},
+              "stage": "WORKER_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 66,
+        "event": {
+          "at": "2026-11-14T02:38:34.952035+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:34.871Z",
+              "detail": {},
+              "stage": "PAGE_ENTER"
+            },
+            {
+              "at": "2026-11-14T02:38:34.871Z",
+              "detail": {},
+              "stage": "NATIVE_INVOKE"
+            },
+            {
+              "at": "2026-11-14T02:38:34.940Z",
+              "detail": {
+                "request_count": 1,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:38:34.941Z",
+              "detail": {
+                "status": 200,
+                "success": true
+              },
+              "stage": "NATIVE_CALLBACK"
+            },
+            {
+              "at": "2026-11-14T02:38:34.942Z",
+              "detail": {
+                "data_type": "object"
+              },
+              "stage": "NATIVE_DATA"
+            },
+            {
+              "at": "2026-11-14T02:38:34.942Z",
+              "detail": {
+                "request_count": 1,
+                "success": true
+              },
+              "stage": "PAGE_FINISHED"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 67,
+        "event": {
+          "at": "2026-11-14T02:38:34.955740+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:34.954Z",
+              "detail": {},
+              "stage": "WORKER_POST_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 68,
+        "event": "ACKNOWLEDGED"
+      },
+      {
+        "sequence": 69,
+        "event": {
+          "at": "2026-11-14T02:38:34.964323+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:34.962Z",
+              "detail": {},
+              "stage": "WORKER_ACK"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "command": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "31982d8fd9ccf96f702b8ed1d03b20ff",
+        "epoch": 33,
+        "host_epoch": "54b2a2466c035173f0b23fc2506b7818",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "0530263342abf58b52fb41d82bd7dd33"
+      },
+      "id": "74855bd19407dc6209fc9d5c6fa14c0f",
+      "operation": "search",
+      "params": {
+        "count": 21,
+        "definition_id": 50573369,
+        "fresh": true,
+        "page": 1,
+        "purpose": "pricing"
+      },
+      "schema": 2
+    },
+    "state": "ACKNOWLEDGED",
+    "result": {
+      "command_id": "74855bd19407dc6209fc9d5c6fa14c0f",
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "coverage": {
+        "complete": false,
+        "has_more": null
+      },
+      "fences": {
+        "document": "31982d8fd9ccf96f702b8ed1d03b20ff",
+        "epoch": 33,
+        "host_epoch": "54b2a2466c035173f0b23fc2506b7818",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "0530263342abf58b52fb41d82bd7dd33"
+      },
+      "freshness": {
+        "network_at": "2026-11-14T02:38:36.899Z",
+        "observed_at": "2026-11-14T02:38:37.185Z",
+        "read_id": "74855bd19407dc6209fc9d5c6fa14c0f",
+        "request_count": 2,
+        "source": "native"
+      },
+      "operation": "search",
+      "result": {
+        "auctions": [
+          {
+            "bid_state": "none",
+            "buy_now_price": 3900,
+            "current_bid": 0,
+            "expires": 72,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:558acad9c352c925e6f8cd08",
+              "last_sale_price": 0,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 3800,
+            "trade_id": "trade:e364a9f17f45704446f727c7",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 2900,
+            "current_bid": 0,
+            "expires": 100,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:57180717747de555083ce466",
+              "last_sale_price": 2300,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 2800,
+            "trade_id": "trade:1fa1461de54001e94fd2f01f",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 1600,
+            "current_bid": 0,
+            "expires": 164,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:070112cf34d6def3ae001033",
+              "last_sale_price": 1400,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 1500,
+            "trade_id": "trade:6b37344ea24b6cd37ab58019",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 3200,
+            "current_bid": 0,
+            "expires": 192,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:4be5fc94ef0ff627ac4da70b",
+              "last_sale_price": 2500,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 3100,
+            "trade_id": "trade:24878017a734579f5045121b",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 2700,
+            "current_bid": 0,
+            "expires": 344,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:4261c2051e238a1878cfdd3c",
+              "last_sale_price": 2000,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 2600,
+            "trade_id": "trade:ff591c466b3b9d7d8dbc1380",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 5300,
+            "current_bid": 0,
+            "expires": 347,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:bab553d90e91b085ab68c174",
+              "last_sale_price": 5000,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 5200,
+            "trade_id": "trade:b1e01cb944caab1b3aed4fe1",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 4700,
+            "current_bid": 0,
+            "expires": 349,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:39eb0d5c619ed9149d58a2e7",
+              "last_sale_price": 4400,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 4600,
+            "trade_id": "trade:60b09cda1f747d4328c7cc9a",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 1400,
+            "current_bid": 0,
+            "expires": 353,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:5f89040b358eaeeece84fa44",
+              "last_sale_price": 1000,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 1300,
+            "trade_id": "trade:b24b28d48d4818a0d61f73c4",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6200,
+            "current_bid": 0,
+            "expires": 375,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:898c9ebb2fb32536dde04d3a",
+              "last_sale_price": 5800,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6100,
+            "trade_id": "trade:5ab8f31e1896db654aa4fb30",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 3800,
+            "current_bid": 0,
+            "expires": 400,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:54c795e84c341ec8f465c184",
+              "last_sale_price": 3500,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 3700,
+            "trade_id": "trade:3738a33f04c5ec84fd70373e",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 1400,
+            "current_bid": 0,
+            "expires": 418,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:dc738990b0aba306ab9c56cc",
+              "last_sale_price": 950,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 1300,
+            "trade_id": "trade:ae8b35d37ee9f171264e1eb6",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6200,
+            "current_bid": 0,
+            "expires": 441,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:bd5fb6a357a08d4c04dd1a00",
+              "last_sale_price": 5800,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6100,
+            "trade_id": "trade:40f8056eff12c4fb74602a12",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 5500,
+            "current_bid": 0,
+            "expires": 463,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:6140f8053802d422f289aa44",
+              "last_sale_price": 5100,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 5400,
+            "trade_id": "trade:47e498608c6bc8772d2e057d",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6200,
+            "current_bid": 0,
+            "expires": 464,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:c81c658c4bc2b68c24edfa70",
+              "last_sale_price": 5800,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6100,
+            "trade_id": "trade:c602eb508dc69675b4dfe9b5",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 4600,
+            "current_bid": 0,
+            "expires": 493,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:58d06e8e49e870bfd0acbd48",
+              "last_sale_price": 0,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 4500,
+            "trade_id": "trade:103f46e3fd6e062d5d85d263",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 4500,
+            "current_bid": 0,
+            "expires": 516,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:cdd0bbbbc8af7e25790e7af5",
+              "last_sale_price": 4200,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 4400,
+            "trade_id": "trade:0913679f35269319c2cf35ce",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 4700,
+            "current_bid": 0,
+            "expires": 525,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:50d725742d16e0a182a568a1",
+              "last_sale_price": 4400,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 4600,
+            "trade_id": "trade:e6b1335819f670378e931f30",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6200,
+            "current_bid": 0,
+            "expires": 528,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:4af8daf98fe9239a64f97be6",
+              "last_sale_price": 5800,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6100,
+            "trade_id": "trade:0255388dcbef2b1595a21382",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 4600,
+            "current_bid": 0,
+            "expires": 538,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:1a19690069d3a5f0021cb7b3",
+              "last_sale_price": 0,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 1800,
+            "trade_id": "trade:44a9c8f53555f1ffe9da1695",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6700,
+            "current_bid": 0,
+            "expires": 615,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:5e9b677a24a750b363e87861",
+              "last_sale_price": 6300,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6600,
+            "trade_id": "trade:c37c8158b70cfe28b14b5a59",
+            "trade_state": "active"
+          },
+          {
+            "bid_state": "none",
+            "buy_now_price": 6700,
+            "current_bid": 0,
+            "expires": 625,
+            "item": {
+              "definition_id": 50573369,
+              "item_id": "item:1077db9ac876e1306013705a",
+              "last_sale_price": 6300,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 6600,
+            "trade_id": "trade:720a25c7f5bf641c4ffcd8dd",
+            "trade_state": "active"
+          }
+        ],
+        "cache_invalidated": true,
+        "caps": null,
+        "credits": null,
+        "error": null,
+        "items": null,
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "method": "GET",
+            "path": "/ut/game/fc27/transfermarket",
+            "query": {
+              "definitionId": 50573369,
+              "num": 21,
+              "start": 0
+            },
+            "session_header_present": true,
+            "status": 200
+          },
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "method": "GET",
+            "path": "/ut/game/fc27/attributes/metadata",
+            "query": {
+              "defIds": [
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369,
+                50573369
+              ]
+            },
+            "session_header_present": true,
+            "status": 200
+          }
+        ],
+        "status": 200,
+        "success": true
+      },
+      "schema": 2,
+      "timing": {
+        "ea_rtt_ms": 279.39999997615814,
+        "native_helper_ms": 0,
+        "native_service_ms": 285.90000000596046
+      }
+    },
+    "events": [
+      {
+        "sequence": 70,
+        "event": "RESERVED"
+      },
+      {
+        "sequence": 71,
+        "event": "DELIVERED"
+      },
+      {
+        "sequence": 72,
+        "event": {
+          "at": "2026-11-14T02:38:36.896323+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:36.894Z",
+              "detail": {},
+              "stage": "WORKER_EXECUTE"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 73,
+        "event": {
+          "at": "2026-11-14T02:38:37.187952+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:37.186Z",
+              "detail": {},
+              "stage": "WORKER_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 74,
+        "event": {
+          "at": "2026-11-14T02:38:37.204133+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:36.899Z",
+              "detail": {},
+              "stage": "PAGE_ENTER"
+            },
+            {
+              "at": "2026-11-14T02:38:36.899Z",
+              "detail": {
+                "definition_count": 1,
+                "definition_type": "array"
+              },
+              "stage": "NATIVE_DATA"
+            },
+            {
+              "at": "2026-11-14T02:38:36.899Z",
+              "detail": {},
+              "stage": "NATIVE_INVOKE"
+            },
+            {
+              "at": "2026-11-14T02:38:37.076Z",
+              "detail": {
+                "request_count": 1,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:38:37.181Z",
+              "detail": {
+                "request_count": 2,
+                "status": 200
+              },
+              "stage": "EA_RESPONSE"
+            },
+            {
+              "at": "2026-11-14T02:38:37.182Z",
+              "detail": {
+                "status": 200,
+                "success": true
+              },
+              "stage": "NATIVE_CALLBACK"
+            },
+            {
+              "at": "2026-11-14T02:38:37.182Z",
+              "detail": {
+                "data_type": "object",
+                "row_count": 21
+              },
+              "stage": "NATIVE_DATA"
+            },
+            {
+              "at": "2026-11-14T02:38:37.185Z",
+              "detail": {
+                "request_count": 2,
+                "success": true
+              },
+              "stage": "PAGE_FINISHED"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 75,
+        "event": {
+          "at": "2026-11-14T02:38:37.208418+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:37.206Z",
+              "detail": {},
+              "stage": "WORKER_POST_RESULT"
+            }
+          ]
+        }
+      },
+      {
+        "sequence": 76,
+        "event": "ACKNOWLEDGED"
+      },
+      {
+        "sequence": 77,
+        "event": {
+          "at": "2026-11-14T02:38:37.218240+00:00",
+          "kind": "DIAGNOSTIC",
+          "records": [
+            {
+              "at": "2026-11-14T02:38:37.216Z",
+              "detail": {},
+              "stage": "WORKER_ACK"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

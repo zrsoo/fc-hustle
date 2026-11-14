@@ -1,0 +1,10 @@
+{
+  "scope": "captured_EA_responses_immutable_experiment_records_and_test_run_receipts_only_no_implementation_files",
+  "files": {
+    "authorization.json": "b392b6656bbe76ec631db06075282d4c8891570d6e439c5640e85eef973e827e",
+    "gate.json": "fe6da9b2820e9ce45c766c43d2bee650750d04696d336a93be77e0e10f82c49f",
+    "restart-readback.json": "13ca5614ce29a8fccb6c3f1da436bc0140b19457798d48577a3f7e95c139cf31",
+    "transport.json": "5a8b4a6ef3fcf964faaf4fbc9aa3186d9d5d7f435c4f8e3b13455fa36f80c8b5",
+    "wire-summary.json": "105b6dd2b6eea5b729a85d9555ed2672133091a983ea0cf64d44c57736b4d59e"
+  }
+}
