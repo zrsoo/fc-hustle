@@ -17,9 +17,9 @@ REASONS = {"SESSION_STARTED", "INTENT_DURABLE", "NATIVE_ACK", "TIMEOUT", "INVALI
            "BID_VERIFIED", "WON_VERIFIED", "LOST_VERIFIED", "HOLD", "SKIP", "PENDING", "UNKNOWN",
            "ENROLLED", "QUEUE_FULL", "DRAINING", "DRAINED", "STALE", "OVER_CAP", "INSUFFICIENT_BALANCE",
            "EXPIRED", "REBID", "OPENING", "LIFECYCLE_ERROR", "DEADLINE_SKIPPED", "NOT_DISPATCHED", "RESERVATION_RELEASED",
-           "READ_OBSERVED", "NATIVE_TIMING", "BALANCE_OBSERVED", "DELIVERY_OBSERVED"}
+           "READ_OBSERVED", "NATIVE_TIMING", "BALANCE_OBSERVED", "DELIVERY_OBSERVED", "CAPACITY_OBSERVED"}
 NUMBERS = {"amount", "cap", "target", "tax", "profit_threshold", "samples", "spendable", "held", "paid",
-           "epoch", "local_delivery_ms", "native_service_ms", "request_count", "definition_id", "expected_profit"}
+           "epoch", "local_delivery_ms", "native_service_ms", "request_count", "definition_id", "expected_profit", "occupied"}
 IDS = {"owner", "scope", "read_id", "status_read_id", "balance_read_id"}
 
 
@@ -98,6 +98,9 @@ class Journal:
         if self.db.execute("SELECT version FROM metadata").fetchall() != [(1,)]:
             self.close()
             raise ValueError("unsupported_journal_version")
+        if not readonly:
+            from .capacity import install
+            install(self)
 
     def close(self):
         self.db.close()
@@ -122,6 +125,8 @@ class Journal:
             token(command_id)
         self.db.execute("INSERT INTO events(version,at,scope,trade_id,command_id,reason,data) VALUES(1,?,?,?,?,?,?)",
                         (instant(self.now()).isoformat(), scope, trade_id, command_id, reason, json.dumps(payload(data or {}), sort_keys=True)))
+        from .capacity import apply_event
+        apply_event(self, scope, reason, data or {}, trade_id)
 
     def record(self, scope, reason, data=None, *, trade_id=None, command_id=None):
         self.record_batch(scope, [(reason, data, trade_id, command_id)])
@@ -232,7 +237,8 @@ class Journal:
             # previous amount or infer held/refunded coins from the write ACK.
             self.db.execute("UPDATE commands SET state='RECONCILED' WHERE id=?", (command_id,))
             self._event(scope, reason, {"state": status.state.value, "spendable": balance.spendable,
-                        "held": balance.held, "paid": status.paid, "read_id": status.freshness.read_id}, identity.trade_id, command_id)
+                        "held": balance.held, "paid": status.paid, "read_id": status.freshness.read_id,
+                        "item_id": identity.item_id, "definition_id": identity.definition_id}, identity.trade_id, command_id)
 
     def trace(self, *, scope=None, trade_id=None):
         clauses, args = [], []

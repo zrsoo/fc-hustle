@@ -1,0 +1,71 @@
+{
+  "task": "002-05",
+  "source": "synthetic_native_fixtures",
+  "live_requests": 0,
+  "recorded_at": "2026-11-14T06:19:54.066894+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00205_occupancy.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_c1_inactive_sentinels_count_but_duplicate_physical_items_conflict (__main__.OccupancyAcceptance.test_c0_c1_inactive_sentinels_count_but_duplicate_physical_items_conflict) ... ok\ntest_c0_c2_c3_acquirer_manual_all_states_full_and_over_cap_no_deletion (__main__.OccupancyAcceptance.test_c0_c2_c3_acquirer_manual_all_states_full_and_over_cap_no_deletion) ... ok\ntest_c0_c2_native_counts_every_physical_entry_and_separate_limit (__main__.OccupancyAcceptance.test_c0_c2_native_counts_every_physical_entry_and_separate_limit) ... ok\ntest_c1_c2_c3_operator_reports_over_cap_and_rejects_stale_restart_state (__main__.OccupancyAcceptance.test_c1_c2_c3_operator_reports_over_cap_and_rejects_stale_restart_state) ... ok\ntest_c1_c3_acquirer_pauses_reason_coded_then_requires_new_read (__main__.OccupancyAcceptance.test_c1_c3_acquirer_pauses_reason_coded_then_requires_new_read) ... ok\ntest_c1_c3_stale_and_transport_failure_pause_with_durable_evidence (__main__.OccupancyAcceptance.test_c1_c3_stale_and_transport_failure_pause_with_durable_evidence) ... ok\ntest_c1_freshness_boundary_cache_only_forged_coverage_and_correlation (__main__.OccupancyAcceptance.test_c1_freshness_boundary_cache_only_forged_coverage_and_correlation) ... ok\ntest_c1_native_incomplete_conflicting_and_unknown_reads_fail_closed (__main__.OccupancyAcceptance.test_c1_native_incomplete_conflicting_and_unknown_reads_fail_closed) ... ok\ntest_c2_c3_custom_occupied_limit_and_bidder_continues_at_over_cap (__main__.OccupancyAcceptance.test_c2_c3_custom_occupied_limit_and_bidder_continues_at_over_cap) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 2.089s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00205_artifacts.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_c2_all_states_cardinality_over_cap_and_cli_policy (__main__.Artifacts.test_c0_c2_all_states_cardinality_over_cap_and_cli_policy) ... ok\ntest_c1_c3_negative_artifacts_fail_closed_and_keep_reason (__main__.Artifacts.test_c1_c3_negative_artifacts_fail_closed_and_keep_reason) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.176s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00204_actors.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_defaults_configuration_cli_import_and_no_implicit_work (__main__.Acceptance.test_c0_defaults_configuration_cli_import_and_no_implicit_work) ... ok\ntest_c1_c6_real_independent_actor_processes_share_one_executor (__main__.Acceptance.test_c1_c6_real_independent_actor_processes_share_one_executor) ... ok\ntest_c1_priority_yield_between_commands_and_deadline_pacing (__main__.Acceptance.test_c1_priority_yield_between_commands_and_deadline_pacing) ... ok\ntest_c2_discovery_actual_wire_filters_pagination_and_duplicates (__main__.Acceptance.test_c2_discovery_actual_wire_filters_pagination_and_duplicates) ... ok\ntest_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now (__main__.Acceptance.test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now) ... ok\ntest_c3_independent_owned_win_proof_and_no_false_terminal (__main__.Acceptance.test_c3_independent_owned_win_proof_and_no_false_terminal) ... ok\ntest_c3_insufficient_spendable_never_assumes_escrow_refund (__main__.Acceptance.test_c3_insufficient_spendable_never_assumes_escrow_refund) ... ok\ntest_c3_leading_hold_outbid_absolute_tick_and_stored_cap (__main__.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap) ... ok\ntest_c4_intent_before_send_persistence_failure_ambiguity_and_cap_never_increases (__main__.Acceptance.test_c4_intent_before_send_persistence_failure_ambiguity_and_cap_never_increases) ... ok\ntest_c4_mailbox_journal_failure_blocks_native_dispatch (__main__.Acceptance.test_c4_mailbox_journal_failure_blocks_native_dispatch) ... ok\ntest_c4_recovered_intent_never_gets_dispatch_authority (__main__.Acceptance.test_c4_recovered_intent_never_gets_dispatch_authority) ... ok\ntest_c5_operator_views_windows_retention_and_append_only_reconstruction (__main__.Acceptance.test_c5_operator_views_windows_retention_and_append_only_reconstruction) ... ok\ntest_c6_bidder_cannot_settle_from_an_aged_watched_snapshot (__main__.Acceptance.test_c6_bidder_cannot_settle_from_an_aged_watched_snapshot) ... ok\ntest_c6_mailbox_restart_duplicate_and_unknown_do_not_redispatch (__main__.Acceptance.test_c6_mailbox_restart_duplicate_and_unknown_do_not_redispatch) ... ok\ntest_c6_native_cap_equality_and_rounding_at_boundaries (__main__.Acceptance.test_c6_native_cap_equality_and_rounding_at_boundaries) ... ok\ntest_c6_reserve_escrow_limit_and_sticky_draining_replay (__main__.Acceptance.test_c6_reserve_escrow_limit_and_sticky_draining_replay) ... ok\ntest_c6_scheduler_no_catchup_and_restart_cadence (__main__.Acceptance.test_c6_scheduler_no_catchup_and_restart_cadence) ... ok\ntest_c6_stale_identity_epoch_and_shared_scoped_session (__main__.Acceptance.test_c6_stale_identity_epoch_and_shared_scoped_session) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 30.256s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00204_artifacts.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_defaults_artifact_and_config_override_contract (__main__.Artifacts.test_c0_defaults_artifact_and_config_override_contract) ... ok\ntest_c1_c5_reviewable_operator_interfaces_and_dependencies (__main__.Artifacts.test_c1_c5_reviewable_operator_interfaces_and_dependencies) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 2.681s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d02_contract.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_criteria_0_2_5_artifacts_and_historical_migration (__main__.ContractAcceptance.test_criteria_0_2_5_artifacts_and_historical_migration) ... ok\ntest_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation (__main__.ContractAcceptance.test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation) ... ok\ntest_criteria_1_3_search_identity_wire_and_payload_negative_cases (__main__.ContractAcceptance.test_criteria_1_3_search_identity_wire_and_payload_negative_cases) ... ok\ntest_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget (__main__.ContractAcceptance.test_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget) ... ok\ntest_criteria_1_4_response_allowlists_and_full_correlation_are_enforced (__main__.ContractAcceptance.test_criteria_1_4_response_allowlists_and_full_correlation_are_enforced) ... ok\ntest_criteria_1_6_independent_readbacks_and_namespace_boundaries (__main__.ContractAcceptance.test_criteria_1_6_independent_readbacks_and_namespace_boundaries) ... ok\ntest_criterion_4_actual_localhost_transport_pin_delivery_and_timeout (__main__.ContractAcceptance.test_criterion_4_actual_localhost_transport_pin_delivery_and_timeout) ... ok\ntest_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged (__main__.ContractAcceptance.test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 3.787s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d05_inventory.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_c1_actual_native_projection_parses_and_adapter_preserves_all_rows (__main__.InventoryAcceptance.test_c0_c1_actual_native_projection_parses_and_adapter_preserves_all_rows) ... ok\ntest_c0_c1_reject_forged_cache_only_routes_auth_source_status_and_freshness (__main__.InventoryAcceptance.test_c0_c1_reject_forged_cache_only_routes_auth_source_status_and_freshness) ... ok\ntest_c0_c3_c5_c6_report_paths_budget_dependencies_and_evidence_manifest (__main__.InventoryAcceptance.test_c0_c3_c5_c6_report_paths_budget_dependencies_and_evidence_manifest) ... ok\ntest_c2_c3_lite_zero_and_omitted_preserve_retained_identity_and_true_mismatch_fails (__main__.InventoryAcceptance.test_c2_c3_lite_zero_and_omitted_preserve_retained_identity_and_true_mismatch_fails) ... ok\ntest_c2_missing_unknown_and_closed_highest_pending_even_native_won (__main__.InventoryAcceptance.test_c2_missing_unknown_and_closed_highest_pending_even_native_won) ... ok\ntest_c3_c4_c5_actual_live_windows_routes_status_source_and_exact_counts (__main__.InventoryAcceptance.test_c3_c4_c5_actual_live_windows_routes_status_source_and_exact_counts) ... ok\ntest_c4_c6_own_control_separate_gates_sealed_history_and_no_replay (__main__.InventoryAcceptance.test_c4_c6_own_control_separate_gates_sealed_history_and_no_replay) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.882s\n\nOK\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d06_foundation.py"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "test_c0_c4_bid_expires_while_paced_and_is_never_delivered (__main__.Acceptance.test_c0_c4_bid_expires_while_paced_and_is_never_delivered) ... ok\ntest_c0_c4_priority_deadlines_cadence_and_distinct_metrics (__main__.Acceptance.test_c0_c4_priority_deadlines_cadence_and_distinct_metrics) ... ok\ntest_c0_c5_migration_records_provenance_and_supported_versions (__main__.Acceptance.test_c0_c5_migration_records_provenance_and_supported_versions) ... ok\ntest_c0_c6_documented_exact_paths_and_no_actor_processes (__main__.Acceptance.test_c0_c6_documented_exact_paths_and_no_actor_processes) ... ok\ntest_c1_c2_pending_victory_needs_proof_and_verified_loss_releases_queue (__main__.Acceptance.test_c1_c2_pending_victory_needs_proof_and_verified_loss_releases_queue) ... ok\ntest_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal (__main__.Acceptance.test_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal) ... ok\ntest_c1_c4_stale_reads_and_old_owner_cannot_admit_or_dispatch (__main__.Acceptance.test_c1_c4_stale_reads_and_old_owner_cannot_admit_or_dispatch) ... ok\ntest_c1_c5_balance_and_profitability_rejections_do_not_write (__main__.Acceptance.test_c1_c5_balance_and_profitability_rejections_do_not_write) ... ok\ntest_c1_hold_reject_unknown_are_reason_coded_and_append_only (__main__.Acceptance.test_c1_hold_reject_unknown_are_reason_coded_and_append_only) ... ok\ntest_c1_stable_full_context_ownership_and_isolation (__main__.Acceptance.test_c1_stable_full_context_ownership_and_isolation) ... ok\ntest_c2_c4_dropped_result_duplicate_intent_and_missing_readback (__main__.Acceptance.test_c2_c4_dropped_result_duplicate_intent_and_missing_readback) ... ok\ntest_c2_c4_real_process_crashes_before_and_after_claim_replay_unknown (__main__.Acceptance.test_c2_c4_real_process_crashes_before_and_after_claim_replay_unknown) ... ok\ntest_c2_c5_authority_rejects_forged_parameters_and_default_service_writes (__main__.Acceptance.test_c2_c5_authority_rejects_forged_parameters_and_default_service_writes) ... ok\ntest_c2_c5_independent_reconciliation_clears_transport_fence (__main__.Acceptance.test_c2_c5_independent_reconciliation_clears_transport_fence) ... ok\ntest_c3_c6_standalone_fixture_exits_without_network_or_background_workers (__main__.Acceptance.test_c3_c6_standalone_fixture_exits_without_network_or_background_workers) ... ok\ntest_c4_native_write_priority_and_earliest_deadline (__main__.Acceptance.test_c4_native_write_priority_and_earliest_deadline) ... ok\n\n----------------------------------------------------------------------\nRan 16 tests in 3.428s\n\nOK\n"
+    }
+  ]
+}

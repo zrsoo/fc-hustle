@@ -1,0 +1,20 @@
+{
+  "search_interval_seconds": 600,
+  "target_check_interval_seconds": 25,
+  "max_search_bid": 1000,
+  "min_search_buy_now": 11000,
+  "min_available_coins": 5000,
+  "max_enrolled_auctions": 50,
+  "max_transfer_list_occupied": 50,
+  "min_profit_coins": 500,
+  "discovery_max_pages": 3,
+  "native_interval_seconds": 2,
+  "command_timeout_seconds": 30,
+  "estimated_sale_tax_rate": 0.05,
+  "pricing_method": "two_search_minimum_valid_bin",
+  "comparable_page_size": 21,
+  "comparable_extra_searches": 1,
+  "price_cache_ttl_seconds": 86400,
+  "rebid_only_when_outbid": true,
+  "bid_smallest_legal_increment": true
+}

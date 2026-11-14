@@ -1,6 +1,6 @@
 """One adapter for all production operations; no legacy response normalization."""
 from datetime import datetime, timezone
-from .contracts import VERSION, Search, command, parse_response, correlate_readbacks
+from .contracts import VERSION, MUTATIONS, Search, command, parse_response, correlate_readbacks
 
 
 class NativeAdapter:
@@ -19,7 +19,7 @@ class NativeAdapter:
                             context=dict(self.context), fences=dict(self.fences)))
 
     def read(self, command_id, operation, params=None):
-        if operation == 'bid':
+        if operation in MUTATIONS:
             raise ValueError('read_cannot_write')
         c = self.envelope(command_id, operation, {} if params is None else params)
         v = parse_response(self.executor.execute(c), c, now=self.now(), source=self.source,

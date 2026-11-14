@@ -94,7 +94,12 @@ def check_findings(value, graph, reader=raw):
 def check_graph(graph, reader=raw):
     need(graph['artifact']=='objective-002-integration-call-graph' and graph['version']=='1.0.0', 'graph version')
     need(graph['compatibility']==dict(wire_schema=2,price_service=1,quote=1,registry=1,journal=1), 'contract version confusion')
-    need(graph['operations']=={op:dict(method=m,path=p) for op,(m,p) in ROUTES.items()}, 'route mismatch')
+    # The sealed handoff predates item-8 resale and item-9 bulk operations.
+    # Retain every historical route and check compatibility with the current
+    # adapter while allowing its separately tested additive operations.
+    historical_ops={'search','watched','balance','unassigned','transfer_list','caps','status','bid'}
+    need(set(graph['operations'])==historical_ops and graph['operations']=={
+        op:dict(method=ROUTES[op][0],path=ROUTES[op][1]) for op in historical_ops}, 'route mismatch')
     need(set(graph['local_operations'])==LOCAL_OPERATIONS, 'missing additive local contract')
     ids={n['id'] for n in graph['nodes']}
     need(len(ids)==len(graph['nodes'])==23, 'missing graph node')

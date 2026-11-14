@@ -1,0 +1,397 @@
+{
+  "schema": 1,
+  "evidence_class": "OFFLINE_IMPLEMENTATION_REGRESSION",
+  "live_requests": 0,
+  "live_actor_launches": 0,
+  "historical_windows_replayed": 0,
+  "status": "PASS",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d01_inventory.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.908,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.085,
+      "python_tests": 8
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.417,
+      "python_tests": 10
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d04_pricing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.115,
+      "python_tests": 17
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d05_inventory.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.159,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d06_foundation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.143,
+      "python_tests": 16
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d07_handoff.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.185,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00201_native_status.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.015,
+      "python_tests": 6
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00202_pricing_optimization.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.139,
+      "python_tests": 29
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_discovery.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.538,
+      "python_tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.618,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_preflight.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.306,
+      "python_tests": 9
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00204_actors.py"
+      ],
+      "exit_code": 0,
+      "seconds": 31.301,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00205_occupancy.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.371,
+      "python_tests": 9
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00206_capacity.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.651,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00207_enrollment.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.333,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00208_resale.py"
+      ],
+      "exit_code": 0,
+      "seconds": 15.044,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00209_bulk.py"
+      ],
+      "exit_code": 0,
+      "seconds": 10.516,
+      "python_tests": 20
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00210_relist.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.837,
+      "python_tests": 17
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00211_sold.py"
+      ],
+      "exit_code": 0,
+      "seconds": 7.422,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.634,
+      "python_tests": 25
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bulk_transfer_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.836,
+      "python_tests": 15
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.975,
+      "python_tests": 21
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_integration_harness.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.282,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.201,
+      "python_tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_production_diagnostics.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.786,
+      "python_tests": 10
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.023,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "node",
+        "tests/bidding_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.236,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_transfer_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.188,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/native_status_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.399,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/occupancy_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.505,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/pricing_timing_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.081,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_bulk_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.035,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_diagnostics_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.087,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_inventory_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.682,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_metadata_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.164,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.45,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_worker_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.556,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/resale_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.683,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/watched_bulk_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.262,
+      "python_tests": 0
+    }
+  ]
+}

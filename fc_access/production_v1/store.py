@@ -10,7 +10,7 @@ import secrets
 import sqlite3
 from fc_access.sqlite_timing import TimedConnection
 from datetime import datetime, timezone
-from .contracts import command, context, fields, fences, integer, parse_response, token
+from .contracts import MUTATIONS, command, context, fields, fences, integer, parse_response, token
 
 
 class Store:
@@ -71,11 +71,11 @@ class Store:
             raise ValueError('wrong_peer')
         # No HTTP flag enables writes. This hook must check a durable authorized
         # intent; the shipped read-only server never installs one.
-        if c['operation'] == 'bid' and (self.authorize_bid is None or self.authorize_bid(c) is not True):
+        if c['operation'] in MUTATIONS and (self.authorize_bid is None or self.authorize_bid(c) is not True):
             raise ValueError('mutation_requires_durable_intent')
         with self.tx():
-            if c['operation'] == 'bid' and hasattr(self.authorize_bid, 'reconciled'):
-                previous = self.db.execute("SELECT id,body FROM commands WHERE json_extract(body,'$.operation')='bid' AND state!='RECONCILED'").fetchall()
+            if c['operation'] in MUTATIONS and hasattr(self.authorize_bid, 'reconciled'):
+                previous = self.db.execute("SELECT id,body FROM commands WHERE json_extract(body,'$.operation') IN ('bid','move','list','clear_sold','relist_all') AND state!='RECONCILED'").fetchall()
                 for cid, body in previous:
                     if self.authorize_bid.reconciled(json.loads(body)):
                         self.db.execute("UPDATE commands SET state='RECONCILED' WHERE id=?", (cid,))
@@ -84,7 +84,7 @@ class Store:
                 raise ValueError('native_owner_busy')
             if self.db.execute('SELECT 1 FROM commands WHERE id=?', (c['id'],)).fetchone():
                 raise ValueError('duplicate_command')
-            if c['operation'] == 'bid' and self.db.execute("SELECT 1 FROM commands WHERE json_extract(body,'$.operation')='bid' AND state!='RECONCILED'").fetchone():
+            if c['operation'] in MUTATIONS and self.db.execute("SELECT 1 FROM commands WHERE json_extract(body,'$.operation') IN ('bid','move','list','clear_sold','relist_all') AND state!='RECONCILED'").fetchone():
                 raise ValueError('reconciliation_required')
             self.db.execute('INSERT INTO commands VALUES(?,?,?,NULL)', (c['id'], json.dumps(c, sort_keys=True), 'QUEUED'))
             self.db.execute('INSERT INTO events(command_id,event) VALUES(?,?)', (c['id'], 'RESERVED'))

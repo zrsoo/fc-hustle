@@ -6,7 +6,7 @@ const secret='CREDENTIAL-CANARY-DO-NOT-RETAIN',hex=n=>n.toString(16).padStart(32
 const ctx={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_namespace:hex(3)};
 const samples=[];
 function setup(mode='ok'){
-  let time=Date.parse('2030-01-01T00:00:00Z'),sequence=10,persona={platform:'PC',isPC:true},captured=null;
+  let time=Date.parse('2030-01-01T00:00:00Z'),sequence=10,persona={platform:'PC',isPC:true},captured=null,transferWire;
   const events=[],timers=[],calls=[];
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
   class XHR{
@@ -24,8 +24,9 @@ function setup(mode='ok'){
       if(mode==='timeout')return;
       const done=()=>{
         if(mode!=='cache'){
-          const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid'}[op];
-          const wire=(route=path,params=query,method=op==='bid'?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'?params:{...params,private:secret}));
+          const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid',move:'item',list:'auctionhouse'}[op];
+          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'?params:{...params,private:secret}));
+            if(op==='transfer_list' && transferWire!==undefined)x.responseText=JSON.stringify(transferWire);
             if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send();};
           wire();if(mode==='fanout')wire();
           if(mode.startsWith('metadata')){
@@ -49,8 +50,8 @@ function setup(mode='ok'){
     searchTransferMarket(q,page){
       captured={...q,...(q.defId===undefined?{}:{defId:Array.from(q.defId)}),page};
       if(mode==='broad')assert.equal(q.defId,undefined);else assert.deepEqual(Array.from(q.defId),[7654321]);
-      assert.equal(q.count,21);assert.equal(page,1);assert.equal(q.type,'player');
-      const wire={start:0,num:21};if(q.defId!==undefined)wire.definitionId=q.defId[0];
+      assert.equal(q.count,21);assert.equal(page,mode==='pagination'?2:1);assert.equal(q.type,'player');
+      const wire={start:(page-1)*21,num:21};if(q.defId!==undefined)wire.definitionId=q.defId[0];
       if(q.maxBid!==undefined)wire.macr=q.maxBid;if(q.minBuy!==undefined)wire.minb=q.minBuy;
       if(q.maxBuy!==undefined)wire[mode==='wrongMaxBuy'?'macr':'maxb']=q.maxBuy;
       // Native maxBuy is inclusive: include the equality row in the response.
@@ -86,7 +87,7 @@ function setup(mode='ok'){
     for(const [k,n]of [['open','open'],['header','setRequestHeader'],['send','send']])assert.equal(XHR.prototype[n],originals[k]);
     return r;
   }
-  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
+  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,setTransferWire:v=>{transferWire=v;},get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
 }
 const pricing={purpose:'pricing',definition_id:7654321,page:1,count:21,fresh:true};
 const discovery={...pricing,purpose:'discovery',max_bid:1000,min_buy:11000};
@@ -117,6 +118,12 @@ if(require.main===module)(async()=>{
   let r=await h.execute(bid);assert(r.result.success);samples.push({command:bid,response:r,now:h.now()});
   r=await h.execute(bid);assert(!r.result.success);assert.equal(h.calls.filter(x=>x==='bid').length,1);
   // Mismatched ownership, complete context, schema, worker/host/document epochs.
+  h=setup('pagination');
+  const paged=h.command('search',{...discovery,page:2,max_bid:1200,min_buy:10500});
+  const pagedResult=await h.execute(paged);
+  assert(pagedResult.result.success);assert.equal(pagedResult.result.network[0].query.start,21);
+  assert.equal(pagedResult.result.network[0].query.macr,1200);assert.equal(pagedResult.result.network[0].query.minb,10500);
+  samples.push({command:paged,response:pagedResult,now:h.now()});
   h=setup();const before=h.calls.length;
   for(const k of ['account','persona','game','platform','identity_namespace']){
     const c=h.command('balance');c.context[k]=k==='game'?'fc26':k==='platform'?'ps5':hex(99);
@@ -127,7 +134,7 @@ if(require.main===module)(async()=>{
     assert.equal((await h.execute(c)).result.error,'invalid_command');
   }
   for(const c of [{...h.command('balance'),schema:1},{...h.command('balance'),secret},h.command('balance',{secret}),
-    h.command('search',{...pricing,max_bid:1000}),h.command('search',{...pricing,max_buy:0}),h.command('search',{...pricing,page:2}),h.command('search',{...pricing,count:20}),h.command('search',{...discovery,min_buy:10500}),h.command('move',{}),
+    h.command('search',{...pricing,max_bid:1000}),h.command('search',{...pricing,max_buy:0}),h.command('search',{...pricing,page:2}),h.command('search',{...pricing,count:20}),h.command('search',{...discovery,min_buy:-1}),h.command('move',{}),
     {...bid,id:hex(999),operation:'toString',fences:h.fences}])assert.equal((await h.execute(c)).result.error,'invalid_command');
   assert.equal(h.calls.length,before);
   assert(!h.api.attach(ctx,{...h.fences,worker_epoch:hex(99)}));

@@ -79,6 +79,7 @@ def scenario(optimized=True):
                 pricing_queries=pricing, decision={k:decision[k] for k in ('action','reason','cap','amount')},
                 resale_price=decision['quote']['resale_price'], metrics=metrics,
                 persisted_executor_events=sum(e['kind']=='EXECUTOR_METRIC' for e in f.registry.events()),
+                network_commands=sum(c['operation']!='price_helpers' for c in page.calls),
                 bid_calls=page.bid_calls)
         finally:
             f.close(); page.close()

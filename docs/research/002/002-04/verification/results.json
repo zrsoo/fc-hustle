@@ -1,0 +1,81 @@
+{
+  "at": "2026-11-14T06:07:39.565053+00:00",
+  "source": "offline_fixture_and_retained_evidence",
+  "live_actors_started": 0,
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00204_actors.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 30.614152099995408,
+      "output": "test_00204_actors.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00204_artifacts.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.28067700000247,
+      "output": "check_00204_artifacts.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.3938519000075758,
+      "output": "test_bidding_v1.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.968252000020584,
+      "output": "test_001d02_contract.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.6315060000051744,
+      "output": "test_001d03_native_prices.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d04_pricing.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.1413011999975424,
+      "output": "test_001d04_pricing.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_001d06_foundation.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.828273499995703,
+      "output": "test_001d06_foundation.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_00203_gate.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.26847140002064407,
+      "output": "validate_00203_gate.txt"
+    }
+  ]
+}

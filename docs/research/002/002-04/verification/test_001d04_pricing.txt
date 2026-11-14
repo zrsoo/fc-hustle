@@ -1,0 +1,22 @@
+test_c0_documented_production_paths_and_legacy_coupling_removed (__main__.Acceptance.test_c0_documented_production_paths_and_legacy_coupling_removed) ... ok
+test_c1_c6_retained_unsorted_page_minimum_and_inclusive_second (__main__.Acceptance.test_c1_c6_retained_unsorted_page_minimum_and_inclusive_second) ... ok
+test_c1_c7_pricing_store_defers_exclusions_without_retaining_unsafe_rows (__main__.Acceptance.test_c1_c7_pricing_store_defers_exclusions_without_retaining_unsafe_rows) ... ok
+test_c1_defaults_invalid_expired_mismatch_duplicates_and_candidate_excluded (__main__.Acceptance.test_c1_defaults_invalid_expired_mismatch_duplicates_and_candidate_excluded) ... ok
+test_c1_per_row_age_and_card_limits_are_validity_not_outlier_filters (__main__.Acceptance.test_c1_per_row_age_and_card_limits_are_validity_not_outlier_filters) ... ok
+test_c2_c5_early_reject_is_candidate_specific_never_completed_or_reused (__main__.Acceptance.test_c2_c5_early_reject_is_candidate_specific_never_completed_or_reused) ... ok
+test_c2_current_bid_uses_next_native_absolute_minimum_and_equality_qualifies (__main__.Acceptance.test_c2_current_bid_uses_next_native_absolute_minimum_and_equality_qualifies) ... ok
+test_c3_c5_failed_ambiguous_second_never_cache_or_publish_completed_resale (__main__.Acceptance.test_c3_c5_failed_ambiguous_second_never_cache_or_publish_completed_resale) ... ok
+test_c3_c5_final_candidate_rejection_still_caches_completed_price (__main__.Acceptance.test_c3_c5_final_candidate_rejection_still_caches_completed_price) ... ok
+test_c3_second_minimum_and_duplicate_identity_handling_are_global (__main__.Acceptance.test_c3_second_minimum_and_duplicate_identity_handling_are_global) ... ok
+test_c3_successful_empty_second_preserves_first_observation_and_its_age (__main__.Acceptance.test_c3_successful_empty_second_preserves_first_observation_and_its_age) ... ok
+test_c4_tax_native_floor_X_and_last_sale_independence (__main__.Acceptance.test_c4_tax_native_floor_X_and_last_sale_independence) ... ok
+test_c5_c6_cache_zero_requests_exact_expiry_and_restart (__main__.Acceptance.test_c5_c6_cache_zero_requests_exact_expiry_and_restart) ... ok
+test_c5_c7_cached_candidate_rows_remain_separate_and_missing_independents_do_not_search (__main__.Acceptance.test_c5_c7_cached_candidate_rows_remain_separate_and_missing_independents_do_not_search) ... ok
+test_c5_cache_scope_account_version_namespace_source_and_backward_clock (__main__.Acceptance.test_c5_cache_scope_account_version_namespace_source_and_backward_clock) ... ok
+test_c7_evidence_age_coverage_counts_exclusions_and_reasons (__main__.Acceptance.test_c7_evidence_age_coverage_counts_exclusions_and_reasons) ... ok
+test_c8_real_production_adapter_searches_only_no_actor_or_dispatch (__main__.Acceptance.test_c8_real_production_adapter_searches_only_no_actor_or_dispatch) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.894s
+
+OK

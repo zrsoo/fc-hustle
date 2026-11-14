@@ -19,12 +19,19 @@ ROUTES = {
     'caps': ('GET', '/ut/game/fc27/marketdata/pricelimits'),
     'status': ('GET', '/ut/game/fc27/trade/status/lite'),
     'bid': ('PUT', '/ut/game/fc27/trade/:trade/bid'),
+    'move': ('PUT', '/ut/game/fc27/item'),
+    'list': ('POST', '/ut/game/fc27/auctionhouse'),
+    'clear_sold': ('DELETE', '/ut/game/fc27/trade/sold'),
+    'relist_all': ('PUT', '/ut/game/fc27/auctionhouse/relist'),
 }
+BULK = {'clear_sold', 'relist_all'}
+MUTATIONS = {'bid', 'move', 'list'} | BULK
 ERRORS = {'invalid_command', 'wrong_page', 'bridge_busy', 'persona_unverified',
           'service_unavailable', 'service_timeout', 'service_failed', 'schema_unrecognized',
           'unsafe_identity', 'stale_source', 'unauthenticated', 'ambiguous_network',
           'invalid_preconditions', 'internal_error', 'helpers_unavailable', 'helper_disagreement',
-          'status_source_unsupported', 'known_identity_unavailable'}  # old error retained for sealed responses
+          'status_source_unsupported', 'known_identity_unavailable',
+          'transfer_list_conflict', 'bulk_contract_changed'}  # old errors retained for sealed responses
 LOCAL_OPERATIONS = {'price_helpers', 'status_support'}
 CONTEXT = {'account', 'persona', 'game', 'platform', 'identity_namespace'}
 FENCES = {'owner', 'epoch', 'host_epoch', 'worker_epoch', 'document'}
@@ -92,7 +99,7 @@ class Search:
     def __post_init__(self):
         if self.definition_id is not None or self.purpose != 'discovery':
             integer(self.definition_id, 1)
-        if type(self.page) is not int or self.page != 1 or type(self.count) is not int or self.count != 21 or self.fresh is not True:
+        if type(self.page) is not int or not 1 <= self.page <= (10 if self.purpose == 'discovery' else 1) or type(self.count) is not int or self.count != 21 or self.fresh is not True:
             raise ValueError('invalid_search_page')
         for v in (self.max_bid, self.min_buy, self.max_buy):
             if v is not None:
@@ -100,7 +107,7 @@ class Search:
         if self.max_buy is not None:
             integer(self.max_buy, 1)
         if self.purpose == 'discovery':
-            if (self.max_bid, self.min_buy, self.max_buy) != (1000, 11000, None):
+            if self.max_bid is None or self.min_buy is None or self.max_buy is not None:
                 raise ValueError('invalid_discovery_filters')
         elif self.purpose == 'pricing':
             if self.max_bid is not None or self.min_buy is not None:
@@ -109,8 +116,8 @@ class Search:
             raise ValueError('invalid_search_purpose')
 
     @classmethod
-    def discovery(cls, definition_id=None):
-        return cls('discovery', definition_id, max_bid=1000, min_buy=11000)
+    def discovery(cls, definition_id=None, *, page=1, max_bid=1000, min_buy=11000):
+        return cls('discovery', definition_id, page=page, max_bid=max_bid, min_buy=min_buy)
 
     @classmethod
     def pricing(cls, definition_id, max_buy=None):
@@ -149,6 +156,29 @@ def command(c):
     elif op == 'status':
         fields(p, {'trade_id', 'item_id', 'definition_id'})
         token(p['trade_id'], 'trade'); token(p['item_id'], 'item'); integer(p['definition_id'], 1)
+    elif op in BULK:
+        fields(p, {'before_read_id', 'expected_item_ids', 'expected_inventory_ids',
+                   'expected_sold_count', 'expected_expired_count'})
+        token(p['before_read_id'])
+        if c['id'] == p['before_read_id']:
+            raise ValueError('independent_inventory_required')
+        for k in ('expected_item_ids', 'expected_inventory_ids'):
+            if type(p[k]) is not list or len(p[k]) > 100 or len(set(p[k])) != len(p[k]):
+                raise ValueError('invalid_bulk_membership')
+            for identity in p[k]: token(identity, 'item')
+        for k in ('expected_sold_count', 'expected_expired_count'): integer(p[k])
+        if not p['expected_item_ids'] or not set(p['expected_item_ids']) <= set(p['expected_inventory_ids']):
+            raise ValueError('invalid_bulk_membership')
+    elif op in {'move', 'list'}:
+        fields(p, {'trade_id', 'item_id', 'definition_id', 'paid', 'owned_read_id',
+                   'win_read_id', 'caps_read_id', 'starting_bid', 'buy_now_price', 'duration'})
+        token(p['trade_id'], 'trade'); token(p['item_id'], 'item')
+        for k in ('definition_id', 'paid', 'starting_bid', 'buy_now_price'):
+            integer(p[k], 1)
+        for k in ('owned_read_id', 'win_read_id', 'caps_read_id'):
+            token(p[k])
+        if type(p['duration']) is not int or p['duration'] != 3600 or p['starting_bid'] >= p['buy_now_price'] or c['id'] in {p['owned_read_id'], p['win_read_id'], p['caps_read_id']}:
+            raise ValueError('invalid_listing_preconditions')
     elif op == 'bid':
         fields(p, {'trade_id', 'item_id', 'definition_id', 'amount', 'minimum', 'cap',
                    'deadline', 'status_read_id', 'balance_read_id'})
@@ -245,7 +275,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
             identity = i['item_id']
             if key == 'auctions':
                 fields(row, AUCTION); token(row['trade_id'], 'trade')
-                identity = row['trade_id']
+                identity = i['item_id'] if op == 'transfer_list' else row['trade_id']
                 for k in ('starting_bid', 'current_bid', 'buy_now_price', 'expires'):
                     integer(row[k], -1 if k == 'expires' else 0)
                 if row['trade_state'] not in {'active', 'closed', 'expired', 'inactive', None} or row['bid_state'] not in {'none', 'highest', 'outbid', 'buyNow', 'sold', None} or row['native_is_won'] is not None and type(row['native_is_won']) is not bool:
@@ -273,10 +303,13 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     if type(net) is not list or len(net) > 30:
         raise ValueError('invalid_network')
     for n in net:
-        fields(n, {'host', 'method', 'path', 'query', 'status', 'session_header_present'})
+        fields(n, {'host', 'method', 'path', 'query', 'status', 'session_header_present'} |
+               ({'body_empty'} if op in BULK else set()))
         if not isinstance(n['host'], str) or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com', n['host']) or \
-                n['method'] not in {'GET', 'PUT', 'OTHER'} or n['path'] not in {p for _, p in ROUTES.values()} | {METADATA_PATH, '/unexpected'}:
+                n['method'] not in {'GET', 'PUT', 'POST', 'DELETE', 'OTHER'} or n['path'] not in {p for _, p in ROUTES.values()} | {METADATA_PATH, '/unexpected'}:
             raise ValueError('wrong_native_route')
+        if op in BULK and (n['body_empty'] is not True or n['query'] != {}):
+            raise ValueError('bulk_wire_contract_changed')
         if (n['status'] is not None and (type(n['status']) is not int or not 100 <= n['status'] <= 599)) or type(n['session_header_present']) is not bool:
             raise ValueError('invalid_network_status')
         allowed = {'start', 'num', 'definitionId', 'defId', 'macr', 'minb', 'maxb', 'trade_id', 'defIds'}
@@ -296,13 +329,46 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
         raise ValueError('invalid_request_source')
     target = [n for n in net if (n['method'], n['path']) == ROUTES[op]]
     auxiliary = [n for n in net if op == 'search' and (n['method'], n['path']) == ('GET', METADATA_PATH)]
-    supported = len(target) == 1 and len(auxiliary) <= 1 and len(target)+len(auxiliary) == len(net)
+    if op == 'clear_sold':
+        auxiliary = [n for n in net if (n['method'], n['path']) == ROUTES['transfer_list']]
+    supported = len(target) == 1 and len(auxiliary) <= (2 if op == 'clear_sold' else 1) and len(target)+len(auxiliary) == len(net)
     authenticated = supported and all(n['session_header_present'] and type(n['status']) is int and
         200 <= n['status'] < 300 and n['host'] == target[0]['host'] for n in net)
+    if op in BULK and r['success'] and any(n['status'] != 200 for n in net):
+        raise ValueError('bulk_wire_contract_changed')
     if network_at is not None and (not authenticated or network_at > observed):
         raise ValueError('unsupported_freshness')
-    fields(v['coverage'], {'complete', 'has_more'})
-    if v['coverage']['complete'] is not False or v['coverage']['has_more'] is not None and type(v['coverage']['has_more']) is not bool:
+    coverage = v['coverage']
+    extended = op == 'transfer_list' and type(coverage) is dict and 'transfer_list' in coverage
+    fields(coverage, ({'complete', 'has_more', 'transfer_list'} if extended else {'complete', 'has_more'}) |
+           ({'bulk'} if op == 'transfer_list' and 'bulk' in coverage else set()))
+    if 'bulk' in coverage:
+        proofs = coverage['bulk']
+        if type(proofs) is not list or len(proofs) != len(r['auctions'] or []):
+            raise ValueError('invalid_bulk_inventory')
+        for proof, row in zip(proofs, r['auctions'] or []):
+            fields(proof, {'item_id', 'trade_owner', 'sold', 'expired', 'active'})
+            if proof['item_id'] != row['item']['item_id'] or any(type(proof[k]) is not bool for k in ('trade_owner', 'sold', 'expired', 'active')):
+                raise ValueError('invalid_bulk_inventory')
+    if type(coverage['complete']) is not bool or coverage['has_more'] is not None and type(coverage['has_more']) is not bool:
+        raise ValueError('unsupported_coverage')
+    if extended:
+        proof = fields(coverage['transfer_list'], {'reason', 'wire_count', 'callback_count',
+            'repository_count', 'repository_end_of_list'})
+        if proof['reason'] not in {'TRANSFER_LIST_COMPLETE', 'TRANSFER_LIST_UNKNOWN',
+                'TRANSFER_LIST_TRUNCATED', 'TRANSFER_LIST_CONFLICT'} or type(proof['repository_end_of_list']) is not bool:
+            raise ValueError('invalid_inventory_coverage')
+        for key in ('wire_count', 'callback_count', 'repository_count'):
+            if proof[key] is not None: integer(proof[key])
+        if proof['callback_count'] != len(r['auctions'] or []):
+            raise ValueError('inventory_count_conflict')
+        if coverage['complete'] != (proof['reason'] == 'TRANSFER_LIST_COMPLETE'):
+            raise ValueError('inventory_count_conflict')
+        if coverage['complete'] and (not r['success'] or coverage['has_more'] is not False or
+                proof['repository_end_of_list'] is not True or
+                not proof['wire_count'] == proof['callback_count'] == proof['repository_count']):
+            raise ValueError('inventory_count_conflict')
+    elif coverage['complete'] is not False:
         raise ValueError('unsupported_coverage')
     timing(v['timing'])
     if r['success']:
@@ -321,7 +387,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
             raise ValueError('cache_only_source')
         if op == 'search':
             q, p = target[0]['query'], c['params']
-            expected_query = {'start': 0, 'num': 21}
+            expected_query = {'start': (p['page']-1)*21, 'num': 21}
             for k, wire in [('max_bid', 'macr'), ('min_buy', 'minb'), ('max_buy', 'maxb')]:
                 if k in p:
                     expected_query[wire] = p[k]

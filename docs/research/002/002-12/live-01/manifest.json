@@ -1,0 +1,23 @@
+{
+  "task": "002-12",
+  "state_dir": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation",
+  "journal": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation\\foundation.sqlite3",
+  "cache": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation\\completed-quotes.sqlite3",
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "output": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+  "started_at": "2026-11-14T08:10:58.363158+00:00",
+  "deadline": "2026-11-14T10:10:58.363107+00:00",
+  "bounds": {
+    "wall_seconds": 7200,
+    "native_requests": 2000,
+    "stop_threshold": 1800,
+    "reserve": 200,
+    "max_enrollments": 12
+  }
+}
