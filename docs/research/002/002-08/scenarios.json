@@ -1,0 +1,4205 @@
+{
+  "schema": 1,
+  "source": "synthetic",
+  "scenarios": {
+    "exact_listing": {
+      "source": "synthetic",
+      "real_account_writes": 0,
+      "state": "LISTED",
+      "capacity": [
+        {
+          "occupied": 0,
+          "physical_occupied": 0,
+          "unresolved": 1,
+          "pending_resale": 0,
+          "total": 1,
+          "fresh": true,
+          "read_id": "7cbe795748b57011312fb9a986b2ebc8",
+          "pending_resale_trades": []
+        },
+        {
+          "occupied": 0,
+          "physical_occupied": 0,
+          "unresolved": 0,
+          "pending_resale": 1,
+          "total": 1,
+          "fresh": true,
+          "read_id": "a43f30f1b0dd8e11828776bb4accfd67",
+          "pending_resale_trades": [
+            "trade:000000000000000000000001"
+          ]
+        },
+        {
+          "occupied": 0,
+          "physical_occupied": 1,
+          "unresolved": 0,
+          "pending_resale": 1,
+          "total": 1,
+          "fresh": true,
+          "read_id": "7b85f842469d76cfaf97f94d7470c1bc",
+          "pending_resale_trades": [
+            "trade:000000000000000000000001"
+          ]
+        },
+        {
+          "occupied": 1,
+          "physical_occupied": 1,
+          "unresolved": 0,
+          "pending_resale": 0,
+          "total": 1,
+          "fresh": true,
+          "read_id": "db47cbb162a45439fe6eeacbe93e2d6f",
+          "pending_resale_trades": []
+        },
+        {
+          "occupied": 1,
+          "physical_occupied": 1,
+          "unresolved": 0,
+          "pending_resale": 0,
+          "total": 1,
+          "fresh": true,
+          "read_id": "40ef485976e4baf1ebbe0df0c33f062a",
+          "pending_resale_trades": []
+        }
+      ],
+      "mutations": [
+        {
+          "schema": 2,
+          "id": "ee990ed9849544ddb360470657ef2aa1",
+          "operation": "move",
+          "params": {
+            "trade_id": "trade:000000000000000000000001",
+            "item_id": "item:000000000000000000000001",
+            "definition_id": 123,
+            "paid": 800,
+            "owned_read_id": "199656cc5b943dbcd53c37f37c226c07",
+            "win_read_id": "cf34f50fdb7793d1f66cafab93503682",
+            "caps_read_id": "941f61ea5340daae9d591ae56278413e",
+            "starting_bid": 11750,
+            "buy_now_price": 12000,
+            "duration": 3600
+          },
+          "context": {
+            "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "game": "fc27",
+            "platform": "pc",
+            "identity_namespace": "cccccccccccccccccccccccccccccccc"
+          },
+          "fences": {
+            "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+            "epoch": 1,
+            "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+            "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "document": "ffffffffffffffffffffffffffffffff"
+          }
+        },
+        {
+          "schema": 2,
+          "id": "462d6427d3c251ef47d6be56bd20127c",
+          "operation": "list",
+          "params": {
+            "trade_id": "trade:000000000000000000000001",
+            "item_id": "item:000000000000000000000001",
+            "definition_id": 123,
+            "paid": 800,
+            "owned_read_id": "7b85f842469d76cfaf97f94d7470c1bc",
+            "win_read_id": "e20e7e6e3164597fef50378febf9bab4",
+            "caps_read_id": "d73242ac067ac95f915d672aaf6d0648",
+            "starting_bid": 11750,
+            "buy_now_price": 12000,
+            "duration": 3600
+          },
+          "context": {
+            "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "game": "fc27",
+            "platform": "pc",
+            "identity_namespace": "cccccccccccccccccccccccccccccccc"
+          },
+          "fences": {
+            "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+            "epoch": 1,
+            "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+            "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "document": "ffffffffffffffffffffffffffffffff"
+          }
+        }
+      ],
+      "events": [
+        {
+          "seq": 24,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:05.944990+00:00",
+          "epoch": 1,
+          "identity": {
+            "definition_id": 123,
+            "game": "fc27",
+            "item_id": "item:000000000000000000000001",
+            "platform": "pc",
+            "trade_id": "trade:000000000000000000000001"
+          },
+          "kind": "ENROLLMENT",
+          "quote": {
+            "X": 500,
+            "completed": true,
+            "evidence": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "age_seconds": 0.04,
+              "cache_hit": false,
+              "candidate": {
+                "item_id": "item:000000000000000000000001",
+                "last_sale_price": 0,
+                "trade_id": "trade:000000000000000000000001"
+              },
+              "claim": "OBSERVED_MINIMUM_ONLY",
+              "comparables": [
+                {
+                  "max_buy": 12000,
+                  "network_at": "2026-11-14T07:04:05.924990+00:00",
+                  "row": {
+                    "bid_state": "none",
+                    "buy_now_price": 12000,
+                    "current_bid": 0,
+                    "expires": 300,
+                    "item": {
+                      "definition_id": 123,
+                      "item_id": "item:000000000000000000000064",
+                      "last_sale_price": 0,
+                      "untradeable": false
+                    },
+                    "native_is_won": false,
+                    "starting_bid": 150,
+                    "trade_id": "trade:000000000000000000000064",
+                    "trade_state": "active"
+                  },
+                  "validated_at": "2026-11-14T07:04:05.929990+00:00"
+                }
+              ],
+              "complete_market_coverage": false,
+              "completed": true,
+              "coverage": "TWO_FIRST_PAGE_SAMPLES_ONLY",
+              "definition_id": 123,
+              "exclusions": {
+                "duplicate": 1
+              },
+              "first_min": 12000,
+              "first_page_profit_cap": 10750,
+              "game": "fc27",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc",
+              "minimum_legal_bid": 800,
+              "observed_at": "2026-11-14T07:04:05.889990+00:00",
+              "platform": "pc",
+              "price_searches": 2,
+              "reasons": [
+                "two_successful_samples"
+              ],
+              "sample_count": 1,
+              "samples": [
+                {
+                  "age_seconds": 0.04,
+                  "combined_unique_count": 1,
+                  "coverage": {
+                    "complete": false,
+                    "has_more": false
+                  },
+                  "exclusions": {},
+                  "network_at": "2026-11-14T07:04:05.889990+00:00",
+                  "number": 1,
+                  "params": {
+                    "count": 21,
+                    "definition_id": 123,
+                    "fresh": true,
+                    "page": 1,
+                    "purpose": "pricing"
+                  },
+                  "returned_count": 1,
+                  "success": true,
+                  "valid_unique_count": 1
+                },
+                {
+                  "age_seconds": 0.005,
+                  "combined_unique_count": 1,
+                  "coverage": {
+                    "complete": false,
+                    "has_more": false
+                  },
+                  "exclusions": {},
+                  "network_at": "2026-11-14T07:04:05.924990+00:00",
+                  "number": 2,
+                  "params": {
+                    "count": 21,
+                    "definition_id": 123,
+                    "fresh": true,
+                    "max_buy": 12000,
+                    "page": 1,
+                    "purpose": "pricing"
+                  },
+                  "returned_count": 1,
+                  "success": true,
+                  "valid_unique_count": 1
+                }
+              ],
+              "schema": 1,
+              "source": "fixture"
+            },
+            "max_affordable_bid": 10750,
+            "resale_price": 12000,
+            "status": "COMPLETE",
+            "tax": 600
+          }
+        },
+        {
+          "seq": 33,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:05.974990+00:00",
+          "actor": "bidder",
+          "epoch": 1,
+          "identity": {
+            "definition_id": 123,
+            "game": "fc27",
+            "item_id": "item:000000000000000000000001",
+            "platform": "pc",
+            "trade_id": "trade:000000000000000000000001"
+          },
+          "kind": "ACTOR",
+          "owned_read_id": "0a82a339a78eae43deef067984a146e6",
+          "paid": 800,
+          "reason": "OWNED_WIN_VERIFIED",
+          "win_read_id": "e20e7e6e3164597fef50378febf9bab4"
+        },
+        {
+          "seq": 44,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.019990+00:00",
+          "command_id": "ee990ed9849544ddb360470657ef2aa1",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "params": {
+            "buy_now_price": 12000,
+            "caps_read_id": "941f61ea5340daae9d591ae56278413e",
+            "definition_id": 123,
+            "duration": 3600,
+            "item_id": "item:000000000000000000000001",
+            "owned_read_id": "199656cc5b943dbcd53c37f37c226c07",
+            "paid": 800,
+            "starting_bid": 11750,
+            "trade_id": "trade:000000000000000000000001",
+            "win_read_id": "cf34f50fdb7793d1f66cafab93503682"
+          },
+          "reason": "INTENT_DURABLE"
+        },
+        {
+          "seq": 45,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.019990+00:00",
+          "command_id": "ee990ed9849544ddb360470657ef2aa1",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "reason": "DISPATCH_CLAIM"
+        },
+        {
+          "seq": 47,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.024990+00:00",
+          "command_id": "ee990ed9849544ddb360470657ef2aa1",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "reason": "ACKNOWLEDGED"
+        },
+        {
+          "seq": 50,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.034990+00:00",
+          "command_id": "ee990ed9849544ddb360470657ef2aa1",
+          "epoch": 1,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "move",
+          "read_ids": [
+            "db47cbb162a45439fe6eeacbe93e2d6f",
+            "8c05c46dcab9b790eeef227e0b2ed166"
+          ],
+          "reason": "VERIFIED"
+        },
+        {
+          "seq": 58,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.069990+00:00",
+          "command_id": "462d6427d3c251ef47d6be56bd20127c",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "params": {
+            "buy_now_price": 12000,
+            "caps_read_id": "d73242ac067ac95f915d672aaf6d0648",
+            "definition_id": 123,
+            "duration": 3600,
+            "item_id": "item:000000000000000000000001",
+            "owned_read_id": "7b85f842469d76cfaf97f94d7470c1bc",
+            "paid": 800,
+            "starting_bid": 11750,
+            "trade_id": "trade:000000000000000000000001",
+            "win_read_id": "e20e7e6e3164597fef50378febf9bab4"
+          },
+          "reason": "INTENT_DURABLE"
+        },
+        {
+          "seq": 59,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.069990+00:00",
+          "command_id": "462d6427d3c251ef47d6be56bd20127c",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "reason": "DISPATCH_CLAIM"
+        },
+        {
+          "seq": 61,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.074990+00:00",
+          "command_id": "462d6427d3c251ef47d6be56bd20127c",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "reason": "ACKNOWLEDGED"
+        },
+        {
+          "seq": 63,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:06.079990+00:00",
+          "command_id": "462d6427d3c251ef47d6be56bd20127c",
+          "epoch": 1,
+          "kind": "RESALE",
+          "new_trade_id": "trade:ffffffffffffffffffffffff",
+          "operation": "list",
+          "read_ids": [
+            "40ef485976e4baf1ebbe0df0c33f062a"
+          ],
+          "reason": "VERIFIED"
+        }
+      ],
+      "reads": [
+        {
+          "command": {
+            "schema": 2,
+            "id": "cbd1997b036f3e8a80a76faf1d914268",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "cbd1997b036f3e8a80a76faf1d914268",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.859990+00:00",
+              "network_at": "2026-11-14T07:04:05.859990+00:00",
+              "request_count": 1,
+              "read_id": "cbd1997b036f3e8a80a76faf1d914268",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "c2c08f50ca1636af8a94de7583bb7144",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": []
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "c2c08f50ca1636af8a94de7583bb7144",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.869990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "c2c08f50ca1636af8a94de7583bb7144",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "0c4bc1c3a3e9155df257f3c451afc190",
+            "operation": "caps",
+            "params": {
+              "definition_id": 123
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "0c4bc1c3a3e9155df257f3c451afc190",
+            "operation": "caps",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": null,
+              "caps": {
+                "definition_id": 123,
+                "minimum": 150,
+                "maximum": 50000
+              },
+              "cache_invalidated": false,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/marketdata/pricelimits",
+                  "query": {
+                    "defId": 123
+                  },
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.874990+00:00",
+              "network_at": "2026-11-14T07:04:05.874990+00:00",
+              "request_count": 1,
+              "read_id": "0c4bc1c3a3e9155df257f3c451afc190",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "94f09c5701d6743099186646f7e3c4ac",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 800
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "94f09c5701d6743099186646f7e3c4ac",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 800,
+                  "price": 750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.879990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "94f09c5701d6743099186646f7e3c4ac",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "2cc9593ec365788bcf25e182c27dc619",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "2cc9593ec365788bcf25e182c27dc619",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 750,
+                  "price": 800
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.884990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "2cc9593ec365788bcf25e182c27dc619",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "556dc18a3ec407da53fe1500c7f076b1",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "556dc18a3ec407da53fe1500c7f076b1",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.894990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "556dc18a3ec407da53fe1500c7f076b1",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "9da30b67fdcffa70dd5af08d5196f8ed",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "9da30b67fdcffa70dd5af08d5196f8ed",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750,
+                  "price": 12000
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.899990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "9da30b67fdcffa70dd5af08d5196f8ed",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "d441700d865b7ea5c9c795ddbe215911",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 10900
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "d441700d865b7ea5c9c795ddbe215911",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 10900,
+                  "price": 10750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.904990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "d441700d865b7ea5c9c795ddbe215911",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "d4a67bff954ef47792aef4144d82f0a1",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 10750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "d4a67bff954ef47792aef4144d82f0a1",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 10750,
+                  "price": 10500
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.909990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "d4a67bff954ef47792aef4144d82f0a1",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "72484ff06da359d780b87b855e37fb07",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 10500
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "72484ff06da359d780b87b855e37fb07",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 10500,
+                  "price": 10750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.914990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "72484ff06da359d780b87b855e37fb07",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "0230637f61b264426353ab6df16b18ae",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 10750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "0230637f61b264426353ab6df16b18ae",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 10750,
+                  "price": 11000
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.919990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "0230637f61b264426353ab6df16b18ae",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "7cbe795748b57011312fb9a986b2ebc8",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "7cbe795748b57011312fb9a986b2ebc8",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.939990+00:00",
+              "network_at": "2026-11-14T07:04:05.939990+00:00",
+              "request_count": 1,
+              "read_id": "7cbe795748b57011312fb9a986b2ebc8",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "f350f7a25e25e42d982c7613fe4561a5",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "f350f7a25e25e42d982c7613fe4561a5",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750,
+                  "price": 11500
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.944990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "f350f7a25e25e42d982c7613fe4561a5",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "e4918639be375890209ef36f94c73df6",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "e4918639be375890209ef36f94c73df6",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.949990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "e4918639be375890209ef36f94c73df6",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "e20e7e6e3164597fef50378febf9bab4",
+            "operation": "watched",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "e20e7e6e3164597fef50378febf9bab4",
+            "operation": "watched",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000001",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 0
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 800,
+                  "buy_now_price": 15000,
+                  "expires": 0,
+                  "trade_state": "closed",
+                  "bid_state": "highest",
+                  "native_is_won": true
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/watchlist",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.959990+00:00",
+              "network_at": "2026-11-14T07:04:05.959990+00:00",
+              "request_count": 1,
+              "read_id": "e20e7e6e3164597fef50378febf9bab4",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "0a82a339a78eae43deef067984a146e6",
+            "operation": "unassigned",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "0a82a339a78eae43deef067984a146e6",
+            "operation": "unassigned",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": [
+                {
+                  "item_id": "item:000000000000000000000001",
+                  "definition_id": 123,
+                  "untradeable": false,
+                  "last_sale_price": 800
+                }
+              ],
+              "auctions": null,
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/purchased/items",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.969990+00:00",
+              "network_at": "2026-11-14T07:04:05.969990+00:00",
+              "request_count": 1,
+              "read_id": "0a82a339a78eae43deef067984a146e6",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "a43f30f1b0dd8e11828776bb4accfd67",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "a43f30f1b0dd8e11828776bb4accfd67",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.974990+00:00",
+              "network_at": "2026-11-14T07:04:05.974990+00:00",
+              "request_count": 1,
+              "read_id": "a43f30f1b0dd8e11828776bb4accfd67",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "cf34f50fdb7793d1f66cafab93503682",
+            "operation": "watched",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "cf34f50fdb7793d1f66cafab93503682",
+            "operation": "watched",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000001",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 0
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 800,
+                  "buy_now_price": 15000,
+                  "expires": 0,
+                  "trade_state": "closed",
+                  "bid_state": "highest",
+                  "native_is_won": true
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/watchlist",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.979990+00:00",
+              "network_at": "2026-11-14T07:04:05.979990+00:00",
+              "request_count": 1,
+              "read_id": "cf34f50fdb7793d1f66cafab93503682",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "199656cc5b943dbcd53c37f37c226c07",
+            "operation": "unassigned",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "199656cc5b943dbcd53c37f37c226c07",
+            "operation": "unassigned",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": [
+                {
+                  "item_id": "item:000000000000000000000001",
+                  "definition_id": 123,
+                  "untradeable": false,
+                  "last_sale_price": 800
+                }
+              ],
+              "auctions": null,
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/purchased/items",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.984990+00:00",
+              "network_at": "2026-11-14T07:04:05.984990+00:00",
+              "request_count": 1,
+              "read_id": "199656cc5b943dbcd53c37f37c226c07",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "054806794d211304728f344b16609164",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": []
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "054806794d211304728f344b16609164",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.989990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "054806794d211304728f344b16609164",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "941f61ea5340daae9d591ae56278413e",
+            "operation": "caps",
+            "params": {
+              "definition_id": 123
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "941f61ea5340daae9d591ae56278413e",
+            "operation": "caps",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": null,
+              "caps": {
+                "definition_id": 123,
+                "minimum": 150,
+                "maximum": 50000
+              },
+              "cache_invalidated": false,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/marketdata/pricelimits",
+                  "query": {
+                    "defId": 123
+                  },
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.994990+00:00",
+              "network_at": "2026-11-14T07:04:05.994990+00:00",
+              "request_count": 1,
+              "read_id": "941f61ea5340daae9d591ae56278413e",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "03bcc9393ef5e5c0b60ce17d4e80df9c",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "03bcc9393ef5e5c0b60ce17d4e80df9c",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:05.999990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "03bcc9393ef5e5c0b60ce17d4e80df9c",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "4c6e9a22ff6029871b6d1e708bca2163",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "4c6e9a22ff6029871b6d1e708bca2163",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750,
+                  "price": 11500
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.004990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "4c6e9a22ff6029871b6d1e708bca2163",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "02d7f52d9fb3c36c8731907ac30833be",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "02d7f52d9fb3c36c8731907ac30833be",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.009990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "02d7f52d9fb3c36c8731907ac30833be",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "75a0582e89e32ae6b97e494a85768c67",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "75a0582e89e32ae6b97e494a85768c67",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750,
+                  "price": 12000
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.014990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "75a0582e89e32ae6b97e494a85768c67",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "db47cbb162a45439fe6eeacbe93e2d6f",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "db47cbb162a45439fe6eeacbe93e2d6f",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000000",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 800
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 0,
+                  "buy_now_price": 15000,
+                  "expires": -1,
+                  "trade_state": "inactive",
+                  "bid_state": "none",
+                  "native_is_won": false
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.024990+00:00",
+              "network_at": "2026-11-14T07:04:06.024990+00:00",
+              "request_count": 1,
+              "read_id": "db47cbb162a45439fe6eeacbe93e2d6f",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 1,
+                "callback_count": 1,
+                "repository_count": 1,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "8c05c46dcab9b790eeef227e0b2ed166",
+            "operation": "unassigned",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "8c05c46dcab9b790eeef227e0b2ed166",
+            "operation": "unassigned",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": [],
+              "auctions": null,
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/purchased/items",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.029990+00:00",
+              "network_at": "2026-11-14T07:04:06.029990+00:00",
+              "request_count": 1,
+              "read_id": "8c05c46dcab9b790eeef227e0b2ed166",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "7b85f842469d76cfaf97f94d7470c1bc",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "7b85f842469d76cfaf97f94d7470c1bc",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000000",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 800
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 0,
+                  "buy_now_price": 15000,
+                  "expires": -1,
+                  "trade_state": "inactive",
+                  "bid_state": "none",
+                  "native_is_won": false
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.034990+00:00",
+              "network_at": "2026-11-14T07:04:06.034990+00:00",
+              "request_count": 1,
+              "read_id": "7b85f842469d76cfaf97f94d7470c1bc",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 1,
+                "callback_count": 1,
+                "repository_count": 1,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "db54364007ef298d470315b4ead0ad77",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": []
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "db54364007ef298d470315b4ead0ad77",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.039990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "db54364007ef298d470315b4ead0ad77",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "d73242ac067ac95f915d672aaf6d0648",
+            "operation": "caps",
+            "params": {
+              "definition_id": 123
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "d73242ac067ac95f915d672aaf6d0648",
+            "operation": "caps",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": null,
+              "caps": {
+                "definition_id": 123,
+                "minimum": 150,
+                "maximum": 50000
+              },
+              "cache_invalidated": false,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/marketdata/pricelimits",
+                  "query": {
+                    "defId": 123
+                  },
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.044990+00:00",
+              "network_at": "2026-11-14T07:04:06.044990+00:00",
+              "request_count": 1,
+              "read_id": "d73242ac067ac95f915d672aaf6d0648",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "5278ca9fd2e222159f08e4fa05282783",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "5278ca9fd2e222159f08e4fa05282783",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 12000,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.049990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "5278ca9fd2e222159f08e4fa05282783",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "9309b982cb022b11915428841080e607",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "9309b982cb022b11915428841080e607",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "below",
+                  "value": 11750,
+                  "price": 11500
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.054990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "9309b982cb022b11915428841080e607",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "0f3429242cbc0d75d0763dc6ba476138",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "0f3429242cbc0d75d0763dc6ba476138",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11500,
+                  "price": 11750
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.059990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "0f3429242cbc0d75d0763dc6ba476138",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "146dce8f810a293fad5a64188d383475",
+            "operation": "price_helpers",
+            "params": {
+              "version": 1,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750
+                }
+              ]
+            },
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "146dce8f810a293fad5a64188d383475",
+            "operation": "price_helpers",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "version": 1,
+              "above_available": true,
+              "below_available": true,
+              "probes": [
+                {
+                  "direction": "above",
+                  "value": 11750,
+                  "price": 12000
+                }
+              ],
+              "network": []
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.064990+00:00",
+              "network_at": null,
+              "request_count": 0,
+              "read_id": "146dce8f810a293fad5a64188d383475",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "40ef485976e4baf1ebbe0df0c33f062a",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "40ef485976e4baf1ebbe0df0c33f062a",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "069b3c83ad1d0743c63d9a48fb350da7",
+              "epoch": 1,
+              "host_epoch": "5d89151d512433fc3ba60bd9d6865d99",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:ffffffffffffffffffffffff",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 800
+                  },
+                  "starting_bid": 11750,
+                  "current_bid": 0,
+                  "buy_now_price": 12000,
+                  "expires": 3600,
+                  "trade_state": "active",
+                  "bid_state": "none",
+                  "native_is_won": false
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:06.074990+00:00",
+              "network_at": "2026-11-14T07:04:06.074990+00:00",
+              "request_count": 1,
+              "read_id": "40ef485976e4baf1ebbe0df0c33f062a",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 1,
+                "callback_count": 1,
+                "repository_count": 1,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        }
+      ],
+      "pending": []
+    },
+    "uncertain_listing": {
+      "source": "synthetic",
+      "real_account_writes": 0,
+      "state": "MOVED",
+      "capacity": [
+        {
+          "occupied": 0,
+          "physical_occupied": 0,
+          "unresolved": 0,
+          "pending_resale": 1,
+          "total": 1,
+          "fresh": true,
+          "read_id": "c14dfbcc163cc5829433bc7e823e3641",
+          "pending_resale_trades": [
+            "trade:000000000000000000000001"
+          ]
+        }
+      ],
+      "mutations": [
+        {
+          "schema": 2,
+          "id": "29d54426ea88ced30b36df37c275d746",
+          "operation": "move",
+          "params": {
+            "trade_id": "trade:000000000000000000000001",
+            "item_id": "item:000000000000000000000001",
+            "definition_id": 123,
+            "paid": 800,
+            "owned_read_id": "a36bd32da0296662158ed49fa6d96f4f",
+            "win_read_id": "9c600a3c8e449ef022c27ff0674fcf32",
+            "caps_read_id": "1e9917c89c011e77b10194e76a23aa88",
+            "starting_bid": 11750,
+            "buy_now_price": 12000,
+            "duration": 3600
+          },
+          "context": {
+            "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "game": "fc27",
+            "platform": "pc",
+            "identity_namespace": "cccccccccccccccccccccccccccccccc"
+          },
+          "fences": {
+            "owner": "a34b50d1e5b628bbdd49c3ba6361f318",
+            "epoch": 1,
+            "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+            "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "document": "ffffffffffffffffffffffffffffffff"
+          }
+        },
+        {
+          "schema": 2,
+          "id": "bd6267d4708512e45675d3ac0d9750e5",
+          "operation": "list",
+          "params": {
+            "trade_id": "trade:000000000000000000000001",
+            "item_id": "item:000000000000000000000001",
+            "definition_id": 123,
+            "paid": 800,
+            "owned_read_id": "f7c0933b72f6532e301872ba1a5d9945",
+            "win_read_id": "8dd933a2a43dba2e31ca7b1e294c883f",
+            "caps_read_id": "461a37492f2eff27eca93f2354710909",
+            "starting_bid": 11750,
+            "buy_now_price": 12000,
+            "duration": 3600
+          },
+          "context": {
+            "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "game": "fc27",
+            "platform": "pc",
+            "identity_namespace": "cccccccccccccccccccccccccccccccc"
+          },
+          "fences": {
+            "owner": "a34b50d1e5b628bbdd49c3ba6361f318",
+            "epoch": 1,
+            "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+            "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "document": "ffffffffffffffffffffffffffffffff"
+          }
+        }
+      ],
+      "events": [
+        {
+          "seq": 24,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.205895+00:00",
+          "epoch": 1,
+          "identity": {
+            "definition_id": 123,
+            "game": "fc27",
+            "item_id": "item:000000000000000000000001",
+            "platform": "pc",
+            "trade_id": "trade:000000000000000000000001"
+          },
+          "kind": "ENROLLMENT",
+          "quote": {
+            "X": 500,
+            "completed": true,
+            "evidence": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "age_seconds": 0.04,
+              "cache_hit": false,
+              "candidate": {
+                "item_id": "item:000000000000000000000001",
+                "last_sale_price": 0,
+                "trade_id": "trade:000000000000000000000001"
+              },
+              "claim": "OBSERVED_MINIMUM_ONLY",
+              "comparables": [
+                {
+                  "max_buy": 12000,
+                  "network_at": "2026-11-14T07:04:10.185895+00:00",
+                  "row": {
+                    "bid_state": "none",
+                    "buy_now_price": 12000,
+                    "current_bid": 0,
+                    "expires": 300,
+                    "item": {
+                      "definition_id": 123,
+                      "item_id": "item:000000000000000000000064",
+                      "last_sale_price": 0,
+                      "untradeable": false
+                    },
+                    "native_is_won": false,
+                    "starting_bid": 150,
+                    "trade_id": "trade:000000000000000000000064",
+                    "trade_state": "active"
+                  },
+                  "validated_at": "2026-11-14T07:04:10.190895+00:00"
+                }
+              ],
+              "complete_market_coverage": false,
+              "completed": true,
+              "coverage": "TWO_FIRST_PAGE_SAMPLES_ONLY",
+              "definition_id": 123,
+              "exclusions": {
+                "duplicate": 1
+              },
+              "first_min": 12000,
+              "first_page_profit_cap": 10750,
+              "game": "fc27",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc",
+              "minimum_legal_bid": 800,
+              "observed_at": "2026-11-14T07:04:10.150895+00:00",
+              "platform": "pc",
+              "price_searches": 2,
+              "reasons": [
+                "two_successful_samples"
+              ],
+              "sample_count": 1,
+              "samples": [
+                {
+                  "age_seconds": 0.04,
+                  "combined_unique_count": 1,
+                  "coverage": {
+                    "complete": false,
+                    "has_more": false
+                  },
+                  "exclusions": {},
+                  "network_at": "2026-11-14T07:04:10.150895+00:00",
+                  "number": 1,
+                  "params": {
+                    "count": 21,
+                    "definition_id": 123,
+                    "fresh": true,
+                    "page": 1,
+                    "purpose": "pricing"
+                  },
+                  "returned_count": 1,
+                  "success": true,
+                  "valid_unique_count": 1
+                },
+                {
+                  "age_seconds": 0.005,
+                  "combined_unique_count": 1,
+                  "coverage": {
+                    "complete": false,
+                    "has_more": false
+                  },
+                  "exclusions": {},
+                  "network_at": "2026-11-14T07:04:10.185895+00:00",
+                  "number": 2,
+                  "params": {
+                    "count": 21,
+                    "definition_id": 123,
+                    "fresh": true,
+                    "max_buy": 12000,
+                    "page": 1,
+                    "purpose": "pricing"
+                  },
+                  "returned_count": 1,
+                  "success": true,
+                  "valid_unique_count": 1
+                }
+              ],
+              "schema": 1,
+              "source": "fixture"
+            },
+            "max_affordable_bid": 10750,
+            "resale_price": 12000,
+            "status": "COMPLETE",
+            "tax": 600
+          }
+        },
+        {
+          "seq": 33,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.235895+00:00",
+          "actor": "bidder",
+          "epoch": 1,
+          "identity": {
+            "definition_id": 123,
+            "game": "fc27",
+            "item_id": "item:000000000000000000000001",
+            "platform": "pc",
+            "trade_id": "trade:000000000000000000000001"
+          },
+          "kind": "ACTOR",
+          "owned_read_id": "fa9fd7a5d124dc72265ba75af5b65aca",
+          "paid": 800,
+          "reason": "OWNED_WIN_VERIFIED",
+          "win_read_id": "8dd933a2a43dba2e31ca7b1e294c883f"
+        },
+        {
+          "seq": 44,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.280895+00:00",
+          "command_id": "29d54426ea88ced30b36df37c275d746",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "params": {
+            "buy_now_price": 12000,
+            "caps_read_id": "1e9917c89c011e77b10194e76a23aa88",
+            "definition_id": 123,
+            "duration": 3600,
+            "item_id": "item:000000000000000000000001",
+            "owned_read_id": "a36bd32da0296662158ed49fa6d96f4f",
+            "paid": 800,
+            "starting_bid": 11750,
+            "trade_id": "trade:000000000000000000000001",
+            "win_read_id": "9c600a3c8e449ef022c27ff0674fcf32"
+          },
+          "reason": "INTENT_DURABLE"
+        },
+        {
+          "seq": 45,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.280895+00:00",
+          "command_id": "29d54426ea88ced30b36df37c275d746",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "reason": "DISPATCH_CLAIM"
+        },
+        {
+          "seq": 47,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.285895+00:00",
+          "command_id": "29d54426ea88ced30b36df37c275d746",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "move",
+          "reason": "ACKNOWLEDGED"
+        },
+        {
+          "seq": 50,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.295895+00:00",
+          "command_id": "29d54426ea88ced30b36df37c275d746",
+          "epoch": 1,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "move",
+          "read_ids": [
+            "42d3522d2b6a97512f32d97caabf018e",
+            "442a6e2cb5601fc9fdd09fbd3ae917d7"
+          ],
+          "reason": "VERIFIED"
+        },
+        {
+          "seq": 58,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.330895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "params": {
+            "buy_now_price": 12000,
+            "caps_read_id": "461a37492f2eff27eca93f2354710909",
+            "definition_id": 123,
+            "duration": 3600,
+            "item_id": "item:000000000000000000000001",
+            "owned_read_id": "f7c0933b72f6532e301872ba1a5d9945",
+            "paid": 800,
+            "starting_bid": 11750,
+            "trade_id": "trade:000000000000000000000001",
+            "win_read_id": "8dd933a2a43dba2e31ca7b1e294c883f"
+          },
+          "reason": "INTENT_DURABLE"
+        },
+        {
+          "seq": 59,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.330895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "reason": "DISPATCH_CLAIM"
+        },
+        {
+          "seq": 61,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.330895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 1,
+          "kind": "RESALE",
+          "operation": "list",
+          "reason": "UNKNOWN"
+        },
+        {
+          "seq": 63,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.335895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 1,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "list",
+          "read_ids": [
+            "e7c9baefe735a1784ff1bd284f783376"
+          ],
+          "reason": "RECONCILIATION_REQUIRED"
+        },
+        {
+          "seq": 70,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.355895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 2,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "list",
+          "read_ids": [
+            "50fb20ee0397ec3479a44eb25f07b5ab"
+          ],
+          "reason": "RECONCILIATION_REQUIRED"
+        },
+        {
+          "seq": 75,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.370895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 2,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "list",
+          "read_ids": [
+            "ca70ff0171413ab103d41b298e6450bc"
+          ],
+          "reason": "RECONCILIATION_REQUIRED"
+        },
+        {
+          "seq": 80,
+          "trade_id": "trade:000000000000000000000001",
+          "at": "2026-11-14T07:04:10.385895+00:00",
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "epoch": 2,
+          "kind": "RESALE",
+          "new_trade_id": null,
+          "operation": "list",
+          "read_ids": [
+            "8d7b8b49fec2b762018485e67d4c4d28"
+          ],
+          "reason": "RECONCILIATION_REQUIRED"
+        }
+      ],
+      "reads": [
+        {
+          "command": {
+            "schema": 2,
+            "id": "bbfa668bddf7553fbc98ce8976cc685f",
+            "operation": "watched",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "bbfa668bddf7553fbc98ce8976cc685f",
+            "operation": "watched",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000001",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 0
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 800,
+                  "buy_now_price": 15000,
+                  "expires": 0,
+                  "trade_state": "closed",
+                  "bid_state": "highest",
+                  "native_is_won": true
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/watchlist",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.340895+00:00",
+              "network_at": "2026-11-14T07:04:10.340895+00:00",
+              "request_count": 1,
+              "read_id": "bbfa668bddf7553fbc98ce8976cc685f",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "50fb20ee0397ec3479a44eb25f07b5ab",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "50fb20ee0397ec3479a44eb25f07b5ab",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.350895+00:00",
+              "network_at": "2026-11-14T07:04:10.350895+00:00",
+              "request_count": 1,
+              "read_id": "50fb20ee0397ec3479a44eb25f07b5ab",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "29301acebbe8b1aeb1b57aefc71ddbc4",
+            "operation": "watched",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "29301acebbe8b1aeb1b57aefc71ddbc4",
+            "operation": "watched",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000001",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 0
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 800,
+                  "buy_now_price": 15000,
+                  "expires": 0,
+                  "trade_state": "closed",
+                  "bid_state": "highest",
+                  "native_is_won": true
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/watchlist",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.355895+00:00",
+              "network_at": "2026-11-14T07:04:10.355895+00:00",
+              "request_count": 1,
+              "read_id": "29301acebbe8b1aeb1b57aefc71ddbc4",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "ca70ff0171413ab103d41b298e6450bc",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "ca70ff0171413ab103d41b298e6450bc",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.365895+00:00",
+              "network_at": "2026-11-14T07:04:10.365895+00:00",
+              "request_count": 1,
+              "read_id": "ca70ff0171413ab103d41b298e6450bc",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "b8999474cef39965507cfb30de6fd30b",
+            "operation": "watched",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "b8999474cef39965507cfb30de6fd30b",
+            "operation": "watched",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [
+                {
+                  "trade_id": "trade:000000000000000000000001",
+                  "item": {
+                    "item_id": "item:000000000000000000000001",
+                    "definition_id": 123,
+                    "untradeable": false,
+                    "last_sale_price": 0
+                  },
+                  "starting_bid": 800,
+                  "current_bid": 800,
+                  "buy_now_price": 15000,
+                  "expires": 0,
+                  "trade_state": "closed",
+                  "bid_state": "highest",
+                  "native_is_won": true
+                }
+              ],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/watchlist",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.370895+00:00",
+              "network_at": "2026-11-14T07:04:10.370895+00:00",
+              "request_count": 1,
+              "read_id": "b8999474cef39965507cfb30de6fd30b",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": false,
+              "has_more": false
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "8d7b8b49fec2b762018485e67d4c4d28",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "8d7b8b49fec2b762018485e67d4c4d28",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.380895+00:00",
+              "network_at": "2026-11-14T07:04:10.380895+00:00",
+              "request_count": 1,
+              "read_id": "8d7b8b49fec2b762018485e67d4c4d28",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        },
+        {
+          "command": {
+            "schema": 2,
+            "id": "c14dfbcc163cc5829433bc7e823e3641",
+            "operation": "transfer_list",
+            "params": {},
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            }
+          },
+          "response": {
+            "schema": 2,
+            "command_id": "c14dfbcc163cc5829433bc7e823e3641",
+            "operation": "transfer_list",
+            "context": {
+              "account": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "persona": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "game": "fc27",
+              "platform": "pc",
+              "identity_namespace": "cccccccccccccccccccccccccccccccc"
+            },
+            "fences": {
+              "owner": "18f2173c9065aea77eb4065d9b172408",
+              "epoch": 2,
+              "host_epoch": "81033e55f0b4d66e35f2d913ccdda75d",
+              "worker_epoch": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "document": "ffffffffffffffffffffffffffffffff"
+            },
+            "result": {
+              "success": true,
+              "error": null,
+              "status": 200,
+              "credits": null,
+              "items": null,
+              "auctions": [],
+              "caps": null,
+              "cache_invalidated": true,
+              "network": [
+                {
+                  "host": "utas.test.ea.com",
+                  "method": "GET",
+                  "path": "/ut/game/fc27/tradepile",
+                  "query": {},
+                  "status": 200,
+                  "session_header_present": true
+                }
+              ]
+            },
+            "freshness": {
+              "observed_at": "2026-11-14T07:04:10.390895+00:00",
+              "network_at": "2026-11-14T07:04:10.390895+00:00",
+              "request_count": 1,
+              "read_id": "c14dfbcc163cc5829433bc7e823e3641",
+              "source": "fixture"
+            },
+            "coverage": {
+              "complete": true,
+              "has_more": false,
+              "transfer_list": {
+                "reason": "TRANSFER_LIST_COMPLETE",
+                "wire_count": 0,
+                "callback_count": 0,
+                "repository_count": 0,
+                "repository_end_of_list": true
+              }
+            },
+            "timing": {
+              "native_service_ms": 1
+            }
+          }
+        }
+      ],
+      "pending": [
+        {
+          "command_id": "bd6267d4708512e45675d3ac0d9750e5",
+          "trade_id": "trade:000000000000000000000001",
+          "state": "UNKNOWN",
+          "operation": "list"
+        }
+      ]
+    }
+  }
+}

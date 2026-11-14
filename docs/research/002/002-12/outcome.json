@@ -1,0 +1,252 @@
+{
+  "schema": 1,
+  "task": "002-12",
+  "status": "PARTIAL/NOT FULL PASS",
+  "live_window": {
+    "started_at": "2026-11-14T08:10:58.363884+00:00",
+    "stopped_at": "2026-11-14T08:11:33.853857+00:00",
+    "seconds": 35.489973
+  },
+  "criteria": [
+    {
+      "index": 0,
+      "status": "PASS",
+      "observed": {
+        "prerequisites": [
+          1
+        ],
+        "concurrent_python_actors": [
+          16244,
+          16036,
+          5560
+        ],
+        "production_native": [
+          "06054977d196007c6a979e1e515885b4",
+          "66c13c76259194b5ee9cf9e589b1ac2b",
+          "a4abbeee7c6d227edc7a30adf92264db",
+          "d3ec508363bf260ab42879c10f8c6f5d",
+          "d959c9bddd66e215722d1773d423f07f"
+        ],
+        "durable_state": [
+          "06054977d196007c6a979e1e515885b4",
+          "66c13c76259194b5ee9cf9e589b1ac2b",
+          "a4abbeee7c6d227edc7a30adf92264db",
+          "d3ec508363bf260ab42879c10f8c6f5d",
+          "d959c9bddd66e215722d1773d423f07f",
+          "5e8c5944b2475c2695307d02f9c6d91a"
+        ],
+        "single_priority_executor": [
+          9804
+        ]
+      },
+      "missing": []
+    },
+    {
+      "index": 1,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "discovery_filters": [
+          "d959c9bddd66e215722d1773d423f07f"
+        ]
+      },
+      "missing": [
+        "fresh_valuation",
+        "cached_valuation",
+        "spendable_funds",
+        "minimum_initial_bid",
+        "leading_hold",
+        "active_outbid",
+        "minimum_rebid",
+        "cap_stop",
+        "terminal_won",
+        "terminal_lost",
+        "exact_owned_paid"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {},
+      "missing": [
+        "stored_price_listing_3600",
+        "expired_one_call_relist",
+        "unchanged_relist_prices_duration",
+        "sold_one_call_clear",
+        "independent_maintenance_readbacks"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "capacity_accounting": [
+          82,
+          "d3ec508363bf260ab42879c10f8c6f5d"
+        ],
+        "native_fanout_deadline_misses": [
+          "06054977d196007c6a979e1e515885b4",
+          "66c13c76259194b5ee9cf9e589b1ac2b",
+          "a4abbeee7c6d227edc7a30adf92264db",
+          "d3ec508363bf260ab42879c10f8c6f5d",
+          "d959c9bddd66e215722d1773d423f07f",
+          "5e8c5944b2475c2695307d02f9c6d91a"
+        ]
+      },
+      "missing": [
+        "capacity_pause_resume",
+        "sticky_draining",
+        "whole_queue_intervals",
+        "priority_under_load",
+        "restart_reconnect",
+        "unknown_reconciliation",
+        "attributable_realized_profit"
+      ]
+    },
+    {
+      "index": 4,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "natural_funds_observations": [
+          "a4abbeee7c6d227edc7a30adf92264db"
+        ]
+      },
+      "missing": [
+        "enrolled_status_coverage",
+        "natural_expiry_observations"
+      ]
+    },
+    {
+      "index": 5,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "offline_regressions": [
+          1
+        ]
+      },
+      "missing": [
+        "all_transaction_and_maintenance_branches"
+      ]
+    },
+    {
+      "index": 6,
+      "status": "PASS",
+      "observed": {
+        "honest_missing_evidence": [
+          14
+        ]
+      },
+      "missing": []
+    },
+    {
+      "index": 7,
+      "status": "PASS",
+      "observed": {
+        "final_item_order": [
+          1
+        ],
+        "append_only_evidence": [
+          "ebd3b09049b805eac1cc72f59cd77d627ec4f8e6687edfe7fb7e09384518884d",
+          "12552001b1a21de1243c2c233451280a03077cf9c8dadccaa5f544d504e0c3c1"
+        ],
+        "failure_reported": [
+          "5e8c5944b2475c2695307d02f9c6d91a"
+        ],
+        "all_run_processes_stopped": [
+          14
+        ]
+      },
+      "missing": []
+    }
+  ],
+  "metrics": {
+    "native_commands": 6,
+    "actual_native_requests": 7,
+    "mutations": 0,
+    "enrolled_this_run": 0,
+    "watched_rows": 0,
+    "queue_wait_ms": [
+      4.007000000000001,
+      1991.588,
+      4296.115000000001,
+      1989.4270000000001,
+      1987.4830000000002,
+      1991.722
+    ],
+    "roundtrip_ms": [
+      155.13200001441874,
+      127.64660001266748,
+      98.59000000869855,
+      142.9094999912195,
+      973.4641000104602,
+      739.9414000101388
+    ],
+    "deadline_skips": 0,
+    "completed_bidder_cycles": 0,
+    "stopped_pending_work": [
+      {
+        "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+        "role": "maintenance",
+        "operation": "transfer_list",
+        "state": "WAITING"
+      }
+    ]
+  },
+  "unverified": {
+    "fresh_valuation": "No independent integrated native evidence chain witnessed in this run",
+    "cached_valuation": "No independent integrated native evidence chain witnessed in this run",
+    "spendable_funds": "No independent integrated native evidence chain witnessed in this run",
+    "minimum_initial_bid": "No independent integrated native evidence chain witnessed in this run",
+    "leading_hold": "No independent integrated native evidence chain witnessed in this run",
+    "active_outbid": "No independent integrated native evidence chain witnessed in this run",
+    "minimum_rebid": "No independent integrated native evidence chain witnessed in this run",
+    "cap_stop": "No independent integrated native evidence chain witnessed in this run",
+    "terminal_won": "No independent integrated native evidence chain witnessed in this run",
+    "terminal_lost": "No independent integrated native evidence chain witnessed in this run",
+    "exact_owned_paid": "No independent integrated native evidence chain witnessed in this run",
+    "stored_price_listing_3600": "No independent integrated native evidence chain witnessed in this run",
+    "expired_one_call_relist": "No independent integrated native evidence chain witnessed in this run",
+    "unchanged_relist_prices_duration": "No independent integrated native evidence chain witnessed in this run",
+    "sold_one_call_clear": "No independent integrated native evidence chain witnessed in this run",
+    "independent_maintenance_readbacks": "No independent integrated native evidence chain witnessed in this run",
+    "capacity_pause_resume": "No independent integrated native evidence chain witnessed in this run",
+    "sticky_draining": "No independent integrated native evidence chain witnessed in this run",
+    "whole_queue_intervals": "No independent integrated native evidence chain witnessed in this run",
+    "priority_under_load": "No independent integrated native evidence chain witnessed in this run",
+    "restart_reconnect": "No independent integrated native evidence chain witnessed in this run",
+    "unknown_reconciliation": "No independent integrated native evidence chain witnessed in this run",
+    "attributable_realized_profit": "Current native adapter exposes no attributable per-sale net receipt; aggregate credits and projected tax cannot prove realized profit",
+    "enrolled_status_coverage": "No independent integrated native evidence chain witnessed in this run",
+    "natural_expiry_observations": "No independent integrated native evidence chain witnessed in this run",
+    "all_transaction_and_maintenance_branches": "No independent integrated native evidence chain witnessed in this run"
+  },
+  "failures": [
+    {
+      "command_id": "5e8c5944b2475c2695307d02f9c6d91a",
+      "operation": "search",
+      "params": {
+        "count": 21,
+        "fresh": true,
+        "max_bid": 1000,
+        "min_buy": 11000,
+        "page": 2,
+        "purpose": "discovery"
+      },
+      "error": "schema_unrecognized",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 20
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

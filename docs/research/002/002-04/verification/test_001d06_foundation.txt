@@ -1,0 +1,21 @@
+test_c0_c4_bid_expires_while_paced_and_is_never_delivered (__main__.Acceptance.test_c0_c4_bid_expires_while_paced_and_is_never_delivered) ... ok
+test_c0_c4_priority_deadlines_cadence_and_distinct_metrics (__main__.Acceptance.test_c0_c4_priority_deadlines_cadence_and_distinct_metrics) ... ok
+test_c0_c5_migration_records_provenance_and_supported_versions (__main__.Acceptance.test_c0_c5_migration_records_provenance_and_supported_versions) ... ok
+test_c0_c6_documented_exact_paths_and_no_actor_processes (__main__.Acceptance.test_c0_c6_documented_exact_paths_and_no_actor_processes) ... ok
+test_c1_c2_pending_victory_needs_proof_and_verified_loss_releases_queue (__main__.Acceptance.test_c1_c2_pending_victory_needs_proof_and_verified_loss_releases_queue) ... ok
+test_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal (__main__.Acceptance.test_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal) ... ok
+test_c1_c4_stale_reads_and_old_owner_cannot_admit_or_dispatch (__main__.Acceptance.test_c1_c4_stale_reads_and_old_owner_cannot_admit_or_dispatch) ... ok
+test_c1_c5_balance_and_profitability_rejections_do_not_write (__main__.Acceptance.test_c1_c5_balance_and_profitability_rejections_do_not_write) ... ok
+test_c1_hold_reject_unknown_are_reason_coded_and_append_only (__main__.Acceptance.test_c1_hold_reject_unknown_are_reason_coded_and_append_only) ... ok
+test_c1_stable_full_context_ownership_and_isolation (__main__.Acceptance.test_c1_stable_full_context_ownership_and_isolation) ... ok
+test_c2_c4_dropped_result_duplicate_intent_and_missing_readback (__main__.Acceptance.test_c2_c4_dropped_result_duplicate_intent_and_missing_readback) ... ok
+test_c2_c4_real_process_crashes_before_and_after_claim_replay_unknown (__main__.Acceptance.test_c2_c4_real_process_crashes_before_and_after_claim_replay_unknown) ... ok
+test_c2_c5_authority_rejects_forged_parameters_and_default_service_writes (__main__.Acceptance.test_c2_c5_authority_rejects_forged_parameters_and_default_service_writes) ... ok
+test_c2_c5_independent_reconciliation_clears_transport_fence (__main__.Acceptance.test_c2_c5_independent_reconciliation_clears_transport_fence) ... ok
+test_c3_c6_standalone_fixture_exits_without_network_or_background_workers (__main__.Acceptance.test_c3_c6_standalone_fixture_exits_without_network_or_background_workers) ... ok
+test_c4_native_write_priority_and_earliest_deadline (__main__.Acceptance.test_c4_native_write_priority_and_earliest_deadline) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 3.541s
+
+OK

@@ -141,7 +141,10 @@ class Optimization(unittest.TestCase):
         self.assertEqual(out['bid_calls'],0)
         m=out['metrics']
         self.assertEqual(out['persisted_executor_events'],m['commands'])
-        self.assertEqual(m['ea_rtt_ms'],600)
+        # Admission now includes a complete Transfer List capacity read (item 6).
+        # The double charges 120ms per actual network command, helpers zero.
+        self.assertEqual(m['ea_rtt_ms'],120*out['network_commands'])
+        self.assertGreaterEqual(out['network_commands'],6)
         self.assertAlmostEqual(m['browser_bridge_ms'],m['commands']*50)
         self.assertAlmostEqual(m['native_helper_ms'],out['helper_probes']*.2)
         self.assertGreater(m['sqlite_ms'],0)

@@ -13,6 +13,7 @@ from fc_access.production_v1 import gate_00203_discovery as third
 from fc_access.production_v1.contracts import Search,parse_response,command
 from fc_access.production_v1.foundation import Foundation
 from profile_00202 import TimedPage,Clock,CONTEXT
+from foundation_fixture import historical_gate_inventory
 
 
 class ThirdAttempt(unittest.TestCase):
@@ -52,7 +53,9 @@ class ThirdAttempt(unittest.TestCase):
                         w.state['stage']='AUTHENTICATION'
                         auth=f.read('balance');w.state['authenticated_read_id']=auth['command_id']
                     discovery,candidate=third.discover(f,w)
-                    gate.evaluate_window(f,w,discovery,candidate);gate.admission_proof(w.state)
+                    with historical_gate_inventory(f,page,clock):
+                        gate.evaluate_window(f,w,discovery,candidate)
+                    gate.admission_proof(w.state)
                     w.state.update(status='PASS',hard_stop=False,dependent_tasks_allowed=True)
                     w.state['evidence_sha256']=gate.digest(w.state);w.save()
                 except Exception as e:w.stop(str(e))
@@ -172,8 +175,12 @@ class ThirdAttempt(unittest.TestCase):
 
     def test_discovery_filters_and_exact_pricing_identity_remain_strict(self):
         self.assertNotIn('definition_id',Search.discovery().params())
-        for build in (lambda:Search.pricing(None),lambda:Search('discovery',None,max_bid=999,min_buy=11000),
-                      lambda:Search('discovery',None,max_bid=1000,min_buy=10500),lambda:Search.discovery(0)):
+        # Item 4 made discovery filters configurable; malformed filters and
+        # pricing identities remain invalid, while legal overrides are retained.
+        self.assertEqual(Search.discovery(max_bid=999,min_buy=10500).max_bid,999)
+        self.assertEqual(Search.discovery(max_bid=999,min_buy=10500).min_buy,10500)
+        for build in (lambda:Search.pricing(None),lambda:Search('discovery',None,max_bid=-1,min_buy=11000),
+                      lambda:Search('discovery',None,max_bid=1000,min_buy=True),lambda:Search.discovery(0)):
             with self.assertRaises((ValueError,TypeError)):build()
 
 

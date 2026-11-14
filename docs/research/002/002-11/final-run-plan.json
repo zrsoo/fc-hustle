@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "task": "002-12",
+  "state": "PREPARED_NOT_LAUNCHED",
+  "evidence_class": "PROCEDURE_ONLY",
+  "prerequisites": [
+    "Current 001D and 002 items 1-11 Python/Node implementation regressions PASS",
+    "Existing item-3 strict uncached valuation-to-fresh-eligible-decision gate PASS; do not reopen a consumed attempt",
+    "Same account, persona, identity namespace, journal, cache and executor epoch for every worker",
+    "Read AGENTS.md again before recovery; verify this worker controls the intended official Edge tab and reviewed production extension",
+    "Fresh authenticated complete Transfer List, watched and credits reads; independently reconcile every existing unknown intent",
+    "Operator installs wall-clock and request-budget stop supervision before starting bounded workers"
+  ],
+  "bounds": {
+    "wall_seconds": 7200,
+    "native_request_budget": 2000,
+    "stop_request_threshold": 1800,
+    "request_reserve": 200,
+    "max_new_enrollments": 12,
+    "actor_cycles": {"acquirer": 12, "bidder": 280, "maintenance": 280},
+    "occupied_limit": 50,
+    "unresolved_limit": 50,
+    "combined_limit": 50,
+    "minimum_available_coins": 5000
+  },
+  "pacing": {
+    "single_broker": true,
+    "concurrency": 1,
+    "native_interval_seconds": 2,
+    "acquirer_interval_seconds": 600,
+    "bidder_interval_seconds": 25,
+    "maintenance_interval_seconds": 25,
+    "relist_interval_seconds": 3660,
+    "listing_duration_seconds": 3600,
+    "priorities": {"reconciliation": 100, "bidder": 90, "acquirer": 10, "maintenance": 0},
+    "request_accounting": "Sum actual freshness.request_count for every completed response; count ambiguous dispatches conservatively from operation fanout. Count internal native refresh GETs. Local helpers count zero. Two seconds is command-boundary pacing; internal native fanout may be adjacent. No safe EA frequency is established.",
+    "on_overrun": "Log missed 25-second targets and actual coverage; never burst to catch up. Authentication, rate-limit or service failures stop account work without retry."
+  },
+  "launch_commands": [
+    ["{python}", "-m", "fc_access.actors_v1", "--state-dir", "{existing_state}", "executor", "--context", "{existing_context_json}", "--port", "8784"],
+    ["{python}", "-m", "fc_access.actors_v1", "--state-dir", "{existing_state}", "acquirer", "--cycles", "12"],
+    ["{python}", "-m", "fc_access.actors_v1", "--state-dir", "{existing_state}", "bidder", "--cycles", "280"],
+    ["{python}", "-m", "fc_access.actors_v1", "--state-dir", "{existing_state}", "maintenance", "--cycles", "280"]
+  ],
+  "required_natural_events": [
+    {"id": "rebid", "event": "An enrolled personally active auction becomes outbid below its immutable profitable cap", "operations": ["watched", "balance", "bid", "watched", "balance"], "evidence": ["pre/post trade and item identity", "actual current bid and native minimum increment", "spendable credits excluding escrow", "durable claim and independent readback"]},
+    {"id": "leading_lost", "event": "A leading enrolled auction is held and another naturally ends LOST", "operations": ["watched", "balance"], "evidence": ["LEADING HOLD without extra bid", "terminal outbid/closed identity", "released reservation and actual returned credits"]},
+    {"id": "win_list", "event": "A competitive auction naturally ends WON with the exact physical owned card and actual paid cost", "operations": ["watched", "unassigned", "transfer_list", "move", "unassigned", "transfer_list", "caps", "price_helpers", "list", "transfer_list"], "evidence": ["independent owned item lastSalePrice matches actual paid terminal bid", "move absent from purchased and present in Transfer List", "new trade identity", "stored BIN and previous native tick starting bid", "one-hour expiry anchored to dispatch"]},
+    {"id": "status_gap", "event": "A real enrolled trade lacks sufficient watched coverage", "operations": ["status_support", "status"], "evidence": ["native retained exact identity and actual lite response", "inconclusive stays UNKNOWN", "no blind retry"]},
+    {"id": "capacity", "event": "Natural concurrent actor work encounters occupied/pending/unresolved capacity or coin reserve pressure", "operations": ["transfer_list", "watched", "balance"], "evidence": ["three disjoint counters and 50-slot bounds", "CAPACITY_PAUSED/RESUMED", "sticky DRAINING", "actual 25-second start-to-start timing, queue latency and complete watched coverage", "unobserved 50-live-row coverage remains LIVE-UNVERIFIED"]},
+    {"id": "expiry", "event": "A real enrolled auction nears expiry while competitors bid or funds change", "operations": ["watched", "balance"], "evidence": ["network timestamps before/after expiry change", "actual timer extension or absence", "actual escrow/refund observations; no assumed reset"]},
+    {"id": "expired_relist", "event": "An unsold listing naturally expires and an unused 3660-second scheduled window becomes due", "operations": ["transfer_list", "relist_all", "transfer_list"], "evidence": ["all expired item identities including manual cards", "one native bulk call", "same prices, unique new trades and 3600 expiry", "active survivors retained", "no capacity release"]},
+    {"id": "sold_clear", "event": "One or more actor/manual cards sell naturally", "operations": ["transfer_list", "clear_sold", "transfer_list"], "evidence": ["fresh complete detection including manual sold cards", "one durable consumed intent and native sold-only bulk call", "independent complete sold absence and unsold/expired retention", "confirmed capacity release", "no realized profit from gross sale price or balance delta"]},
+    {"id": "settlement", "event": "Actual net settled proceeds become independently attributable to an exact acquired and sold physical card", "operations": ["balance", "transfer_list"], "evidence": ["actual authoritative per-sale net receipt if the native client exposes one", "same scoped item, acquisition cost, sale trade and settlement identity", "aggregate credits alone cannot establish attribution", "current adapter has no per-sale receipt API: actual proceeds and realized profit stay UNKNOWN unless separately evidenced; never invent a native receipt API"]}
+  ],
+  "native_apis": {
+    "search": {"call": "services.Item.searchTransferMarket(criteria); discovery maxBid=1000, minBuy=11000, pricing exact definition with inclusive maxBuy", "method": "GET", "path": "/ut/game/fc27/transfermarket"},
+    "watched": {"call": "repositories.Item.setDirty(ItemPile.INBOX); services.Item.requestWatchedItems()", "method": "GET", "path": "/ut/game/fc27/watchlist"},
+    "balance": {"call": "services.User.requestCurrencies()", "method": "GET", "path": "/ut/game/fc27/user/credits"},
+    "unassigned": {"call": "repositories.Item.setDirty(ItemPile.PURCHASED); services.Item.requestUnassignedItems()", "method": "GET", "path": "/ut/game/fc27/purchased/items"},
+    "transfer_list": {"call": "repositories.Item.setDirty(ItemPile.TRANSFER); services.Item.requestTransferItems()", "method": "GET", "path": "/ut/game/fc27/tradepile"},
+    "clear_sold": {"call": "services.Item.clearSoldItems()", "method": "DELETE", "path": "/ut/game/fc27/trade/sold", "arguments": [], "body": null},
+    "relist_all": {"call": "services.Item.relistExpiredAuctions()", "method": "PUT", "path": "/ut/game/fc27/auctionhouse/relist", "arguments": [], "body": null},
+    "move": {"call": "services.Item.move([item], ItemPile.TRANSFER, false)", "method": "PUT", "path": "/ut/game/fc27/item"},
+    "list": {"call": "services.Item.list(item, startingBid, stored_resale_price, 3600)", "method": "POST", "path": "/ut/game/fc27/auctionhouse"},
+    "bid": {"call": "services.Item.bid(item, amount)", "method": "PUT", "path": "/ut/game/fc27/trade/:trade/bid"},
+    "status_support": {"call": "Check retained DTO and services.Item.transfersDao.getAuctionData availability", "method": "LOCAL", "path": null},
+    "status": {"call": "services.Item.transfersDao.getAuctionData([{getAuctionData: () => exactRetainedAuction}])", "method": "GET", "path": "/ut/game/fc27/trade/status/lite"},
+    "caps": {"call": "services.Item.transfersDao.getItemMarketDataByDefId([definitionId])", "method": "GET", "path": "/ut/game/fc27/marketdata/pricelimits"},
+    "price_helpers": {"call": "getIncrementAboveVal / getIncrementBelowVal; legality from reciprocal native ticks and card caps", "method": "LOCAL", "path": null}
+  },
+  "stop_conditions": [
+    "WALL_DEADLINE", "REQUEST_THRESHOLD", "ACTOR_CYCLE_LIMIT", "AUTH_OR_SECURITY_CHALLENGE",
+    "RATE_LIMIT_OR_SERVICE_FAILURE", "STALE_OR_INCOMPLETE_INVENTORY", "ACCOUNT_PERSONA_EPOCH_CHANGE",
+    "JOURNAL_FAILURE", "UNKNOWN_WRITE", "BULK_CONTRACT_CHANGE", "CAPACITY_LIMIT_BREACH",
+    "VALUATION_GATE_30_SECONDS", "REQUIRED_EVENTS_COMPLETE"
+  ],
+  "stop_procedure": "Before concurrent launch, the operator must arm an external 7200-second process watchdog and observe request counts throughout. Stop new admissions at 1800 counted requests, reserving 200 for bounded independent read-only reconciliation. At a hard deadline, challenge, unavailable budget or unsafe service, stop all workers and broker and retain unknowns without additional requests. Interrupting an in-flight write makes it UNKNOWN, never dispatchable on restart. Cycle limits are additional bounds, not a substitute for the watchdog or request supervisor. Do not run a separate bulk-relist worker alongside maintenance.",
+  "evidence_collection": [
+    "Record UTC window, sanitized context/fences, effective configuration and current regression results before launch",
+    "Append-only journal intent/claim/ACK/unknown/readback events, sold DTOs and exact per-item target/survivor sets",
+    "Native mailbox operation, role/priority, request_count, queue/roundtrip/EA timings, cadence misses and command correlations",
+    "Per-auction enrollment quote, immutable cap, decisions, actual paid cost and independent ownership/listing evidence",
+    "Capacity and DRAINING transitions plus post-clear fresh complete inventories",
+    "Stop actors before operator retain backup; export sanitized timeline and all unresolved commands, including bulk/resale tables",
+    "Preserve sealed historical evidence without mutation or replay; hashes may seal new transaction evidence only",
+    "Classify missing natural events LIVE-UNVERIFIED and final result PARTIAL; FULL PASS requires every required event and actual attributable settlement"
+  ],
+  "prohibited": ["replay_consumed_windows", "blind_write_retry", "per_item_bulk_fallback", "synthetic_competitor_or_sale", "credential_capture", "infer_realized_profit_from_balance_delta"]
+}

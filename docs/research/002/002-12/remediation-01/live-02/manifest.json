@@ -1,0 +1,51 @@
+{
+  "task": "002-12",
+  "state_dir": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation",
+  "journal": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation\\foundation.sqlite3",
+  "cache": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation\\completed-quotes.sqlite3",
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "output": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+  "started_at": "2026-11-14T11:15:28.178365+00:00",
+  "deadline": "2026-11-14T11:45:28.178277+00:00",
+  "bounds": {
+    "wall_seconds": 1800,
+    "native_requests": 2000,
+    "stop_threshold": 1800,
+    "reserve": 200,
+    "max_enrollments": 12
+  },
+  "predecessor": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+  "prior_active_wall_seconds": 35.489973,
+  "authorization": "Explicit FIXING_PERSISTENT_FAILURE instruction in the same worker",
+  "config": {
+    "search_interval_seconds": 600,
+    "target_check_interval_seconds": 25,
+    "max_search_bid": 1000,
+    "min_search_buy_now": 11000,
+    "min_available_coins": 5000,
+    "max_enrolled_auctions": 50,
+    "max_transfer_list_occupied": 50,
+    "max_total_pipeline_slots": 50,
+    "min_profit_coins": 500,
+    "discovery_max_pages": 1,
+    "native_interval_seconds": 2,
+    "command_timeout_seconds": 30,
+    "bulk_relist_interval_seconds": 3660,
+    "bulk_relist_preserve_prices": true,
+    "bulk_relist_duration_seconds": 3600,
+    "estimated_sale_tax_rate": 0.05,
+    "pricing_method": "two_search_minimum_valid_bin",
+    "comparable_page_size": 21,
+    "comparable_extra_searches": 1,
+    "price_cache_ttl_seconds": 86400,
+    "rebid_only_when_outbid": true,
+    "bid_smallest_legal_increment": true
+  },
+  "preflight_request_charge": 29
+}

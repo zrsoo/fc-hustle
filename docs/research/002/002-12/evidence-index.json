@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "kind": "SEALED_EXPERIMENT_EVIDENCE",
+  "task": "002-12",
+  "files": [
+    {
+      "path": "docs/research/002/002-12/preflight-01.jsonl",
+      "bytes": 6680,
+      "sha256": "9e7c0eaba83e5231b6c040bcfbd550e7bf7edf5db514823cf50897a5cd707988"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-02.jsonl",
+      "bytes": 5579,
+      "sha256": "dcbcfe11ea91e73d7420c12def8be3821e328573ce58c63ed06ef3d5c39cdfbd"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-03.jsonl",
+      "bytes": 1208,
+      "sha256": "484492e5c7e8c418c9489a5979e5d187aa72ea7d297e39c3697ee2ec0058f220"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-04.jsonl",
+      "bytes": 7451,
+      "sha256": "d34776dc3a93f03bc1c53a1063c6aa2c6c5b664a1b9ff16c276b56c5ae19d926"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-05.jsonl",
+      "bytes": 12581,
+      "sha256": "e6377177413fb986c42952c23edc5ce6a8ac0268dae13e14e64c2e10248aaa4e"
+    },
+    {
+      "path": "docs/research/002/002-12/recovery.jsonl",
+      "bytes": 884,
+      "sha256": "863626fcfafe416def6e3017cf9d5945c54299056b2be4b624ab75b5e6459d5d"
+    },
+    {
+      "path": "docs/research/002/002-12/shutdown.jsonl",
+      "bytes": 682,
+      "sha256": "781de172f10beb7d9925aef99d50ae7d2963bcb084245e9a365a71187856dca7"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/native.jsonl",
+      "bytes": 24719,
+      "sha256": "11ed33c89604cf28fac073de3a2d0bb92d17efa7bc477b7dab4929b3dab154ea"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/supervisor.jsonl",
+      "bytes": 91560,
+      "sha256": "51d6c49d34919f038257f44b9ae664d9846f1c69ab9b96ed8e84418ad2f21e2c"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/completed-quotes.sqlite3",
+      "bytes": 45056,
+      "sha256": "1e5ded663273a361065ec54dcd00de4d11c262f69df5e9907aee1f1dddb63a5d"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/journal.sqlite3",
+      "bytes": 212992,
+      "sha256": "22131f4a6cc2733e1978df044ef0d7ce1a2a34558c0eaa746f8f47a90c6ff915"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/native.sqlite3",
+      "bytes": 49152,
+      "sha256": "7a67adf0ff6063a024d39491fc68ed87707c247b6fc3882114df8216245426db"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/transport.sqlite3",
+      "bytes": 311296,
+      "sha256": "cd84940ff852f4f2aba93f1c43fbf97daa550158153d1a88765bbf756e378ed3"
+    },
+    {
+      "path": "docs/research/002/002-12/regressions.json",
+      "bytes": 8480,
+      "sha256": "460ec3d31950746c170def897faf34e1f22c205e0ff9b6fc5885bde1bd1e5a0d"
+    }
+  ]
+}

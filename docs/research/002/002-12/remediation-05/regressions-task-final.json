@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "evidence_class": "OFFLINE_ITEM12_BEHAVIOR_AND_ARTIFACT_CHECKS",
+  "status": "PASS",
+  "live_requests": 0,
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_run_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 14
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_artifacts_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_remediation_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 5
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_owned_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 5
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_listing_assessor.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 1
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_timed_relist.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 2
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_series_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 8
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_final_reconciled_effects_00212.py"
+      ],
+      "exit_code": 0,
+      "python_tests": 1
+    }
+  ]
+}

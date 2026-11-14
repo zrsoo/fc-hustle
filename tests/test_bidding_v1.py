@@ -138,6 +138,12 @@ class ContractRulesTests(Fixture, unittest.TestCase):
 
 
 class QueueDecisionTests(Fixture, unittest.TestCase):
+    def journal(self):
+        j = super().journal()
+        from fc_access.bidding_v1.capacity import observe
+        observe(j, SCOPE, [], read_id=cid(990), network_at=NOW, now=NOW)
+        return j
+
     def test_50_auctions_deduplication_deadlines_capacity_pending_and_terminal_handoff(self):
         queue = AuctionQueue()
         rows = [status(i, State.PENDING if i % 2 else State.LEADING, 150) for i in range(1, 51)]
@@ -175,7 +181,9 @@ class QueueDecisionTests(Fixture, unittest.TestCase):
         self.assertEqual(replay.admit(status(2), balance(99999), 150, now=NOW), "DRAINING")
         replay.refresh(Snapshot((), fresh(), Coverage(True, False, evidence_id=cid(20))), now=NOW)
         self.assertTrue(replay.draining)
-        replay.refresh(Snapshot((replace(status(), state=State.LOST),), fresh(), Coverage(False, None)), now=NOW)
+        replay.refresh(Snapshot((replace(status(), state=State.LOST, freshness=fresh(800)),), fresh(800), Coverage(False, None)), now=NOW)
+        self.assertTrue(replay.draining, 'terminal evidence is not a new acquisition cycle')
+        self.assertEqual(replay.reserve_check(balance(99999, n=902), now=NOW, new_cycle=True), None)
         self.assertFalse(replay.draining)
         self.assertEqual(replay.admit(status(2), balance(5000, n=901), 150, now=NOW), "DRAINING")
         self.assertEqual(replay.admit(status(2), balance(99999, n=901), 150, now=NOW), "DRAINING")
@@ -220,7 +228,7 @@ class QueueDecisionTests(Fixture, unittest.TestCase):
         with self.assertRaises(RuntimeError):
             queue.admit(status(), balance(5150), 150, now=NOW)
         self.assertFalse(queue.entries)
-        self.assertFalse(j.trace())
+        self.assertEqual([e['reason'] for e in j.trace()], ['CAPACITY_OBSERVED'])
         replay = AuctionQueue(journal=j, scope=SCOPE)
         self.assertFalse(replay.entries)
         self.assertFalse(replay.draining)
@@ -292,7 +300,9 @@ class JournalTests(Fixture, unittest.TestCase):
             with self.assertRaises(ValueError):
                 other.reconcile(i.command_id, status=replace(bad, freshness=fresh(800)), balance=balance(n=901), **args)
         other.reconcile(i.command_id, status=replace(status(), state=State.LOST, freshness=fresh(800)), balance=balance(n=901), **args)
-        other.intend(intent(n=101, epoch=next_epoch))
+        with self.assertRaisesRegex(ValueError, 'terminal_conflict'):
+            other.intend(intent(n=101, epoch=next_epoch))
+        other.intend(intent(status(2), n=101, epoch=next_epoch))
 
     def test_unknown_on_invalid_response_exception_and_deadline_skip(self):
         for response in (None, RuntimeError("PRIVATE-CANARY"), BidResult(cid(999), Outcome.ACKNOWLEDGED, "NATIVE_ACK")):

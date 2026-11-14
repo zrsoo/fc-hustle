@@ -1,0 +1,352 @@
+{
+  "schema": 1,
+  "kind": "SEALED_EXPERIMENT_EVIDENCE",
+  "task": "002-12",
+  "files": [
+    {
+      "path": "docs/research/002/002-12/live-01/native.jsonl",
+      "bytes": 24719,
+      "sha256": "11ed33c89604cf28fac073de3a2d0bb92d17efa7bc477b7dab4929b3dab154ea"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/supervisor.jsonl",
+      "bytes": 91560,
+      "sha256": "51d6c49d34919f038257f44b9ae664d9846f1c69ab9b96ed8e84418ad2f21e2c"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-01.jsonl",
+      "bytes": 6680,
+      "sha256": "9e7c0eaba83e5231b6c040bcfbd550e7bf7edf5db514823cf50897a5cd707988"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-02.jsonl",
+      "bytes": 5579,
+      "sha256": "dcbcfe11ea91e73d7420c12def8be3821e328573ce58c63ed06ef3d5c39cdfbd"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-03.jsonl",
+      "bytes": 1208,
+      "sha256": "484492e5c7e8c418c9489a5979e5d187aa72ea7d297e39c3697ee2ec0058f220"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-04.jsonl",
+      "bytes": 7451,
+      "sha256": "d34776dc3a93f03bc1c53a1063c6aa2c6c5b664a1b9ff16c276b56c5ae19d926"
+    },
+    {
+      "path": "docs/research/002/002-12/preflight-05.jsonl",
+      "bytes": 12581,
+      "sha256": "e6377177413fb986c42952c23edc5ce6a8ac0268dae13e14e64c2e10248aaa4e"
+    },
+    {
+      "path": "docs/research/002/002-12/recovery.jsonl",
+      "bytes": 884,
+      "sha256": "863626fcfafe416def6e3017cf9d5945c54299056b2be4b624ab75b5e6459d5d"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/live-02/native.jsonl",
+      "bytes": 166979,
+      "sha256": "e64ac9a9e0d7a36d478f851735352b29a0189bfedad7f1c6ba490ec0d26e078c"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/live-02/supervisor.jsonl",
+      "bytes": 243504,
+      "sha256": "5cbac2c8ad896a3c3f5b6fb7f304a2a1c876b9e936de0e744c627e569a6e65b6"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/preflight.jsonl",
+      "bytes": 22940,
+      "sha256": "9e832fc4e0d31786b17a628e70dcb4684fdd8c881f2e4ad5b07137a96717e38f"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/live-03/native.jsonl",
+      "bytes": 403719,
+      "sha256": "9a7aaa8b68527b431ba06314e83c6f613ae92315afa4edb60790d7d0d5fe9e32"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/live-03/supervisor.jsonl",
+      "bytes": 558129,
+      "sha256": "44fe3759c405ac07dd4f5361f440a44ba2845267cb49fd78885851c980e24f2e"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/preflight.jsonl",
+      "bytes": 12920,
+      "sha256": "1905f09891499f287e60b9b2b0a11ae846210164b77fc695976d700388ba7605"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/reconciliation.jsonl",
+      "bytes": 7642,
+      "sha256": "b1943fe587a72bc638ac141821ab3261afc587cfb98444e80f8594648e0aa260"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/live-04/native.jsonl",
+      "bytes": 150860,
+      "sha256": "d1b8124c9898d4bd9d57a71ffd7c14f444fdd9875a2d3fff6e92efd9eb08bfcb"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/live-04/supervisor.jsonl",
+      "bytes": 692703,
+      "sha256": "d9bcd2ef76eb5241198529de6eb92f7f8a45c0fb1eb749a3b6074bb9d7c6996d"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/preflight.jsonl",
+      "bytes": 13248,
+      "sha256": "00c4f4aeaaa9af0ff57bf5ef16acf7904bc9a65eaefd50e3b8eedbb2da46fa5d"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/reconciliation.jsonl",
+      "bytes": 13891,
+      "sha256": "4020919e712507fae0fa71c0a92435ab8e5a44beb9e4753057e7a5af7d5ca0c9"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/suspension.jsonl",
+      "bytes": 582,
+      "sha256": "105f18a4b2061b2cc4c1463656bdfdc50ffb98ae783d752cefb790ccebf8b321"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/live-05/native.jsonl",
+      "bytes": 107488,
+      "sha256": "1917de66b330063460d2059216e578518c24ee65ec32333daa9556fb73d3df30"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/live-05/supervisor.jsonl",
+      "bytes": 756753,
+      "sha256": "6c7ecf1be4e2984eb07b9ccc60ab2322c0b9e8decad7207fbbe2faed79139ba0"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/preflight-02.jsonl",
+      "bytes": 12120,
+      "sha256": "d287c754c4c163ff7d05ad7c68fe11ee563e6ad4659ad7469d0a1e89f12fa89b"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/preflight-03.jsonl",
+      "bytes": 13078,
+      "sha256": "38f7d62e8f8b9c0a56378b96f3182db755f8423264faae5df1236b576c808a90"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/preflight.jsonl",
+      "bytes": 12092,
+      "sha256": "2eeac9d3d572b3b80a1325d302c6f639cc69bd067de4e938c4b1cfadaeb59282"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/reconciliation-02.jsonl",
+      "bytes": 15471,
+      "sha256": "9dc083488f4a9798d452c48b771a01c0318431129a72510b0270521089c034fe"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/reconciliation.jsonl",
+      "bytes": 1123,
+      "sha256": "1859f5a8fdea040f56a9b4be7b4b473251b7d4b1bef4c7b6b04d4a0d13f55078"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/final-observations.jsonl",
+      "bytes": 13706,
+      "sha256": "59fd8f7d772f0fa72831ef387a594847acfc06f9bcbbbf782d5fc3215fc1f289"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/live-06/native.jsonl",
+      "bytes": 19609,
+      "sha256": "3c47334bc9dbc70438bfe29182d8b583ed761a13086213678ad2ec766b93d817"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/live-06/supervisor.jsonl",
+      "bytes": 771497,
+      "sha256": "332261960781532a00e5baa44538b89647e23b826a384268da25511514f57ea5"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/preflight.jsonl",
+      "bytes": 13713,
+      "sha256": "8afc14d883dd860e38dceec5704119c8a5a1a3e6322d88267ef123dcbcfeb355"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/reconciliation-02.jsonl",
+      "bytes": 13637,
+      "sha256": "c6e2a724e1303b919a5cf3fae5ad1c650c84d2bec600883509467d2b8c24226c"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/reconciliation.jsonl",
+      "bytes": 13449,
+      "sha256": "19483532264c0abb1ecd7260eecbc31c285cfbfd111a5f15fdfd1a59a15f5dbc"
+    },
+    {
+      "path": "docs/research/002/002-12/review-01/checkpoint.jsonl",
+      "bytes": 766302,
+      "sha256": "14c256c59fbca03784c839bb98a2c4114f3f4f7f450c0413d2b7e4924f04bc51"
+    },
+    {
+      "path": "docs/research/002/002-12/review-02/checkpoint.jsonl",
+      "bytes": 766302,
+      "sha256": "2a4c835f45a3b8d33467eacbbd82b9e659e310d0978a869391c1065821909338"
+    },
+    {
+      "path": "docs/research/002/002-12/shutdown.jsonl",
+      "bytes": 682,
+      "sha256": "781de172f10beb7d9925aef99d50ae7d2963bcb084245e9a365a71187856dca7"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/completed-quotes.sqlite3",
+      "bytes": 45056,
+      "sha256": "1e5ded663273a361065ec54dcd00de4d11c262f69df5e9907aee1f1dddb63a5d"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/journal.sqlite3",
+      "bytes": 212992,
+      "sha256": "22131f4a6cc2733e1978df044ef0d7ce1a2a34558c0eaa746f8f47a90c6ff915"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/native.sqlite3",
+      "bytes": 49152,
+      "sha256": "7a67adf0ff6063a024d39491fc68ed87707c247b6fc3882114df8216245426db"
+    },
+    {
+      "path": "docs/research/002/002-12/live-01/state-backup/transport.sqlite3",
+      "bytes": 311296,
+      "sha256": "cd84940ff852f4f2aba93f1c43fbf97daa550158153d1a88765bbf756e378ed3"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/live-02/state-backup/completed-quotes.sqlite3",
+      "bytes": 69632,
+      "sha256": "a61c304efc3468cd45118729124aa87244ee56e530205f37ed0c7a466a1bf544"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/live-02/state-backup/journal.sqlite3",
+      "bytes": 319488,
+      "sha256": "75536adba3577803ca9e87d081c3f62cbc02641873190c9098b44e322b1ddb5f"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/live-02/state-backup/native.sqlite3",
+      "bytes": 270336,
+      "sha256": "1001e3a69d828fc7094f6f89c18dd152baa702f589d0ba12f501d5d4d7449222"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/live-03/state-backup/completed-quotes.sqlite3",
+      "bytes": 81920,
+      "sha256": "f0d28bbdebaa0dd0b11f7deaa085a08e36f1e23c8019323642657c955b7a46b6"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/live-03/state-backup/journal.sqlite3",
+      "bytes": 491520,
+      "sha256": "8e20c86ff2b525c122938d6cdd1bd617aa3ad4fffdc68944136570f7e2fb9b35"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/live-03/state-backup/native.sqlite3",
+      "bytes": 806912,
+      "sha256": "4b457e89b3365e34c1ecc8eb744eb7ffe0f388a7ade2432ad2c342c0800f5bd3"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/live-04/state-backup/completed-quotes.sqlite3",
+      "bytes": 102400,
+      "sha256": "7a2df032950e664fdbeb236f4f52131985fe791db32d0b5a33e283268699971c"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/live-04/state-backup/journal.sqlite3",
+      "bytes": 577536,
+      "sha256": "2bc6ff2c481226e042dc1be4ea7883002dd55a2e2d0c9be7b37f748643f8c8fc"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/live-04/state-backup/native.sqlite3",
+      "bytes": 1007616,
+      "sha256": "fa241b00cf0864125a46828a3d3c4273ca22933ef94b9baa8b97e82555f58424"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/live-05/state-backup/completed-quotes.sqlite3",
+      "bytes": 122880,
+      "sha256": "aa7b601e758528d2029bd7f22ad173728a2ccdfaa94f4939599098c8b87961e4"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/live-05/state-backup/journal.sqlite3",
+      "bytes": 602112,
+      "sha256": "7bd90e7f0c5f2448966ebeea5767ec3ae043a443fb32979296d05a17d377a403"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/live-05/state-backup/native.sqlite3",
+      "bytes": 1146880,
+      "sha256": "81df1128b7b07c6d49e4b5f02240ee5f818712102acb112c940a6742669dd96a"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/live-06/state-backup/completed-quotes.sqlite3",
+      "bytes": 122880,
+      "sha256": "aa7b601e758528d2029bd7f22ad173728a2ccdfaa94f4939599098c8b87961e4"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/live-06/state-backup/journal.sqlite3",
+      "bytes": 622592,
+      "sha256": "46962b0edf2706f7a189ba5cb0fb3c7212b4250e2596d5884f58b3cbdfe8cce6"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-05/live-06/state-backup/native.sqlite3",
+      "bytes": 1171456,
+      "sha256": "ccfe3fbe57785d020a590591924ede760c74a3dddb8ca1be0dbc6173d472dcdb"
+    },
+    {
+      "path": "docs/research/002/002-12/review-01/state-backup/completed-quotes.sqlite3",
+      "bytes": 122880,
+      "sha256": "aa7b601e758528d2029bd7f22ad173728a2ccdfaa94f4939599098c8b87961e4"
+    },
+    {
+      "path": "docs/research/002/002-12/review-01/state-backup/journal.sqlite3",
+      "bytes": 622592,
+      "sha256": "996df465648ce5da15ad46f4c9bfb53a1197d82101b9d79ef170bbc9cea26c4e"
+    },
+    {
+      "path": "docs/research/002/002-12/review-01/state-backup/native.sqlite3",
+      "bytes": 1171456,
+      "sha256": "ccfe3fbe57785d020a590591924ede760c74a3dddb8ca1be0dbc6173d472dcdb"
+    },
+    {
+      "path": "docs/research/002/002-12/review-01/state-backup/transport.sqlite3",
+      "bytes": 1863680,
+      "sha256": "4ca5bf148907b37b31873da09a35674318508bc920eb7134b7568903aa1b6959"
+    },
+    {
+      "path": "docs/research/002/002-12/review-02/state-backup/completed-quotes.sqlite3",
+      "bytes": 122880,
+      "sha256": "aa7b601e758528d2029bd7f22ad173728a2ccdfaa94f4939599098c8b87961e4"
+    },
+    {
+      "path": "docs/research/002/002-12/review-02/state-backup/journal.sqlite3",
+      "bytes": 622592,
+      "sha256": "996df465648ce5da15ad46f4c9bfb53a1197d82101b9d79ef170bbc9cea26c4e"
+    },
+    {
+      "path": "docs/research/002/002-12/review-02/state-backup/native.sqlite3",
+      "bytes": 1171456,
+      "sha256": "ccfe3fbe57785d020a590591924ede760c74a3dddb8ca1be0dbc6173d472dcdb"
+    },
+    {
+      "path": "docs/research/002/002-12/review-02/state-backup/transport.sqlite3",
+      "bytes": 1863680,
+      "sha256": "4ca5bf148907b37b31873da09a35674318508bc920eb7134b7568903aa1b6959"
+    },
+    {
+      "path": "docs/research/002/002-12/regressions.json",
+      "bytes": 8480,
+      "sha256": "460ec3d31950746c170def897faf34e1f22c205e0ff9b6fc5885bde1bd1e5a0d"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-01/regressions.json",
+      "bytes": 8476,
+      "sha256": "2130a63aa78103c4399ba61657d757542f0b784ea91f57accacae912c235cb17"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-02/regressions.json",
+      "bytes": 8478,
+      "sha256": "b3403684a0108542287474899e88f01a3556e7337dc607956aa0e331baa060a2"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/regressions-final.json",
+      "bytes": 8478,
+      "sha256": "d43cd251e1d343433bb7598403e7de46003d1e9a90ab5cc8100265cbcfa48423"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-03/regressions.json",
+      "bytes": 12549,
+      "sha256": "4968716833e6f50ae4c5cb4199d7c60378b114403297b74749a8d6e86d9e396e"
+    },
+    {
+      "path": "docs/research/002/002-12/remediation-04/regressions.json",
+      "bytes": 8471,
+      "sha256": "408dccba04117d9e9179d21078e8a3de1aa59e370c3c02262bec04fb31798361"
+    }
+  ]
+}

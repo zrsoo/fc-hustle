@@ -61,7 +61,7 @@ async function read(h,op,params={}){
     const wrongRoute=setup();wrongRoute.sandbox.services.Item[method]=()=>wrongRoute.response('balance',{items:rows});
     assert.equal((await read(wrongRoute,op)).result.error,'ambiguous_network');
     const duplicate=setup();duplicate.sandbox.services.Item[method]=()=>duplicate.response(op,{items:[rows[0],rows[0]]});
-    assert.equal((await read(duplicate,op)).result.error,'schema_unrecognized');
+    assert.equal((await read(duplicate,op)).result.error,op==='transfer_list'?'transfer_list_conflict':'schema_unrecognized');
   }
   h=setup();const raw=h.raw(),auction=raw.getAuctionData();delete auction.isWon;
   raw.getAuctionData=()=>auction;h.sandbox.services.Item.requestWatchedItems=()=>h.response('watched',{items:[raw]});

@@ -1,0 +1,3259 @@
+{
+  "schema": 1,
+  "task": "002-12",
+  "status": "PARTIAL/NOT FULL PASS",
+  "criteria": [
+    {
+      "index": 0,
+      "status": "PASS",
+      "observed": {
+        "prerequisites": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              1
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              2
+            ]
+          }
+        ],
+        "concurrent_python_actors": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              16244,
+              16036,
+              5560
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              15824,
+              3064,
+              7988
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              2668,
+              16772,
+              2832
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              17744,
+              9324,
+              14748
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              16604,
+              11384,
+              14744
+            ]
+          }
+        ],
+        "production_native": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "06054977d196007c6a979e1e515885b4",
+              "66c13c76259194b5ee9cf9e589b1ac2b",
+              "a4abbeee7c6d227edc7a30adf92264db",
+              "d3ec508363bf260ab42879c10f8c6f5d",
+              "d959c9bddd66e215722d1773d423f07f"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "e86b29fdc72823fbe7f2a9f7ef868348",
+              "491b0dd459e9abe6f351ac11f96ab85c",
+              "f9770adec1bd5b565e1f680c6d3b7f39",
+              "f6632f76977d7c35942c20b8388d30b3",
+              "81d20ebc5c61e7f9852e895191d2754c",
+              "567f3cfbbd8f3bafae5d5502c7405c21",
+              "954198302058bdff5771886dc1572f36",
+              "48c9c8d5526eb5280f672b094ba64104",
+              "bbb37bae9224e3d958ace321385b1ff3",
+              "2e50bf149ca867549f7ee983231121ca",
+              "66ab5d177251a0612378f3a911b152b3",
+              "91eaf56ede7e7b3eac821db53b001869",
+              "790af409cbd1dae7a564fd48daaca22b",
+              "28a2e27f33a76b056009120cbd7fe7f1",
+              "bb8272bac7f7fb7859782aa463b09f19",
+              "977675f90579af57b41bd0a5deb40ff7",
+              "e0a302a6ca97652318f54dec0afec056",
+              "247cb3933f7c1c223a37d87d3d5bccc2",
+              "8d4d43ac5763a216d393bb3cf5c48699",
+              "80303774d9c15d91db5ebed1904be42e",
+              "fe6c6c1a0654378aa274cc64806f25b6",
+              "199d414a70904de571ce98a50c2ae367",
+              "70bab06b87e71e188e7b64b9a5d9d205",
+              "929b442007e0190428ed81ca48713882",
+              "22042b1b127cd0fdabdbbcfc17dd0f18",
+              "807c84e0a33c338792e4ce20fa98ba1d",
+              "8c9564decd169b7f79423981f38979df",
+              "590937db9573cba7fc432433dc97897a",
+              "cfdcbcf4f2bc0a8eb804bd83d28afb57",
+              "be525671a512e33fbe0684ff82d2d435",
+              "4f7d9c8bdd0e720c627c0204770c64cc",
+              "de31e108e418d3ddf0f10062418fac2b",
+              "33218fe89678a93b663c29ce1d545519",
+              "aed5127a83ad614ec367a84c7c2bd34a",
+              "dcd731d6de09ebde2989db608afe6a2b",
+              "17595886851878bf81ccd6ea27efd2d1",
+              "c6c2b658a24ff1f29c66132466f6b448",
+              "008bd9b06c01b22b501991e5b00725f0",
+              "18b24467a75d1a85e04b9adc27b84b54",
+              "eb4f7b40959bd5be7e802a98be2a486c",
+              "7fe54635bf79422915ecbe930e7ce463",
+              "d4f1f373b28650b4e043d576757b35a7",
+              "8a7a732e8a5b9017d2dd0189122a452c",
+              "b4942c1e63e561181abaebb16701c990",
+              "b98076f70f683032ed3484957c9ffe66",
+              "15b20f532fb2bffdffed8693d5d4d61a",
+              "d774083be620add9197bd747bc815b9d",
+              "9076a62d44d557381c75404bd3dd82cf",
+              "f362438fd1d217f9818588de04327f90",
+              "8890b5ab0f7f2ad524d1a120f2842a68",
+              "5125c82f52b5c075642bac96b983502d",
+              "f06573cdfbc0405d1ab4e36b6337d2f0",
+              "fd8e82d8aab59f6f1e677a5e816fae9d",
+              "f411fd70cf7d49ca7f9e5a07291e5d3f",
+              "3e6a0340a0d6aab0292a47407608321a",
+              "6023e7c890cd24c21bb746b19ff1ce34",
+              "1f01a6214461ef148c68858090da9479",
+              "280c2b83b4cd12ac349d40a3ed481288"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "2ac79608506045bc7ec8adb65c53f47c",
+              "5dfaaa7035242090e6d662e90670080a",
+              "fcb3e6ecc1ba4a89fe26f0d85377aca9",
+              "66136d417e7936df18f7198d603d4ef6",
+              "9450f2b8b9d0b8158613b0c84c6a4cd8",
+              "c0173c1296ed5cc0a9b45a2fa4c6a0d3",
+              "d27946d39b6152b1270ead24eb2bfa37",
+              "abd48c980542dbc01c0ce5915fef00cb",
+              "edb2d410f3e5df739b0e329e578830f1",
+              "a9c5e4e7b29d255b54018c1286d46894",
+              "3fd9ca7f3845eb5716aad5d84a815b89",
+              "18bdbc89bb38cbe3e0fdce8f761027c4",
+              "f174e9b49d65ccf0b0c1b725f5591d1e",
+              "05e4811a2f1c3ed6d18d4470720d2a42",
+              "409abf628ba427282d62bd4d8fe55856",
+              "071617ed057b8a06fefe940b27d4eb93",
+              "c8a389c55dfcc17a1db4f474b1d4d438",
+              "ac8814fa1f30031ad336df6bed2c2555",
+              "2c78927856996863943f923c2878a8de",
+              "253270a9f58b9ec2ca719df44c5d35e9",
+              "5775ad53e05b22f975c851ffc13f6ba5",
+              "44ce60e8c755655f957db37f9b8528fa",
+              "33063b691fc6ae08a6f6acbbf7f66949",
+              "ffeb4825e6c229d3a647537399c587d5",
+              "7584ea1556cb1864e3a618ef4dca1e40",
+              "ba29c457a00580babd23ca3c4815027e",
+              "e6b1d58f10548242268c16839fb58227",
+              "9a0071685c61aa22e44231b525a16f77",
+              "bbdf3071c580f283eda76841af834296",
+              "bf579984d6a4c51a4f270831ebaada42",
+              "281025e5f4abf528c90ac116805d9a58",
+              "14d94caf18fec7ee9cecf92c27ac6caf",
+              "a486f718bb7d3cc57e5c7845fed68466",
+              "5f85c4373279f8110706ed5ec6fa0e24",
+              "2709561c911e4e64a38b81c6d8ced267",
+              "e385578b81c7ded7eb88ccf7afb0fa48",
+              "8fc7be89f6005c38ba46d61e7a321c5b",
+              "ab2a7b18298f5047f2e6af69be3daba8",
+              "aea6d7e57e710764860ffae113de443e",
+              "73159ff2898cc98d33d32239d26f1144",
+              "7192a7f76f8c367e5d6a6647d94c373b",
+              "fecfebc353325dc9da7f3fcf0c2ba067",
+              "6da4a930f84405895bf47104fdf505d1",
+              "6a30e4f6bbf5772368209e302ad8e717",
+              "e4ab8c933ee05710bc97a3dfe580829a",
+              "fd23be1764223a65bae2dafea9e05f11",
+              "376a789f4c16babfcd78c844511acd35",
+              "d14953aee738dccc56f71e91326bcaf9",
+              "e7c50a4741992d72837fee73227bbfc8",
+              "2100d972199248f6b68bd69b4899f313",
+              "2aa1629ba2091ecde4ec35b0a25f6ac0",
+              "b108ab16a587ac2f4aac9eb8a2de0ff0",
+              "e3cf37746eadec1088225535e822bcce",
+              "9ed0a374364cc5ef702dad1f0ccb5ba7",
+              "47a76a97ac522823f73a5ab5c5ae3e87",
+              "4ca2b9515b75b0e03f89603eff955b80",
+              "ec5ac2ad99ef30cd8558a46f1c001ad2",
+              "86f0c0b466616cd4e028b0d5df1c0799",
+              "d1bdf2fe1f263e01a3a054d7db011329",
+              "f64123fc8b8894c4f0e7be6b81e9672d",
+              "cfc657ed802d8f81a62d7c5f43dcf95a",
+              "69c5d338a14e39113e12df907c6cc8c2",
+              "75a33587089f01526b9f35edbea3d93d",
+              "c4225b3867dc7190ac4c8a185cfe0ed2",
+              "7663891c9f04c1d737c52f20e9ead6db",
+              "e63ce1510b3ad72577353f619edbacc3",
+              "dd464b0e52c9b1b26ae3747f807a9d03",
+              "1ebb1af3586e02d3853af8e221430d3e",
+              "03ce4a43cfd226fc0459b2a33ee76894",
+              "18b54fe292430517431adcdb9f87c69e",
+              "87f5a467ab6917cd9feaefc370abd15a",
+              "682952bb8294e199d8ace56d695f4b54",
+              "e43bc0e20e5df026bc76ff4c746d226a",
+              "89a039bdb6518a0dd97652b7d0c24a22",
+              "8d8be7fa87cc117a7bf59d289d499e7a",
+              "9b086da7ee7a092a3c960db405b2dd0b",
+              "3757e587fd4d8d6e168f8951de4a4d39",
+              "50c42531ab1c37a6ee04f5e7b72b2de4",
+              "e79b52267ab4a96684613f7f3a72c8a2",
+              "17ef42d205a0e6740075f7edef5b703e",
+              "ba9803452de93ff106fef179963d0f76",
+              "121bcb24b5cee0438547f57e0b6b9b44",
+              "afb79078798f4848be20c9d366a8c2c7",
+              "3b0899fa7fec3194a96f5053d8c1c6ee",
+              "a85123c1e5d5f8259750924686f049bb",
+              "2817477fd74e0e34ba974d8e8ba584fb",
+              "525c0ea17adf0bd301a9c964d073da9f",
+              "b178348a8809396f07ba9e22c4b2695d",
+              "2ff35b4f4fc7173575862ef135789b11",
+              "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+              "4ef78f75c86a97795c7e7f6a29678b1e",
+              "ddb5680abdf1555ffffaf2da19f029f9",
+              "5a3846b0fd2c7129959419b896591577",
+              "7f813121a7c126f00bcbcab884ddc4c7",
+              "5d5abbb85dee9346dd646d7ea4c18643",
+              "94876661c2e3dc0a5f9116d544c638d6",
+              "0787d8891b5e018e1c4c78c6915c2014",
+              "cc6f22ba3ae80709e5fdaf61301c5908",
+              "4ab94e73d3d35e5d331dac203d69aaf2",
+              "58eb55c6a46303e4bcbaeabc69772008",
+              "0bce0b40b16b4fd9ea662b7f65676ff7",
+              "6d7efb3862219507f401df166bc87be8",
+              "3c3c45d2af172eb0d19956a4cdde68f8",
+              "f8b524a45f53f77a96516b2c04b75133",
+              "6795a159bbfb324e8536b05e682dab9a",
+              "291f43120f76b16ea5a45375d356f089",
+              "b8569f82d9fd312795fa543b74039c01",
+              "4c3842303b3498dde6365eaa00a42d8c",
+              "8230437a1d7c900e386af7a3e706d032",
+              "30ab94c24639452fc428828ca06af4fa",
+              "7ff545a1288036153d0ed19463a9479a",
+              "f66ca91a3cbbd4f055bcf06c47d95a57",
+              "500e46a923294bb1e8e21194954da676",
+              "f535a0f97448c8a36b5cadba33234b61",
+              "bb06d2c020175df0807365323515e96c",
+              "79fcc87e95e70ddbee15f6b82a0a194f",
+              "51bbfb10df93a9da598014aae58b27d3",
+              "13286768b5e62a232d77c580d92690b7",
+              "2cc3fe75ad06891d3844b8aee049081a",
+              "4811a7f59c88fda253ba33e049d67f8f",
+              "f8b687a9a624abebf9811ce7fb9c1850",
+              "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+              "50f58ad54455e3dd615336f4476e4efe",
+              "b11e6d66a1145eca382ce79e8d06c6be",
+              "10be6aaa7373cab85dabba3fee84b540",
+              "f016b592bf9eaaf67d272e4f100e8058",
+              "bf3d764d94a7d6c6e9cf6aff40c186c5",
+              "d6fd8fa5d6b130c9b14a08a0284ed808",
+              "697e2abc737fb82b3c37db626d8b1cbe",
+              "568c32293b013516a07843225a251438",
+              "37b5e6e3dddc0450ee013cb51e468fe1",
+              "c6445c30cbbbebaf3cd300b7fb891ca4",
+              "eb2717fac1d6655279336e9a4bb5c1f9",
+              "780685cb66e5066be3603a37628fd563",
+              "2ceaab51b4b5c4d30eb1ff6d8cdb8722",
+              "8f1222af769ecb6280fd563a75f6b739",
+              "850bd59aa62ba6309c965dfc28bb8f73",
+              "0214a15ca45c8f48a68377bf129e8260",
+              "344490cfc60038380147ebcca724bf42",
+              "2acd0dc28378681678d19013475e0cde"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "82700bc3f847d70b1374e27b788b47c3",
+              "6c4962c7799d2b18ad11a273403a8991",
+              "0aad3c62542f798fe60f3746afa3916b",
+              "743784cd0beddc415f010acc9707c5c2",
+              "04618fe36e52ae63b60dce345d964426",
+              "aa2112a3636ba13e38ef81f2599a912b",
+              "52b9d355303042d383e73b130b0ab99e",
+              "bf6337dfb4c02be031ed29e56967698d",
+              "4c630f11a9b57fb07f5fcbbec430900e",
+              "4f5d58d8a0d14021dfb83673b9af05f1",
+              "b8ab211586a7b4b3717c2fcb16bf69e3",
+              "42c94d9dfe6d39608a4b7797cfb4e629",
+              "788c79f9972e1ed27bc54d6d1c2941b1",
+              "f036fedf0f2ca9064971dd8c17a74876",
+              "b393087052103fe835e70955b43866dc",
+              "98f1603cc3580c7535cfb36c31f68884",
+              "75c67fe253c05d0e0973cd6c3f556af3",
+              "1ab0fa07b92d19962a9e2b17693989ec",
+              "f6be2291954fb78853f3311a29acca3f",
+              "c3e66dad298c12cfd59f855dd7415760",
+              "f6165ff71818e13407cb9bba0f4f5092",
+              "8a00b0ff2427d85c23e07b3c9828ebee",
+              "3290d0f38c9c619310204f78db500650",
+              "df9303debd1272ff697b4fe320eb5373",
+              "351dc29d5c04c9dde2c165870a65f68d",
+              "a576aa64ed710ccbc65af7765af0ca0f",
+              "0a94b8e046b0d80a91def8f81fad16c8",
+              "ce01abdc5581f0e0604e7bbedd58370d",
+              "dda5508337e0c8c0d7d83efc300a3092",
+              "35f5b604a8472532f66309793b721b8e",
+              "4838524c345cc0819b901105bbabb5f5",
+              "33292c575779ddcf9c0d701c0ba21cdb",
+              "651ce6d4e100a15474e540783ffe5816",
+              "72e24b282f908c7acb40571eeea67977",
+              "4b17ed67079d49e9bf8c04fd9035e925",
+              "980e0e2d85efe4c01abc65a09b0ee6cd",
+              "03786ae735a0f544feb74ed510e9ec04",
+              "6b5ad398987c71ac368fe17a23c2353d",
+              "674fe23885a4d3aa72ec6e78cd4df1d8",
+              "bf3585d9ae3acc7d06d8282c5c2256cf",
+              "e055c3f3cfa92ad6a3b41443901dee6a",
+              "bd91729b77efdda1b766d4bd10ba2eed",
+              "0ce4245883b98e2905d8c18d54d950ec",
+              "49e60379b2b14e1f00532c5c18528a83",
+              "d9e6875c157fa96e73f8ffbc2e99caa2",
+              "c1888ca9c8a4d1da6d7793b606b9ec66",
+              "1ff716cd6a5c1e8e97149d63a4fc2a54",
+              "8b1a3f81168466121fb57b0828be574c"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "7257d8b7e4f35b0e9e3ce22335effef9",
+              "940109b9ec3b7684670e62e97452e408",
+              "68e2fa2ffe26ef262b94bcdf560d9ea1",
+              "8240cef7d663b19e65ed746e2229d888",
+              "ac1f1e0b5c495ae3a5e067e80e6fb97f",
+              "9b94a8846ecb9f9d8c826241d53ac67f",
+              "09e88d60149ab586da97eeac1838d646",
+              "1214a1b6f380d46b294b0e3616997543",
+              "d2836caa4ca74de5465cd36cf1bf0feb",
+              "b4fc792b97a0f002882f9a61e85ed8dc",
+              "eece7bf407c65d0aff4f2f71100c7b99",
+              "06105bf1d448f84dbb75f7a1a0a4ea5e",
+              "f71599dc691777de2518d262c07a1d00",
+              "d9fa06625681b1a3cde936838ba4546d",
+              "fe8f1d27f9beda637748219d2eb06017",
+              "62898be91a4999379b49a73068f344cc",
+              "3fa32aaf32970d9cea179793f51d00a7",
+              "8988c0da79ab71c42c1b2d39702abd81",
+              "2088c4ad89a4ea9475397a2895be2c9a",
+              "dcf97535430fa026005091fd6aef3ec3",
+              "3e7b4ce87313528c47927b694aa05281",
+              "bae8599a9060b34766a6bfc22f6c7146",
+              "e166aded1cc172a9f18b16b654d1b45b",
+              "0a876f9dff1f33e6abf98cdd79849d7c",
+              "908f3342d9751f3e221242c115c9ad55",
+              "d248e7d14484c448f1067542b201d018",
+              "f72f9fbae62db486945042a15b20663f",
+              "20928b66a6fca268b624fd2d94769490",
+              "f5f1a66757630315cdddefeced700889",
+              "847a83ef37749097f14a35097c1d7b05",
+              "66cb6ef60d95658351c1d1dc158e0783",
+              "973b2f8a2412a68d5338af11f985df75",
+              "6ff057b4615d847c30f0037a37bae198",
+              "6ddc2064daf0ec6962c8dce6f3ed0813"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "7751e47f0c9eea9d7dd9c81a2c630cf6",
+              "53773639ae6c8a4f769d5482f6b7834a",
+              "2013f340243beddb6db8c08e86050a12",
+              "3a043b6d141821d76757f440f7d003c7"
+            ]
+          }
+        ],
+        "durable_state": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "06054977d196007c6a979e1e515885b4",
+              "66c13c76259194b5ee9cf9e589b1ac2b",
+              "a4abbeee7c6d227edc7a30adf92264db",
+              "d3ec508363bf260ab42879c10f8c6f5d",
+              "d959c9bddd66e215722d1773d423f07f",
+              "5e8c5944b2475c2695307d02f9c6d91a"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "e86b29fdc72823fbe7f2a9f7ef868348",
+              "491b0dd459e9abe6f351ac11f96ab85c",
+              "f9770adec1bd5b565e1f680c6d3b7f39",
+              "f6632f76977d7c35942c20b8388d30b3",
+              "81d20ebc5c61e7f9852e895191d2754c",
+              "567f3cfbbd8f3bafae5d5502c7405c21",
+              "954198302058bdff5771886dc1572f36",
+              "48c9c8d5526eb5280f672b094ba64104",
+              "bbb37bae9224e3d958ace321385b1ff3",
+              "2e50bf149ca867549f7ee983231121ca",
+              "66ab5d177251a0612378f3a911b152b3",
+              "91eaf56ede7e7b3eac821db53b001869",
+              "790af409cbd1dae7a564fd48daaca22b",
+              "28a2e27f33a76b056009120cbd7fe7f1",
+              "bb8272bac7f7fb7859782aa463b09f19",
+              "977675f90579af57b41bd0a5deb40ff7",
+              "e0a302a6ca97652318f54dec0afec056",
+              "247cb3933f7c1c223a37d87d3d5bccc2",
+              "8d4d43ac5763a216d393bb3cf5c48699",
+              "80303774d9c15d91db5ebed1904be42e",
+              "fe6c6c1a0654378aa274cc64806f25b6",
+              "199d414a70904de571ce98a50c2ae367",
+              "70bab06b87e71e188e7b64b9a5d9d205",
+              "929b442007e0190428ed81ca48713882",
+              "22042b1b127cd0fdabdbbcfc17dd0f18",
+              "807c84e0a33c338792e4ce20fa98ba1d",
+              "8c9564decd169b7f79423981f38979df",
+              "590937db9573cba7fc432433dc97897a",
+              "cfdcbcf4f2bc0a8eb804bd83d28afb57",
+              "be525671a512e33fbe0684ff82d2d435",
+              "4f7d9c8bdd0e720c627c0204770c64cc",
+              "de31e108e418d3ddf0f10062418fac2b",
+              "33218fe89678a93b663c29ce1d545519",
+              "aed5127a83ad614ec367a84c7c2bd34a",
+              "dcd731d6de09ebde2989db608afe6a2b",
+              "17595886851878bf81ccd6ea27efd2d1",
+              "c6c2b658a24ff1f29c66132466f6b448",
+              "008bd9b06c01b22b501991e5b00725f0",
+              "18b24467a75d1a85e04b9adc27b84b54",
+              "eb4f7b40959bd5be7e802a98be2a486c",
+              "7fe54635bf79422915ecbe930e7ce463",
+              "d4f1f373b28650b4e043d576757b35a7",
+              "8a7a732e8a5b9017d2dd0189122a452c",
+              "b4942c1e63e561181abaebb16701c990",
+              "b98076f70f683032ed3484957c9ffe66",
+              "15b20f532fb2bffdffed8693d5d4d61a",
+              "d774083be620add9197bd747bc815b9d",
+              "9076a62d44d557381c75404bd3dd82cf",
+              "f362438fd1d217f9818588de04327f90",
+              "8890b5ab0f7f2ad524d1a120f2842a68",
+              "5125c82f52b5c075642bac96b983502d",
+              "f06573cdfbc0405d1ab4e36b6337d2f0",
+              "fd8e82d8aab59f6f1e677a5e816fae9d",
+              "f411fd70cf7d49ca7f9e5a07291e5d3f",
+              "3e6a0340a0d6aab0292a47407608321a",
+              "6023e7c890cd24c21bb746b19ff1ce34",
+              "1f01a6214461ef148c68858090da9479",
+              "280c2b83b4cd12ac349d40a3ed481288",
+              "af24a5e9dc6a1e4c120cc238d2c68034"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "2ac79608506045bc7ec8adb65c53f47c",
+              "5dfaaa7035242090e6d662e90670080a",
+              "fcb3e6ecc1ba4a89fe26f0d85377aca9",
+              "66136d417e7936df18f7198d603d4ef6",
+              "9450f2b8b9d0b8158613b0c84c6a4cd8",
+              "c0173c1296ed5cc0a9b45a2fa4c6a0d3",
+              "d27946d39b6152b1270ead24eb2bfa37",
+              "abd48c980542dbc01c0ce5915fef00cb",
+              "edb2d410f3e5df739b0e329e578830f1",
+              "a9c5e4e7b29d255b54018c1286d46894",
+              "3fd9ca7f3845eb5716aad5d84a815b89",
+              "18bdbc89bb38cbe3e0fdce8f761027c4",
+              "f174e9b49d65ccf0b0c1b725f5591d1e",
+              "05e4811a2f1c3ed6d18d4470720d2a42",
+              "409abf628ba427282d62bd4d8fe55856",
+              "071617ed057b8a06fefe940b27d4eb93",
+              "c8a389c55dfcc17a1db4f474b1d4d438",
+              "ac8814fa1f30031ad336df6bed2c2555",
+              "2c78927856996863943f923c2878a8de",
+              "253270a9f58b9ec2ca719df44c5d35e9",
+              "5775ad53e05b22f975c851ffc13f6ba5",
+              "44ce60e8c755655f957db37f9b8528fa",
+              "33063b691fc6ae08a6f6acbbf7f66949",
+              "ffeb4825e6c229d3a647537399c587d5",
+              "7584ea1556cb1864e3a618ef4dca1e40",
+              "ba29c457a00580babd23ca3c4815027e",
+              "e6b1d58f10548242268c16839fb58227",
+              "9a0071685c61aa22e44231b525a16f77",
+              "bbdf3071c580f283eda76841af834296",
+              "bf579984d6a4c51a4f270831ebaada42",
+              "281025e5f4abf528c90ac116805d9a58",
+              "14d94caf18fec7ee9cecf92c27ac6caf",
+              "a486f718bb7d3cc57e5c7845fed68466",
+              "5f85c4373279f8110706ed5ec6fa0e24",
+              "2709561c911e4e64a38b81c6d8ced267",
+              "e385578b81c7ded7eb88ccf7afb0fa48",
+              "8fc7be89f6005c38ba46d61e7a321c5b",
+              "ab2a7b18298f5047f2e6af69be3daba8",
+              "aea6d7e57e710764860ffae113de443e",
+              "73159ff2898cc98d33d32239d26f1144",
+              "7192a7f76f8c367e5d6a6647d94c373b",
+              "fecfebc353325dc9da7f3fcf0c2ba067",
+              "6da4a930f84405895bf47104fdf505d1",
+              "6a30e4f6bbf5772368209e302ad8e717",
+              "e4ab8c933ee05710bc97a3dfe580829a",
+              "fd23be1764223a65bae2dafea9e05f11",
+              "376a789f4c16babfcd78c844511acd35",
+              "d14953aee738dccc56f71e91326bcaf9",
+              "e7c50a4741992d72837fee73227bbfc8",
+              "2100d972199248f6b68bd69b4899f313",
+              "2aa1629ba2091ecde4ec35b0a25f6ac0",
+              "b108ab16a587ac2f4aac9eb8a2de0ff0",
+              "e3cf37746eadec1088225535e822bcce",
+              "9ed0a374364cc5ef702dad1f0ccb5ba7",
+              "47a76a97ac522823f73a5ab5c5ae3e87",
+              "4ca2b9515b75b0e03f89603eff955b80",
+              "ec5ac2ad99ef30cd8558a46f1c001ad2",
+              "86f0c0b466616cd4e028b0d5df1c0799",
+              "d1bdf2fe1f263e01a3a054d7db011329",
+              "f64123fc8b8894c4f0e7be6b81e9672d",
+              "cfc657ed802d8f81a62d7c5f43dcf95a",
+              "69c5d338a14e39113e12df907c6cc8c2",
+              "75a33587089f01526b9f35edbea3d93d",
+              "c4225b3867dc7190ac4c8a185cfe0ed2",
+              "7663891c9f04c1d737c52f20e9ead6db",
+              "e63ce1510b3ad72577353f619edbacc3",
+              "dd464b0e52c9b1b26ae3747f807a9d03",
+              "1ebb1af3586e02d3853af8e221430d3e",
+              "03ce4a43cfd226fc0459b2a33ee76894",
+              "18b54fe292430517431adcdb9f87c69e",
+              "87f5a467ab6917cd9feaefc370abd15a",
+              "682952bb8294e199d8ace56d695f4b54",
+              "e43bc0e20e5df026bc76ff4c746d226a",
+              "89a039bdb6518a0dd97652b7d0c24a22",
+              "8d8be7fa87cc117a7bf59d289d499e7a",
+              "9b086da7ee7a092a3c960db405b2dd0b",
+              "3757e587fd4d8d6e168f8951de4a4d39",
+              "50c42531ab1c37a6ee04f5e7b72b2de4",
+              "e79b52267ab4a96684613f7f3a72c8a2",
+              "17ef42d205a0e6740075f7edef5b703e",
+              "ba9803452de93ff106fef179963d0f76",
+              "121bcb24b5cee0438547f57e0b6b9b44",
+              "afb79078798f4848be20c9d366a8c2c7",
+              "3b0899fa7fec3194a96f5053d8c1c6ee",
+              "a85123c1e5d5f8259750924686f049bb",
+              "2817477fd74e0e34ba974d8e8ba584fb",
+              "525c0ea17adf0bd301a9c964d073da9f",
+              "b178348a8809396f07ba9e22c4b2695d",
+              "2ff35b4f4fc7173575862ef135789b11",
+              "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+              "4ef78f75c86a97795c7e7f6a29678b1e",
+              "ddb5680abdf1555ffffaf2da19f029f9",
+              "5a3846b0fd2c7129959419b896591577",
+              "7f813121a7c126f00bcbcab884ddc4c7",
+              "5d5abbb85dee9346dd646d7ea4c18643",
+              "94876661c2e3dc0a5f9116d544c638d6",
+              "0787d8891b5e018e1c4c78c6915c2014",
+              "cc6f22ba3ae80709e5fdaf61301c5908",
+              "4ab94e73d3d35e5d331dac203d69aaf2",
+              "58eb55c6a46303e4bcbaeabc69772008",
+              "0bce0b40b16b4fd9ea662b7f65676ff7",
+              "6d7efb3862219507f401df166bc87be8",
+              "3c3c45d2af172eb0d19956a4cdde68f8",
+              "f8b524a45f53f77a96516b2c04b75133",
+              "6795a159bbfb324e8536b05e682dab9a",
+              "291f43120f76b16ea5a45375d356f089",
+              "b8569f82d9fd312795fa543b74039c01",
+              "4c3842303b3498dde6365eaa00a42d8c",
+              "8230437a1d7c900e386af7a3e706d032",
+              "30ab94c24639452fc428828ca06af4fa",
+              "7ff545a1288036153d0ed19463a9479a",
+              "f66ca91a3cbbd4f055bcf06c47d95a57",
+              "500e46a923294bb1e8e21194954da676",
+              "f535a0f97448c8a36b5cadba33234b61",
+              "bb06d2c020175df0807365323515e96c",
+              "79fcc87e95e70ddbee15f6b82a0a194f",
+              "51bbfb10df93a9da598014aae58b27d3",
+              "13286768b5e62a232d77c580d92690b7",
+              "2cc3fe75ad06891d3844b8aee049081a",
+              "4811a7f59c88fda253ba33e049d67f8f",
+              "f8b687a9a624abebf9811ce7fb9c1850",
+              "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+              "50f58ad54455e3dd615336f4476e4efe",
+              "b11e6d66a1145eca382ce79e8d06c6be",
+              "10be6aaa7373cab85dabba3fee84b540",
+              "f016b592bf9eaaf67d272e4f100e8058",
+              "bf3d764d94a7d6c6e9cf6aff40c186c5",
+              "d6fd8fa5d6b130c9b14a08a0284ed808",
+              "697e2abc737fb82b3c37db626d8b1cbe",
+              "568c32293b013516a07843225a251438",
+              "37b5e6e3dddc0450ee013cb51e468fe1",
+              "c6445c30cbbbebaf3cd300b7fb891ca4",
+              "eb2717fac1d6655279336e9a4bb5c1f9",
+              "780685cb66e5066be3603a37628fd563",
+              "2ceaab51b4b5c4d30eb1ff6d8cdb8722",
+              "8f1222af769ecb6280fd563a75f6b739",
+              "850bd59aa62ba6309c965dfc28bb8f73",
+              "0214a15ca45c8f48a68377bf129e8260",
+              "344490cfc60038380147ebcca724bf42",
+              "2acd0dc28378681678d19013475e0cde"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "82700bc3f847d70b1374e27b788b47c3",
+              "6c4962c7799d2b18ad11a273403a8991",
+              "0aad3c62542f798fe60f3746afa3916b",
+              "743784cd0beddc415f010acc9707c5c2",
+              "04618fe36e52ae63b60dce345d964426",
+              "aa2112a3636ba13e38ef81f2599a912b",
+              "52b9d355303042d383e73b130b0ab99e",
+              "bf6337dfb4c02be031ed29e56967698d",
+              "4c630f11a9b57fb07f5fcbbec430900e",
+              "4f5d58d8a0d14021dfb83673b9af05f1",
+              "b8ab211586a7b4b3717c2fcb16bf69e3",
+              "42c94d9dfe6d39608a4b7797cfb4e629",
+              "788c79f9972e1ed27bc54d6d1c2941b1",
+              "f036fedf0f2ca9064971dd8c17a74876",
+              "b393087052103fe835e70955b43866dc",
+              "98f1603cc3580c7535cfb36c31f68884",
+              "75c67fe253c05d0e0973cd6c3f556af3",
+              "1ab0fa07b92d19962a9e2b17693989ec",
+              "f6be2291954fb78853f3311a29acca3f",
+              "c3e66dad298c12cfd59f855dd7415760",
+              "f6165ff71818e13407cb9bba0f4f5092",
+              "8a00b0ff2427d85c23e07b3c9828ebee",
+              "3290d0f38c9c619310204f78db500650",
+              "df9303debd1272ff697b4fe320eb5373",
+              "351dc29d5c04c9dde2c165870a65f68d",
+              "a576aa64ed710ccbc65af7765af0ca0f",
+              "0a94b8e046b0d80a91def8f81fad16c8",
+              "ce01abdc5581f0e0604e7bbedd58370d",
+              "dda5508337e0c8c0d7d83efc300a3092",
+              "35f5b604a8472532f66309793b721b8e",
+              "4838524c345cc0819b901105bbabb5f5",
+              "33292c575779ddcf9c0d701c0ba21cdb",
+              "651ce6d4e100a15474e540783ffe5816",
+              "72e24b282f908c7acb40571eeea67977",
+              "4b17ed67079d49e9bf8c04fd9035e925",
+              "980e0e2d85efe4c01abc65a09b0ee6cd",
+              "03786ae735a0f544feb74ed510e9ec04",
+              "6b5ad398987c71ac368fe17a23c2353d",
+              "674fe23885a4d3aa72ec6e78cd4df1d8",
+              "bf3585d9ae3acc7d06d8282c5c2256cf",
+              "e055c3f3cfa92ad6a3b41443901dee6a",
+              "bd91729b77efdda1b766d4bd10ba2eed",
+              "0ce4245883b98e2905d8c18d54d950ec",
+              "49e60379b2b14e1f00532c5c18528a83",
+              "d9e6875c157fa96e73f8ffbc2e99caa2",
+              "c1888ca9c8a4d1da6d7793b606b9ec66",
+              "1ff716cd6a5c1e8e97149d63a4fc2a54",
+              "8b1a3f81168466121fb57b0828be574c"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "7257d8b7e4f35b0e9e3ce22335effef9",
+              "940109b9ec3b7684670e62e97452e408",
+              "68e2fa2ffe26ef262b94bcdf560d9ea1",
+              "8240cef7d663b19e65ed746e2229d888",
+              "ac1f1e0b5c495ae3a5e067e80e6fb97f",
+              "9b94a8846ecb9f9d8c826241d53ac67f",
+              "09e88d60149ab586da97eeac1838d646",
+              "1214a1b6f380d46b294b0e3616997543",
+              "d2836caa4ca74de5465cd36cf1bf0feb",
+              "b4fc792b97a0f002882f9a61e85ed8dc",
+              "eece7bf407c65d0aff4f2f71100c7b99",
+              "06105bf1d448f84dbb75f7a1a0a4ea5e",
+              "f71599dc691777de2518d262c07a1d00",
+              "d9fa06625681b1a3cde936838ba4546d",
+              "fe8f1d27f9beda637748219d2eb06017",
+              "62898be91a4999379b49a73068f344cc",
+              "3fa32aaf32970d9cea179793f51d00a7",
+              "8988c0da79ab71c42c1b2d39702abd81",
+              "2088c4ad89a4ea9475397a2895be2c9a",
+              "dcf97535430fa026005091fd6aef3ec3",
+              "3e7b4ce87313528c47927b694aa05281",
+              "bae8599a9060b34766a6bfc22f6c7146",
+              "e166aded1cc172a9f18b16b654d1b45b",
+              "0a876f9dff1f33e6abf98cdd79849d7c",
+              "908f3342d9751f3e221242c115c9ad55",
+              "d248e7d14484c448f1067542b201d018",
+              "f72f9fbae62db486945042a15b20663f",
+              "20928b66a6fca268b624fd2d94769490",
+              "f5f1a66757630315cdddefeced700889",
+              "847a83ef37749097f14a35097c1d7b05",
+              "66cb6ef60d95658351c1d1dc158e0783",
+              "973b2f8a2412a68d5338af11f985df75",
+              "6ff057b4615d847c30f0037a37bae198",
+              "6ddc2064daf0ec6962c8dce6f3ed0813",
+              "d6cf09c7eac442f8d2b5901feef459be"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "7751e47f0c9eea9d7dd9c81a2c630cf6",
+              "53773639ae6c8a4f769d5482f6b7834a",
+              "2013f340243beddb6db8c08e86050a12",
+              "3a043b6d141821d76757f440f7d003c7",
+              "869ed95434e70ea0d7ba599945751fd2"
+            ]
+          }
+        ],
+        "single_priority_executor": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              9804
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              13276
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              2652
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              12704
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              14160
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              17936
+            ]
+          }
+        ]
+      },
+      "missing": []
+    },
+    {
+      "index": 1,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "discovery_filters": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "d959c9bddd66e215722d1773d423f07f"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "cfdcbcf4f2bc0a8eb804bd83d28afb57"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "253270a9f58b9ec2ca719df44c5d35e9"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "dda5508337e0c8c0d7d83efc300a3092"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "ac1f1e0b5c495ae3a5e067e80e6fb97f"
+            ]
+          }
+        ],
+        "fresh_valuation": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              131
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              223
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              618
+            ]
+          }
+        ],
+        "spendable_funds": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "aed5127a83ad614ec367a84c7c2bd34a",
+              "be525671a512e33fbe0684ff82d2d435"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "a85123c1e5d5f8259750924686f049bb",
+              "8d8be7fa87cc117a7bf59d289d499e7a"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "33292c575779ddcf9c0d701c0ba21cdb",
+              "35f5b604a8472532f66309793b721b8e"
+            ]
+          }
+        ],
+        "minimum_initial_bid": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "aed5127a83ad614ec367a84c7c2bd34a",
+              "dcd731d6de09ebde2989db608afe6a2b"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "7584ea1556cb1864e3a618ef4dca1e40",
+              "ba29c457a00580babd23ca3c4815027e"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "33292c575779ddcf9c0d701c0ba21cdb",
+              "651ce6d4e100a15474e540783ffe5816"
+            ]
+          }
+        ],
+        "leading_hold": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              142,
+              "dcd731d6de09ebde2989db608afe6a2b"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              383,
+              "ba29c457a00580babd23ca3c4815027e"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              629,
+              "651ce6d4e100a15474e540783ffe5816"
+            ]
+          }
+        ],
+        "active_outbid": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "d774083be620add9197bd747bc815b9d"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "89a039bdb6518a0dd97652b7d0c24a22"
+            ]
+          }
+        ],
+        "minimum_rebid": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "a85123c1e5d5f8259750924686f049bb",
+              "525c0ea17adf0bd301a9c964d073da9f"
+            ]
+          }
+        ],
+        "terminal_won": [
+          "980feff42a2668d864fed675066c6b65",
+          "3dbd3c20659d235b27307e2d0e6dbb8b"
+        ],
+        "terminal_lost": [
+          "a827031bb25895038eb38d589d45877f",
+          90
+        ],
+        "exact_owned_paid": [
+          "3dbd3c20659d235b27307e2d0e6dbb8b",
+          572
+        ]
+      },
+      "missing": [
+        "cached_valuation",
+        "cap_stop"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "stored_price_listing_3600": [
+          "d6cf09c7eac442f8d2b5901feef459be",
+          "2013f340243beddb6db8c08e86050a12"
+        ],
+        "expired_one_call_relist": [
+          "869ed95434e70ea0d7ba599945751fd2",
+          "5b6e224771e5fa607a257fa6427973c8"
+        ],
+        "unchanged_relist_prices_duration": [
+          "869ed95434e70ea0d7ba599945751fd2",
+          "5b6e224771e5fa607a257fa6427973c8"
+        ],
+        "independent_maintenance_readbacks": [
+          "869ed95434e70ea0d7ba599945751fd2",
+          "3a043b6d141821d76757f440f7d003c7",
+          "5b6e224771e5fa607a257fa6427973c8"
+        ]
+      },
+      "missing": [
+        "sold_one_call_clear"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "capacity_accounting": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              82,
+              "d3ec508363bf260ab42879c10f8c6f5d"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              129,
+              "4f7d9c8bdd0e720c627c0204770c64cc"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              221,
+              "44ce60e8c755655f957db37f9b8528fa"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              616,
+              "4838524c345cc0819b901105bbabb5f5"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              671,
+              "8240cef7d663b19e65ed746e2229d888"
+            ]
+          }
+        ],
+        "whole_queue_intervals": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              86,
+              137,
+              155
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              187,
+              231,
+              249,
+              262,
+              275,
+              288,
+              301,
+              333,
+              346,
+              378,
+              391,
+              405,
+              419,
+              433,
+              447,
+              461,
+              475,
+              489,
+              503,
+              517,
+              531,
+              545,
+              559
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              575,
+              623
+            ]
+          }
+        ],
+        "native_fanout_deadline_misses": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "06054977d196007c6a979e1e515885b4",
+              "66c13c76259194b5ee9cf9e589b1ac2b",
+              "a4abbeee7c6d227edc7a30adf92264db",
+              "d3ec508363bf260ab42879c10f8c6f5d",
+              "d959c9bddd66e215722d1773d423f07f",
+              "5e8c5944b2475c2695307d02f9c6d91a"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "e86b29fdc72823fbe7f2a9f7ef868348",
+              "491b0dd459e9abe6f351ac11f96ab85c",
+              "f9770adec1bd5b565e1f680c6d3b7f39",
+              "f6632f76977d7c35942c20b8388d30b3",
+              "81d20ebc5c61e7f9852e895191d2754c",
+              "567f3cfbbd8f3bafae5d5502c7405c21",
+              "954198302058bdff5771886dc1572f36",
+              "48c9c8d5526eb5280f672b094ba64104",
+              "bbb37bae9224e3d958ace321385b1ff3",
+              "2e50bf149ca867549f7ee983231121ca",
+              "66ab5d177251a0612378f3a911b152b3",
+              "91eaf56ede7e7b3eac821db53b001869",
+              "790af409cbd1dae7a564fd48daaca22b",
+              "28a2e27f33a76b056009120cbd7fe7f1",
+              "bb8272bac7f7fb7859782aa463b09f19",
+              "977675f90579af57b41bd0a5deb40ff7",
+              "e0a302a6ca97652318f54dec0afec056",
+              "247cb3933f7c1c223a37d87d3d5bccc2",
+              "8d4d43ac5763a216d393bb3cf5c48699",
+              "80303774d9c15d91db5ebed1904be42e",
+              "fe6c6c1a0654378aa274cc64806f25b6",
+              "199d414a70904de571ce98a50c2ae367",
+              "70bab06b87e71e188e7b64b9a5d9d205",
+              "929b442007e0190428ed81ca48713882",
+              "22042b1b127cd0fdabdbbcfc17dd0f18",
+              "807c84e0a33c338792e4ce20fa98ba1d",
+              "8c9564decd169b7f79423981f38979df",
+              "590937db9573cba7fc432433dc97897a",
+              "cfdcbcf4f2bc0a8eb804bd83d28afb57",
+              "be525671a512e33fbe0684ff82d2d435",
+              "4f7d9c8bdd0e720c627c0204770c64cc",
+              "de31e108e418d3ddf0f10062418fac2b",
+              "33218fe89678a93b663c29ce1d545519",
+              "aed5127a83ad614ec367a84c7c2bd34a",
+              "dcd731d6de09ebde2989db608afe6a2b",
+              "17595886851878bf81ccd6ea27efd2d1",
+              "c6c2b658a24ff1f29c66132466f6b448",
+              "008bd9b06c01b22b501991e5b00725f0",
+              "18b24467a75d1a85e04b9adc27b84b54",
+              "eb4f7b40959bd5be7e802a98be2a486c",
+              "7fe54635bf79422915ecbe930e7ce463",
+              "d4f1f373b28650b4e043d576757b35a7",
+              "8a7a732e8a5b9017d2dd0189122a452c",
+              "b4942c1e63e561181abaebb16701c990",
+              "b98076f70f683032ed3484957c9ffe66",
+              "15b20f532fb2bffdffed8693d5d4d61a",
+              "d774083be620add9197bd747bc815b9d",
+              "9076a62d44d557381c75404bd3dd82cf",
+              "f362438fd1d217f9818588de04327f90",
+              "8890b5ab0f7f2ad524d1a120f2842a68",
+              "5125c82f52b5c075642bac96b983502d",
+              "f06573cdfbc0405d1ab4e36b6337d2f0",
+              "fd8e82d8aab59f6f1e677a5e816fae9d",
+              "f411fd70cf7d49ca7f9e5a07291e5d3f",
+              "3e6a0340a0d6aab0292a47407608321a",
+              "6023e7c890cd24c21bb746b19ff1ce34",
+              "1f01a6214461ef148c68858090da9479",
+              "280c2b83b4cd12ac349d40a3ed481288",
+              "af24a5e9dc6a1e4c120cc238d2c68034"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "2ac79608506045bc7ec8adb65c53f47c",
+              "5dfaaa7035242090e6d662e90670080a",
+              "fcb3e6ecc1ba4a89fe26f0d85377aca9",
+              "66136d417e7936df18f7198d603d4ef6",
+              "9450f2b8b9d0b8158613b0c84c6a4cd8",
+              "c0173c1296ed5cc0a9b45a2fa4c6a0d3",
+              "d27946d39b6152b1270ead24eb2bfa37",
+              "abd48c980542dbc01c0ce5915fef00cb",
+              "edb2d410f3e5df739b0e329e578830f1",
+              "a9c5e4e7b29d255b54018c1286d46894",
+              "3fd9ca7f3845eb5716aad5d84a815b89",
+              "18bdbc89bb38cbe3e0fdce8f761027c4",
+              "f174e9b49d65ccf0b0c1b725f5591d1e",
+              "05e4811a2f1c3ed6d18d4470720d2a42",
+              "409abf628ba427282d62bd4d8fe55856",
+              "071617ed057b8a06fefe940b27d4eb93",
+              "c8a389c55dfcc17a1db4f474b1d4d438",
+              "ac8814fa1f30031ad336df6bed2c2555",
+              "2c78927856996863943f923c2878a8de",
+              "253270a9f58b9ec2ca719df44c5d35e9",
+              "5775ad53e05b22f975c851ffc13f6ba5",
+              "44ce60e8c755655f957db37f9b8528fa",
+              "33063b691fc6ae08a6f6acbbf7f66949",
+              "ffeb4825e6c229d3a647537399c587d5",
+              "7584ea1556cb1864e3a618ef4dca1e40",
+              "ba29c457a00580babd23ca3c4815027e",
+              "e6b1d58f10548242268c16839fb58227",
+              "9a0071685c61aa22e44231b525a16f77",
+              "bbdf3071c580f283eda76841af834296",
+              "bf579984d6a4c51a4f270831ebaada42",
+              "281025e5f4abf528c90ac116805d9a58",
+              "14d94caf18fec7ee9cecf92c27ac6caf",
+              "a486f718bb7d3cc57e5c7845fed68466",
+              "5f85c4373279f8110706ed5ec6fa0e24",
+              "2709561c911e4e64a38b81c6d8ced267",
+              "e385578b81c7ded7eb88ccf7afb0fa48",
+              "8fc7be89f6005c38ba46d61e7a321c5b",
+              "ab2a7b18298f5047f2e6af69be3daba8",
+              "aea6d7e57e710764860ffae113de443e",
+              "73159ff2898cc98d33d32239d26f1144",
+              "7192a7f76f8c367e5d6a6647d94c373b",
+              "fecfebc353325dc9da7f3fcf0c2ba067",
+              "6da4a930f84405895bf47104fdf505d1",
+              "6a30e4f6bbf5772368209e302ad8e717",
+              "e4ab8c933ee05710bc97a3dfe580829a",
+              "fd23be1764223a65bae2dafea9e05f11",
+              "376a789f4c16babfcd78c844511acd35",
+              "d14953aee738dccc56f71e91326bcaf9",
+              "e7c50a4741992d72837fee73227bbfc8",
+              "2100d972199248f6b68bd69b4899f313",
+              "2aa1629ba2091ecde4ec35b0a25f6ac0",
+              "b108ab16a587ac2f4aac9eb8a2de0ff0",
+              "e3cf37746eadec1088225535e822bcce",
+              "9ed0a374364cc5ef702dad1f0ccb5ba7",
+              "47a76a97ac522823f73a5ab5c5ae3e87",
+              "4ca2b9515b75b0e03f89603eff955b80",
+              "ec5ac2ad99ef30cd8558a46f1c001ad2",
+              "86f0c0b466616cd4e028b0d5df1c0799",
+              "d1bdf2fe1f263e01a3a054d7db011329",
+              "f64123fc8b8894c4f0e7be6b81e9672d",
+              "cfc657ed802d8f81a62d7c5f43dcf95a",
+              "69c5d338a14e39113e12df907c6cc8c2",
+              "75a33587089f01526b9f35edbea3d93d",
+              "c4225b3867dc7190ac4c8a185cfe0ed2",
+              "7663891c9f04c1d737c52f20e9ead6db",
+              "e63ce1510b3ad72577353f619edbacc3",
+              "dd464b0e52c9b1b26ae3747f807a9d03",
+              "1ebb1af3586e02d3853af8e221430d3e",
+              "03ce4a43cfd226fc0459b2a33ee76894",
+              "18b54fe292430517431adcdb9f87c69e",
+              "87f5a467ab6917cd9feaefc370abd15a",
+              "682952bb8294e199d8ace56d695f4b54",
+              "e43bc0e20e5df026bc76ff4c746d226a",
+              "89a039bdb6518a0dd97652b7d0c24a22",
+              "8d8be7fa87cc117a7bf59d289d499e7a",
+              "9b086da7ee7a092a3c960db405b2dd0b",
+              "3757e587fd4d8d6e168f8951de4a4d39",
+              "50c42531ab1c37a6ee04f5e7b72b2de4",
+              "e79b52267ab4a96684613f7f3a72c8a2",
+              "17ef42d205a0e6740075f7edef5b703e",
+              "ba9803452de93ff106fef179963d0f76",
+              "121bcb24b5cee0438547f57e0b6b9b44",
+              "afb79078798f4848be20c9d366a8c2c7",
+              "3b0899fa7fec3194a96f5053d8c1c6ee",
+              "a85123c1e5d5f8259750924686f049bb",
+              "2817477fd74e0e34ba974d8e8ba584fb",
+              "525c0ea17adf0bd301a9c964d073da9f",
+              "b178348a8809396f07ba9e22c4b2695d",
+              "2ff35b4f4fc7173575862ef135789b11",
+              "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+              "4ef78f75c86a97795c7e7f6a29678b1e",
+              "ddb5680abdf1555ffffaf2da19f029f9",
+              "5a3846b0fd2c7129959419b896591577",
+              "7f813121a7c126f00bcbcab884ddc4c7",
+              "5d5abbb85dee9346dd646d7ea4c18643",
+              "94876661c2e3dc0a5f9116d544c638d6",
+              "0787d8891b5e018e1c4c78c6915c2014",
+              "cc6f22ba3ae80709e5fdaf61301c5908",
+              "4ab94e73d3d35e5d331dac203d69aaf2",
+              "58eb55c6a46303e4bcbaeabc69772008",
+              "0bce0b40b16b4fd9ea662b7f65676ff7",
+              "6d7efb3862219507f401df166bc87be8",
+              "3c3c45d2af172eb0d19956a4cdde68f8",
+              "f8b524a45f53f77a96516b2c04b75133",
+              "6795a159bbfb324e8536b05e682dab9a",
+              "291f43120f76b16ea5a45375d356f089",
+              "b8569f82d9fd312795fa543b74039c01",
+              "4c3842303b3498dde6365eaa00a42d8c",
+              "8230437a1d7c900e386af7a3e706d032",
+              "30ab94c24639452fc428828ca06af4fa",
+              "7ff545a1288036153d0ed19463a9479a",
+              "f66ca91a3cbbd4f055bcf06c47d95a57",
+              "500e46a923294bb1e8e21194954da676",
+              "f535a0f97448c8a36b5cadba33234b61",
+              "bb06d2c020175df0807365323515e96c",
+              "79fcc87e95e70ddbee15f6b82a0a194f",
+              "51bbfb10df93a9da598014aae58b27d3",
+              "13286768b5e62a232d77c580d92690b7",
+              "2cc3fe75ad06891d3844b8aee049081a",
+              "4811a7f59c88fda253ba33e049d67f8f",
+              "f8b687a9a624abebf9811ce7fb9c1850",
+              "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+              "50f58ad54455e3dd615336f4476e4efe",
+              "b11e6d66a1145eca382ce79e8d06c6be",
+              "10be6aaa7373cab85dabba3fee84b540",
+              "f016b592bf9eaaf67d272e4f100e8058",
+              "bf3d764d94a7d6c6e9cf6aff40c186c5",
+              "d6fd8fa5d6b130c9b14a08a0284ed808",
+              "697e2abc737fb82b3c37db626d8b1cbe",
+              "568c32293b013516a07843225a251438",
+              "37b5e6e3dddc0450ee013cb51e468fe1",
+              "c6445c30cbbbebaf3cd300b7fb891ca4",
+              "eb2717fac1d6655279336e9a4bb5c1f9",
+              "780685cb66e5066be3603a37628fd563",
+              "2ceaab51b4b5c4d30eb1ff6d8cdb8722",
+              "8f1222af769ecb6280fd563a75f6b739",
+              "850bd59aa62ba6309c965dfc28bb8f73",
+              "0214a15ca45c8f48a68377bf129e8260",
+              "344490cfc60038380147ebcca724bf42",
+              "2acd0dc28378681678d19013475e0cde"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "82700bc3f847d70b1374e27b788b47c3",
+              "6c4962c7799d2b18ad11a273403a8991",
+              "0aad3c62542f798fe60f3746afa3916b",
+              "743784cd0beddc415f010acc9707c5c2",
+              "04618fe36e52ae63b60dce345d964426",
+              "aa2112a3636ba13e38ef81f2599a912b",
+              "52b9d355303042d383e73b130b0ab99e",
+              "bf6337dfb4c02be031ed29e56967698d",
+              "4c630f11a9b57fb07f5fcbbec430900e",
+              "4f5d58d8a0d14021dfb83673b9af05f1",
+              "b8ab211586a7b4b3717c2fcb16bf69e3",
+              "42c94d9dfe6d39608a4b7797cfb4e629",
+              "788c79f9972e1ed27bc54d6d1c2941b1",
+              "f036fedf0f2ca9064971dd8c17a74876",
+              "b393087052103fe835e70955b43866dc",
+              "98f1603cc3580c7535cfb36c31f68884",
+              "75c67fe253c05d0e0973cd6c3f556af3",
+              "1ab0fa07b92d19962a9e2b17693989ec",
+              "f6be2291954fb78853f3311a29acca3f",
+              "c3e66dad298c12cfd59f855dd7415760",
+              "f6165ff71818e13407cb9bba0f4f5092",
+              "8a00b0ff2427d85c23e07b3c9828ebee",
+              "3290d0f38c9c619310204f78db500650",
+              "df9303debd1272ff697b4fe320eb5373",
+              "351dc29d5c04c9dde2c165870a65f68d",
+              "a576aa64ed710ccbc65af7765af0ca0f",
+              "0a94b8e046b0d80a91def8f81fad16c8",
+              "ce01abdc5581f0e0604e7bbedd58370d",
+              "dda5508337e0c8c0d7d83efc300a3092",
+              "35f5b604a8472532f66309793b721b8e",
+              "4838524c345cc0819b901105bbabb5f5",
+              "33292c575779ddcf9c0d701c0ba21cdb",
+              "651ce6d4e100a15474e540783ffe5816",
+              "72e24b282f908c7acb40571eeea67977",
+              "4b17ed67079d49e9bf8c04fd9035e925",
+              "980e0e2d85efe4c01abc65a09b0ee6cd",
+              "03786ae735a0f544feb74ed510e9ec04",
+              "6b5ad398987c71ac368fe17a23c2353d",
+              "674fe23885a4d3aa72ec6e78cd4df1d8",
+              "bf3585d9ae3acc7d06d8282c5c2256cf",
+              "e055c3f3cfa92ad6a3b41443901dee6a",
+              "bd91729b77efdda1b766d4bd10ba2eed",
+              "0ce4245883b98e2905d8c18d54d950ec",
+              "49e60379b2b14e1f00532c5c18528a83",
+              "d9e6875c157fa96e73f8ffbc2e99caa2",
+              "c1888ca9c8a4d1da6d7793b606b9ec66",
+              "1ff716cd6a5c1e8e97149d63a4fc2a54",
+              "8b1a3f81168466121fb57b0828be574c"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "7257d8b7e4f35b0e9e3ce22335effef9",
+              "940109b9ec3b7684670e62e97452e408",
+              "68e2fa2ffe26ef262b94bcdf560d9ea1",
+              "8240cef7d663b19e65ed746e2229d888",
+              "ac1f1e0b5c495ae3a5e067e80e6fb97f",
+              "9b94a8846ecb9f9d8c826241d53ac67f",
+              "09e88d60149ab586da97eeac1838d646",
+              "1214a1b6f380d46b294b0e3616997543",
+              "d2836caa4ca74de5465cd36cf1bf0feb",
+              "b4fc792b97a0f002882f9a61e85ed8dc",
+              "eece7bf407c65d0aff4f2f71100c7b99",
+              "06105bf1d448f84dbb75f7a1a0a4ea5e",
+              "f71599dc691777de2518d262c07a1d00",
+              "d9fa06625681b1a3cde936838ba4546d",
+              "fe8f1d27f9beda637748219d2eb06017",
+              "62898be91a4999379b49a73068f344cc",
+              "3fa32aaf32970d9cea179793f51d00a7",
+              "8988c0da79ab71c42c1b2d39702abd81",
+              "2088c4ad89a4ea9475397a2895be2c9a",
+              "dcf97535430fa026005091fd6aef3ec3",
+              "3e7b4ce87313528c47927b694aa05281",
+              "bae8599a9060b34766a6bfc22f6c7146",
+              "e166aded1cc172a9f18b16b654d1b45b",
+              "0a876f9dff1f33e6abf98cdd79849d7c",
+              "908f3342d9751f3e221242c115c9ad55",
+              "d248e7d14484c448f1067542b201d018",
+              "f72f9fbae62db486945042a15b20663f",
+              "20928b66a6fca268b624fd2d94769490",
+              "f5f1a66757630315cdddefeced700889",
+              "847a83ef37749097f14a35097c1d7b05",
+              "66cb6ef60d95658351c1d1dc158e0783",
+              "973b2f8a2412a68d5338af11f985df75",
+              "6ff057b4615d847c30f0037a37bae198",
+              "6ddc2064daf0ec6962c8dce6f3ed0813",
+              "d6cf09c7eac442f8d2b5901feef459be"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "7751e47f0c9eea9d7dd9c81a2c630cf6",
+              "53773639ae6c8a4f769d5482f6b7834a",
+              "2013f340243beddb6db8c08e86050a12",
+              "3a043b6d141821d76757f440f7d003c7",
+              "869ed95434e70ea0d7ba599945751fd2"
+            ]
+          }
+        ],
+        "restart_reconnect": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+              "e86b29fdc72823fbe7f2a9f7ef868348"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+              "2ac79608506045bc7ec8adb65c53f47c"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+              "82700bc3f847d70b1374e27b788b47c3"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+              "7257d8b7e4f35b0e9e3ce22335effef9"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+              "7751e47f0c9eea9d7dd9c81a2c630cf6"
+            ]
+          }
+        ]
+      },
+      "missing": [
+        "capacity_pause_resume",
+        "sticky_draining",
+        "priority_under_load",
+        "unknown_reconciliation",
+        "attributable_realized_profit"
+      ]
+    },
+    {
+      "index": 4,
+      "status": "PASS",
+      "observed": {
+        "enrolled_status_coverage": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "dcd731d6de09ebde2989db608afe6a2b",
+              "18b24467a75d1a85e04b9adc27b84b54",
+              "d774083be620add9197bd747bc815b9d"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "ba29c457a00580babd23ca3c4815027e",
+              "bf579984d6a4c51a4f270831ebaada42",
+              "a486f718bb7d3cc57e5c7845fed68466",
+              "e385578b81c7ded7eb88ccf7afb0fa48",
+              "aea6d7e57e710764860ffae113de443e",
+              "fecfebc353325dc9da7f3fcf0c2ba067",
+              "2100d972199248f6b68bd69b4899f313",
+              "75a33587089f01526b9f35edbea3d93d",
+              "e63ce1510b3ad72577353f619edbacc3",
+              "89a039bdb6518a0dd97652b7d0c24a22",
+              "525c0ea17adf0bd301a9c964d073da9f",
+              "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+              "7f813121a7c126f00bcbcab884ddc4c7",
+              "cc6f22ba3ae80709e5fdaf61301c5908",
+              "6d7efb3862219507f401df166bc87be8",
+              "291f43120f76b16ea5a45375d356f089",
+              "30ab94c24639452fc428828ca06af4fa",
+              "f535a0f97448c8a36b5cadba33234b61",
+              "13286768b5e62a232d77c580d92690b7",
+              "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+              "f016b592bf9eaaf67d272e4f100e8058",
+              "568c32293b013516a07843225a251438",
+              "780685cb66e5066be3603a37628fd563",
+              "0214a15ca45c8f48a68377bf129e8260"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "651ce6d4e100a15474e540783ffe5816",
+              "03786ae735a0f544feb74ed510e9ec04"
+            ]
+          }
+        ],
+        "natural_expiry_observations": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "dcd731d6de09ebde2989db608afe6a2b",
+              "18b24467a75d1a85e04b9adc27b84b54",
+              "d774083be620add9197bd747bc815b9d"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "ba29c457a00580babd23ca3c4815027e",
+              "bf579984d6a4c51a4f270831ebaada42",
+              "a486f718bb7d3cc57e5c7845fed68466",
+              "e385578b81c7ded7eb88ccf7afb0fa48",
+              "aea6d7e57e710764860ffae113de443e",
+              "fecfebc353325dc9da7f3fcf0c2ba067",
+              "2100d972199248f6b68bd69b4899f313",
+              "75a33587089f01526b9f35edbea3d93d",
+              "e63ce1510b3ad72577353f619edbacc3",
+              "89a039bdb6518a0dd97652b7d0c24a22",
+              "525c0ea17adf0bd301a9c964d073da9f",
+              "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+              "7f813121a7c126f00bcbcab884ddc4c7",
+              "cc6f22ba3ae80709e5fdaf61301c5908",
+              "6d7efb3862219507f401df166bc87be8",
+              "291f43120f76b16ea5a45375d356f089",
+              "30ab94c24639452fc428828ca06af4fa",
+              "f535a0f97448c8a36b5cadba33234b61",
+              "13286768b5e62a232d77c580d92690b7",
+              "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+              "f016b592bf9eaaf67d272e4f100e8058",
+              "568c32293b013516a07843225a251438",
+              "780685cb66e5066be3603a37628fd563",
+              "0214a15ca45c8f48a68377bf129e8260"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "651ce6d4e100a15474e540783ffe5816",
+              "03786ae735a0f544feb74ed510e9ec04"
+            ]
+          }
+        ],
+        "natural_funds_observations": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "a4abbeee7c6d227edc7a30adf92264db"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "9076a62d44d557381c75404bd3dd82cf"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "344490cfc60038380147ebcca724bf42"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "72e24b282f908c7acb40571eeea67977"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "68e2fa2ffe26ef262b94bcdf560d9ea1"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "53773639ae6c8a4f769d5482f6b7834a"
+            ]
+          }
+        ]
+      },
+      "missing": []
+    },
+    {
+      "index": 5,
+      "status": "LIVE-UNVERIFIED",
+      "observed": {
+        "offline_regressions": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              1
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              2
+            ]
+          }
+        ]
+      },
+      "missing": [
+        "all_transaction_and_maintenance_branches"
+      ]
+    },
+    {
+      "index": 6,
+      "status": "PASS",
+      "observed": {
+        "honest_missing_evidence": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              14
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              15
+            ]
+          }
+        ]
+      },
+      "missing": []
+    },
+    {
+      "index": 7,
+      "status": "PASS",
+      "observed": {
+        "final_item_order": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              1
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              2
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              2
+            ]
+          }
+        ],
+        "append_only_evidence": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "ebd3b09049b805eac1cc72f59cd77d627ec4f8e6687edfe7fb7e09384518884d",
+              "12552001b1a21de1243c2c233451280a03077cf9c8dadccaa5f544d504e0c3c1"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "9c462190993e97a0343f51a9524973d91a5c3e458f8bc9c3b681a484791728f4",
+              "9479baecd163035c3bd7138c55b5e245aff2c4963ac95d8416e99ba3e7848ef1"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              "87fafbeaadc6283722c397d182f9e9ce48aa1116a44291e7867d7f3596e17aba",
+              "475fcf7edb7aed79b6fc280498b7bbb11c939ca4af68622e159dcf9774743334"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              "edb8d0d6d94c9fa461a10b24355d13f2a281bd67844207d7b601bb3a72a2855b",
+              "a9956f889f726c8b74241d60352ce7c67f652c2f5db47b8d6506101431e21e62"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "f9f79ae2c04e49f6d9082abb9ede7620b2a5598a2905fcaaab6507efc6d9a93f",
+              "661ac55359379ae5314390b5b4fbfaaf3392ea11f8124ceafdf27a4d957d33a5"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "437efb52ca9b5f095d07815841c8f19bca32d5c5034eeab5a5372cbff3969087",
+              "694b2ec2731138c87585071c2abbb5d194f52ff6b4436761be7f16288801c4e7"
+            ]
+          }
+        ],
+        "failure_reported": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              "5e8c5944b2475c2695307d02f9c6d91a"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              "af24a5e9dc6a1e4c120cc238d2c68034"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              "d6cf09c7eac442f8d2b5901feef459be"
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              "869ed95434e70ea0d7ba599945751fd2"
+            ]
+          }
+        ],
+        "all_run_processes_stopped": [
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+            "references": [
+              14
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+            "references": [
+              15
+            ]
+          },
+          {
+            "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+            "references": [
+              15
+            ]
+          }
+        ]
+      },
+      "missing": []
+    }
+  ],
+  "unverified": {
+    "cached_valuation": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "cap_stop": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "sold_one_call_clear": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "capacity_pause_resume": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "sticky_draining": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "priority_under_load": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "unknown_reconciliation": "No independent native evidence chain witnessed in the bounded item-12 experiment",
+    "attributable_realized_profit": "No attributable per-sale net receipt in the native adapter; gross sale, projected tax and aggregate funds are insufficient",
+    "all_transaction_and_maintenance_branches": "No independent native evidence chain witnessed in the bounded item-12 experiment"
+  },
+  "windows": [
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+      "started_at": "2026-11-14T08:10:58.363884+00:00",
+      "stopped_at": "2026-11-14T08:11:33.853857+00:00",
+      "seconds": 35.489973
+    },
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+      "started_at": "2026-11-14T11:15:28.181808+00:00",
+      "stopped_at": "2026-11-14T11:16:31.199943+00:00",
+      "seconds": 63.018135
+    },
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+      "started_at": "2026-11-14T11:25:45.810628+00:00",
+      "stopped_at": "2026-11-14T11:35:36.616417+00:00",
+      "seconds": 590.805789
+    },
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+      "started_at": "2026-11-14T11:59:08.292544+00:00",
+      "stopped_at": "2026-11-14T12:00:10.060028+00:00",
+      "seconds": 61.767484
+    },
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+      "started_at": "2026-11-14T12:15:46.917107+00:00",
+      "stopped_at": "2026-11-14T12:16:37.851539+00:00",
+      "seconds": 50.934432
+    },
+    {
+      "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+      "started_at": "2026-11-14T12:19:43.250485+00:00",
+      "stopped_at": "2026-11-14T12:20:04.490077+00:00",
+      "seconds": 21.239592
+    }
+  ],
+  "metrics": {
+    "active_seconds": 823.255405,
+    "elapsed_seconds": 15545.742661,
+    "native_commands": 334,
+    "mutations": 9,
+    "enrolled_in_experiment": 3,
+    "actual_50_auction_sample": false,
+    "native_requests": 217,
+    "independent_recovery_reads": [
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\preflight.jsonl",
+        "command_id": "e2c3299706b1e3d8d658f88ebe291397"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\preflight.jsonl",
+        "command_id": "5697c202561d83c4fce3633fed438bdb"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\preflight.jsonl",
+        "command_id": "787baaf8f068dacbcf012ddfc46fb80c"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\preflight.jsonl",
+        "command_id": "d41ca7c17334bc1923919acbb1994fd8"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\preflight.jsonl",
+        "command_id": "e143c7d92ffb7c72ee588706fde67ced"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\preflight.jsonl",
+        "command_id": "9411820eb88a9b5c0c403d27ea0f4e0d"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\preflight.jsonl",
+        "command_id": "024ae5b6d1e080eba5a419255c3ae479"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\reconciliation.jsonl",
+        "command_id": "fd4de4abcb65275011895314cdab5738"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\reconciliation.jsonl",
+        "command_id": "f67a3289ed416af0393d898ccd672db5"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\preflight.jsonl",
+        "command_id": "dc82407ac0cbeb2fd83dce787b6adc85"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\preflight.jsonl",
+        "command_id": "ed0b56fac9ae63e2e981f34d32a3ca0e"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\preflight.jsonl",
+        "command_id": "8073c5f9136d68e0fc98f843c0929fd0"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\reconciliation.jsonl",
+        "command_id": "980feff42a2668d864fed675066c6b65"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\reconciliation.jsonl",
+        "command_id": "28543e6a6e555f1b1cd7e8acb513a244"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\reconciliation.jsonl",
+        "command_id": "8fba0d9d679786b24f0d0f06d9919f51"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\reconciliation.jsonl",
+        "command_id": "3dbd3c20659d235b27307e2d0e6dbb8b"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-02.jsonl",
+        "command_id": "99e466662cdcf3c3f9398a28b591a0fa"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-02.jsonl",
+        "command_id": "d833aa3e183c985c79900168d0fd08e9"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-02.jsonl",
+        "command_id": "a74d555d123776b3261613406d028d6b"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-03.jsonl",
+        "command_id": "2489863d184f1f3ec7afb46dfedccfd8"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-03.jsonl",
+        "command_id": "f6918bfb64bccc77cc581899dab80665"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight-03.jsonl",
+        "command_id": "02a74f6d355d82aae6ceb9b8838c1d27"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight.jsonl",
+        "command_id": "6c6beddc5e593b4673d99b015425c90d"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight.jsonl",
+        "command_id": "be9b31ad261fa88d71edc2ffa09cc50f"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\preflight.jsonl",
+        "command_id": "2dd51b829a5c351f6820d7419940da2e"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\reconciliation-02.jsonl",
+        "command_id": "684ef253177658e17cb978731d5b7235"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\reconciliation-02.jsonl",
+        "command_id": "e0da548ca751a079106528e9f6b73d34"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\reconciliation-02.jsonl",
+        "command_id": "0150f495ef93429233e87f24096d5864"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\reconciliation-02.jsonl",
+        "command_id": "4e0f29c4a6c53da35fa6a289e73389d6"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\final-observations.jsonl",
+        "command_id": "b208cd08ebbf5328513cd24489388bf2"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\final-observations.jsonl",
+        "command_id": "a119d8e74a34b2fc7b425e96433ec0c6"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\final-observations.jsonl",
+        "command_id": "5b6e224771e5fa607a257fa6427973c8"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\preflight.jsonl",
+        "command_id": "e056c0e1d903ec38ea54bc6f277afb48"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\preflight.jsonl",
+        "command_id": "7c5fbdd4a828e5ef0202f4a887cf1335"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\preflight.jsonl",
+        "command_id": "99753350ef8bda7e3ff0f10d7e1126e3"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation-02.jsonl",
+        "command_id": "441d473f82c988ee0ca861be14305aab"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation-02.jsonl",
+        "command_id": "6333392eec065d61ab880e57b2372eef"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation-02.jsonl",
+        "command_id": "6e33cd4b3db2b17b52792740a1948701"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation.jsonl",
+        "command_id": "a827031bb25895038eb38d589d45877f"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation.jsonl",
+        "command_id": "147a026d68759936bcd831815f0f4ea5"
+      },
+      {
+        "path": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\reconciliation.jsonl",
+        "command_id": "2d2972d121da62f815115961a4b8ba34"
+      }
+    ],
+    "effect_readbacks": [
+      {
+        "command_id": "869ed95434e70ea0d7ba599945751fd2",
+        "readback": "5b6e224771e5fa607a257fa6427973c8",
+        "callback_success": false,
+        "runtime_intent_may_remain_unresolved": true
+      }
+    ],
+    "runtime_unresolved_intents": [
+      {
+        "command_id": "869ed95434e70ea0d7ba599945751fd2",
+        "operation": "relist_all",
+        "state": "UNKNOWN",
+        "trade_id": null
+      }
+    ],
+    "per_window": [
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+        "metrics": {
+          "native_commands": 6,
+          "actual_native_requests": 7,
+          "mutations": 0,
+          "enrolled_this_run": 0,
+          "watched_rows": 0,
+          "queue_wait_ms": [
+            4.007000000000001,
+            1991.588,
+            4296.115000000001,
+            1989.4270000000001,
+            1987.4830000000002,
+            1991.722
+          ],
+          "roundtrip_ms": [
+            155.13200001441874,
+            127.64660001266748,
+            98.59000000869855,
+            142.9094999912195,
+            973.4641000104602,
+            739.9414000101388
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 0,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "WAITING"
+            }
+          ],
+          "enrolled_status_samples": {},
+          "bidder_start_intervals_seconds": [],
+          "bidder_cycles_exceeding_25_seconds": []
+        }
+      },
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+        "metrics": {
+          "native_commands": 59,
+          "actual_native_requests": 22,
+          "mutations": 2,
+          "enrolled_this_run": 1,
+          "watched_rows": 3,
+          "queue_wait_ms": [
+            7.464,
+            1991.101,
+            4277.942,
+            1992.9699999999998,
+            1986.2089999999998,
+            2.7009999999999996,
+            1931.4750000000001,
+            5.042,
+            3.593,
+            1867.38,
+            6.596,
+            2.098,
+            2.953,
+            5.913,
+            2.1,
+            4.431,
+            9.045,
+            3.1830000000000003,
+            1514.685,
+            5.183,
+            5.715999999999999,
+            3.104,
+            10.267999999999999,
+            8.116,
+            1.6340000000000001,
+            8.456999999999999,
+            5.549,
+            17579.23,
+            1962.356,
+            1992.734,
+            1987.9379999999999,
+            7.532,
+            3.646,
+            1852.597,
+            1918.196,
+            1999.542,
+            6275.116,
+            1981.1129999999998,
+            6.547,
+            1990.338,
+            3.143,
+            1917.408,
+            4.555,
+            9.716000000000001,
+            6.229,
+            6.255,
+            1745.091,
+            1992.8410000000001,
+            1.9369999999999998,
+            5.771,
+            10.083,
+            6.061000000000001,
+            5.306,
+            3.913,
+            4.191000000000001,
+            2.3449999999999998,
+            5.54,
+            7.512,
+            1433.4450000000002
+          ],
+          "roundtrip_ms": [
+            138.7133999960497,
+            120.10410000220872,
+            114.74949997500516,
+            130.0240999844391,
+            305.74119999073446,
+            45.78899999614805,
+            143.79980001831427,
+            47.262300009606406,
+            44.77849998511374,
+            158.07959999074228,
+            45.32189999008551,
+            41.949500009650365,
+            42.9473000112921,
+            44.324299989966676,
+            41.14220000337809,
+            46.59329997957684,
+            45.282799983397126,
+            45.518700004322454,
+            396.98310001404025,
+            39.03709998121485,
+            48.63499998464249,
+            46.21080000652,
+            39.433600002666935,
+            43.49849998834543,
+            46.09469999559224,
+            46.696400007931516,
+            41.369899990968406,
+            131.5922999929171,
+            235.1333999831695,
+            107.12100000819191,
+            137.5490000064019,
+            46.58910000580363,
+            43.516999983694404,
+            332.60369999334216,
+            148.57109999866225,
+            106.99400000157766,
+            137.29260000400245,
+            136.9221000059042,
+            143.23079999303445,
+            113.51579998154193,
+            47.6263000164181,
+            133.71530000586063,
+            43.95730001851916,
+            36.38419997878373,
+            48.24060000828467,
+            45.76190002262592,
+            162.29670000029728,
+            114.26020000362769,
+            28.143899980932474,
+            44.32240000460297,
+            44.31289999047294,
+            38.53079999680631,
+            37.49099999549799,
+            39.41409999970347,
+            27.186699997400865,
+            42.870799981756136,
+            40.20820002187975,
+            46.849000005749986,
+            60.55449999985285
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 3,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "fbd51f0cb3b7e7640afd40060be12274",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "WAITING"
+            }
+          ],
+          "enrolled_status_samples": {
+            "trade:840b9a7b11ab06c72ab78ed1": [
+              {
+                "read_id": "dcd731d6de09ebde2989db608afe6a2b",
+                "network_at": "2026-11-14T11:15:58.769Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 700,
+                "expires": 241
+              },
+              {
+                "read_id": "18b24467a75d1a85e04b9adc27b84b54",
+                "network_at": "2026-11-14T11:16:20.171Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 750,
+                "expires": 219
+              },
+              {
+                "read_id": "d774083be620add9197bd747bc815b9d",
+                "network_at": "2026-11-14T11:16:26.626Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 750,
+                "expires": 213
+              }
+            ]
+          },
+          "bidder_start_intervals_seconds": [
+            26.688344,
+            23.312634
+          ],
+          "bidder_cycles_exceeding_25_seconds": []
+        }
+      },
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-02\\live-03",
+        "metrics": {
+          "native_commands": 140,
+          "actual_native_requests": 101,
+          "mutations": 3,
+          "enrolled_this_run": 1,
+          "watched_rows": 49,
+          "queue_wait_ms": [
+            6.338,
+            1990.5710000000001,
+            4263.027,
+            1987.5100000000002,
+            1977.969,
+            7.779999999999999,
+            1926.463,
+            8.966,
+            5.962000000000001,
+            1867.732,
+            5.973,
+            6.503,
+            8.217,
+            10.050999999999998,
+            10.002,
+            3.1029999999999998,
+            9.532,
+            1592.299,
+            17537.008,
+            1973.288,
+            1996.764,
+            1998.626,
+            8.398,
+            9.549999999999999,
+            1837.8110000000001,
+            1948.746,
+            2001.2409999999998,
+            6277.171,
+            10.474,
+            425.696,
+            1998.845,
+            8.722000000000001,
+            421.80699999999996,
+            1994.755,
+            3.236,
+            434.09700000000004,
+            1994.893,
+            3.934,
+            427.572,
+            1987.739,
+            10.103,
+            453.679,
+            1988.2040000000002,
+            7.6129999999999995,
+            1919.6219999999998,
+            6.026,
+            5.4559999999999995,
+            3.21,
+            19.208,
+            1733.7169999999999,
+            1996.0739999999998,
+            4.213,
+            5.428999999999999,
+            6.728,
+            8.777999999999999,
+            2.457,
+            3.892,
+            8.368,
+            4.2379999999999995,
+            1.97,
+            1446.8600000000001,
+            5.859,
+            411.922,
+            2002.9309999999998,
+            10.57,
+            416.283,
+            2000.601,
+            2.456,
+            1920.096,
+            2.314,
+            5.627,
+            3.022,
+            6.959,
+            1717.977,
+            2002.99,
+            14.719,
+            8.848,
+            2.969,
+            4.906,
+            4.442,
+            10.777,
+            5.654,
+            3.604,
+            5.386,
+            1453.509,
+            7.143,
+            421.38100000000003,
+            2004.2399999999998,
+            9.904,
+            421.836,
+            1988.699,
+            2000.8870000000002,
+            8.815,
+            412.626,
+            1993.5369999999998,
+            1985.972,
+            6.934,
+            466.196,
+            2000.5259999999998,
+            1990.601,
+            4.414000000000001,
+            408.553,
+            1995.536,
+            1993.056,
+            11.574,
+            422.056,
+            2001.0880000000002,
+            1992.229,
+            8.651000000000002,
+            437.164,
+            1996.9170000000001,
+            1993.467,
+            7.784,
+            388.88,
+            2000.559,
+            1993.1000000000001,
+            3.568,
+            453.071,
+            1996.688,
+            1990.8600000000001,
+            3.238,
+            413.14,
+            1991.5510000000002,
+            1992.583,
+            10.638,
+            426.479,
+            1997.3939999999998,
+            1996.1899999999998,
+            5.3340000000000005,
+            420.882,
+            2004.733,
+            2001.8570000000002,
+            10.447,
+            428.56899999999996,
+            1995.684,
+            1991.595,
+            7.453,
+            400.146,
+            1986.865,
+            1981.952
+          ],
+          "roundtrip_ms": [
+            130.5477999849245,
+            121.38639998738654,
+            110.19629999645986,
+            150.2351999806706,
+            429.1170999931637,
+            44.04839998460375,
+            142.07649999298155,
+            46.594199986429885,
+            45.69860000628978,
+            190.3263000131119,
+            40.461700002197176,
+            52.901499992003664,
+            41.496300022117794,
+            29.600299982121214,
+            54.211099981330335,
+            27.302600006805733,
+            37.224700005026534,
+            170.4524000233505,
+            139.32809999096207,
+            248.3434000168927,
+            123.59830000787042,
+            123.6483000102453,
+            50.09110001265071,
+            41.62990002078004,
+            434.5059000188485,
+            169.00559997884557,
+            113.01839997759089,
+            130.3775999986101,
+            126.54599998495542,
+            155.09949999977835,
+            103.8406000006944,
+            109.54850001144223,
+            148.29479999025352,
+            108.8826000050176,
+            123.62520000897348,
+            147.44569998583756,
+            125.51620000158437,
+            121.8628000060562,
+            167.96250001061708,
+            126.7220999870915,
+            138.8882999890484,
+            169.01949999737553,
+            110.88739999104291,
+            42.41550000733696,
+            93.6900999804493,
+            48.30890000448562,
+            45.040099998004735,
+            48.56219998328015,
+            28.800300002330914,
+            202.7824000106193,
+            149.60689999861643,
+            29.180999990785494,
+            39.94699998293072,
+            41.052899992791936,
+            42.63190002529882,
+            50.0733999942895,
+            43.40990001219325,
+            44.32049999013543,
+            36.492600018391386,
+            50.48740000347607,
+            364.93690000497736,
+            123.85800000629388,
+            190.70629999623634,
+            137.99260000814684,
+            118.4357000165619,
+            163.6374999943655,
+            110.92430001008324,
+            45.67059999681078,
+            101.24289998202585,
+            40.59280001092702,
+            57.981899997685105,
+            43.06900000665337,
+            54.13589999079704,
+            152.07620000001043,
+            125.33040001289919,
+            43.4811000013724,
+            43.558399978792295,
+            30.180700006894767,
+            49.40089999581687,
+            45.58170001837425,
+            44.18110000551678,
+            36.83609998552129,
+            40.11870000977069,
+            41.59789998084307,
+            384.2541999765672,
+            125.64630000269972,
+            150.50499999779277,
+            126.65940000442788,
+            122.8844000142999,
+            172.94119999860413,
+            122.61029999353923,
+            246.38660001801327,
+            116.75829999148846,
+            163.50200001033954,
+            107.77450000750832,
+            109.75020000478253,
+            164.80359999695793,
+            168.75359998084605,
+            120.47299998812377,
+            160.48739998950623,
+            119.70559999463148,
+            180.86110000149347,
+            105.21099998732097,
+            100.62240000115708,
+            116.81730000418611,
+            157.6059999933932,
+            133.89829997322522,
+            105.02400001860224,
+            129.17160001234151,
+            158.94689998822287,
+            110.67970001022331,
+            107.28100000414997,
+            108.14570001093671,
+            257.52869999269024,
+            164.60869999718852,
+            113.51480000303127,
+            153.1768999993801,
+            178.4001000050921,
+            102.79770000488497,
+            108.65480001666583,
+            121.18389998795465,
+            312.7558999985922,
+            109.56529999384657,
+            143.1084999931045,
+            128.64469998748973,
+            165.0540000118781,
+            127.38540000282228,
+            105.9841999958735,
+            123.08469999697991,
+            151.70040001976304,
+            135.56080000125803,
+            109.61409998708405,
+            130.22960000671446,
+            184.27470000460744,
+            114.03280001832172,
+            109.28599999169819,
+            106.06950000510551,
+            182.4874999874737,
+            105.72970000794157,
+            104.35310000320897
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 23,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "fbd51f0cb3b7e7640afd40060be12274",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            }
+          ],
+          "enrolled_status_samples": {
+            "trade:5e510cabe14794f29c75f333": [
+              {
+                "read_id": "ba29c457a00580babd23ca3c4815027e",
+                "network_at": "2026-11-14T11:26:42.927Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 161
+              },
+              {
+                "read_id": "bf579984d6a4c51a4f270831ebaada42",
+                "network_at": "2026-11-14T11:27:06.400Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 138
+              },
+              {
+                "read_id": "a486f718bb7d3cc57e5c7845fed68466",
+                "network_at": "2026-11-14T11:27:31.395Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 113
+              },
+              {
+                "read_id": "e385578b81c7ded7eb88ccf7afb0fa48",
+                "network_at": "2026-11-14T11:27:56.407Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 88
+              },
+              {
+                "read_id": "aea6d7e57e710764860ffae113de443e",
+                "network_at": "2026-11-14T11:28:21.403Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 63
+              },
+              {
+                "read_id": "fecfebc353325dc9da7f3fcf0c2ba067",
+                "network_at": "2026-11-14T11:28:46.425Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 950,
+                "expires": 38
+              },
+              {
+                "read_id": "2100d972199248f6b68bd69b4899f313",
+                "network_at": "2026-11-14T11:28:52.811Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 950,
+                "expires": 32
+              },
+              {
+                "read_id": "75a33587089f01526b9f35edbea3d93d",
+                "network_at": "2026-11-14T11:29:11.403Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 1000,
+                "expires": 15
+              },
+              {
+                "read_id": "e63ce1510b3ad72577353f619edbacc3",
+                "network_at": "2026-11-14T11:29:36.396Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 1100,
+                "expires": 15
+              },
+              {
+                "read_id": "89a039bdb6518a0dd97652b7d0c24a22",
+                "network_at": "2026-11-14T11:29:42.820Z",
+                "state": "active",
+                "bid_state": "outbid",
+                "current_bid": 1100,
+                "expires": 9
+              },
+              {
+                "read_id": "525c0ea17adf0bd301a9c964d073da9f",
+                "network_at": "2026-11-14T11:30:01.390Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": 15
+              },
+              {
+                "read_id": "1fcc7d8ed1cd45aa78df1cd06b9ef868",
+                "network_at": "2026-11-14T11:30:26.398Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "7f813121a7c126f00bcbcab884ddc4c7",
+                "network_at": "2026-11-14T11:30:51.397Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "cc6f22ba3ae80709e5fdaf61301c5908",
+                "network_at": "2026-11-14T11:31:16.456Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "6d7efb3862219507f401df166bc87be8",
+                "network_at": "2026-11-14T11:31:41.411Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "291f43120f76b16ea5a45375d356f089",
+                "network_at": "2026-11-14T11:32:06.410Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "30ab94c24639452fc428828ca06af4fa",
+                "network_at": "2026-11-14T11:32:31.411Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "f535a0f97448c8a36b5cadba33234b61",
+                "network_at": "2026-11-14T11:32:56.375Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "13286768b5e62a232d77c580d92690b7",
+                "network_at": "2026-11-14T11:33:21.454Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "2ea07dfd66f0ce7cbb5f87b694f65a3c",
+                "network_at": "2026-11-14T11:33:46.419Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "f016b592bf9eaaf67d272e4f100e8058",
+                "network_at": "2026-11-14T11:34:11.416Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "568c32293b013516a07843225a251438",
+                "network_at": "2026-11-14T11:34:36.414Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "780685cb66e5066be3603a37628fd563",
+                "network_at": "2026-11-14T11:35:01.442Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              },
+              {
+                "read_id": "0214a15ca45c8f48a68377bf129e8260",
+                "network_at": "2026-11-14T11:35:26.402Z",
+                "state": "closed",
+                "bid_state": "highest",
+                "current_bid": 1200,
+                "expires": -1
+              }
+            ]
+          },
+          "bidder_start_intervals_seconds": [
+            26.732417,
+            24.984822,
+            25.000889,
+            25.000481,
+            25.000604,
+            25.000791,
+            25.000823,
+            25.000645,
+            25.000327,
+            25.001082,
+            25.000897,
+            25.000663,
+            25.000938,
+            25.000443,
+            25.001195,
+            25.001068,
+            25.000228,
+            25.000265,
+            25.000718,
+            25.000301,
+            25.000073,
+            25.001338
+          ],
+          "bidder_cycles_exceeding_25_seconds": [
+            26.712990100000752
+          ]
+        }
+      },
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-03\\live-04",
+        "metrics": {
+          "native_commands": 48,
+          "actual_native_requests": 25,
+          "mutations": 2,
+          "enrolled_this_run": 1,
+          "watched_rows": 8,
+          "queue_wait_ms": [
+            7.116,
+            2121.331,
+            1996.5349999999999,
+            6314.698,
+            1967.36,
+            10.002,
+            1929.823,
+            3.4650000000000003,
+            10.503,
+            9.684,
+            2.528,
+            1754.472,
+            6.46,
+            7.734,
+            8.104999999999999,
+            11.009,
+            8.126,
+            9.644,
+            10.194999999999999,
+            10.434000000000001,
+            1519.947,
+            7.146,
+            3.796,
+            8.405,
+            9.977,
+            11.263,
+            2.686,
+            17654.361,
+            1979.274,
+            1991.6640000000002,
+            1988.404,
+            1962.6619999999998,
+            1972.6680000000001,
+            1995.535,
+            6203.336,
+            1973.222,
+            1999.317,
+            1989.615,
+            1990.8,
+            13.108,
+            1925.466,
+            5.266,
+            4.667,
+            6.394,
+            3.392,
+            1760.122,
+            2002.2600000000002,
+            594.332
+          ],
+          "roundtrip_ms": [
+            134.8528999951668,
+            176.43600000883453,
+            125.79900000127964,
+            125.38650000351481,
+            441.9435000163503,
+            40.86710000410676,
+            141.36139999027364,
+            46.792899986030534,
+            37.99129999242723,
+            41.63719998905435,
+            47.120000002905726,
+            182.96899998676963,
+            38.50520000560209,
+            48.92989998916164,
+            42.029400006867945,
+            45.53890001261607,
+            41.893200017511845,
+            39.49530000681989,
+            39.13809999357909,
+            30.006600019987673,
+            209.80270000291057,
+            55.53799998597242,
+            44.69970002537593,
+            40.64679998555221,
+            39.21670001000166,
+            39.15909997886047,
+            41.836799995508045,
+            188.59380000503734,
+            264.4579999905545,
+            116.67859999579377,
+            167.02570000779815,
+            379.74549998762086,
+            165.72990000713617,
+            116.56099997344427,
+            134.82590002240613,
+            131.16960000479594,
+            166.67320000124164,
+            160.6993000023067,
+            152.13810000568628,
+            39.57690001698211,
+            151.8936000065878,
+            27.807800011942163,
+            29.762999998638406,
+            46.557099994970486,
+            46.78870001225732,
+            244.00570002035238,
+            169.44880000664853,
+            124.37109998427331
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 2,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "fbd51f0cb3b7e7640afd40060be12274",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            }
+          ],
+          "enrolled_status_samples": {
+            "trade:38fd5829a5107a3845960396": [
+              {
+                "read_id": "651ce6d4e100a15474e540783ffe5816",
+                "network_at": "2026-11-14T11:59:47.995Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 84
+              },
+              {
+                "read_id": "03786ae735a0f544feb74ed510e9ec04",
+                "network_at": "2026-11-14T11:59:56.621Z",
+                "state": "active",
+                "bid_state": "highest",
+                "current_bid": 900,
+                "expires": 76
+              }
+            ]
+          },
+          "bidder_start_intervals_seconds": [
+            26.839146
+          ],
+          "bidder_cycles_exceeding_25_seconds": [
+            26.83671209999011
+          ]
+        }
+      },
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+        "metrics": {
+          "native_commands": 35,
+          "actual_native_requests": 15,
+          "mutations": 1,
+          "enrolled_this_run": 0,
+          "watched_rows": 2,
+          "queue_wait_ms": [
+            7.62,
+            1998.383,
+            4294.391,
+            1995.4160000000002,
+            1980.384,
+            2.231,
+            1939.8010000000002,
+            11.226999999999999,
+            5.186,
+            9.709999999999999,
+            8.030000000000001,
+            1739.854,
+            8.397,
+            6.668,
+            5.753,
+            3.476,
+            11.744,
+            3.897,
+            8.600999999999999,
+            6.812,
+            1499.277,
+            4.588,
+            8.573,
+            8.220999999999998,
+            1.656,
+            9.017000000000001,
+            17533.411,
+            1974.572,
+            1.8,
+            1944.3319999999999,
+            7.447,
+            4.909,
+            10.899000000000001,
+            11.752,
+            1736.175
+          ],
+          "roundtrip_ms": [
+            151.09719999600202,
+            127.55599999218248,
+            119.65219999547116,
+            128.7494999996852,
+            414.9745000177063,
+            29.27790000103414,
+            146.26680000219494,
+            42.21859999233857,
+            44.03230000752956,
+            57.571599987568334,
+            41.838400007691234,
+            185.40190000203438,
+            47.47340001631528,
+            47.65429999679327,
+            36.774199979845434,
+            42.787999991560355,
+            41.67879998567514,
+            42.63960002572276,
+            48.05620000115596,
+            39.181900006951764,
+            153.45589999924414,
+            42.567299999063835,
+            40.57949999696575,
+            31.48559998953715,
+            38.066100009018555,
+            50.0363000028301,
+            123.00409999443218,
+            124.15970000438392,
+            45.206100010545924,
+            145.62659998773597,
+            46.226799982832745,
+            44.3768999830354,
+            39.84790001413785,
+            39.99439999461174,
+            456.98540000012144
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 0,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "fbd51f0cb3b7e7640afd40060be12274",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "0c33718183868ce4d60162937ee58041",
+              "role": "bidder",
+              "operation": "transfer_list",
+              "state": "WAITING"
+            }
+          ],
+          "enrolled_status_samples": {},
+          "bidder_start_intervals_seconds": [],
+          "bidder_cycles_exceeding_25_seconds": []
+        }
+      },
+      {
+        "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+        "metrics": {
+          "native_commands": 5,
+          "actual_native_requests": 5,
+          "mutations": 1,
+          "enrolled_this_run": 0,
+          "watched_rows": 2,
+          "queue_wait_ms": [
+            27.419,
+            1994.8729999999998,
+            4344.464,
+            1987.684,
+            1969.576
+          ],
+          "roundtrip_ms": [
+            189.5082000119146,
+            108.90260001178831,
+            121.98699999134988,
+            126.03119999403134,
+            421.7748999944888
+          ],
+          "deadline_skips": 0,
+          "completed_bidder_cycles": 0,
+          "stopped_pending_work": [
+            {
+              "command_id": "6c06870118d86cd8b3ed0db9ab9489f0",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "fbd51f0cb3b7e7640afd40060be12274",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "0c33718183868ce4d60162937ee58041",
+              "role": "bidder",
+              "operation": "transfer_list",
+              "state": "UNKNOWN"
+            },
+            {
+              "command_id": "c7ad6507c635ce95650796ec3c62882b",
+              "role": "maintenance",
+              "operation": "transfer_list",
+              "state": "WAITING"
+            }
+          ],
+          "enrolled_status_samples": {},
+          "bidder_start_intervals_seconds": [],
+          "bidder_cycles_exceeding_25_seconds": []
+        }
+      }
+    ]
+  },
+  "failures": [
+    {
+      "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\live-01",
+      "command_id": "5e8c5944b2475c2695307d02f9c6d91a",
+      "operation": "search",
+      "params": {
+        "count": 21,
+        "fresh": true,
+        "max_bid": 1000,
+        "min_buy": 11000,
+        "page": 2,
+        "purpose": "discovery"
+      },
+      "error": "schema_unrecognized",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 20
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-01\\live-02",
+      "command_id": "af24a5e9dc6a1e4c120cc238d2c68034",
+      "operation": "bid",
+      "params": {
+        "amount": 800,
+        "balance_read_id": "9076a62d44d557381c75404bd3dd82cf",
+        "cap": 4600,
+        "deadline": "2026-11-14T11:19:59.626000+00:00",
+        "definition_id": 251570,
+        "item_id": "item:894ab7d0aca817aac4db8f95",
+        "minimum": 800,
+        "status_read_id": "d774083be620add9197bd747bc815b9d",
+        "trade_id": "trade:840b9a7b11ab06c72ab78ed1"
+      },
+      "error": "invalid_preconditions",
+      "network": []
+    },
+    {
+      "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-04\\live-05",
+      "command_id": "d6cf09c7eac442f8d2b5901feef459be",
+      "operation": "list",
+      "params": {
+        "buy_now_price": 2000,
+        "caps_read_id": "847a83ef37749097f14a35097c1d7b05",
+        "definition_id": 246420,
+        "duration": 3600,
+        "item_id": "item:9733f53c9d176ecfb6d1c484",
+        "owned_read_id": "20928b66a6fca268b624fd2d94769490",
+        "paid": 1200,
+        "starting_bid": 1900,
+        "trade_id": "trade:5e510cabe14794f29c75f333",
+        "win_read_id": "980feff42a2668d864fed675066c6b65"
+      },
+      "error": "ambiguous_network",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "POST",
+          "path": "/ut/game/fc27/auctionhouse",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        },
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/trade/status/lite",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        },
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/unexpected",
+          "query": {},
+          "session_header_present": true,
+          "status": null
+        }
+      ]
+    },
+    {
+      "window": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+      "command_id": "869ed95434e70ea0d7ba599945751fd2",
+      "operation": "relist_all",
+      "params": {
+        "before_read_id": "3a043b6d141821d76757f440f7d003c7",
+        "expected_expired_count": 2,
+        "expected_inventory_ids": [
+          "item:0eb531d104feb860cffcade7",
+          "item:5859eff756a310898bae2ece",
+          "item:6c1821fd50efcf26deca9cb1",
+          "item:9733f53c9d176ecfb6d1c484",
+          "item:baedbe1a7c161538497cdc85",
+          "item:d9eeec4640229a959c3145fb"
+        ],
+        "expected_item_ids": [
+          "item:6c1821fd50efcf26deca9cb1",
+          "item:baedbe1a7c161538497cdc85"
+        ],
+        "expected_sold_count": 0
+      },
+      "error": "bulk_contract_changed",
+      "network": [
+        {
+          "body_empty": true,
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "PUT",
+          "path": "/ut/game/fc27/auctionhouse/relist",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

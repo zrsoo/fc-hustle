@@ -87,8 +87,10 @@ class ContractAcceptance(unittest.TestCase):
 
     def test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation(self):
         # 001d-05 adds a retained-identity status operation, checked separately by
-        # test_001d05_inventory.py. This fixture retains its original D1 scope.
-        self.assertEqual({s['command']['operation'] for s in self.samples}, set(ROUTES) - {'status'})
+        # test_001d05_inventory.py. 002-09 bulk writes have their own acceptance
+        # suite. This fixture retains its original D1 scope.
+        historical=json.loads((ROOT/'docs/research/001d/001d-02/protocol.json').read_text())['operations']
+        self.assertEqual({s['command']['operation'] for s in self.samples},set(historical))
         for s in self.samples:
             with self.subTest(op=s['command']['operation']):
                 original = deepcopy(s['response'])
@@ -151,7 +153,7 @@ class ContractAcceptance(unittest.TestCase):
         bad = deepcopy(good); bad['result']['items'] = []; cases.append(bad)
         for bad in cases:
             with self.assertRaises(ValueError): parse_response(bad, c)
-        for params in [Search.discovery(7654321).params() | {'min_buy': 10500}, Search.pricing(7654321).params() | {'max_bid': 1000},
+        for params in [Search.discovery(7654321).params() | {'min_buy': -1}, Search.pricing(7654321).params() | {'max_bid': 1000},
                        Search.pricing(7654321).params() | {'page': 2}, Search.pricing(7654321).params() | {'count': 20},
                        Search.pricing(7654321).params() | {'fresh': False}]:
             with self.assertRaises(ValueError): command(make_command('search', params))
@@ -300,7 +302,9 @@ class ContractAcceptance(unittest.TestCase):
         doc = (ROOT/'docs/research/001d/001d-02/REPORT.md').read_text(encoding='utf-8')
         spec = json.loads((ROOT/'docs/research/001d/001d-02/protocol.json').read_text())
         self.assertEqual(spec['schema_version'], VERSION)
-        self.assertEqual(spec['operations'], {op: {'method': m, 'path': p} for op, (m, p) in ROUTES.items() if op != 'status'})
+        self.assertLessEqual(set(spec['operations']),set(ROUTES))
+        for op,expected in spec['operations'].items():
+            self.assertEqual(expected,dict(zip(('method','path'),ROUTES[op])))
         self.assertEqual(set(spec['command_fields']), set(make_command()))
         self.assertEqual(set(spec['response_fields']), set(reply(make_command())))
         self.assertEqual(set(spec['context_fields']), CONTEXT)
@@ -338,7 +342,9 @@ class ContractAcceptance(unittest.TestCase):
                               'fc_access.bidding_v1.journal', 'fc_access.bidding_v1.scheduler'}
                     self.assertTrue(n.module.startswith('fc_access.production_v1') or
                                     n.module == 'fc_access.sqlite_timing' or
-                                    (p.name == 'foundation.py' and n.module in reused), (p, n.module))
+                        (p.name in {'foundation.py', 'resale.py', 'bulk.py'} and n.module in reused | {
+                                        'fc_access.bidding_v1', 'fc_access.bidding_v1.capacity', 'fc_access.actors_v1.occupancy',
+                                        'fc_access.actors_v1.locking'}), (p, n.module))
         for phrase in ('schema 2', 'IMPLEMENTED', 'OFFLINE_VALIDATED', 'LIVE-UNVERIFIED', 'maxBuy', 'maxb', 'inclusive',
                        'identity_namespace', 'unrelated', '001d-01', 'No live EA requests', 'durable_intent', 'D2', 'D5'):
             self.assertIn(phrase, doc)

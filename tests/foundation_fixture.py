@@ -1,5 +1,6 @@
 """In-process protocol-2 EA double. No sockets or real account operations."""
 from copy import deepcopy
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import json
 import os
@@ -9,7 +10,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from native_price_fixture import FixturePriceAdapter, auction
-from fc_access.production_v1.contracts import ROUTES, empty_result
+from fc_access.production_v1.contracts import LOCAL_OPERATIONS, ROUTES, empty_result
 from fc_access.production_v1.foundation import Foundation, JournalAuthority
 from fc_access.production_v1.store import Store
 
@@ -54,7 +55,7 @@ class Page:
     def execute(self, c):
         self.calls.append(deepcopy(c))
         op = c['operation']
-        if op != 'price_helpers':
+        if op not in LOCAL_OPERATIONS:
             self.store.enqueue(c, self.peer)
             assert self.store.claim(self.peer) == c
         if op == 'bid':
@@ -67,17 +68,23 @@ class Page:
                 self.store.uncertain(c['id'])
                 raise self.failure
         r = empty_result(None)
-        r.update(success=True, status=200, cache_invalidated=op in {'search', 'watched'})
+        r.update(success=True, status=200, cache_invalidated=op in {'search', 'watched', 'unassigned', 'transfer_list'})
         query = {}
         if op == 'search':
             p = c['params']
-            query = dict(start=0, num=21)
+            query = dict(start=(p['page']-1)*20, num=21)
             if 'definition_id' in p: query['definitionId']=p['definition_id']
             for field, wire in [('max_bid','macr'),('min_buy','minb'),('max_buy','maxb')]:
                 if field in p: query[wire] = p[field]
             r['auctions'] = [deepcopy(self.candidate)] if p['purpose'] == 'discovery' else [auction(123, 12000, 100)]
         elif op == 'watched': r['auctions'] = deepcopy(self.watched)
         elif op == 'balance': r['credits'] = self.credits
+        elif op == 'unassigned': r['items'] = deepcopy(getattr(self, 'owned', []))
+        elif op == 'owned_item':
+            items=getattr(self,'owned_by_id',None)
+            if items is None:items=getattr(self,'owned',[])
+            r['items']=deepcopy([i for i in items if i['item_id']==c['params']['item_id']])
+            query=dict(item_id=c['params']['item_id'])
         elif op == 'caps':
             r['caps'] = dict(definition_id=c['params']['definition_id'], minimum=150, maximum=50000)
             query = dict(defId=c['params']['definition_id'])
@@ -87,15 +94,25 @@ class Page:
             r = dict(success=True,error=None,version=1,above_available=True,below_available=True,
                      probes=self.helper.price_helpers(c['id'], c['params']['probes'])['result']['probes'],network=[])
             f.update(network_at=None, request_count=0)
+        elif op == 'status_support':
+            r = dict(success=True,error=None,function_available=True,retained_count=len(self.watched),network=[])
+            f.update(network_at=None, request_count=0)
         else:
             method, route = ROUTES[op]
             r['network'] = [dict(host='utas.test.ea.com',method=method,path=route,query=query,
                                  status=200,session_header_present=True)]
         value = dict(schema=2, command_id=c['id'], operation=op, context=deepcopy(c['context']),
             fences=deepcopy(c['fences']), result=r, freshness=f,
-            coverage=dict(complete=False,has_more=None if op=='price_helpers' else False), timing=dict(native_service_ms=1))
+            coverage=dict(complete=False,has_more=None if op in LOCAL_OPERATIONS else False), timing=dict(native_service_ms=1))
+        if op == 'transfer_list':
+            r['auctions'] = deepcopy(getattr(self, 'transfer_items', []))
+            count = len(r['auctions'])
+            value['coverage'] = dict(complete=True,has_more=False,transfer_list=dict(
+                reason='TRANSFER_LIST_COMPLETE',wire_count=count,callback_count=count,
+                repository_count=count,repository_end_of_list=True))
+        if hasattr(self, 'project_response'): value = self.project_response(c, value)
         self.clock.sleep(.005)
-        if op != 'price_helpers': self.store.finish(self.peer, c['id'], value)
+        if op not in LOCAL_OPERATIONS: self.store.finish(self.peer, c['id'], value)
         return value
 
     def close(self): self.store.db.close()
@@ -116,6 +133,35 @@ def admitted(f, page):
     funds = f.read('balance')
     result = f.admit(watched, page.candidate['trade_id'], funds)
     return result, watched, funds
+
+
+@contextmanager
+def historical_gate_inventory(f, page, clock):
+    """Supply the old read-only valuation gate's inventory prerequisite offline.
+
+    Item 6 added a complete-pile guard to admission after these consumed gate
+    protocols were sealed. Isolate that dependency with a separately captured
+    synthetic complete read, not by expanding a historical gate's allowlist or
+    budget. Current actor/foundation suites exercise the actual fresh read path.
+    """
+    from unittest.mock import patch
+    from fc_access.actors_v1.occupancy import assess
+    from fc_access.bidding_v1 import capacity
+    from fc_access.production_v1.contracts import parse_response, stamp
+    c = f.adapter.envelope(f.ids(), 'transfer_list', {})
+    v = deepcopy(page.execute(c))
+    v['freshness']['source'] = f.adapter.source
+    parse_response(v, c, now=clock.now(), source=f.adapter.source)
+    def inventory(foundation, *, limit=50):
+        assert foundation is f
+        proof = assess(v, c, now=clock.now(), source=f.adapter.source, limit=limit)
+        if proof['occupied'] is not None:
+            capacity.observe(f.journal, f.registry.scope, v['result']['auctions'],
+                read_id=c['id'],network_at=stamp(v['freshness']['network_at']),now=clock.now())
+            proof['pipeline'] = capacity.status(f.journal,f.registry.scope,now=clock.now())
+        return proof
+    with patch('fc_access.actors_v1.occupancy.read', side_effect=inventory):
+        yield
 
 
 if __name__ == '__main__':

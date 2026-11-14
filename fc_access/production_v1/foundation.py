@@ -15,7 +15,7 @@ from fc_access.bidding_v1.contracts import (AuctionStatus, Balance, BidIntent, B
 from fc_access.bidding_v1.core import AuctionQueue, decide
 from fc_access.bidding_v1.journal import Journal
 from fc_access.bidding_v1.scheduler import Scheduler, Work
-from .contracts import LOCAL_OPERATIONS, command, context, parse_response, stamp, token
+from .contracts import LOCAL_OPERATIONS, MUTATIONS, command, context, parse_response, stamp, token
 from .adapter import NativeAdapter
 from .prices import CardKey, PriceService
 from .pricing import PricingService
@@ -47,8 +47,10 @@ class ScheduledExecutor:
     def attach(self, value, owner, epoch):
         return self.executor.attach(value, owner, epoch)
 
-    def submit(self, c, *, priority=0, timeout=30):
+    def submit(self, c, *, priority=None, timeout=30):
         command(c)
+        if priority is None:
+            priority = 90 if c['operation'] in {'bid', 'watched', 'status'} else 0
         if c['operation'] in LOCAL_OPERATIONS:
             raise ValueError('local_operation_requires_execute')
         if timeout <= 0:
@@ -60,7 +62,7 @@ class ScheduledExecutor:
                 deadline = min(deadline, start + (stamp(c['params']['deadline'])-self.now()).total_seconds())
             if deadline <= start:
                 raise TimeoutError('deadline_skipped')
-            self.scheduler.enqueue(Work(c['id'], 'write' if c['operation'] == 'bid' else 'read', start, deadline, priority))
+            self.scheduler.enqueue(Work(c['id'], 'write' if c['operation'] in MUTATIONS else 'read', start, deadline, priority))
             self.pending[c['id']] = (deepcopy(c), start)
         return c['id']
 
@@ -151,9 +153,12 @@ class Registry:
     REASONS = {'ELIGIBLE', 'LEADING', 'PENDING', 'STALE', 'EXPIRED', 'OVER_CAP',
                'INSUFFICIENT_BALANCE', 'QUEUE_FULL', 'DRAINING', 'UNKNOWN', 'SKIP',
                'QUOTE_REJECTED', 'QUOTE_INCOMPLETE', 'ENROLLED', 'UNRESOLVED_INTENT',
-               'NOT_TRADEABLE', 'NATIVE_ACK', 'TIMEOUT', 'INVALID_RESULT', 'SERVICE_ERROR'}
+               'NOT_TRADEABLE', 'NATIVE_ACK', 'TIMEOUT', 'INVALID_RESULT', 'SERVICE_ERROR',
+               'CAPACITY_UNKNOWN', 'PIPELINE_FULL', 'CAPACITY_IDENTITY_CONFLICT',
+               'TRANSFER_LIST_UNKNOWN', 'TRANSFER_LIST_STALE', 'TRANSFER_LIST_CONFLICT',
+               'TRANSFER_LIST_TRUNCATED', 'TRANSFER_LIST_FULL', 'TRANSFER_LIST_OVER_CAP'}
 
-    def __init__(self, journal, value, owner, *, after_epoch=0):
+    def __init__(self, journal, value, owner, *, after_epoch=0, join_epoch=None):
         self.diagnostic_logging_ms = 0.0
         self.diagnostic_sqlite_ms = 0.0
         self.journal, self.context, self.owner = journal, deepcopy(context(value)), token(owner)
@@ -172,7 +177,11 @@ class Registry:
             journal.db.execute('INSERT OR IGNORE INTO registry_context_v1 VALUES(?,?)', (self.scope, encoded))
             if journal.db.execute('SELECT context FROM registry_context_v1 WHERE scope=?', (self.scope,)).fetchone() != (encoded,):
                 raise ValueError('registry_context_mismatch')
-        self.epoch = journal.session(self.scope, owner, after_epoch=after_epoch)
+        if join_epoch is None:
+            self.epoch = journal.session(self.scope, owner, after_epoch=after_epoch)
+        else:
+            journal._owner(self.scope, owner, join_epoch)
+            self.epoch = join_epoch
 
     def check(self):
         self.journal._owner(self.scope, self.owner, self.epoch)
@@ -240,6 +249,10 @@ class Registry:
                 "SELECT id,trade_id,state FROM commands WHERE scope=? AND state NOT IN ('RECONCILED','NOT_DISPATCHED')", (self.scope,)):
             unresolved.append(dict(command_id=cid, trade_id=trade, state=state))
             auctions.setdefault(trade, {}).update(action='UNKNOWN', reason='UNRESOLVED_INTENT', state='UNKNOWN')
+        from .resale import pending as pending_resales
+        unresolved.extend(pending_resales(self.journal, self.scope))
+        from .bulk import pending as pending_bulk
+        unresolved.extend(pending_bulk(self.journal, self.scope))
         # Prior-epoch observations are retained evidence, never fresh state.
         for value in auctions.values():
             if value.get('epoch') != owner[1]:
@@ -248,9 +261,11 @@ class Registry:
         if credits is not None:
             credits['fresh'] = 0 <= (self.journal.now()-stamp(credits['network_at'])).total_seconds() <= 30
             credits['available_after_reservations'] = max(0, credits['available_coins']-sum(v[0] for v in replay.reservations.values()))
+        from fc_access.bidding_v1.capacity import status as capacity_status
         return dict(schema=self.version, context=deepcopy(self.context), scope=self.scope,
                     owner=owner[0], epoch=owner[1], auctions=auctions, queued=sorted(replay.entries),
-                    unresolved=unresolved, credits=credits)
+                    unresolved=unresolved, credits=credits,
+                    capacity=capacity_status(self.journal, self.scope, now=self.journal.now()))
 
 
 def freshness(v):
@@ -277,14 +292,16 @@ class Foundation:
     """Explicit one-shot API for future actor callers; constructing it only attaches."""
     def __init__(self, executor, *, context, journal_path=DEFAULT_JOURNAL, cache_path=None,
                  owner=None, now=None, interval=0, reserve=5000, clock=time.monotonic, sleep=time.sleep,
-                 fixture=False):
+                 fixture=False, join_epoch=None):
         self.now = now or (lambda: datetime.now(timezone.utc))
         self.ids = lambda: secrets.token_hex(16)
         path = Path(journal_path); path.parent.mkdir(parents=True, exist_ok=True)
+        self.journal_path = path
+        self.cache_path = Path(cache_path) if cache_path else path.with_name('completed-quotes.sqlite3')
         self.journal = Journal(path, now=self.now)
         try:
             floor = executor.ownership_epoch(context) if hasattr(executor, 'ownership_epoch') else 0
-            self.registry = Registry(self.journal, context, owner or self.ids(), after_epoch=floor)
+            self.registry = Registry(self.journal, context, owner or self.ids(), after_epoch=floor, join_epoch=join_epoch)
             self.executor = ScheduledExecutor(executor, now=self.now, source='fixture' if fixture else 'native',
                 interval=interval, clock=clock, sleep=sleep, observe=self.registry.metric)
             self.adapter = NativeAdapter(self.executor, context=context, owner=self.registry.owner,
@@ -329,6 +346,11 @@ class Foundation:
         self.registry.check()
         return self.adapter.read(self.ids(), operation, params)
 
+    def bulk(self, operation):
+        """Explicit account-wide maintenance, including eligible manual cards."""
+        from .bulk import BulkTransfer
+        return BulkTransfer(self).execute(operation)
+
     def admit(self, status_response, trade_id, balance_response, *, X=500):
         self.registry.check()
         a = self.adapter
@@ -360,9 +382,16 @@ class Foundation:
                           'QUOTE_REJECTED' if quote.status == 'REJECT' else 'QUOTE_INCOMPLETE', quote)
         cap = quote.max_affordable_bid
         d = decide(status, balance, prices, cap, now=self.now())
+        coin_reason = self.queue.reserve_check(balance, now=self.now(), amount=d.amount or 0)
+        if coin_reason:
+            return finish('HOLD', coin_reason, quote, cap)
         if d.amount is None:
             return finish('HOLD' if d.reason in {'STALE', 'HOLD', 'PENDING'} else 'REJECT',
                           'LEADING' if d.reason == 'HOLD' else d.reason, quote, cap)
+        from fc_access.actors_v1.occupancy import read as read_occupancy
+        occupancy = read_occupancy(self)
+        if not occupancy['enrollment_allowed']:
+            return finish('HOLD', occupancy['reason'], quote, cap)
         admitted = self.queue.admit(status, balance, d.amount, now=self.now())
         if admitted != 'ENROLLED':
             return finish('HOLD', admitted, quote, cap)
@@ -441,6 +470,12 @@ class JournalAuthority:
     def reconciled(self, c):
         """Transport may clear its fence only from independently verified journal evidence."""
         command(c)
+        if c['operation'] in {'clear_sold', 'relist_all'}:
+            from .bulk import mutation_authorized
+            return mutation_authorized(self.path, c, reconciled=True)
+        if c['operation'] in {'move', 'list'}:
+            from .resale import mutation_authorized
+            return mutation_authorized(self.path, c, reconciled=True)
         try:
             j = Journal(self.path, readonly=True)
         except (sqlite3.Error, OSError, ValueError):
@@ -454,6 +489,12 @@ class JournalAuthority:
 
     def __call__(self, c):
         command(c)
+        if c['operation'] in {'clear_sold', 'relist_all'}:
+            from .bulk import mutation_authorized
+            return mutation_authorized(self.path, c)
+        if c['operation'] in {'move', 'list'}:
+            from .resale import mutation_authorized
+            return mutation_authorized(self.path, c)
         if c['operation'] != 'bid':
             return False
         try:
@@ -463,6 +504,10 @@ class JournalAuthority:
         try:
             p, f, scope = c['params'], c['fences'], scope_for(c['context'])
             j._owner(scope, f['owner'], f['epoch'])
+            from .resale import pending as pending_resales
+            from .bulk import pending as pending_bulk
+            if pending_resales(j, scope) or pending_bulk(j, scope):
+                return False
             expected = (scope, f['owner'], f['epoch'], p['trade_id'], p['item_id'], p['definition_id'],
                         p['amount'], 'UNKNOWN', stamp(p['deadline']).isoformat(), p['status_read_id'], p['balance_read_id'])
             row = j.db.execute('SELECT scope,owner,epoch,trade_id,item_id,definition_id,amount,state,deadline,status_read_id,balance_read_id FROM commands WHERE id=?', (c['id'],)).fetchone()

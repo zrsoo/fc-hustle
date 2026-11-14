@@ -13,6 +13,7 @@ from fc_access.production_v1 import gate_00203 as gate
 from fc_access.production_v1.contracts import Search, parse_response
 from fc_access.production_v1.foundation import Foundation
 from profile_00202 import TimedPage, Clock, CONTEXT
+from foundation_fixture import historical_gate_inventory
 
 
 class Gate(unittest.TestCase):
@@ -48,7 +49,8 @@ class Gate(unittest.TestCase):
                     cache_inventory=[dict(path=str(gate.CACHE.relative_to(ROOT)), rows=[],exact_key_rows=[])], stage='DISCOVERY')
                 discovery = f.read('search', Search.discovery(123).params())
                 try:
-                    gate.evaluate_window(f,w,discovery,page.candidate)
+                    with historical_gate_inventory(f,page,clock):
+                        gate.evaluate_window(f,w,discovery,page.candidate)
                     gate.admission_proof(s)
                     s.update(status='PASS',hard_stop=False,dependent_tasks_allowed=True)
                     s['evidence_sha256'] = gate.digest(s); w.save()

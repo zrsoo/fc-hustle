@@ -1,0 +1,23 @@
+test_c0_defaults_configuration_cli_import_and_no_implicit_work (__main__.Acceptance.test_c0_defaults_configuration_cli_import_and_no_implicit_work) ... ok
+test_c1_c6_real_independent_actor_processes_share_one_executor (__main__.Acceptance.test_c1_c6_real_independent_actor_processes_share_one_executor) ... ok
+test_c1_priority_yield_between_commands_and_deadline_pacing (__main__.Acceptance.test_c1_priority_yield_between_commands_and_deadline_pacing) ... ok
+test_c2_discovery_actual_wire_filters_pagination_and_duplicates (__main__.Acceptance.test_c2_discovery_actual_wire_filters_pagination_and_duplicates) ... ok
+test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now (__main__.Acceptance.test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now) ... ok
+test_c3_independent_owned_win_proof_and_no_false_terminal (__main__.Acceptance.test_c3_independent_owned_win_proof_and_no_false_terminal) ... ok
+test_c3_insufficient_spendable_never_assumes_escrow_refund (__main__.Acceptance.test_c3_insufficient_spendable_never_assumes_escrow_refund) ... ok
+test_c3_leading_hold_outbid_absolute_tick_and_stored_cap (__main__.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap) ... ok
+test_c4_intent_before_send_persistence_failure_ambiguity_and_cap_never_increases (__main__.Acceptance.test_c4_intent_before_send_persistence_failure_ambiguity_and_cap_never_increases) ... ok
+test_c4_mailbox_journal_failure_blocks_native_dispatch (__main__.Acceptance.test_c4_mailbox_journal_failure_blocks_native_dispatch) ... ok
+test_c4_recovered_intent_never_gets_dispatch_authority (__main__.Acceptance.test_c4_recovered_intent_never_gets_dispatch_authority) ... ok
+test_c5_operator_views_windows_retention_and_append_only_reconstruction (__main__.Acceptance.test_c5_operator_views_windows_retention_and_append_only_reconstruction) ... ok
+test_c6_bidder_cannot_settle_from_an_aged_watched_snapshot (__main__.Acceptance.test_c6_bidder_cannot_settle_from_an_aged_watched_snapshot) ... ok
+test_c6_mailbox_restart_duplicate_and_unknown_do_not_redispatch (__main__.Acceptance.test_c6_mailbox_restart_duplicate_and_unknown_do_not_redispatch) ... ok
+test_c6_native_cap_equality_and_rounding_at_boundaries (__main__.Acceptance.test_c6_native_cap_equality_and_rounding_at_boundaries) ... ok
+test_c6_reserve_escrow_limit_and_sticky_draining_replay (__main__.Acceptance.test_c6_reserve_escrow_limit_and_sticky_draining_replay) ... ok
+test_c6_scheduler_no_catchup_and_restart_cadence (__main__.Acceptance.test_c6_scheduler_no_catchup_and_restart_cadence) ... ok
+test_c6_stale_identity_epoch_and_shared_scoped_session (__main__.Acceptance.test_c6_stale_identity_epoch_and_shared_scoped_session) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 30.286s
+
+OK

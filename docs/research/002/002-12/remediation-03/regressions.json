@@ -1,0 +1,398 @@
+{
+  "schema": 1,
+  "evidence_class": "OFFLINE_IMPLEMENTATION_REGRESSION",
+  "live_requests": 0,
+  "live_actor_launches": 0,
+  "historical_windows_replayed": 0,
+  "status": "FAIL",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d01_inventory.py"
+      ],
+      "exit_code": 0,
+      "seconds": 9.023,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit_code": 1,
+      "seconds": 4.793,
+      "python_tests": 8,
+      "failure": "test_criteria_0_2_5_artifacts_and_historical_migration (__main__.ContractAcceptance.test_criteria_0_2_5_artifacts_and_historical_migration) ... FAIL\ntest_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation (__main__.ContractAcceptance.test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation) ... FAIL\ntest_criteria_1_3_search_identity_wire_and_payload_negative_cases (__main__.ContractAcceptance.test_criteria_1_3_search_identity_wire_and_payload_negative_cases) ... ok\ntest_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget (__main__.ContractAcceptance.test_criteria_1_4_5_store_single_owner_restart_unknown_and_no_finite_budget) ... ok\ntest_criteria_1_4_response_allowlists_and_full_correlation_are_enforced (__main__.ContractAcceptance.test_criteria_1_4_response_allowlists_and_full_correlation_are_enforced) ... ok\ntest_criteria_1_6_independent_readbacks_and_namespace_boundaries (__main__.ContractAcceptance.test_criteria_1_6_independent_readbacks_and_namespace_boundaries) ... ok\ntest_criterion_4_actual_localhost_transport_pin_delivery_and_timeout (__main__.ContractAcceptance.test_criterion_4_actual_localhost_transport_pin_delivery_and_timeout) ... ok\ntest_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged (__main__.ContractAcceptance.test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged) ... ok\n\n======================================================================\nFAIL: test_criteria_0_2_5_artifacts_and_historical_migration (__main__.ContractAcceptance.test_criteria_0_2_5_artifacts_and_historical_migration)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\hustle\\fc-hustle\\tests\\test_001d02_contract.py\", line 304, in test_criteria_0_2_5_artifacts_and_historical_migration\n    self.assertEqual(spec['operations'], {op: {'method': m, 'path': p} for op, (m, p) in ROUTES.items()\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        if op not in {'status', 'move', 'list', 'clear_sold', 'relist_all'}})  # sealed 001d-02 protocol subset\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'sea[268 chars]'}, 'transfer_list': {'method': 'GET', 'path':[166 chars]id'}} != {'sea[268 chars]'}, 'owned_item': {'method': 'GET', 'path': '/[229 chars]id'}}\n  {'balance': {'method': 'GET', 'path': '/ut/game/fc27/user/credits'},\n   'bid': {'method': 'PUT', 'path': '/ut/game/fc27/trade/:trade/bid'},\n   'caps': {'method': 'GET', 'path': '/ut/game/fc27/marketdata/pricelimits'},\n+  'owned_item': {'method': 'GET', 'path': '/ut/game/fc27/item'},\n   'search': {'method': 'GET', 'path': '/ut/game/fc27/transfermarket'},\n   'transfer_list': {'method': 'GET', 'path': '/ut/game/fc27/tradepile'},\n   'unassigned': {'method': 'GET', 'path': '/ut/game/fc27/purchased/items'},\n   'watched': {'method': 'GET', 'path': '/ut/game/fc27/watchlist'}}\n\n======================================================================\nFAIL: test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation (__main__.ContractAcceptance.test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\hustle\\fc-hustle\\tests\\test_001d02_contract.py\", line 92, in test_criteria_1_2_3_4_5_real_page_results_parse_without_dialect_translation\n    self.assertEqual({s['command']['operation'] for s in self.samples}, set(ROUTES) - {'status', 'move', 'list', 'clear_sold', 'relist_all'})\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Items in the second set but not the first:\n'owned_item'\n\n----------------------------------------------------------------------\nRan 8 tests in 4.228s\n\nFAILED (failures=2)\n"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d03_native_prices.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.576,
+      "python_tests": 10
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d04_pricing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.366,
+      "python_tests": 17
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d05_inventory.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.264,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d06_foundation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 7.294,
+      "python_tests": 16
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_001d07_handoff.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.118,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00201_native_status.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.443,
+      "python_tests": 6
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00202_pricing_optimization.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.763,
+      "python_tests": 29
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_discovery.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.262,
+      "python_tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.186,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00203_preflight.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.999,
+      "python_tests": 9
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00204_actors.py"
+      ],
+      "exit_code": 0,
+      "seconds": 31.243,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00205_occupancy.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.273,
+      "python_tests": 9
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00206_capacity.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.698,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00207_enrollment.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.364,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00208_resale.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.889,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00209_bulk.py"
+      ],
+      "exit_code": 0,
+      "seconds": 10.061,
+      "python_tests": 20
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00210_relist.py"
+      ],
+      "exit_code": 0,
+      "seconds": 15.087,
+      "python_tests": 17
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_00211_sold.py"
+      ],
+      "exit_code": 0,
+      "seconds": 7.522,
+      "python_tests": 18
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bidding_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.458,
+      "python_tests": 25
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_bulk_transfer_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.88,
+      "python_tests": 15
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_durability_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 6.087,
+      "python_tests": 21
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_integration_harness.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.251,
+      "python_tests": 12
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_market_pricing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.203,
+      "python_tests": 11
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_production_diagnostics.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.751,
+      "python_tests": 10
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/run_offline_suite.py",
+        "tests/test_watched_bulk_v1.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.082,
+      "python_tests": 7
+    },
+    {
+      "command": [
+        "node",
+        "tests/bidding_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.249,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_transfer_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.149,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/native_status_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.401,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/occupancy_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.498,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/pricing_timing_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.086,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_bulk_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.042,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_diagnostics_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.105,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_inventory_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.469,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_metadata_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.153,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.581,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_worker_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.557,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/resale_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.72,
+      "python_tests": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/watched_bulk_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.24,
+      "python_tests": 0
+    }
+  ]
+}

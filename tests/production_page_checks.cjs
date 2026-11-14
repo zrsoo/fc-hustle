@@ -6,7 +6,7 @@ const secret='CREDENTIAL-CANARY-DO-NOT-RETAIN',hex=n=>n.toString(16).padStart(32
 const ctx={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_namespace:hex(3)};
 const samples=[];
 function setup(mode='ok'){
-  let time=Date.parse('2030-01-01T00:00:00Z'),sequence=10,persona={platform:'PC',isPC:true},captured=null;
+  let time=Date.parse('2030-01-01T00:00:00Z'),sequence=10,persona={platform:'PC',isPC:true},captured=null,transferWire,auctionOverride={};
   const events=[],timers=[],calls=[];
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
   class XHR{
@@ -17,15 +17,16 @@ function setup(mode='ok'){
   }
   const originals={open:XHR.prototype.open,header:XHR.prototype.setRequestHeader,send:XHR.prototype.send};
   const raw=()=>({id:'10000000000000000001',definitionId:mode==='wrongVersion'?999999:7654321,untradeable:false,lastSalePrice:7700,
-    private:secret,getAuctionData:()=>({tradeId:'20000000000000000001',startingBid:2500,currentBid:0,buyNowPrice:15000,expires:300,tradeState:'active',bidState:'none',isWon:()=>false})});
+    private:secret,getAuctionData:()=>({tradeId:'20000000000000000001',startingBid:2500,currentBid:0,buyNowPrice:15000,expires:300,tradeState:'active',bidState:'none',isWon:()=>false,...auctionOverride})});
   function response(op,data,query={}){
     calls.push(op);events.push(op);
     return {observe(owner,cb){
       if(mode==='timeout')return;
       const done=()=>{
         if(mode!=='cache'){
-          const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid'}[op];
-          const wire=(route=path,params=query,method=op==='bid'?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'?params:{...params,private:secret}));
+          const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',owned_item:'item',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid',move:'item',list:'auctionhouse'}[op];
+          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'?params:{...params,private:secret}));
+            if(op==='transfer_list' && transferWire!==undefined)x.responseText=JSON.stringify(transferWire);
             if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send();};
           wire();if(mode==='fanout')wire();
           if(mode.startsWith('metadata')){
@@ -49,8 +50,9 @@ function setup(mode='ok'){
     searchTransferMarket(q,page){
       captured={...q,...(q.defId===undefined?{}:{defId:Array.from(q.defId)}),page};
       if(mode==='broad')assert.equal(q.defId,undefined);else assert.deepEqual(Array.from(q.defId),[7654321]);
-      assert.equal(q.count,21);assert.equal(page,1);assert.equal(q.type,'player');
-      const wire={start:0,num:21};if(q.defId!==undefined)wire.definitionId=q.defId[0];
+      assert.equal(q.count,21);assert.equal(page,mode.startsWith('pagination')?2:1);assert.equal(q.type,'player');
+      // Model native pagination independently of the bridge: lookahead is not stride.
+      const wire={start:mode==='paginationWrongStride'?21:(page-1)*20,num:21};if(q.defId!==undefined)wire.definitionId=q.defId[0];
       if(q.maxBid!==undefined)wire.macr=q.maxBid;if(q.minBuy!==undefined)wire.minb=q.minBuy;
       if(q.maxBuy!==undefined)wire[mode==='wrongMaxBuy'?'macr':'maxb']=q.maxBuy;
       // Native maxBuy is inclusive: include the equality row in the response.
@@ -62,7 +64,7 @@ function setup(mode='ok'){
     requestUnassignedItems:()=>response('unassigned',{items:[raw()]}),
     requestTransferItems:()=>response('transfer_list',{items:[raw()]}),
     transfersDao:{getItemMarketDataByDefId(ids){assert.deepEqual(Array.from(ids),[7654321]);return response('caps',{marketData:[{defId:7654321,priceLimits:{minimum:150,maximum:50000}}]},{defId:7654321});}},
-    bid(raw,amount){assert.equal(amount,2500);return response('bid',{});}
+    bid(raw,amount){const a=raw.getAuctionData();assert.equal(amount,a.currentBid===0?a.startingBid:sandbox.UTCurrencyInputControl.getIncrementAboveVal(a.currentBid));return response('bid',{});}
   }};
   const sandbox=vm.createContext({window:{},services,crypto:webcrypto,TextEncoder,URL,GamePlatform:{PC:'PC'},
     // Fixture reproduces the retained official helper formulas, including rounding.
@@ -86,7 +88,7 @@ function setup(mode='ok'){
     for(const [k,n]of [['open','open'],['header','setRequestHeader'],['send','send']])assert.equal(XHR.prototype[n],originals[k]);
     return r;
   }
-  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
+  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,setAuction:v=>{auctionOverride={...v};},setTransferWire:v=>{transferWire=v;},get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
 }
 const pricing={purpose:'pricing',definition_id:7654321,page:1,count:21,fresh:true};
 const discovery={...pricing,purpose:'discovery',max_bid:1000,min_buy:11000};
@@ -116,7 +118,31 @@ if(require.main===module)(async()=>{
     deadline:'2030-01-01T00:01:00Z',status_read_id:s.command.id,balance_read_id:b.command.id});
   let r=await h.execute(bid);assert(r.result.success);samples.push({command:bid,response:r,now:h.now()});
   r=await h.execute(bid);assert(!r.result.success);assert.equal(h.calls.filter(x=>x==='bid').length,1);
+  // The same physical trade can be managed again only from a new fresh outbid
+  // observation. A lifetime trade fence would incorrectly forbid every rebid.
+  const managed=setup();
+  async function minimumBid(amount){
+    const sc=managed.command('watched'),bc=managed.command('balance');
+    const status=await managed.execute(sc);await managed.execute(bc);const row=status.result.auctions[0];
+    return managed.command('bid',{trade_id:row.trade_id,item_id:row.item.item_id,definition_id:row.item.definition_id,
+      amount,minimum:amount,cap:9000,deadline:'2030-01-01T00:01:00Z',status_read_id:sc.id,balance_read_id:bc.id});
+  }
+  assert((await managed.execute(await minimumBid(2500))).result.success);
+  managed.setAuction({currentBid:2600,bidState:'outbid'});
+  const rebid=await minimumBid(2700);assert((await managed.execute(rebid)).result.success);
+  assert.equal(managed.calls.filter(x=>x==='bid').length,2);
+  const replay={...rebid,id:hex(10001)};assert(!(await managed.execute(replay)).result.success);
+  assert.equal(managed.calls.filter(x=>x==='bid').length,2);
   // Mismatched ownership, complete context, schema, worker/host/document epochs.
+  h=setup('pagination');
+  const paged=h.command('search',{...discovery,page:2,max_bid:1200,min_buy:10500});
+  const pagedResult=await h.execute(paged);
+  assert(pagedResult.result.success);assert.equal(pagedResult.result.network[0].query.start,20);
+  assert.equal(pagedResult.result.network[0].query.macr,1200);assert.equal(pagedResult.result.network[0].query.minb,10500);
+  samples.push({command:paged,response:pagedResult,now:h.now()});
+  const badStride=setup('paginationWrongStride');
+  const badPage=await badStride.execute(badStride.command('search',{...discovery,page:2}));
+  assert.equal(badPage.result.success,false);assert.equal(badPage.result.error,'schema_unrecognized');
   h=setup();const before=h.calls.length;
   for(const k of ['account','persona','game','platform','identity_namespace']){
     const c=h.command('balance');c.context[k]=k==='game'?'fc26':k==='platform'?'ps5':hex(99);
@@ -127,7 +153,7 @@ if(require.main===module)(async()=>{
     assert.equal((await h.execute(c)).result.error,'invalid_command');
   }
   for(const c of [{...h.command('balance'),schema:1},{...h.command('balance'),secret},h.command('balance',{secret}),
-    h.command('search',{...pricing,max_bid:1000}),h.command('search',{...pricing,max_buy:0}),h.command('search',{...pricing,page:2}),h.command('search',{...pricing,count:20}),h.command('search',{...discovery,min_buy:10500}),h.command('move',{}),
+    h.command('search',{...pricing,max_bid:1000}),h.command('search',{...pricing,max_buy:0}),h.command('search',{...pricing,page:2}),h.command('search',{...pricing,count:20}),h.command('search',{...discovery,min_buy:-1}),h.command('move',{}),
     {...bid,id:hex(999),operation:'toString',fences:h.fences}])assert.equal((await h.execute(c)).result.error,'invalid_command');
   assert.equal(h.calls.length,before);
   assert(!h.api.attach(ctx,{...h.fences,worker_epoch:hex(99)}));

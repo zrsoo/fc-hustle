@@ -175,8 +175,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--database', required=True)
     p.add_argument('--port', type=int, default=8784)
+    p.add_argument('--intent-database', help='Optional actor journal; every bid still requires a committed fenced intent')
     a = p.parse_args()
-    Server(a.database, a.port).serve_forever()
+    Server(a.database, a.port, intent_database=a.intent_database).serve_forever()
 
 
 if __name__ == '__main__':
