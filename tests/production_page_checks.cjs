@@ -69,7 +69,7 @@ function setup(mode='ok'){
     Date:Clock,performance:{now:()=>time},XMLHttpRequest:XHR,UTSearchCriteriaDTO:function(){},
     repositories:{Item:{setDirty(pile){events.push('dirty:'+pile);}}},ItemPile:{INBOX:1,PURCHASED:2,TRANSFER:3},
     setTimeout(fn,delay){timers.push(delay);return setTimeout(fn,delay===15000?25:0);},clearTimeout});
-  for(const file of ['persona.js','page.js'])vm.runInContext(fs.readFileSync('browser/production-v1/'+file,'utf8'),sandbox);
+  for(const file of ['persona.js','diagnostics.js','page.js'])vm.runInContext(fs.readFileSync('browser/production-v1/'+file,'utf8'),sandbox);
   const api=sandbox.window.__fcProductionV1;
   const fences={owner:hex(4),epoch:1,host_epoch:hex(5),worker_epoch:hex(6),document:api.document};
   assert(api.attach(ctx,fences));

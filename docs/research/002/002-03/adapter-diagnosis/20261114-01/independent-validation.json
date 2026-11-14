@@ -1,0 +1,8 @@
+{
+  "command": [
+    "python",
+    "tests/validate_adapter_diagnosis.py"
+  ],
+  "exit_code": 0,
+  "output_sha256": "581044da7de37b91606c3a98557441553270430c1aaf4190d871496c473c1502"
+}

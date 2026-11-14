@@ -108,7 +108,36 @@ class Store:
             self.db.execute('INSERT INTO events(command_id,event) VALUES(?,?)', (row[0], 'DELIVERED'))
             return c
 
+    def diagnostic(self, peer, cid, records):
+        from .diagnostics import validate_records
+        self.check_peer(peer);token(cid);validate_records(records)
+        row=self.db.execute('SELECT body FROM commands WHERE id=?',(cid,)).fetchone()
+        if not row:raise ValueError('unknown_diagnostic_command')
+        c=json.loads(row[0])
+        if c['context']!=peer['context'] or c['fences']!=peer['fences']:raise ValueError('wrong_result_peer')
+        with self.tx():
+            if self.db.execute('SELECT COUNT(*) FROM events WHERE command_id=?',(cid,)).fetchone()[0]>=20:
+                raise ValueError('diagnostic_budget_exhausted')
+            self.db.execute('INSERT INTO events(command_id,event) VALUES(?,?)',(cid,json.dumps(dict(
+                kind='DIAGNOSTIC',at=self.now().isoformat(),records=records),sort_keys=True)))
+
     def finish(self, peer, cid, value):
+        from .diagnostics import safe_reason,result_summary
+        self.check_peer(peer);token(cid)
+        try:
+            return self._finish(peer,cid,value)
+        except (ValueError,TypeError,KeyError,OverflowError) as error:
+            row=self.db.execute('SELECT body FROM commands WHERE id=?',(cid,)).fetchone()
+            if row:
+                c=json.loads(row[0])
+                if c['context']==peer['context'] and c['fences']==peer['fences']:
+                    with self.tx():
+                        self.db.execute('INSERT INTO events(command_id,event) VALUES(?,?)',(cid,json.dumps(dict(
+                            kind='RESULT_REJECTED',at=self.now().isoformat(),reason=safe_reason(error),
+                            summary=result_summary(value,c)),sort_keys=True)))
+            raise
+
+    def _finish(self, peer, cid, value):
         self.check_peer(peer); token(cid)
         with self.tx():
             row = self.db.execute('SELECT body,state FROM commands WHERE id=?', (cid,)).fetchone()

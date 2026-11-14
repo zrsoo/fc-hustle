@@ -1,0 +1,25 @@
+{
+  "mode": "OFFLINE_RETAINED_EVIDENCE_ONLY",
+  "EA_requests": 0,
+  "historical_capture": "docs/research/001c/001c-06-resume-02/search-2.json",
+  "historical_native_query": {
+    "macr": 1000,
+    "minb": 10500,
+    "num": 21,
+    "start": 0
+  },
+  "historical_rows": 21,
+  "current_row_validator_failures": 0,
+  "request_primitive": "UTSearchCriteriaDTO; type player; count 21; maxBid; minBuy; clearTransferMarketCache; searchTransferMarket(criteria,1)",
+  "native_call_same": true,
+  "known_policy_difference": "Historical minBuy=10500; locked current minBuy=11000. Historical bytes and expected query were not changed.",
+  "request_difference": "Production originally required definition_id; broad discovery omission was restored before this diagnosis.",
+  "response_differences": [
+    "schema 1 flat rows -> schema 2 nested item",
+    "native definitionId required; old projection allowed resourceId fallback",
+    "strict query/row/freshness/context/timing validation before result persistence",
+    "legacy captures wire rows; current production projection retains native rows",
+    "old and current workers discard unstructured exception text; current validators need independent rejection reasons"
+  ],
+  "inference": "Migration boundaries are the primary comparison target. Retained rows passing does not prove current native projection or envelope compatibility."
+}

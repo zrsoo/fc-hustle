@@ -6,6 +6,8 @@
   const num = v => Number.isSafeInteger(v) && v >= 0 ? v : null;
   const keys = (v, k) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).sort().join() === k.split(',').sort().join();
   const random = () => [...crypto.getRandomValues(new Uint8Array(16))].map(v => v.toString(16).padStart(2,'0')).join('');
+  const diagnostic=(id,stage,detail={})=>{try{window.__fcProductionDiagnosticsV1?.record(id,stage,detail);}catch{}};
+  const fieldType=v=>v===null?'null':Array.isArray(v)?'array':typeof v;
   const document = random(), known = new Map(), reads = new Map(), sent = new Set();
   const routes = {search:['GET','/ut/game/fc27/transfermarket'], watched:['GET','/ut/game/fc27/watchlist'],
     balance:['GET','/ut/game/fc27/user/credits'], unassigned:['GET','/ut/game/fc27/purchased/items'],
@@ -78,9 +80,12 @@
     const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`${key}|${ns}|${v}`));
     return ns+':'+[...new Uint8Array(h)].map(x => x.toString(16).padStart(2,'0')).join('').slice(0,24);
   }
-  async function item(raw,key,lite=false) {
+  async function item(raw,key,lite=false,cid=null) {
     const i=raw.itemData ?? raw;
-    if (!(num(i.definitionId) > 0) && !(lite && (i.definitionId===undefined || i.definitionId===0))) throw Error('schema_unrecognized'); // no resource/base fallback
+    if (!(num(i.definitionId) > 0) && !(lite && (i.definitionId===undefined || i.definitionId===0))) {
+      diagnostic(cid,'ITEM_SCHEMA_FAILURE',{definition_type:fieldType(i.definitionId),resource_type:fieldType(i.resourceId)});
+      throw Error('schema_unrecognized'); // no resource/base fallback
+    }
     return {item_id:await id(i.id,'item',key),definition_id:i.definitionId??null,
       untradeable:typeof i.untradeable === 'boolean' ? i.untradeable : typeof i.tradable === 'boolean' ? !i.tradable : null,
       last_sale_price:num(i.lastSalePrice)};
@@ -89,7 +94,7 @@
     if(!raw || typeof raw!=='object' || Array.isArray(raw))throw Error('schema_unrecognized');
     const a=raw.getAuctionData?.() ?? raw.auctionData ?? raw._auction ?? raw;
     if(!a || typeof a!=='object' || Array.isArray(a))throw Error('schema_unrecognized');
-    const i=await item(raw,c.context.identity_namespace,c.operation==='status'), t=await id(a.tradeId,'trade',c.context.identity_namespace);
+    const i=await item(raw,c.context.identity_namespace,c.operation==='status',c.id), t=await id(a.tradeId,'trade',c.context.identity_namespace);
     const won=typeof a.isWon==='function'?a.isWon():null;
     const row={trade_id:t,item:i,starting_bid:num(a.startingBid),current_bid:num(a.currentBid),buy_now_price:num(a.buyNowPrice),
       expires:a.expires === -1 ? -1 : num(a.expires),trade_state:['active','closed','expired','inactive'].includes(a.tradeState)?a.tradeState:null,
@@ -100,12 +105,12 @@
     return row;
   }
   const statusAvailable = () => typeof services.Item?.transfersDao?.getAuctionData==='function';
-  function observe(o) {
+  function observe(o,cid) {
     if (typeof o?.observe !== 'function') throw Error('service_unavailable');
     return new Promise((resolve,reject)=>{
       const owner={};let done=false;
-      const timer=setTimeout(()=>{if(!done){done=true;poisoned=true;o.unobserve?.(owner);reject(Error('service_timeout'));}},15000);
-      try {o.observe(owner,(sender,r)=>{if(!done){done=true;clearTimeout(timer);sender?.unobserve?.(owner);resolve(r);}});}
+      const timer=setTimeout(()=>{if(!done){done=true;poisoned=true;diagnostic(cid,'NATIVE_TIMEOUT');o.unobserve?.(owner);reject(Error('service_timeout'));}},15000);
+      try {o.observe(owner,(sender,r)=>{if(!done){done=true;clearTimeout(timer);diagnostic(cid,'NATIVE_CALLBACK',{success:r?.success,status:r?.status});sender?.unobserve?.(owner);resolve(r);}});}
       catch {done=true;clearTimeout(timer);poisoned=true;o.unobserve?.(owner);reject(Error('internal_error'));}
     });
   }
@@ -131,11 +136,12 @@
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
     const header=function(n,v){const m=pending.get(this);if(m && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
-    const send=function(...args){const m=pending.get(this);if(m){const sent=performance.now();rows.push(m);this.addEventListener('loadend',()=>{m.status=num(this.status);timing.ea_rtt_ms+=performance.now()-sent;},{once:true});}return orig.send.apply(this,args);};
+    const send=function(...args){const m=pending.get(this);if(m){const sent=performance.now();rows.push(m);this.addEventListener('loadend',()=>{m.status=num(this.status);timing.ea_rtt_ms+=performance.now()-sent;diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length});},{once:true});}return orig.send.apply(this,args);};
     proto.open=open;proto.send=send;proto.setRequestHeader=header;
     return ()=>{if(proto.open===open)proto.open=orig.open;if(proto.send===send)proto.send=orig.send;if(proto.setRequestHeader===header)proto.setRequestHeader=orig.header;};
   }
   async function execute(c) {
+    diagnostic(c?.id,'PAGE_ENTER');
     const out={schema:2,command_id:hex(c?.id)?c.id:'0'.repeat(32),operation:operation(c?.operation)?c.operation:null,
       context:binding?{...binding.context}:null,fences:binding?{...binding.fences}:null,result:empty('invalid_command'),
       freshness:{observed_at:new Date().toISOString(),network_at:null,request_count:0,read_id:hex(c?.id)?c.id:'0'.repeat(32),source:'native'},
@@ -165,6 +171,7 @@
       let invoke;
       if(op==='search'){
         const q=new UTSearchCriteriaDTO();q.type='player';if(p.definition_id!==undefined)q.defId=[p.definition_id];q.count=21;
+        diagnostic(c.id,'NATIVE_DATA',{definition_type:fieldType(q.defId),definition_count:Array.isArray(q.defId)?q.defId.length:undefined});
         for(const [k,v] of Object.entries({max_bid:'maxBid',min_buy:'minBuy',max_buy:'maxBuy'}))if(p[k]!==undefined)q[v]=p[k];
         if(typeof services.Item.clearTransferMarketCache!=='function')throw Error('service_unavailable');
         services.Item.clearTransferMarketCache();r.cache_invalidated=true;invoke=()=>services.Item.searchTransferMarket(q,1);
@@ -201,7 +208,8 @@
         sent.add(c.id);sent.add(p.trade_id);known.delete(p.trade_id);invoke=()=>services.Item.bid(e.raw,p.amount);
       }
       restore=capture(r.network,c,out.timing);const at=new Date().toISOString();
-      const response=await observe(invoke());await new Promise(resolve=>setTimeout(resolve,0));
+      diagnostic(c.id,'NATIVE_INVOKE');
+      const response=await observe(invoke(),c.id);await new Promise(resolve=>setTimeout(resolve,0));
       r.status=Number.isInteger(response?.status) && response.status>=100 && response.status<=599?response.status:null;
       if(response?.success!==true)throw Error('service_failed');
       const n=r.network;
@@ -224,11 +232,12 @@
       out.freshness.network_at=at;
       if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona)throw Error('persona_unverified');
       const data=response.data??response.response;
+      diagnostic(c.id,'NATIVE_DATA',{data_type:fieldType(data),row_count:Array.isArray(data?.items)?data.items.length:undefined});
       if(['search','watched','transfer_list','unassigned','status'].includes(op)){
         // The native status observable exposes items, not the raw HTTP envelope.
         const rows=op==='status'?data?.items:data?.items??data?.auctionInfo??data?.itemData;
         if(!Array.isArray(rows)||rows.length>(op==='search'?21:100))throw Error('schema_unrecognized');
-        if(op==='unassigned')r.items=await Promise.all(rows.map(raw=>item(raw,c.context.identity_namespace)));
+        if(op==='unassigned')r.items=await Promise.all(rows.map(raw=>item(raw,c.context.identity_namespace,false,c.id)));
         else r.auctions=await Promise.all(rows.map(raw=>auction(raw,c,at)));
         if(op==='search' && p.definition_id!==undefined && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
         if(op==='status' && (r.auctions.length>1 || r.auctions.some(a=>a.trade_id!==p.trade_id || a.item.item_id!==p.item_id ||
@@ -264,9 +273,11 @@
       r.success=true;r.error=null;reads.set(c.id,{operation:op,at,credits:r.credits});
     }catch(e){
       r.success=false;r.error=['known_identity_unavailable','helpers_unavailable','helper_disagreement','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','persona_unverified','invalid_preconditions','unauthenticated','ambiguous_network','stale_source'].includes(e?.message)?e.message:'internal_error';
+      diagnostic(c.id,'PAGE_FAILURE',{error:r.error,error_class:e?.name});
       if(op==='bid' || ['service_timeout','ambiguous_network'].includes(r.error))poisoned=true;
     }finally{
       restore();busy=false;out.freshness.observed_at=new Date().toISOString();out.freshness.request_count=r.network.length;out.timing.native_service_ms=performance.now()-start;
+      diagnostic(c.id,'PAGE_FINISHED',{success:r.success,error:r.error,request_count:r.network.length});
     }
     return out;
   }

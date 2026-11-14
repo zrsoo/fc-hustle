@@ -24,6 +24,7 @@ const fetch=async(url,options)=>{
   assert.equal(new URL(url).origin,'http://127.0.0.1:8784');assert.equal(options.credentials,'omit');assert.equal(options.redirect,'error');assert.equal(options.cache,'no-store');
   const path=new URL(url).pathname,v=JSON.parse(options.body);posts.push({path,v});
   if(mode==='offline')throw Error('SECRET_NATIVE_ERROR');
+  if(path==='/diagnostic')return {ok:true,json:async()=>({accepted:true})};
   if(path==='/hello')return {ok:true,json:async()=>({schema:2,host_epoch:host,owner})};
   if(path==='/next'){
     assert.equal(v.fences.host_epoch,host);assert.equal(v.fences.epoch,owner.epoch);assert.equal(v.fences.document,page.document);
@@ -44,7 +45,7 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
 (async()=>{
   await alarm();assert.equal(posts.length,0,'no selected tab: no work');
   mode='offline';await listeners.click({id:7,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'});await settle();assert.equal(badge,'WAIT');assert.equal(executions,0);
-  mode='ok';await alarm();assert.equal(executions,0,'idle only attaches');assert.deepEqual(files.slice(0,2),['persona.js','page.js']);
+  mode='ok';await alarm();assert.equal(executions,0,'idle only attaches');assert.deepEqual(files.slice(0,3),['persona.js','diagnostics.js','page.js']);
   next=cmd(20);await alarm();assert.equal(executions,1);assert.equal(posts.filter(p=>p.path==='/result').length,1);
   await alarm();assert.equal(executions,1,'idle poll cannot replay a command');
   next={...cmd(21),fences:{host_epoch:hex(999)}};await alarm();assert.equal(executions,1);
@@ -52,6 +53,7 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
   next={...cmd(23),fences:{document:hex(999)}};await alarm();assert.equal(executions,1);
   mode='dropResult';next=cmd(24);await alarm();assert.equal(executions,2);const results=posts.filter(p=>p.path==='/result').length;
   mode='ok';await alarm();assert.equal(executions,2);assert.equal(posts.filter(p=>p.path==='/result').length,results,'result delivery is not retried');
+  assert(posts.some(p=>p.path==='/diagnostic'&&p.v.id===hex(24)&&p.v.records.some(r=>r.stage==='WORKER_FAILURE'&&r.detail.worker_stage==='post_result')));
   page.document=hex(8);next=cmd(25);await alarm();assert.equal(executions,2,'reload cannot silently rebind account context');assert.equal(badge,'WAIT');next=null;
   host=hex(55);owner={...owner,epoch:2};
   await listeners.click({id:7,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'});await settle();

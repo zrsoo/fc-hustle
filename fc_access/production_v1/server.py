@@ -104,11 +104,15 @@ class Handler(BaseHTTPRequestHandler):
         s = self.server
         try:
             v = self.payload()
-            if self.path not in {'/activate', '/hello', '/next', '/result', '/run'}:
+            if self.path not in {'/activate', '/hello', '/next', '/result', '/run', '/diagnostic'}:
                 return self.send(404, {'error': 'not_found'})
-            if not self.origin(self.path in {'/hello', '/next', '/result'}):
+            if not self.origin(self.path in {'/hello', '/next', '/result', '/diagnostic'}):
                 return self.send(403, {'error': 'origin_denied'})
             with s.condition:
+                if self.path == '/diagnostic':
+                    fields(v,{'peer','id','records'});self.peer(v['peer'])
+                    s.store.diagnostic(v['peer'],v['id'],v['records'])
+                    return self.send(200,{'accepted':True})
                 if self.path == '/activate':
                     old = s.store.owner()
                     s.store.activate(v)
