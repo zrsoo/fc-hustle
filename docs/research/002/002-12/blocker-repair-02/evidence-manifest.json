@@ -1,0 +1,12 @@
+{
+  "scope": "captured_experiment_and_test_receipts_only",
+  "files": {
+    "backup-receipt.json": "ff253f604853aca477bfcc54136d009faf3069ad22b85ffbcae62dc0c60a4795",
+    "consumed.json": "675de066aaaf13cb06c7ae3d8345f0ed8414d83498eed864288733fda80b6b75",
+    "independent-check.json": "cc1bdf0fa4674c54a599fb7fb8aefd161980cf5962e0db0134c8c1b1cd6ecf9a",
+    "python-final.txt": "afc9f62fd7bd7ec2c574570d3f61ddf7e70126452733fd101ff21ae13808755f",
+    "python-result.json": "fec56590ec3ce340a01e004aae41d953b3e1772b6e25fda8406db97300ff8c52",
+    "recovery.jsonl": "86845cbd35f7c086bf1ba27b2c2e31553d0093a8d219ebfe9a25c53984f3d743",
+    "summary.json": "124e588ea60e822e2197593eab74401ba0fad870223e6751534df3490694b384"
+  }
+}

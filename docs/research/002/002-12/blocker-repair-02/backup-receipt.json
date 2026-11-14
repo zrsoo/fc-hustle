@@ -1,0 +1,32 @@
+{
+  "backup_path": "private-captures/bulk-blocker-repair/20261114T124422Z",
+  "head": "880ca4914f648ef337435013d1fb4752704ace48",
+  "tag": "backup/bulk-blocker-20261114T124422Z",
+  "databases": [
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "backup": "0-foundation.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "backup": "1-completed-quotes.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/final-remediation/native.sqlite3",
+      "backup": "2-native.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "backup": "3-production-readonly-after.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": ".orchestrator/state.db",
+      "backup": "4-state.db",
+      "integrity": "ok"
+    }
+  ]
+}

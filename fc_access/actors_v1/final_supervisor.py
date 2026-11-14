@@ -50,6 +50,16 @@ def review_resume(predecessor, mailbox_path, proposed_seconds):
             try:
                 for c in mutations:
                     p=c['params']
+                    if c['operation'] in {'clear_sold','relist_all'}:
+                        from fc_access.production_v1.bulk import mutation_authorized
+                        if not mutation_authorized(runtime['journal'],c,reconciled=True):
+                            raise ValueError('mutation_checkpoint_requires_read_only_reconciliation')
+                        verified=journal.execute("SELECT body FROM registry_events_v1 WHERE "
+                            "json_extract(body,'$.command_id')=? AND json_extract(body,'$.kind')='BULK_TRANSFER' "
+                            "AND json_extract(body,'$.reason') IN ('VERIFIED','OBSERVED_EFFECT_RECOVERED')",(c['id'],)).fetchone()
+                        if not verified or not json.loads(verified[0]).get('read_id'):
+                            raise ValueError('mutation_checkpoint_requires_independent_readback')
+                        continue
                     if c['operation'] in {'move','list'}:
                         from fc_access.production_v1.resale import mutation_authorized
                         if not mutation_authorized(runtime['journal'],c,reconciled=True):

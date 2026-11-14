@@ -36,6 +36,11 @@ async function fixture(op='clear_sold',mode='ok'){
       emit(nativeMethod,mode==='route'?'item':path,mode==='body'?'{"duration":3600}':null,mode==='query'?'?duration=3600':'');
       if(mode==='duplicate')emit(nativeMethod,path);
       if(mode==='per-item')emit('DELETE','trade/500');
+      if(mode==='background-read')emit('GET','user/credits',null,'?ui=1');
+      if(mode==='background-telemetry'){
+        const x=new h.sandbox.XMLHttpRequest();x.open('POST','https://telemetry.invalid/event?private=PRIVATE-NATIVE-CANARY');
+        x.send('PRIVATE-NATIVE-CANARY');
+      }
       if(mode!=='no-effect'){
         if(op==='clear_sold')rows=rows.filter(r=>r.getAuctionData().tradeState!=='closed');
         else for(const r of rows){const a=r.getAuctionData();if(a.tradeState==='expired')Object.assign(a,{tradeState:'active',tradeId:String(Number(a.tradeId)+100),expires:3600});}
@@ -79,7 +84,7 @@ async function workerContract(){
   assert.deepEqual(calls,['clear_sold']);assert(!files.includes('bulk-transfer.js'));
 }
 
-(async()=>{
+if(require.main===module)(async()=>{
   for(const op of ['clear_sold','relist_all']){
     for(const mode of op==='clear_sold'?['ok','no-get','both-get']:['ok']){
       const f=await fixture(op,mode),before=JSON.parse(JSON.stringify(f.before.result.auctions));
@@ -139,3 +144,4 @@ async function workerContract(){
   await workerContract();
   console.log('PASS production native bulk: zero arguments, guarded single DELETE/PUT, independent reads, stable manual items, fences, semantics, ordinary worker dispatch; no research or recurring maintenance');
 })().catch(e=>{console.error(e);process.exitCode=1;});
+module.exports={fixture};

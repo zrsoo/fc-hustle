@@ -1,0 +1,210 @@
+[
+  {
+    "command": [
+      "node",
+      "tests/bidding_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: native maxBid/minBuy, PC, paging, 50-row bulk, balance, freshness/coverage, bid once, privacy and epochs (synthetic).\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/browser_observer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: observer behavior, privacy, auth semantics, preservation and version isolation\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/bulk_background_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS browser navigation and telemetry isolation; one mutation; blocked duplicate/write/body/query/host guards and sanitized diagnostics\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/bulk_transfer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS bulk contracts: captured native DAO routes/body, single bulk invocation, prices/hour, identity, state filtering, ambiguity, duplicates, persona, no secrets\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/durability_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: page reload, 50 rows, persona, ownership, epochs, cache, timeout and zero writes\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/durability_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: idle watchdog, failed fetch, process restart, page reinjection, ownership and no replay\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/e2e_live_v2_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: native opening, HOLD zero writes, minimum rebid, cap, expiry, duplicate and owner fences (SIMULATION ONLY)\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/e2e_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: native opening, HOLD zero writes, minimum rebid, cap, expiry, duplicate and owner fences (SIMULATION ONLY)\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/final_inactive_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS inactive pile: actual physical member counted using native defaults; explicit value/state/identity conflicts remain blocked\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/final_owned_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS exact won-item lookup: fresh retained selector, one independent GET, private IDs redacted, unwon/wrong identity rejected\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/market_discovery_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "Discovery page, rejection paths, privacy and both workers verified; synthetic only.\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/market_discovery_followup_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: follow-up persona, strict rejection, identity/privacy, 30-second pacing and long-poll worker; synthetic only.\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/native_status_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS native status: availability, independent functions, authenticated GET, schema, exact retained identities, freshness, omissions, reconnect epochs, no source digests\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/occupancy_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: native all-state occupancy, empty/full/over-cap, missing/truncated/conflicting views and freshness/authentication failures\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/pricing_timing_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "[{\"command\":{\"schema\":2,\"id\":\"0000000000000000000000000000000b\",\"operation\":\"search\",\"params\":{\"purpose\":\"pricing\",\"definition_id\":7654321,\"page\":1,\"count\":21,\"fresh\":true},\"context\":{\"account\":\"00000000000000000000000000000001\",\"persona\":\"00000000000000000000000000000002\",\"game\":\"fc27\",\"platform\":\"pc\",\"identity_namespace\":\"00000000000000000000000000000003\"},\"fences\":{\"owner\":\"00000000000000000000000000000004\",\"epoch\":1,\"host_epoch\":\"00000000000000000000000000000005\",\"worker_epoch\":\"00000000000000000000000000000006\",\"document\":\"97cbb14f062e9b29de1fb5e9552aab6b\"}},\"response\":{\"schema\":2,\"command_id\":\"0000000000000000000000000000000b\",\"operation\":\"search\",\"context\":{\"account\":\"00000000000000000000000000000001\",\"persona\":\"00000000000000000000000000000002\",\"game\":\"fc27\",\"platform\":\"pc\",\"identity_namespace\":\"00000000000000000000000000000003\"},\"fences\":{\"owner\":\"00000000000000000000000000000004\",\"epoch\":1,\"host_epoch\":\"00000000000000000000000000000005\",\"worker_epoch\":\"00000000000000000000000000000006\",\"document\":\"97cbb14f062e9b29de1fb5e9552aab6b\"},\"result\":{\"success\":true,\"error\":null,\"status\":200,\"credits\":null,\"items\":null,\"auctions\":[{\"trade_id\":\"trade:0707f856f9560b625f5452e9\",\"item\":{\"item_id\":\"item:155f0d01fdaf89da4e69df19\",\"definition_id\":7654321,\"untradeable\":false,\"last_sale_price\":7700},\"starting_bid\":2500,\"current_bid\":0,\"buy_now_price\":15000,\"expires\":300,\"trade_state\":\"active\",\"bid_state\":\"none\",\"native_is_won\":false}],\"caps\":null,\"cache_invalidated\":true,\"network\":[{\"host\":\"utas.test.ea.com\",\"method\":\"GET\",\"path\":\"/ut/game/fc27/transfermarket\",\"query\":{\"start\":0,\"num\":21,\"definitionId\":7654321},\"status\":200,\"session_header_present\":true}]},\"freshness\":{\"observed_at\":\"2030-01-01T00:00:00.133Z\",\"network_at\":\"2030-01-01T00:00:00.000Z\",\"request_count\":1,\"read_id\":\"0000000000000000000000000000000b\",\"source\":\"native\"},\"coverage\":{\"complete\":false,\"has_more\":false},\"timing\":{\"native_service_ms\":133,\"ea_rtt_ms\":125,\"native_helper_ms\":0}}},{\"command\":{\"schema\":2,\"id\":\"0000000000000000000000000000000c\",\"operation\":\"price_helpers\",\"params\":{\"version\":1,\"probes\":[{\"direction\":\"above\",\"value\":750},{\"direction\":\"below\",\"value\":1500}]},\"context\":{\"account\":\"00000000000000000000000000000001\",\"persona\":\"00000000000000000000000000000002\",\"game\":\"fc27\",\"platform\":\"pc\",\"identity_namespace\":\"00000000000000000000000000000003\"},\"fences\":{\"owner\":\"00000000000000000000000000000004\",\"epoch\":1,\"host_epoch\":\"00000000000000000000000000000005\",\"worker_epoch\":\"00000000000000000000000000000006\",\"document\":\"97cbb14f062e9b29de1fb5e9552aab6b\"}},\"response\":{\"schema\":2,\"command_id\":\"0000000000000000000000000000000c\",\"operation\":\"price_helpers\",\"context\":{\"account\":\"00000000000000000000000000000001\",\"persona\":\"00000000000000000000000000000002\",\"game\":\"fc27\",\"platform\":\"pc\",\"identity_namespace\":\"00000000000000000000000000000003\"},\"fences\":{\"owner\":\"00000000000000000000000000000004\",\"epoch\":1,\"host_epoch\":\"00000000000000000000000000000005\",\"worker_epoch\":\"00000000000000000000000000000006\",\"document\":\"97cbb14f062e9b29de1fb5e9552aab6b\"},\"result\":{\"success\":true,\"error\":null,\"version\":1,\"above_available\":true,\"below_available\":true,\"probes\":[{\"direction\":\"above\",\"value\":750,\"price\":800},{\"direction\":\"below\",\"value\":1500,\"price\":1400}],\"network\":[]},\"freshness\":{\"observed_at\":\"2030-01-01T00:00:00.139Z\",\"network_at\":null,\"request_count\":0,\"read_id\":\"0000000000000000000000000000000c\",\"source\":\"native\"},\"coverage\":{\"complete\":false,\"has_more\":null},\"timing\":{\"native_service_ms\":6,\"ea_rtt_ms\":0,\"native_helper_ms\":6}}}]"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_bulk_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS production native bulk: zero arguments, guarded single DELETE/PUT, independent reads, stable manual items, fences, semantics, ordinary worker dispatch; no research or recurring maintenance\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_diagnostics_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS diagnostics: executed page stages, failure, bounded typed allowlist, no raw secret retention\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_inventory_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS inventory: 50 exact rows, dirty-before-read, cache/auth/route failures, reviewed DAO execution, lite omissions, unknown IDs, reconnect fence and reacquisition\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_metadata_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS native metadata fanout: two truthful GETs, exact version correlation, duplicate/unknown/write rejection, single dispatch\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS production page: routes, DTO/wire, inclusive maxb, ownership, persona, freshness, ambiguity, timeout, >1000 guarded bid, no secrets\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS production worker: explicit tab, local-only idle, fences, dropped ACK, no replay, reload requires rebind, persona and no secret retention\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/read_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: native read-only command dispatch, projection/privacy, identity, filters, errors, network preservation, and MV3 exchange\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/resale_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS native resale: exact physical DTO, native move/list arguments, current caps/ticks, hour, persona/epoch, paid proof and no replay\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/search_validation_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS search DTO mapping, paging, independent wire projection, empty results, privacy, fail-closed inputs, hook restoration\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/transaction_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "PASS: actual native write dispatch, identity checks, prices/duration, single writes, status, eligible relist, timeout duplicate prevention, privacy and page guards (synthetic only)\n"
+  },
+  {
+    "command": [
+      "node",
+      "tests/watched_bulk_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "output": "watched bulk page: network, cache, failure, unknown route, 50 rows, privacy, bounds, pacing and read-only guards passed\n"
+  }
+]

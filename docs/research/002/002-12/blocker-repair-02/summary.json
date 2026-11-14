@@ -1,0 +1,73 @@
+{
+  "original_command_id": "869ed95434e70ea0d7ba599945751fd2",
+  "original_error": "bulk_contract_changed",
+  "recovery_read_id": "73ae2808d236825440ce391345a26cf0",
+  "recovery_read_at": "2026-11-14T13:03:27.563Z",
+  "occupied": 6,
+  "targets": [
+    {
+      "bid_state": "none",
+      "buy_now_price": 46000,
+      "current_bid": 0,
+      "expires": 997,
+      "item": {
+        "definition_id": 239085,
+        "item_id": "item:6c1821fd50efcf26deca9cb1",
+        "last_sale_price": 35000,
+        "untradeable": false
+      },
+      "native_is_won": false,
+      "starting_bid": 45000,
+      "trade_id": "trade:834fa628321887f7f200dd37",
+      "trade_state": "active"
+    },
+    {
+      "bid_state": "none",
+      "buy_now_price": 6200,
+      "current_bid": 0,
+      "expires": 997,
+      "item": {
+        "definition_id": 236772,
+        "item_id": "item:baedbe1a7c161538497cdc85",
+        "last_sale_price": 5500,
+        "untradeable": false
+      },
+      "native_is_won": false,
+      "starting_bid": 6000,
+      "trade_id": "trade:9435144d1f61a0df7e80a21f",
+      "trade_state": "active"
+    }
+  ],
+  "sold": [
+    {
+      "bid_state": "none",
+      "buy_now_price": 2000,
+      "current_bid": 2000,
+      "expires": -1,
+      "item": {
+        "definition_id": 246420,
+        "item_id": "item:9733f53c9d176ecfb6d1c484",
+        "last_sale_price": 0,
+        "untradeable": true
+      },
+      "native_is_won": false,
+      "starting_bid": 1900,
+      "trade_id": "trade:13e29ef6c5f14e50b37f823a",
+      "trade_state": "closed"
+    }
+  ],
+  "supervisor_resume_review": {
+    "authorization": "Explicit FIXING_PERSISTENT_FAILURE instruction in the same worker",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "predecessor": "C:\\hustle\\fc-hustle\\docs\\research\\002\\002-12\\remediation-05\\live-06",
+    "prior_active_wall_seconds": 823.255405
+  },
+  "original_incompatible_preserved": 1,
+  "native_mutations": 0
+}

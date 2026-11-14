@@ -1,0 +1,7 @@
+{
+  "mode": "READ_ONLY_BULK_RECOVERY",
+  "command_id": "869ed95434e70ea0d7ba599945751fd2",
+  "inventory_GET_budget": 1,
+  "native_mutations": 0,
+  "authority": "explicit_user_fix_blocker_confirm_then_orchestrator_recheck"
+}

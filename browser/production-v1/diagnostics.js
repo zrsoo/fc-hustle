@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   if(window.__fcProductionDiagnosticsV1)return;
-  const stages=new Set(['PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA','ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED']);
+  const stages=new Set(['BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA','ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED']);
   const types=new Set(['undefined','null','boolean','number','string','object','array','function']);
   const errors=new Set(['invalid_command','wrong_page','bridge_busy','persona_unverified','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','stale_source','unauthenticated','ambiguous_network','invalid_preconditions','internal_error','helpers_unavailable','helper_disagreement','known_identity_unavailable']);
   const records=new Map();
@@ -16,6 +16,10 @@
     for(const key of ['success'])if(typeof detail[key]==='boolean')safe[key]=detail[key];
     for(const key of ['definition_type','resource_type','data_type'])if(types.has(detail[key]))safe[key]=detail[key];
     if(errors.has(detail.error))safe.error=detail.error;
+    if(detail.error==='bulk_contract_changed')safe.error=detail.error;
+    if(['ea_read','ea_write','outside_ut'].includes(detail.traffic_scope))safe.traffic_scope=detail.traffic_scope;
+    if(['GET','POST','PUT','DELETE','OTHER'].includes(detail.method))safe.method=detail.method;
+    if(['body','query','route','duplicate'].includes(detail.violation))safe.violation=detail.violation;
     if(['Error','TypeError','RangeError','SyntaxError'].includes(detail.error_class))safe.error_class=detail.error_class;
     rows.push({stage,at:new Date().toISOString(),detail:safe});
   }

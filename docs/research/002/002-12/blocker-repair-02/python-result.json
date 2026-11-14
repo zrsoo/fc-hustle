@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "counts": [
+    "Ran 734 tests in 167.367s\r",
+    "OK\r\n"
+  ]
+}

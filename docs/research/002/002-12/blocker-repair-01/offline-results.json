@@ -1,0 +1,15 @@
+[
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 1,
+    "log": "offline-00.txt"
+  }
+]

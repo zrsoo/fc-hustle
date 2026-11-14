@@ -131,6 +131,14 @@
     const proto=XMLHttpRequest.prototype, orig={open:proto.open,send:proto.send,header:proto.setRequestHeader}, pending=new WeakMap();
     const open=function(method,url,...args){let m=null;
       try {const u=new URL(url,location.href);
+        const ut=u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/');
+        // UI navigation and telemetry are not additional bulk mutations. Observe
+        // their existence without intercepting credentials, query values or bodies.
+        if(bulk(c.operation) && (!ut && !u.pathname.startsWith('/ut/game/fc27/') ||
+            ut && method==='GET' && !(c.operation==='clear_sold' && u.pathname===routes.transfer_list[1]))){
+          pending.set(this,{background:true,scope:ut?'ea_read':'outside_ut',method:['GET','POST','PUT','DELETE'].includes(method)?method:'OTHER'});
+          return orig.open.call(this,method,url,...args);
+        }
         if(u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/')) {
           const path=u.pathname.replace(/\/trade\/\d{1,24}\/bid$/,'/trade/:trade/bid');
           const query={};for(const k of ['start','num','definitionId','defId','macr','minb','maxb']) if(u.searchParams.has(k)) {
@@ -162,8 +170,13 @@
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}
       if(bulk(c.operation) && !m)m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
-    const header=function(n,v){const m=pending.get(this);if(m && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
+    const header=function(n,v){const m=pending.get(this);if(m && !m.background && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
     const send=function(...args){const m=pending.get(this);if(m){
+      if(m.background){
+        diagnostic(c.id,'BACKGROUND_REQUEST',{traffic_scope:m.scope,method:m.method});
+        this.addEventListener('loadend',()=>diagnostic(c.id,'BACKGROUND_RESPONSE',{traffic_scope:m.scope,method:m.method,status:num(this.status)}),{once:true});
+        return orig.send.apply(this,args);
+      }
       if(bulk(c.operation)){
         m.body_empty=args[0]==null || args[0]==='';
         const target=m.method===routes[c.operation][0] && m.path===routes[c.operation][1];
@@ -171,6 +184,8 @@
         if(!m.body_empty || !equal(m.query,{}) || !target && !read ||
             target && rows.some(n=>n.method!=='GET') || read && rows.filter(n=>n.method==='GET').length>=2){
           inventory.bulkViolation=true;
+          diagnostic(c.id,'BULK_REQUEST_BLOCKED',{traffic_scope:'ea_write',method:m.method,
+            violation:!m.body_empty?'body':!equal(m.query,{})?'query':!target&&!read?'route':'duplicate'});
           throw Error('bulk_contract_changed');
         }
       }

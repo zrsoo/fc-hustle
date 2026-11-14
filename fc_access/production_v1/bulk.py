@@ -73,10 +73,17 @@ def mutation_authorized(path, c, *, reconciled=False):
             scope = scope_for(c['context'])
             row = j.db.execute('SELECT scope,body,state,before_read,incompatible FROM bulk_writes_v1 WHERE id=?',
                                (c['id'],)).fetchone()
-            if not row or row[:2] != (scope, json.dumps(c, sort_keys=True)) or row[4]:
+            if not row or row[:2] != (scope, json.dumps(c, sort_keys=True)):
                 return False
             if reconciled:
+                if row[4]:
+                    if not j.db.execute("SELECT 1 FROM sqlite_master WHERE name='bulk_recoveries_v1'").fetchone():return False
+                    recovery=j.db.execute('SELECT scope,proof FROM bulk_recoveries_v1 WHERE id=?',(c['id'],)).fetchone()
+                    if not recovery or recovery[0]!=scope:return False
+                    proof=json.loads(recovery[1])
+                    if proof.get('command')!=c or proof.get('reason')!='RECORDED_EFFECT_AND_FRESH_INVENTORY_VERIFIED':return False
                 return row[2] == 'RECONCILED'
+            if row[4]:return False
             j._owner(scope, c['fences']['owner'], c['fences']['epoch'])
             before = json.loads(row[3])
             return (row[2] == 'UNKNOWN' and before['context'] == c['context'] and
@@ -94,6 +101,10 @@ class BulkTransfer:
 
     def checkpoint(self, stage):
         """Fault injection seam."""
+
+    def lock(self):
+        from fc_access.actors_v1.locking import process_lock
+        return process_lock(self.f.journal_path.with_suffix('.bid.lock'),wait_seconds=35)
 
     def event(self, reason, **data):
         self.f.registry._append(dict(kind='BULK_TRANSFER', reason=reason,
