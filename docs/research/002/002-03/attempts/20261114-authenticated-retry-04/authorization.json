@@ -1,0 +1,32 @@
+{
+  "attempt_id": "20261114-authenticated-retry-04",
+  "authorization": {
+    "authority": "explicit_user_try_again_after_normal_login_recovery",
+    "additional_attempts": 1,
+    "previous": {
+      "authority": "explicit_user_third_attempt_with_bounded_cross_version_discovery",
+      "additional_attempts": 1,
+      "original": {
+        "authority": "explicit_user_one_additional_read_only_encoding_remediation_attempt",
+        "previous_checkpoint": "docs/research/002/002-03/gate.json",
+        "previous_status": "FAILURE/BLOCKED",
+        "previous_capture_sha256": "3b43718069b0d732e4d4dfe6e34701bd77616e32dc366bbe11a5f08ebd9e3c51",
+        "additional_attempts": 1
+      },
+      "second_checkpoint": "docs/research/002/002-03/attempts/20261114-preflight-remediation-01/gate.json",
+      "second_capture_sha256": "d37aff90db19e382d394798be9cf0f08afea256614e7771d488a8c6a3c69050d"
+    },
+    "third_checkpoint": "docs/research/002/002-03/attempts/20261114-bounded-discovery-03/gate.json",
+    "third_capture_sha256": "5a4fec9e3b991f13f15d7574d69b5222ce64da4958e50a53c60ecda596f7e718"
+  },
+  "budget": {
+    "authentication_GETs": 1,
+    "discovery_GETs": 3,
+    "discovery_seconds": 180,
+    "total_EA_GETs": 10,
+    "pricing_GETs": 2,
+    "helper_batches": 64,
+    "valuations": 1
+  },
+  "mutations": 0
+}

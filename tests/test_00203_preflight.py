@@ -72,6 +72,8 @@ class AdditionalAttempt(unittest.TestCase):
         temporary=tempfile.TemporaryDirectory();self.addCleanup(temporary.cleanup)
         patcher=patch.object(gate,'THIRD_CHECKPOINT',Path(temporary.name)/'absent-third.json')
         patcher.start();self.addCleanup(patcher.stop)
+        fourth=patch.object(gate,'FOURTH_CHECKPOINT',Path(temporary.name)/'absent-fourth.json')
+        fourth.start();self.addCleanup(fourth.stop)
 
     def test_new_attempt_real_foundation_offline_proof_and_original_rejection(self):
         from test_00203_gate import Gate

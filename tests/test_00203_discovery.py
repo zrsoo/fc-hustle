@@ -16,10 +16,16 @@ from profile_00202 import TimedPage,Clock,CONTEXT
 
 
 class ThirdAttempt(unittest.TestCase):
-    def scenario(self,directory,*,slow=False,empty=False):
+    def setUp(self):
+        temporary=tempfile.TemporaryDirectory();self.addCleanup(temporary.cleanup)
+        patcher=patch.object(gate,'FOURTH_CHECKPOINT',Path(temporary.name)/'absent-fourth.json')
+        patcher.start();self.addCleanup(patcher.stop)
+
+    def scenario(self,directory,*,slow=False,empty=False,fourth=False):
         clock=Clock();page=TimedPage(directory,clock);page.candidate['starting_bid']=150
         w=gate.Window(Path(directory)/'gate.json',clock=lambda:int(clock.monotonic()*1e9),
-                      authorization=gate.third_authorization(),attempt_id=gate.THIRD_ATTEMPT)
+                      authorization=gate.fourth_authorization() if fourth else gate.third_authorization(),
+                      attempt_id=gate.FOURTH_ATTEMPT if fourth else gate.THIRD_ATTEMPT)
         recorder=gate.ReadOnlyGateExecutor(w)
         recorder.attach,recorder.ownership_epoch=page.attach,page.ownership_epoch
         def deliver(c):
@@ -38,6 +44,9 @@ class ThirdAttempt(unittest.TestCase):
                 w.state.update(health_before=dict(service='fc-production-v1',attached=True,mutations_enabled=False),
                     context=CONTEXT,fences=deepcopy(f.adapter.fences),desktop=dict(official_tab=True,foreground_verified=True,edge_control_verified=True))
                 try:
+                    if fourth:
+                        w.state['stage']='AUTHENTICATION'
+                        auth=f.read('balance');w.state['authenticated_read_id']=auth['command_id']
                     discovery,candidate=third.discover(f,w)
                     gate.evaluate_window(f,w,discovery,candidate);gate.admission_proof(w.state)
                     w.state.update(status='PASS',hard_stop=False,dependent_tasks_allowed=True)
@@ -45,6 +54,32 @@ class ThirdAttempt(unittest.TestCase):
                 except Exception as e:w.stop(str(e))
                 return deepcopy(w.state),page.bid_calls
             finally:f.close();page.close()
+
+    def test_fourth_requires_actual_authenticated_read_before_discovery_and_timed_valuation(self):
+        with tempfile.TemporaryDirectory() as d:
+            s,bids=self.scenario(d,fourth=True)
+            self.assertEqual(s['status'],'PASS',s.get('reason'));self.assertEqual(bids,0)
+            self.assertEqual(gate.require_pass(Path(d)/'gate.json')['pricing_GETs'],2)
+            self.assertEqual(s['operations'][0]['command']['operation'],'balance')
+            self.assertEqual(s['operations'][0]['stage'],'AUTHENTICATION')
+            bad=deepcopy(s);bad['authenticated_read_id']=s['discovery_read_id']
+            with self.assertRaises(ValueError):gate.admission_proof(bad)
+            self.assertEqual(s['execution_budget']['ea_GETs'],10)
+
+    def test_fourth_preserves_three_failures_and_dependency_selection(self):
+        authority=gate.fourth_authorization()
+        with tempfile.TemporaryDirectory() as d,patch.object(gate,'FOURTH_CHECKPOINT',Path(d)/'gate.json'):
+            w=gate.Window(gate.FOURTH_CHECKPOINT,authorization=authority,attempt_id=gate.FOURTH_ATTEMPT)
+            self.assertEqual(gate.selected_checkpoint(),w.path)
+            with self.assertRaisesRegex(ValueError,'items_4_through_12_blocked'):gate.require_pass()
+            with self.assertRaises(FileExistsError):gate.Window(w.path)
+            bad=deepcopy(w.state);bad['authorization']['third_capture_sha256']='0'*64
+            with self.assertRaisesRegex(ValueError,'wrong_gate_attempt_authorization'):gate.validate_attempt(bad)
+
+    def test_offline_windows_selector_chooses_unique_intended_window_and_rejects_ambiguity(self):
+        import subprocess
+        result=subprocess.run(['powershell','-NoProfile','-File','tests/desktop_window_checks.ps1'],capture_output=True)
+        self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
     def test_actual_foundation_third_attempt_pass_and_negative_discovery_proof(self):
         with tempfile.TemporaryDirectory() as d:

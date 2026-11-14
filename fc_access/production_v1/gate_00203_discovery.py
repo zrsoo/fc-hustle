@@ -48,9 +48,11 @@ def discover(f,w):
     raise ValueError('bounded_discovery_exhausted_no_uncached_eligible_auction')
 
 
-def run():
+def run(*,attempt=gate.THIRD_ATTEMPT):
     (gate.ROOT/'AGENTS.md').read_text(encoding='utf8')
-    w=gate.Window(gate.THIRD_CHECKPOINT,authorization=gate.third_authorization(),attempt_id=gate.THIRD_ATTEMPT)
+    fourth=attempt==gate.FOURTH_ATTEMPT
+    gate.need(attempt in {gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT},'unknown_authorized_attempt')
+    w=gate.Window(gate.selected_checkpoint(attempt),authorization=gate.fourth_authorization() if fourth else gate.third_authorization(),attempt_id=attempt)
     f=None;s=w.state
     try:
         s.update(stage='DESKTOP_PREFLIGHT',live_command_attempted=True);w.save()
@@ -62,6 +64,10 @@ def run():
         f=Foundation(gate.ReadOnlyGateExecutor(w),context=s['context'],owner=h['owner']['owner'],
                      journal_path=gate.JOURNAL,cache_path=gate.CACHE,interval=2)
         s['fences']=deepcopy(f.adapter.fences)
+        if fourth:
+            s['stage']='AUTHENTICATION';w.save()
+            authenticated=f.read('balance')
+            s['authenticated_read_id']=authenticated['command_id'];w.save()
         discovery,candidate=discover(f,w)
         # No further candidate or another valuation is permitted beyond this call.
         gate.evaluate_window(f,w,discovery,candidate)
@@ -76,4 +82,8 @@ def run():
     return {k:s.get(k) for k in ('status','reason','elapsed_ns','hard_stop','dependent_tasks_allowed')}
 
 
-if __name__=='__main__':print(json.dumps(run()))
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--attempt',choices=[gate.THIRD_ATTEMPT,gate.FOURTH_ATTEMPT],default=gate.THIRD_ATTEMPT)
+    print(json.dumps(run(attempt=parser.parse_args().attempt)))

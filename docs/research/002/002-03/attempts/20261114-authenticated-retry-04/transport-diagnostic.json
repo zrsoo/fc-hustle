@@ -1,0 +1,102 @@
+{
+  "records": [
+    {
+      "command_id": "5bef03a3ca10eff135ea08c6ef73502c",
+      "operation": "balance",
+      "stage": "AUTHENTICATION",
+      "transport_state": "ACKNOWLEDGED",
+      "response": {
+        "command_id": "5bef03a3ca10eff135ea08c6ef73502c",
+        "context": {
+          "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+          "game": "fc27",
+          "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+          "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null
+        },
+        "fences": {
+          "document": "d93cdc8681372cc2b9dae81ca939edd8",
+          "epoch": 25,
+          "host_epoch": "75600cecba7351f325896c5ee29e607d",
+          "owner": "3e5ad73a0453bcb4338421575d06857f",
+          "worker_epoch": "847427886c32a66340ebbf48577f5dcb"
+        },
+        "freshness": {
+          "network_at": "2026-11-14T01:25:02.926Z",
+          "observed_at": "2026-11-14T01:25:03.197Z",
+          "read_id": "5bef03a3ca10eff135ea08c6ef73502c",
+          "request_count": 1,
+          "source": "native"
+        },
+        "operation": "balance",
+        "result": {
+          "auctions": null,
+          "cache_invalidated": false,
+          "caps": null,
+          "credits": 48589,
+          "error": null,
+          "items": null,
+          "network": [
+            {
+              "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+              "method": "GET",
+              "path": "/ut/game/fc27/user/credits",
+              "query": {},
+              "session_header_present": true,
+              "status": 200
+            }
+          ],
+          "status": 200,
+          "success": true
+        },
+        "schema": 2,
+        "timing": {
+          "ea_rtt_ms": 239.40000000596046,
+          "native_helper_ms": 0,
+          "native_service_ms": 270.5
+        }
+      },
+      "events": [
+        {
+          "sequence": 7,
+          "event": "RESERVED"
+        },
+        {
+          "sequence": 8,
+          "event": "DELIVERED"
+        },
+        {
+          "sequence": 9,
+          "event": "ACKNOWLEDGED"
+        }
+      ]
+    },
+    {
+      "command_id": "b233575942eff926e85986ff64360b60",
+      "operation": "search",
+      "stage": "BOUNDED_DISCOVERY",
+      "transport_state": "UNKNOWN",
+      "response": null,
+      "events": [
+        {
+          "sequence": 10,
+          "event": "RESERVED"
+        },
+        {
+          "sequence": 11,
+          "event": "DELIVERED"
+        },
+        {
+          "sequence": 12,
+          "event": "TIMEOUT_NO_RETRY"
+        }
+      ]
+    }
+  ],
+  "read_only_local_diagnostic": true,
+  "limitation": "The successful native credits GET proves authentication at that time. Discovery has no accepted result; actual EA search status, rows and the browser/result-path failure cause remain unknown. No replay was sent."
+}

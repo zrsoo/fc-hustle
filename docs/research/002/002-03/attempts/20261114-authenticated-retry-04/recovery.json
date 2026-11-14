@@ -1,0 +1,59 @@
+{
+  "health_before": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "75600cecba7351f325896c5ee29e607d",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "3e5ad73a0453bcb4338421575d06857f",
+      "epoch": 23
+    },
+    "attached": false,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "8726334bbb0a366a50d4ad37c9176e49",
+        "epoch": 23,
+        "host_epoch": "75600cecba7351f325896c5ee29e607d",
+        "owner": "3e5ad73a0453bcb4338421575d06857f",
+        "worker_epoch": "eb861b095c35fde3b4b33409777852ff"
+      }
+    },
+    "mutations_enabled": false
+  },
+  "activation": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "owner": "3e5ad73a0453bcb4338421575d06857f",
+    "epoch": 24
+  },
+  "response": {
+    "accepted": true
+  },
+  "verified_window_handle": 1835972,
+  "Edge_windows_observed": 3,
+  "official_tab_uniquely_located": true,
+  "foreground_verified": true,
+  "official_document_refreshed": true,
+  "home_and_transfer_controls_present": true,
+  "login_or_challenge_prompt_present": false,
+  "credentials_exported": false,
+  "EA_commands": 0
+}

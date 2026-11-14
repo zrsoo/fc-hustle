@@ -1,4 +1,4 @@
-param([string]$Action='inspect',[string]$Name='',[string]$Url='', [switch]$JsonOnly)
+param([string]$Action='inspect',[string]$Name='',[string]$Url='', [switch]$JsonOnly,[long]$WindowHandle=0)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 Add-Type -AssemblyName UIAutomationClient
@@ -18,8 +18,13 @@ $scope=[System.Windows.Automation.TreeScope]::Descendants
 $all=[System.Windows.Automation.Condition]::TrueCondition
 $windows=[System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children,$all)
 $edge=@($windows | Where-Object {$_.Current.Name -like '*Microsoft*Edge'})
-if($edge.Count -ne 1){throw 'exactly_one_Edge_window_required'}
-$w=$edge[0]; $h=[IntPtr]$w.Current.NativeWindowHandle
+. (Join-Path $PSScriptRoot 'desktop_window.ps1')
+$w=Select-FCEdgeWindow -Candidates $edge -WindowHandle $WindowHandle -HasWebAppTab {
+ param($candidate)
+ $tabs=@($candidate.FindAll($scope,(New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::TabItem)))|Where-Object {$_.Current.Name -like 'FC Ultimate Team Web App*'})
+ return $tabs.Count -eq 1
+}
+$h=[IntPtr]$w.Current.NativeWindowHandle
 if($Action -eq 'load-path') {
  $modal=$w.FindFirst($scope,(New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Window)))
  if($modal){$h=[IntPtr]$modal.Current.NativeWindowHandle}
