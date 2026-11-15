@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-15T22:10:08.379075+00:00",
+  "revision": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
+  "databases": [
+    {
+      "role": "journal",
+      "path": "private-captures/final-remediation/foundation.sqlite3",
+      "backup": "private-captures\\003-04\\production-02\\journal-before.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "cache",
+      "path": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "backup": "private-captures\\003-04\\production-02\\cache-before.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "control",
+      "path": "private-captures/continuous-production/control.sqlite3",
+      "backup": "private-captures\\003-04\\production-02\\control-before.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "native",
+      "path": "private-captures/continuous-production/native.sqlite3",
+      "backup": "private-captures\\003-04\\production-02\\native-before.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "transport",
+      "path": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "backup": "private-captures\\003-04\\production-02\\transport-before.sqlite3",
+      "integrity": "ok"
+    }
+  ],
+  "original_blocker": "RESOLVED_BY_PUBLISHED_CERTIFIED_WITHDRAWAL"
+}
