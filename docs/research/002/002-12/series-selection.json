@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "latest": "docs/research/002/002-12/remediation-05/live-06",
-  "checkpoint": "docs/research/002/002-12/review-03/checkpoint.jsonl",
-  "outcome": "docs/research/002/002-12/review-03/outcome.json",
-  "evidence_index": "docs/research/002/002-12/review-03/evidence-index.json"
+  "latest": "docs/research/002/002-12/remediation-06/live-07",
+  "checkpoint": "docs/research/002/002-12/review-05/checkpoint.jsonl",
+  "outcome": "docs/research/002/002-12/review-05/outcome.json",
+  "evidence_index": "docs/research/002/002-12/review-05/evidence-index.json"
 }

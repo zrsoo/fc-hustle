@@ -134,8 +134,9 @@
         const ut=u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/');
         // UI navigation and telemetry are not additional bulk mutations. Observe
         // their existence without intercepting credentials, query values or bodies.
-        if(bulk(c.operation) && (!ut && !u.pathname.startsWith('/ut/game/fc27/') ||
-            ut && method==='GET' && !(c.operation==='clear_sold' && u.pathname===routes.transfer_list[1]))){
+        const listRefresh=c.operation==='list' && ut && method==='GET' && u.pathname===routes.status[1];
+        if((bulk(c.operation) || c.operation==='list') && (!ut && !u.pathname.startsWith('/ut/game/fc27/') ||
+            ut && method==='GET' && !listRefresh && !(c.operation==='clear_sold' && u.pathname===routes.transfer_list[1]))){
           pending.set(this,{background:true,scope:ut?'ea_read':'outside_ut',method:['GET','POST','PUT','DELETE'].includes(method)?method:'OTHER'});
           return orig.open.call(this,method,url,...args);
         }
@@ -163,12 +164,21 @@
                [...u.searchParams.keys()].some(k=>k!=='idList'))throw Error('bad_query');
             query.item_id=c.params.item_id; // exact private wire match, no raw ID export
           }
+          if(listRefresh){
+            // Item.list assigns the new native auction ID before its mandatory
+            // refreshAuctions read. Bind that read to this exact physical DTO.
+            const nativeId=inventory.listRaw?.getAuctionData?.()?.tradeId;
+            const values=u.searchParams.getAll('tradeIds');
+            if(values.length!==1 || String(nativeId)==='0' || values[0]!==String(nativeId) ||
+                [...u.searchParams.keys()].some(k=>k!=='tradeIds'))throw Error('bad_query');
+            query.item_id=c.params.item_id;
+          }
           // Unknown paths are represented by a constant, never a raw identifier.
           m={host:u.hostname,method:['GET','PUT','POST','DELETE'].includes(method)?method:'OTHER',path:path===metadataPath || Object.values(routes).some(r=>r[1]===path)?path:'/unexpected',query,status:null,session_header_present:false};
           if(bulk(c.operation) && u.search!=='')m.path='/unexpected';
         }
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}
-      if(bulk(c.operation) && !m)m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};
+      if((bulk(c.operation) || c.operation==='list') && !m)m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
     const header=function(n,v){const m=pending.get(this);if(m && !m.background && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
     const send=function(...args){const m=pending.get(this);if(m){
@@ -177,6 +187,12 @@
         this.addEventListener('loadend',()=>diagnostic(c.id,'BACKGROUND_RESPONSE',{traffic_scope:m.scope,method:m.method,status:num(this.status)}),{once:true});
         return orig.send.apply(this,args);
       }
+      if(c.operation==='list' && !(m.method==='POST' && m.path===routes.list[1] && equal(m.query,{}) ||
+          m.method==='GET' && m.path===routes.status[1] && equal(m.query,{item_id:c.params.item_id}))){
+        throw Error('ambiguous_network');
+      }
+      if(c.operation==='list' && (m.method==='POST' && rows.some(n=>n.method==='POST') ||
+          m.method==='GET' && args[0]!=null && args[0]!==''))throw Error('ambiguous_network');
       if(bulk(c.operation)){
         m.body_empty=args[0]==null || args[0]==='';
         const target=m.method===routes[c.operation][0] && m.path===routes[c.operation][1];
@@ -231,7 +247,7 @@
         if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona)throw Error('persona_unverified');
         r.probes=probes;r.success=true;r.error=null;return out;
       }
-      let invoke;
+      let invoke,listRaw=null;
       if(op==='search'){
         const q=new UTSearchCriteriaDTO();q.type='player';if(p.definition_id!==undefined)q.defId=[p.definition_id];q.count=21;
         diagnostic(c.id,'NATIVE_DATA',{definition_type:fieldType(q.defId),definition_count:Array.isArray(q.defId)?q.defId.length:undefined});
@@ -328,6 +344,7 @@
             typeof services.Item.list!=='function')throw Error('invalid_preconditions');
           invoke=()=>services.Item.list(e.raw,p.starting_bid,p.buy_now_price,p.duration);
         }
+        if(op==='list')listRaw=e.raw;
         sent.add(c.id);sent.add(op+':'+p.item_id);physical.delete(p.item_id);
       }
       else {
@@ -347,7 +364,7 @@
         // commands/reads remain blocked; ambiguous writes still poison the page.
         sent.add(c.id);sent.add('bid_read:'+p.status_read_id);known.delete(p.trade_id);invoke=()=>services.Item.bid(e.raw,p.amount);
       }
-      const inventory={wire:null,truncated:false};
+      const inventory={wire:null,truncated:false,listRaw};
       restore=capture(r.network,c,out.timing,inventory);const at=new Date().toISOString();
       if(bulk(op) && (!valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona ||
           window.__fcNativeCommandOwner!==document || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc'))throw Error('persona_unverified');
@@ -361,7 +378,8 @@
       // one narrowly reviewed read-only metadata request. Never ignore unknown traffic.
       const targets=r.network.filter(n=>n.method===routes[op][0] && n.path===routes[op][1]);
       const auxiliary=r.network.filter(n=>n.method==='GET' &&
-        (n.path===metadataPath && op==='search' || n.path===routes.transfer_list[1] && op==='clear_sold'));
+        (n.path===metadataPath && op==='search' || n.path===routes.transfer_list[1] && op==='clear_sold' ||
+         n.path===routes.status[1] && op==='list' && equal(n.query,{item_id:p.item_id})));
       if(targets.length!==1 || auxiliary.length>(op==='clear_sold'?2:1) || targets.length+auxiliary.length!==r.network.length)throw Error(bulk(op)?'bulk_contract_changed':'ambiguous_network');
       const n=targets;
       if(bulk(op) && r.network.some(x=>!x.session_header_present || x.status!==200 || x.host!==n[0].host))throw Error('bulk_contract_changed');

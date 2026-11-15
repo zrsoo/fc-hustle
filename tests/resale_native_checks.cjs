@@ -40,7 +40,8 @@ async function fixture(mode='ok'){
   return {h,writes,read,params,win,owned,caps};
 }
 
-(async()=>{
+module.exports={fixture};
+if(require.main===module)(async()=>{
   const f=await fixture();
   let c=f.h.command('move',f.params),r=await f.h.execute(c);
   assert.equal(r.result.success,true,JSON.stringify(r));assert.deepEqual(f.writes,['move']);

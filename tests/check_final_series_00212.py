@@ -9,8 +9,8 @@ sys.path.insert(0,str(ROOT))
 from fc_access.actors_v1.final_series import audit_series
 
 
-def selected():
-    s=json.loads((ROOT/'docs/research/002/002-12/series-selection.json').read_text())
+def selected(path=None):
+    s=json.loads(Path(path or ROOT/'docs/research/002/002-12/series-selection.json').read_text())
     for key in ('latest','checkpoint','outcome','evidence_index'):
         path=(ROOT/s[key]).resolve()
         if not path.is_relative_to(ROOT/'docs/research/002/002-12'):raise ValueError('selection_outside_experiment')
@@ -19,9 +19,10 @@ def selected():
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--criterion',type=int,choices=range(8))
+    p.add_argument('--selection',type=Path)
     p.add_argument('--details',action='store_true');args=p.parse_args()
     try:
-        s=selected();r=audit_series(ROOT/s['latest'],ROOT/s['checkpoint'])
+        s=selected(args.selection);r=audit_series(ROOT/s['latest'],ROOT/s['checkpoint'])
         criteria=[c for c in r['criteria'] if args.criterion is None or c['index']==args.criterion]
         passed=all(c['status']=='PASS' for c in criteria)
         display=criteria if args.details else [dict(c,observed=sorted(c['observed'])) for c in criteria]

@@ -1,0 +1,1 @@
+{"schema": 1, "context": {"account": "aaa083e34a2b2243919889ab1c2a9d7e", "game": "fc27", "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a", "persona": "4508543c69902bc52e86f5fc36bdf8d5", "platform": "pc"}, "note": "Restore requires a new executor epoch and independent read-only reconciliation."}

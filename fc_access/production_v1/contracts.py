@@ -333,6 +333,9 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     auxiliary = [n for n in net if op == 'search' and (n['method'], n['path']) == ('GET', METADATA_PATH)]
     if op == 'clear_sold':
         auxiliary = [n for n in net if (n['method'], n['path']) == ROUTES['transfer_list']]
+    elif op == 'list':
+        auxiliary = [n for n in net if (n['method'], n['path']) == ROUTES['status'] and
+                     n['query']=={'item_id':c['params']['item_id']}]
     supported = len(target) == 1 and len(auxiliary) <= (2 if op == 'clear_sold' else 1) and len(target)+len(auxiliary) == len(net)
     authenticated = supported and all(n['session_header_present'] and type(n['status']) is int and
         200 <= n['status'] < 300 and n['host'] == target[0]['host'] for n in net)

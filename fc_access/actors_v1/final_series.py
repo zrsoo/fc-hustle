@@ -5,10 +5,34 @@ can contribute proof. Component research, fixtures and mutable source hashes
 never contribute. Failures stay visible across successful continuations.
 """
 from pathlib import Path
+import json
+import sqlite3
 
 from .final_assessment import audit,need,physical,listing_proof,bulk_proof
 from .final_run import REQUIRED,load_evidence
 from fc_access.production_v1.contracts import MUTATIONS,parse_response,stamp
+
+
+def verify_destinations(checkpoint,captures):
+    """Join projected captures to two independently retained durable destinations."""
+    root=Path(checkpoint).parent/'state-backup'
+    box=sqlite3.connect((root/'native.sqlite3').resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
+    transport=sqlite3.connect((root/'transport.sqlite3').resolve().as_uri()+'?mode=ro&immutable=1',uri=True)
+    checked=0
+    try:
+        for capture in captures:
+            c,v=capture['command'],capture['response']
+            if capture.get('kind')=='DISPATCH_RESULT':
+                row=box.execute('SELECT command,response FROM work WHERE id=?',(c['id'],)).fetchone()
+                need(row is not None and json.loads(row[0])==c,'independent_mailbox_command_missing')
+                need((json.loads(row[1]) if row[1] is not None else None)==v,'independent_mailbox_response_disagrees')
+            if v is None:continue # Unknown delivery is never affirmative proof.
+            row=transport.execute('SELECT body,result FROM commands WHERE id=?',(c['id'],)).fetchone()
+            need(row is not None and json.loads(row[0])==c and row[1] is not None and json.loads(row[1])==v,
+                'independent_native_destination_disagrees')
+            checked+=1
+    finally:box.close();transport.close()
+    return checked
 
 
 def audit_series(latest,checkpoint=None):
@@ -71,6 +95,7 @@ def audit_series(latest,checkpoint=None):
     ids={}
     for r in captures:
         cid=r['command']['id'];need(cid not in ids,'series_native_replay');ids[cid]=r
+    destination_checks=verify_destinations(checkpoint,captures) if checkpoint else 0
     good=[r for r in captures if r['response'] and r['response']['result']['success']]
     def native(cid,op=None):
         r=ids.get(cid)
@@ -163,8 +188,28 @@ def audit_series(latest,checkpoint=None):
             if name in proof:mark('unknown_reconciliation',c['id'],proof[name])
         if c['operation']=='list' and 'stored_price_listing_3600' in proof and proof['stored_price_listing_3600'][0]==c['id']:
             mark('unknown_reconciliation',c['id'],proof['stored_price_listing_3600'][1])
+    for event in events:
+        if event.get('kind')!='BULK_TRANSFER' or event.get('reason')!='OBSERVED_EFFECT_RECOVERED':continue
+        try:
+            cid=event['command_id'];write=ids[cid];c=write['command']
+            before=native(c['params']['before_read_id'],'transfer_list')
+            historical=native(event['historical_read_id'],'transfer_list');current=native(event['read_id'],'transfer_list')
+            from fc_access.production_v1.bulk_recovery import verify_effect
+            from fc_access.production_v1.bulk import classify
+            verify_effect(c,write['response'],before,historical,started=work[cid]['started'],finished=work[cid]['finished'])
+            classify(current)
+            old={a['item']['item_id']:a for a in historical['result']['auctions']}
+            new={a['item']['item_id']:a for a in current['result']['auctions']}
+            need(current['command_id'] not in {cid,historical['command_id'],before['command_id']} and
+                current['context']==c['context'] and stamp(current['freshness']['network_at'])>stamp(historical['freshness']['network_at']) and
+                set(old)==set(new) and all(old[i]['item']['definition_id']==new[i]['item']['definition_id'] and
+                    all(old[i][k]==new[i][k] for k in ('trade_id','starting_bid','buy_now_price')) for i in old),
+                'independent_recovery_current_inventory_missing')
+            mark('unknown_reconciliation',cid,historical['command_id'],current['command_id'],event['seq'])
+        except (ValueError,KeyError):pass
     if runtime_unresolved:proof.pop('unknown_reconciliation',None)
-    if all(n in proof for i in (1,2,3,4) for n in REQUIRED[i]) and not runtime_unresolved:mark('all_transaction_and_maintenance_branches',str(paths[-1]))
+    if all(n in proof for i in (1,2,3,4) for n in REQUIRED[i]) and not runtime_unresolved and destination_checks:
+        mark('all_transaction_and_maintenance_branches',str(paths[-1]))
     else:proof.pop('all_transaction_and_maintenance_branches',None)
     criteria=[dict(index=i,status='PASS' if all(n in proof for n in names) else 'LIVE-UNVERIFIED',
         observed={n:proof[n] for n in names if n in proof},missing=[n for n in names if n not in proof]) for i,names in REQUIRED.items()]
@@ -172,13 +217,36 @@ def audit_series(latest,checkpoint=None):
         for c in criteria for n in c['missing']}
     if 'attributable_realized_profit' in missing:
         missing['attributable_realized_profit']='No attributable per-sale net receipt in the native adapter; gross sale, projected tax and aggregate funds are insufficient'
+    balances=[r['response']['result']['credits'] for r in good if r['command']['operation']=='balance']
+    capacities=[e['capacity']['total'] for e in events if e.get('reason')=='CAPACITY_CHECKED' and 'capacity' in e]
+    capacities += [e['data']['capacity']['total'] for rows in supervisors for e in rows if e['kind']=='STATUS_SNAPSHOT']
+    if checkpoint:capacities += [e['data']['capacity']['total'] for e in retained if e['kind']=='STATUS_SNAPSHOT']
+    sold_observations=[]
+    for e in events:
+        if e.get('kind')!='SOLD_SETTLEMENT':continue
+        try:
+            before=native(e['read_id'],'transfer_list')
+            from fc_access.production_v1.bulk import classify
+            need(e['item']['item_id'] in classify(before)['sold'],'sold_observation_not_independent')
+            row=next(a for a in before['result']['auctions'] if a['item']==e['item'] and a['trade_id']==e['sale_trade_id'])
+            need(row['current_bid']==e['observed_gross_price'],'sold_gross_disagrees')
+            sold_observations.append(dict(read_id=e['read_id'],item_id=e['item']['item_id'],
+                definition_id=e['item']['definition_id'],sale_trade_id=e['sale_trade_id'],
+                observed_gross_price=row['current_bid'],actual_settled_proceeds=None,realized_profit=None))
+        except (ValueError,KeyError,StopIteration):pass
     return dict(schema=1,task='002-12',status='FULL PASS' if not missing else 'PARTIAL/NOT FULL PASS',
         criteria=criteria,unverified=missing,windows=[dict(path=str(p),**r['live_window']) for p,r in zip(paths,reports)],
         metrics=dict(active_seconds=active,elapsed_seconds=(stamp(last)-stamp(first)).total_seconds(),
             native_commands=len(ids),mutations=sum(r['command']['operation'] in MUTATIONS for r in captures),
-            enrolled_in_experiment=len(enroll),actual_50_auction_sample=False,
+            enrolled_in_experiment=len(enroll),actual_50_auction_sample=any(
+                len({a['trade_id'] for a in r['response']['result']['auctions'] if a['trade_id'] in bid_trades})>=50
+                for r in good if r['command']['operation'] in {'watched','status'}),
             native_requests=sum(r['response']['freshness']['request_count'] for r in captures if r['response']),
             independent_recovery_reads=read_log_refs,
             effect_readbacks=effect_readbacks,runtime_unresolved_intents=runtime_unresolved,
+            independently_matched_destination_records=destination_checks,
+            observed_native_credit_range=[min(balances),max(balances)] if balances else None,
+            maximum_observed_pipeline_slots=max(capacities) if capacities else None,
+            observed_sales_without_net_receipt=sold_observations,
             per_window=[dict(window=str(p),metrics=r['metrics']) for p,r in zip(paths,reports)]),
         failures=[dict(window=str(p),**f) for p,r in zip(paths,reports) for f in r['failures']])

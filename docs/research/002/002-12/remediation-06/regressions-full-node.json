@@ -1,0 +1,195 @@
+{
+  "status": "PASS",
+  "live_requests": 0,
+  "checks": [
+    {
+      "command": [
+        "node",
+        "tests/bidding_v1_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser_observer_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_background_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_transfer_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/durability_page_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/durability_worker_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/e2e_live_v2_page_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/e2e_page_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/final_inactive_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/final_owned_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/list_refresh_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/market_discovery_bridge_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/market_discovery_followup_v1_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/native_status_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/occupancy_native_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/pricing_timing_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_bulk_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_diagnostics_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_inventory_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_metadata_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_page_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_worker_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/read_bridge_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/resale_native_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/search_validation_v1_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/transaction_bridge_checks.cjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "node",
+        "tests/watched_bulk_v1_checks.cjs"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

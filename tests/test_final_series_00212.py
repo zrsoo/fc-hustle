@@ -31,7 +31,7 @@ class FinalSeries(unittest.TestCase):
             for data in value:self.assert_sanitized(data)
     @classmethod
     def setUpClass(cls):
-        cls.selection=selected();s=cls.selection
+        cls.selection=selected(ROOT/'docs/research/002/002-12/historical-series-selection.json');s=cls.selection
         cls.report=audit_series(ROOT/s['latest'],ROOT/s['checkpoint'])
         cls.saved=json.loads((ROOT/s['outcome']).read_text(encoding='utf8'))
         cls.criteria={c['index']:c for c in cls.report['criteria']}
@@ -112,7 +112,8 @@ class FinalSeries(unittest.TestCase):
         self.assertIn('all_transaction_and_maintenance_branches',self.criteria[5]['missing'])
         self.assertIn('offline_regressions',self.criteria[5]['observed'])
         self.assertTrue(any(any(n['status']==200 for n in f['network']) for f in self.report['failures']))
-        p=subprocess.run([sys.executable,'tests/check_final_series_00212.py'],cwd=ROOT,capture_output=True,text=True,timeout=30)
+        p=subprocess.run([sys.executable,'tests/check_final_series_00212.py','--selection',
+            'docs/research/002/002-12/historical-series-selection.json'],cwd=ROOT,capture_output=True,text=True,timeout=30)
         self.assertEqual(p.returncode,1,p.stdout+p.stderr)
         self.assertEqual(json.loads(p.stdout)['status'],'PARTIAL/NOT FULL PASS')
 
@@ -142,7 +143,9 @@ class FinalSeries(unittest.TestCase):
                 self.assert_sanitized(rows)
         service=next(r for r in self.checkpoint if r['kind']=='READ_ONLY_SERVICE_RESTORED')
         self.assertFalse(service['mutations_enabled'])
-        self.assertEqual(actor_count(),0)
+        stopped=next(r for r in self.checkpoint if r['kind']=='PROCESS_VERIFICATION')
+        self.assertEqual(stopped['actor_or_maintenance_processes'],0)
+        self.assertTrue(stopped['verified'])
         ids=[r['command']['id'] for r in self.native];self.assertEqual(len(ids),len(set(ids)))
         with self.assertRaises(AssertionError):self.assert_sanitized({'Authorization':'Bearer offline-negative-example'})
 

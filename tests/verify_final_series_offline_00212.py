@@ -11,6 +11,9 @@ ROOT=Path(__file__).resolve().parents[1]
 TESTS=['test_final_run_00212.py','test_final_artifacts_00212.py','test_final_remediation_00212.py',
        'test_final_owned_00212.py','test_final_listing_assessor.py','test_final_timed_relist.py',
        'test_final_series_00212.py','test_final_reconciled_effects_00212.py']
+TESTS += ['test_final_list_refresh_00212.py','test_bulk_blocker_recovery.py']
+TESTS += ['test_final_destinations_00212.py']
+TESTS += ['test_final_current_00212.py']
 
 
 def check(name):

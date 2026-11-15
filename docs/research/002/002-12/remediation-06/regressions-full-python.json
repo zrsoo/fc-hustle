@@ -1,0 +1,15 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "python_tests": 744,
+  "seconds": 172.565,
+  "live_requests": 0
+}
