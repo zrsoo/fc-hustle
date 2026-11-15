@@ -1,0 +1,59 @@
+{
+  "at": "2026-11-15T20:09:36.211180+00:00",
+  "task": "003-04",
+  "reason": "Same-session infrastructure recovery; reconcile actual destinations without repeating startup or native reads",
+  "status": "STOPPED",
+  "run": "c7485d279225b0b726a5f6117a68ba10",
+  "healthy_seconds": 0,
+  "ended": {
+    "at": "2026-11-15T17:12:17.724907+00:00",
+    "healthy_segment_closed": true,
+    "remaining_processes": [],
+    "run": "c7485d279225b0b726a5f6117a68ba10",
+    "seq": 42,
+    "tick": 293924.2332823,
+    "verified_process_exit": true
+  },
+  "processes": {
+    "pid": 17624,
+    "parent": 5744,
+    "command": "\"C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe\" -m fc_access.production_v1.server --database private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3 "
+  },
+  "health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "6ffcbb09db1e6483832788151e63655b",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "eb1121adf410eedc971aa31e359e2f38",
+      "epoch": 66
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "fefcd26d81b8b9c524b89270d6724fe7",
+        "epoch": 66,
+        "host_epoch": "6ffcbb09db1e6483832788151e63655b",
+        "owner": "eb1121adf410eedc971aa31e359e2f38",
+        "worker_epoch": "e278fdbcefb3725e7dc3a6243ea2474a"
+      }
+    },
+    "mutations_enabled": false,
+    "intent_journal": null
+  },
+  "new_native_commands": 0,
+  "new_account_mutations": 0
+}

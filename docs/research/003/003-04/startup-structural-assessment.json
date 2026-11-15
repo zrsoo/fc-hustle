@@ -1,0 +1,38 @@
+{
+  "status": "STRUCTURALLY_VALID",
+  "evidence_class": "NATIVE_CAPTURE_REQUIRES_CASE_REVIEW",
+  "run": "c7485d279225b0b726a5f6117a68ba10",
+  "revision": "c4c7b5e5f8e036185dd6243143c0873733ec92c7",
+  "commands": [],
+  "findings": [],
+  "incident_and_recovery_references": [
+    {
+      "database": "control",
+      "seq": 15,
+      "kind": "RECOVERY_INTENT"
+    },
+    {
+      "database": "control",
+      "seq": 24,
+      "kind": "RECOVERY_INTENT"
+    },
+    {
+      "database": "control",
+      "seq": 33,
+      "kind": "RECOVERY_INTENT"
+    }
+  ],
+  "healthy_segments": [
+    {
+      "run": "c7485d279225b0b726a5f6117a68ba10",
+      "healthy_observed_seconds": 0,
+      "closed": true
+    }
+  ],
+  "live_coverage": "LIVE-UNVERIFIED",
+  "realized_profit": {
+    "status": "DEFERRED",
+    "acceptance_required": false
+  },
+  "business_review": "Apply matrix evidence requirements and independent-assessment.md; no automatic promotion"
+}

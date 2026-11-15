@@ -1,0 +1,8 @@
+﻿{
+    "at":  "2026-11-15T17:13:06.5352271Z",
+    "readonly_pid":  17624,
+    "verified_exit":  true,
+    "reason":  "startup_unmapped_commitment",
+    "stopped_pid":  17116,
+    "actors_verified_exited":  true
+}

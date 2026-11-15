@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "task": "003-04",
+  "snapshot": "private-captures/continuous-evidence/00304-startup-20261115T171217Z",
+  "diagnostic_run": "c7485d279225b0b726a5f6117a68ba10",
+  "transport": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+  "prelaunch_reads": "prelaunch-20261115T171020Z.jsonl",
+  "incidents": [
+    "incident-00304-20261115T171217Z.json"
+  ],
+  "runtime_fixes": [],
+  "status": "BLOCKED_EXTERNAL_IDENTITY_PREREQUISITE"
+}

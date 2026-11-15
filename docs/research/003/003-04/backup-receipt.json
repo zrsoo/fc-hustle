@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-15T17:11:36.248116+00:00",
+  "databases": [
+    {
+      "role": "journal",
+      "source": "private-captures\\final-remediation\\foundation.sqlite3",
+      "copy": "private-captures\\003-04\\20261115T171136Z\\journal.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "cache",
+      "source": "private-captures\\final-remediation\\completed-quotes.sqlite3",
+      "copy": "private-captures\\003-04\\20261115T171136Z\\cache.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "transport",
+      "source": "private-captures\\002-bulk-transfer-operations\\production-readonly-after.sqlite3",
+      "copy": "private-captures\\003-04\\20261115T171136Z\\transport.sqlite3",
+      "integrity": "ok"
+    }
+  ]
+}

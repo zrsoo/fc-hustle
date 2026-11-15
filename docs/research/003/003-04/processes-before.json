@@ -1,0 +1,5 @@
+﻿{
+    "pid":  1372,
+    "parent":  1464,
+    "command":  "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe -m fc_access.production_v1.server --database private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3"
+}

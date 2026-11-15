@@ -1,0 +1,30 @@
+{
+  "task": "003-04",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_live.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "at": "2026-11-15T20:10:51.495206+00:00",
+      "stdout": "behavioral-stdout.txt",
+      "stderr": "behavioral-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00304_live.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "at": "2026-11-15T20:10:51.801986+00:00",
+      "stdout": "acceptance-stdout.txt",
+      "stderr": "acceptance-stderr.txt"
+    }
+  ],
+  "live_acceptance": "INCOMPLETE",
+  "offline_behavior": "20 tests passed",
+  "scope": "Do not promote offline success to live completion"
+}

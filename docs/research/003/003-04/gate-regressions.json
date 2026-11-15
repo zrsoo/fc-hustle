@@ -1,0 +1,17 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "test_00302_continuous.ContinuousBehavior.test_startup_requires_fresh_identity_mapping_and_keeps_ghost_reserved",
+    "test_00302_continuous.ContinuousBehavior.test_restart_reads_reconcile_lost_response_without_replaying_write",
+    "test_00302_continuous.ContinuousBehavior.test_restart_invalidates_old_delivery_without_deleting_history",
+    "-v"
+  ],
+  "cwd": "tests",
+  "exit_code": 0,
+  "at": "2026-11-15T17:19:02.960053+00:00",
+  "stdout": "gate-regressions-stdout.txt",
+  "stderr": "gate-regressions-stderr.txt",
+  "evidence_class": "OFFLINE_ONLY_NOT_LIVE_COVERAGE"
+}

@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "id": "00304-20261115T171217Z-unmapped-commitment",
+  "task": "003-04",
+  "run": "c7485d279225b0b726a5f6117a68ba10",
+  "recorded_at": "2026-11-15T17:19:42.852598+00:00",
+  "trigger_control_seqs": [
+    35
+  ],
+  "triggering_command_id": "60a7acdb2ee52d51bdf35bb092b4ed7f",
+  "triggering_condition": "Fresh startup watched/inventory reads do not map the preserved decision-only reservation; executor exception at control seq 35.",
+  "evidence_command_ids": [
+    "ecb7d5cc9d470730218e1a2f352312f5",
+    "8e30248fcd97d939018e822f121cc15c",
+    "60a7acdb2ee52d51bdf35bb092b4ed7f",
+    "bc93151a719733f812c305ed70fda017"
+  ],
+  "known_account_effects": {
+    "ea_mutations": 0,
+    "new_ea_gets": 7,
+    "native_status_gets": 0,
+    "credits": 62827,
+    "complete_transfer_list_occupied": 5,
+    "reserved_coins": 700,
+    "pending_mutation_intents": 0,
+    "actors_launched": false
+  },
+  "unknown_account_effects": {
+    "historical_auction_terminal_state": "UNKNOWN. Missing watched coverage is not LOST proof. No current native reverse mapping is available for the exact retained trade/item/version."
+  },
+  "root_cause": "An older decision-only Foundation.admit persisted an ENROLLED policy reservation, but no bid was dispatched. The historical auction is absent from current watched/native mappings. The reviewed recovery policy correctly refuses to release an unmapped reservation; the exact status diagnostic returns known_identity_unavailable before any EA request. This is an identity/reconciliation prerequisite, not a runtime crash defect to bypass.",
+  "fix": {
+    "runtime_change": false,
+    "disposition": "Preserve the reservation and all history; keep mutation dispatch gated. No code workaround, guessed native ID, absent-to-LOST conversion or automatic retry applied."
+  },
+  "regression_results": {
+    "receipt": "gate-regressions.json",
+    "exit_code": 0,
+    "scope": "Three actual offline behavioral regressions covering retained ghost, independent reconciliation and interrupted-command no replay; no live coverage credit."
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED",
+    "reason": "Current native identity/outcome remains unavailable. Existing run remains stopped and sealed; recover must retain the same durable state under a fresh owner."
+  },
+  "resolution": "EXTERNAL_IDENTITY_PREREQUISITE",
+  "human_or_external_prerequisite": {
+    "minimal_action": "Supply independently verifiable official native evidence resolving this exact retained trade/item/version, or explicitly amend the preserve-and-gate policy to permit audited withdrawal of a proven decision-only reservation. A login or extension click alone does not resolve it.",
+    "prohibited_workarounds": [
+      "guessing or reversing historical native IDs",
+      "dropping the reservation",
+      "equating missing watched rows with LOST",
+      "replaying old commands",
+      "starting on a new empty journal",
+      "resetting consumed windows or budgets"
+    ]
+  },
+  "safe_state": {
+    "control_stop_seq": 42,
+    "verified_all_owned_exits": true,
+    "read_only_service_receipt": "restored-health.json",
+    "watchdog_stopped_with_segment": true,
+    "healthy_seconds": 0
+  }
+}

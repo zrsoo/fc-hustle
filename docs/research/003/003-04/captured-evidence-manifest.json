@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "scope": "SEALED_CAPTURED_EVIDENCE_ONLY",
+  "sealed_at": "2026-11-15T20:08:57.589300+00:00",
+  "captures": {
+    "backup-receipt.json": "c76e231a13087ecd9a6b0199b41e0d4c53eaf6fd3cbd3cf1c1cfef4d2448a358",
+    "browser-recovery.jsonl": "dd71227196229a916de68295a7c95b78ad45d810b19fe5bba83567ebde223641",
+    "gate-regressions-stderr.txt": "874a42569e88eb132001466c0ae03e95c6ed9f62db6586c267c96dc82371bfb9",
+    "gate-regressions-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gate-regressions.json": "a3e9fb2493ecb2d1a4e99e6f8ff144e454d76efecb797ae4de321b557c795544",
+    "ghost-status-diagnostic.jsonl": "18798fb3bc9683e3f1417b2a3ecfccc58d59ed39a8c66925dbc9f8d04710af84",
+    "launch.json": "537d673795f05e68ba1e023ea473f9ca09899fe4c36e63a6473759d36f524757",
+    "prelaunch-20261115T171020Z.jsonl": "e660d8f23bf5aeb8fd44b59b468004308d2765e46c8a2fdf08bbc3c7c7c10d67",
+    "prelaunch-reconciliation.json": "fe8015f8f961f33bedeb5e630656c627728908b8f108cfeb85f969cb2720470c",
+    "processes-before.json": "2180697e45a14bf815b387bd842c6639cfd17807b234ba3e05c2bd4636d9f629",
+    "readonly-restoration.json": "eb9bf0dd3823f593df798e30e5df7ee9f7164f1b8a976cf1db962a4a3d5c92df",
+    "restored-health.json": "8b1d54fd5f362e93aa8d2bccfff11cae57a1f99ce3a568f4e4f24d4e703351bb",
+    "service-transition.json": "fdc497e9ef3ae8e2cff73e2ef09a48c068f588411a41914b927dfce5dd1bb890",
+    "startup-structural-assessment.json": "d224d90d15353c2b2e07ec343d799f62b106d9f356933d75c9d5dbf91a84b68a"
+  },
+  "diagnostic_transport": {
+    "path": "private-captures/003-04/sealed-diagnostic/transport.sqlite3",
+    "sha256": "447b780044406d9f37a0b7d693dab09733d4bf6742c5d2829dfb8afc417e2af2"
+  }
+}
