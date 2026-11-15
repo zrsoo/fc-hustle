@@ -301,11 +301,15 @@ test_real_mailbox_urgent_work_preempts_clear_and_independent_readback (test_0021
 test_sale_price_balance_deltas_manual_and_actor_cards_do_not_create_realized_profit (test_00211_sold.Acceptance.test_sale_price_balance_deltas_manual_and_actor_cards_do_not_create_realized_profit) ... ok
 test_two_process_observers_share_one_consumed_intent (test_00211_sold.Acceptance.test_two_process_observers_share_one_consumed_intent) ... ok
 test_unknown_no_effect_and_missing_readback_block_relist_and_never_retry (test_00211_sold.Acceptance.test_unknown_no_effect_and_missing_readback_block_relist_and_never_retry) ... ok
+test_actual_committed_review_scope_is_valid_after_00302_publication (test_00301_baseline.ArtifactRejections.test_actual_committed_review_scope_is_valid_after_00302_publication) ... ok
 test_criterion0_missing_instruction_receipt_is_rejected (test_00301_baseline.ArtifactRejections.test_criterion0_missing_instruction_receipt_is_rejected) ... ok
 test_criterion1_missing_database_backup_is_rejected (test_00301_baseline.ArtifactRejections.test_criterion1_missing_database_backup_is_rejected) ... ok
 test_criterion2_competing_owner_and_unawaited_stop_are_rejected (test_00301_baseline.ArtifactRejections.test_criterion2_competing_owner_and_unawaited_stop_are_rejected) ... ok
 test_criterion3_failed_regressions_cannot_be_claimed_as_reviewed_baseline (test_00301_baseline.ArtifactRejections.test_criterion3_failed_regressions_cannot_be_claimed_as_reviewed_baseline) ... ok
 test_criterion5_objective_unblock_or_recheck_is_rejected (test_00301_baseline.ArtifactRejections.test_criterion5_objective_unblock_or_recheck_is_rejected) ... ok
+test_missing_or_rewritten_review_ancestry_is_rejected (test_00301_baseline.ArtifactRejections.test_missing_or_rewritten_review_ancestry_is_rejected) ... ok
+test_review_scope_survives_later_production_commits (test_00301_baseline.ArtifactRejections.test_review_scope_survives_later_production_commits) ... ok
+test_unrelated_changes_inside_original_review_are_still_rejected (test_00301_baseline.ArtifactRejections.test_unrelated_changes_inside_original_review_are_still_rejected) ... ok
 test_absent_ghost_reservation_never_becomes_loss_or_write_permission (test_00301_baseline.ReconciliationBehavior.test_absent_ghost_reservation_never_becomes_loss_or_write_permission) ... ok
 test_all_criteria_artifacts_are_independently_checked (test_00301_baseline.ReconciliationBehavior.test_all_criteria_artifacts_are_independently_checked) ... ok
 test_arbitrary_operator_labels_and_wrong_physical_identity_are_insufficient (test_00301_baseline.ReconciliationBehavior.test_arbitrary_operator_labels_and_wrong_physical_identity_are_insufficient) ... ok
@@ -799,6 +803,6 @@ test_request_cost_and_25_seconds_remain_bounded_extrapolation (test_watched_bulk
 test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata (test_watched_bulk_v1.Behavior.test_schema_rejects_extra_fields_raw_identity_and_sensitive_metadata) ... ok
 
 ----------------------------------------------------------------------
-Ran 799 tests in 320.636s
+Ran 803 tests in 320.848s
 
 OK

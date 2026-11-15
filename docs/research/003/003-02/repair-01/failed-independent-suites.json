@@ -1,0 +1,67 @@
+{
+  "task": "003-02",
+  "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+  "group": "independent",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/validate_00203_gate.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "stdout": "independent-00-stdout.txt",
+      "stderr": "independent-00-stderr.txt",
+      "elapsed_seconds": 0.223,
+      "finished": "2026-11-15T16:38:54.499783+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "stdout": "independent-01-stdout.txt",
+      "stderr": "independent-01-stderr.txt",
+      "elapsed_seconds": 0.287,
+      "finished": "2026-11-15T16:38:54.786770+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_adapter_repair.py"
+      ],
+      "exit_code": 0,
+      "stdout": "independent-02-stdout.txt",
+      "stderr": "independent-02-stderr.txt",
+      "elapsed_seconds": 0.274,
+      "finished": "2026-11-15T16:38:55.060819+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_bulk_blocker_recovery.py"
+      ],
+      "exit_code": 0,
+      "stdout": "independent-03-stdout.txt",
+      "stderr": "independent-03-stderr.txt",
+      "elapsed_seconds": 0.261,
+      "finished": "2026-11-15T16:38:55.321990+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00301_baseline.py"
+      ],
+      "exit_code": 1,
+      "stdout": "independent-04-stdout.txt",
+      "stderr": "independent-04-stderr.txt",
+      "elapsed_seconds": 3.531,
+      "finished": "2026-11-15T16:38:58.853226+00:00"
+    }
+  ],
+  "status": "FAIL"
+}

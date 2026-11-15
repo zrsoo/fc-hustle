@@ -80,11 +80,26 @@ the complete discovered inventory and completion summary; every Node
 `tests/*checks.cjs` suite has its own stdout/stderr. These are actual offline
 execution receipts, not declarative proof of live behavior.
 
-Final verification passed **799 Python tests** in 320.636 seconds, **27 Node
+Initial prepublication verification passed **799 Python tests** in 320.636 seconds, **27 Node
 suites**, and **five independent production/preservation validators**. The
 independent prepublication assessment passed criteria 0–8 and explicitly reported
 criterion 9 as PUBLICATION_PENDING. All fixture children exited. Publication is
 verified separately against the actual remote branch after the commit and push.
+
+The supervisor's subsequent recheck exposed a historical-review scope bug after
+publication: the 003-01 validator applied its allowed paths through the current
+HEAD, rejecting the legitimate 003-02 commit. See [repair-01](repair-01/REPORT.md)
+and its retained failed outputs. Validation now checks the actual historical
+review boundary and its ancestry, while retaining all historical evidence and
+consumed-state protections. Four added regressions cover this post-commit case
+and rejection cases. The current complete-suite receipts supersede the initial
+verification above; no failure is promoted to PASS.
+
+After repair, the supervisor's Python passed **803 tests** in 320.848 seconds,
+all **27 Node suites**, and all **five independent validators**. The independent
+prepublication assessment again passed criteria 0–8, with publication explicitly
+pending. All fixture processes exited. The final assessment is rerun after the
+repair commit is pushed, including the corrected historical baseline check.
 
 The sustained clock test dispatches **2005** commands, over 8000 simulated seconds,
 through the real production broker/mailbox. A separate test runs the real Acquirer

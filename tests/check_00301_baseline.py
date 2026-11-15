@@ -11,6 +11,19 @@ from baseline_00301 import (ROOT, OUT, BASELINE, REQUIRED, assess_reads, cache_s
                            commitments, database, mutation_gate, need, stamp)
 from fc_access.actors_v1.final_run import load_evidence
 
+# Historical review boundary, not a pin on current implementation bytes. Later
+# objectives must retain this ancestry while being free to evolve production.
+BASELINE_REVIEW = 'fd43ec1b051611377d66735f67813d69c3c77338'
+
+
+def reviewed_change_scope():
+    git('merge-base', '--is-ancestor', BASELINE, BASELINE_REVIEW)
+    git('merge-base', '--is-ancestor', BASELINE_REVIEW, 'HEAD')
+    allowed = ('docs/research/003/003-01/', 'tests/baseline_00301.py',
+               'tests/check_00301_baseline.py', 'tests/test_00301_baseline.py')
+    need(all(f.startswith(allowed) for f in git('diff', '--name-only', BASELINE, BASELINE_REVIEW).splitlines()),
+         'unrelated_baseline_changes')
+
 
 def git(*args):
     r = subprocess.run(['git', *args], cwd=ROOT, capture_output=True, text=True, timeout=30)
@@ -88,13 +101,9 @@ def criterion_1():
         need(path.suffix not in {'.py', '.js', '.cjs', '.ps1'} and path.name != 'series-selection.json',
              'mutable_implementation_integrity_gate_forbidden')
         need(hashlib.sha256(path.read_bytes()).hexdigest() == e['sha256'], 'sealed_historical_evidence_changed')
-    # Git ancestry preserves unrelated work; new commits may only add this task's
-    # deliverables. This tests scope, not byte identity of mutable implementation.
-    git('merge-base', '--is-ancestor', BASELINE, 'HEAD')
-    allowed = ('docs/research/003/003-01/', 'tests/baseline_00301.py',
-               'tests/check_00301_baseline.py', 'tests/test_00301_baseline.py')
-    need(all(f.startswith(allowed) for f in git('diff', '--name-only', BASELINE, 'HEAD').splitlines()),
-         'unrelated_baseline_changes')
+    # Audit the completed 003-01 review, not all future objective commits.
+    # Evidence integrity and consumed-state checks still inspect their real data.
+    reviewed_change_scope()
 
 
 def criterion_2():

@@ -29,6 +29,7 @@ PUBLICATION_PATHS = [
     *['fc_access/continuous_v1/'+name for name in ['__init__.py','__main__.py','control.py','runtime.py','recovery.py','watchdog.py']],
     'tests/test_00302_continuous.py','tests/continuous_fixture.py','tests/run_00302_suites.py',
     'tests/check_00302_production.py','tests/test_00302_validator.py',
+    'tests/check_00301_baseline.py','tests/test_00301_baseline.py',
     'docs/continuous-production.md','docs/research/003/003-02/REPORT.md',
 ]
 

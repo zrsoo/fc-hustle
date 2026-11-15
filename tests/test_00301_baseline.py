@@ -125,6 +125,37 @@ class ReconciliationBehavior(unittest.TestCase):
 
 
 class ArtifactRejections(unittest.TestCase):
+    def test_review_scope_survives_later_production_commits(self):
+        calls = []
+        def git(*args):
+            calls.append(args)
+            if args[0] == 'diff':
+                # HEAD includes production changes; the historical review does not.
+                return ('fc_access/continuous_v1/runtime.py' if args[-1] == 'HEAD' else
+                        'docs/research/003/003-01/REPORT.md\ntests/check_00301_baseline.py')
+            return ''
+        with patch.object(checker, 'git', side_effect=git): checker.reviewed_change_scope()
+        self.assertIn(('diff','--name-only',checker.BASELINE,checker.BASELINE_REVIEW),calls)
+        self.assertIn(('merge-base','--is-ancestor',checker.BASELINE_REVIEW,'HEAD'),calls)
+
+    def test_unrelated_changes_inside_original_review_are_still_rejected(self):
+        def git(*args):
+            return 'fc_access/production_v1/foundation.py' if args[0] == 'diff' else ''
+        with patch.object(checker,'git',side_effect=git):
+            with self.assertRaisesRegex(ValueError,'unrelated_baseline_changes'): checker.reviewed_change_scope()
+
+    def test_missing_or_rewritten_review_ancestry_is_rejected(self):
+        for broken in ((checker.BASELINE,checker.BASELINE_REVIEW),(checker.BASELINE_REVIEW,'HEAD')):
+            def git(*args):
+                if args[0] == 'merge-base' and args[-2:] == broken:
+                    raise ValueError('git_failed_merge-base')
+                return ''
+            with self.subTest(boundary=broken), patch.object(checker,'git',side_effect=git):
+                with self.assertRaisesRegex(ValueError,'git_failed_merge-base'): checker.reviewed_change_scope()
+
+    def test_actual_committed_review_scope_is_valid_after_00302_publication(self):
+        checker.reviewed_change_scope()
+
     def altered(self, name, change):
         original = checker.load
         def load(path):
