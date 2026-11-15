@@ -156,13 +156,15 @@ def criterion_4():
     actual = read_assessment()
     saved = load('reconciliation.json')
     need(saved['native'] == actual, 'reconciliation_native_summary_disagrees')
-    j = ROOT/'private-captures/final-remediation/foundation.sqlite3'
+    # Assess the completed baseline at its captured boundary. Current admission,
+    # owner and cache projections legitimately evolve under later objectives.
+    j = backup()/'0-foundation.sqlite3'
     durable = commitments(j, actual['context'])
     need(saved['commitments'] == durable, 'commitments_not_reconciled')
     need(saved['gate'] == mutation_gate(actual, durable) and saved['gate']['allowed'] is False,
          'ambiguous_mutation_bypass')
     need(saved['spendable_after_reservations'] == actual['credits']-durable['reserved_coins'], 'invented_spendable')
-    cache = cache_state(ROOT/'private-captures/final-remediation/completed-quotes.sqlite3',
+    cache = cache_state(backup()/'1-completed-quotes.sqlite3',
                         actual['context'], stamp(saved['cache']['assessed_at']))
     need(saved['cache'] == cache and len(cache['entries']) > 0, 'cache_freshness_not_assessed')
     # Join each actual captured read to the separately retained production database.
@@ -175,6 +177,46 @@ def criterion_4():
                  'independent_native_destination_disagrees')
     need(saved['fresh_at_capture_only'] is True and saved['requires_new_reads_before_future_mutations'] is True,
          'old_reads_promoted_to_current')
+
+
+def preserved_consumed_state(current, old):
+    """Retain every consumed command and immutable event; permit new ownership
+    and append-only work. A current projection is not a historical checkpoint.
+    """
+    projections = {'sessions', 'capacity_slots_v1', 'capacity_inventory_v1',
+                   'relist_schedule_v1', 'runtime'}
+    tables = {n for n, in old.execute("SELECT name FROM sqlite_master WHERE type='table' AND name!='sqlite_sequence'")}
+    for table in tables-projections:
+        historical = set(old.execute('SELECT * FROM '+table).fetchall())
+        retained = set(current.execute('SELECT * FROM '+table).fetchall())
+        need(historical <= retained, 'historical_actor_state_or_budget_changed')
+    if 'sessions' in tables:
+        for scope, owner, epoch in old.execute('SELECT * FROM sessions'):
+            row = current.execute('SELECT owner,epoch FROM sessions WHERE scope=?', (scope,)).fetchone()
+            need(row and row[1] >= epoch and (row[1] > epoch or row[0] == owner), 'owner_fence_regressed')
+    if 'capacity_slots_v1' in tables:
+        for scope, trade, item, definition, phase in old.execute('SELECT * FROM capacity_slots_v1'):
+            row = current.execute('SELECT item_id,definition_id,phase FROM capacity_slots_v1 WHERE scope=? AND trade_id=?',
+                                  (scope,trade)).fetchone()
+            need(row and row[:2] == (item,definition) and row[2] in {
+                'UNRESOLVED','PENDING_RESALE','RESALE_UNKNOWN','OCCUPIED','LOST','RELEASED','WITHDRAWN'},
+                'historical_capacity_identity_changed')
+    if 'capacity_inventory_v1' in tables:
+        for scope, read_id, at, items in old.execute('SELECT * FROM capacity_inventory_v1'):
+            row = current.execute('SELECT read_id FROM capacity_inventory_v1 WHERE scope=?', (scope,)).fetchone()
+            need(row and current.execute('SELECT 1 FROM capacity_reads_v1 WHERE scope=? AND read_id=?',
+                                          (scope,row[0])).fetchone(), 'inventory_read_lineage_missing')
+    if 'relist_schedule_v1' in tables:
+        for scope, due in old.execute('SELECT * FROM relist_schedule_v1'):
+            row = current.execute('SELECT next_due FROM relist_schedule_v1 WHERE scope=?', (scope,)).fetchone()
+            need(row and row[0] >= due, 'consumed_relist_schedule_reset')
+    if 'runtime' in tables:
+        for id, encoded in old.execute('SELECT * FROM runtime'):
+            row = current.execute('SELECT body FROM runtime WHERE id=?', (id,)).fetchone()
+            need(row is not None, 'native_runtime_removed')
+            prior, active = json.loads(encoded), json.loads(row[0])
+            need(prior['context'] == active['context'] and active['fences']['epoch'] >= prior['fences']['epoch'],
+                 'native_runtime_identity_or_epoch_regressed')
 
 
 def criterion_5():
@@ -193,14 +235,12 @@ def criterion_5():
                  'objective002_execution_replayed')
     outcome = json.loads((ROOT/'docs/research/002/002-12/review-05/outcome.json').read_text())
     need(outcome['status'] == 'PARTIAL/NOT FULL PASS' and outcome['unverified'], 'historical_verdict_promoted')
-    # Journal and actor mailbox are consumed evidence. This task only appends
-    # fresh reads to the transport; no actor counters, budgets or intents change.
+    # Preserve consumed evidence across later objectives. New sessions and
+    # projections do not rewrite completed historical events or reset budgets.
     for source, copied in [('private-captures/final-remediation/native.sqlite3', '2-native.sqlite3'),
                            ('private-captures/final-remediation/foundation.sqlite3', '0-foundation.sqlite3')]:
         with database(ROOT/source) as current, database(backup()/copied) as old:
-            for (table,) in old.execute("SELECT name FROM sqlite_master WHERE type='table' AND name!='sqlite_sequence'"):
-                need(current.execute('SELECT * FROM '+table).fetchall() == old.execute('SELECT * FROM '+table).fetchall(),
-                     'historical_actor_state_or_budget_changed')
+            preserved_consumed_state(current, old)
 
 
 CHECKS = [criterion_0, criterion_1, criterion_2, criterion_3, criterion_4, criterion_5]

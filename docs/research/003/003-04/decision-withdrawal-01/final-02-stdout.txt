@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scope": "e7fce7c176935f0b95dc3db91dd28521",
+  "trade_id": "trade:057aeb82a3b167642da7aeee",
+  "released_local_coins": 700,
+  "released_local_capacity_slots": 1,
+  "EA_requests": 0,
+  "account_mutations": 0,
+  "historical_rows_preserved": true,
+  "bid_commands_unchanged": true,
+  "restart_replay": "WITHDRAWN; actual auction UNKNOWN",
+  "actor_soak_acceptance": "STILL_REQUIRED"
+}

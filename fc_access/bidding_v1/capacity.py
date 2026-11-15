@@ -44,7 +44,7 @@ def apply_event(journal, scope, reason, data, trade, *, recovering=False):
         old = journal.db.execute('SELECT item_id,definition_id,phase FROM capacity_slots_v1 '
             'WHERE scope=? AND trade_id=?', (scope, trade)).fetchone()
         if old:
-            if recovering and old[:2] == identity and old[2] in {'LOST', 'RELEASED'}:
+            if recovering and old[:2] == identity and old[2] in {'LOST', 'RELEASED', 'WITHDRAWN'}:
                 journal.db.execute("UPDATE capacity_slots_v1 SET phase='UNRESOLVED' WHERE scope=? AND trade_id=?", (scope, trade))
                 return
             if old[:2] != identity or old[2] != 'UNRESOLVED':
@@ -52,6 +52,10 @@ def apply_event(journal, scope, reason, data, trade, *, recovering=False):
             return
         journal.db.execute('INSERT INTO capacity_slots_v1 VALUES(?,?,?,?,?)',
             (scope, trade, *identity, 'UNRESOLVED'))
+    elif reason == 'ADMISSION_WITHDRAWN':
+        # Local, proven never-dispatched admission; no EA terminal state claimed.
+        journal.db.execute("UPDATE capacity_slots_v1 SET phase='WITHDRAWN' "
+            "WHERE scope=? AND trade_id=? AND phase='UNRESOLVED'", (scope, trade))
     elif reason in {'WON_VERIFIED', 'LOST_VERIFIED'}:
         # Terminal duplicates/conflicts never reverse a possible win or reopen a
         # slot already accounted for in the physical pile.

@@ -1,0 +1,77 @@
+{
+  "task": "003-03",
+  "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+  "command": [
+    "{python}",
+    "tests/check_00303_preparation.py"
+  ],
+  "tests": [
+    "test_00302_continuous.ContinuousBehavior.test_three_page_discovery_keeps_filters_and_deduplicates_lookahead",
+    "test_001d04_pricing.Acceptance.test_c1_c6_retained_unsorted_page_minimum_and_inclusive_second",
+    "test_001d04_pricing.Acceptance.test_c5_c6_cache_zero_requests_exact_expiry_and_restart",
+    "test_00204_actors.Acceptance.test_c6_native_cap_equality_and_rounding_at_boundaries",
+    "test_00204_actors.Acceptance.test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now",
+    "test_00204_actors.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap",
+    "test_00204_actors.Acceptance.test_c3_independent_owned_win_proof_and_no_false_terminal",
+    "test_00207_enrollment.EnrollmentAcceptance.test_c0_c1_c3_lost_releases_capacity_missing_status_does_not",
+    "test_00208_resale.Acceptance.test_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list",
+    "test_00208_resale.Acceptance.test_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff",
+    "test_00211_sold.Acceptance.test_detection_one_durable_account_wide_clear_retains_expired_and_active_manual_cards",
+    "test_00210_relist.Acceptance.test_c1_c2_all_manual_items_one_durable_native_write_independent_item_trade_proof",
+    "test_00206_capacity.CapacityAcceptance.test_c1_c2_c3_win_pending_presence_and_duplicate_readbacks_never_double_count",
+    "test_00207_enrollment.EnrollmentAcceptance.test_c0_c3_paused_acquirer_does_not_gate_reconciliation_rebids_or_maintenance",
+    "test_00207_enrollment.EnrollmentAcceptance.test_c2_c3_simultaneous_limits_drain_precedence_capacity_release_is_independent",
+    "test_00302_continuous.ContinuousBehavior.test_priority_two_second_spacing_and_final_pre_send_deadline",
+    "test_00302_continuous.ContinuousBehavior.test_restart_reads_reconcile_lost_response_without_replaying_write",
+    "test_00208_resale.Acceptance.test_c3_successful_side_effect_with_lost_response_reconciles_without_retry",
+    "test_final_list_refresh_00212.ListingRefresh.test_native_refresh_is_counted_and_exactly_bound_while_duplicates_wrong_ids_and_writes_fail",
+    "test_00302_continuous.ContinuousBehavior.test_supervisor_or_monitor_loss_gates_before_native_and_records_gap",
+    "test_00210_relist.Acceptance.test_c0_noop_each_tick_reads_fresh_complete_inventory_and_persists_reason",
+    "test_00302_continuous.ContinuousBehavior.test_startup_requires_fresh_identity_mapping_and_keeps_ghost_reserved"
+  ],
+  "tests_run": 22,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "elapsed_seconds": 7.001159099978395,
+  "status": "PASS",
+  "output": "test_three_page_discovery_keeps_filters_and_deduplicates_lookahead (test_00302_continuous.ContinuousBehavior.test_three_page_discovery_keeps_filters_and_deduplicates_lookahead) ... ok\ntest_c1_c6_retained_unsorted_page_minimum_and_inclusive_second (test_001d04_pricing.Acceptance.test_c1_c6_retained_unsorted_page_minimum_and_inclusive_second) ... ok\ntest_c5_c6_cache_zero_requests_exact_expiry_and_restart (test_001d04_pricing.Acceptance.test_c5_c6_cache_zero_requests_exact_expiry_and_restart) ... ok\ntest_c6_native_cap_equality_and_rounding_at_boundaries (test_00204_actors.Acceptance.test_c6_native_cap_equality_and_rounding_at_boundaries) ... ok\ntest_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now (test_00204_actors.Acceptance.test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now) ... ok\ntest_c3_leading_hold_outbid_absolute_tick_and_stored_cap (test_00204_actors.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap) ... ok\ntest_c3_independent_owned_win_proof_and_no_false_terminal (test_00204_actors.Acceptance.test_c3_independent_owned_win_proof_and_no_false_terminal) ... ok\ntest_c0_c1_c3_lost_releases_capacity_missing_status_does_not (test_00207_enrollment.EnrollmentAcceptance.test_c0_c1_c3_lost_releases_capacity_missing_status_does_not) ... ok\ntest_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list (test_00208_resale.Acceptance.test_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list) ... ok\ntest_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff (test_00208_resale.Acceptance.test_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff) ... ok\ntest_detection_one_durable_account_wide_clear_retains_expired_and_active_manual_cards (test_00211_sold.Acceptance.test_detection_one_durable_account_wide_clear_retains_expired_and_active_manual_cards) ... ok\ntest_c1_c2_all_manual_items_one_durable_native_write_independent_item_trade_proof (test_00210_relist.Acceptance.test_c1_c2_all_manual_items_one_durable_native_write_independent_item_trade_proof) ... ok\ntest_c1_c2_c3_win_pending_presence_and_duplicate_readbacks_never_double_count (test_00206_capacity.CapacityAcceptance.test_c1_c2_c3_win_pending_presence_and_duplicate_readbacks_never_double_count) ... ok\ntest_c0_c3_paused_acquirer_does_not_gate_reconciliation_rebids_or_maintenance (test_00207_enrollment.EnrollmentAcceptance.test_c0_c3_paused_acquirer_does_not_gate_reconciliation_rebids_or_maintenance) ... ok\ntest_c2_c3_simultaneous_limits_drain_precedence_capacity_release_is_independent (test_00207_enrollment.EnrollmentAcceptance.test_c2_c3_simultaneous_limits_drain_precedence_capacity_release_is_independent) ... ok\ntest_priority_two_second_spacing_and_final_pre_send_deadline (test_00302_continuous.ContinuousBehavior.test_priority_two_second_spacing_and_final_pre_send_deadline) ... ok\ntest_restart_reads_reconcile_lost_response_without_replaying_write (test_00302_continuous.ContinuousBehavior.test_restart_reads_reconcile_lost_response_without_replaying_write) ... ok\ntest_c3_successful_side_effect_with_lost_response_reconciles_without_retry (test_00208_resale.Acceptance.test_c3_successful_side_effect_with_lost_response_reconciles_without_retry) ... ok\ntest_native_refresh_is_counted_and_exactly_bound_while_duplicates_wrong_ids_and_writes_fail (test_final_list_refresh_00212.ListingRefresh.test_native_refresh_is_counted_and_exactly_bound_while_duplicates_wrong_ids_and_writes_fail) ... ok\ntest_supervisor_or_monitor_loss_gates_before_native_and_records_gap (test_00302_continuous.ContinuousBehavior.test_supervisor_or_monitor_loss_gates_before_native_and_records_gap) ... ok\ntest_c0_noop_each_tick_reads_fresh_complete_inventory_and_persists_reason (test_00210_relist.Acceptance.test_c0_noop_each_tick_reads_fresh_complete_inventory_and_persists_reason) ... ok\ntest_startup_requires_fresh_identity_mapping_and_keeps_ghost_reserved (test_00302_continuous.ContinuousBehavior.test_startup_requires_fresh_identity_mapping_and_keeps_ghost_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 6.984s\n\nOK\n",
+  "node": [
+    {
+      "command": [
+        "node",
+        "tests/bulk_background_checks.cjs"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS browser navigation and telemetry isolation; one mutation; blocked duplicate/write/body/query/host guards and sanitized diagnostics\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "tests/list_refresh_checks.cjs"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS exact post-list native refresh, redaction, auxiliary count and no duplicate/wrong mutation handoff\n",
+      "stderr": ""
+    }
+  ],
+  "revision_provenance": "0a01535e1ac1ba3f8ce20321e9e066324b5361b2",
+  "working_tree_provenance": [
+    " M docs/research/003/003-02/independent-suites.json",
+    " M docs/research/003/003-02/node-15-stdout.txt",
+    " M docs/research/003/003-02/node-suites.json",
+    " M docs/research/003/003-02/python-00-stderr.txt",
+    " M docs/research/003/003-02/python-00-stdout.txt",
+    " M docs/research/003/003-02/python-suites.json",
+    " M fc_access/bidding_v1/capacity.py",
+    " M fc_access/bidding_v1/core.py",
+    " M fc_access/bidding_v1/journal.py",
+    " M fc_access/production_v1/foundation.py",
+    "?? docs/research/003/003-04/decision-withdrawal-01/",
+    "?? fc_access/continuous_v1/withdrawal.py",
+    "?? tests/check_00304_withdrawal.py",
+    "?? tests/probe_00304_recovery.py",
+    "?? tests/test_00304_withdrawal.py"
+  ]
+}

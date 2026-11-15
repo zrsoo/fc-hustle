@@ -244,6 +244,9 @@ class Registry:
                 credits = e
             elif e['kind'] == 'DECISION':
                 auctions.setdefault(e['trade_id'], {}).update(e)
+            elif e['kind'] == 'ADMISSION_WITHDRAWAL':
+                auctions.setdefault(e['trade_id'], {}).update(e, action='WITHDRAWN',
+                    reason='NEVER_DISPATCHED', state='UNKNOWN')
         unresolved = []
         for cid, trade, state in self.journal.db.execute(
                 "SELECT id,trade_id,state FROM commands WHERE scope=? AND state NOT IN ('RECONCILED','NOT_DISPATCHED')", (self.scope,)):
@@ -255,7 +258,7 @@ class Registry:
         unresolved.extend(pending_bulk(self.journal, self.scope))
         # Prior-epoch observations are retained evidence, never fresh state.
         for value in auctions.values():
-            if value.get('epoch') != owner[1]:
+            if value.get('epoch') != owner[1] and value.get('kind') != 'ADMISSION_WITHDRAWAL':
                 value.update(action='UNKNOWN', state='UNKNOWN')
         replay = AuctionQueue(journal=self.journal, scope=self.scope)
         if credits is not None:

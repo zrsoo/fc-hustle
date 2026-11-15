@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "assessment": "independent captured-response parsing and durable transport join",
+  "reads": [
+    {
+      "id": "6068da4508020a2c8df82b28222c2f9d",
+      "operation": "watched",
+      "method": "GET",
+      "path": "/ut/game/fc27/watchlist",
+      "status": 200,
+      "request_count": 1,
+      "network_at": "2026-11-15T22:02:10.397Z"
+    },
+    {
+      "id": "3addbc54c0d93655cc8fe467029792dd",
+      "operation": "balance",
+      "method": "GET",
+      "path": "/ut/game/fc27/user/credits",
+      "status": 200,
+      "request_count": 1,
+      "network_at": "2026-11-15T22:02:12.393Z"
+    },
+    {
+      "id": "43084de8688231c7599425e096e2bc2a",
+      "operation": "transfer_list",
+      "method": "GET",
+      "path": "/ut/game/fc27/tradepile",
+      "status": 200,
+      "request_count": 1,
+      "network_at": "2026-11-15T22:02:14.398Z"
+    }
+  ],
+  "transport_capture": "private-captures/decision-withdrawal/application-01/probe-transport.sqlite3",
+  "credits": 62827,
+  "complete_transfer_list_count": 5,
+  "unresolved_commitments": 0,
+  "account_mutations": 0,
+  "actors_started": 0,
+  "healthy_soak_hours_claimed": 0
+}

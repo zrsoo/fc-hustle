@@ -1,0 +1,44 @@
+[
+  {
+    "command": [
+      "{python}",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 336.972,
+    "stdout": "final-00-stdout.txt",
+    "stderr": "final-00-stderr.txt",
+    "finished_at": "2026-11-15T22:06:29.751463+00:00"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/check_00301_baseline.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 3.698,
+    "stdout": "final-01-stdout.txt",
+    "stderr": "final-01-stderr.txt",
+    "finished_at": "2026-11-15T22:06:33.450273+00:00"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/check_00304_withdrawal.py",
+      "--before",
+      "private-captures/decision-withdrawal/application-01/before.sqlite3",
+      "--after",
+      "private-captures/decision-withdrawal/application-01/after.sqlite3"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.275,
+    "stdout": "final-02-stdout.txt",
+    "stderr": "final-02-stderr.txt",
+    "finished_at": "2026-11-15T22:06:33.725474+00:00"
+  }
+]

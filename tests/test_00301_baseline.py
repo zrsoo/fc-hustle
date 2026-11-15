@@ -85,7 +85,7 @@ class ReconciliationBehavior(unittest.TestCase):
 
     def test_absent_ghost_reservation_never_becomes_loss_or_write_permission(self):
         native = self.assess()
-        durable = commitments(ROOT/'private-captures/final-remediation/foundation.sqlite3', self.context)
+        durable = commitments(backup()/'0-foundation.sqlite3', self.context)
         gate = mutation_gate(native, durable)
         self.assertEqual(durable['reserved_coins'], 700)
         self.assertEqual(len(gate['unmapped_commitments']), 1)
@@ -122,6 +122,43 @@ class ReconciliationBehavior(unittest.TestCase):
         result = json.loads(r.stdout)
         self.assertEqual([x['criterion'] for x in result['results']], list(range(6)))
         self.assertTrue(all(x['status'] == 'PASS' for x in result['results']))
+
+
+class ConsumedStatePreservation(unittest.TestCase):
+    def setUp(self):
+        self.old, self.new = [sqlite3.connect(':memory:') for _ in range(2)]
+        for db in (self.old, self.new):
+            self.addCleanup(db.close)
+            db.executescript('''
+              CREATE TABLE sessions(scope TEXT PRIMARY KEY,owner TEXT,epoch INTEGER);
+              INSERT INTO sessions VALUES('scope','old',1);
+              CREATE TABLE events(seq INTEGER PRIMARY KEY,data TEXT);
+              INSERT INTO events VALUES(1,'original consumed evidence');
+              CREATE TABLE commands(id TEXT PRIMARY KEY,state TEXT,amount INTEGER);
+              INSERT INTO commands VALUES('consumed','RECONCILED',700);
+              CREATE TABLE relist_schedule_v1(scope TEXT,next_due REAL);
+              INSERT INTO relist_schedule_v1 VALUES('scope',3660);
+            ''')
+
+    def test_later_fenced_session_and_append_only_work_preserve_completed_baseline(self):
+        self.new.executescript("UPDATE sessions SET owner='next',epoch=2; INSERT INTO events VALUES(2,'new work');")
+        checker.preserved_consumed_state(self.new,self.old)
+
+    def test_deleted_or_rewritten_historical_event_is_rejected(self):
+        self.new.execute("UPDATE events SET data='rewritten'")
+        with self.assertRaisesRegex(ValueError,'historical_actor_state'): checker.preserved_consumed_state(self.new,self.old)
+
+    def test_consumed_command_reset_is_rejected(self):
+        self.new.execute("UPDATE commands SET state='QUEUED'")
+        with self.assertRaisesRegex(ValueError,'historical_actor_state'): checker.preserved_consumed_state(self.new,self.old)
+
+    def test_owner_change_without_new_epoch_is_rejected(self):
+        self.new.execute("UPDATE sessions SET owner='next'")
+        with self.assertRaisesRegex(ValueError,'owner_fence_regressed'): checker.preserved_consumed_state(self.new,self.old)
+
+    def test_consumed_maintenance_schedule_cannot_be_reset(self):
+        self.new.execute('UPDATE relist_schedule_v1 SET next_due=0')
+        with self.assertRaisesRegex(ValueError,'consumed_relist_schedule_reset'): checker.preserved_consumed_state(self.new,self.old)
 
 
 class ArtifactRejections(unittest.TestCase):

@@ -1,0 +1,1 @@
+{"status": "PASS", "task": "003-03", "criteria": [0, 1, 2, 3, 4, 5, 6], "behavior_tests": 22, "node_suites": 2, "live_coverage": "LIVE-UNVERIFIED", "scope": "PRELAUNCH_PREPARATION_ONLY"}

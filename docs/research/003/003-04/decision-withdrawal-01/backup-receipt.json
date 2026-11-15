@@ -1,0 +1,31 @@
+{
+  "head": "0a01535e1ac1ba3f8ce20321e9e066324b5361b2",
+  "tag": "backup/decision-withdrawal-20261115T214057Z",
+  "databases": [
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "backup": "0-foundation.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/final-remediation/native.sqlite3",
+      "backup": "1-native.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "backup": "2-production-readonly-after.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": "C:/hustle/fc-hustle/private-captures/continuous-production/control.sqlite3",
+      "backup": "3-control.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "source": ".orchestrator/state.db",
+      "backup": "4-state.db",
+      "integrity": "ok"
+    }
+  ]
+}

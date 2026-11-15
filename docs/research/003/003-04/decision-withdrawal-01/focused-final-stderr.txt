@@ -1,0 +1,29 @@
+test_actual_trading_provenance_vetoes (__main__.Withdrawal.test_actual_trading_provenance_vetoes) ... ok
+test_all_journal_command_states_veto_even_other_trade_same_item (__main__.Withdrawal.test_all_journal_command_states_veto_even_other_trade_same_item) ... ok
+test_ambiguous_account_wide_operation_vetoes (__main__.Withdrawal.test_ambiguous_account_wide_operation_vetoes) ... ok
+test_attached_database_lock_prevents_concurrent_mutation_enqueue (__main__.Withdrawal.test_attached_database_lock_prevents_concurrent_mutation_enqueue) ... ok
+test_capacity_migration_replays_withdrawal_without_reopening (__main__.Withdrawal.test_capacity_migration_replays_withdrawal_without_reopening) ... ok
+test_capacity_must_still_be_unresolved (__main__.Withdrawal.test_capacity_must_still_be_unresolved) ... ok
+test_context_mismatch_vetoes (__main__.Withdrawal.test_context_mismatch_vetoes) ... ok
+test_duplicate_gate_decision_vetoes (__main__.Withdrawal.test_duplicate_gate_decision_vetoes) ... ok
+test_every_mailbox_state_vetoes_a_matching_mutation (__main__.Withdrawal.test_every_mailbox_state_vetoes_a_matching_mutation) ... ok
+test_failed_write_rolls_back_proof_owner_event_and_slot (__main__.Withdrawal.test_failed_write_rolls_back_proof_owner_event_and_slot) ... ok
+test_independent_assessor_verifies_real_replay_and_rejects_unreleased_slot (__main__.Withdrawal.test_independent_assessor_verifies_real_replay_and_rejects_unreleased_slot) ... ok
+test_missing_gate_transport_record_vetoes (__main__.Withdrawal.test_missing_gate_transport_record_vetoes) ... ok
+test_missing_or_changed_certificate_cannot_release_reservation (__main__.Withdrawal.test_missing_or_changed_certificate_cannot_release_reservation) ... ok
+test_orphan_native_event_vetoes_incomplete_history (__main__.Withdrawal.test_orphan_native_event_vetoes_incomplete_history) ... ok
+test_other_journal_lifecycle_event_vetoes (__main__.Withdrawal.test_other_journal_lifecycle_event_vetoes) ... ok
+test_resale_original_trade_reference_vetoes (__main__.Withdrawal.test_resale_original_trade_reference_vetoes) ... ok
+test_running_account_owner_prevents_repair (__main__.Withdrawal.test_running_account_owner_prevents_repair) ... ok
+test_scope_isolation_and_sticky_draining_preserved (__main__.Withdrawal.test_scope_isolation_and_sticky_draining_preserved) ... ok
+test_terminal_record_does_not_substitute_for_withdrawal (__main__.Withdrawal.test_terminal_record_does_not_substitute_for_withdrawal) ... ok
+test_transport_mutation_vetoes_even_without_journal_intent (__main__.Withdrawal.test_transport_mutation_vetoes_even_without_journal_intent) ... ok
+test_uncertified_unmapped_enrollment_remains_reserved (__main__.Withdrawal.test_uncertified_unmapped_enrollment_remains_reserved) ... ok
+test_unrelated_bulk_done_requires_actual_reconciled_journal_and_transport (__main__.Withdrawal.test_unrelated_bulk_done_requires_actual_reconciled_journal_and_transport) ... ok
+test_withdraw_replay_idempotency_and_no_fabricated_terminal_state (__main__.Withdrawal.test_withdraw_replay_idempotency_and_no_fabricated_terminal_state) ... ok
+test_wrong_enrollment_read_id_fails (__main__.Withdrawal.test_wrong_enrollment_read_id_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 6.294s
+
+OK

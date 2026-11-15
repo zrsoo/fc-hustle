@@ -1,0 +1,43 @@
+{
+  "outcome": "WITHDRAWN",
+  "proof": {
+    "schema": 1,
+    "scope": "e7fce7c176935f0b95dc3db91dd28521",
+    "identity": {
+      "trade_id": "trade:057aeb82a3b167642da7aeee",
+      "item_id": "item:a7ab887f475aec2049288c42",
+      "definition_id": 278046,
+      "platform": "pc",
+      "game": "fc27"
+    },
+    "amount": 700,
+    "enrollment_seq": 14,
+    "gate_evidence_sha256": "ceee0f35d7a37da6096ee9ad2c1b190df8341739e64df9cbfb0d22200e4db511",
+    "verified_gate_commands": 34,
+    "native_mutations_examined": 31,
+    "transport_mutations_examined": 31,
+    "authority": "User: ok, fix that and trigger recheck. Explicit audited withdrawal of the proven never-dispatched 700-coin read-only gate admission; preserve genuine and ambiguous bids.",
+    "withdrawn_at": "2026-11-15T21:57:31.395632+00:00",
+    "previous_owner": "eb1121adf410eedc971aa31e359e2f38",
+    "previous_epoch": 65,
+    "owner": "6625bb1d26e41e652257059d9da9c235",
+    "epoch": 66
+  },
+  "captures": {
+    "before": "private-captures\\decision-withdrawal\\application-01\\before.sqlite3",
+    "after": "private-captures\\decision-withdrawal\\application-01\\after.sqlite3"
+  },
+  "independent_assessment": {
+    "status": "PASS",
+    "scope": "e7fce7c176935f0b95dc3db91dd28521",
+    "trade_id": "trade:057aeb82a3b167642da7aeee",
+    "released_local_coins": 700,
+    "released_local_capacity_slots": 1,
+    "EA_requests": 0,
+    "account_mutations": 0,
+    "historical_rows_preserved": true,
+    "bid_commands_unchanged": true,
+    "restart_replay": "WITHDRAWN; actual auction UNKNOWN",
+    "actor_soak_acceptance": "STILL_REQUIRED"
+  }
+}
