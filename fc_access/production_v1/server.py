@@ -92,7 +92,8 @@ class Handler(BaseHTTPRequestHandler):
         with s.condition:
             return self.send(200, {'service': 'fc-production-v1', 'schema': VERSION, 'host_epoch': s.store.host_epoch,
                                    'owner': s.store.owner(), 'attached': s.peer is not None and time.monotonic()-s.attached_at < 45,
-                                   'peer': s.peer, 'mutations_enabled': s.store.authorize_bid is not None})
+                                   'peer': s.peer, 'mutations_enabled': s.store.authorize_bid is not None,
+                                   'intent_journal': str(s.store.authorize_bid.path.resolve()) if s.store.authorize_bid else None})
 
     def peer(self, p):
         s = self.server

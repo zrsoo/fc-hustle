@@ -1,5 +1,10 @@
 # FC27 integration research and retained harness
 
+The continuous Objective 003 production lifecycle and its status/stop/recovery
+controls are documented in [continuous production](docs/continuous-production.md).
+Its implementation is verified offline; new live operation remains a separate
+evidence milestone. The research handoff below retains its historical context.
+
 Read [the final readiness report](docs/research/final-report.md) first. The bounded
 authenticated purchase-to-list experiment was demonstrated on 2026-11-11. The
 verdict is **CONDITIONAL GO** for implementing Objective 002, with outstanding

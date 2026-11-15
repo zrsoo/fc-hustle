@@ -37,6 +37,7 @@ class Mailbox:
             queue_ms REAL, roundtrip_ms REAL);
           CREATE TABLE IF NOT EXISTS native_events(seq INTEGER PRIMARY KEY AUTOINCREMENT,
             id TEXT NOT NULL, at TEXT NOT NULL, body TEXT NOT NULL);
+          CREATE INDEX IF NOT EXISTS work_scheduling ON work(state,priority DESC,deadline,seq);
           CREATE TRIGGER IF NOT EXISTS native_events_no_update BEFORE UPDATE ON native_events
             BEGIN SELECT RAISE(ABORT,'append_only'); END;
           CREATE TRIGGER IF NOT EXISTS native_events_no_delete BEFORE DELETE ON native_events
@@ -122,10 +123,12 @@ class QueueExecutor:
 
 
 class Broker:
-    def __init__(self, mailbox, foundation, config, *, now=utc, clock=time.monotonic, sleep=time.sleep):
+    def __init__(self, mailbox, foundation, config, *, now=utc, clock=time.monotonic, sleep=time.sleep,
+                 dispatch_gate=lambda c: None):
         self.mailbox, self.foundation, self.config = mailbox, foundation, config
         self.now, self.clock, self.sleep = now, clock, sleep
         self.last = float('-inf')
+        self.dispatch_gate = dispatch_gate
 
     def initialize(self):
         f = self.foundation
@@ -158,6 +161,10 @@ class Broker:
         try:
             r = self.mailbox.runtime()
             if c['context'] != r['context'] or c['fences'] != r['fences']: raise ValueError('stale_identity')
+            self.foundation.registry.check()
+            self.dispatch_gate(c)
+            if self.now() >= stamp(db.execute('SELECT deadline FROM work WHERE id=?', (cid,)).fetchone()[0]):
+                raise ValueError('command_expired_before_send')
             # The broker is the sole consumer and delegates to the reviewed boundary.
             raw = self.foundation.executor.executor.execute(c)
             result = parse_response(raw, c, now=self.now(), source=self.foundation.adapter.source,

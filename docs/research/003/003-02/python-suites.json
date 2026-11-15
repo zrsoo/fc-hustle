@@ -1,0 +1,25 @@
+{
+  "task": "003-02",
+  "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+  "group": "python",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "python-00-stdout.txt",
+      "stderr": "python-00-stderr.txt",
+      "elapsed_seconds": 321.223,
+      "finished": "2026-11-15T16:31:49.508321+00:00",
+      "tests_run": 799
+    }
+  ],
+  "status": "PASS"
+}
