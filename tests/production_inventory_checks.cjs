@@ -81,6 +81,30 @@ async function read(h,op,params={}){
   h=setup();nativeDAO(h);const watched=await read(h,'watched'),row=watched.result.auctions[0];
   const p={trade_id:row.trade_id,item_id:row.item.item_id,definition_id:row.item.definition_id};
   assert((await read(h,'status',p)).result.success);
+  // A successful bid consumes the write observation. An incomplete watched
+  // endpoint can subsequently omit that trade, so preserve a read-only selector
+  // for exact independent status; never turn it into another bid/ownership proof.
+  const consumed=setup();nativeDAO(consumed);
+  const pre=consumed.command('watched'),funds=consumed.command('balance');
+  const observed=await consumed.execute(pre);await consumed.execute(funds);
+  const exact=observed.result.auctions[0],identity={trade_id:exact.trade_id,item_id:exact.item.item_id,definition_id:exact.item.definition_id};
+  const intent=consumed.command('bid',{...identity,amount:2500,minimum:2500,cap:9000,
+    deadline:'2030-01-01T00:01:00Z',status_read_id:pre.id,balance_read_id:funds.id});
+  assert((await consumed.execute(intent)).result.success);
+  consumed.sandbox.services.Item.requestWatchedItems=()=>consumed.response('watched',{items:[]});
+  assert.deepEqual((await read(consumed,'watched')).result.auctions,[]);
+  assert.equal((await read(consumed,'status_support')).result.retained_count,0);
+  const independent=await read(consumed,'status',identity);
+  assert(independent.result.success);assert.equal(independent.result.auctions[0].trade_state,'closed');
+  assert.equal(independent.result.auctions[0].bid_state,'outbid');
+  const selected=consumed.calls.length;
+  for(const bad of [{...identity,item_id:'item:'+'e'.repeat(24)},{...identity,definition_id:999}]){
+    assert.equal((await read(consumed,'status',bad)).result.error,'known_identity_unavailable');
+  }
+  assert.equal((await read(consumed,'owned_item',identity)).result.error,'known_identity_unavailable');
+  assert.equal(consumed.calls.length,selected);
+  assert(!(await consumed.execute({...intent,id:hex(50000)})).result.success);
+  assert.equal(consumed.calls.filter(x=>x==='bid').length,1);
   const attempts=h.calls.length;
   assert.equal((await read(h,'status',{...p,item_id:'item:'+'e'.repeat(24)})).result.error,'known_identity_unavailable');
   assert.equal(h.calls.length,attempts);

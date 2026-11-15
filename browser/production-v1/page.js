@@ -8,7 +8,7 @@
   const random = () => [...crypto.getRandomValues(new Uint8Array(16))].map(v => v.toString(16).padStart(2,'0')).join('');
   const diagnostic=(id,stage,detail={})=>{try{window.__fcProductionDiagnosticsV1?.record(id,stage,detail);}catch{}};
   const fieldType=v=>v===null?'null':Array.isArray(v)?'array':typeof v;
-  const document = random(), known = new Map(), physical = new Map(), reads = new Map(), sent = new Set();
+  const document = random(), known = new Map(), statusSelectors = new Map(), physical = new Map(), reads = new Map(), sent = new Set();
   const routes = {search:['GET','/ut/game/fc27/transfermarket'], watched:['GET','/ut/game/fc27/watchlist'],
     balance:['GET','/ut/game/fc27/user/credits'], unassigned:['GET','/ut/game/fc27/purchased/items'],owned_item:['GET','/ut/game/fc27/item'],
     transfer_list:['GET','/ut/game/fc27/tradepile'], caps:['GET','/ut/game/fc27/marketdata/pricelimits'],
@@ -41,7 +41,7 @@
     if (binding) {
       if (!equal(binding.context,context) || fences.epoch < binding.fences.epoch || fences.epoch === binding.fences.epoch && !equal(fences,binding.fences) || u !== nativeUser || p !== nativePersona) return false;
     }
-    if (!binding || !equal(binding.fences,fences)) {known.clear(); physical.clear(); reads.clear();}
+    if (!binding || !equal(binding.fences,fences)) {known.clear(); statusSelectors.clear(); physical.clear(); reads.clear();}
     window.__fcNativeCommandOwner = document;
     binding = {context:{...context},fences:{...fences}}; nativeUser = u; nativePersona = p; return true;
   }
@@ -153,7 +153,7 @@
             if([...u.searchParams.keys()].some(k=>k!=='defIds'))throw Error('bad_query');
           }
           if(c.operation==='status' && path===routes.status[1]){
-            const e=known.get(c.params.trade_id);
+            const e=known.get(c.params.trade_id)??statusSelectors.get(c.params.trade_id);
             const values=u.searchParams.getAll('tradeIds');
             if(values.length!==1 || values[0]!==e?.native_trade_id)throw Error('bad_query');
             query.trade_id=c.params.trade_id; // exact wire match; never export the native ID
@@ -269,8 +269,9 @@
       }
       else if(op==='status'){
         if(!statusAvailable())throw Error('service_unavailable');
-        const e=known.get(p.trade_id);
-        if(!e || e.row.item.item_id!==p.item_id || e.row.item.definition_id!==p.definition_id)throw Error('known_identity_unavailable');
+        const e=known.get(p.trade_id)??statusSelectors.get(p.trade_id);
+        const identity=e?.row?.item??e?.identity;
+        if(!e || identity.item_id!==p.item_id || identity.definition_id!==p.definition_id)throw Error('known_identity_unavailable');
         // Native DAO consumes only tradeId/isValid and sets local isUpdating.
         // This descriptor is a request selector, never an observed auction state.
         const query={tradeId:e.native_trade_id,isValid:()=>true,isUpdating:false};
@@ -432,7 +433,16 @@
             return [row.trade_id,{raw,row,at,read_id:c.id,native_trade_id}];
           }));
           if(Date.now()<Date.parse(at) || Date.now()-Date.parse(at)>30000)throw Error('stale_source');
-          entries.filter(Boolean).forEach(([key,value])=>known.set(key,value));
+          entries.filter(Boolean).forEach(([key,value])=>{
+            known.set(key,value);
+            // A bid consumes its write observation, but must not erase the
+            // exact native selector needed for an independent readback when
+            // the explicitly incomplete watched endpoint omits the auction.
+            // This map grants no write authority, has no raw DTO/read ID, and
+            // is invalidated with every complete fence change.
+            statusSelectors.set(key,{native_trade_id:value.native_trade_id,
+              identity:{item_id:value.row.item.item_id,definition_id:value.row.item.definition_id}});
+          });
         }
         out.coverage.has_more=typeof data.hasMore==='boolean'?data.hasMore:null;
         if(op==='transfer_list'){
