@@ -1,0 +1,129 @@
+{
+  "before_scan": [
+    {
+      "parent": 6260,
+      "pid": 12008,
+      "role": "discovery-service"
+    },
+    {
+      "parent": 8188,
+      "pid": 16312,
+      "role": "dashboard"
+    },
+    {
+      "parent": 16312,
+      "pid": 16480,
+      "role": "dashboard"
+    },
+    {
+      "parent": 16080,
+      "pid": 16660,
+      "role": "orchestrator"
+    },
+    {
+      "parent": 16660,
+      "pid": 4676,
+      "role": "orchestrator"
+    },
+    {
+      "parent": 2848,
+      "pid": 18508,
+      "role": "other"
+    },
+    {
+      "parent": 18508,
+      "pid": 12680,
+      "role": "other"
+    },
+    {
+      "parent": 18508,
+      "pid": 16608,
+      "role": "actor-stack"
+    },
+    {
+      "parent": 9496,
+      "pid": 8316,
+      "role": "other"
+    }
+  ],
+  "after_scan": [
+    {
+      "parent": 8188,
+      "pid": 16312,
+      "role": "dashboard"
+    },
+    {
+      "parent": 16312,
+      "pid": 16480,
+      "role": "dashboard"
+    },
+    {
+      "parent": 16080,
+      "pid": 16660,
+      "role": "orchestrator"
+    },
+    {
+      "parent": 16660,
+      "pid": 4676,
+      "role": "orchestrator"
+    },
+    {
+      "parent": 1464,
+      "pid": 1372,
+      "role": "production-service"
+    },
+    {
+      "parent": 10212,
+      "pid": 8096,
+      "role": "other"
+    }
+  ],
+  "live_actor_owners_before": [],
+  "live_actor_owners_after": [],
+  "before_scan_note": "Initial pre-test CIM inspection found no actors. Later backup scan includes PID16608, an offline actor test child of unittest process18508, without production ownership; the test awaited its exit.",
+  "stopped_and_awaited": [
+    12008
+  ],
+  "old_service_exit_verified": true,
+  "transition_order": [
+    "STOP_12008",
+    "AWAIT_EXIT_12008",
+    "START_READ_ONLY_SERVICE"
+  ],
+  "transition_observed_at": "2026-11-15T15:36:31.372731+00:00",
+  "new_service_started_at": "2026-11-15T15:36:31.372731+00:00",
+  "new_service_pid": 1372,
+  "new_service_mutations_enabled": false,
+  "new_service_role": "production-read-only",
+  "new_owner": "8f6c2c1f05623228bb44135d263fa23f",
+  "new_epoch": 63,
+  "orchestrator_retained_for_current_objective": true,
+  "initial_before_tests_scan": [
+    {
+      "pid": 12008,
+      "parent": 6260,
+      "role": "discovery-service"
+    },
+    {
+      "pid": 16312,
+      "parent": 8188,
+      "role": "dashboard"
+    },
+    {
+      "pid": 16480,
+      "parent": 16312,
+      "role": "dashboard"
+    },
+    {
+      "pid": 16660,
+      "parent": 16080,
+      "role": "orchestrator"
+    },
+    {
+      "pid": 4676,
+      "parent": 16660,
+      "role": "orchestrator"
+    }
+  ],
+  "initial_scan_provenance": "Initial worker CIM process inspection before backup and before offline unittest launch; command arguments deliberately omitted."
+}

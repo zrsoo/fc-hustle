@@ -1,0 +1,18 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "reviewed_commit": "413d21ad0a5d976572f2c488524f1a23d8a44340",
+  "exit_code": 0,
+  "tests_run": 744,
+  "elapsed_seconds": 173.532,
+  "result": "OK",
+  "output_summary": "Ran 744 tests in 173.532s\nOK",
+  "output_provenance": "Independently executed here; exact completion summary transcribed from process output(session87091). Full streamed transcript exists; this receipt does not claim a separate full log."
+}

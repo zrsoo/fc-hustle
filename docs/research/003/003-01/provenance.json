@@ -1,0 +1,172 @@
+{
+  "task": "003-01",
+  "handoff": "private-captures/003-handoff/20261115T151935Z",
+  "backup": "private-captures/003-01/20261115T153459Z",
+  "context_reads": [
+    {
+      "path": "AGENTS.md",
+      "lines_read": 40,
+      "notes": "Behavior/contracts, no mutable source hashes; own desktop checks before UI; saved-login recovery authorized; no credentials/session extraction; no replay/reset."
+    },
+    {
+      "path": "objectives/002-two-actor-competitive-bidding.md",
+      "lines_read": 217,
+      "notes": "Full specification read: smallest legal competitive bids; exact identity; reserve5000 and all50-slot protections; immutable finite experiments and two-query pricing."
+    },
+    {
+      "path": "objectives/003-production-actor-soak.md",
+      "lines_read": 237,
+      "notes": "003-01 only; separate reviewed baseline; keep002 BLOCKED/PARTIAL; no production actors or new continuous lifecycle in this task."
+    },
+    {
+      "path": "docs/research/002/002-12/review-05/REPORT.md",
+      "lines_read": 43,
+      "notes": "Seven sealed windows, 2023.028 active seconds; PARTIAL with missing capacity/draining/net receipts; all actors stopped."
+    },
+    {
+      "path": "docs/research/002/002-12/review-05/outcome.json",
+      "lines_read": 7299,
+      "notes": "Full parsed outcome read: criteria, failures, metrics, native proofs and independently retained destinations; missing branches remain explicit."
+    },
+    {
+      "path": "docs/research/002/002-12/series-selection.json",
+      "lines_read": 7,
+      "notes": "Selected remediation-06/live-07 and review-05 checkpoint/outcome/index; untouched."
+    },
+    {
+      "path": "docs/research/002/002-12/blocker-repair-02/REPORT.md",
+      "lines_read": 184,
+      "notes": "Consumed bulk effect recovered without redispatch; RECONCILED/incompatible1 and failed callback preserved. Old recheck instruction superseded by003."
+    },
+    {
+      "path": "docs/research/002-bulk-transfer-operations/REPORT.md",
+      "lines_read": 460,
+      "notes": "Native one-call sold clear/relist already consumed; account/persona/namespace correlation; manual entries and independent reads; do not repeat."
+    },
+    {
+      "path": "docs/research/002/002-03/attempts/20261114-adapter-repair-gate-06/REPORT.md",
+      "lines_read": 31,
+      "notes": "Consumed sixth pricing gate12.0698056 seconds, fresh eligible admission, zero bids; no replay."
+    },
+    {
+      "path": "fc_access/production_v1/foundation.py",
+      "lines_read": 522,
+      "notes": "Scoped ownership and queue replay; unresolved commands/resale/bulk projections; no duplicate execution."
+    },
+    {
+      "path": "fc_access/production_v1/adapter.py",
+      "lines_read": 132,
+      "notes": "Native read freshness/source; known status requires fresh exact native mapping; durable fenced write intents."
+    },
+    {
+      "path": "fc_access/production_v1/contracts.py",
+      "lines_read": 512,
+      "notes": "Protocol2 allowlists and authenticated fresh route checks; exact post-list auxiliary status GET limited to one."
+    },
+    {
+      "path": "fc_access/production_v1/server.py",
+      "lines_read": 184,
+      "notes": "Loopback default omits JournalAuthority and rejects all mutations; attachment distinct from native authentication."
+    },
+    {
+      "path": "fc_access/production_v1/store.py",
+      "lines_read": 163,
+      "notes": "Single-delivery IDs; restart uncertainty; mutation denial before retention; no replay."
+    },
+    {
+      "path": "fc_access/production_v1/executor.py",
+      "lines_read": 67,
+      "notes": "Public loopback health/fences; unknown delivery has no retry; explicit attachment."
+    },
+    {
+      "path": "fc_access/production_v1/inventory.py",
+      "lines_read": 72,
+      "notes": "Exact fresh watched/owned/status mapping; absence never proves LOST or WON."
+    },
+    {
+      "path": "fc_access/production_v1/price_cache.py",
+      "lines_read": 81,
+      "notes": "Completed native exact account/version/platform/namespace, TTL86400; no invented current availability."
+    },
+    {
+      "path": "fc_access/production_v1/pricing.py",
+      "lines_read": 211,
+      "notes": "Two-query minimum valid BIN; native legal cap/tax; lastSalePrice not valuation."
+    },
+    {
+      "path": "fc_access/production_v1/resale.py",
+      "lines_read": 386,
+      "notes": "Independent physical ownership and paid proof; stored-price listing; no blind retries."
+    },
+    {
+      "path": "fc_access/production_v1/bulk_recovery.py",
+      "lines_read": 124,
+      "notes": "Immutable failed intent plus historical effect and fresh inventory; no redispatch authority."
+    },
+    {
+      "path": "fc_access/production_v1/ui.ps1",
+      "lines_read": 104,
+      "notes": "Own Edge window, tab and foreground verification before input; reviewed extension attach."
+    },
+    {
+      "path": "fc_access/actors_v1/actors.py",
+      "lines_read": 266,
+      "notes": "Pending-intent stop, queue replay, bidder priority, finite cycle APIs retained."
+    },
+    {
+      "path": "fc_access/actors_v1/config.py",
+      "lines_read": 58,
+      "notes": "Production defaults discovery3, cadence600/25, slots2seconds, reserve5000 and capacities50."
+    },
+    {
+      "path": "fc_access/actors_v1/native.py",
+      "lines_read": 190,
+      "notes": "One serialized durable mailbox, consumed IDs and unknown timeout no requeue."
+    },
+    {
+      "path": "fc_access/actors_v1/locking.py",
+      "lines_read": 38,
+      "notes": "OS process lock, no expiring write lease."
+    },
+    {
+      "path": "fc_access/actors_v1/operator.py",
+      "lines_read": 108,
+      "notes": "Readonly diagnostics and consistent database retention; no pruning."
+    },
+    {
+      "path": "fc_access/actors_v1/maintenance.py",
+      "lines_read": 30,
+      "notes": "Shared foundation/executor for relist and sold maintenance; no job launched."
+    },
+    {
+      "path": "fc_access/actors_v1/final_run.py",
+      "lines_read": 261,
+      "notes": "Sealed Evidence format and consumed finite bounds; runner never invoked."
+    },
+    {
+      "path": "fc_access/actors_v1/final_series.py",
+      "lines_read": 252,
+      "notes": "Native/mailbox destination joins, original failures visible, missing branches not promoted and gross observations not realized profit."
+    },
+    {
+      "path": "browser/production-v1/page.js",
+      "lines_read": 517,
+      "notes": "Exact raw post-list auction mapping, auxiliary count1, unrelated reads isolated; foreign/duplicate writes rejected."
+    },
+    {
+      "path": "browser/production-v1/worker.js",
+      "lines_read": 56,
+      "notes": "Explicit official tab selection; native selected-object attachment; no result/execution retries."
+    },
+    {
+      "path": "browser/production-v1/persona.js",
+      "lines_read": 53,
+      "notes": "Actual selected persona/native PC gate; no credential extraction."
+    }
+  ],
+  "context_read_before_runtime_changes": true,
+  "backup_completed_at": "2026-11-15T15:35:04.815911+00:00",
+  "first_runtime_change_at": "2026-11-15T15:36:17.410019+00:00",
+  "runtime_time_kind": "Lower bound before the recorded stop/await/start sequence; not an invented exact process-exit timestamp",
+  "original_head": "413d21ad0a5d976572f2c488524f1a23d8a44340"
+}

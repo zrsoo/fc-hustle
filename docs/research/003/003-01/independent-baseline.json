@@ -1,0 +1,46 @@
+[
+  {
+    "command": [
+      "{python}",
+      "tests/validate_00203_gate.py",
+      "--attempt",
+      "20261114-adapter-repair-gate-06"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"checkpoint\": \"docs\\\\research\\\\002\\\\002-03\\\\attempts\\\\20261114-adapter-repair-gate-06\\\\gate.json\", \"status\": \"PASS\", \"elapsed_seconds\": 12.0698056, \"pricing_GETs\": 2, \"definition_id\": 278046, \"decision\": \"BID/ELIGIBLE\", \"bid_dispatches\": 0}\n",
+    "stderr": "",
+    "finished": "2026-11-15T15:39:33.175559+00:00"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/validate_00203_stop.py",
+      "--attempt",
+      "20261114-adapter-repair-gate-06"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"attempt\": 6, \"outcome\": \"PASS\", \"dependent_tasks_allowed\": true, \"rerun_rejected\": true}\n",
+    "stderr": "",
+    "finished": "2026-11-15T15:39:33.470423+00:00"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/validate_adapter_repair.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"repair_probe_EA_GETs\": 5, \"metadata_fanout\": \"LIVE_VERIFIED\", \"gate\": {\"status\": \"PASS\", \"elapsed_seconds\": 12.0698056, \"pricing_GETs\": 2, \"definition_id\": 278046, \"decision\": \"BID/ELIGIBLE\", \"bid_dispatches\": 0}}\n",
+    "stderr": "",
+    "finished": "2026-11-15T15:39:33.745757+00:00"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/check_bulk_blocker_recovery.py"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"PASS\", \"recovery\": \"RECONCILED\", \"fresh_inventory_reads\": 1, \"EA_mutations\": 0, \"original_failure_preserved\": true, \"redispatch_authorized\": false, \"supervisor_resume_review\": \"PASS\", \"full_item12_E2E\": \"STILL_PARTIAL_REQUIRES_REMAINING_LIVE_BRANCHES\"}\n",
+    "stderr": "",
+    "finished": "2026-11-15T15:39:33.971433+00:00"
+  }
+]

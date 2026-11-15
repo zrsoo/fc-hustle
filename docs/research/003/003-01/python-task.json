@@ -1,0 +1,16 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests_run": 757,
+  "elapsed_seconds": 175.4961142000393,
+  "result": "OK",
+  "log": "docs/research/003/003-01/python-task.txt"
+}
