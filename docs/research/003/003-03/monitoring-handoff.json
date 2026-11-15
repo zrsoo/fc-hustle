@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "task": "003-03",
+  "state": "PRELAUNCH_NOT_RUNNING",
+  "owner": {
+    "role": "Objective 003 production operator",
+    "responsibility": "The operator launching run/recover owns the persistent supervisor, monitor, evidence exports and incident response until a named replacement acknowledges the exact run and durable paths.",
+    "transfer_requires_acknowledgement": true,
+    "ai_turn_is_supervision": false,
+    "single_fenced_owner": true
+  },
+  "durable_paths": {
+    "state": "private-captures/continuous-production",
+    "journal": "private-captures/final-remediation/foundation.sqlite3",
+    "cache": "private-captures/final-remediation/completed-quotes.sqlite3",
+    "transport": "<existing-reviewed-transport-database>",
+    "context": "<reviewed-public-context.json>",
+    "evidence": "private-captures/continuous-evidence/<unique-UTC-snapshot>"
+  },
+  "watchdog": {
+    "persistent_process": "fc_access.continuous_v1 _child --role monitor",
+    "local_sample_seconds": 1,
+    "supervisor_monitor_lease_seconds": 10,
+    "native_timeout_seconds": 30,
+    "executor_grace_seconds": 10,
+    "monitor_additional_ea_polls": 0,
+    "metrics": ["process liveness", "supervisor/monitor/executor/worker heartbeats", "queue age/priority", "native responses/fanout", "identity fences", "freshness", "coins", "three capacity counters", "DRAINING", "pending intents", "actor cycle progress", "maintenance", "exceptions"]
+  },
+  "snapshots": {
+    "durable_health_seconds": 1,
+    "evidence_export_seconds": 300,
+    "also_on": ["prelaunch reconciliation", "incident", "stop", "before repair", "after recovery", "ownership handoff"],
+    "source": "control.sqlite3 records/SNAPSHOT and consistent read-only copies of native, journal, cache and transport",
+    "cross_database_atomic": false,
+    "export_failure": "Record incident and assess disk/collector health; if persistent evidence and supervision cannot be maintained, request stop, await exits and seal the monitoring gap."
+  },
+  "commands": {
+    "config": ["{python}", "-m", "fc_access.continuous_v1", "config"],
+    "status": ["{python}", "-m", "fc_access.continuous_v1", "status"],
+    "stop": ["{python}", "-m", "fc_access.continuous_v1", "stop"],
+    "recover": ["{python}", "-m", "fc_access.continuous_v1", "recover", "--context", "<reviewed-public-context.json>"],
+    "capture": ["{python}", "-m", "fc_access.continuous_v1.evidence", "capture", "--state-dir", "private-captures/continuous-production", "--transport", "<existing-reviewed-transport-database>", "--output", "private-captures/continuous-evidence/<unique-UTC-snapshot>", "--revision", "<reviewed-launch-commit>"],
+    "assess": ["{python}", "-m", "fc_access.continuous_v1.evidence", "assess", "private-captures/continuous-evidence/<unique-UTC-snapshot>"]
+  },
+  "lost_supervision": {
+    "gate_new_dispatch": true,
+    "preserve_unknown_in_flight_effects": true,
+    "await_all_child_exits": true,
+    "record_gap": true,
+    "count_gap_as_healthy": false,
+    "recover_requires_fresh_read_only_reconciliation": true,
+    "replacement_requires_old_owner_exit": true,
+    "blind_replay": false
+  },
+  "launch_gates": ["003-02 validation and reviewed commit/push", "003-03 preparation validators", "persistent operator and monitor ownership acknowledged", "existing exact public context and durable paths", "no competing actor/controller or held owner locks", "correct service journal authority and reviewed extension", "fresh persona/authentication/market read evidence separately checked", "settled commands and exact identity reconciliation including ghost reservation before READY"],
+  "known_unresolved_live_prerequisite": "The preserved ghost reservation has no current exact identity mapping. Preparation does not resolve it, release it or authorize guessed IDs. Live startup must reconcile independently or remain gated."
+}
