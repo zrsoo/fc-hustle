@@ -6,7 +6,8 @@
   "transport": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
   "prelaunch_reads": "prelaunch-20261115T171020Z.jsonl",
   "incidents": [
-    "production-02/resolved-original-incident.json"
+    "production-02/resolved-original-incident.json",
+    "production-02/incident-identity-01/incident.json"
   ],
   "runtime_fixes": [
     {
@@ -18,7 +19,7 @@
       "regression_receipt": "production-02/withdrawal-regressions.json"
     }
   ],
-  "status": "RUNNING",
+  "status": "BLOCKED_UNRESOLVED_ACTUAL_BID",
   "phase": "CONTINUOUS_PRODUCTION",
   "run": "956a2d483cf70c2d440709ed20a312fe",
   "export_events": "private-captures/continuous-evidence/00304-production02-periodic/events.jsonl",
@@ -27,5 +28,20 @@
   "run_revisions": {
     "c7485d279225b0b726a5f6117a68ba10": "c4c7b5e5f8e036185dd6243143c0873733ec92c7",
     "956a2d483cf70c2d440709ed20a312fe": "dbc580c56cc5a37768ed41f0c6718369ee78dd57"
-  }
+  },
+  "cancelled_before_dispatch": [
+    "e84dcddef494468d3e12a2766ccd6fba"
+  ],
+  "additional_diagnostics": [
+    "production-02/incident-identity-01/exact-status.jsonl"
+  ],
+  "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
+  "pending_runtime_fixes": [
+    {
+      "status": "COMMITTED_PUSHED_OFFLINE_VERIFIED_NOT_RESTARTED",
+      "revision": "cca90b85f9904426b71812821a1175669495fa4d",
+      "incident": "00304-20261115T222121Z-missing-actual-bid-identity",
+      "restart_permitted": false
+    }
+  ]
 }

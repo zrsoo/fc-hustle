@@ -1,0 +1,7 @@
+﻿{
+    "reason":  "diagnose_missing_identity_after_actual_bid",
+    "stopped_pid":  15132,
+    "verified_actor_exit":  true,
+    "verified_service_exit":  true,
+    "at":  "2026-11-15T22:27:53.8911545Z"
+}

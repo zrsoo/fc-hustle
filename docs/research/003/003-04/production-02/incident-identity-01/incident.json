@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "id": "00304-20261115T222121Z-missing-actual-bid-identity",
+  "task": "003-04",
+  "run": "956a2d483cf70c2d440709ed20a312fe",
+  "recorded_at": "2026-11-15T22:31:16.786933+00:00",
+  "trigger_control_seqs": [
+    4849,
+    4851,
+    5185
+  ],
+  "triggering_command_id": "ff4174653771149736e63b1ac12630f9",
+  "triggering_read_id": "804caa79bbb16c7b5f99ba837bb50253",
+  "evidence_command_ids": [
+    "ff4174653771149736e63b1ac12630f9",
+    "804caa79bbb16c7b5f99ba837bb50253",
+    "f2d79b99666cf4a4cd75a143bb27f877",
+    "b92923c8c69cd549332835ba7e7bb495"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 950,
+    "native_HTTP": 200,
+    "native_callback_success": true,
+    "watched_entries": 3,
+    "watched_coverage_complete": false,
+    "credits_observed": 62827,
+    "maintenance_read_cancelled_before_dispatch": "e84dcddef494468d3e12a2766ccd6fba"
+  },
+  "unknown_account_effects": {
+    "auction_state": "UNKNOWN",
+    "bid_acceptance_or_debit": "UNPROVEN. HTTP 200/native callback, missing watched membership and unchanged aggregate credits cannot prove accepted, lost, won or no effect."
+  },
+  "root_cause": "The fresh incomplete watched endpoint omitted the newly bid exact auction. The reason for that omission remains unknown. Separately, page.js consumed the write observation with known.delete before native bid, erasing the only exact read-only selector; the same-epoch exact-status diagnostic consequently failed known_identity_unavailable without an EA request. The monitor stopped on MISSING_OR_STALE_IDENTITY. Maintenance timeout followed the dispatch gate and is secondary, not a scheduling starvation diagnosis.",
+  "fix": {
+    "runtime_change": true,
+    "scope": "Preserve a separate read-only native status selector after a bid consumes its write observation. Keep complete-fence invalidation, identity checks and no write/ownership authority. Does not reconstruct previously deleted live selectors.",
+    "source": "browser/production-v1/page.js",
+    "pushed_revision": "cca90b85f9904426b71812821a1175669495fa4d",
+    "live_applied_to_unresolved_bid": false
+  },
+  "regression_results": {
+    "status": "PASS",
+    "exit_code": 0,
+    "python_tests": 887,
+    "node_suites": 27,
+    "receipt": "production-02/incident-identity-01/checks/results.json",
+    "note": "Actual full Python/Node run; no EA calls or simulated live promotion."
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED",
+    "reason": "Actual dispatched 950 bid remains ACKNOWLEDGED and unresolved. Preserve reservation and slot; no replay, local withdrawal, inferred loss or new owner mutation launch."
+  },
+  "resolution": "UNRESOLVED_ACTUAL_BID",
+  "human_or_external_prerequisite": {
+    "minimal_action": "Provide independently verifiable official native outcome evidence for trade:86f34fb6234c8c320dceeede, item:6a39764a61664629878abd4a, definition 271421. The original 700-coin decision-only withdrawal does not apply to this actual dispatched bid.",
+    "prohibited_workarounds": [
+      "replaying or withdrawing the actual bid",
+      "guessing or reversing native IDs",
+      "inferring LOST/no effect from watched absence or aggregate credits",
+      "starting on empty state or bypassing unresolved-intent gating"
+    ]
+  },
+  "safe_state": {
+    "stop_control_seq": 5193,
+    "verified_all_owned_exits": true,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 651.5459209999535,
+    "readonly_health": "production-02/incident-identity-01/readonly-health.json",
+    "all_runtime_stopped": true
+  }
+}

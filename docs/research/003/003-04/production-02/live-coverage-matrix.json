@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "task": "003-04",
-  "phase": "CONTINUOUS_PRODUCTION",
+  "phase": "STOPPED_UNRESOLVED_ACTUAL_BID",
   "depends_on": "003-02",
   "live_status_vocabulary": [
     "LIVE-UNVERIFIED",
@@ -9009,6 +9009,34 @@
         "Fresh context/account/persona/platform/namespace plus owner/host/document/worker epoch fences, complete exact mapping; absent/aged/foreign mapping retains ghost reservations and blocks READY without guessed IDs.",
         "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
       ]
+    },
+    {
+      "id": "post_bid_selector_reconciliation",
+      "acceptance_required": true,
+      "evidence_requirements": [
+        "Retain an exact read-only selector after the write observation is consumed; an incomplete watched omission must not cause guesses or replay.",
+        "Require genuine independent native status of the exact trade/item/version under the same fences and retain unknown effects until independently reconciled."
+      ],
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "scope": "New defect observed in this production segment",
+        "references": [
+          "production-02/incident-identity-01/diagnostics.json"
+        ]
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "node_suite": "tests/production_inventory_checks.cjs"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-FAILED",
+        "run_id": "956a2d483cf70c2d440709ed20a312fe",
+        "revision": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
+        "evidence": [
+          "production-02/incident-identity-01/exact-status.jsonl"
+        ],
+        "reason": "Actual bid ACK, missing watched row, same-epoch known_identity_unavailable. Future selector-retention fix is not live recovery of this consumed bid."
+      }
     }
   ],
   "run_id": "956a2d483cf70c2d440709ed20a312fe",

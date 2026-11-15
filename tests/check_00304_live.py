@@ -169,7 +169,17 @@ def incident_contract(incident, rows, commands):
     for cid in incident['evidence_command_ids']:
         need(cid in commands, 'incident_native_evidence_missing')
     stopped_contract(rows, run)
-    if incident['resolution']=='EXTERNAL_IDENTITY_PREREQUISITE':
+    if incident['resolution']=='UNRESOLVED_ACTUAL_BID':
+        need(incident['restart_reconciliation']['status']=='NOT_RESTARTED' and
+             incident['known_account_effects']['bid_dispatched_once'] is True and
+             incident['unknown_account_effects']['auction_state']=='UNKNOWN', 'actual_bid_unknown_must_remain_gated')
+        need(any(c in commands and commands[c]['command']['operation']=='bid' and
+                 commands[c]['response'] and commands[c]['response']['result']['success']
+                 for c in incident['evidence_command_ids']), 'actual_bid_dispatch_evidence_missing')
+        need(any(c in commands and commands[c]['response'] and
+                 commands[c]['response']['result'].get('error')=='known_identity_unavailable'
+                 for c in incident['evidence_command_ids']), 'identity_restriction_not_observed')
+    elif incident['resolution']=='EXTERNAL_IDENTITY_PREREQUISITE':
         need(incident['fix']['runtime_change'] is False and incident['restart_reconciliation']['status']=='NOT_RESTARTED',
              'unresolved_incident_restarted')
         need(any(not commands[c]['response']['result']['success'] and
@@ -354,11 +364,16 @@ def assess_task(index, directory=OUT):
     if structural['findings']:
         need(ongoing,'unresolved_capture_findings')
         with closing(read_db(bundle_dir/'native.sqlite3')) as db:
-            pending={cid:dict(state=s,deadline=stamp(d)) for cid,s,d in db.execute('SELECT id,state,deadline FROM work')}
+            pending={cid:dict(state=s,deadline=stamp(d),started=a,reason=r,operation=json.loads(c)['operation'])
+                     for cid,s,d,a,r,c in db.execute('SELECT id,state,deadline,started,reason,command FROM work')}
+            claimed={cid for cid,b in db.execute('SELECT id,body FROM native_events') if json.loads(b)['kind']=='DISPATCH_CLAIM'}
         for finding in structural['findings']:
-            row=pending.get(finding['reference'].get('command_id'),{})
+            cid=finding['reference'].get('command_id');row=pending.get(cid,{})
+            cancelled=(cid in index.get('cancelled_before_dispatch',[]) and row.get('state')=='UNKNOWN' and
+                       row.get('reason')=='CALLER_TIMEOUT' and row.get('started') is None and
+                       row.get('operation') not in MUTATIONS and cid not in claimed)
             need(finding['reason'] in {'TRANSPORT_NOT_YET_CAPTURED','MISSING_RESPONSE_NO_RETRY','UNSETTLED_COMMAND'} and
-                 row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at']),
+                 (cancelled or row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at'])),
                  'unresolved_capture_findings')
     with closing(read_db(bundle_dir/'control.sqlite3')) as db: rows = records(db)
     opened = [r for r in rows if r['kind']=='RUN_OPEN']
@@ -376,6 +391,11 @@ def assess_task(index, directory=OUT):
                                     response=json.loads(v) if v else None,started=started,finished=finished)
     for r in lines(out/'ghost-status-diagnostic.jsonl'):
         if r['kind']=='NATIVE_READ': commands[r['command']['id']] = dict(run=index['diagnostic_run'], command=r['command'], response=r['response'])
+    for path in index.get('additional_diagnostics',[]):
+        for r in lines(out/path):
+            if r['kind']=='NATIVE_READ':
+                parse_response(r['response'],r['command'],source='native',now=stamp(r['at']))
+                commands[r['command']['id']]=dict(run=index['run'],command=r['command'],response=r['response'])
     results = []
     def check(n, work):
         try:
@@ -452,6 +472,7 @@ def assess_task(index, directory=OUT):
     check(4, incidents)
 
     def changes():
+        need(not index.get('pending_runtime_fixes'), 'runtime_repair_waiting_for_independent_reconciliation')
         launch = load(out/'launch.json')
         final_revision=index.get('run_revisions',{}).get(run,launch['revision'])
         need(final_revision==revision, 'launch_revision_mismatch')
@@ -500,6 +521,41 @@ def assess_task(index, directory=OUT):
         if ongoing and all(d['resolution']=='REPAIRED' for d in docs):
             need(not any(r['run']==run and r['kind'] in {'INCIDENT','EXCEPTION','SUPERVISION_GAP','STOP_REQUESTED'}
                          for r in rows),'current_restriction_requires_diagnosis')
+            return
+        if ongoing and any(d['resolution']=='UNRESOLVED_ACTUAL_BID' for d in docs):
+            stopped_contract(rows,run)
+            for d in docs:
+                if d['resolution']!='UNRESOLVED_ACTUAL_BID':continue
+                state=load(out/d['safe_state']['readonly_health'])['health']
+                need(state['attached'] and state['mutations_enabled'] is False and state['intent_journal'] is None,
+                     'safe_readonly_state_missing')
+                with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
+                    p=db.execute('SELECT state,trade_id,item_id,definition_id FROM commands WHERE id=?',
+                                 (d['triggering_command_id'],)).fetchone()
+                need(p and p[0]=='ACKNOWLEDGED','actual_bid_was_released_or_replayed')
+                diagnostic=commands[d['evidence_command_ids'][-1]]
+                need(diagnostic['command']['params']==dict(zip(('trade_id','item_id','definition_id'),p[1:])),
+                     'wrong_actual_bid_reconciliation_identity')
+                integrity=load(out/index['incident_integrity'])
+                need(integrity['scope']=='SEALED_CAPTURED_INCIDENT_EVIDENCE_ONLY','wrong_incident_integrity_scope')
+                for ref in integrity['captures']:
+                    path=(ROOT/ref['path']).resolve()
+                    need(path.name in {'diagnostics.json','exact-status.jsonl','process-stop.json','readonly-service.json',
+                         'readonly-health.json'} and
+                         path.is_relative_to(ROOT/'docs/research/003/003-04/production-02/incident-identity-01'),
+                         'wrong_incident_capture_scope')
+                    with path.open('rb') as stream:
+                        need(hashlib.file_digest(stream,'sha256').hexdigest()==ref['sha256'],'incident_capture_changed')
+                path=ROOT/integrity['transport']['path']
+                need(path.is_relative_to(ROOT/'private-captures/003-04/production-02/incident-identity-01') and
+                     path.name=='transport.sqlite3','wrong_incident_transport')
+                with path.open('rb') as stream:
+                    need(hashlib.file_digest(stream,'sha256').hexdigest()==integrity['transport']['sha256'],
+                         'incident_transport_changed')
+                with closing(read_db(path)) as db:
+                    stored=db.execute('SELECT body,result FROM commands WHERE id=?',(diagnostic['command']['id'],)).fetchone()
+                need(stored and json.loads(stored[0])==diagnostic['command'] and
+                     json.loads(stored[1])==diagnostic['response'],'restriction_not_independently_retained')
             return
         need(docs and all(d['human_or_external_prerequisite']['minimal_action'] and
              d['human_or_external_prerequisite']['prohibited_workarounds'] for d in docs), 'exact_prerequisite_missing')

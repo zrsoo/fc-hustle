@@ -95,3 +95,15 @@ all original criteria genuinely pass. Stop/status controls remain
 `python -m fc_access.continuous_v1 stop` / `status`. Any later controlled stop,
 runtime repair or supervision gap must retain this segment and begin a new healthy
 segment after independently reconciled recovery, without replaying old commands.
+
+## Subsequent controlled stop
+
+This checkpoint was followed by a genuine identity/reconciliation incident at
+22:21:21 UTC. The run stopped safely and sealed 651.545921 healthy seconds. A new
+actual 950-coin bid has an ACK but no independent exact outcome; it must not be
+confused with the already resolved 700-coin decision-only reservation. The
+runtime selector-retention defect was diagnosed, repaired, tested and pushed,
+but the already lost mapping/effect remains unresolved. No restart occurred.
+The service was restored read-only and all owned runtime processes exited.
+See [the new incident report](incident-identity-01/REPORT.md) for the exact
+evidence, known/unknown effects, repair, new matrix case and remaining prerequisite.

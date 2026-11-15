@@ -284,4 +284,55 @@ class OperationalAcceptance(unittest.TestCase):
                              for r in self.rows))
 
 
+class ActualBidIncident(unittest.TestCase):
+    def setUp(self):
+        self.index=load(OUT/'production-02/stopped-evidence-index.json')
+        exports=lines(ROOT/self.index['export_events'])
+        self.bundle=Path([r for r in exports if r['kind']=='CAPTURED'][-1]['path'])
+
+    def test_all_acceptance_checks_remain_independent_and_new_actual_bid_prevents_completion(self):
+        result=assess_task(self.index)
+        status={r['criterion']:r for r in result['results']}
+        self.assertEqual(set(status),set(range(10)))
+        self.assertEqual(result['status'],'INCOMPLETE')
+        self.assertEqual(status[2]['reason'],'bid_not_independently_reconciled')
+        self.assertEqual(status[3]['reason'],'healthy_segment_interrupted')
+        self.assertEqual(status[5]['reason'],'runtime_repair_waiting_for_independent_reconciliation')
+        self.assertEqual(status[9]['status'],'PASS')
+
+    def test_original_blocker_is_resolved_but_actual_dispatched_bid_stays_reserved_and_never_replays(self):
+        with closing(read_db(self.bundle/'journal.sqlite3')) as db:
+            self.assertEqual(db.execute('SELECT phase FROM capacity_slots_v1 WHERE trade_id=?',
+                ('trade:057aeb82a3b167642da7aeee',)).fetchone(),('WITHDRAWN',))
+            self.assertEqual(db.execute('SELECT phase FROM capacity_slots_v1 WHERE trade_id=?',
+                ('trade:86f34fb6234c8c320dceeede',)).fetchone(),('UNRESOLVED',))
+            self.assertEqual(db.execute('SELECT amount,state FROM commands WHERE id=?',
+                ('ff4174653771149736e63b1ac12630f9',)).fetchone(),(950,'ACKNOWLEDGED'))
+            self.assertIsNone(db.execute('SELECT proof FROM admission_withdrawals_v1 WHERE trade_id=?',
+                ('trade:86f34fb6234c8c320dceeede',)).fetchone())
+        with closing(read_db(self.bundle/'native.sqlite3')) as db:
+            claims=[json.loads(b)['kind'] for (b,) in db.execute('SELECT body FROM native_events WHERE id=?',
+                ('ff4174653771149736e63b1ac12630f9',))]
+            self.assertEqual(claims.count('DISPATCH_CLAIM'),1)
+
+    def test_post_gate_timeout_is_not_misrepresented_as_an_executed_account_operation(self):
+        cid='e84dcddef494468d3e12a2766ccd6fba'
+        with closing(read_db(self.bundle/'native.sqlite3')) as db:
+            self.assertEqual(db.execute('SELECT state,reason,started FROM work WHERE id=?',(cid,)).fetchone(),
+                             ('UNKNOWN','CALLER_TIMEOUT',None))
+        with closing(read_db(self.bundle/'transport.sqlite3')) as db:
+            self.assertIsNone(db.execute('SELECT id FROM commands WHERE id=?',(cid,)).fetchone())
+        changed=deepcopy(self.index);changed['cancelled_before_dispatch']=[]
+        with self.assertRaisesRegex(ValueError,'unresolved_capture_findings'):assess_task(changed)
+
+    def test_new_selector_failure_has_native_evidence_and_safe_readonly_state(self):
+        base=OUT/'production-02/incident-identity-01'
+        record=next(r for r in lines(base/'exact-status.jsonl') if r['kind']=='NATIVE_READ')
+        self.assertEqual(record['response']['result']['error'],'known_identity_unavailable')
+        self.assertEqual(record['response']['freshness']['request_count'],0)
+        self.assertEqual(record['command']['params']['trade_id'],'trade:86f34fb6234c8c320dceeede')
+        self.assertFalse(load(base/'readonly-health.json')['health']['mutations_enabled'])
+        self.assertTrue(load(base/'process-stop.json')['verified_actor_exit'])
+
+
 if __name__=='__main__':unittest.main(verbosity=2)

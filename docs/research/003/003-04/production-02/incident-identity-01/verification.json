@@ -1,0 +1,39 @@
+{
+  "task": "003-04",
+  "live_acceptance": "INCOMPLETE",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_live.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "at": "2026-11-15T22:39:01.572126+00:00",
+      "stdout": "focused-stdout.txt",
+      "stderr": "focused-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_exporter.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "at": "2026-11-15T22:39:02.100788+00:00",
+      "stdout": "exporter-stdout.txt",
+      "stderr": "exporter-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00304_live.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "at": "2026-11-15T22:39:02.633172+00:00",
+      "stdout": "acceptance-stdout.txt",
+      "stderr": "acceptance-stderr.txt"
+    }
+  ]
+}
