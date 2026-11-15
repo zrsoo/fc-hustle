@@ -184,6 +184,41 @@ class OperationalAcceptance(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'four_consecutive_healthy_hours_missing'):
             segment_contract(sample_rows(14390),'fixture')
 
+    def test_prepared_bid_intent_only_counts_when_later_independently_reconciled(self):
+        rows=sample_rows(40)
+        rows[3]['body']['intents']=[dict(command_id='fixture-bid',state='UNKNOWN',age_seconds=12)]
+        self.assertEqual(segment_contract(rows,'fixture',minimum=30,resolved_intents={'fixture-bid'}),40)
+        with self.assertRaisesRegex(ValueError,'unresolved_or_synthetic_health'):
+            segment_contract(rows,'fixture',minimum=30)
+        rows[3]['body']['intents'][0]['age_seconds']=121
+        with self.assertRaisesRegex(ValueError,'unresolved_or_synthetic_health'):
+            segment_contract(rows,'fixture',minimum=30,resolved_intents={'fixture-bid'})
+
+    def test_process_startup_grace_is_excluded_from_consecutive_actor_coverage(self):
+        rows=sample_rows(40);rows[1]['body']['actors'].pop('acquirer')
+        self.assertEqual(segment_contract(rows,'fixture',minimum=30),30)
+        with self.assertRaisesRegex(ValueError,'four_consecutive_healthy_hours_missing'):
+            segment_contract(rows,'fixture',minimum=40)
+
+    def test_first_personal_bid_can_be_the_native_minimum_above_an_existing_competitor_bid(self):
+        before=dict(command=dict(id='search',operation='search'),response=dict(result=dict(success=True,auctions=[dict(
+            trade_id='trade',item=dict(item_id='physical',definition_id=123),starting_bid=700,current_bid=750,
+            bid_state='none')]),freshness=dict(network_at='2030-01-01T00:00:00Z')))
+        funds=dict(command=dict(id='balance',operation='balance'),response=dict(result=dict(success=True,credits=60000)))
+        helper=dict(command=dict(id='helper',operation='price_helpers'),response=dict(result=dict(success=True,
+            probes=[dict(direction='above',value=750,price=800)])))
+        bid=dict(command=dict(id='bid',operation='bid',params=dict(status_read_id='search',balance_read_id='balance',
+            trade_id='trade',item_id='physical',definition_id=123,minimum=800,amount=800,cap=4300)),
+            response=dict(result=dict(success=True),freshness=dict(network_at='2030-01-01T00:00:01Z')))
+        after=deepcopy(before);after['command']=dict(id='watched',operation='watched')
+        after['response']['freshness']['network_at']='2030-01-01T00:00:02Z'
+        after['response']['result']['auctions'][0].update(current_bid=800,bid_state='highest')
+        values=[before,funds,helper,bid,after]
+        observations=dict(registry=[dict(kind='ENROLLMENT',trade_id='trade')])
+        self.assertTrue(semantic_case('minimum_initial_bid',values,observations))
+        bid['command']['params']['amount']=850
+        self.assertFalse(semantic_case('minimum_initial_bid',values,observations))
+
     def test_gap_stop_fix_exception_and_restart_never_sum_to_four_hours(self):
         for kind in ('STOP_REQUESTED','RUN_STOPPED','SUPERVISION_GAP','INCIDENT','EXCEPTION'):
             rows=sample_rows();rows.append(dict(run='fixture',kind=kind,seq=len(rows)+1,body={}))

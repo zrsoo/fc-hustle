@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "id": "00304-20261115T171217Z-unmapped-commitment",
+  "task": "003-04",
+  "run": "c7485d279225b0b726a5f6117a68ba10",
+  "recorded_at": "2026-11-15T17:19:42.852598+00:00",
+  "trigger_control_seqs": [
+    35
+  ],
+  "triggering_command_id": "60a7acdb2ee52d51bdf35bb092b4ed7f",
+  "triggering_condition": "Fresh startup watched/inventory reads do not map the preserved decision-only reservation; executor exception at control seq 35.",
+  "evidence_command_ids": [
+    "ecb7d5cc9d470730218e1a2f352312f5",
+    "8e30248fcd97d939018e822f121cc15c",
+    "60a7acdb2ee52d51bdf35bb092b4ed7f",
+    "bc93151a719733f812c305ed70fda017"
+  ],
+  "known_account_effects": {
+    "ea_mutations": 0,
+    "new_ea_gets": 7,
+    "native_status_gets": 0,
+    "credits": 62827,
+    "complete_transfer_list_occupied": 5,
+    "reserved_coins": 700,
+    "pending_mutation_intents": 0,
+    "actors_launched": false
+  },
+  "unknown_account_effects": {
+    "historical_auction_terminal_state": "UNKNOWN. Missing watched coverage is not LOST proof. No current native reverse mapping is available for the exact retained trade/item/version."
+  },
+  "root_cause": "An older decision-only Foundation.admit persisted an ENROLLED policy reservation, but no bid was dispatched. The historical auction is absent from current watched/native mappings. The reviewed recovery policy correctly refuses to release an unmapped reservation; the exact status diagnostic returns known_identity_unavailable before any EA request. This is an identity/reconciliation prerequisite, not a runtime crash defect to bypass.",
+  "fix": {
+    "runtime_change": true,
+    "pushed_revision": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
+    "disposition": "Explicitly authorized, certified withdrawal of never-dispatched admission; auction terminal state stays UNKNOWN.",
+    "receipt": "decision-withdrawal-01/application.json"
+  },
+  "regression_results": {
+    "exit_code": 0,
+    "tests_run": 879,
+    "receipt": "production-02/withdrawal-regressions.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "956a2d483cf70c2d440709ed20a312fe",
+    "control_seq": 81,
+    "read_ids": [
+      "04db312fefe0887057dc1a204f72d58a",
+      "1c9cd0ac7acf55edf7393898d37f3fc6",
+      "5d9d72c8c65db7ad6b1cc344cab11ebf"
+    ]
+  },
+  "resolution": "REPAIRED",
+  "human_or_external_prerequisite": {
+    "minimal_action": "Supply independently verifiable official native evidence resolving this exact retained trade/item/version, or explicitly amend the preserve-and-gate policy to permit audited withdrawal of a proven decision-only reservation. A login or extension click alone does not resolve it.",
+    "prohibited_workarounds": [
+      "guessing or reversing historical native IDs",
+      "dropping the reservation",
+      "equating missing watched rows with LOST",
+      "replaying old commands",
+      "starting on a new empty journal",
+      "resetting consumed windows or budgets"
+    ]
+  },
+  "safe_state": {
+    "control_stop_seq": 42,
+    "verified_all_owned_exits": true,
+    "read_only_service_receipt": "restored-health.json",
+    "watchdog_stopped_with_segment": true,
+    "healthy_seconds": 0
+  },
+  "prior_incident": "incident-00304-20261115T171217Z.json"
+}

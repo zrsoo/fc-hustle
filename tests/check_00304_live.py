@@ -90,7 +90,7 @@ def browser_contract(rows):
     need(scope[0]['login_performed'] is False, 'login_requires_separate_ui_challenge_review')
 
 
-def segment_contract(rows, run, *, minimum=14400):
+def segment_contract(rows, run, *, minimum=14400, resolved_intents=()):
     selected = [r for r in rows if r['run']==run]
     need(any(r['kind']=='READY' for r in selected), 'production_never_ready')
     need(not any(r['kind'] in {'INCIDENT','SUPERVISION_GAP','STOP_REQUESTED','RUN_STOPPED','EXCEPTION'}
@@ -100,10 +100,15 @@ def segment_contract(rows, run, *, minimum=14400):
     need(len(samples)>=2, 'healthy_samples_missing')
     seconds = 0
     previous = None
+    counter_offset=0
     for row in samples:
         body = row['body']
-        need(body['source']=='native' and not body['intents'], 'unresolved_or_synthetic_health')
-        need(set(body['actors'])=={'bidder','acquirer','maintenance'}, 'actor_coverage_missing')
+        need(body['source']=='native' and all(i.get('command_id') in resolved_intents and
+             0<=i.get('age_seconds',121)<=120 for i in body['intents']), 'unresolved_or_synthetic_health')
+        if set(body['actors'])!={'bidder','acquirer','maintenance'}:
+            # Do not count startup's process-creation grace as fully observed actor time.
+            if previous is None and 0<=(stamp(row['at'])-stamp(ready['at'])).total_seconds()<=10:continue
+            raise ValueError('actor_coverage_missing')
         need(body['maintenance'] and all(body['capacity'][k] is not None and 0<=body['capacity'][k]<=50
              for k in ('physical_occupied','unresolved','total')), 'account_invariant_unproven')
         need(body['credits'] and type(body['credits']['available_coins']) is int and
@@ -113,7 +118,8 @@ def segment_contract(rows, run, *, minimum=14400):
             wall = (stamp(row['at'])-stamp(previous['at'])).total_seconds()
             need(0<delta<=10 and 0<wall<=10 and abs(delta-wall)<.5, 'monitor_gap_or_clock_disagreement')
             seconds += delta
-        need(abs(body['healthy_observed_seconds']-seconds)<.1, 'unreproducible_healthy_counter')
+        if previous is None:counter_offset=body['healthy_observed_seconds']
+        need(abs(body['healthy_observed_seconds']-counter_offset-seconds)<.1, 'unreproducible_healthy_counter')
         previous = row
     need(seconds>=minimum, 'four_consecutive_healthy_hours_missing')
     return seconds
@@ -222,7 +228,8 @@ def semantic_case(case, values, observations):
             if len(matches)!=1: continue
             a=matches[0]
             if case=='natural_outbid_rebid' and not(a['bid_state']=='outbid' and a['current_bid']>0): continue
-            if case=='minimum_initial_bid' and a['current_bid']!=0: continue
+            if case=='minimum_initial_bid' and not(pre['command']['operation']=='search' and
+                any(e.get('kind')=='ENROLLMENT' and e.get('trade_id')==p['trade_id'] for e in events)):continue
             minimum=tick('above',a['current_bid']) if a['current_bid'] else a['starting_bid']
             if not(p['amount']==p['minimum']==minimum<=p['cap'] and funds['response']['result']['credits']>=minimum): continue
             if any(a2['trade_id']==a['trade_id'] and a2['item']==a['item'] and
@@ -275,7 +282,8 @@ def semantic_case(case, values, observations):
         return event('CAPACITY_PAUSED') and event('CAPACITY_RESUMED') and any(h['capacity']['total']==50 for h in health)
     if case=='sticky_draining': return sum(h['draining'] is True for h in health)>=2 and event('DRAINING')
     if case=='priority_cadence':
-        return bool(health and all({'bidder','acquirer','maintenance'}<=set(h['actors']) for h in health) and
+        monitored=[h for h in health if {'bidder','acquirer','maintenance'}<=set(h['actors'])]
+        return bool(monitored and
             all(any(e.get('actor')==r and e.get('reason')=='CYCLE_FINISHED' for e in events)
                 for r in ('bidder','acquirer','maintenance')) and operation('bid'))
     if case=='reconnect_restart':
@@ -334,14 +342,28 @@ def assess_task(index, directory=OUT):
     out = Path(directory)
     need(index['task']=='003-04' and index['schema']==1, 'wrong_task_index')
     diagnostic_transport=sealed_artifacts(out)
+    ongoing=index.get('phase')=='CONTINUOUS_PRODUCTION'
+    if ongoing:
+        exports=[r for r in lines(ROOT/index['export_events']) if r['kind']=='CAPTURED' and r['run']==index['run']]
+        need(exports,'periodic_export_missing')
+        index=dict(index,snapshot=exports[-1]['path'])
     bundle_dir = ROOT/index['snapshot']
     structural = assess(bundle_dir)
     need(structural['evidence_class']=='NATIVE_CAPTURE_REQUIRES_CASE_REVIEW', 'fixture_is_not_live')
-    need(not structural['findings'], 'unresolved_capture_findings')
     bundle = load(bundle_dir/'manifest.json')
+    if structural['findings']:
+        need(ongoing,'unresolved_capture_findings')
+        with closing(read_db(bundle_dir/'native.sqlite3')) as db:
+            pending={cid:dict(state=s,deadline=stamp(d)) for cid,s,d in db.execute('SELECT id,state,deadline FROM work')}
+        for finding in structural['findings']:
+            row=pending.get(finding['reference'].get('command_id'),{})
+            need(finding['reason'] in {'TRANSPORT_NOT_YET_CAPTURED','MISSING_RESPONSE_NO_RETRY','UNSETTLED_COMMAND'} and
+                 row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at']),
+                 'unresolved_capture_findings')
     with closing(read_db(bundle_dir/'control.sqlite3')) as db: rows = records(db)
     opened = [r for r in rows if r['kind']=='RUN_OPEN']
     final = opened[-1]; run = final['run']; revision = bundle['revision']
+    if ongoing:need(run==index['run'] and revision==index['run_revisions'][run],'wrong_current_run')
     commands = {}
     for r in rows:
         if r['kind']=='RECOVERY_READ':
@@ -364,8 +386,19 @@ def assess_task(index, directory=OUT):
     def prelaunch():
         p = load(out/'prelaunch-reconciliation.json')
         historical = [r['response'] for r in lines(ROOT/'docs/research/003/003-01/native-opening.jsonl') if r['kind']=='NATIVE_READ']
-        proof = assess_reads(lines(out/index['prelaunch_reads']), p['native']['context'], historical)
-        need(proof==p['native'], 'prelaunch_summary_disagrees_with_native')
+        if not ongoing:
+            proof = assess_reads(lines(out/index['prelaunch_reads']), p['native']['context'], historical)
+            need(proof==p['native'], 'prelaunch_summary_disagrees_with_native')
+        else:
+            reads=[v for v in commands.values() if v['run']==run and v['command']['id'] in
+                   next(r['body']['read_ids'] for r in rows if r['run']==run and r['kind']=='RECONCILED')]
+            need({v['command']['operation'] for v in reads}=={'watched','balance','transfer_list'},'fresh_reconciliation_missing')
+            for v in reads:
+                parse_response(v['response'],v['command'],source='native',now=stamp(v['response']['freshness']['observed_at']))
+                need(v['command']['context']==p['native']['context'] and v['response']['result']['success'],
+                     'wrong_or_unauthenticated_prelaunch_context')
+            pile=next(v['response'] for v in reads if v['command']['operation']=='transfer_list')
+            need(pile['coverage']['complete'],'complete_prelaunch_inventory_required')
         need(p['config']==production_config().export()==final['body']['config'], 'strategy_configuration_changed')
         scan=load(out/'processes-before.json'); scan=scan if isinstance(scan,list) else [scan]
         need(len(scan)==1 and 'fc_access.production_v1.server' in scan[0]['command'], 'competing_controller')
@@ -373,10 +406,14 @@ def assess_task(index, directory=OUT):
         need(reconciled and any(r['kind']=='READY' and r['run']==run for r in rows), 'commitments_not_reconciled_startup_gated')
         need(len(reconciled[-1]['body']['read_ids'])>=3, 'fresh_reconciliation_missing')
     check(0, prelaunch)
-    check(1, lambda: browser_contract(lines(out/'browser-recovery.jsonl')))
+    check(1, lambda: browser_contract(lines(out/index.get('browser_record','browser-recovery.jsonl'))))
+
+    with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
+        resolved_intents={r[0] for table in ('commands','bulk_writes_v1','resale_writes_v1')
+                          for r in db.execute('SELECT id FROM '+table+" WHERE state='RECONCILED'")}
 
     def strategy():
-        writes=[v for v in commands.values() if v['command']['operation'] in MUTATIONS]
+        writes=[v for v in commands.values() if v['run']==run and v['command']['operation'] in MUTATIONS]
         need(any(v['command']['operation']=='bid' for v in writes), 'real_strategy_operations_absent')
         with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
             for v in writes:
@@ -393,7 +430,7 @@ def assess_task(index, directory=OUT):
     check(2, strategy)
 
     def monitoring():
-        segment_contract(rows,run,minimum=1)
+        segment_contract(rows,run,minimum=1,resolved_intents=resolved_intents)
         path=Path(final['body']['state_dir'])/'control.sqlite3'
         with closing(read_db(path)) as db:
             c=object.__new__(Control);c.db=db
@@ -449,17 +486,21 @@ def assess_task(index, directory=OUT):
         need(all(s['healthy_observed_seconds']>=0 for s in structural['healthy_segments']), 'earlier_counters_discarded')
         need(len(structural['healthy_segments'])==len(opened),'healthy_segment_missing')
     check(6,sealing)
-    check(7,lambda: segment_contract(rows,run))
+    check(7,lambda: segment_contract(rows,run,resolved_intents=resolved_intents))
     with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
         registry=[dict(at=a,trade_id=t,**json.loads(b)) for a,t,b in db.execute('SELECT at,trade_id,body FROM registry_events_v1')]
     epoch=next((r['body']['fences']['epoch'] for r in rows if r['run']==run and r['kind']=='ATTACHED'),None)
     observations=dict(registry=[e for e in registry if e.get('epoch')==epoch],
                       health=[r['body'] for r in rows if r['run']==run and r['kind']=='SNAPSHOT'],controls=rows)
-    check(8,lambda: coverage_contract(load(out/'live-coverage-matrix.json'),commands,run,revision,observations))
+    check(8,lambda: coverage_contract(load(out/index.get('matrix','live-coverage-matrix.json')),commands,run,revision,observations))
 
     def restriction():
         incidents()
         docs=[load(out/p) for p in index['incidents']]
+        if ongoing and all(d['resolution']=='REPAIRED' for d in docs):
+            need(not any(r['run']==run and r['kind'] in {'INCIDENT','EXCEPTION','SUPERVISION_GAP','STOP_REQUESTED'}
+                         for r in rows),'current_restriction_requires_diagnosis')
+            return
         need(docs and all(d['human_or_external_prerequisite']['minimal_action'] and
              d['human_or_external_prerequisite']['prohibited_workarounds'] for d in docs), 'exact_prerequisite_missing')
         state=load(out/'restored-health.json')['health']

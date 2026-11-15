@@ -1,0 +1,19 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 336.972,
+  "stdout": "decision-withdrawal-01/final-00-stdout.txt",
+  "stderr": "decision-withdrawal-01/final-00-stderr.txt",
+  "finished_at": "2026-11-15T22:06:29.751463+00:00",
+  "tests_run": 879,
+  "failures": 0,
+  "errors": 0
+}
