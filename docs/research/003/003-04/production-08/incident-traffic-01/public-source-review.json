@@ -1,0 +1,12 @@
+{
+  "scope": "PUBLIC_STATIC_CODE_REVIEW_ONLY_NO_BROWSER_STATE",
+  "urls": [
+    "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_1.js",
+    "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/ocompiled.js",
+    "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_4.js"
+  ],
+  "capture": "private-captures/003-04/public-native-20261116",
+  "javascript_executed": false,
+  "credential_or_session_values_read": false,
+  "review": "Public static string table resolved arithmetically, without evaluating source. Reviewed User.requestCurrencies and DAO getCurrencies; no force-fresh parameter. Public route categories are diagnostics only. Historical unexpected POST is not assigned a category. No source digest is enforced."
+}

@@ -1,0 +1,7 @@
+{
+  "command": [
+    "{python}",
+    "tests/check_00304_live.py"
+  ],
+  "exit_code": 1
+}

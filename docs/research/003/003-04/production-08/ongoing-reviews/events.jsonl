@@ -1,3 +1,31 @@
 {"at": "2026-11-16T13:00:41.723830+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
 {"at": "2026-11-16T13:00:58.823006+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
 {"at": "2026-11-16T13:01:15.817275+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:01:32.931060+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:01:50.052655+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:02:07.014885+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:02:23.837280+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:02:40.831522+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:02:57.704772+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:03:14.875406+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:03:31.825722+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:03:48.808853+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:04:05.768383+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:04:22.608284+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:04:39.487326+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:04:56.523251+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "IndexError"}
+{"at": "2026-11-16T13:05:17.792813+00:00", "kind": "REVIEWED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production08-periodic\\20261116T130508Z-2e78cb91", "receipt": "docs\\research\\003\\003-04\\production-08\\ongoing-reviews\\review-000001.json", "status": "INCOMPLETE", "verified_cases": ["discovery_pagination", "cached_pricing", "native_legality_admission", "minimum_initial_bid", "leading_hold", "cap_stop", "occupancy_reservations", "priority_cadence", "reconnect_restart", "normal_noop_rejection", "identity_freshness"], "unverified_cases": ["fresh_pricing", "natural_outbid_rebid", "won", "lost", "physical_ownership", "stored_price_listing", "sold_clear", "expired_relist", "capacity_pause_resume", "sticky_draining", "uncertain_reconciliation", "unrelated_browser_activity", "lost_supervision", "post_bid_selector_reconciliation"], "stop_for_missing_event": false, "threshold_shutdown": false}
+{"at": "2026-11-16T13:10:24.868901+00:00", "kind": "REVIEWED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production08-periodic\\20261116T131009Z-4c5002e5", "receipt": "docs\\research\\003\\003-04\\production-08\\ongoing-reviews\\review-000002.json", "status": "INCOMPLETE", "verified_cases": ["discovery_pagination", "cached_pricing", "native_legality_admission", "minimum_initial_bid", "leading_hold", "cap_stop", "lost", "occupancy_reservations", "priority_cadence", "reconnect_restart", "normal_noop_rejection", "identity_freshness"], "unverified_cases": ["fresh_pricing", "natural_outbid_rebid", "won", "physical_ownership", "stored_price_listing", "sold_clear", "expired_relist", "capacity_pause_resume", "sticky_draining", "uncertain_reconciliation", "unrelated_browser_activity", "lost_supervision", "post_bid_selector_reconciliation"], "stop_for_missing_event": false, "threshold_shutdown": false}
+{"at": "2026-11-16T13:14:41.299403+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:14:57.835760+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:15:14.520357+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:15:31.161820+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:15:47.706070+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:16:04.264635+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:16:21.261853+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:16:37.884236+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:16:54.466070+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:17:10.940558+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:17:27.639879+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:17:44.063580+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}
+{"at": "2026-11-16T13:18:00.605386+00:00", "kind": "REVIEW_FAILED", "run": "a19ffc3e44a3c5ec3374a7bfece9b404", "error_type": "ValueError"}

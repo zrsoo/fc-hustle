@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T131434Z-unclassified-ambient-post",
+  "task": "003-04",
+  "run": "a19ffc3e44a3c5ec3374a7bfece9b404",
+  "recorded_at": "2026-11-16T13:25:15.900731+00:00",
+  "trigger_control_seqs": [
+    67429,
+    67431
+  ],
+  "triggering_command_id": "91186a211aac82aceceaa141ba77799c",
+  "evidence_command_ids": [
+    "91186a211aac82aceceaa141ba77799c",
+    "acc4146826a4eb495b3fea4dcc8c7fc3"
+  ],
+  "known_account_effects": {
+    "failed_operation": "balance",
+    "owned_mutation_dispatched_by_failed_command": false,
+    "native_requests": [
+      {
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "POST",
+        "path": "/unexpected",
+        "query": {},
+        "session_header_present": true,
+        "status": 200
+      },
+      {
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "path": "/ut/game/fc27/trade/status/lite",
+        "query": {},
+        "session_header_present": true,
+        "status": 200
+      },
+      {
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "path": "/ut/game/fc27/user/credits",
+        "query": {},
+        "session_header_present": true,
+        "status": 200
+      }
+    ],
+    "credits_last_verified": {
+      "age_seconds": 9.434608,
+      "available_coins": 63702,
+      "kind": "CREDITS",
+      "network_at": "2026-11-16T13:14:24.091000+00:00",
+      "read_id": "c8d5e8ba344140d89c33b8a0e5776c81"
+    },
+    "capacity_last_verified": {
+      "fresh": true,
+      "occupied": 5,
+      "pending_resale": 0,
+      "pending_resale_trades": [],
+      "physical_occupied": 5,
+      "read_id": "0abe0fd704e8f4d1c7f12b06b9c8be9e",
+      "total": 6,
+      "unresolved": 1
+    },
+    "owned_unresolved_mutation_intents": 0
+  },
+  "unknown_account_effects": {
+    "unclassified_POST_source": "UNKNOWN: a concurrent authenticated POST under official UTAS was sanitized to /unexpected. No evidence identifies its exact route, initiator or body.",
+    "unclassified_POST_account_effects": "UNKNOWN: native200 alone does not identify or prove its account effects. Current owned mutation ledger has no unresolved writes, but that does not certify unrelated account activity.",
+    "zero_request_historical_balance": "The earlier owner94 callback with0XHR remains a separate incident. Public User.requestCurrencies/getCurrencies source has no force-fresh argument; cache/coalescing remains unproven, so no unsupported cache/retry workaround is introduced."
+  },
+  "root_cause": "The command-wide XHR capture observed overlapping UTAS POST/unexpected, GET/trade/status/lite and GET/user/credits. The exact operation network guard rejected this ambiguous attribution and preserved no fresh funds. Existing diagnostic privacy projection removes unreviewed paths, leaving the unexpected POST route/initiator unrecoverable retrospectively. Do not relabel it telemetry or assume a competing controller.",
+  "fix": {
+    "runtime_change": true,
+    "pushed_revision": null,
+    "source": [
+      "browser/production-v1/page.js",
+      "browser/production-v1/diagnostics.js",
+      "fc_access/production_v1/diagnostics.py"
+    ],
+    "disposition": "Add positive-allowlist route group diagnostics for unclassified EA requests. Do not export unknown paths, URL/query/body/header values. Keep every exact native network/freshness/identity guard, poisoned-document stop and one-use delivery unchanged. The historical POST remains unclassified."
+  },
+  "regression_results": {
+    "status": "RUNNING",
+    "receipt": "production-08/incident-traffic-01/offline-01/results.json"
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED"
+  },
+  "resolution": "DIAGNOSTIC_REPAIR_REGRESSIONS_RUNNING",
+  "safe_state": {
+    "stop_control_seq": 67442,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 861.4744163016439,
+    "all_owned_runtime_exited": true,
+    "service_stopped_before_edit": true,
+    "pre_repair": "production-08/incident-traffic-01/pre-repair.json",
+    "before_snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production08-periodic\\20261116T131435Z-e2bc99b0"
+  },
+  "human_or_external_prerequisite": {
+    "status": "NOT_ESTABLISHED",
+    "reason": "No challenge or missing credential has been observed. Source/account effects of the actual overlapping POST remain unknown. Independent fresh account reconciliation is required before a new owner."
+  }
+}

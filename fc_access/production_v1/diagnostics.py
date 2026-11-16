@@ -3,7 +3,7 @@ from datetime import datetime,timezone
 import math
 from .contracts import fields,integer,stamp,ERRORS,ROUTES,METADATA_PATH
 
-STAGES={'BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA',
+STAGES={'UNCLASSIFIED_EA_REQUEST','BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA',
         'ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED','WORKER_EXECUTE','WORKER_RESULT',
         'WORKER_POST_RESULT','WORKER_ACK','WORKER_FAILURE'}
 TYPES={'undefined','null','boolean','number','string','object','array','function'}
@@ -39,6 +39,7 @@ def validate_records(records):
             elif key=='reason':valid=value in {'local_rejected','worker_exception'}
             elif key=='traffic_scope':valid=value in {'ea_read','ea_write','outside_ut'}
             elif key=='method':valid=value in {'GET','POST','PUT','DELETE','OTHER'}
+            elif key=='route_group':valid=value in {'SETTINGS','USER_MASSINFO','USER','CLUB','SQUAD','STORE','FAVORITES','AUCTIONHOUSE','ITEM','OTHER'}
             elif key=='violation':valid=value in {'body','query','route','duplicate'}
             else:valid=False
             if not valid:raise ValueError('invalid_diagnostic')

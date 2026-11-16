@@ -1,0 +1,99 @@
+{
+  "at": "2026-11-16T13:22:51.374618+00:00",
+  "all_runtime_exited": true,
+  "remaining_processes": [],
+  "read_only_service_stopped_before_edit": true,
+  "owned_service_pid": 9488,
+  "healthy_seconds": 861.4744163016439,
+  "command": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "c8c58c1ea5c56f822af17073510a70cb",
+      "epoch": 105,
+      "host_epoch": "163da95b1306fbd570d69234f30850d0",
+      "owner": "c57895632ab45bd04dd73dc91a4481ce",
+      "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+    },
+    "id": "91186a211aac82aceceaa141ba77799c",
+    "operation": "balance",
+    "params": {},
+    "schema": 2
+  },
+  "response": {
+    "command_id": "91186a211aac82aceceaa141ba77799c",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "coverage": {
+      "complete": false,
+      "has_more": null
+    },
+    "fences": {
+      "document": "c8c58c1ea5c56f822af17073510a70cb",
+      "epoch": 105,
+      "host_epoch": "163da95b1306fbd570d69234f30850d0",
+      "owner": "c57895632ab45bd04dd73dc91a4481ce",
+      "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+    },
+    "freshness": {
+      "network_at": null,
+      "observed_at": "2026-11-16T13:14:33.989Z",
+      "read_id": "91186a211aac82aceceaa141ba77799c",
+      "request_count": 3,
+      "source": "native"
+    },
+    "operation": "balance",
+    "result": {
+      "auctions": null,
+      "cache_invalidated": false,
+      "caps": null,
+      "credits": null,
+      "error": "ambiguous_network",
+      "items": null,
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "POST",
+          "path": "/unexpected",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        },
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/trade/status/lite",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        },
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/user/credits",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ],
+      "status": 200,
+      "success": false
+    },
+    "schema": 2,
+    "timing": {
+      "ea_rtt_ms": 232.19999998807907,
+      "native_helper_ms": 0,
+      "native_service_ms": 928.3000000119209
+    }
+  }
+}

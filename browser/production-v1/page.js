@@ -239,6 +239,18 @@
           }
           // Unknown paths are represented by a constant, never a raw identifier.
           m={host:u.hostname,method:['GET','PUT','POST','DELETE'].includes(method)?method:'OTHER',path:path===metadataPath || Object.values(routes).some(r=>r[1]===path)?path:'/unexpected',query,status:null,session_header_present:false};
+          if(m.path==='/unexpected'){
+            // Diagnostic categories only: never export an unknown URL/path,
+            // query, request body or header value. This does not allow traffic
+            // through the command's existing exact network/freshness guard.
+            const relative=u.pathname.slice('/ut/game/fc27/'.length);
+            const groups={settings:'SETTINGS',usermassinfo:'USER_MASSINFO',user:'USER',
+              club:'CLUB',squad:'SQUAD',store:'STORE',favorites:'FAVORITES',
+              auctionhouse:'AUCTIONHOUSE',item:'ITEM'};
+            const key=relative.split('/')[0];
+            diagnostic(c.id,'UNCLASSIFIED_EA_REQUEST',{method:m.method,
+              route_group:Object.hasOwn(groups,key)?groups[key]:'OTHER'});
+          }
           if(bulk(c.operation) && u.search!=='')m.path='/unexpected';
         }
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}

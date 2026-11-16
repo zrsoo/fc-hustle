@@ -12,7 +12,8 @@
     "production-05/resolved-read-incident.json",
     "production-06/resolved-lock-incident.json",
     "production-07/resolved-native-incident.json",
-    "production-08/resolved-rebid-incident.json"
+    "production-08/resolved-rebid-incident.json",
+    "production-08/incident-traffic-01/incident.json"
   ],
   "runtime_fixes": [
     {
@@ -54,7 +55,7 @@
       "regression_receipt": "production-05/incident-lock-01/repair-regressions.json"
     }
   ],
-  "status": "SUPERVISED_CONTINUOUS_PRODUCTION",
+  "status": "STOPPED_AMBIGUOUS_BACKGROUND_TRAFFIC_DIAGNOSTIC_REPAIR",
   "phase": "CONTINUOUS_PRODUCTION",
   "run": "a19ffc3e44a3c5ec3374a7bfece9b404",
   "export_events": "private-captures/continuous-evidence/00304-production08-periodic/events.jsonl",
@@ -84,7 +85,13 @@
     "production-03/incident-outcome-01/followup-status.jsonl"
   ],
   "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
-  "pending_runtime_fixes": [],
+  "pending_runtime_fixes": [
+    {
+      "status": "REGRESSIONS_RUNNING_NOT_PUBLISHED",
+      "incident": "00304-20261116T131434Z-unclassified-ambient-post",
+      "restart_permitted": false
+    }
+  ],
   "processes_record": "production-08/processes-before.json",
   "launch_record": "production-08/launch.json",
   "diagnostic_runs": {

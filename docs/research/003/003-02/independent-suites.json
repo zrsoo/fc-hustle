@@ -13,8 +13,8 @@
       "exit_code": 0,
       "stdout": "independent-00-stdout.txt",
       "stderr": "independent-00-stderr.txt",
-      "elapsed_seconds": 0.282,
-      "finished": "2026-11-15T16:42:08.595925+00:00"
+      "elapsed_seconds": 0.25,
+      "finished": "2026-11-15T16:53:49.710456+00:00"
     },
     {
       "command": [
@@ -26,8 +26,8 @@
       "exit_code": 0,
       "stdout": "independent-01-stdout.txt",
       "stderr": "independent-01-stderr.txt",
-      "elapsed_seconds": 0.363,
-      "finished": "2026-11-15T16:42:08.958942+00:00"
+      "elapsed_seconds": 0.308,
+      "finished": "2026-11-15T16:53:50.018818+00:00"
     },
     {
       "command": [
@@ -37,8 +37,8 @@
       "exit_code": 0,
       "stdout": "independent-02-stdout.txt",
       "stderr": "independent-02-stderr.txt",
-      "elapsed_seconds": 0.356,
-      "finished": "2026-11-15T16:42:09.314780+00:00"
+      "elapsed_seconds": 0.27,
+      "finished": "2026-11-15T16:53:50.289314+00:00"
     },
     {
       "command": [
@@ -48,8 +48,8 @@
       "exit_code": 0,
       "stdout": "independent-03-stdout.txt",
       "stderr": "independent-03-stderr.txt",
-      "elapsed_seconds": 0.299,
-      "finished": "2026-11-15T16:42:09.614022+00:00"
+      "elapsed_seconds": 0.236,
+      "finished": "2026-11-15T16:53:50.525799+00:00"
     },
     {
       "command": [
@@ -59,8 +59,8 @@
       "exit_code": 0,
       "stdout": "independent-04-stdout.txt",
       "stderr": "independent-04-stderr.txt",
-      "elapsed_seconds": 3.878,
-      "finished": "2026-11-15T16:42:13.491669+00:00"
+      "elapsed_seconds": 3.666,
+      "finished": "2026-11-15T16:53:54.192051+00:00"
     }
   ],
   "status": "PASS"

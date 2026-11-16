@@ -36,6 +36,9 @@ function setup(mode='ok'){
           }
           if(mode==='unknownRead')wire('unknown',{});
           if(mode==='unexpectedWrite')wire('item',{},'PUT');
+          if(mode==='ambientSettings')wire('settings',{},'POST');
+          if(mode==='ambientUser')wire('user/'+secret,{},'POST');
+          if(mode==='ambientOther')wire('opaque/'+secret,{},'POST');
         }
         time+=mode==='stale'?31000:8;
         if(mode==='switchDuring')persona={platform:'PC',isPC:true};
