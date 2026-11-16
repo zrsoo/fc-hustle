@@ -1,0 +1,10 @@
+test_actual_page_failure_has_no_http_status_or_freshness_and_diagnostic_is_typed (__main__.ReadFailure.test_actual_page_failure_has_no_http_status_or_freshness_and_diagnostic_is_typed) ... ok
+test_actual_stopped_read_and_pending_bid_are_preserved_then_independently_reconciled (__main__.ReadFailure.test_actual_stopped_read_and_pending_bid_are_preserved_then_independently_reconciled) ... ok
+test_continuous_broker_retains_failed_result_stops_and_does_not_retry (__main__.ReadFailure.test_continuous_broker_retains_failed_result_stops_and_does_not_retry) ... ok
+test_documented_read_failure_is_diagnosable_but_cannot_waive_an_uncertain_mutation (__main__.ReadFailure.test_documented_read_failure_is_diagnosable_but_cannot_waive_an_uncertain_mutation) ... ok
+test_host_retains_entire_failed_envelope_and_never_replays_its_consumed_id (__main__.ReadFailure.test_host_retains_entire_failed_envelope_and_never_replays_its_consumed_id) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.173s
+
+OK

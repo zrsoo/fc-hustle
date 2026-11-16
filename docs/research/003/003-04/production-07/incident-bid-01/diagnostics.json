@@ -1,0 +1,138 @@
+{
+  "command": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "9fdbe74faee520ddbbe88d3e21fa4366",
+      "epoch": 100,
+      "host_epoch": "57424bcb426f8f4609ae8f011ed70b3e",
+      "owner": "f3996bcea9e05425af5c0c7f439e2f57",
+      "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+    },
+    "id": "f5cda85c74edb70030debf0df6d4b42e",
+    "operation": "bid",
+    "params": {
+      "amount": 1000,
+      "balance_read_id": "f0ed97dfaa0c16be48504b1b34585ec9",
+      "cap": 4500,
+      "deadline": "2026-11-16T12:53:42.800000+00:00",
+      "definition_id": 246272,
+      "item_id": "item:05e71cc2882a10ce6e6c8b3f",
+      "minimum": 1000,
+      "status_read_id": "f3c6a9660a944997a6471ea345b18981",
+      "trade_id": "trade:08bc043999dbbe5198079fd7"
+    },
+    "schema": 2
+  },
+  "response": {
+    "command_id": "f5cda85c74edb70030debf0df6d4b42e",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "coverage": {
+      "complete": false,
+      "has_more": null
+    },
+    "fences": {
+      "document": "9fdbe74faee520ddbbe88d3e21fa4366",
+      "epoch": 100,
+      "host_epoch": "57424bcb426f8f4609ae8f011ed70b3e",
+      "owner": "f3996bcea9e05425af5c0c7f439e2f57",
+      "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+    },
+    "freshness": {
+      "network_at": null,
+      "observed_at": "2026-11-16T12:53:41.435Z",
+      "read_id": "f5cda85c74edb70030debf0df6d4b42e",
+      "request_count": 1,
+      "source": "native"
+    },
+    "operation": "bid",
+    "result": {
+      "auctions": null,
+      "bid_receipt": {
+        "auction": {
+          "bid_state": "outbid",
+          "buy_now_price": 11000,
+          "current_bid": 1000,
+          "expires": 26,
+          "item": {
+            "definition_id": 246272,
+            "item_id": "item:05e71cc2882a10ce6e6c8b3f",
+            "last_sale_price": 0,
+            "untradeable": false
+          },
+          "native_is_won": false,
+          "starting_bid": 700,
+          "trade_id": "trade:08bc043999dbbe5198079fd7",
+          "trade_state": "active"
+        },
+        "before_bid_state": "outbid",
+        "input_stale": false,
+        "matching_item_count": 1,
+        "native_error_code": null,
+        "native_error_name": null,
+        "native_item_count": 1,
+        "native_success": true,
+        "reason": "MISSING_NATIVE_RECEIPT",
+        "schema": 1,
+        "verdict": "UNCONFIRMED",
+        "wire_amount": 1000,
+        "wire_amount_matches": true,
+        "wire_error_code": null,
+        "wire_identity_matches": true,
+        "wire_item_count": 1,
+        "wire_trade_id": "trade:08bc043999dbbe5198079fd7"
+      },
+      "cache_invalidated": false,
+      "caps": null,
+      "credits": null,
+      "error": "bid_unconfirmed",
+      "items": null,
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "PUT",
+          "path": "/ut/game/fc27/trade/:trade/bid",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ],
+      "status": 200,
+      "success": false
+    },
+    "schema": 2,
+    "timing": {
+      "ea_rtt_ms": 115.5,
+      "native_helper_ms": 0,
+      "native_service_ms": 117.80000001192093
+    }
+  },
+  "independent_proof": {
+    "definition_id": 246272,
+    "held": null,
+    "item_id": "item:05e71cc2882a10ce6e6c8b3f",
+    "paid": null,
+    "read_id": "781c54a9ca9583c236e4ffc126812274",
+    "spendable": 63702,
+    "state": "OUTBID"
+  },
+  "unsent_read": {
+    "command_id": "b91803b82ff6964ba5cbb8d0b6dadb5a",
+    "state": "UNKNOWN",
+    "reason": "CALLER_TIMEOUT",
+    "started": null,
+    "dispatch_claims": 0
+  },
+  "old_segment_seconds": 2536.060591800895
+}

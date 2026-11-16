@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T12:58:56.368249+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_rebid_recovery.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_balance_recovery.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_read_failure.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_live.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_receipt_continuation.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_status_fallback.py"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

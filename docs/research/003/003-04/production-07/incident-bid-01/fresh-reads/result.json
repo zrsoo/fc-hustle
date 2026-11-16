@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "actors_started": 0,
+  "account_mutations": 0,
+  "epoch": 103,
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "recovery": {
+    "read_ids": [
+      "781c54a9ca9583c236e4ffc126812274",
+      "71ddd4924c09a60c7041ef7b6597a1ad",
+      "8cb09f8bd04d1fb2363e970db7d4b34f"
+    ],
+    "occupied": 5,
+    "commitments": 1
+  },
+  "credits": 63702,
+  "capacity": {
+    "occupied": 5,
+    "physical_occupied": 5,
+    "unresolved": 1,
+    "pending_resale": 0,
+    "total": 6,
+    "fresh": true,
+    "read_id": "8cb09f8bd04d1fb2363e970db7d4b34f",
+    "pending_resale_trades": []
+  }
+}

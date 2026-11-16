@@ -1,0 +1,15 @@
+test_bidder_recovers_missing_watched_loss_with_one_exact_get_and_no_replay (__main__.StatusFallback.test_bidder_recovers_missing_watched_loss_with_one_exact_get_and_no_replay) ... ok
+test_empty_fallback_preserves_unknown_not_expiry_inference (__main__.StatusFallback.test_empty_fallback_preserves_unknown_not_expiry_inference) ... ok
+test_exact_pending_win_requires_independent_full_owned_item_and_paid_cost (__main__.StatusFallback.test_exact_pending_win_requires_independent_full_owned_item_and_paid_cost) ... ok
+test_explicit_different_version_is_not_replaced_by_retained_identity (__main__.StatusFallback.test_explicit_different_version_is_not_replaced_by_retained_identity) ... ok
+test_leading_readback_holds_and_active_outbid_never_uses_lite_as_write_authority (__main__.StatusFallback.test_leading_readback_holds_and_active_outbid_never_uses_lite_as_write_authority) ... ok
+test_missing_read_is_not_lost_by_expiry_and_conflicting_full_row_is_not_fallback_authority (__main__.StatusFallback.test_missing_read_is_not_lost_by_expiry_and_conflicting_full_row_is_not_fallback_authority) ... ok
+test_stale_fallback_is_not_current_proof (__main__.StatusFallback.test_stale_fallback_is_not_current_proof) ... ok
+test_startup_recovers_exact_missing_trade_without_reusing_intent (__main__.StatusFallback.test_startup_recovers_exact_missing_trade_without_reusing_intent) ... ok
+test_successful_lite_with_no_account_relation_cannot_infer_loss_even_above_cap (__main__.StatusFallback.test_successful_lite_with_no_account_relation_cannot_infer_loss_even_above_cap) ... ok
+test_wrong_physical_item_cannot_settle_bid (__main__.StatusFallback.test_wrong_physical_item_cannot_settle_bid) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.035s
+
+OK

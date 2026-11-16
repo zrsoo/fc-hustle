@@ -11,7 +11,8 @@
     "production-04/resolved-alvarez-incident.json",
     "production-05/resolved-read-incident.json",
     "production-06/resolved-lock-incident.json",
-    "production-07/resolved-native-incident.json"
+    "production-07/resolved-native-incident.json",
+    "production-07/incident-bid-01/incident.json"
   ],
   "runtime_fixes": [
     {
@@ -53,7 +54,7 @@
       "regression_receipt": "production-05/incident-lock-01/repair-regressions.json"
     }
   ],
-  "status": "SUPERVISED_CONTINUOUS_PRODUCTION",
+  "status": "STOPPED_UNCONFIRMED_REBID_INDEPENDENTLY_RECONCILED",
   "phase": "CONTINUOUS_PRODUCTION",
   "run": "760f9855eefafd615cb6ccf52be1748f",
   "export_events": "private-captures/continuous-evidence/00304-production07-periodic/events.jsonl",
@@ -72,7 +73,8 @@
     "e84dcddef494468d3e12a2766ccd6fba",
     "97d2b4e437f0d7f3990be2b6876e98a7",
     "57a7d48bfd6ac5712d7cf9b6cc6698f8",
-    "6e114044b10d7bd079e67d089e5a7b9c"
+    "6e114044b10d7bd079e67d089e5a7b9c",
+    "b91803b82ff6964ba5cbb8d0b6dadb5a"
   ],
   "additional_diagnostics": [
     "production-02/incident-identity-01/exact-status.jsonl",
