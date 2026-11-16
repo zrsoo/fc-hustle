@@ -199,7 +199,7 @@ def preserved_consumed_state(current, old):
             row = current.execute('SELECT item_id,definition_id,phase FROM capacity_slots_v1 WHERE scope=? AND trade_id=?',
                                   (scope,trade)).fetchone()
             need(row and row[:2] == (item,definition) and row[2] in {
-                'UNRESOLVED','PENDING_RESALE','RESALE_UNKNOWN','OCCUPIED','LOST','RELEASED','WITHDRAWN'},
+                'UNRESOLVED','PENDING_RESALE','RESALE_UNKNOWN','OCCUPIED','LOST','RELEASED','WITHDRAWN','OPERATOR_LOST'},
                 'historical_capacity_identity_changed')
     if 'capacity_inventory_v1' in tables:
         for scope, read_id, at, items in old.execute('SELECT * FROM capacity_inventory_v1'):

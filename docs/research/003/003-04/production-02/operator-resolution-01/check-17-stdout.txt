@@ -1,0 +1,1 @@
+PASS production native bulk: zero arguments, guarded single DELETE/PUT, independent reads, stable manual items, fences, semantics, ordinary worker dispatch; no research or recurring maintenance

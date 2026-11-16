@@ -1,0 +1,15 @@
+test_denied_fragmented_post_returns_403_without_parsing_or_retaining_body (test_market_discovery_followup_v1.FollowupHTTPTests.test_denied_fragmented_post_returns_403_without_parsing_or_retaining_body) ... ok
+test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (test_market_discovery_followup_v1.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication) ... ok
+test_live_assessment_requires_each_independent_layer (test_market_discovery_followup_v1.FollowupHTTPTests.test_live_assessment_requires_each_independent_layer) ... ok
+test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate (test_market_discovery_followup_v1.FollowupHTTPTests.test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate) ... ok
+test_existing_output_fails_before_any_browser_or_ea_operation (test_market_discovery_followup_v1.PersonaTests.test_existing_output_fails_before_any_browser_or_ea_operation) ... ok
+test_javascript_persona_pacing_identity_and_worker (test_market_discovery_followup_v1.PersonaTests.test_javascript_persona_pacing_identity_and_worker) ... ok
+test_malformed_native_reply_is_rejected_before_any_persistence (test_market_discovery_followup_v1.PersonaTests.test_malformed_native_reply_is_rejected_before_any_persistence) ... ok
+test_native_and_valid_alternative_projections (test_market_discovery_followup_v1.PersonaTests.test_native_and_valid_alternative_projections) ... ok
+test_reject_console_unknown_conflicting_malformed_and_private_projection (test_market_discovery_followup_v1.PersonaTests.test_reject_console_unknown_conflicting_malformed_and_private_projection) ... ok
+test_sealed_source_hashes_and_followup_extension_permissions (test_market_discovery_followup_v1.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.862s
+
+OK

@@ -1,0 +1,39 @@
+test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (test_market_discovery_followup_v1.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication) ... ERROR
+test_live_assessment_requires_each_independent_layer (test_market_discovery_followup_v1.FollowupHTTPTests.test_live_assessment_requires_each_independent_layer) ... ok
+test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate (test_market_discovery_followup_v1.FollowupHTTPTests.test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate) ... ok
+test_existing_output_fails_before_any_browser_or_ea_operation (test_market_discovery_followup_v1.PersonaTests.test_existing_output_fails_before_any_browser_or_ea_operation) ... ok
+test_javascript_persona_pacing_identity_and_worker (test_market_discovery_followup_v1.PersonaTests.test_javascript_persona_pacing_identity_and_worker) ... ok
+test_malformed_native_reply_is_rejected_before_any_persistence (test_market_discovery_followup_v1.PersonaTests.test_malformed_native_reply_is_rejected_before_any_persistence) ... ok
+test_native_and_valid_alternative_projections (test_market_discovery_followup_v1.PersonaTests.test_native_and_valid_alternative_projections) ... ok
+test_reject_console_unknown_conflicting_malformed_and_private_projection (test_market_discovery_followup_v1.PersonaTests.test_reject_console_unknown_conflicting_malformed_and_private_projection) ... ok
+test_sealed_source_hashes_and_followup_extension_permissions (test_market_discovery_followup_v1.PersonaTests.test_sealed_source_hashes_and_followup_extension_permissions) ... ok
+
+======================================================================
+ERROR: test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication (test_market_discovery_followup_v1.FollowupHTTPTests.test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\test_market_discovery_followup_v1.py", line 116, in test_diagnostics_are_origin_pinned_schema_limited_and_not_authentication
+    self.assertEqual(self.request('POST', '/persona', projection(), True,
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  {'Origin': 'chrome-extension://'+'b'*32})[0], 403)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\test_market_discovery_followup_v1.py", line 108, in request
+    response = con.getresponse()
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\http\client.py", line 304, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\socket.py", line 723, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.217s
+
+FAILED (errors=1)

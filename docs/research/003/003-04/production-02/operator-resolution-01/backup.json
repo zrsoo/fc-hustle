@@ -1,0 +1,25 @@
+{
+  "head": "2ecb23261fef73453a61075e2299bce2743338b5",
+  "databases": [
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "capture": "private-captures\\operator-loss\\20261115T235101Z\\0.sqlite3"
+    },
+    {
+      "source": "private-captures/final-remediation/native.sqlite3",
+      "capture": "private-captures\\operator-loss\\20261115T235101Z\\1.sqlite3"
+    },
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "capture": "private-captures\\operator-loss\\20261115T235101Z\\2.sqlite3"
+    },
+    {
+      "source": "private-captures/continuous-production/control.sqlite3",
+      "capture": "private-captures\\operator-loss\\20261115T235101Z\\3.sqlite3"
+    },
+    {
+      "source": ".orchestrator/state.db",
+      "capture": "private-captures\\operator-loss\\20261115T235101Z\\4.sqlite3"
+    }
+  ]
+}

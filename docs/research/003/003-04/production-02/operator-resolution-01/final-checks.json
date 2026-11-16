@@ -1,0 +1,34 @@
+[
+  {
+    "command": [
+      "{python}",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_market_discovery_followup_v1.py",
+      "-v"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 2.508,
+    "stdout": "final-00-stdout.txt",
+    "stderr": "final-00-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 335.281,
+    "stdout": "final-01-stdout.txt",
+    "stderr": "final-01-stderr.txt"
+  }
+]

@@ -98,6 +98,20 @@ class FollowupHandler(Handler):
         if self.path not in ('/persona', '/telemetry'):
             return super().do_POST()
         if not self.origin(extension=True):
+            # Closing with a normal POST body still unread can reset the TCP
+            # connection on Windows before the client receives our 403. Discard
+            # only a bounded body, without parsing or retaining denied input.
+            try:
+                length = int(self.headers.get('Content-Length', '0'))
+                if not self.headers.get('Transfer-Encoding') and 0 < length <= 262144:
+                    previous = self.connection.gettimeout()
+                    try:
+                        self.connection.settimeout(1)
+                        self.rfile.read(length)
+                    finally:
+                        self.connection.settimeout(previous)
+            except (OSError, ValueError):
+                pass
             return self.send(403, {'error': 'origin_denied'})
         try:
             value = self.payload()

@@ -1,0 +1,39 @@
+{
+  "outcome": "RESOLVED",
+  "proof": {
+    "schema": 1,
+    "source": "operator",
+    "outcome": "LOST",
+    "native_outcome_verified": false,
+    "command_id": "ff4174653771149736e63b1ac12630f9",
+    "scope": "e7fce7c176935f0b95dc3db91dd28521",
+    "identity": {
+      "trade_id": "trade:86f34fb6234c8c320dceeede",
+      "item_id": "item:6a39764a61664629878abd4a",
+      "definition_id": 271421,
+      "platform": "pc",
+      "game": "fc27"
+    },
+    "amount": 950,
+    "attestation": "User: we lost. what does it matter about the current bid? it expired and we lost, this SHOULD NOT be a blocker.",
+    "authorization": "User: okay, do that and then recheck. make sure the orchestrator is safely past this and then let it run on its own.",
+    "previous_command_state": "ACKNOWLEDGED",
+    "previous_owner": "dfba58756e6a2d386a57dbe83e339ef5",
+    "previous_epoch": 69,
+    "owner": "bb6d09861db982c6d301527f2ab05884",
+    "epoch": 70,
+    "at": "2026-11-15T23:54:22.934053+00:00",
+    "refund_claimed": false
+  },
+  "independent_checks": {
+    "historical_events_preserved": true,
+    "historical_registry_preserved": true,
+    "only_matching_command_state_changed": true,
+    "remaining_queued": 0,
+    "remaining_reserved_coins": 0,
+    "EA_requests": 0,
+    "account_mutations": 0,
+    "native_loss_claimed": false
+  },
+  "after_capture": "private-captures\\operator-loss\\20261115T235101Z\\after.sqlite3"
+}

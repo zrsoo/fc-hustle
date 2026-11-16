@@ -58,7 +58,7 @@ class AuctionQueue:
                     trade, data = event['trade_id'], event['data']
                     self.entries[trade] = None
                     self.identities[trade] = Identity(trade, data['item_id'], data['definition_id'])
-                elif event["reason"] in {"WON_VERIFIED", "LOST_VERIFIED", "ADMISSION_WITHDRAWN"}:
+                elif event["reason"] in {"WON_VERIFIED", "LOST_VERIFIED", "ADMISSION_WITHDRAWN", "OPERATOR_LOST_CONFIRMED"}:
                     identity = self.identities.get(event['trade_id'])
                     if event['reason'] == 'WON_VERIFIED' and identity:
                         self.pending_resale[event['trade_id']] = identity
@@ -165,7 +165,7 @@ class AuctionQueue:
             if capacity['total'] + 1 > self.pipeline_capacity:
                 return 'PIPELINE_FULL'
             if self.journal.db.execute("SELECT 1 FROM capacity_slots_v1 WHERE scope=? AND item_id=? "
-                    "AND phase NOT IN ('LOST','RELEASED','WITHDRAWN')", (self.scope, status.identity.item_id)).fetchone():
+                    "AND phase NOT IN ('LOST','RELEASED','WITHDRAWN','OPERATOR_LOST')", (self.scope, status.identity.item_id)).fetchone():
                 return 'CAPACITY_IDENTITY_CONFLICT'
             inventory = slots._inventory(self.journal, self.scope)
             if any(i[0] == status.identity.item_id for i in inventory[2]):

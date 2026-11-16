@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "mode": "LIVE_READ_ONLY",
+  "actors_started": 0,
+  "account_mutations": 0,
+  "operation_budget": 3,
+  "recovery": {
+    "read_ids": [
+      "2b1ac266f91476af8d51cb1dde0abb28",
+      "3dd154ba55a2ae8ec0301b6bb84f0201",
+      "96a21a6dcf98125dd3a7d7b009a72b55"
+    ],
+    "occupied": 5,
+    "commitments": 0
+  },
+  "native_requests": 3,
+  "scope": "e7fce7c176935f0b95dc3db91dd28521",
+  "epoch": 71,
+  "unresolved": 0,
+  "credits": 62827,
+  "capacity": {
+    "occupied": 5,
+    "physical_occupied": 5,
+    "unresolved": 0,
+    "pending_resale": 0,
+    "total": 5,
+    "fresh": true,
+    "read_id": "96a21a6dcf98125dd3a7d7b009a72b55",
+    "pending_resale_trades": []
+  },
+  "command_attempts": 3,
+  "responses": 3
+}

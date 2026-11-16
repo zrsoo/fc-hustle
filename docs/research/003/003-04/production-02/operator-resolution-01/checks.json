@@ -1,0 +1,307 @@
+[
+  {
+    "command": [
+      "{python}",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 338.684,
+    "stdout": "check-00-stdout.txt",
+    "stderr": "check-00-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/bidding_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.232,
+    "stdout": "check-01-stdout.txt",
+    "stderr": "check-01-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/browser_observer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.144,
+    "stdout": "check-02-stdout.txt",
+    "stderr": "check-02-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/bulk_background_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.274,
+    "stdout": "check-03-stdout.txt",
+    "stderr": "check-03-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/bulk_transfer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.15,
+    "stdout": "check-04-stdout.txt",
+    "stderr": "check-04-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/durability_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.125,
+    "stdout": "check-05-stdout.txt",
+    "stderr": "check-05-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/durability_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.291,
+    "stdout": "check-06-stdout.txt",
+    "stderr": "check-06-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/e2e_live_v2_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.144,
+    "stdout": "check-07-stdout.txt",
+    "stderr": "check-07-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/e2e_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.13,
+    "stdout": "check-08-stdout.txt",
+    "stderr": "check-08-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/final_inactive_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.107,
+    "stdout": "check-09-stdout.txt",
+    "stderr": "check-09-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/final_owned_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.114,
+    "stdout": "check-10-stdout.txt",
+    "stderr": "check-10-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/list_refresh_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.684,
+    "stdout": "check-11-stdout.txt",
+    "stderr": "check-11-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/market_discovery_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.262,
+    "stdout": "check-12-stdout.txt",
+    "stderr": "check-12-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/market_discovery_followup_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.24,
+    "stdout": "check-13-stdout.txt",
+    "stderr": "check-13-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/native_status_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.204,
+    "stdout": "check-14-stdout.txt",
+    "stderr": "check-14-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/occupancy_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.532,
+    "stdout": "check-15-stdout.txt",
+    "stderr": "check-15-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/pricing_timing_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.104,
+    "stdout": "check-16-stdout.txt",
+    "stderr": "check-16-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_bulk_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.771,
+    "stdout": "check-17-stdout.txt",
+    "stderr": "check-17-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_diagnostics_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.1,
+    "stdout": "check-18-stdout.txt",
+    "stderr": "check-18-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_inventory_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.787,
+    "stdout": "check-19-stdout.txt",
+    "stderr": "check-19-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_metadata_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.118,
+    "stdout": "check-20-stdout.txt",
+    "stderr": "check-20-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.482,
+    "stdout": "check-21-stdout.txt",
+    "stderr": "check-21-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/production_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.55,
+    "stdout": "check-22-stdout.txt",
+    "stderr": "check-22-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/read_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.237,
+    "stdout": "check-23-stdout.txt",
+    "stderr": "check-23-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/resale_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.48,
+    "stdout": "check-24-stdout.txt",
+    "stderr": "check-24-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/search_validation_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.083,
+    "stdout": "check-25-stdout.txt",
+    "stderr": "check-25-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/transaction_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.592,
+    "stdout": "check-26-stdout.txt",
+    "stderr": "check-26-stderr.txt"
+  },
+  {
+    "command": [
+      "node",
+      "tests/watched_bulk_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.22,
+    "stdout": "check-27-stdout.txt",
+    "stderr": "check-27-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/check_00301_baseline.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 3.72,
+    "stdout": "check-28-stdout.txt",
+    "stderr": "check-28-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/check_bidding_v1_artifacts.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.379,
+    "stdout": "check-29-stdout.txt",
+    "stderr": "check-29-stderr.txt"
+  }
+]

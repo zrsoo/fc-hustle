@@ -247,6 +247,9 @@ class Registry:
             elif e['kind'] == 'ADMISSION_WITHDRAWAL':
                 auctions.setdefault(e['trade_id'], {}).update(e, action='WITHDRAWN',
                     reason='NEVER_DISPATCHED', state='UNKNOWN')
+            elif e['kind'] == 'OPERATOR_RESOLUTION':
+                auctions.setdefault(e['trade_id'], {}).update(e, action='HOLD',
+                    reason='OPERATOR_LOST_CONFIRMED', state='LOST')
         unresolved = []
         for cid, trade, state in self.journal.db.execute(
                 "SELECT id,trade_id,state FROM commands WHERE scope=? AND state NOT IN ('RECONCILED','NOT_DISPATCHED')", (self.scope,)):
@@ -258,7 +261,7 @@ class Registry:
         unresolved.extend(pending_bulk(self.journal, self.scope))
         # Prior-epoch observations are retained evidence, never fresh state.
         for value in auctions.values():
-            if value.get('epoch') != owner[1] and value.get('kind') != 'ADMISSION_WITHDRAWAL':
+            if value.get('epoch') != owner[1] and value.get('kind') not in {'ADMISSION_WITHDRAWAL', 'OPERATOR_RESOLUTION'}:
                 value.update(action='UNKNOWN', state='UNKNOWN')
         replay = AuctionQueue(journal=self.journal, scope=self.scope)
         if credits is not None:
@@ -471,7 +474,9 @@ class JournalAuthority:
         self.path = Path(path)
 
     def reconciled(self, c):
-        """Transport may clear its fence only from independently verified journal evidence."""
+        """Clear transport only from durable reconciliation, including explicit
+        audited operator resolution. This never authorizes command replay.
+        """
         command(c)
         if c['operation'] in {'clear_sold', 'relist_all'}:
             from .bulk import mutation_authorized

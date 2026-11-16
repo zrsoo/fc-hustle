@@ -1,0 +1,15 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_market_discovery_followup_v1.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests": 10
+}

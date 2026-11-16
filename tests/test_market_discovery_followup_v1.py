@@ -2,12 +2,14 @@
 from copy import deepcopy
 import hashlib
 import http.client
+import socket
 import json
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import threading
+import time
 import unittest
 from unittest.mock import patch
 
@@ -125,6 +127,20 @@ class FollowupHTTPTests(unittest.TestCase):
         self.assertFalse(health['attached'], 'persona projection alone never proves a live poll or EA authentication')
         self.assertEqual(self.request('POST', '/next', {'protocol': 1}, True), (200, None))
         self.assertTrue(self.request('GET', '/health')[1]['attached'])
+
+    def test_denied_fragmented_post_returns_403_without_parsing_or_retaining_body(self):
+        from experiments.market_discovery_followup_v1.server import FollowupHandler
+        body=b'{"cookie":"OFFLINE-PRIVATE-CANARY"}'
+        with patch.object(FollowupHandler,'payload',side_effect=AssertionError('denied input must not be parsed')):
+            with socket.create_connection(('127.0.0.1',self.server.server_port),timeout=3) as sock:
+                head=(f'POST /persona HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/json\r\n'
+                      f'Content-Length: {len(body)}\r\nConnection: close\r\n\r\n').encode()
+                sock.sendall(head);time.sleep(.03)
+                sock.sendall(body[:8]);time.sleep(.03);sock.sendall(body[8:])
+                response=http.client.HTTPResponse(sock);response.begin()
+                self.assertEqual(response.status,403)
+                self.assertEqual(json.loads(response.read()),{'error':'origin_denied'})
+        self.assertIsNone(self.server.persona)
 
     def test_real_queue_roundtrip_and_independent_telemetry_reject_unknown_duplicate(self):
         self.request('POST', '/next', {'protocol': 1}, True)

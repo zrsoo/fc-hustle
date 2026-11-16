@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "retired_command_transport_reconciliation_allowed": true,
+  "retired_command_replay_allowed": false,
+  "independent_retained_native_reads": [
+    {
+      "operation": "watched",
+      "id": "2b1ac266f91476af8d51cb1dde0abb28",
+      "method": "GET",
+      "path": "/ut/game/fc27/watchlist",
+      "status": 200,
+      "at": "2026-11-15T23:55:11.331Z"
+    },
+    {
+      "operation": "balance",
+      "id": "3dd154ba55a2ae8ec0301b6bb84f0201",
+      "method": "GET",
+      "path": "/ut/game/fc27/user/credits",
+      "status": 200,
+      "at": "2026-11-15T23:55:13.349Z"
+    },
+    {
+      "operation": "transfer_list",
+      "id": "96a21a6dcf98125dd3a7d7b009a72b55",
+      "method": "GET",
+      "path": "/ut/game/fc27/tradepile",
+      "status": 200,
+      "at": "2026-11-15T23:55:15.336Z"
+    }
+  ]
+}
