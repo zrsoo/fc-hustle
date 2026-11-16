@@ -1,0 +1,25 @@
+{
+  "scope": "CAPTURED_UI_BOOLEAN_OUTPUTS_ONLY",
+  "events": [
+    {
+      "event_id": "saved-zzorniss-20261116T1206",
+      "captured_ui_output": "{\"typed_only_user_provided_prefix\":true,\"requested_saved_account_matches\":1,\"credential_values_read\":false}\n{\"credential_values_exported\":false,\"requested_saved_account_selected\":true}\n\n{\"designated_saved_account_option_count\": 1, \"credential_values_read\": false}",
+      "normalized_output": {
+        "designated_saved_account_option_count": 1,
+        "credential_values_read": false
+      }
+    },
+    {
+      "event_id": "next-ui.jsonl",
+      "captured_ui_output": "{\"security_challenge\":false,\"foreground_verified\":true,\"known_actions\":[\"NEXT\"],\"kind\":\"official_EA_signin\"}\n{\"normal_action_invoked\":\"NEXT\"}\n"
+    },
+    {
+      "event_id": "sign-in-ui.jsonl",
+      "captured_ui_output": "{\"security_challenge\":false,\"foreground_verified\":true,\"known_actions\":[\"SIGN IN\"],\"kind\":\"official_EA_signin\"}\n{\"normal_action_invoked\":\"SIGN IN\"}\n"
+    },
+    {
+      "event_id": "app-home-20261116T121043",
+      "captured_ui_output": "{\"observed_at\":\"2026-11-16T12:10:43.6900373Z\",\"credential_values_read\":false,\"app_home\":true}\n"
+    }
+  ]
+}

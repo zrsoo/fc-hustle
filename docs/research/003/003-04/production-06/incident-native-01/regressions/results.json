@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-16T12:10:12.375380+00:00",
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_balance_recovery.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.5570923999766819
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_read_failure.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.2399194999597967
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_idle_resale.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.0896821999922395
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_live.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.4912436999729834
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_continued_evidence.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.759041299985256
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00304_receipt_continuation.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.4083433999912813
+    }
+  ]
+}

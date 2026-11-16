@@ -1,0 +1,10 @@
+test_active_and_pending_resale_work_never_takes_idle_shortcut (__main__.IdleResale.test_active_and_pending_resale_work_never_takes_idle_shortcut) ... ok
+test_completed_historical_win_does_not_block_idle_bidder_again (__main__.IdleResale.test_completed_historical_win_does_not_block_idle_bidder_again) ... ok
+test_duplicate_bidder_role_and_stale_owner_still_fail_closed (__main__.IdleResale.test_duplicate_bidder_role_and_stale_owner_still_fail_closed) ... ok
+test_idle_bidder_finishes_while_other_process_retains_mutation_lock (__main__.IdleResale.test_idle_bidder_finishes_while_other_process_retains_mutation_lock) ... ok
+test_unseeded_verified_win_still_requires_lock_then_moves_only_under_existing_guards (__main__.IdleResale.test_unseeded_verified_win_still_requires_lock_then_moves_only_under_existing_guards) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.857s
+
+OK

@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T12:07:21.721245+00:00",
+  "EA_requests": 0,
+  "mutations": 0,
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "fences": {
+    "document": "9fdbe74faee520ddbbe88d3e21fa4366",
+    "epoch": 97,
+    "host_epoch": "8bb8c6ce92bbab4d7b17c7c2253bb35b",
+    "owner": "c61c7cf03a21a89ce8b90c4f2ba8b666",
+    "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+  },
+  "response": {
+    "command_id": "339e725a0c0098c9bdf83c41df38b319",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "coverage": {
+      "complete": false,
+      "has_more": null
+    },
+    "fences": {
+      "document": "9fdbe74faee520ddbbe88d3e21fa4366",
+      "epoch": 97,
+      "host_epoch": "8bb8c6ce92bbab4d7b17c7c2253bb35b",
+      "owner": "c61c7cf03a21a89ce8b90c4f2ba8b666",
+      "worker_epoch": "e81bc5d8549c813a929862e3b2ab5011"
+    },
+    "freshness": {
+      "network_at": null,
+      "observed_at": "2026-11-16T12:07:21.686Z",
+      "read_id": "339e725a0c0098c9bdf83c41df38b319",
+      "request_count": 0,
+      "source": "native"
+    },
+    "operation": "status_support",
+    "result": {
+      "bid_receipt_schema": 1,
+      "error": null,
+      "function_available": true,
+      "network": [],
+      "retained_count": 0,
+      "success": true
+    },
+    "schema": 2,
+    "timing": {
+      "ea_rtt_ms": 0,
+      "native_helper_ms": 0,
+      "native_service_ms": 0
+    }
+  }
+}

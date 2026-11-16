@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T092955Z-balance-without-wire-read",
+  "task": "003-04",
+  "run": "adb917726e7774d2e2558a1e578ed1d3",
+  "recorded_at": "2026-11-16T12:08:49.290173+00:00",
+  "trigger_control_seqs": [
+    41905,
+    41907
+  ],
+  "triggering_command_id": "bff5c9a35b418770299dbbaf76090996",
+  "evidence_command_ids": [
+    "bff5c9a35b418770299dbbaf76090996",
+    "091085ef9a4121ef218e17cbfc98930b",
+    "30aa0b53ca780d10e98c54183bbd43bc"
+  ],
+  "known_account_effects": {
+    "failed_operation": "balance",
+    "failed_operation_is_read_only": true,
+    "failed_read_dispatch_claims": 1,
+    "native_callback_success": true,
+    "native_callback_status": 200,
+    "matching_network_requests": 0,
+    "pending_bid": "091085ef9a4121ef218e17cbfc98930b",
+    "pending_amount": 1500,
+    "recovery": "production-06/incident-native-01/fresh-reads/native.jsonl",
+    "account_mutations_during_recovery": 0
+  },
+  "unknown_account_effects": {
+    "cause": "The callback had no captured target XHR. Native cache/coalescing or another unobserved transport path cannot be distinguished from retained metadata. Do not infer fresh funds, authentication failure, or a refund from callback status.",
+    "reservation": "Preserved until new authenticated exact personal auction and balance reads reconciled it."
+  },
+  "root_cause": "Freshness guard rejected successful requestCurrencies callback with no matching authenticated user/credits wire observation; no balance or network timestamp was fabricated. Executor stopped dispatch and bidder exited; the failed read remains consumed. Recovery required a new official document and ordinary saved-account login, followed by fresh owner and independent reads.",
+  "fix": {
+    "runtime_change": false,
+    "pushed_revision": "e78406504f0bf1821058e7a36fcbfdfb895fabc9",
+    "disposition": "Normal verified Edge recovery, designated zzorniss autofill, new document; no guard weakening, synthetic freshness, command replay or automatic write retry."
+  },
+  "regression_results": {
+    "status": "PENDING"
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED"
+  },
+  "resolution": "RECOVERED_AWAITING_NEW_SEGMENT",
+  "safe_state": {
+    "stop_control_seq": 41920,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 1655.3708744001342,
+    "all_owned_runtime_exited": true,
+    "service": "READ_ONLY",
+    "before_snapshot": "private-captures/003-04/production-06/incident-native-01/sealed",
+    "after_snapshot": "C:\\hustle\\fc-hustle\\private-captures\\003-04\\production-06\\incident-native-01\\after-reconciliation"
+  },
+  "human_or_external_prerequisite": {
+    "status": "NONE_CURRENTLY",
+    "reason": "Saved-account normal UI sign-in completed; no challenge. Independent readonly reconciliation PASS epoch98,63702credits,6occupied,0commitments."
+  }
+}

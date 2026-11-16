@@ -10,7 +10,8 @@
     "production-04/resolved-doue-incident.json",
     "production-04/resolved-alvarez-incident.json",
     "production-05/resolved-read-incident.json",
-    "production-05/incident-lock-01/incident.json"
+    "production-06/resolved-lock-incident.json",
+    "production-07/resolved-native-incident.json"
   ],
   "runtime_fixes": [
     {
@@ -43,20 +44,29 @@
       "revision": "92d42965044afda0b00606487a9b8ff1b1d37531",
       "published_at": "2026-11-16T08:30:14.8811573Z",
       "regression_receipt": "production-04/incident-read-01/repair-regressions.json"
+    },
+    {
+      "stopped_run": "2a8011d59307b4b1eabe0a2b49577abc",
+      "restart_run": "adb917726e7774d2e2558a1e578ed1d3",
+      "revision": "e78406504f0bf1821058e7a36fcbfdfb895fabc9",
+      "published_at": "2026-11-16T08:58:10.5813308Z",
+      "regression_receipt": "production-05/incident-lock-01/repair-regressions.json"
     }
   ],
-  "status": "STOPPED_IDLE_RESALE_LOCK_REPAIR_TESTING",
+  "status": "SUPERVISED_CONTINUOUS_PRODUCTION",
   "phase": "CONTINUOUS_PRODUCTION",
-  "run": "2a8011d59307b4b1eabe0a2b49577abc",
-  "export_events": "private-captures/continuous-evidence/00304-production05-periodic-02/events.jsonl",
-  "browser_record": "production-05/browser-recovery.jsonl",
-  "matrix": "production-05/live-coverage-matrix.json",
+  "run": "760f9855eefafd615cb6ccf52be1748f",
+  "export_events": "private-captures/continuous-evidence/00304-production07-periodic/events.jsonl",
+  "browser_record": "production-07/browser-recovery.jsonl",
+  "matrix": "production-07/live-coverage-matrix.json",
   "run_revisions": {
     "c7485d279225b0b726a5f6117a68ba10": "c4c7b5e5f8e036185dd6243143c0873733ec92c7",
     "956a2d483cf70c2d440709ed20a312fe": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
     "9bdb55697d3658b11f01f99a495b94f6": "3153be359145d71f72fcbe90340904a3a6309716",
     "e593e1be9debe924c2f9be3ba555e9a2": "a70f3592db8aa563b71447ff0aec3229515a648f",
-    "2a8011d59307b4b1eabe0a2b49577abc": "92d42965044afda0b00606487a9b8ff1b1d37531"
+    "2a8011d59307b4b1eabe0a2b49577abc": "92d42965044afda0b00606487a9b8ff1b1d37531",
+    "adb917726e7774d2e2558a1e578ed1d3": "e78406504f0bf1821058e7a36fcbfdfb895fabc9",
+    "760f9855eefafd615cb6ccf52be1748f": "e78406504f0bf1821058e7a36fcbfdfb895fabc9"
   },
   "cancelled_before_dispatch": [
     "e84dcddef494468d3e12a2766ccd6fba",
@@ -71,15 +81,9 @@
     "production-03/incident-outcome-01/followup-status.jsonl"
   ],
   "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
-  "pending_runtime_fixes": [
-    {
-      "status": "OFFLINE_PASS_NOT_PUBLISHED",
-      "incident": "00304-20261116T083711Z-idle-resale-lock-contention",
-      "restart_permitted": false
-    }
-  ],
-  "processes_record": "production-05/processes-before.json",
-  "launch_record": "production-05/launch.json",
+  "pending_runtime_fixes": [],
+  "processes_record": "production-07/processes-before.json",
+  "launch_record": "production-07/launch.json",
   "diagnostic_runs": {
     "production-02/incident-identity-01/exact-status.jsonl": "956a2d483cf70c2d440709ed20a312fe",
     "production-03/incident-outcome-01/native-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",

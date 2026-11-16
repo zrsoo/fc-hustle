@@ -1,0 +1,7 @@
+{
+  "status": "STOPPED",
+  "at": "2026-11-16T12:05:32.354283+00:00",
+  "EA_requests": 0,
+  "mutations": 0,
+  "error_type": "ValueError"
+}
