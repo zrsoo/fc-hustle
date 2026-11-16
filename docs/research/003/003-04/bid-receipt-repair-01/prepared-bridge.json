@@ -1,0 +1,104 @@
+{
+  "service_pid": 18540,
+  "health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "95144f453dccfe316eb6430bc91f4210",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "338c2bb45fc804a0262934f7d36fd10e",
+      "epoch": 78
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "9e234eee828c487d61cb648868a55a4d",
+        "epoch": 78,
+        "host_epoch": "95144f453dccfe316eb6430bc91f4210",
+        "owner": "338c2bb45fc804a0262934f7d36fd10e",
+        "worker_epoch": "11818802af2ba02560c8b68dddc20665"
+      }
+    },
+    "mutations_enabled": true,
+    "intent_journal": "C:\\hustle\\fc-hustle\\private-captures\\final-remediation\\foundation.sqlite3"
+  },
+  "command": {
+    "schema": 2,
+    "id": "e04e394611e0f5b1398a606e05815f6c",
+    "operation": "status_support",
+    "params": {},
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "9e234eee828c487d61cb648868a55a4d",
+      "epoch": 78,
+      "host_epoch": "95144f453dccfe316eb6430bc91f4210",
+      "owner": "338c2bb45fc804a0262934f7d36fd10e",
+      "worker_epoch": "11818802af2ba02560c8b68dddc20665"
+    }
+  },
+  "response": {
+    "command_id": "e04e394611e0f5b1398a606e05815f6c",
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "coverage": {
+      "complete": false,
+      "has_more": null
+    },
+    "fences": {
+      "document": "9e234eee828c487d61cb648868a55a4d",
+      "epoch": 78,
+      "host_epoch": "95144f453dccfe316eb6430bc91f4210",
+      "owner": "338c2bb45fc804a0262934f7d36fd10e",
+      "worker_epoch": "11818802af2ba02560c8b68dddc20665"
+    },
+    "freshness": {
+      "network_at": null,
+      "observed_at": "2026-11-16T07:21:18.581Z",
+      "read_id": "e04e394611e0f5b1398a606e05815f6c",
+      "request_count": 0,
+      "source": "native"
+    },
+    "operation": "status_support",
+    "result": {
+      "bid_receipt_schema": 1,
+      "error": null,
+      "function_available": true,
+      "network": [],
+      "retained_count": 0,
+      "success": true
+    },
+    "schema": 2,
+    "timing": {
+      "ea_rtt_ms": 0,
+      "native_helper_ms": 0,
+      "native_service_ms": 0.10000002384185791
+    }
+  },
+  "EA_requests": 0,
+  "account_mutations": 0,
+  "published_revision": "87dc52c9dff50dbda4bce2df87a77c9d1e96d1ef"
+}

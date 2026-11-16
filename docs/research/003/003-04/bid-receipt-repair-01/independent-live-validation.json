@@ -1,0 +1,311 @@
+{
+  "status": "PASS",
+  "evidence_class": "INDEPENDENT_RETAINED_NATIVE_EVIDENCE_VALIDATION",
+  "ea_requests": 16,
+  "mutations": 1,
+  "bid_command_id": "5af3d7df2b205606afe8a5a02b704e48",
+  "bid_params": {
+    "trade_id": "trade:d48bd98c95426c2e0b6ea178",
+    "item_id": "item:15965efbd28a92a85df5d78d",
+    "definition_id": 251570,
+    "amount": 700,
+    "minimum": 700,
+    "cap": 4300,
+    "deadline": "2026-11-16T07:32:58.187000+00:00",
+    "status_read_id": "4eab76166d6f301757dc9c8e52936486",
+    "balance_read_id": "aed46cd1651097ee5a4833b174d56d34"
+  },
+  "receipt": {
+    "auction": {
+      "bid_state": "highest",
+      "buy_now_price": 11000,
+      "current_bid": 700,
+      "expires": 630,
+      "item": {
+        "definition_id": 251570,
+        "item_id": "item:15965efbd28a92a85df5d78d",
+        "last_sale_price": 0,
+        "untradeable": false
+      },
+      "native_is_won": false,
+      "starting_bid": 700,
+      "trade_id": "trade:d48bd98c95426c2e0b6ea178",
+      "trade_state": "active"
+    },
+    "before_bid_state": "none",
+    "input_stale": false,
+    "matching_item_count": 1,
+    "native_error_code": null,
+    "native_error_name": null,
+    "native_item_count": 1,
+    "native_success": true,
+    "reason": "MATCHING_NATIVE_PARTICIPATION",
+    "schema": 1,
+    "verdict": "ACCEPTED",
+    "wire_amount": 700,
+    "wire_amount_matches": true,
+    "wire_error_code": null,
+    "wire_identity_matches": true,
+    "wire_item_count": 1,
+    "wire_trade_id": "trade:d48bd98c95426c2e0b6ea178"
+  },
+  "readback": {
+    "command_id": "5af3d7df2b205606afe8a5a02b704e48",
+    "status_read_id": "15fa1dd83d1e66fc5b3e077e847764a0",
+    "balance_read_id": "12555e1e6241850d3e787000a3e39e29",
+    "identity": {
+      "trade_id": "trade:d48bd98c95426c2e0b6ea178",
+      "item_id": "item:15965efbd28a92a85df5d78d",
+      "definition_id": 251570,
+      "platform": "pc",
+      "game": "fc27"
+    },
+    "state": "LEADING",
+    "current_bid": 700,
+    "bid_state": "highest",
+    "spendable": 62127
+  },
+  "requests": [
+    {
+      "operation": "balance",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/user/credits",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "transfer_list",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/tradepile",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 0
+          },
+          "session_header_present": true,
+          "status": 200
+        },
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/attributes/metadata",
+          "query": {
+            "defIds": [
+              50573369
+            ]
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 20
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 40
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "caps",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/marketdata/pricelimits",
+          "query": {
+            "defId": 50573369
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "definitionId": 50573369,
+            "num": 21,
+            "start": 0
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "definitionId": 50573369,
+            "maxb": 1700,
+            "num": 21,
+            "start": 0
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "caps",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/marketdata/pricelimits",
+          "query": {
+            "defId": 251570
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "search",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "definitionId": 251570,
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 0
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "balance",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/user/credits",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "transfer_list",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/tradepile",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "bid",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "PUT",
+          "path": "/ut/game/fc27/trade/:trade/bid",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "watched",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/watchlist",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "operation": "balance",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/user/credits",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    }
+  ]
+}

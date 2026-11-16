@@ -1,0 +1,40 @@
+{
+  "service_pid": 11724,
+  "health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "16a2ffbef5d5a13d9050a98fb703c279",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "c8dcafdc9dc0b8e59915a8007edb69da",
+      "epoch": 80
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "9e234eee828c487d61cb648868a55a4d",
+        "epoch": 80,
+        "host_epoch": "16a2ffbef5d5a13d9050a98fb703c279",
+        "owner": "c8dcafdc9dc0b8e59915a8007edb69da",
+        "worker_epoch": "11818802af2ba02560c8b68dddc20665"
+      }
+    },
+    "mutations_enabled": false,
+    "intent_journal": null
+  },
+  "EA_requests": 0,
+  "account_mutations": 0
+}

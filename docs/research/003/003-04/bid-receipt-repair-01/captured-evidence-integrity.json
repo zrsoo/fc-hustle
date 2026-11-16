@@ -1,0 +1,13 @@
+{
+  "scope": "Captured responses, transaction/operator proof and completed experiment only; no mutable implementation integrity gate",
+  "sha256": {
+    "live-attempt.json": "850ad79434f173544772424aff9795ec63f42fef1f3dff65caef17af6282a8db",
+    "independent-live-validation.json": "bf396b917d94ea9ccd772710abdc6656d9b02f78d4cb37e1b34dce2f2f9a2779",
+    "independent-live-readback.json": "b8e2f63412c840d4160dedec7574e864b860c90de9d80bdd514bee3ec235bd9b",
+    "prepared-bridge.json": "aa25f7c4aeee054f1f93ccd89f6b76a8745360220ec14e656af75ece5abd00a5",
+    "fresh-document-owner.json": "b1b7ce2dbce538d8b57b15de2c13d127ea2b4244ccc57960f1a7695c2c6af059",
+    "post-live-readonly-health.json": "42172768629b2fca0b4fcdbd9a56064f4cc8735035ad847ecb4f7e15c3c2ff61",
+    "operator-ff4174653771149736e63b1ac12630f9.json": "41522534b2637cbe120b7d3cc0253f2222b374a7f001972b4987298cb7ab02a1",
+    "operator-6b3faed8a418890da8147b59eae039fc.json": "6fa51421cb01a24dc84a225c4bfb52edf0ffebd6fc39bb21894d52cffc95cae9"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "task": "obj-da182a175410/003-04",
-  "status": "OFFLINE_PASS_PUBLICATION_PENDING",
+  "status": "LIVE_PASS_PUBLICATION_PENDING",
   "authorization": "User approved concrete bid-receipt repair plan and one bounded new live verification; preserve resumability across quota.",
   "starting_head": "148d9a4b91daedabf0eb2c6f2df41cefd5528c2f",
   "backup": "private-captures\\bid-receipt-repair\\20261116T033249Z",
@@ -11,12 +11,13 @@
   ],
   "live_attempt": {
     "id": "bid-receipt-v1-01",
-    "state": "NOT_STARTED",
+    "state": "PASS",
     "EA_request_limit": 16,
     "bid_dispatch_limit": 1,
-    "EA_requests_consumed": 0,
-    "bid_dispatches_consumed": 0,
-    "automatic_retry": false
+    "EA_requests_consumed": 16,
+    "bid_dispatches_consumed": 1,
+    "automatic_retry": false,
+    "authoritative_ledger": "docs/research/003/003-04/bid-receipt-repair-01/live-attempt.json"
   },
   "completed": [
     "Read current AGENTS.md",
@@ -33,13 +34,16 @@
     "Verified current service read-only. Standard foreground API initially failed; same-session AttachThreadInput focus succeeded and official tab foreground verified. Home/Transfers UI markers visible. No native requests or production journal amendments.",
     "offline-02: 937 tests, 3 failures, zero errors; all 28 Node and five independent validators passed. Three failures fixed by moving harness to actor layer and asserting new zero-EA preflight inventory.",
     "Under account/supervisor/executor/bid locks appended operator NOT_REGISTERED assertions for both exact historical commands; both RESOLVED, native_outcome_verified=false. Previous Doue operator LOST proof/events retained. No unresolved bid commands remain. Proof JSON files saved exclusively; no native request or mutation.",
-    "offline-03 final: 937 Python tests, zero failures/errors (347.066s); all 28 Node suites and five independent validators pass. git diff --check passes."
+    "offline-03 final: 937 Python tests, zero failures/errors (347.066s); all 28 Node suites and five independent validators pass. git diff --check passes.",
+    "87dc52c committed/pushed and remote verified. Reviewed extension reloaded, fresh Web App recovered via zzorniss saved-account normal UI; no credentials read/exported. Explicit new document owner epoch78. New attached journal-backed bridge schema1 zero-EA capability verified in prepared-bridge.json.",
+    "Exactly one new live attempt PASS: 16 EA requests including one bid700 on version251570; matching native receipt, independent watched leading/highest and credits62827->62127; command5af3d7df2b205606afe8a5a02b704e48 RECONCILED/BID_VERIFIED. Independent retained-response and actual-row crosschecks pass. Service restored read-only, PID11724; no actors started by this repair."
   ],
   "remaining": [
-    "Commit and push scoped remediation; verify remote main.",
-    "Deploy fresh reviewed service/extension/page, verify schema-1 capability with zero EA.",
-    "Run exactly one new live bid-receipt-v1-01 attempt <=16 EA requests and <=1 bid; never recreate consumed ledger.",
-    "Publish outcome/evidence; only after live PASS run orchestrator recheck and verify safe progress."
+    "Publish final live evidence/report to main.",
+    "Run authorized orchestrator recheck for obj-da182a175410/003-04, verify safe progress and stop direct task work."
   ],
-  "offline_runner_session": 39230
+  "offline_runner_session": 39230,
+  "published_commit": "87dc52c9dff50dbda4bce2df87a77c9d1e96d1ef",
+  "remote_verified": true,
+  "service_pid": 11724
 }

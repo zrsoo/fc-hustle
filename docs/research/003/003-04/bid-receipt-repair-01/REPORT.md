@@ -1,6 +1,6 @@
 # Bid registration receipt repair
 
-Status: **OFFLINE PASS; live verification has not started**.
+Status: **REPAIR VERIFIED OFFLINE AND LIVE; ready for orchestrator recheck**.
 This repair does not complete Objective 003 or reinterpret any old bid as accepted.
 
 The backup in `backup.json` preserves six consistent SQLite databases and the
@@ -125,3 +125,71 @@ numbered stdout/stderr files retain complete output. `git diff --check` passed.
 The repair is ready for its single authorized live verification. Neither old
 command was replayed. No new EA operation has occurred during this repair so far.
 The code/report are published before the reviewed bridge is deployed live.
+
+The repair was committed and pushed as `87dc52c9dff50dbda4bce2df87a77c9d1e96d1ef`;
+remote main matched before deployment. The production extension was reloaded and
+the Web App refreshed. Normal recovery selected the designated zzorniss saved
+account through Edge autofill and used normal Next/Sign In controls. No saved
+credential, password, cookie, authentication header or session value was read,
+exported or persisted. Native UI Invoke was insufficient for parts of this login
+flow; verified foreground mouse clicks on the exact native controls completed
+it. No challenge was bypassed. A new explicit document owner epoch 78 permitted
+the fresh attachment; the zero-EA `status_support` response proved receipt schema
+1 (`prepared-bridge.json`). The live Foundation subsequently owned epoch 79.
+
+**Single new live experiment `bid-receipt-v1-01`: PASS.** `live-attempt.json`
+retains all sanitized commands/responses, monotonic per-operation timings and the
+durable budget. It consumed exactly **16 EA requests**, including one metadata
+GET, **one bid mutation**, and no moves/listings/bulk maintenance. The production
+Acquirer/Foundation performed normal three-page discovery with `macr=1000` and
+`minb=11000`. One newly valued version 50573369 used exactly two real pricing
+searches, second `maxb=1700`, and was profit-rejected after the lower sample.
+Cherki version 251570 reused its valid completed 24h cache (resale 5100, tax 255,
+X 500, legal profit cap 4300); it was not claimed to be a new uncached valuation.
+Fresh exact discovery, funds and complete inventory preceded its minimum bid.
+
+The one native write was:
+
+```text
+command 5af3d7df2b205606afe8a5a02b704e48
+PUT https://utas.mob.v1.prd.futc-ext.gcp.ea.com/ut/game/fc27/trade/:trade/bid
+query: {} ; JSON body: {"bid":700} ; HTTP 200
+trade: trade:d48bd98c95426c2e0b6ea178
+item: item:15965efbd28a92a85df5d78d ; exact definition: 251570
+```
+
+The private wire selector and amount matched before send. Wire auctionInfo count
+was 1; native DAO item count 1; matching item count 1; native success true;
+native/wire error codes null; input_stale false. The actual matching auction was
+active, highest, current bid 700, starting bid 700, BIN 11000 and expires 630.
+The receipt verdict was ACCEPTED / MATCHING_NATIVE_PARTICIPATION.
+
+Independent subsequent **GET /watchlist HTTP 200** returned that same exact
+trade/item/version, active/highest/current700 with expires628. Its read ID was
+`15fa1dd83d1e66fc5b3e077e847764a0`. Independent **GET /user/credits HTTP 200**,
+read `12555e1e6241850d3e787000a3e39e29`, returned 62127. Pre-bid credits were
+62827; the delta was exactly 700. The watched account-relative evidence establishes
+participation; aggregate coin movement alone is not the acceptance proof.
+The journal retained the native receipt immutably, committed BID_VERIFIED and
+marked the exact command RECONCILED. All command contexts/full fences match.
+There was no duplicate dispatch or historical command replay.
+
+`independent-live-validation.json` independently parses every retained command/
+response and checks the single-write budget and journal proof. The additional
+`independent-live-readback.json` crosschecks the actual watched row and actual
+credits envelopes, not just the experiment's summary. These read-only validators
+made zero new EA requests. The service was then restored to read-only (PID11724,
+`post-live-readonly-health.json`). No autonomous actor or scheduled job was
+started directly for this experiment. The enrolled potential-win slot remains
+correctly reserved for the existing production controller to manage.
+
+The positive native bid path is now live-proven. Explicit native rejections,
+malformed/empty/stale/ambiguous receipts and interruption guards have deterministic
+offline coverage; this one authorized bid did not live-trigger all error branches.
+The discarded historical Alvarez/Doue response bodies remain unrecoverable; the
+repair does not invent their exact EA rejection reason or rewrite their history.
+Objective 003's remaining healthy soak and natural coverage are not completed by
+this bounded experiment. Resume the existing `obj-da182a175410/003-04` only after
+this report/evidence is committed and pushed, using fresh account reconciliation
+and the normal supervised production lifecycle. Do not create another objective,
+replay this consumed ledger or run a second direct test bid.
