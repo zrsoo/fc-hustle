@@ -1,0 +1,121 @@
+{
+  "coverage": {
+    "at": "2026-11-16T07:41:27.751299+00:00",
+    "run": "e593e1be9debe924c2f9be3ba555e9a2",
+    "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T074122Z-daa93b59",
+    "verified_cases": [
+      "discovery_pagination",
+      "fresh_pricing",
+      "native_legality_admission",
+      "minimum_initial_bid",
+      "leading_hold",
+      "cap_stop",
+      "lost",
+      "occupancy_reservations",
+      "priority_cadence",
+      "reconnect_restart",
+      "normal_noop_rejection",
+      "identity_freshness"
+    ],
+    "unverified_cases": [
+      "cached_pricing",
+      "natural_outbid_rebid",
+      "won",
+      "physical_ownership",
+      "stored_price_listing",
+      "sold_clear",
+      "expired_relist",
+      "capacity_pause_resume",
+      "sticky_draining",
+      "uncertain_reconciliation",
+      "unrelated_browser_activity",
+      "lost_supervision",
+      "post_bid_selector_reconciliation"
+    ],
+    "structural_findings": [
+      {
+        "reference": {
+          "database": "native",
+          "table": "work",
+          "seq": 451,
+          "command_id": "46e4f1ae56c20ecd9ca1bcba1b56bbfa"
+        },
+        "reason": "TRANSPORT_NOT_YET_CAPTURED"
+      },
+      {
+        "reference": {
+          "database": "native",
+          "table": "work",
+          "seq": 451,
+          "command_id": "46e4f1ae56c20ecd9ca1bcba1b56bbfa"
+        },
+        "reason": "MISSING_RESPONSE_NO_RETRY"
+      },
+      {
+        "reference": {
+          "database": "native",
+          "table": "work",
+          "seq": 451,
+          "command_id": "46e4f1ae56c20ecd9ca1bcba1b56bbfa"
+        },
+        "reason": "UNSETTLED_COMMAND"
+      }
+    ],
+    "healthy_seconds": 626.593695699994,
+    "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+    "stop_for_missing_event": false
+  },
+  "acceptance": {
+    "task": "003-04",
+    "status": "INCOMPLETE",
+    "run": "e593e1be9debe924c2f9be3ba555e9a2",
+    "revision": "a70f3592db8aa563b71447ff0aec3229515a648f",
+    "results": [
+      {
+        "criterion": 0,
+        "status": "PASS"
+      },
+      {
+        "criterion": 1,
+        "status": "PASS"
+      },
+      {
+        "criterion": 2,
+        "status": "UNFULFILLED",
+        "reason": "native_mutation_not_successful"
+      },
+      {
+        "criterion": 3,
+        "status": "UNFULFILLED",
+        "reason": "unresolved_or_synthetic_health"
+      },
+      {
+        "criterion": 4,
+        "status": "PASS"
+      },
+      {
+        "criterion": 5,
+        "status": "PASS"
+      },
+      {
+        "criterion": 6,
+        "status": "PASS"
+      },
+      {
+        "criterion": 7,
+        "status": "UNFULFILLED",
+        "reason": "unresolved_or_synthetic_health"
+      },
+      {
+        "criterion": 8,
+        "status": "UNFULFILLED",
+        "reason": "LIVE-UNVERIFIED:cached_pricing"
+      },
+      {
+        "criterion": 9,
+        "status": "PASS"
+      }
+    ],
+    "scope": "LIVE_ACCEPTANCE_NOT_OFFLINE_TEST_SUCCESS"
+  }
+}
