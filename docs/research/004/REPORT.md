@@ -353,11 +353,24 @@ four-hour soak, autonomous production cutover or full-E2E tuning was performed.
 
 ## Publication and stopping boundary
 
-The complete offline rerun and prepublication gates passed. The implementation/report
-commit and successful origin/main push will be recorded in `004-05/publication.json`
-and this section only after Git confirms the destination. A following evidence
-commit may record that result without a self-referential commit hash. The final
-validator verifies HEAD is committed on main and is present in remote main.
+Implementation/report commit: `9d53f7716fe8007d88baac1991b10fd418b46ae7` on main.
+At 2026-11-16T19:24:11.381248+00:00, `git push origin main` exited 0
+and an independent `git ls-remote origin refs/heads/main` returned that exact
+commit. The actual push output was:
+
+```text
+To https://github.com/zrsoo/fc-hustle.git
+   8981096..9d53f77  main -> main
+```
+
+The push and remote verification took 3.574 seconds including the remote read.
+`004-05/publication.json` retains the exact argv, commit, exit code, output,
+timestamp and remote result. This subsequent documentation/evidence commit
+records the confirmed implementation publication without a self-referential
+hash; the final independent validator checks that current HEAD is clean on
+main, contains the implementation commit, and is present in origin/main.
+The complete offline and prepublication gates passed before the implementation
+commit; publication does not qualify the pending full controller E2E.
 
 Stop after this handoff. No autonomous trading, production cutover, scheduled job,
 full-batch lifecycle E2E, four-hour soak, E2E tuning, another objective or deferred
