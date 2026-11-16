@@ -1,0 +1,25 @@
+{
+  "scope": "CAPTURED_UI_BOOLEAN_OUTPUTS_ONLY",
+  "events": [
+    {
+      "event_id": 495460,
+      "completed_at_ms": 1794791823491,
+      "captured_ui_output": "{\"keyboard_or_mouse_input\":false,\"edge_foreground_verified\":true,\"observed_at\":\"2026-11-16T01:17:02.4498353Z\",\"thread_input_attached\":true,\"set_foreground_return\":true}\r\n{\"visible_autofill_list_items\":4,\"observed_at\":\"2026-11-16T01:17:03.4107812Z\",\"credential_values_read\":false,\"designated_saved_account_option_count\":1}\r\nSelected designated saved account via native autofill UI without copying values.\r\n"
+    },
+    {
+      "event_id": 495487,
+      "completed_at_ms": 1794791845172,
+      "captured_ui_output": "{\"states\":{\"email_field_present\":false,\"code_field_present\":false,\"password_field_present\":true},\"observed_at\":\"2026-11-16T01:17:25.1133094Z\",\"static_auth_controls\":[\"Back\",\"BACK\",\"SIGN IN\"]}\r\n"
+    },
+    {
+      "event_id": 495499,
+      "completed_at_ms": 1794791854368,
+      "captured_ui_output": "{\"keyboard_or_mouse_input\":false,\"edge_foreground_verified\":true,\"observed_at\":\"2026-11-16T01:17:32.9670583Z\",\"thread_input_attached\":true,\"set_foreground_return\":true}\r\n{\"foreground_verified\":true,\"edge_control_verified\":true,\"observed_at\":\"2026-11-16T01:17:34.2946348Z\",\"extensions_manager\":false,\"official_tab\":false}\r\n"
+    },
+    {
+      "event_id": 495509,
+      "completed_at_ms": 1794791870351,
+      "captured_ui_output": "{\"app_home\":true,\"observed_at\":\"2026-11-16T01:17:50.2945409Z\",\"static_auth_controls\":[\"Back\"],\"static_validation_messages\":[\"Carve out your own progression path. Level up players in your club by completing challenges.\"]}\r\n"
+    }
+  ]
+}

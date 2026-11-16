@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "id": "00304-20261115T222121Z-missing-actual-bid-identity",
+  "task": "003-04",
+  "run": "956a2d483cf70c2d440709ed20a312fe",
+  "recorded_at": "2026-11-15T22:31:16.786933+00:00",
+  "trigger_control_seqs": [
+    4849,
+    4851,
+    5185
+  ],
+  "triggering_command_id": "ff4174653771149736e63b1ac12630f9",
+  "triggering_read_id": "804caa79bbb16c7b5f99ba837bb50253",
+  "evidence_command_ids": [
+    "ff4174653771149736e63b1ac12630f9",
+    "804caa79bbb16c7b5f99ba837bb50253",
+    "f2d79b99666cf4a4cd75a143bb27f877",
+    "b92923c8c69cd549332835ba7e7bb495"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 950,
+    "native_HTTP": 200,
+    "native_callback_success": true,
+    "watched_entries": 3,
+    "watched_coverage_complete": false,
+    "credits_observed": 62827,
+    "maintenance_read_cancelled_before_dispatch": "e84dcddef494468d3e12a2766ccd6fba"
+  },
+  "unknown_account_effects": {
+    "auction_state": "Operator asserted LOST; native terminal outcome remains historically unverified. No refund inferred.",
+    "bid_acceptance_or_debit": "UNPROVEN. HTTP 200/native callback, missing watched membership and unchanged aggregate credits cannot prove accepted, lost, won or no effect.",
+    "native_outcome_verified": false
+  },
+  "root_cause": "The fresh incomplete watched endpoint omitted the newly bid exact auction. The reason for that omission remains unknown. Separately, page.js consumed the write observation with known.delete before native bid, erasing the only exact read-only selector; the same-epoch exact-status diagnostic consequently failed known_identity_unavailable without an EA request. The monitor stopped on MISSING_OR_STALE_IDENTITY. Maintenance timeout followed the dispatch gate and is secondary, not a scheduling starvation diagnosis.",
+  "fix": {
+    "runtime_change": true,
+    "scope": "Retain read-only exact selectors after bid and integrate one paced exact-status lookup in Bidder/startup when watched omits an enrolled identity. Lite alone grants no write/ownership authority. User explicitly confirmed the old950 loss; recorded independently as operator evidence only.",
+    "source": "browser/production-v1/page.js",
+    "pushed_revision": "3153be359145d71f72fcbe90340904a3a6309716",
+    "live_applied_to_unresolved_bid": false,
+    "operator_resolution": "production-02/operator-resolution-01/application.json"
+  },
+  "regression_results": {
+    "exit_code": 0,
+    "tests_run": 910,
+    "failures": 0,
+    "errors": 0,
+    "node_suites": 27,
+    "receipt": "production-03/checks-final/result.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "9bdb55697d3658b11f01f99a495b94f6",
+    "control_seq": 5227,
+    "read_ids": [
+      "8975ac2f725bd00fefea70c47704b203",
+      "43966fcd577a1fbd9644a1103356d863",
+      "dafb275973b5f7dfdcb5c87373345db2"
+    ],
+    "note": "Fresh startup safety proof, not retroactive native proof of old950 terminal state."
+  },
+  "resolution": "OPERATOR_RESOLVED",
+  "human_or_external_prerequisite": {
+    "status": "RESOLVED_BY_EXPLICIT_OPERATOR_AUTHORITY",
+    "evidence": "production-02/operator-resolution-01/application.json"
+  },
+  "safe_state": {
+    "stop_control_seq": 5193,
+    "verified_all_owned_exits": true,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 651.5459209999535,
+    "readonly_health": "production-02/incident-identity-01/readonly-health.json",
+    "all_runtime_stopped": true
+  },
+  "updated_at": "2026-11-16T01:29:03.262100+00:00",
+  "prior_incident": "production-02/incident-identity-01/incident.json"
+}

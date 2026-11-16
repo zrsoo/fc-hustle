@@ -1,0 +1,84 @@
+{
+  "at": "2026-11-16T01:30:54.725841+00:00",
+  "run": "9bdb55697d3658b11f01f99a495b94f6",
+  "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production03-periodic\\20261116T012618Z-3adec51f",
+  "verified_cases": [
+    "discovery_pagination",
+    "reconnect_restart"
+  ],
+  "unverified_cases": [
+    "fresh_pricing",
+    "cached_pricing",
+    "native_legality_admission",
+    "minimum_initial_bid",
+    "leading_hold",
+    "natural_outbid_rebid",
+    "cap_stop",
+    "won",
+    "lost",
+    "physical_ownership",
+    "stored_price_listing",
+    "sold_clear",
+    "expired_relist",
+    "occupancy_reservations",
+    "capacity_pause_resume",
+    "sticky_draining",
+    "priority_cadence",
+    "uncertain_reconciliation",
+    "unrelated_browser_activity",
+    "lost_supervision",
+    "normal_noop_rejection",
+    "identity_freshness",
+    "post_bid_selector_reconciliation"
+  ],
+  "structural_findings": [
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 151,
+        "command_id": "f29329e2fb9b911d5833efaf2b11fbac"
+      },
+      "reason": "TRANSPORT_NOT_YET_CAPTURED"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 151,
+        "command_id": "f29329e2fb9b911d5833efaf2b11fbac"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 151,
+        "command_id": "f29329e2fb9b911d5833efaf2b11fbac"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 157,
+        "command_id": "fa31ad2c97e700a8c9ae97242fcbe16f"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 157,
+        "command_id": "fa31ad2c97e700a8c9ae97242fcbe16f"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    }
+  ],
+  "healthy_seconds": 14.266931599995587,
+  "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+  "stop_for_missing_event": false
+}

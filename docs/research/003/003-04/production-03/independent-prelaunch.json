@@ -1,0 +1,83 @@
+{
+  "at": "2026-11-16T01:25:35.151002+00:00",
+  "status": "PASS",
+  "intended_context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "physical_item_continuity": true,
+  "physical_items": [
+    [
+      "item:0eb531d104feb860cffcade7",
+      220834
+    ],
+    [
+      "item:5859eff756a310898bae2ece",
+      247103
+    ],
+    [
+      "item:6c1821fd50efcf26deca9cb1",
+      239085
+    ],
+    [
+      "item:baedbe1a7c161538497cdc85",
+      236772
+    ],
+    [
+      "item:d9eeec4640229a959c3145fb",
+      244669
+    ]
+  ],
+  "reads": [
+    {
+      "id": "61743a6331331098007ca3b29649e92b",
+      "operation": "watched",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/watchlist",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "id": "d1b47bb5837b7a821f4e2d38197ab576",
+      "operation": "balance",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/user/credits",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    },
+    {
+      "id": "f01e9a126a48408b87f857004fdd8b60",
+      "operation": "transfer_list",
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/tradepile",
+          "query": {},
+          "session_header_present": true,
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "prior_evidence": "production-02/operator-resolution-01/live-recovery/native.jsonl",
+  "new_evidence": "production-03/prelaunch-reads/native.jsonl",
+  "mutations": 0,
+  "unresolved": 0,
+  "scope": "e7fce7c176935f0b95dc3db91dd28521"
+}

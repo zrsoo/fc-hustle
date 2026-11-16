@@ -1,0 +1,46 @@
+[
+  {
+    "command": [
+      "{python}",
+      "tests/test_00304_live.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.5000738000380807,
+    "finished_at": "2026-11-16T01:34:37.658996+00:00",
+    "stdout": "test_00304_live.py-stdout.txt",
+    "stderr": "test_00304_live.py-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/test_00304_continued_evidence.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.48261700000148267,
+    "finished_at": "2026-11-16T01:34:38.141631+00:00",
+    "stdout": "test_00304_continued_evidence.py-stdout.txt",
+    "stderr": "test_00304_continued_evidence.py-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/test_00304_status_fallback.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.8001236999989487,
+    "finished_at": "2026-11-16T01:34:40.941772+00:00",
+    "stdout": "test_00304_status_fallback.py-stdout.txt",
+    "stderr": "test_00304_status_fallback.py-stderr.txt"
+  },
+  {
+    "command": [
+      "{python}",
+      "tests/test_00304_exporter.py"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.49908089998643845,
+    "finished_at": "2026-11-16T01:34:41.440895+00:00",
+    "stdout": "test_00304_exporter.py-stdout.txt",
+    "stderr": "test_00304_exporter.py-stderr.txt"
+  }
+]

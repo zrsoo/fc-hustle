@@ -12,7 +12,7 @@ from pathlib import Path
 import sys
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
-from check_00304_live import semantic_case,load,lines,need
+from check_00304_live import semantic_case,load,lines,need,capture_boundary_contract
 from fc_access.continuous_v1.evidence import assess,read_db,records
 from fc_access.production_v1.contracts import stamp
 
@@ -24,6 +24,7 @@ def review(index):
     report=assess(snapshot)
     need(report['evidence_class']=='NATIVE_CAPTURE_REQUIRES_CASE_REVIEW','fixture_is_not_live')
     need(report['revision']==index['run_revisions'][run],'wrong_runtime_revision')
+    capture_boundary_contract(index,snapshot,report)
     with closing(read_db(snapshot/'control.sqlite3')) as db:control=records(db)
     fences=next(r['body']['fences'] for r in control if r['kind']=='ATTACHED' and r['run']==run)
     with closing(read_db(snapshot/'journal.sqlite3')) as db:
@@ -51,12 +52,15 @@ def review(index):
             semantic_assessment='Sealed capture integrity, production protocol and independent transport correlation checked. '
             'Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.',
             evidence=references,snapshot=str(snapshot),context=values[0]['command']['context'],fences=fences,
-            healthy_segment_id=run,incident_ids=['00304-20261115T171217Z-unmapped-commitment'],
+            healthy_segment_id=run,incident_ids=[load(ROOT/'docs/research/003/003-04'/p)['id'] for p in index['incidents']],
             registry_keys=[r['seq'] for r in registry if r.get('kind') in {'ENROLLMENT','DECISION'}])
-        if row['id'] in {'minimum_initial_bid','natural_outbid_rebid'}:
-            writes=[v for v in values if v['command']['operation']=='bid']
+        mutation={'minimum_initial_bid':'bid','natural_outbid_rebid':'bid','stored_price_listing':'list',
+                  'sold_clear':'clear_sold','expired_relist':'relist_all'}.get(row['id'])
+        if mutation:
+            writes=[v for v in values if v['command']['operation']==mutation]
             after=max(stamp(v['response']['freshness']['network_at']) for v in writes)
-            live['readback_command_ids']=[v['command']['id'] for v in values if v['command']['operation']=='watched' and
+            readback='watched' if mutation=='bid' else 'transfer_list'
+            live['readback_command_ids']=[v['command']['id'] for v in values if v['command']['operation']==readback and
                 stamp(v['response']['freshness']['network_at'])>after][-1:]
         witnessed.append(row['id'])
     receipt=dict(at=datetime.now(timezone.utc).isoformat(),run=run,snapshot=str(snapshot),
@@ -71,6 +75,6 @@ if __name__=='__main__':
     out=ROOT/'docs/research/003/003-04';index=load(out/'evidence-index.json');matrix,receipt=review(index)
     if args.write:
         (out/index['matrix']).write_text(json.dumps(matrix,indent=2)+'\n',encoding='utf8')
-        target=out/'production-02'/('coverage-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'.json')
+        target=(out/index['matrix']).parent/('coverage-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'.json')
         with target.open('x',encoding='utf8') as f:f.write(json.dumps(receipt,indent=2)+'\n')
     print(json.dumps(receipt))

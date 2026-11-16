@@ -1,0 +1,10 @@
+test_exporter_refuses_to_follow_a_new_owner_or_replace_existing_outputs (__main__.Exports.test_exporter_refuses_to_follow_a_new_owner_or_replace_existing_outputs) ... ok
+test_failed_collection_requests_controlled_stop_and_retains_incident_without_replay (__main__.Exports.test_failed_collection_requests_controlled_stop_and_retains_incident_without_replay) ... ok
+test_stopped_segment_gets_a_final_export_and_never_restarts (__main__.Exports.test_stopped_segment_gets_a_final_export_and_never_restarts) ... ok
+test_summary_does_not_promote_offline_or_native_captures_to_live_pass (__main__.Exports.test_summary_does_not_promote_offline_or_native_captures_to_live_pass) ... ok
+test_waits_for_real_snapshot_and_collects_at_300_seconds_without_a_lifetime_cap (__main__.Exports.test_waits_for_real_snapshot_and_collects_at_300_seconds_without_a_lifetime_cap) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.363s
+
+OK

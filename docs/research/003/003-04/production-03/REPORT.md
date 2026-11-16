@@ -53,7 +53,7 @@ models the bridge's explicit `known_identity_unavailable` local rejection with
 zero native requests. The positive fallback double supplies its own valid native
 status response. No production invariant or pre-existing assertion was weakened.
 
-The final full discovery passed **910 tests, zero failures/errors**, in 340.004
+The final full discovery passed **910 tests, zero failures/errors**, in 340.012
 seconds (see actual log for the exact measured test duration and runner receipt).
 `checks-final/result.json` retains argv, exit, test count and completion time;
 `checks-final/stderr.txt` retains the complete log. All **27 Node suites** passed
@@ -82,3 +82,58 @@ required genuine live case still need evidence. Missing natural events remain
 LIVE-UNVERIFIED and require continued supervised operation, never manufacture or
 blockage solely for absence of an event. Persistent watchdog and periodic export
 ownership must accompany any continued run.
+
+
+## Fresh continued production segment
+
+Publication of actor revision `3153be359145d71f72fcbe90340904a3a6309716`
+was independently verified against remote main before new account reads. The
+fresh read-only probe used three new IDs at epoch 73, all native GET 200, with
+62,827 coins, five complete physical Transfer List identities matching the prior
+independent probe, and zero unresolved commitments. It started no actors or
+mutations. Normal saved-login UI boolean outputs were retained from original
+orchestrator events 495460/495487/495499/495509 without any credential values.
+
+The read-only service exited before the journal-backed service started. The
+actual prelaunch process scan contained no production controller. The new run
+`9bdb55697d3658b11f01f99a495b94f6` opened at 01:25:56 UTC, attached under epoch
+75 and reached READY after independent reconciliation at 01:26:03 UTC. The
+canonical journal, cache and control/native stores were preserved. Actual
+strategy bids and a maintenance bulk relist have native results and separate
+readbacks. The watchdog supervises all three actors, the executor and supervisor.
+The exporter persistently captures local status each minute and five consistent
+SQLite stores each five minutes. No account-lifetime cap or scheduled shutdown
+was introduced.
+
+The mutable current index and matrix now select this run. Frozen earlier episode
+indexes, captures, counters and incidents remain unchanged. A separate resolved
+incident document points to the user's explicit operator-loss authority and
+new restart reconciliation. It continues to say that the old950 terminal outcome
+has no historical native proof and no refund is inferred. Acceptance checks join
+the actual immutable operator audit row, retired command and slot; a prose
+resolution cannot substitute for them.
+
+Auditor changes support the real normal UI login and its independent authenticated
+readbacks, bind diagnostic commands to their actual historical runs, check the
+new prelaunch scan, and retain native terminal reconciliation as independent bid
+proof. The minimum-bid case accepts an independently observed subsequent outbid
+of the same physical identity; it does not require catching an earlier highest
+state before another bidder acts. A post-bid selector case requires an actual
+native bid, an omitted exact identity in a distinct watched read, and a successful
+native exact-status branch. An unrelated generic GET cannot satisfy it.
+
+A separate local-only review watcher consumes new sealed exports, checks structural
+findings against unexpired capture boundaries or proven unsent read cancellation,
+updates the current matrix using case-specific native predicates and retains
+immutable numbered acceptance/coverage receipts. It makes no EA calls, controls
+no actor and never stops for absent events or four hours. Six audit regressions
+include negative saved-login/operator/native identity cases and prove that the
+watcher keeps running both while events are missing and after a four-hour PASS;
+only a real sealed runtime stop or owner change ends it. The focused final batch
+passed 47 tests (27 acceptance, 6 continued evidence, 9 fallback, 5 exporter).
+
+At the 01:31:18 native capture, 315.18 monitored healthy seconds were retained;
+subsequent local monitoring continued without incidents. This is not four hours.
+The full acceptance check still exits 1 for required elapsed time and unobserved
+natural cases. Production remains active; no missing event is labelled a human
+blocker or manufactured to produce PASS.

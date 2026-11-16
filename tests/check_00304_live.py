@@ -87,7 +87,34 @@ def browser_contract(rows):
     need(len(scope)==1 and scope[0]['designated_saved_account']=='zzorniss' and
          scope[0]['credentials_accessed'] is False and scope[0]['session_material_accessed'] is False,
          'recovery_scope_or_privacy_missing')
-    need(scope[0]['login_performed'] is False, 'login_requires_separate_ui_challenge_review')
+    if scope[0]['login_performed']:
+        review=[r for r in rows if r['kind']=='LOGIN_REVIEW']
+        need(len(review)==1 and review[0].get('designated_saved_account')=='zzorniss' and
+             review[0].get('normal_ui_only') is True and review[0].get('challenge_bypassed') is False and
+             review[0].get('credentials_or_session_extracted') is False and
+             review[0].get('retained_ui_event_ids') and review[0].get('authenticated_read_ids'),
+             'login_requires_separate_ui_challenge_review')
+
+
+def login_evidence_contract(review, capture, native_reads):
+    need(capture.get('scope')=='CAPTURED_UI_BOOLEAN_OUTPUTS_ONLY','wrong_login_capture_scope')
+    events=capture['events']
+    need({e['event_id'] for e in events}==set(review['retained_ui_event_ids']), 'login_ui_evidence_missing')
+    values=[]
+    for e in events:
+        for line in e['captured_ui_output'].splitlines():
+            try:values.append(json.loads(line))
+            except json.JSONDecodeError:pass
+    need(any(v.get('credential_values_read') is False and v.get('designated_saved_account_option_count')==1
+             for v in values) and any(v.get('app_home') is True for v in values),
+         'designated_saved_ui_login_not_witnessed')
+    need(set(native_reads)==set(review['authenticated_read_ids']) and len(native_reads)>=3,
+         'authenticated_login_readbacks_missing')
+    for command,response in native_reads.values():
+        parse_response(response,command,source='native',now=stamp(response['freshness']['observed_at']))
+        need(command['operation'] in {'watched','balance','transfer_list'} and response['result']['success'] and
+             response['freshness']['request_count']>0 and all(n['method']=='GET' and n['status']==200
+             for n in response['result']['network']), 'login_native_authentication_unproven')
 
 
 def segment_contract(rows, run, *, minimum=14400, resolved_intents=()):
@@ -158,7 +185,7 @@ def repair_contract(fix, rows, *, commit_time, published, regression):
          'repair_restart_not_independently_reconciled')
 
 
-def incident_contract(incident, rows, commands):
+def incident_contract(incident, rows, commands, *, operator_proof=None):
     need(incident['id'] and incident['root_cause'] and incident['known_account_effects'] and
          incident['unknown_account_effects'] and incident['fix'] and incident['regression_results'] and
          incident['restart_reconciliation'], 'incident_diagnosis_incomplete')
@@ -169,7 +196,31 @@ def incident_contract(incident, rows, commands):
     for cid in incident['evidence_command_ids']:
         need(cid in commands, 'incident_native_evidence_missing')
     stopped_contract(rows, run)
-    if incident['resolution']=='UNRESOLVED_ACTUAL_BID':
+    if incident['resolution']=='OPERATOR_RESOLVED':
+        p=operator_proof or {}
+        need(p.get('source')=='operator' and p.get('outcome')=='LOST' and
+             p.get('native_outcome_verified') is False and p.get('refund_claimed') is False and
+             p.get('attestation') and p.get('authorization') and
+             p.get('command_id')==incident['triggering_command_id'] and
+             p.get('amount')==incident['known_account_effects']['amount'],
+             'explicit_operator_loss_proof_required')
+        write=commands.get(p['command_id'],{})
+        need(write.get('run')==run and write.get('command',{}).get('operation')=='bid' and
+             all(write['command']['params'].get(k)==p['identity'][k]
+                 for k in ('trade_id','item_id','definition_id')),
+             'operator_resolution_native_identity_mismatch')
+        need(incident['unknown_account_effects'].get('native_outcome_verified') is False and
+             incident['restart_reconciliation']['status']=='INDEPENDENTLY_RECONCILED' and
+             incident['fix'].get('pushed_revision') and incident['regression_results']['exit_code']==0,
+             'operator_resolution_must_preserve_native_proof_gap')
+        restart=incident['restart_reconciliation']
+        reconciled=next((r for r in rows if r['run']==restart.get('run') and r['kind']=='RECONCILED'),None)
+        need(reconciled and reconciled['seq']==restart.get('control_seq') and
+             set(reconciled['body']['read_ids'])==set(restart.get('read_ids',[])) and
+             all(cid in commands and commands[cid]['run']==restart['run'] and commands[cid]['response'] and
+                 commands[cid]['response']['result']['success'] for cid in restart['read_ids']),
+             'operator_resolution_restart_readbacks_missing')
+    elif incident['resolution']=='UNRESOLVED_ACTUAL_BID':
         need(incident['restart_reconciliation']['status']=='NOT_RESTARTED' and
              incident['known_account_effects']['bid_dispatched_once'] is True and
              incident['unknown_account_effects']['auction_state']=='UNKNOWN', 'actual_bid_unknown_must_remain_gated')
@@ -242,8 +293,10 @@ def semantic_case(case, values, observations):
                 any(e.get('kind')=='ENROLLMENT' and e.get('trade_id')==p['trade_id'] for e in events)):continue
             minimum=tick('above',a['current_bid']) if a['current_bid'] else a['starting_bid']
             if not(p['amount']==p['minimum']==minimum<=p['cap'] and funds['response']['result']['credits']>=minimum): continue
-            if any(a2['trade_id']==a['trade_id'] and a2['item']==a['item'] and
-                   a2['current_bid']==minimum and a2['bid_state']=='highest' and
+            if any(a2['trade_id']==a['trade_id'] and
+                   (a2['item']['item_id'],a2['item']['definition_id'])==
+                   (a['item']['item_id'],a['item']['definition_id']) and
+                   a2['current_bid']>=minimum and a2['bid_state'] in {'highest','outbid'} and
                    stamp(after['response']['freshness']['network_at'])>stamp(v['response']['freshness']['network_at'])
                    for after in operation('watched') for a2 in after['response']['result']['auctions']): return True
         return False
@@ -252,7 +305,14 @@ def semantic_case(case, values, observations):
                    any(e.get('reason')=='LEADING' and e.get('action')=='HOLD' and
                        e.get('trade_id')==a['trade_id'] for e in events) for a in auctions)
     if case=='cap_stop': return event('OVER_CAP') and any(a['bid_state']=='outbid' for a in auctions)
-    if case=='lost': return any(a['trade_state']=='closed' and a['bid_state']=='outbid' and a['expires']<=0 for a in auctions)
+    if case=='lost':
+        return any(a['trade_state']=='closed' and a['bid_state']=='outbid' and a['expires']<=0 and
+                   any(w['command']['params']['trade_id']==a['trade_id'] and
+                       w['command']['params']['item_id']==a['item']['item_id'] and
+                       w['command']['params']['definition_id']==a['item']['definition_id'] and
+                       stamp(after['response']['freshness']['network_at'])>stamp(w['response']['freshness']['network_at'])
+                       for w in operation('bid'))
+                   for after in operation('watched') for a in after['response']['result']['auctions'])
     if case in {'won','physical_ownership'}:
         wins=[a for a in auctions if a['native_is_won'] is True and a['bid_state']=='highest' and
               a['trade_state']=='closed' and a['expires']<=0]
@@ -310,6 +370,25 @@ def semantic_case(case, values, observations):
     if case=='identity_freshness':
         return bool(operation('watched') and operation('balance') and operation('transfer_list') and
                     any(r['kind']=='RECONCILED' for r in controls))
+    if case=='post_bid_selector_reconciliation':
+        for e in events:
+            if e.get('kind')!='EXACT_STATUS' or e.get('reason')!='EXACT_STATUS_RECOVERED' or e.get('source')!='native':continue
+            identity=e.get('identity',{});before=byid.get(e.get('watched_read_id'));after=byid.get(e.get('read_id'))
+            if not before or not after or before['command']['operation']!='watched' or after['command']['operation']!='status':continue
+            params=after['command']['params']
+            if any(params.get(k)!=identity.get(k) for k in ('trade_id','item_id','definition_id')):continue
+            if any(a['trade_id']==identity['trade_id'] for a in before['response']['result']['auctions']):continue
+            matching=[a for a in after['response']['result']['auctions'] if a['trade_id']==identity['trade_id'] and
+                      a['item']['item_id']==identity['item_id'] and
+                      a['item']['definition_id'] in (None,0,identity['definition_id'])]
+            if len(matching)!=1:continue
+            a=matching[0]
+            if not ((a['trade_state']=='active' and a['bid_state'] in {'highest','outbid'}) or
+                    (a['trade_state']=='closed' and a['bid_state'] in {'highest','outbid'} and a['expires']<=0)):continue
+            if any(all(w['command']['params'].get(k)==identity[k] for k in ('trade_id','item_id','definition_id')) and
+                   stamp(w['response']['freshness']['network_at'])<stamp(after['response']['freshness']['network_at'])
+                   for w in operation('bid')):return True
+        return False
     raise ValueError('new_case_requires_semantic_assessor:'+case)
 
 
@@ -347,6 +426,25 @@ def coverage_contract(matrix, commands, run, revision, observations=None):
                      'case_independent_post_read_missing:'+row['id'])
 
 
+def capture_boundary_contract(index, bundle_dir, structural):
+    """Only unexpired capture boundaries or certified unsent reads may be open."""
+    if not structural['findings']:return
+    need(index.get('phase')=='CONTINUOUS_PRODUCTION','unresolved_capture_findings')
+    bundle=load(bundle_dir/'manifest.json')
+    with closing(read_db(bundle_dir/'native.sqlite3')) as db:
+        pending={cid:dict(state=s,deadline=stamp(d),started=a,reason=r,operation=json.loads(c)['operation'])
+                 for cid,s,d,a,r,c in db.execute('SELECT id,state,deadline,started,reason,command FROM work')}
+        claimed={cid for cid,b in db.execute('SELECT id,body FROM native_events') if json.loads(b)['kind']=='DISPATCH_CLAIM'}
+    for finding in structural['findings']:
+        cid=finding['reference'].get('command_id');row=pending.get(cid,{})
+        cancelled=(cid in index.get('cancelled_before_dispatch',[]) and row.get('state')=='UNKNOWN' and
+                   row.get('reason')=='CALLER_TIMEOUT' and row.get('started') is None and
+                   row.get('operation') not in MUTATIONS and cid not in claimed)
+        need(finding['reason'] in {'TRANSPORT_NOT_YET_CAPTURED','MISSING_RESPONSE_NO_RETRY','UNSETTLED_COMMAND'} and
+             (cancelled or row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at'])),
+             'unresolved_capture_findings')
+
+
 def assess_task(index, directory=OUT):
     """Evaluate each criterion independently; missing work cannot become PASS."""
     out = Path(directory)
@@ -361,20 +459,7 @@ def assess_task(index, directory=OUT):
     structural = assess(bundle_dir)
     need(structural['evidence_class']=='NATIVE_CAPTURE_REQUIRES_CASE_REVIEW', 'fixture_is_not_live')
     bundle = load(bundle_dir/'manifest.json')
-    if structural['findings']:
-        need(ongoing,'unresolved_capture_findings')
-        with closing(read_db(bundle_dir/'native.sqlite3')) as db:
-            pending={cid:dict(state=s,deadline=stamp(d),started=a,reason=r,operation=json.loads(c)['operation'])
-                     for cid,s,d,a,r,c in db.execute('SELECT id,state,deadline,started,reason,command FROM work')}
-            claimed={cid for cid,b in db.execute('SELECT id,body FROM native_events') if json.loads(b)['kind']=='DISPATCH_CLAIM'}
-        for finding in structural['findings']:
-            cid=finding['reference'].get('command_id');row=pending.get(cid,{})
-            cancelled=(cid in index.get('cancelled_before_dispatch',[]) and row.get('state')=='UNKNOWN' and
-                       row.get('reason')=='CALLER_TIMEOUT' and row.get('started') is None and
-                       row.get('operation') not in MUTATIONS and cid not in claimed)
-            need(finding['reason'] in {'TRANSPORT_NOT_YET_CAPTURED','MISSING_RESPONSE_NO_RETRY','UNSETTLED_COMMAND'} and
-                 (cancelled or row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at'])),
-                 'unresolved_capture_findings')
+    capture_boundary_contract(index,bundle_dir,structural)
     with closing(read_db(bundle_dir/'control.sqlite3')) as db: rows = records(db)
     opened = [r for r in rows if r['kind']=='RUN_OPEN']
     final = opened[-1]; run = final['run']; revision = bundle['revision']
@@ -395,7 +480,8 @@ def assess_task(index, directory=OUT):
         for r in lines(out/path):
             if r['kind']=='NATIVE_READ':
                 parse_response(r['response'],r['command'],source='native',now=stamp(r['at']))
-                commands[r['command']['id']]=dict(run=index['run'],command=r['command'],response=r['response'])
+                commands[r['command']['id']]=dict(run=index.get('diagnostic_runs',{}).get(path,index['run']),
+                                                 command=r['command'],response=r['response'])
     results = []
     def check(n, work):
         try:
@@ -420,13 +506,28 @@ def assess_task(index, directory=OUT):
             pile=next(v['response'] for v in reads if v['command']['operation']=='transfer_list')
             need(pile['coverage']['complete'],'complete_prelaunch_inventory_required')
         need(p['config']==production_config().export()==final['body']['config'], 'strategy_configuration_changed')
-        scan=load(out/'processes-before.json'); scan=scan if isinstance(scan,list) else [scan]
-        need(len(scan)==1 and 'fc_access.production_v1.server' in scan[0]['command'], 'competing_controller')
+        scan=load(out/index.get('processes_record','processes-before.json')); scan=scan if isinstance(scan,list) else [scan]
+        if 'processes_record' in index:
+            import re
+            controllers=[r for r in scan if re.search(r'-m fc_access\.(continuous_v1|actors_v1)',r.get('CommandLine',''))]
+            servers=[r for r in scan if 'fc_access.production_v1.server' in r.get('CommandLine','')]
+            need(not controllers and len(servers)<=1,'competing_controller')
+        else:
+            need(len(scan)==1 and 'fc_access.production_v1.server' in scan[0]['command'], 'competing_controller')
         reconciled = [r for r in rows if r['run']==run and r['kind']=='RECONCILED']
         need(reconciled and any(r['kind']=='READY' and r['run']==run for r in rows), 'commitments_not_reconciled_startup_gated')
         need(len(reconciled[-1]['body']['read_ids'])>=3, 'fresh_reconciliation_missing')
     check(0, prelaunch)
-    check(1, lambda: browser_contract(lines(out/index.get('browser_record','browser-recovery.jsonl'))))
+    def browser():
+        evidence=lines(out/index.get('browser_record','browser-recovery.jsonl'))
+        browser_contract(evidence)
+        review=next((r for r in evidence if r['kind']=='LOGIN_REVIEW'),None)
+        if review:
+            with closing(read_db(bundle_dir/'transport.sqlite3')) as db:
+                native={cid:(json.loads(c),json.loads(v)) for cid in review['authenticated_read_ids']
+                        for c,v in db.execute('SELECT body,result FROM commands WHERE id=?',(cid,)) if v}
+            login_evidence_contract(review,load(out/review['evidence']),native)
+    check(1,browser)
 
     with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
         resolved_intents={r[0] for table in ('commands','bulk_writes_v1','resale_writes_v1')
@@ -444,7 +545,7 @@ def assess_task(index, directory=OUT):
                     state=db.execute('SELECT state,amount FROM commands WHERE id=?',(c['id'],)).fetchone()
                     need(state and state==('RECONCILED',c['params']['amount']) and c['params']['amount']<=c['params']['cap'],
                          'bid_not_independently_reconciled')
-                    proof=db.execute("SELECT data FROM events WHERE command_id=? AND reason='BID_VERIFIED'",(c['id'],)).fetchall()
+                    proof=db.execute("SELECT data FROM events WHERE command_id=? AND reason IN ('BID_VERIFIED','LOST_VERIFIED','WON_VERIFIED')",(c['id'],)).fetchall()
                     need(proof and any(json.loads(p[0]).get('read_id')!=c['params']['status_read_id'] for p in proof),
                          'independent_bid_readback_missing')
     check(2, strategy)
@@ -468,12 +569,25 @@ def assess_task(index, directory=OUT):
         triggers=[r for r in rows if r['kind'] in {'INCIDENT','EXCEPTION','SUPERVISION_GAP'}]
         for r in triggers:
             need(any(d['run']==r['run'] and r['seq'] in d['trigger_control_seqs'] for d in docs), 'unrecorded_incident')
-        for d in docs: incident_contract(d,rows,commands)
+        for d in docs:
+            operator_proof=None
+            if d['resolution']=='OPERATOR_RESOLVED':
+                with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
+                    stored=db.execute('SELECT proof FROM operator_losses_v1 WHERE command_id=?',(d['triggering_command_id'],)).fetchone()
+                    need(stored is not None,'operator_loss_audit_missing')
+                    operator_proof=json.loads(stored[0]);identity=operator_proof['identity']
+                    need(db.execute('SELECT state FROM commands WHERE id=?',(d['triggering_command_id'],)).fetchone()==('RECONCILED',),
+                         'operator_loss_command_not_reconciled')
+                    need(db.execute('SELECT phase FROM capacity_slots_v1 WHERE trade_id=? AND item_id=?',
+                         (identity['trade_id'],identity['item_id'])).fetchone()==('OPERATOR_LOST',),'operator_loss_slot_not_retired')
+                    need(not db.execute("SELECT 1 FROM events WHERE command_id=? AND reason IN ('LOST_VERIFIED','WON_VERIFIED')",
+                         (d['triggering_command_id'],)).fetchone(),'operator_loss_falsely_promoted_to_native')
+            incident_contract(d,rows,commands,operator_proof=operator_proof)
     check(4, incidents)
 
     def changes():
         need(not index.get('pending_runtime_fixes'), 'runtime_repair_waiting_for_independent_reconciliation')
-        launch = load(out/'launch.json')
+        launch = load(out/index.get('launch_record','launch.json'))
         final_revision=index.get('run_revisions',{}).get(run,launch['revision'])
         need(final_revision==revision, 'launch_revision_mismatch')
         for ref in (revision,):
@@ -518,7 +632,7 @@ def assess_task(index, directory=OUT):
     def restriction():
         incidents()
         docs=[load(out/p) for p in index['incidents']]
-        if ongoing and all(d['resolution']=='REPAIRED' for d in docs):
+        if ongoing and all(d['resolution'] in {'REPAIRED','OPERATOR_RESOLVED'} for d in docs):
             need(not any(r['run']==run and r['kind'] in {'INCIDENT','EXCEPTION','SUPERVISION_GAP','STOP_REQUESTED'}
                          for r in rows),'current_restriction_requires_diagnosis')
             return
