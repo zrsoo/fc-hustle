@@ -1,0 +1,17 @@
+{
+    "audit_pid":  13760,
+    "service_pid":  17312,
+    "runtime_pids":  [
+                         18492,
+                         15144,
+                         17112,
+                         6352,
+                         16000,
+                         16996
+                     ],
+    "service_exited":  true,
+    "reason":  "Account-relative outcome unavailable; no command replay or reservation release",
+    "verified_all_owned_exits":  true,
+    "at":  "2026-11-16T01:45:11.3784865Z",
+    "audit_exited":  true
+}

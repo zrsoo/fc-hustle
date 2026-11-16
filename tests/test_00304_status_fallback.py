@@ -106,5 +106,19 @@ class StatusFallback(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'unproven'):verify_win(self.f,status,source,bad)
         self.assertEqual(self.page.bid_calls,1)
 
+    def test_successful_lite_with_no_account_relation_cannot_infer_loss_even_above_cap(self):
+        # Retained live incident shape: exact physical match, version 0, native
+        # success and a higher public price still lack a personal bid outcome.
+        for phase,expiry in [('active',60),('closed',-1)]:
+            with self.subTest(phase=phase):
+                self.lite.update(trade_state=phase,bid_state='none',expires=expiry,
+                                 current_bid=10000,native_is_won=False)
+                Bidder(self.f).cycle()
+                self.assertEqual(self.state(),'ACKNOWLEDGED')
+                self.assertIn(self.trade,self.f.queue.entries)
+                self.assertEqual(self.page.bid_calls,1)
+                self.assertTrue(any(e.get('reason')=='OUTCOME_STILL_UNKNOWN' for e in self.f.registry.events()))
+                with self.assertRaisesRegex(ValueError,'outcome_still_unknown'):reconcile(self.f)
+
 
 if __name__=='__main__':unittest.main(verbosity=2)

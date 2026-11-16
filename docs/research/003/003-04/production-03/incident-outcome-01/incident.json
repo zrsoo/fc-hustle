@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T013638Z-account-relative-status-unavailable",
+  "task": "003-04",
+  "run": "9bdb55697d3658b11f01f99a495b94f6",
+  "recorded_at": "2026-11-16T01:47:25.967348+00:00",
+  "trigger_control_seqs": [
+    9843,
+    9845,
+    10132
+  ],
+  "triggering_command_id": "6b3faed8a418890da8147b59eae039fc",
+  "triggering_read_id": "89e5be9315a480fa6edbf4313f8b3d96",
+  "terminal_read_id": "c8cda9d38e8ed5df65d0a8be8ddd9fde",
+  "evidence_command_ids": [
+    "6b3faed8a418890da8147b59eae039fc",
+    "1a68582eea9a9975ea74077d6e3396b0",
+    "91264e3988d0f10405e8491573f0a5ea",
+    "89e5be9315a480fa6edbf4313f8b3d96",
+    "83e07ce1a393a3e5f5aabe939c1ee617",
+    "3b4e0119919268a890902c3b49095ccc",
+    "c8cda9d38e8ed5df65d0a8be8ddd9fde"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 950,
+    "native_HTTP": 200,
+    "native_callback_success": true,
+    "command_state": "ACKNOWLEDGED",
+    "native_requests_diagnostic": 7,
+    "public_terminal_price": 4800,
+    "public_terminal_state": "closed",
+    "personal_bid_state": "none",
+    "native_version": 0,
+    "credits_observed": 62827,
+    "complete_transfer_list_occupied": 5,
+    "unassigned_items_observed": 0,
+    "unassigned_coverage_complete": false,
+    "maintenance_read_cancelled_before_dispatch": "97d2b4e437f0d7f3990be2b6876e98a7",
+    "identity": {
+      "trade_id": "trade:4277ca1e7e0bc5625b51752f",
+      "item_id": "item:d5a3c8d9f578ce97882f8474",
+      "definition_id": 246191
+    }
+  },
+  "unknown_account_effects": {
+    "account_result": "UNKNOWN",
+    "bid_acceptance_or_debit": "No independent personal native outcome or refund proof. Closed/none, public price above cap, watched absence, false isWon and unchanged aggregate credits are not promoted to an authorized personal LOST outcome.",
+    "native_outcome_verified": false
+  },
+  "root_cause": "The retained selector and new runtime fallback worked: an exact native GET 200 returned the correct trade/physical item, with version 0 kept unobserved. Unlike the earlier selector defect, this native lite response reports personal bid_state none. Journal.reconcile correctly rejects ACTIVE/UNKNOWN as outcome_still_unknown. The watchdog stopped at the primary OUTCOME_STILL_UNKNOWN event. Later independent native reads followed the public price from 950 through 1600/2400 to closed at 4800, but still none; watched omitted the exact target, unassigned was empty with incomplete coverage, and complete Transfer List excluded it. No retained bid-response personal auction DTO is available to resolve the account-relative proof gap. Secondary maintenance timeout followed the dispatch gate and was never sent.",
+  "fix": {
+    "runtime_change": false,
+    "disposition": "Preserve consumed actual command, local950 reservation and unresolved slot. Retain raw native none/version0; do not fabricate outbid/leading/lost or replay. Exact selector integration is proven live; account-relative outcome remains an external evidence prerequisite.",
+    "runtime_revision": "3153be359145d71f72fcbe90340904a3a6309716"
+  },
+  "regression_results": {
+    "status": "PASS",
+    "exit_code": 0,
+    "tests_run": 10,
+    "receipt": "production-03/incident-outcome-01/checks/status-fallback.json",
+    "note": "Actual actor/startup paths reject active and closed none even above cap; offline tests are not live evidence."
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED",
+    "reason": "Actual950 remains ACKNOWLEDGED with reserved commitment; no new actor owner or replay permitted."
+  },
+  "resolution": "UNRESOLVED_ACCOUNT_RELATION",
+  "human_or_external_prerequisite": {
+    "minimal_action": "Provide independent official account-relative outcome evidence for actual950 command 6b3faed8a418890da8147b59eae039fc, trade trade:4277ca1e7e0bc5625b51752f, item item:d5a3c8d9f578ce97882f8474, version246191; or explicitly confirm this exact auction was lost and authorize a separately audited operator-loss record. The earlier confirmation for trade:86f34fb6234c8c320dceeede does not authorize another loss.",
+    "prohibited_workarounds": [
+      "replaying the consumed bid",
+      "applying the previous operator confirmation to a different auction",
+      "inferring personal LOST or a refund from public price/expiry, watched absence or aggregate coins",
+      "starting with an empty journal or dropping the unresolved950 reservation"
+    ]
+  },
+  "safe_state": {
+    "stop_control_seq": 10140,
+    "all_runtime_stopped": true,
+    "verified_all_owned_exits": true,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 634.0719776999904,
+    "readonly_health": "production-03/incident-outcome-01/readonly-health.json",
+    "process_stop": "production-03/incident-outcome-01/process-stop.json",
+    "evidence_integrity": "production-03/incident-outcome-01/evidence-integrity.json"
+  }
+}

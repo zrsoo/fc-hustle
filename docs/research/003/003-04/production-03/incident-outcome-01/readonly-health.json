@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-16T01:45:14.758842+00:00",
+  "health": {
+    "service": "fc-production-v1",
+    "schema": 2,
+    "host_epoch": "c068224785d72f12188ea1da8156d8ac",
+    "owner": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "owner": "ac723caf02c30fce0c07397e5239dce3",
+      "epoch": 76
+    },
+    "attached": true,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "b0a3bd2e52f3dba130de9f8eaf308bf3",
+        "epoch": 76,
+        "host_epoch": "c068224785d72f12188ea1da8156d8ac",
+        "owner": "ac723caf02c30fce0c07397e5239dce3",
+        "worker_epoch": "ffa5506586730ee4fefd22639a811e97"
+      }
+    },
+    "mutations_enabled": false,
+    "intent_journal": null
+  }
+}

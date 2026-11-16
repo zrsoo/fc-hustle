@@ -14,7 +14,7 @@ import unittest
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'tests'))
 from check_00304_live import (OUT,load,lines,browser_contract,login_evidence_contract,
-                             incident_contract,semantic_case)
+                             incident_contract,semantic_case,assess_task)
 from fc_access.continuous_v1.evidence import read_db,records
 from watch_00304_evidence import ReviewWatch
 
@@ -190,6 +190,74 @@ class ContinuedEvidence(unittest.TestCase):
             if fault=='wrong-version':v['response']['result']['auctions'][0]['item']['definition_id']=124
             if fault=='stale':v['response']['freshness']['network_at']='2029-01-01T00:00:00Z'
             with self.subTest(fault=fault):self.assertFalse(semantic_case('uncertain_reconciliation',[v],o))
+
+
+class AccountRelationIncident(unittest.TestCase):
+    def setUp(self):
+        self.index=load(OUT/'production-03/stopped-evidence-index.json')
+        self.incident=load(OUT/'production-03/incident-outcome-01/incident.json')
+        self.bundle=ROOT/'private-captures/003-04/production-03/incident-outcome-01/after-diagnostics'
+
+    def test_actual_new_bid_is_reserved_and_independent_terminal_read_does_not_fabricate_personal_loss(self):
+        cid=self.incident['triggering_command_id']
+        with closing(read_db(self.bundle/'journal.sqlite3')) as db:
+            row=db.execute('SELECT state,amount,trade_id,item_id FROM commands WHERE id=?',(cid,)).fetchone()
+            self.assertEqual(row[:2],('ACKNOWLEDGED',950))
+            self.assertEqual(db.execute('SELECT phase FROM capacity_slots_v1 WHERE trade_id=? AND item_id=?',row[2:]).fetchone(),
+                             ('UNRESOLVED',))
+            self.assertIsNone(db.execute('SELECT proof FROM operator_losses_v1 WHERE command_id=?',(cid,)).fetchone())
+            self.assertIsNone(db.execute("SELECT 1 FROM events WHERE command_id=? AND reason IN ('LOST_VERIFIED','WON_VERIFIED')",(cid,)).fetchone())
+        with closing(read_db(self.bundle/'native.sqlite3')) as db:
+            claims=[json.loads(b)['kind'] for (b,) in db.execute('SELECT body FROM native_events WHERE id=?',(cid,))]
+            self.assertEqual(claims.count('DISPATCH_CLAIM'),1)
+        terminal=next(r for r in lines(OUT/'production-03/incident-outcome-01/followup-status.jsonl') if r['kind']=='NATIVE_READ')
+        row=terminal['response']['result']['auctions'][0]
+        self.assertTrue(terminal['response']['result']['success'])
+        self.assertEqual(row['bid_state'],'none');self.assertEqual(row['item']['definition_id'],0)
+        self.assertEqual(row['trade_state'],'closed');self.assertLessEqual(row['expires'],0)
+        self.assertEqual(terminal['command']['params']['trade_id'],self.incident['known_account_effects']['identity']['trade_id'])
+
+    def test_all_original_criteria_remain_enforced_with_exact_safe_human_prerequisite(self):
+        result=assess_task(self.index)
+        status={r['criterion']:r for r in result['results']}
+        self.assertEqual(set(status),set(range(10)));self.assertEqual(result['status'],'INCOMPLETE')
+        self.assertEqual(status[2]['reason'],'bid_not_independently_reconciled')
+        self.assertEqual(status[3]['reason'],'healthy_segment_interrupted')
+        self.assertEqual(status[7]['reason'],'healthy_segment_interrupted')
+        self.assertEqual(status[8]['status'],'UNFULFILLED')
+        self.assertEqual(status[4]['status'],'PASS');self.assertEqual(status[9]['status'],'PASS')
+        self.assertIn(self.incident['triggering_command_id'],self.incident['human_or_external_prerequisite']['minimal_action'])
+
+    def test_no_native_state_or_other_auction_operator_statement_can_resolve_this_incident(self):
+        with closing(read_db(self.bundle/'control.sqlite3')) as db:rows=records(db)
+        with closing(read_db(self.bundle/'native.sqlite3')) as db:
+            commands={json.loads(c)['id']:dict(command=json.loads(c),response=json.loads(v) if v else None)
+                      for c,v in db.execute('SELECT command,response FROM work')}
+        for path in self.index['additional_diagnostics']:
+            for r in lines(OUT/path):
+                if r['kind']=='NATIVE_READ':commands[r['command']['id']]=dict(command=r['command'],response=r['response'])
+        incident_contract(self.incident,rows,commands)
+        for fault in ('restart','release','wrong-target','native-outbid'):
+            d=deepcopy(self.incident);c=deepcopy(commands)
+            if fault=='restart':d['restart_reconciliation']['status']='READY'
+            if fault=='release':d['unknown_account_effects']['account_result']='LOST'
+            if fault=='wrong-target':c[d['terminal_read_id']]['command']['params']['trade_id']='unrelated'
+            if fault=='native-outbid':c[d['terminal_read_id']]['response']['result']['auctions'][0]['bid_state']='outbid'
+            with self.subTest(fault=fault),self.assertRaises(ValueError):incident_contract(d,rows,c)
+
+    def test_post_stop_read_timeout_was_not_dispatched_and_safe_service_has_no_mutation_authority(self):
+        cid='97d2b4e437f0d7f3990be2b6876e98a7'
+        with closing(read_db(self.bundle/'native.sqlite3')) as db:
+            self.assertEqual(db.execute('SELECT state,reason,started FROM work WHERE id=?',(cid,)).fetchone(),
+                             ('UNKNOWN','CALLER_TIMEOUT',None))
+        with closing(read_db(self.bundle/'transport.sqlite3')) as db:
+            self.assertIsNone(db.execute('SELECT id FROM commands WHERE id=?',(cid,)).fetchone())
+        changed=deepcopy(self.index);changed['cancelled_before_dispatch'].remove(cid)
+        with self.assertRaisesRegex(ValueError,'unresolved_capture_findings'):assess_task(changed)
+        h=load(OUT/'production-03/incident-outcome-01/readonly-health.json')['health']
+        self.assertTrue(h['attached']);self.assertFalse(h['mutations_enabled']);self.assertIsNone(h['intent_journal'])
+        stop=load(OUT/'production-03/incident-outcome-01/process-stop.json')
+        self.assertTrue(stop['verified_all_owned_exits']);self.assertTrue(stop['service_exited']);self.assertTrue(stop['audit_exited'])
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

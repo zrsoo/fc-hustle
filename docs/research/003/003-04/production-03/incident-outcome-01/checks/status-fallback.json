@@ -1,0 +1,12 @@
+{
+  "command": [
+    "{python}",
+    "tests/test_00304_status_fallback.py"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 2.9804990999982692,
+  "finished_at": "2026-11-16T01:49:15.877204+00:00",
+  "stdout": "test_00304_status_fallback.py-stdout.txt",
+  "stderr": "test_00304_status_fallback.py-stderr.txt",
+  "tests_run": 10
+}

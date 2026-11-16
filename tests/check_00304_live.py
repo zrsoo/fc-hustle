@@ -220,6 +220,24 @@ def incident_contract(incident, rows, commands, *, operator_proof=None):
              all(cid in commands and commands[cid]['run']==restart['run'] and commands[cid]['response'] and
                  commands[cid]['response']['result']['success'] for cid in restart['read_ids']),
              'operator_resolution_restart_readbacks_missing')
+    elif incident['resolution']=='UNRESOLVED_ACCOUNT_RELATION':
+        need(incident['restart_reconciliation']['status']=='NOT_RESTARTED' and
+             incident['known_account_effects']['bid_dispatched_once'] is True and
+             incident['unknown_account_effects']['account_result']=='UNKNOWN' and
+             incident['fix']['runtime_change'] is False,'unknown_account_relation_must_remain_gated')
+        write=commands.get(incident['triggering_command_id'],{})
+        need(write.get('command',{}).get('operation')=='bid' and write.get('response') and
+             write['response']['result']['success'],'actual_bid_dispatch_evidence_missing')
+        diagnostic=commands.get(incident['terminal_read_id'],{})
+        need(diagnostic.get('command',{}).get('operation')=='status' and diagnostic.get('response') and
+             diagnostic['response']['result']['success'],'exact_terminal_status_missing')
+        params=diagnostic['command']['params'];bid=write['command']['params']
+        need(all(params[k]==bid[k] for k in ('trade_id','item_id','definition_id')),'wrong_actual_bid_reconciliation_identity')
+        rows=diagnostic['response']['result']['auctions']
+        need(len(rows)==1 and rows[0]['trade_id']==params['trade_id'] and rows[0]['item']['item_id']==params['item_id'] and
+             rows[0]['item']['definition_id'] in (None,0,params['definition_id']) and
+             rows[0]['trade_state']=='closed' and rows[0]['expires']<=0 and rows[0]['bid_state']=='none',
+             'account_relative_state_not_missing')
     elif incident['resolution']=='UNRESOLVED_ACTUAL_BID':
         need(incident['restart_reconciliation']['status']=='NOT_RESTARTED' and
              incident['known_account_effects']['bid_dispatched_once'] is True and
@@ -660,6 +678,43 @@ def assess_task(index, directory=OUT):
         if ongoing and all(d['resolution'] in {'REPAIRED','OPERATOR_RESOLVED'} for d in docs):
             need(not any(r['run']==run and r['kind'] in {'INCIDENT','EXCEPTION','SUPERVISION_GAP','STOP_REQUESTED'}
                          for r in rows),'current_restriction_requires_diagnosis')
+            return
+        if ongoing and any(d['resolution']=='UNRESOLVED_ACCOUNT_RELATION' for d in docs):
+            stopped_contract(rows,run)
+            for d in docs:
+                if d['resolution']!='UNRESOLVED_ACCOUNT_RELATION':continue
+                h=load(out/d['safe_state']['readonly_health'])['health']
+                need(h['attached'] and h['mutations_enabled'] is False and h['intent_journal'] is None,
+                     'safe_readonly_state_missing')
+                need(d['human_or_external_prerequisite']['minimal_action'] and
+                     d['human_or_external_prerequisite']['prohibited_workarounds'],'exact_prerequisite_missing')
+                with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
+                    bid=db.execute('SELECT state,amount,trade_id,item_id,definition_id FROM commands WHERE id=?',
+                                   (d['triggering_command_id'],)).fetchone()
+                    need(bid and bid[0]=='ACKNOWLEDGED' and bid[1]==d['known_account_effects']['amount'],
+                         'actual_bid_was_released_or_replayed')
+                    need(db.execute('SELECT phase FROM capacity_slots_v1 WHERE trade_id=? AND item_id=?',bid[2:4]).fetchone()==
+                         ('UNRESOLVED',),'unresolved_slot_was_released')
+                integrity=load(out/d['safe_state']['evidence_integrity'])
+                need(integrity['scope']=='SEALED_CAPTURED_ACCOUNT_RELATION_EVIDENCE_ONLY','wrong_incident_integrity_scope')
+                for ref in integrity['captures']:
+                    path=(ROOT/ref['path']).resolve()
+                    need(path.is_relative_to(out/'production-03/incident-outcome-01') and path.name in {
+                        'native-diagnostic.jsonl','terminal-diagnostic.jsonl','followup-status.jsonl',
+                        'process-stop.json','readonly-service.json','readonly-health.json'},'wrong_incident_capture_scope')
+                    with path.open('rb') as stream:
+                        need(hashlib.file_digest(stream,'sha256').hexdigest()==ref['sha256'],'incident_capture_changed')
+                path=(ROOT/integrity['transport']['path']).resolve()
+                need(path.is_relative_to(ROOT/'private-captures/003-04/production-03/incident-outcome-01') and
+                     path.name=='transport.sqlite3','wrong_incident_transport')
+                with path.open('rb') as stream:
+                    need(hashlib.file_digest(stream,'sha256').hexdigest()==integrity['transport']['sha256'],
+                         'incident_transport_changed')
+                diagnostic=commands[d['terminal_read_id']]
+                with closing(read_db(path)) as db:
+                    stored=db.execute('SELECT body,result FROM commands WHERE id=?',(d['terminal_read_id'],)).fetchone()
+                need(stored and json.loads(stored[0])==diagnostic['command'] and json.loads(stored[1])==diagnostic['response'],
+                     'restriction_not_independently_retained')
             return
         if ongoing and any(d['resolution']=='UNRESOLVED_ACTUAL_BID' for d in docs):
             stopped_contract(rows,run)

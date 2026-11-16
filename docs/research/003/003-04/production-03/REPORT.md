@@ -1,5 +1,15 @@
 # Bounded exact-status integration and continued production recovery
 
+Current state: **BLOCKED** on the account-relative outcome of actual950 command
+`6b3faed8a418890da8147b59eae039fc` for trade
+`trade:4277ca1e7e0bc5625b51752f` (version246191). Exact native status succeeded
+but ended closed/none at 4,800; no personal outcome was inferred. All runtime
+processes exited, the 950 reservation remains, and the attached service is
+read-only. See [the sealed incident report](incident-outcome-01/REPORT.md).
+The final segment retained 634.07 healthy seconds and thirteen verified live
+cases. Final 53 focused tests passed; live acceptance exits1 for criteria2/3/7/8.
+The continued-operation descriptions below describe the earlier running period.
+
 The usage interruption is over. This same worker reconciled actual process and
 database state before repeating any work: no production actor or native service
 was running, the old two segments remained stopped, and the actual 950-coin bid

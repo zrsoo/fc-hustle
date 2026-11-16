@@ -1,0 +1,33 @@
+{
+  "scope": "SEALED_CAPTURED_ACCOUNT_RELATION_EVIDENCE_ONLY",
+  "captures": [
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\native-diagnostic.jsonl",
+      "sha256": "c9763cf3d9863d7dcfe5a47cb861b98cb77cac642ca7b15872dd41753d761640"
+    },
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\terminal-diagnostic.jsonl",
+      "sha256": "eefd4c26c1ebb2e899e27bbedd304d72d4edc86721456b7242e3bf7b9fe12adb"
+    },
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\followup-status.jsonl",
+      "sha256": "e147608ac550ef76893e53e78d46bdb63e49eb52f91394daccb104059c924e0c"
+    },
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\process-stop.json",
+      "sha256": "f044ce7d62d74d65dfdc6a4e19ab83495455c198e9ae1f93dcdcd8c3e61c1a10"
+    },
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\readonly-service.json",
+      "sha256": "2e384abce79be0c6867c8dbf76ed205bfaaa50529106b105615511dcf87995e7"
+    },
+    {
+      "path": "docs\\research\\003\\003-04\\production-03\\incident-outcome-01\\readonly-health.json",
+      "sha256": "c40fdf122a976c2e07ec5d5ce726f11c9c2a641c021ee5d78d8ea5d71bd6d6eb"
+    }
+  ],
+  "transport": {
+    "path": "private-captures\\003-04\\production-03\\incident-outcome-01\\after-diagnostics\\transport.sqlite3",
+    "sha256": "a41cc4f171db84d85052730a15758ab4a107c4c174db6ee43ddae72dba7448dd"
+  }
+}

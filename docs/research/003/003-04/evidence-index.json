@@ -7,7 +7,8 @@
   "prelaunch_reads": "prelaunch-20261115T171020Z.jsonl",
   "incidents": [
     "production-02/resolved-original-incident.json",
-    "production-03/resolved-prior-incident.json"
+    "production-03/resolved-prior-incident.json",
+    "production-03/incident-outcome-01/incident.json"
   ],
   "runtime_fixes": [
     {
@@ -27,7 +28,7 @@
       "regression_receipt": "production-03/repair-regressions.json"
     }
   ],
-  "status": "CONTINUOUS_LIVE_INCOMPLETE",
+  "status": "BLOCKED_UNRESOLVED_ACCOUNT_RELATION",
   "phase": "CONTINUOUS_PRODUCTION",
   "run": "9bdb55697d3658b11f01f99a495b94f6",
   "export_events": "private-captures/continuous-evidence/00304-production03-periodic/events.jsonl",
@@ -39,16 +40,23 @@
     "9bdb55697d3658b11f01f99a495b94f6": "3153be359145d71f72fcbe90340904a3a6309716"
   },
   "cancelled_before_dispatch": [
-    "e84dcddef494468d3e12a2766ccd6fba"
+    "e84dcddef494468d3e12a2766ccd6fba",
+    "97d2b4e437f0d7f3990be2b6876e98a7"
   ],
   "additional_diagnostics": [
-    "production-02/incident-identity-01/exact-status.jsonl"
+    "production-02/incident-identity-01/exact-status.jsonl",
+    "production-03/incident-outcome-01/native-diagnostic.jsonl",
+    "production-03/incident-outcome-01/terminal-diagnostic.jsonl",
+    "production-03/incident-outcome-01/followup-status.jsonl"
   ],
   "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
   "pending_runtime_fixes": [],
   "processes_record": "production-03/processes-before.json",
   "launch_record": "production-03/launch.json",
   "diagnostic_runs": {
-    "production-02/incident-identity-01/exact-status.jsonl": "956a2d483cf70c2d440709ed20a312fe"
+    "production-02/incident-identity-01/exact-status.jsonl": "956a2d483cf70c2d440709ed20a312fe",
+    "production-03/incident-outcome-01/native-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",
+    "production-03/incident-outcome-01/terminal-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",
+    "production-03/incident-outcome-01/followup-status.jsonl": "9bdb55697d3658b11f01f99a495b94f6"
   }
 }
