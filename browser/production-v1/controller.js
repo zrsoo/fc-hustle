@@ -33,7 +33,7 @@
       if(!valid(c))return out;
       if(!s.acquire()){out.error='bridge_busy';return out;}
       const restorers=[],listeners=[],requests=[],pending=new WeakMap();
-      let active=true,invoking=false,sending=false,invocations=0,queueCount=0,bidState=null,observable=null,owner={},timer;
+      let active=true,invoking=false,sending=false,invocations=0,queueCount=0,bidState=null,wireCredits=null,observable=null,owner={},timer;
       const restore=()=>{active=false;clearTimeout(timer);try{observable?.unobserve?.(owner);}catch{}
         const queue=services.UTUtasRequestQueue;
         if(Array.isArray(queue?.queue))for(let i=queue.queue.length-1;i>=0;i--)if(requests.includes(queue.queue[i].request))queue.queue.splice(i,1);
@@ -124,10 +124,16 @@
           }else if(body!=null && body!=='')throw Error('invalid_preconditions');
           out.network.push(n);out.network_at=new Date().toISOString();
           const f=()=>{if(!active)return;n.status=num(this.status)||null;
-            if(op==='bid'){
+            if(op==='bid' || op==='balance'){
               try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
-                bidState.receipt.wire_item_count=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
-                bidState.receipt.wire_error_code=num(data?.code);}catch{}
+                if(op==='bid'){
+                  bidState.receipt.wire_item_count=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
+                  bidState.receipt.wire_error_code=num(data?.code);
+                }else{
+                  const coins=Array.isArray(data?.currencies)?data.currencies.filter(x=>x?.name===GameCurrency.COINS):[];
+                  wireCredits=coins.length===1?num(coins[0].funds):null;
+                }
+              }catch{}
             }
           };
           listeners.push([this,f]);this.addEventListener('loadend',f,{once:true});return original.call(this,body);
@@ -149,7 +155,10 @@
         if(out.status!==200){if(op==='bid' && out.receipt.verdict==='REJECTED'){out.error='bid_rejected';return out;}throw Error('service_failed');}
         if(response?.success!==true)throw Error('service_failed');
         if(op==='balance'){
-          out.credits=num((response.response??response.data)?.credits);if(out.credits===null)throw Error('schema_unrecognized');
+          const coins=response.data?.coins;
+          const credits=coins?.type===GameCurrency.COINS && typeof coins.value==='function'?num(coins.value()):null;
+          if(credits===null || wireCredits===null || credits!==wireCredits)throw Error('schema_unrecognized');
+          out.credits=credits;
         }else if(op!=='bid'){
           const rows=(response.response??response.data)?.items;
           if(!Array.isArray(rows) || rows.length>(op==='status_batch'?10:100))throw Error('schema_unrecognized');

@@ -1,0 +1,1 @@
+{"status": "PASS", "retained_ea_gets": 11, "mutations": 0, "commands": 27, "balance": 63702, "independent_pricing_replay": true, "first_min": 4600, "resale_price": 4200, "ceiling": 3400, "cache_hit_without_get": true, "exact_status_targets": 10}

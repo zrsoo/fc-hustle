@@ -31,7 +31,11 @@ function setup(count=10){
     const o={...options};
     let callback,nativeResponse;
     const request={send(){
-      const x=new XHR();x.status=o.http??200;x.responseText=JSON.stringify({auctionInfo:o.empty?[]:items,code:o.rejection?402:null});
+      const x=new XHR();x.status=o.http??200;x.responseText=JSON.stringify(op==='balance'?
+        (Object.hasOwn(o,'balanceWire')?o.balanceWire:{currencies:[{name:'COINS',funds:o.balanceAmount??90000}]}):
+        {auctionInfo:o.empty?[]:items,code:o.rejection?402:null});
+      if(o.responseType==='json'){x.responseType='json';x.response=JSON.parse(x.responseText);}
+      if(o.responseType==='arraybuffer'){x.responseType='arraybuffer';x.response=new TextEncoder().encode(x.responseText).buffer;}
       const path=op==='status_batch'?'trade/status/lite?tradeIds='+input.map(x=>x.getAuctionData().tradeId).join(','):
         op==='bid'?'trade/'+input.getAuctionData().tradeId+'/bid':op==='watched'?'watchlist':
         op==='search'?'transfermarket?start=0&num=21&macr=1000&minb=11000':
@@ -54,7 +58,9 @@ function setup(count=10){
       if(o.unexpected){const base=rows[0];rows[0]={...base,getAuctionData:()=>({...base.getAuctionData(),tradeId:'999'})};}
       if(o.malformed)rows=[null];
     }
-    nativeResponse={success:!o.rejection,status:o.http??200,response:op==='balance'?{credits:90000}:o.data??{items:rows},error:o.rejection?{code:402}:undefined};
+    nativeResponse={success:!o.rejection,status:o.http??200,
+      ...(op==='balance'?{data:Object.hasOwn(o,'balanceData')?o.balanceData:{coins:{type:'COINS',amount:o.balanceAmount??90000,value(){return this.amount;}}}}:
+        {response:o.data??{items:rows}}),error:o.rejection?{code:402}:undefined};
     request.originalSend=request.send;request.originalObserve=request.observe;
     if(!o.zeroOwned)queue.send(request);
     return request;
@@ -72,7 +78,7 @@ function setup(count=10){
   }};
   const originalQueue=queue.send,originalBid=services.Item.transfersDao.bid;
   const sandbox=vm.createContext({window:{},crypto:webcrypto,TextEncoder,TextDecoder,URL,services,Date:Clock,
-    performance:{now:()=>now},XMLHttpRequest:XHR,UTSearchCriteriaDTO:class{},repositories:{Item:{setDirty(){}}},ItemPile:{INBOX:1},GamePlatform:{PC:'PC'},
+    performance:{now:()=>now},XMLHttpRequest:XHR,UTSearchCriteriaDTO:class{},repositories:{Item:{setDirty(){}}},ItemPile:{INBOX:1},GamePlatform:{PC:'PC'},GameCurrency:{COINS:'COINS'},
     UTCurrencyInputControl:{getIncrementAboveVal:v=>v+100,getIncrementBelowVal:v=>Math.max(0,v-100)},UtasErrorCode:{NOT_ENOUGH_CREDIT:402},
     location:{protocol:'https:',hostname:'www.ea.com',pathname:'/ea-sports-fc/ultimate-team/web-app/',href:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'},
     setTimeout:(fn,delay)=>setTimeout(fn,delay===15000?20:delay),clearTimeout});

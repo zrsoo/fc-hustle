@@ -1,0 +1,1 @@
+PASS native resale: exact physical DTO, native move/list arguments, current caps/ticks, hour, persona/epoch, paid proof and no replay

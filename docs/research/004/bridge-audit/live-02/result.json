@@ -1,0 +1,127 @@
+{
+  "classification": "READ_ONLY_CONTROLLER_BRIDGE_AUDIT",
+  "mode": "STATUS_FROM_DISCOVERY",
+  "max_reserved_ea_requests": 3,
+  "max_commands": 2,
+  "max_mutations": 0,
+  "reserved_ea_requests": 3,
+  "actual_ea_requests": 2,
+  "commands": 2,
+  "mutations": 0,
+  "controllers_started": 0,
+  "checks": [
+    {
+      "label": "discovery",
+      "schema": 2,
+      "operation": "search",
+      "success": true,
+      "error": null,
+      "status": 200,
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/transfermarket",
+          "query": {
+            "macr": 1000,
+            "minb": 11000,
+            "num": 21,
+            "start": 0
+          },
+          "session_header_present": true,
+          "status": 200
+        }
+      ],
+      "network_at": "2026-11-16T20:55:55.633Z",
+      "rows": 21,
+      "items": 0,
+      "coverage": {
+        "complete": false,
+        "has_more": null
+      }
+    },
+    {
+      "label": "status_batch_from_discovery",
+      "schema": 4,
+      "operation": "status_batch",
+      "success": true,
+      "error": null,
+      "status": 200,
+      "network": [
+        {
+          "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+          "method": "GET",
+          "path": "/ut/game/fc27/trade/status/lite",
+          "session_header_present": true,
+          "status": 200,
+          "targets": [
+            {
+              "definition_id": 278046,
+              "item_id": "item:b20388dd3d382d023538b71d",
+              "trade_id": "trade:84056a444608f867e1ce4064"
+            },
+            {
+              "definition_id": 246420,
+              "item_id": "item:a0efcd3df33080f4f6110533",
+              "trade_id": "trade:cb952f0f5211686e97414aef"
+            },
+            {
+              "definition_id": 271421,
+              "item_id": "item:33e84beb7b819e3afe0d419d",
+              "trade_id": "trade:28bf7c6d220a19a68669ce06"
+            },
+            {
+              "definition_id": 251570,
+              "item_id": "item:aff60165ae207fede01a4b96",
+              "trade_id": "trade:aee2f476d13ed562a7bb93ce"
+            },
+            {
+              "definition_id": 256079,
+              "item_id": "item:7cb15f3a1cf29af1bed93d17",
+              "trade_id": "trade:ffe5c6999b3b9748b8dd4cc1"
+            },
+            {
+              "definition_id": 256079,
+              "item_id": "item:99d1a7380822dbfc7a533cd0",
+              "trade_id": "trade:14e13bf0c8e283dfd4a89f1e"
+            },
+            {
+              "definition_id": 246272,
+              "item_id": "item:35e9271fa7dbd7cd6b1ac817",
+              "trade_id": "trade:91c201d354404360b90cdbba"
+            },
+            {
+              "definition_id": 246420,
+              "item_id": "item:a40e85c29dbfa38299f76f35",
+              "trade_id": "trade:d23d8171ba558934515c9904"
+            },
+            {
+              "definition_id": 251570,
+              "item_id": "item:26de82d1f8c0d2bcf536ff32",
+              "trade_id": "trade:462cb4fdaf4e6275b75d2d2e"
+            },
+            {
+              "definition_id": 251570,
+              "item_id": "item:1dd5eb43040fb78ba07b4dce",
+              "trade_id": "trade:74e077b3301ac37b3c68f862"
+            }
+          ]
+        }
+      ],
+      "network_at": "2026-11-16T20:55:57.644Z",
+      "rows": 10,
+      "items": 0,
+      "designated_account_verified": true
+    }
+  ],
+  "limitations": [],
+  "status_links": {
+    "requested": 10,
+    "returned": 10,
+    "missing": 0,
+    "validated_full_version_links": 10
+  },
+  "status": "READS_PASS_WITH_LIMITATIONS",
+  "pending_commands": 0,
+  "service_stopped": true
+}

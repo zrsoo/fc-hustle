@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "scope": "Captured immutable EA read responses and experiment state only; no implementation-file hashes",
+  "files": {
+    "live-01/checkpoint.jsonl": "9ae7e188409a0690087589b13dfd9e3e0541b67c9ae70919d03eb47d30f81c13",
+    "live-01/result.json": "a4c968b774fb563f4deec0905c196b163ae6b16682b44d1d5bc511749ce5666c",
+    "live-01/transport.sqlite": "5092d90fd958f7a8dd9715a2347cdae6e8c7ae090d212e2b724aaecc1fe59b33",
+    "live-02/checkpoint.jsonl": "2db32d651a3f5b9b7d0f79ca58491ed62e53dd648b9ecf8fb38be825e1e2e438",
+    "live-02/result.json": "0637ca9a5e021b016aa02b30b92435af1887494220b345256702266fda6f135b",
+    "live-02/transport.sqlite": "1849f31e1ffb93b5c3920ebc1a7e3c243fb2daafbee5058e10962a4f4e3e27db",
+    "live-01/quotes.sqlite": "76ec2738c6074234c3d6544f8ca04cbee14c04650e61fe80cbd777763fc03b80"
+  }
+}

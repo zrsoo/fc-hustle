@@ -1,0 +1,7 @@
+test_captured_native_currency_chain_and_invalid_balance_contracts (__main__.NativeBalance.test_captured_native_currency_chain_and_invalid_balance_contracts) ... ok
+test_retained_live_read_contracts_and_independent_pricing_replay (__main__.NativeBalance.test_retained_live_read_contracts_and_independent_pricing_replay) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.324s
+
+OK

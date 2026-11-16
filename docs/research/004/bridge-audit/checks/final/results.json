@@ -1,0 +1,39 @@
+{
+  "readiness": "BLOCKED",
+  "results": [
+    {
+      "command": [
+        "python",
+        "tests/check_controller_bridge_audit.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.172,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "python",
+        "tests/test_controller_bridge_audit.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.438,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "tests/audit_controller_bridge_attribution.cjs",
+        "docs\\research\\004\\bridge-audit\\checks\\final\\attribution-result.json"
+      ],
+      "exit_code": 1,
+      "seconds": 0.176,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "status": "FAIL"
+    }
+  ]
+}

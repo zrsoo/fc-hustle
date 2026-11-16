@@ -1,0 +1,25 @@
+{
+  "task": "004-05",
+  "evidence_class": "OFFLINE_ONLY",
+  "group": "python",
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 478.201,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "tests_run": 1064,
+      "finished": "2026-11-16T21:07:21.729908+00:00"
+    }
+  ]
+}
