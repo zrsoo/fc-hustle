@@ -1,0 +1,18 @@
+﻿[
+    {
+        "ProcessId":  16312,
+        "CommandLine":  "\"C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe\" C:/hustle/fc-hustle/.orchestrator/watch_dashboard.py "
+    },
+    {
+        "ProcessId":  16480,
+        "CommandLine":  "\"C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe\" C:/hustle/fc-hustle/.orchestrator/watch_dashboard.py "
+    },
+    {
+        "ProcessId":  16660,
+        "CommandLine":  "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe -m agent_orchestrator --db c:\\hustle\\fc-hustle\\.orchestrator\\state.db run --poll 60 --startup-nonce 52af3f7ef9cbfd5841d6b51ae7c22b09"
+    },
+    {
+        "ProcessId":  4676,
+        "CommandLine":  "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe -m agent_orchestrator --db c:\\hustle\\fc-hustle\\.orchestrator\\state.db run --poll 60 --startup-nonce 52af3f7ef9cbfd5841d6b51ae7c22b09"
+    }
+]

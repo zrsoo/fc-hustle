@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T125341Z-unconfirmed-outbid-rebid",
+  "task": "003-04",
+  "run": "760f9855eefafd615cb6ccf52be1748f",
+  "recorded_at": "2026-11-16T12:57:58.377398+00:00",
+  "trigger_control_seqs": [
+    60770,
+    61103
+  ],
+  "triggering_command_id": "f5cda85c74edb70030debf0df6d4b42e",
+  "evidence_command_ids": [
+    "f5cda85c74edb70030debf0df6d4b42e",
+    "f3c6a9660a944997a6471ea345b18981",
+    "f0ed97dfaa0c16be48504b1b34585ec9"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 1000,
+    "identity": {
+      "trade_id": "trade:08bc043999dbbe5198079fd7",
+      "item_id": "item:05e71cc2882a10ce6e6c8b3f",
+      "definition_id": 246272
+    },
+    "callback": "UNCONFIRMED; native outbid before and after, one matching wire/native item",
+    "reservation_preserved_until": "Independent authenticated owner103 watched/balance/complete inventory reads",
+    "independent_reconciliation": "BID_VERIFIED OUTBID from new watched evidence; admission of this exact rebid is not reconstructed",
+    "independent_read_id": "781c54a9ca9583c236e4ffc126812274",
+    "account_mutations_during_recovery": 0,
+    "credits": 63702
+  },
+  "unknown_account_effects": {
+    "exact_rebid_acceptance": "Unknown; a successful callback while already outbid cannot establish acceptance. Do not promote the original receipt to ACCEPTED or infer a refund.",
+    "concurrency": "The public/current bid and native outbid callback cannot distinguish native race timing from a prior outbid participation state."
+  },
+  "root_cause": "The rebid receipt correctly remained UNCONFIRMED because personal state was outbid both before and in the native callback. Even HTTP200, one native item and a matching1000 request do not prove new highest participation. The existing conservative guard stopped dispatch. Fresh account-relative auction/funds evidence subsequently reconciled the reservation without replay.",
+  "fix": {
+    "runtime_change": false,
+    "pushed_revision": "afc785fb092710a437431dc8e261caca96f708c3",
+    "disposition": "Retain conservative receipt validation and controlled stop, refresh poisoned official document, reattach a new fenced readonly owner, independently reconcile. No automatic write retry, cap change or acceptance inference."
+  },
+  "regression_results": {
+    "status": "PASS",
+    "exit_code": 0,
+    "tests_run": 52,
+    "receipt": "production-07/incident-bid-01/regressions/results.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "a19ffc3e44a3c5ec3374a7bfece9b404",
+    "control_seq": 61141,
+    "read_ids": [
+      "64465f9184a956d507f8a941dd3fb69f",
+      "f3241e8cbfc78239b808e20a247eab50",
+      "ce9614b5ee6b6d54af430e5b0f00dc01"
+    ]
+  },
+  "resolution": "REPAIRED",
+  "safe_state": {
+    "stop_control_seq": 61110,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 2536.060591800895,
+    "all_owned_runtime_exited": true,
+    "service": "READ_ONLY",
+    "queued_read_cancelled_before_dispatch": "b91803b82ff6964ba5cbb8d0b6dadb5a",
+    "before_snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production07-periodic\\20261116T125413Z-bb0b75b9",
+    "after_snapshot": "C:\\hustle\\fc-hustle\\private-captures\\003-04\\production-07\\incident-bid-01\\after-reconciliation"
+  },
+  "human_or_external_prerequisite": {
+    "status": "NONE_CURRENTLY",
+    "reason": "Normal refresh restored the existing saved-account Home automatically; attempted Login found no button because automatic restoration had completed. No credentials entered, no security challenge. Fresh authenticated readonly reconciliation PASS."
+  },
+  "prior_incident": "production-07/incident-bid-01/incident.json"
+}

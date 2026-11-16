@@ -1,0 +1,861 @@
+{
+  "schema": 1,
+  "task": "003-04",
+  "phase": "CONTINUOUS_PRODUCTION",
+  "depends_on": "003-02",
+  "live_status_vocabulary": [
+    "LIVE-UNVERIFIED",
+    "LIVE-VERIFIED",
+    "LIVE-FAILED"
+  ],
+  "prior_status_vocabulary": [
+    "SCOPED-HISTORICAL",
+    "NO-PRIOR-PROOF"
+  ],
+  "realized_profit": {
+    "status": "DEFERRED",
+    "acceptance_required": false,
+    "preserve": [
+      "transaction intents",
+      "native bid amounts",
+      "actual paid cost",
+      "ownership readbacks",
+      "gross sale observations",
+      "original failure records"
+    ]
+  },
+  "rules": {
+    "prohibited_manufacture": [
+      "wins",
+      "sales",
+      "outbids",
+      "reserve breaches",
+      "saturation"
+    ],
+    "unknown_edges_exhausted": false,
+    "new_cases_join_repair_loop": true,
+    "failed_callback_is_new_success": false,
+    "offline_is_live_proof": false,
+    "prior_is_current_proof": false,
+    "read_only_lifecycle": {
+      "gate_new_writes": true,
+      "settle_in_flight": true,
+      "retain_exact_identity_mappings": true,
+      "retain_current_commitments": true,
+      "no_guessed_historical_ids": true,
+      "no_blind_retries": true
+    }
+  },
+  "evidence_contract": [
+    "run_id",
+    "revision",
+    "context",
+    "fences",
+    "command_id",
+    "operation",
+    "params",
+    "native_response",
+    "network_at",
+    "readback_command_ids",
+    "trade_id",
+    "physical_item_id",
+    "definition_id",
+    "durable_database_table_key",
+    "incident_ids",
+    "healthy_segment_id",
+    "reviewer_decision"
+  ],
+  "repair_loop": [
+    "register case and triggering incident",
+    "gate dispatch and settle or retain UNKNOWN",
+    "seal evidence and independently reconcile effects",
+    "diagnose and repair",
+    "run current revision behavioral checks",
+    "review commit/push and recover with new fenced owner",
+    "collect new native proof without replay",
+    "independent reassessment"
+  ],
+  "cases": [
+    {
+      "id": "discovery_pagination",
+      "title": "Discovery and pagination",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior pagination repair was observed; does not prove this revision."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00302_continuous.ContinuousBehavior.test_three_page_discovery_keeps_filters_and_deduplicates_lookahead"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Paced native discovery pages with maxBid=1000/minBuy=11000, stride 20/count 21, three-page default and physical/trade deduplication; preserve empty-page and rejection reasons.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "fresh_pricing",
+      "title": "Fresh exact-version pricing",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior fresh pricing was observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_001d04_pricing.Acceptance.test_c1_c6_retained_unsorted_page_minimum_and_inclusive_second"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Two or fewer exact-version page-1/count-21 native searches, retained valid/excluded rows, first minimum and actual second maxb=first_min, cache publication and quote age; no progressive probe.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "cached_pricing",
+      "title": "Completed cached pricing",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "No new cache proof is inferred from historical fresh pricing."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_001d04_pricing.Acceptance.test_c5_c6_cache_zero_requests_exact_expiry_and_restart"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Exact account/version/namespace quote key, original native quote read IDs/time, 86400-second TTL, current candidate decision and zero new pricing requests; expired cache must not be reused.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "native_legality_admission",
+      "title": "Native legality and admission",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical minimum-bid chain supplies bounded context only."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c6_native_cap_equality_and_rounding_at_boundaries"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh native caps and helpers, legal floored ceiling with X=500/5% tax, spendable credits/escrow/reserve and all three capacity checks, durable accepted or reason-coded rejected admission.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "minimum_initial_bid",
+      "title": "Smallest legal initial bid",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior minimum bids were observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c2_minimum_initial_native_bid_pricing_reuse_and_no_buy_now"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh auction identity, native starting/next tick, stored cap, committed intent before one bid command, exact smallest amount and independent status readback; acquisition Buy Now forbidden.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "leading_hold",
+      "title": "Leading HOLD",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior leading HOLD was observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh highest-bid status, exact enrollment and HOLD event, scheduling trace proving no additional bid while leading.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "natural_outbid_rebid",
+      "title": "Natural outbid and minimum rebid",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior natural outbids and minimum rebids were observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Naturally observed fresh outbid with exact trade/item/version, separate fresh recheck, minimum absolute legal tick at/below stored cap, one journaled command and independent resulting status.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "cap_stop",
+      "title": "Legal bid-cap stop",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "No cap stop is inferred from a terminal loss."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c3_leading_hold_outbid_absolute_tick_and_stored_cap"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Native minimum next bid above stored legal ceiling, reason-coded cap stop and complete command trace proving no over-cap mutation; retain commitment until terminal reconciliation.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "won",
+      "title": "Native WON",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior exact WON and paid cost 1200 were observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00204_actors.Acceptance.test_c3_independent_owned_win_proof_and_no_false_terminal"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Independent native terminal status plus exact owned physical item and paid-cost read, joined to original trade, item, definition, namespace and committed bid; callback alone insufficient.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "lost",
+      "title": "Native LOST",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior terminal LOST was observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00207_enrollment.EnrollmentAcceptance.test_c0_c1_c3_lost_releases_capacity_missing_status_does_not"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh native terminal LOST/expired-unwon status and durable release tied to exact enrollment; missing watched row or aggregate credits cannot establish loss.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "physical_ownership",
+      "title": "Physical ownership and paid cost",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior exact physical ownership and actual cost were observed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00208_resale.Acceptance.test_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Independent complete ownership read, exact physical item/version and actual paid cost; preserve cost and original acquisition trade mapping through move and resale-trade changes.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "stored_price_listing",
+      "title": "Stored-price hour listing",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical 2000/1900 hour listing effect was reconciled after failed callback; failed callback remains failed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00208_resale.Acceptance.test_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Original stored quote, win/owned/caps reads, one move/list intent each, stored BIN and native previous tick, independent new resale trade/item mapping and expiry-derived 3600-second duration.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "sold_clear",
+      "title": "Sold account-wide bulk clear",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Integrated sold_one_call_clear was observed in bounded continuation."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00211_sold.Acceptance.test_detection_one_durable_account_wide_clear_retains_expired_and_active_manual_cards"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh complete pile including manual/sold-uncleared entries, natural sale, one native bulk clear, independent complete after read proving exact removed set and unchanged survivors, then durable capacity release.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "expired_relist",
+      "title": "Expired unsold bulk relist",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Separate continuation observed relist; original bulk_contract_changed callback remains failed and consumed."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00210_relist.Acceptance.test_c1_c2_all_manual_items_one_durable_native_write_independent_item_trade_proof"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Naturally expired unsold eligibility, durable 3660-second schedule, one native account-wide bulk call, exact physical item set/new trades, unchanged prices/survivors and independently measured hour duration.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "occupancy_reservations",
+      "title": "Complete occupancy and reservations",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical largest pipeline was 8/50; no saturation claim."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00206_capacity.CapacityAcceptance.test_c1_c2_c3_win_pending_presence_and_duplicate_readbacks_never_double_count"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Complete pile including manual/inactive/expired/sold-uncleared, unresolved queue and pending resale reservations; disjoint exact identities with each 50-slot limit and no double counting on readback.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "capacity_pause_resume",
+      "title": "Capacity pause and resume",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Explicitly unwitnessed in prior PARTIAL outcome."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00207_enrollment.EnrollmentAcceptance.test_c0_c3_paused_acquirer_does_not_gate_reconciliation_rebids_or_maintenance"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Natural capacity-pressure reason and paused admission, continuing Bidder/maintenance, exact independently proven release, fresh complete capacity read and resume; distinguish coin DRAINING.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "sticky_draining",
+      "title": "Sticky reserve DRAINING",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Explicitly unwitnessed in prior PARTIAL outcome."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00207_enrollment.EnrollmentAcceptance.test_c2_c3_simultaneous_limits_drain_precedence_capacity_release_is_independent"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Natural reserve pressure at unchanged 5000, atomic durable DRAINING/admission refusal, existing commitment servicing, later balance/capacity recovery cannot reopen enrollment; preserve restart state.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "priority_cadence",
+      "title": "Priority and production cadence",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical queue timing retained; no continuous-revision timing proof."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00302_continuous.ContinuousBehavior.test_priority_two_second_spacing_and_final_pre_send_deadline"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Enqueued/start/finish timings and priorities, urgent Bidder before Acquirer/maintenance at operation boundaries, 25/600-second target starts, two-second native pacing, deadlines and no restart catch-up burst.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "reconnect_restart",
+      "title": "Reconnect and restart",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical recoveries are separate stopped windows, not current uptime."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00302_continuous.ContinuousBehavior.test_restart_reads_reconcile_lost_response_without_replaying_write"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Quiescent read-only lifecycle procedure, old child exits and owner locks, new fenced epoch, exact reacquired current identities, preserved journal/reservations/cache/counters and READY reconciliation; no old write replay.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "uncertain_reconciliation",
+      "title": "Uncertain-result reconciliation",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Historical listing and bulk callbacks failed; independent effects were reconciled without retry."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00208_resale.Acceptance.test_c3_successful_side_effect_with_lost_response_reconciles_without_retry"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Retained failed/missing callback and UNKNOWN intent, known/unknown effects, distinct fresh native readback exact item/trade mapping, audited reconciliation and no replacement mutation; report effect separately from callback.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "unrelated_browser_activity",
+      "title": "Unrelated browser activity",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "SCOPED-HISTORICAL",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior listing callback failed on auxiliary traffic; repaired post-list contract was checked offline, not a new listing."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_final_list_refresh_00212.ListingRefresh.test_native_refresh_is_counted_and_exactly_bound_while_duplicates_wrong_ids_and_writes_fail"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Normally occurring background GET/telemetry isolation, target request attribution, exact permitted post-list refresh/fanout, foreign-write rejection and incident classification; never induce a manual market write.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "lost_supervision",
+      "title": "Lost supervision and safe stop",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "No current native supervision-loss proof."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00302_continuous.ContinuousBehavior.test_supervisor_or_monitor_loss_gates_before_native_and_records_gap"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Durable owner/run/PIDs, local heartbeat leases, stop gate and retained command states, all child exits, gap-excluded uptime and fresh reconciled segment before further mutations; do not intentionally kill live owner with in-flight writes.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "normal_noop_rejection",
+      "title": "No candidate, rejection and maintenance no-op",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Prior bounded runs contain limited no-op context only."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00210_relist.Acceptance.test_c0_noop_each_tick_reads_fresh_complete_inventory_and_persists_reason"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh native empty or ineligible discovery/pile results and reason-coded normal outcome, no unnecessary mutation, next regular cycle remains scheduled; no repair incident for normal loss/cap/pause.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "identity_freshness",
+      "title": "Identity and freshness failure closes admission",
+      "acceptance_required": true,
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "references": [
+          "docs/research/002/002-12/review-05/REPORT.md",
+          "docs/research/002/002-12/review-05/outcome.json"
+        ],
+        "scope": "Ghost reservation remains conservative and has no current exact mapping."
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "tests": [
+          "test_00302_continuous.ContinuousBehavior.test_startup_requires_fresh_identity_mapping_and_keeps_ghost_reserved"
+        ],
+        "receipt": "docs/research/003/003-03/behavioral-results.json"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "evidence_requirements": [
+        "Fresh context/account/persona/platform/namespace plus owner/host/document/worker epoch fences, complete exact mapping; absent/aged/foreign mapping retains ghost reservations and blocks READY without guessed IDs.",
+        "Retain the shared evidence_contract fields and distinct native readbacks; assessor records exact observed scope and missing subcases."
+      ]
+    },
+    {
+      "id": "post_bid_selector_reconciliation",
+      "acceptance_required": true,
+      "evidence_requirements": [
+        "Retain an exact read-only selector after the write observation is consumed; an incomplete watched omission must not cause guesses or replay.",
+        "Require genuine independent native status of the exact trade/item/version under the same fences and retain unknown effects until independently reconciled."
+      ],
+      "prior_live_proof": {
+        "status": "NO-PRIOR-PROOF",
+        "scope": "New defect observed in this production segment",
+        "references": [
+          "production-02/incident-identity-01/diagnostics.json"
+        ]
+      },
+      "current_revision_behavioral_checks": {
+        "evidence_class": "OFFLINE_REGRESSIONS_ONLY",
+        "node_suite": "tests/production_inventory_checks.cjs"
+      },
+      "current_run_live_proof": {
+        "status": "LIVE-UNVERIFIED",
+        "run_id": "a19ffc3e44a3c5ec3374a7bfece9b404",
+        "revision": "afc785fb092710a437431dc8e261caca96f708c3",
+        "evidence": [],
+        "reason": "Await independently reviewed current native branch. Prior sealed evidence retained; continue supervised operation for missing natural events."
+      },
+      "observed_failures": [
+        {
+          "incident": "00304-20261116T013638Z-account-relative-status-unavailable",
+          "actual_read_id": "89e5be9315a480fa6edbf4313f8b3d96",
+          "reason": "Exact native lookup succeeded but personal bid_state none could not reconcile actual950. Current case remains unverified, not fabricated PASS."
+        }
+      ]
+    }
+  ],
+  "run_id": "956a2d483cf70c2d440709ed20a312fe",
+  "revision": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
+  "run": "2a8011d59307b4b1eabe0a2b49577abc",
+  "runtime_revision": "92d42965044afda0b00606487a9b8ff1b1d37531"
+}
