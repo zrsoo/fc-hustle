@@ -1,0 +1,8 @@
+{
+    "at":  "2026-11-16T08:17:46.6266386Z",
+    "all_affected_runtime_stopped":  true,
+    "readonly_pid":  10248,
+    "source_revision":  "a616894fb52658ce2484a3fd112853fb7881a2be",
+    "readonly_exited":  true,
+    "reason":  "Stop affected service before page and diagnostic correction"
+}

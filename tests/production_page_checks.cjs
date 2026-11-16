@@ -10,7 +10,7 @@ function setup(mode='ok'){
   const events=[],timers=[],calls=[];
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
   class XHR{
-    constructor(){this.listeners=[];this.status=mode==='http401'?401:200;}
+    constructor(){this.listeners=[];this.status=mode==='networkZero'?0:mode==='http401'?401:200;}
     open(m,u){} setRequestHeader(n,v){} // Never retain secret values.
     addEventListener(e,f){assert.equal(e,'loadend');this.listeners.push(f);}
     send(){for(const f of this.listeners)f();}
@@ -39,7 +39,7 @@ function setup(mode='ok'){
         }
         time+=mode==='stale'?31000:8;
         if(mode==='switchDuring')persona={platform:'PC',isPC:true};
-        cb({unobserve(){}},mode==='http401'?{success:false,status:401,error:{message:secret}}:{success:true,status:200,[['caps','status'].includes(op)?'response':'data']:mode==='malformed'?{session:secret}:data});
+        cb({unobserve(){}},mode==='networkZero'?{success:false,error:{message:secret}}:mode==='http401'?{success:false,status:401,error:{message:secret}}:{success:true,status:200,[['caps','status'].includes(op)?'response':'data']:mode==='malformed'?{session:secret}:data});
       };
       if(mode==='deferred')setTimeout(done,5);else done();
     },unobserve(){}};

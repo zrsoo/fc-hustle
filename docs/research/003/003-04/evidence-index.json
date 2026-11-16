@@ -8,7 +8,8 @@
   "incidents": [
     "production-02/resolved-original-incident.json",
     "production-04/resolved-doue-incident.json",
-    "production-04/resolved-alvarez-incident.json"
+    "production-04/resolved-alvarez-incident.json",
+    "production-04/incident-read-01/incident.json"
   ],
   "runtime_fixes": [
     {
@@ -36,7 +37,7 @@
       "regression_receipt": "production-04/repair-regressions.json"
     }
   ],
-  "status": "CONTINUOUS_LIVE_INCOMPLETE",
+  "status": "STOPPED_NATIVE_READ_FAILURE_REPAIR_TESTING",
   "phase": "CONTINUOUS_PRODUCTION",
   "run": "e593e1be9debe924c2f9be3ba555e9a2",
   "export_events": "private-captures/continuous-evidence/00304-production04-periodic/events.jsonl",
@@ -50,7 +51,8 @@
   },
   "cancelled_before_dispatch": [
     "e84dcddef494468d3e12a2766ccd6fba",
-    "97d2b4e437f0d7f3990be2b6876e98a7"
+    "97d2b4e437f0d7f3990be2b6876e98a7",
+    "57a7d48bfd6ac5712d7cf9b6cc6698f8"
   ],
   "additional_diagnostics": [
     "production-02/incident-identity-01/exact-status.jsonl",
@@ -59,7 +61,13 @@
     "production-03/incident-outcome-01/followup-status.jsonl"
   ],
   "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
-  "pending_runtime_fixes": [],
+  "pending_runtime_fixes": [
+    {
+      "status": "OFFLINE_PASS_NOT_PUBLISHED",
+      "incident": "00304-20261116T081324Z-native-read-http-status-unavailable",
+      "restart_permitted": false
+    }
+  ],
   "processes_record": "production-04/processes-before.json",
   "launch_record": "production-04/launch.json",
   "diagnostic_runs": {
@@ -68,5 +76,8 @@
     "production-03/incident-outcome-01/terminal-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",
     "production-03/incident-outcome-01/followup-status.jsonl": "9bdb55697d3658b11f01f99a495b94f6"
   },
-  "require_bid_receipt": true
+  "require_bid_receipt": true,
+  "documented_read_failures": [
+    "2f2909de513d3229cc6a8e293449c872"
+  ]
 }

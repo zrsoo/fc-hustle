@@ -1,0 +1,84 @@
+{
+  "at": "2026-11-16T08:27:28.784757+00:00",
+  "run": "e593e1be9debe924c2f9be3ba555e9a2",
+  "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
+  "verified_cases": [
+    "discovery_pagination",
+    "fresh_pricing",
+    "cached_pricing",
+    "native_legality_admission",
+    "minimum_initial_bid",
+    "leading_hold",
+    "natural_outbid_rebid",
+    "cap_stop",
+    "lost",
+    "occupancy_reservations",
+    "priority_cadence",
+    "reconnect_restart",
+    "normal_noop_rejection",
+    "identity_freshness"
+  ],
+  "unverified_cases": [
+    "won",
+    "physical_ownership",
+    "stored_price_listing",
+    "sold_clear",
+    "expired_relist",
+    "capacity_pause_resume",
+    "sticky_draining",
+    "uncertain_reconciliation",
+    "unrelated_browser_activity",
+    "lost_supervision",
+    "post_bid_selector_reconciliation"
+  ],
+  "structural_findings": [
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 915,
+        "command_id": "2f2909de513d3229cc6a8e293449c872"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 915,
+        "command_id": "2f2909de513d3229cc6a8e293449c872"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 916,
+        "command_id": "57a7d48bfd6ac5712d7cf9b6cc6698f8"
+      },
+      "reason": "TRANSPORT_NOT_YET_CAPTURED"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 916,
+        "command_id": "57a7d48bfd6ac5712d7cf9b6cc6698f8"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 916,
+        "command_id": "57a7d48bfd6ac5712d7cf9b6cc6698f8"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    }
+  ],
+  "healthy_seconds": 2548.488357299997,
+  "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+  "stop_for_missing_event": false
+}

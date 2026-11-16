@@ -31,7 +31,7 @@ def validate_records(records):
         for key,value in row['detail'].items():
             if key in {'row_count','request_count','definition_count'}:integer(value,0);valid=value<=100
             elif key in {'status','local_status'}:valid=type(value) is int and 100<=value<=599
-            elif key=='success':valid=type(value) is bool
+            elif key in {'success','xhr_zero_status'}:valid=type(value) is bool
             elif key in {'definition_type','resource_type','data_type'}:valid=value in TYPES
             elif key=='error':valid=value in ERRORS
             elif key=='error_class':valid=value in {'Error','TypeError','RangeError','SyntaxError'}

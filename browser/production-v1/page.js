@@ -277,7 +277,10 @@
         }
       }
       const sent=performance.now();rows.push(m);this.addEventListener('loadend',()=>{
-      m.status=num(this.status);timing.ea_rtt_ms+=performance.now()-sent;
+      // XHR zero means no HTTP status, not an HTTP response code. Preserve
+      // that absence without manufacturing a status or a successful read.
+      const wireStatus=num(this.status);m.status=wireStatus===0?null:wireStatus;
+      timing.ea_rtt_ms+=performance.now()-sent;
       if(c.operation==='bid'){
         try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
           inventory.bid.receipt.wire_item_count=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
@@ -292,7 +295,7 @@
           inventory.truncated=data?.hasMore===true;
         }catch{inventory.wire=null;}
       }
-      diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length});},{once:true});}return orig.send.apply(this,args);};
+      diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length,xhr_zero_status:wireStatus===0});},{once:true});}return orig.send.apply(this,args);};
     proto.open=open;proto.send=send;proto.setRequestHeader=header;
     return ()=>{if(proto.open===open)proto.open=orig.open;if(proto.send===send)proto.send=orig.send;if(proto.setRequestHeader===header)proto.setRequestHeader=orig.header;};
   }

@@ -2207,6 +2207,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -3723,12 +3879,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -3747,7 +3927,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -3841,7 +4022,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -5980,6 +6164,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -7496,12 +7836,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -7520,7 +7884,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -7614,7 +7979,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -9753,6 +10121,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -11269,12 +11793,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -11293,7 +11841,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -11387,7 +11936,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -13526,6 +14078,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -15042,12 +15750,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -15066,7 +15798,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -15160,7 +15893,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -17299,6 +18035,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -18815,12 +19707,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -18839,7 +19755,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -18933,11 +19850,12 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ],
-        "readback_command_ids": [
-          "30f80919fd4e78706eb91ca9e30e27f6"
-        ]
+        "readback_command_ids": []
       },
       "evidence_requirements": [
         "Fresh auction identity, native starting/next tick, stored cap, committed intent before one bid command, exact smallest amount and independent status readback; acquisition Buy Now forbidden.",
@@ -21075,6 +21993,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -22591,12 +23665,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -22615,7 +23713,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -22709,7 +23808,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -24848,6 +25950,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -26364,12 +27622,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -26388,7 +27670,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -26482,11 +27765,12 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ],
-        "readback_command_ids": [
-          "30f80919fd4e78706eb91ca9e30e27f6"
-        ]
+        "readback_command_ids": []
       },
       "evidence_requirements": [
         "Naturally observed fresh outbid with exact trade/item/version, separate fresh recheck, minimum absolute legal tick at/below stored cap, one journaled command and independent resulting status.",
@@ -28624,6 +29908,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -30140,12 +31580,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -30164,7 +31628,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -30258,7 +31723,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -32428,6 +33896,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -33944,12 +35568,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -33968,7 +35616,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -34062,7 +35711,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -36325,6 +37977,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -37841,12 +39649,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -37865,7 +39697,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -37959,7 +39792,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -40160,6 +41996,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -41676,12 +43668,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -41700,7 +43716,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -41794,7 +43811,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -43933,6 +45953,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -45449,12 +47625,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -45473,7 +47673,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -45567,7 +47768,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -47799,6 +50003,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -49315,12 +51675,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "No complete native branch proof in this current-run capture. Continue supervised strategy operation.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -49339,7 +51723,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -49433,7 +51818,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [
@@ -51572,6 +53960,162 @@
             "key": 884
           },
           {
+            "command_id": "baefa8ba8d8848044e453981b5a91629",
+            "database": "native",
+            "table": "work",
+            "key": 886
+          },
+          {
+            "command_id": "824e0974f7604d3d704ceca5054c07e9",
+            "database": "native",
+            "table": "work",
+            "key": 887
+          },
+          {
+            "command_id": "d6223fe5951d78fd9e1929a4b933a29f",
+            "database": "native",
+            "table": "work",
+            "key": 889
+          },
+          {
+            "command_id": "da37857b9187aacce7005003e3939780",
+            "database": "native",
+            "table": "work",
+            "key": 890
+          },
+          {
+            "command_id": "87eae1c92d577c6faadffb1d37167c92",
+            "database": "native",
+            "table": "work",
+            "key": 892
+          },
+          {
+            "command_id": "bd42085487e6a336e25c3c9308b0f434",
+            "database": "native",
+            "table": "work",
+            "key": 893
+          },
+          {
+            "command_id": "b1f168b0427d8966911a77fa58020ee2",
+            "database": "native",
+            "table": "work",
+            "key": 894
+          },
+          {
+            "command_id": "b98b2d6ebe59d1ede04a70400d59e6e3",
+            "database": "native",
+            "table": "work",
+            "key": 895
+          },
+          {
+            "command_id": "e8484e472bab7aeab039f83cb16b2aed",
+            "database": "native",
+            "table": "work",
+            "key": 896
+          },
+          {
+            "command_id": "13cba7017fb9bca13d9427b694d5d4ea",
+            "database": "native",
+            "table": "work",
+            "key": 897
+          },
+          {
+            "command_id": "dcc7841d45bb1871a4b0e0fb4f051d9c",
+            "database": "native",
+            "table": "work",
+            "key": 898
+          },
+          {
+            "command_id": "729c3126485d48f4393e0e50c76eef93",
+            "database": "native",
+            "table": "work",
+            "key": 899
+          },
+          {
+            "command_id": "bf6f79740bbdb54f56fce2e113b4c8e7",
+            "database": "native",
+            "table": "work",
+            "key": 900
+          },
+          {
+            "command_id": "3b5fb54d0c7f25a12b86528ce4b0c79e",
+            "database": "native",
+            "table": "work",
+            "key": 901
+          },
+          {
+            "command_id": "231d9ff8df23b9186504bbb91a759b2b",
+            "database": "native",
+            "table": "work",
+            "key": 902
+          },
+          {
+            "command_id": "d1dbfde2076db15642f5228a6b2267f9",
+            "database": "native",
+            "table": "work",
+            "key": 903
+          },
+          {
+            "command_id": "0fa3ffaabfbd9895e375eb27f78d4339",
+            "database": "native",
+            "table": "work",
+            "key": 904
+          },
+          {
+            "command_id": "5e4e298f16e2f4c04d8b233171ad65a5",
+            "database": "native",
+            "table": "work",
+            "key": 905
+          },
+          {
+            "command_id": "b9f3aef542e8ef6eed3202b137e854ac",
+            "database": "native",
+            "table": "work",
+            "key": 906
+          },
+          {
+            "command_id": "6791850caebc185f6d9e44c9cca7220f",
+            "database": "native",
+            "table": "work",
+            "key": 907
+          },
+          {
+            "command_id": "32578649aa3619ce0323ea5bedb40b9b",
+            "database": "native",
+            "table": "work",
+            "key": 908
+          },
+          {
+            "command_id": "a2b253cb92a8011d9e2c70124935ea24",
+            "database": "native",
+            "table": "work",
+            "key": 909
+          },
+          {
+            "command_id": "16ad39d4599e4b1890b72defdcd0b3b6",
+            "database": "native",
+            "table": "work",
+            "key": 910
+          },
+          {
+            "command_id": "ba4d458c309a2e9f0ce32e9f1981a6bb",
+            "database": "native",
+            "table": "work",
+            "key": 911
+          },
+          {
+            "command_id": "61a6aec8200e663ce73fd699a9afed7f",
+            "database": "native",
+            "table": "work",
+            "key": 912
+          },
+          {
+            "command_id": "663b8845906ad81b8b9cde2af179674a",
+            "database": "native",
+            "table": "work",
+            "key": 913
+          },
+          {
             "command_id": "3e5070eb59164be02b3b2fcfbf6f3a11",
             "database": "native",
             "table": "work",
@@ -53088,12 +55632,36 @@
             "database": "native",
             "table": "work",
             "key": 863
+          },
+          {
+            "command_id": "b1678a31faa3b20009320b364342f865",
+            "database": "native",
+            "table": "work",
+            "key": 885
+          },
+          {
+            "command_id": "cfaa53aacc7c92b6bb634422572cad0c",
+            "database": "native",
+            "table": "work",
+            "key": 888
+          },
+          {
+            "command_id": "cb3bb7abb944151bb016b2a02f6b68b9",
+            "database": "native",
+            "table": "work",
+            "key": 891
+          },
+          {
+            "command_id": "f7f721723adf6a7dff8275bdc086b164",
+            "database": "native",
+            "table": "work",
+            "key": 914
           }
         ],
         "reason": "Requires genuine current-run native branch evidence on the published receipt runtime. Prior observations and incidents remain historical.",
         "reviewer": "Independent retained SQLite/native/transport semantic assessor",
         "semantic_assessment": "Sealed capture integrity, production protocol and independent transport correlation checked. Case-specific predicates applied to the captured native rows and journal events; scope is this observed branch.",
-        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081126Z-46991abf",
+        "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T081342Z-a8a8fc12",
         "context": {
           "account": "aaa083e34a2b2243919889ab1c2a9d7e",
           "game": "fc27",
@@ -53112,7 +55680,8 @@
         "incident_ids": [
           "00304-20261115T171217Z-unmapped-commitment",
           "00304-20261115T222121Z-missing-actual-bid-identity",
-          "00304-20261116T013638Z-account-relative-status-unavailable"
+          "00304-20261116T013638Z-account-relative-status-unavailable",
+          "00304-20261116T081324Z-native-read-http-status-unavailable"
         ],
         "registry_keys": [
           2678,
@@ -53206,7 +55775,10 @@
           3995,
           4182,
           4183,
-          4193
+          4193,
+          4205,
+          4217,
+          4239
         ]
       },
       "evidence_requirements": [

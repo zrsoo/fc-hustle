@@ -502,8 +502,21 @@ def capture_boundary_contract(index, bundle_dir, structural):
         cancelled=(cid in index.get('cancelled_before_dispatch',[]) and row.get('state')=='UNKNOWN' and
                    row.get('reason')=='CALLER_TIMEOUT' and row.get('started') is None and
                    row.get('operation') not in MUTATIONS and cid not in claimed)
+        documented=False
+        if (cid in index.get('documented_read_failures',[]) and row.get('state')=='UNKNOWN' and
+                row.get('started') is not None and cid in claimed and row.get('operation') in
+                {'watched','balance','transfer_list','status','owned_item','unassigned','caps'}):
+            # A sealed failed GET is safe to diagnose, never successful native
+            # evidence or work to replay. Mutations cannot enter this exception.
+            with closing(read_db(bundle_dir/'transport.sqlite3')) as db:
+                encoded=[e for (e,) in db.execute('SELECT event FROM events WHERE command_id=?',(cid,))]
+                events=[json.loads(e) for e in encoded if e.startswith('{')]
+                documented=('DELIVERED' in encoded and any(e.get('kind')=='RESULT_REJECTED' and
+                    e.get('reason')=='invalid_network_status' and e.get('summary',{}).get('success') is False
+                    for e in events) and any(r.get('stage')=='PAGE_FAILURE' and
+                    r.get('detail',{}).get('error')=='service_failed' for e in events for r in e.get('records',[])))
         need(finding['reason'] in {'TRANSPORT_NOT_YET_CAPTURED','MISSING_RESPONSE_NO_RETRY','UNSETTLED_COMMAND'} and
-             (cancelled or row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at'])),
+             (cancelled or documented or row.get('state') in {'WAITING','CLAIMED'} and row['deadline']>=stamp(bundle['finished_at'])),
              'unresolved_capture_findings')
 
 

@@ -1,0 +1,9 @@
+{
+    "at":  "2026-11-16T08:16:12.8889441Z",
+    "service_pid":  17208,
+    "runtime_controllers_absent":  true,
+    "service_exited":  true,
+    "audit_exited":  true,
+    "audit_pid":  18704,
+    "reason":  "Stopped after native watched response had no HTTP status; preserve pending accepted1000 bid until independent reads"
+}

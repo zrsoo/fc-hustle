@@ -1,0 +1,28 @@
+{
+  "task": "obj-da182a175410/003-04",
+  "at": "2026-11-16T08:25:22.778196+00:00",
+  "stage": "ALL_REGRESSIONS_PASSED_AWAITING_PUBLICATION",
+  "runner_session": 49045,
+  "source_starting_revision": "a616894",
+  "runtime_stopped": true,
+  "service_stopped": true,
+  "fresh_read_only_reconciliation_completed": true,
+  "pending_bid_command": "663b8845906ad81b8b9cde2af179674a",
+  "pending_bid_now_reconciled": true,
+  "do_not_replay": [
+    "2f2909de513d3229cc6a8e293449c872",
+    "663b8845906ad81b8b9cde2af179674a",
+    "57a7d48bfd6ac5712d7cf9b6cc6698f8"
+  ],
+  "next": [
+    "Inspect existing offline-01 results and runner before retrying any command",
+    "Publish tested correction before deploying fresh page/owner",
+    "Resume only after fresh native startup reconciliation; preserve all sealed earlier segments"
+  ],
+  "preserved_matrix": "production-04/live-coverage-matrix.json",
+  "stopped_evidence_index": "production-04/stopped-evidence-index.json",
+  "finished_at": "2026-11-16T08:29:29.334326+00:00",
+  "python_tests": 948,
+  "node_suites": 29,
+  "runner_finished": true
+}

@@ -1,0 +1,203 @@
+{
+  "command": {
+    "context": {
+      "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+      "game": "fc27",
+      "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+      "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "9e234eee828c487d61cb648868a55a4d",
+      "epoch": 83,
+      "host_epoch": "bbf4c8d919276126b4d1874262943a63",
+      "owner": "dd0a66e7f989a288c2ebb8abc9b7f9b1",
+      "worker_epoch": "11818802af2ba02560c8b68dddc20665"
+    },
+    "id": "2f2909de513d3229cc6a8e293449c872",
+    "operation": "watched",
+    "params": {},
+    "schema": 2
+  },
+  "events": [
+    {
+      "seq": 15644,
+      "event": "RESERVED"
+    },
+    {
+      "seq": 15645,
+      "event": "DELIVERED"
+    },
+    {
+      "seq": 15646,
+      "event": {
+        "at": "2026-11-16T08:13:02.297118+00:00",
+        "kind": "DIAGNOSTIC",
+        "records": [
+          {
+            "at": "2026-11-16T08:13:02.292Z",
+            "detail": {},
+            "stage": "WORKER_EXECUTE"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 15647,
+      "event": {
+        "at": "2026-11-16T08:13:03.254792+00:00",
+        "kind": "DIAGNOSTIC",
+        "records": [
+          {
+            "at": "2026-11-16T08:13:03.246Z",
+            "detail": {},
+            "stage": "WORKER_RESULT"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 15648,
+      "event": {
+        "at": "2026-11-16T08:13:03.264043+00:00",
+        "kind": "DIAGNOSTIC",
+        "records": [
+          {
+            "at": "2026-11-16T08:13:02.300Z",
+            "detail": {},
+            "stage": "PAGE_ENTER"
+          },
+          {
+            "at": "2026-11-16T08:13:02.300Z",
+            "detail": {},
+            "stage": "NATIVE_INVOKE"
+          },
+          {
+            "at": "2026-11-16T08:13:03.244Z",
+            "detail": {
+              "request_count": 1
+            },
+            "stage": "EA_RESPONSE"
+          },
+          {
+            "at": "2026-11-16T08:13:03.245Z",
+            "detail": {
+              "success": false
+            },
+            "stage": "NATIVE_CALLBACK"
+          },
+          {
+            "at": "2026-11-16T08:13:03.245Z",
+            "detail": {
+              "error": "service_failed",
+              "error_class": "Error"
+            },
+            "stage": "PAGE_FAILURE"
+          },
+          {
+            "at": "2026-11-16T08:13:03.245Z",
+            "detail": {
+              "error": "service_failed",
+              "request_count": 1,
+              "success": false
+            },
+            "stage": "PAGE_FINISHED"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 15649,
+      "event": {
+        "at": "2026-11-16T08:13:03.274144+00:00",
+        "kind": "DIAGNOSTIC",
+        "records": [
+          {
+            "at": "2026-11-16T08:13:03.266Z",
+            "detail": {},
+            "stage": "WORKER_POST_RESULT"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 15650,
+      "event": {
+        "at": "2026-11-16T08:13:03.277828+00:00",
+        "kind": "RESULT_REJECTED",
+        "reason": "invalid_network_status",
+        "summary": {
+          "correlation_matches": true,
+          "envelope_type": "object",
+          "error": "service_failed",
+          "network": [
+            {
+              "method": "GET",
+              "path": "/ut/game/fc27/watchlist",
+              "query": {},
+              "session_header_present": true,
+              "status": null
+            }
+          ],
+          "result_shape": {
+            "auctions": "null",
+            "cache_invalidated": "boolean",
+            "caps": "null",
+            "credits": "null",
+            "error": "string",
+            "items": "null",
+            "network": "array",
+            "status": "null",
+            "success": "boolean"
+          },
+          "row_count": null,
+          "row_shapes": [],
+          "status": null,
+          "success": false,
+          "timing": {
+            "ea_rtt_ms": 943.5,
+            "native_helper_ms": 0,
+            "native_service_ms": 945.2000000476837
+          },
+          "top_field_count": 9,
+          "top_shape": {
+            "command_id": "string",
+            "context": "object",
+            "coverage": "object",
+            "fences": "object",
+            "freshness": "object",
+            "operation": "string",
+            "result": "object",
+            "schema": "number",
+            "timing": "object"
+          }
+        }
+      }
+    },
+    {
+      "seq": 15651,
+      "event": {
+        "at": "2026-11-16T08:13:03.285367+00:00",
+        "kind": "DIAGNOSTIC",
+        "records": [
+          {
+            "at": "2026-11-16T08:13:03.280Z",
+            "detail": {
+              "reason": "local_rejected",
+              "worker_stage": "post_result"
+            },
+            "stage": "WORKER_FAILURE"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 15652,
+      "event": "TIMEOUT_NO_RETRY"
+    }
+  ],
+  "run": "e593e1be9debe924c2f9be3ba555e9a2",
+  "stop_control_seq": 29015,
+  "raw_result_retained": false,
+  "raw_invalid_status_not_reconstructed": true
+}

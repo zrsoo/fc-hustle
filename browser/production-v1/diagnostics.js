@@ -13,7 +13,7 @@
     const safe={};
     for(const key of ['row_count','request_count','definition_count'])if(Number.isSafeInteger(detail[key])&&detail[key]>=0&&detail[key]<=100)safe[key]=detail[key];
     if(Number.isInteger(detail.status)&&detail.status>=100&&detail.status<=599)safe.status=detail.status;
-    for(const key of ['success'])if(typeof detail[key]==='boolean')safe[key]=detail[key];
+    for(const key of ['success','xhr_zero_status'])if(typeof detail[key]==='boolean')safe[key]=detail[key];
     for(const key of ['definition_type','resource_type','data_type'])if(types.has(detail[key]))safe[key]=detail[key];
     if(errors.has(detail.error))safe.error=detail.error;
     if(detail.error==='bulk_contract_changed')safe.error=detail.error;

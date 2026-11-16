@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-16T08:17:47.271238+00:00",
+  "scope": "STOPPED_RUNTIME_AND_FRESH_READ_ONLY_RECONCILIATION",
+  "databases": {
+    "journal": {
+      "path": "private-captures\\003-04\\production-04\\incident-read-01\\after-reconciliation\\journal.sqlite3",
+      "sha256": "d3a1d617fc45a7850e3f7ee676e376df3c6b56152fe7399b663de5955b437e46"
+    },
+    "cache": {
+      "path": "private-captures\\003-04\\production-04\\incident-read-01\\after-reconciliation\\cache.sqlite3",
+      "sha256": "2f772e010f6bd301ad3eb3952ba73909f17572c7e99e23e31632b731c87c82d3"
+    },
+    "control": {
+      "path": "private-captures\\003-04\\production-04\\incident-read-01\\after-reconciliation\\control.sqlite3",
+      "sha256": "870cd28828173716c449975f12fcc40bc17a03cc5ba191d487649a978eb2a8dc"
+    },
+    "native": {
+      "path": "private-captures\\003-04\\production-04\\incident-read-01\\after-reconciliation\\native.sqlite3",
+      "sha256": "bfebe8262228c736a65419aab597094a214683d4a2813073df16e175464f990f"
+    },
+    "transport": {
+      "path": "private-captures\\003-04\\production-04\\incident-read-01\\after-reconciliation\\transport.sqlite3",
+      "sha256": "8609bfd61aa911045a5ac5cdf3695c71f3f98535efc0a54c7c7ae1c988a8ea54"
+    }
+  }
+}
