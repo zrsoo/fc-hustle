@@ -1,0 +1,17 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 340.61244650004664,
+  "finished_at": "2026-11-16T01:20:35.251257+00:00",
+  "stdout": "stdout.txt",
+  "stderr": "stderr.txt",
+  "tests_run": 910
+}

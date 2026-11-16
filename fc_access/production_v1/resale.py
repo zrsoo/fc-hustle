@@ -32,7 +32,8 @@ def verify_win(f, status, watched, owned):
     The exact physical owned DTO, closed/highest trade and dispatched bid must
     agree. Missing/zero/disagreeing owned cost leaves the candidate PENDING.
     """
-    fresh_read(f, watched, 'watched')
+    if watched['operation'] not in {'watched','status'}:raise ValueError('exact_auction_read_required')
+    fresh_read(f, watched, watched['operation'])
     if owned['operation'] not in {'unassigned','owned_item'}:
         raise ValueError('independent_owned_item_read_required')
     fresh_read(f, owned, owned['operation'])
@@ -40,8 +41,9 @@ def verify_win(f, status, watched, owned):
     if owned['operation']=='owned_item' and f.adapter.commands[owned['command_id']]['params']!=dict(
             trade_id=identity.trade_id,item_id=identity.item_id,definition_id=identity.definition_id):
         raise ValueError('owned_lookup_identity_mismatch')
-    rows = [r for r in watched['result']['auctions'] if r['trade_id'] == identity.trade_id and
-            r['item']['item_id'] == identity.item_id and r['item']['definition_id'] == identity.definition_id]
+    from .known_status import exact_row
+    try:rows=[exact_row(watched,identity)]
+    except ValueError:raise ValueError('owned_physical_item_and_paid_cost_unproven') from None
     items = [i for i in owned['result']['items'] if i['item_id'] == identity.item_id and
              i['definition_id'] == identity.definition_id and i['untradeable'] is False]
     bid = f.journal.db.execute('SELECT id,amount,intended_at,status_read_id,state FROM commands '
@@ -70,7 +72,7 @@ def win_inventory(f,status,watched):
     identity=status.identity
     won=any(r['trade_id']==identity.trade_id and r['item']['item_id']==identity.item_id and
         r['native_is_won'] is True for r in watched['result']['auctions'])
-    if not owned['result']['items'] and won:
+    if not owned['result']['items'] and won and watched['operation']=='watched':
         owned=f.read('owned_item',dict(trade_id=identity.trade_id,item_id=identity.item_id,
             definition_id=identity.definition_id))
     return owned

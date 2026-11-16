@@ -192,28 +192,28 @@ class Bidder(Actor):
         watched, funds = f.read('watched'), f.read('balance')
         balance = Balance(funds['result']['credits'], None, freshness(funds))
         f.registry.credits(balance)
-        groups = {r['trade_id']:r for r in watched['result']['auctions']}
         for trade in list(f.queue.entries):
             if not freshness(watched).fresh(f.now()) or not balance.freshness.fresh(f.now()):
                 self.record('STALE_STATUS',trade=trade);continue
-            row = groups.get(trade)
-            if row is None or status_from(row, watched).identity != f.queue.identities[trade]:
-                self.record('MISSING_OR_STALE_IDENTITY', trade=trade); continue
-            status = status_from(row, watched)
+            from fc_access.production_v1.known_status import observe
+            try:
+                status,source,row=observe(f,f.queue.identities[trade],watched)
+            except (ValueError,TimeoutError):
+                self.record('MISSING_OR_STALE_IDENTITY', trade=trade); return
             if status.state==State.PENDING:
                 if not (row['trade_state']=='closed' and row['expires']<=0 and row['bid_state']=='highest'):
                     self.decision(status,'HOLD','PENDING');continue
                 from fc_access.production_v1.resale import win_inventory
-                owned = win_inventory(f,status,watched)
+                owned = win_inventory(f,status,source)
                 if not status.freshness.fresh(f.now()) or not balance.freshness.fresh(f.now()):
                     self.record('STALE_STATUS',trade=trade);continue
                 from fc_access.production_v1.resale import verify_win
                 try:
-                    status = verify_win(f, status, watched, owned)
+                    status = verify_win(f, status, source, owned)
                 except ValueError:
                     self.decision(status,'HOLD','PENDING'); continue
                 self.record('OWNED_WIN_VERIFIED', trade=trade, paid=status.paid,
-                    identity=asdict(status.identity), owned_read_id=owned['command_id'], win_read_id=watched['command_id'])
+                    identity=asdict(status.identity), owned_read_id=owned['command_id'], win_read_id=source['command_id'])
             pending = [p for p in self.pending() if p['trade_id']==trade]
             for p in pending:
                 try:
@@ -221,7 +221,7 @@ class Bidder(Actor):
                         status=status, balance=balance)
                 except ValueError:
                     self.record('OUTCOME_STILL_UNKNOWN', trade=trade)
-            f.queue.refresh(Snapshot((status,),freshness(watched),Coverage(False,None)), now=f.now(),reset_draining=False)
+            f.queue.refresh(Snapshot((status,),freshness(source),Coverage(False,None)), now=f.now(),reset_draining=False)
             policy = self.policy(trade)
             cap = policy['quote']['max_affordable_bid'] if policy else None
             if status.state in {State.WON,State.LOST}:
@@ -241,15 +241,19 @@ class Bidder(Actor):
                 # Another actor may have spent coins while we waited for the
                 # write lock. Obtain both snapshots again under that lock.
                 fresh = f.read('watched')
-                matches = [r for r in fresh['result']['auctions'] if r['trade_id']==trade]
-                if len(matches)!=1:
-                    self.record('MISSING_OR_STALE_IDENTITY',trade=trade);continue
-                latest = status_from(matches[0],fresh)
+                try:
+                    latest,latest_source,_=observe(f,status.identity,fresh)
+                except (ValueError,TimeoutError):
+                    self.record('MISSING_OR_STALE_IDENTITY',trade=trade);return
                 if latest.identity!=status.identity:
                     self.record('MISSING_OR_STALE_IDENTITY',trade=trade);continue
                 if latest.state!=State.OUTBID:
                     self.decision(latest,'HOLD' if latest.state==State.LEADING else 'UNKNOWN',
                         'LEADING' if latest.state==State.LEADING else 'UNKNOWN',cap=cap);continue
+                if latest_source['operation']!='watched':
+                    # Lite reconciliation does not grant a new full DTO bid.
+                    self.record('FULL_WATCHED_READ_REQUIRED_FOR_REBID',trade=trade)
+                    self.decision(latest,'HOLD','UNKNOWN',cap=cap);continue
                 latest_funds = f.read('balance')
                 balance = Balance(latest_funds['result']['credits'],None,freshness(latest_funds))
                 f.registry.credits(balance)

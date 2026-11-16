@@ -31,6 +31,13 @@ class ActorPage(Page):
         self.credits-=c['params']['amount']
 
     def project_response(self,c,v):
+        if c['operation']=='status':
+            # This generic double has no retained native status selector. Model
+            # the real bridge's explicit local rejection, not a malformed
+            # success that leaves its durable transport permanently CLAIMED.
+            v['result'].update(success=False,error='known_identity_unavailable',status=None,
+                               auctions=None,network=[])
+            v['freshness'].update(network_at=None,request_count=0)
         if c['operation']=='search':
             p = c['params']
             v['result']['network'][0]['query']['start']=(p['page']-1)*20

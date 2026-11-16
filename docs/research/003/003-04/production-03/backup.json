@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-16T00:09:48.718683+00:00",
+  "databases": [
+    {
+      "role": "journal",
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "capture": "private-captures\\003-04\\production-03\\before\\journal.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "cache",
+      "source": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "capture": "private-captures\\003-04\\production-03\\before\\cache.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "control",
+      "source": "private-captures/continuous-production/control.sqlite3",
+      "capture": "private-captures\\003-04\\production-03\\before\\control.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "native",
+      "source": "private-captures/continuous-production/native.sqlite3",
+      "capture": "private-captures\\003-04\\production-03\\before\\native.sqlite3",
+      "integrity": "ok"
+    },
+    {
+      "role": "transport",
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "capture": "private-captures\\003-04\\production-03\\before\\transport.sqlite3",
+      "integrity": "ok"
+    }
+  ]
+}
