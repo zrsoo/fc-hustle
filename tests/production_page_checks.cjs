@@ -7,7 +7,7 @@ const ctx={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_name
 const samples=[];
 function setup(mode='ok'){
   let time=Date.parse('2030-01-01T00:00:00Z'),sequence=10,persona={platform:'PC',isPC:true},captured=null,transferWire,auctionOverride={};
-  const events=[],timers=[],calls=[];
+  const events=[],timers=[],calls=[];let controllerQueue=null;
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
   class XHR{
     constructor(){this.listeners=[];this.status=mode==='networkZero'?0:mode==='http401'?401:200;}
@@ -20,12 +20,12 @@ function setup(mode='ok'){
     private:secret,getAuctionData:()=>({tradeId:'20000000000000000001',startingBid:2500,currentBid:0,buyNowPrice:15000,expires:300,tradeState:'active',bidState:'none',isWon:()=>false,...auctionOverride})});
   function response(op,data,query={}){
     calls.push(op);events.push(op);
-    return {observe(owner,cb){
+    const observable={observe(owner,cb){
       if(mode==='timeout')return;
       const done=()=>{
         if(mode!=='cache'){
           const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',owned_item:'item',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid',move:'item',list:'auctionhouse'}[op];
-          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+(op==='bid'?'':'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'?params:{...params,private:secret})));
+          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+(op==='bid'?'':'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'||controllerQueue?params:{...params,private:secret})));
             if(op==='transfer_list' && transferWire!==undefined)x.responseText=JSON.stringify(transferWire);
             if(op==='bid')x.responseText=JSON.stringify({auctionInfo:data.items??[]});
             if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send(op==='bid'?JSON.stringify({bid:data.amount}):undefined);};
@@ -46,6 +46,7 @@ function setup(mode='ok'){
       };
       if(mode==='deferred')setTimeout(done,5);else done();
     },unobserve(){}};
+    return controllerQueue?controllerQueue.request(op,notify=>observable.observe({},(sender,value)=>notify(value))):observable;
   }
   const user={getSelectedPersona:()=>persona};
   for(const name of ['credentials','sid','token','cookies'])Object.defineProperty(user,name,{get(){throw Error('secret field touched');}});
@@ -94,13 +95,44 @@ function setup(mode='ok'){
   const fences={owner:hex(4),epoch:1,host_epoch:hex(5),worker_epoch:hex(6),document:api.document};
   assert(api.attach(ctx,fences));
   const command=(operation,params={})=>({schema:2,id:hex(++sequence),operation,params,context:{...ctx},fences:{...fences}});
+  function enableControllerQueue(){
+    function observable(){
+      let ready=false,value,observers=[];
+      return {notify(v){ready=true;value=v;for(const [owner,cb]of [...observers])cb(this,v);},
+        observe(owner,cb){if(ready)cb(this,value);else observers.push([owner,cb]);return this;},
+        unobserve(owner){observers=observers.filter(([o])=>o!==owner);}};
+    }
+    const requests=[],queue={queue:[],send(request){request.send();return request;}};
+    controllerQueue={requests,queue,observable,request(operation,work){
+      const r=observable();r.operation=operation;r.send=function(){r.count=(r.count??0)+1;work(value=>r.notify(value));};
+      r.abort=()=>{r.aborted=true;};r.originalSend=r.send;r.originalObserve=r.observe;requests.push(r);
+      services.UTUtasRequestQueue.send(r);return r;
+    }};
+    services.UTUtasRequestQueue=queue;
+    const item=services.Item,dao=item.itemDao??={};
+    for(const [name,leaf]of Object.entries({searchTransferMarket:'searchTransferMarket',requestWatchedItems:'getWatchPile',
+      requestTransferItems:'getTransferPile',requestUnassignedItems:'getUnassignedPile',requestItemsById:'getItemDataById',move:'move'})){
+      const original=item[name];if(typeof original!=='function')continue;
+      dao[leaf]=function(...args){return original.apply(item,args);};
+      item[name]=function(...args){return dao[leaf](...args);};
+    }
+    if(typeof item.list==='function'){
+      const original=item.list;
+      dao.listItem=function(id,start,bin,duration){
+        const raw=services.Item && sandbox.repositories.Item.getTransferItems().find(r=>String(r.id)===String(id));
+        assert(raw,'fixture listing requires exact transfer item');return original.call(item,raw,start,bin,duration);
+      };
+      item.list=(raw,start,bin,duration)=>dao.listItem(raw.id,start,bin,duration);
+    }
+    return controllerQueue;
+  }
   async function execute(c){
     const r=JSON.parse(JSON.stringify(await api.execute(c)));
     assert(!JSON.stringify(r).includes(secret));assert(!JSON.stringify(r).includes('10000000000000000001'));assert(!JSON.stringify(r).includes('20000000000000000001'));
     for(const [k,n]of [['open','open'],['header','setRequestHeader'],['send','send']])assert.equal(XHR.prototype[n],originals[k]);
     return r;
   }
-  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,setAuction:v=>{auctionOverride={...v};},setTransferWire:v=>{transferWire=v;},get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
+  return {api,command,execute,sandbox,fences,events,calls,timers,response,raw,enableControllerQueue,setAuction:v=>{auctionOverride={...v};},setTransferWire:v=>{transferWire=v;},get captured(){return captured;},now:()=>new Clock().toISOString(),advance:ms=>{time+=ms;},switchPersona:p=>{persona=p;}};
 }
 const pricing={purpose:'pricing',definition_id:7654321,page:1,count:21,fresh:true};
 const discovery={...pricing,purpose:'discovery',max_bid:1000,min_buy:11000};

@@ -1,0 +1,428 @@
+{
+  "task": "004-05",
+  "evidence_class": "OFFLINE_ONLY",
+  "group": "node",
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "node",
+        "tests/bidding_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.279,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:50.603248+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/browser_observer_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.167,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:50.770425+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_background_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.334,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:51.104619+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/bulk_transfer_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.153,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:51.257570+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_balance_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.191,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:51.449036+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.406,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:51.854930+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_policy_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.229,
+      "stdout": "06-stdout.txt",
+      "stderr": "06-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:52.083642+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_shared_ownership_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.749,
+      "stdout": "07-stdout.txt",
+      "stderr": "07-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:52.832334+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_work_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.251,
+      "stdout": "08-stdout.txt",
+      "stderr": "08-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.083014+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/durability_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.133,
+      "stdout": "09-stdout.txt",
+      "stderr": "09-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.216433+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/durability_worker_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.244,
+      "stdout": "10-stdout.txt",
+      "stderr": "10-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.460200+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/e2e_live_v2_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.141,
+      "stdout": "11-stdout.txt",
+      "stderr": "11-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.600823+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/e2e_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.122,
+      "stdout": "12-stdout.txt",
+      "stderr": "12-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.722588+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/final_inactive_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.146,
+      "stdout": "13-stdout.txt",
+      "stderr": "13-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.868533+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/final_owned_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.109,
+      "stdout": "14-stdout.txt",
+      "stderr": "14-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:53.977313+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/list_refresh_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.628,
+      "stdout": "15-stdout.txt",
+      "stderr": "15-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:54.604920+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/market_discovery_bridge_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.318,
+      "stdout": "16-stdout.txt",
+      "stderr": "16-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:54.922891+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/market_discovery_followup_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.203,
+      "stdout": "17-stdout.txt",
+      "stderr": "17-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:55.126249+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/native_status_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 1.294,
+      "stdout": "18-stdout.txt",
+      "stderr": "18-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:56.420754+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/occupancy_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.457,
+      "stdout": "19-stdout.txt",
+      "stderr": "19-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:56.877514+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/pricing_timing_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.089,
+      "stdout": "20-stdout.txt",
+      "stderr": "20-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:56.966707+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_bid_receipt_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.44,
+      "stdout": "21-stdout.txt",
+      "stderr": "21-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:57.406954+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_bulk_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.844,
+      "stdout": "22-stdout.txt",
+      "stderr": "22-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:58.251352+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_diagnostics_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.108,
+      "stdout": "23-stdout.txt",
+      "stderr": "23-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:58.359112+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_inventory_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.774,
+      "stdout": "24-stdout.txt",
+      "stderr": "24-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:59.132823+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_metadata_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.155,
+      "stdout": "25-stdout.txt",
+      "stderr": "25-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:59.287920+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_network_failure_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.106,
+      "stdout": "26-stdout.txt",
+      "stderr": "26-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:59.393653+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_page_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.538,
+      "stdout": "27-stdout.txt",
+      "stderr": "27-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:37:59.931492+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_route_diagnostic_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.135,
+      "stdout": "28-stdout.txt",
+      "stderr": "28-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:00.066093+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/production_worker_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.588,
+      "stdout": "29-stdout.txt",
+      "stderr": "29-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:00.654594+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/read_bridge_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.322,
+      "stdout": "30-stdout.txt",
+      "stderr": "30-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:00.976963+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/resale_native_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.59,
+      "stdout": "31-stdout.txt",
+      "stderr": "31-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:01.567491+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/search_validation_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.138,
+      "stdout": "32-stdout.txt",
+      "stderr": "32-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:01.705987+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/transaction_bridge_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.671,
+      "stdout": "33-stdout.txt",
+      "stderr": "33-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:02.377213+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/watched_bulk_v1_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.236,
+      "stdout": "34-stdout.txt",
+      "stderr": "34-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T21:38:02.613372+00:00"
+    }
+  ]
+}

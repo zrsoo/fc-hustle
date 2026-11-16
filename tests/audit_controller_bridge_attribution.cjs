@@ -28,13 +28,16 @@ async function probe(){
       b.ItemPile.TRANSFER=3;b.ItemPile.PURCHASED=2;
       b.repositories.Item.transfer={endOfList:true};b.repositories.Item.getTransferItems=()=>[];
       const method=operation==='transfer_list'?'requestTransferItems':'requestUnassignedItems';
-      b.services.Item[method]=()=>({observe(owner,cb){emit(route);cb({unobserve(){}},{success:true,status:200,response:{items:[]}});},unobserve(){}});
+      const leaf=operation==='transfer_list'?'getTransferPile':'getUnassignedPile';
+      b.services.Item.itemDao[leaf]=()=>({observe(owner,cb){emit(route);cb({unobserve(){}},{success:true,status:200,response:{items:[]}});},unobserve(){}});
+      b.services.Item[method]=()=>b.services.Item.itemDao[leaf]();
     }
     function emit(path){const x=new b.XMLHttpRequest();x.responseText=JSON.stringify({auctionInfo:[]});x.open('GET','https://utas.test.ea.com/ut/game/fc27/'+path);
       x.setRequestHeader('X-UT-SID','CANARY');x.send();}
     h.setOptions({zeroOwned:true,onObserve:()=>emit(route)});
     const c={...h.command(operation,params),schema:2};
     const r=await h.api.executeReadController(c);
+    if(!r.result.success)assert.equal(r.result.error,'ambiguous_network','a missing API is not an ownership test');
     findings.push({operation,dialect:2,scenario:'NO_NATIVE_QUEUE_SEND_WITH_MATCHING_UNOWNED_GET',
       success:r.result.success,error:r.result.error,recorded_requests:r.freshness.request_count,
       expected:'REJECT',verdict:r.result.success?'FAIL':'PASS'});

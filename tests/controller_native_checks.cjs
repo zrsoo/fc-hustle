@@ -66,11 +66,13 @@ function setup(count=10){
     return request;
   }
   const services={User:{getUser:()=>user,requestCurrencies:()=>response('balance')},UTUtasRequestQueue:queue,Item:{
+    itemDao:{searchTransferMarket:q=>response('search',raw),getItemDataById:ids=>response('owned_item',raw.filter(r=>ids.includes(r.id)),ids),
+      getWatchPile:()=>response('watched',raw)},
     clearTransferMarketCache(){},
     searchTransferMarket(q,page){assert.equal(q.type,'player');assert.equal(q.count,21);assert.equal(page,1);
-      assert.equal(q.maxBid,1000);assert.equal(q.minBuy,11000);return response('search',raw);},
-    requestItemsById(ids){return response('owned_item',raw.filter(r=>ids.includes(r.id)),ids);},
-    requestWatchedItems:()=>response('watched',raw),transfersDao:{
+      assert.equal(q.maxBid,1000);assert.equal(q.minBuy,11000);return this.itemDao.searchTransferMarket(q);},
+    requestItemsById(ids){return this.itemDao.getItemDataById(ids);},
+    requestWatchedItems(){return this.itemDao.getWatchPile();},transfersDao:{
       getAuctionData(items){assert(items.length<=10);assert(items.every(x=>raw.includes(x)));return response('status_batch',items,items);},
       bid(input,amount){const accepted={...input,getAuctionData:()=>({...input.getAuctionData(),bidState:'highest',currentBid:amount})};
         return response('bid',options.empty?[]:[accepted],input,amount);}

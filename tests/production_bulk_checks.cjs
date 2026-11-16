@@ -28,6 +28,11 @@ async function fixture(op='clear_sold',mode='ok'){
     x.send(body);wire.push([method,path]);
   }
   const method=op==='clear_sold'?'clearSoldItems':'relistExpiredAuctions';
+  function effect(){
+    if(mode==='no-effect')return;
+    if(op==='clear_sold')rows=rows.filter(r=>r.getAuctionData().tradeState!=='closed');
+    else for(const r of rows){const a=r.getAuctionData();if(a.tradeState==='expired')Object.assign(a,{tradeState:'active',tradeId:String(Number(a.tradeId)+100),expires:3600});}
+  }
   services[method]=function(...args){
     calls.push(method);assert.equal(args.length,0,'native bulk call must have zero arguments');
     return {observe(owner,callback){
@@ -41,10 +46,7 @@ async function fixture(op='clear_sold',mode='ok'){
         const x=new h.sandbox.XMLHttpRequest();x.open('POST','https://telemetry.invalid/event?private=PRIVATE-NATIVE-CANARY');
         x.send('PRIVATE-NATIVE-CANARY');
       }
-      if(mode!=='no-effect'){
-        if(op==='clear_sold')rows=rows.filter(r=>r.getAuctionData().tradeState!=='closed');
-        else for(const r of rows){const a=r.getAuctionData();if(a.tradeState==='expired')Object.assign(a,{tradeState:'active',tradeId:String(Number(a.tradeId)+100),expires:3600});}
-      }
+      effect();
       if(op==='clear_sold' && mode!=='no-get')emit('GET','tradepile');
       if(mode==='third-get') {emit('GET','tradepile');emit('GET','tradepile');}
       callback({unobserve(value){assert.equal(value,owner);detached.push(value);}},{success:mode!=='failed',status:200,data:{}});
@@ -55,7 +57,7 @@ async function fixture(op='clear_sold',mode='ok'){
   const targets=v.result.auctions.filter(r=>r.trade_state===(op==='clear_sold'?'closed':'expired'));
   const params={before_read_id:before.id,expected_item_ids:targets.map(r=>r.item.item_id),
     expected_inventory_ids:v.result.auctions.map(r=>r.item.item_id),expected_sold_count:op==='clear_sold'?2:0,expected_expired_count:2};
-  return {h,calls,wire,detached,params,before:v,rows:()=>rows};
+  return {h,calls,wire,detached,params,before:v,rows:()=>rows,effect,emit};
 }
 
 async function workerContract(){

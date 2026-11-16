@@ -192,6 +192,15 @@
     const listen=(xhr,fn)=>{const guarded=()=>{if(!inventory.controllerRead || active)fn();};
       if(inventory.controllerRead)listeners.push([xhr,guarded]);xhr.addEventListener('loadend',guarded,{once:true});};
     const open=function(method,url,...args){let m=null;
+      if(inventory.controllerRead && !inventory.delivery?.sending()){
+        // A matching URL is not proof of this command's request ownership.
+        // Never inspect unowned query/body/header values or promote its status.
+        let scope='outside_ut';try{const u=new URL(url,location.href);
+          if(u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/'))scope=method==='GET'?'ea_read':'ea_write';
+        }catch{}
+        pending.set(this,{background:true,scope,method:['GET','POST','PUT','DELETE'].includes(method)?method:'OTHER'});
+        return orig.open.call(this,method,url,...args);
+      }
       try {const u=new URL(url,location.href);
         const ut=u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/');
         // UI navigation and telemetry are not additional bulk mutations. Observe
@@ -258,6 +267,7 @@
         }
       } catch {m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};}
       if((bulk(c.operation) || c.operation==='list') && !m)m={host:'utas.invalid.ea.com',method:'OTHER',path:'/unexpected',query:{},status:null,session_header_present:false};
+      if(inventory.controllerRead)inventory.delivery.open(m);
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
     const header=function(n,v){const m=pending.get(this);if(m && !m.background && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
     const send=function(...args){const m=pending.get(this);if(m){
@@ -315,29 +325,117 @@
     return ()=>{active=false;for(const [xhr,fn]of listeners)xhr.removeEventListener?.('loadend',fn);
       if(proto.open===open)proto.open=orig.open;if(proto.send===send)proto.send=orig.send;if(proto.setRequestHeader===header)proto.setRequestHeader=orig.header;};
   }
-  function controllerReadInvocation(invoke,c){
-    const queue=services.UTUtasRequestQueue,requests=[],restorers=[];let active=true;
+  function controllerReadInvocation(invoke,c,inventory){
+    const queue=services.UTUtasRequestQueue,requests=[],restorers=[],subscriptions=[];
+    let active=true,scope=null,current=null,primary=0,clearBefore=0,clearAfter=0,listRefresh=0,metadata=0;
+    const metaItems=new Set();
     if(typeof queue?.send!=='function' || !Array.isArray(queue.queue))throw Error('service_unavailable');
-    const original=queue.send;
-    const wrapped=function(request,...args){
-      if(typeof request?.send!=='function')throw Error('service_unavailable');
-      const send=request.send;let sent=false;
-      request.doRetry=false;request.doReauth=false;requests.push(request);
-      const owned=function(...more){
-        if(!active || sent || !valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona)throw Error('invalid_preconditions');
-        sent=true;return send.apply(this,more);
-      };
-      request.send=owned;restorers.push(()=>{if(request.send===owned)request.send=send;});
-      return original.call(this,request,...args);
+    const live=()=>active && valid(c) && services.User.getUser?.()===nativeUser && selected()===nativePersona &&
+      window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()==='pc';
+    const within=(value,fn)=>{const previous=scope,sending=current;scope=value;
+      if(value.callback)current=null;
+      try{return fn();}finally{scope=previous;if(value.callback)current=sending;}};
+    const wrap=(obj,key,factory)=>{
+      if(!obj || typeof obj[key]!=='function')return;
+      const descriptor=Object.getOwnPropertyDescriptor(obj,key),original=obj[key],replacement=factory(original);
+      obj[key]=replacement;restorers.push(()=>{if(obj[key]===replacement){if(descriptor)Object.defineProperty(obj,key,descriptor);else delete obj[key];}});
     };
+    function observable(value,role){
+      if(typeof value?.observe!=='function')return value;
+      wrap(value,'observe',original=>function(owner,callback,...args){
+        // Only subscriptions registered by the owned native call/continuation
+        // carry lineage. Arbitrary observers never become ownership scopes.
+        if(!scope)return original.call(this,owner,callback,...args);
+        subscriptions.push([this,owner]);
+        return original.call(this,owner,function(sender,response,...more){
+          if(!live()){try{sender?.unobserve?.(owner);}catch{}return;}
+          if(role==='primary' && c.operation==='search'){
+            const items=(response?.response??response?.data)?.items;
+            if(Array.isArray(items))for(const item of items)metaItems.add(item);
+          }
+          return within({role,callback:true},()=>callback(sender,response,...more));
+        },...args);
+      });
+      return value;
+    }
+    function method(obj,key,role,allow){
+      wrap(obj,key,original=>function(...args){
+        if(!scope || !allow(args))return original.apply(this,args);
+        if(!live())throw Error('invalid_preconditions');
+        return within({role,callback:false},()=>observable(original.apply(this,args),role));
+      });
+    }
     const finish=success=>{active=false;
-      if(!success){for(let i=queue.queue.length-1;i>=0;i--)if(requests.includes(queue.queue[i].request))queue.queue.splice(i,1);
-        for(const request of requests){try{request.abort?.();}catch{}}}
+      for(const [value,owner]of subscriptions){try{value.unobserve?.(owner);}catch{}}
+      if(!success){for(let i=queue.queue.length-1;i>=0;i--)if(requests.some(r=>r.request===queue.queue[i].request))queue.queue.splice(i,1);
+        for(const {request}of requests){try{request.abort?.();}catch{}}}
       restorers.reverse().forEach(f=>f());};
-    queue.send=wrapped;
-    try{return {observable:invoke(),finish};}
+    try{
+    const root=()=>scope?.role==='root';
+    const parent=role=>scope?.callback===true && scope.role===role &&
+      (role!=='primary' || requests.some(({token})=>token.role==='primary' && token.sent && token.opens===1));
+    const item=services.Item,dao=item?.itemDao,transfers=item?.transfersDao;
+    const primaryMethods={search:[dao,'searchTransferMarket'],watched:[dao,'getWatchPile'],
+      transfer_list:[dao,'getTransferPile'],unassigned:[dao,'getUnassignedPile'],owned_item:[dao,'getItemDataById'],
+      caps:[transfers,'getItemMarketDataByDefId'],move:[dao,'move'],list:[dao,'listItem'],
+      clear_sold:[transfers,'removeSold'],relist_all:[transfers,'relistExpiredAuctions']};
+    const leaf=primaryMethods[c.operation];
+    if(!leaf || typeof leaf[0]?.[leaf[1]]!=='function')throw Error('service_unavailable');
+    method(leaf[0],leaf[1],'primary',()=>root() || c.operation==='clear_sold' && parent('clear_before'));
+    for(const [obj,key]of [[dao,'move'],[dao,'listItem'],[transfers,'removeSold'],[transfers,'relistExpiredAuctions']]){
+      if(obj===leaf[0] && key===leaf[1])continue;
+      wrap(obj,key,original=>function(...args){
+        if(scope)throw Error('invalid_preconditions');
+        return original.apply(this,args);
+      });
+    }
+    if(c.operation==='search')method(services.PlayerMetaData,'updateItemPlayerMeta','metadata',args=>{
+      if(!parent('primary'))return false;
+      if(metadata || !Array.isArray(args[0]) || !args[0].length || args[0].length>21 ||
+          !args[0].every(raw=>metaItems.has(raw)))throw Error('invalid_preconditions');
+      metadata++;return true;
+    });
+    if(c.operation==='list')method(item,'refreshAuctions','list_refresh',args=>{
+      if(!parent('primary'))return false;
+      if(listRefresh || args.length!==1 || args[0]!==inventory.listRaw)throw Error('invalid_preconditions');
+      listRefresh++;return true;
+    });
+    if(c.operation==='clear_sold')wrap(item,'requestTransferItems',original=>function(...args){
+      let role;
+      if(root() && !primary){if(clearBefore || args.length)throw Error('invalid_preconditions');clearBefore++;role='clear_before';}
+      else if(parent('primary')){if(clearAfter || args.length)throw Error('invalid_preconditions');clearAfter++;role='clear_after';}
+      if(!role)return original.apply(this,args);
+      if(!live())throw Error('invalid_preconditions');
+      return within({role,callback:false},()=>observable(original.apply(this,args),role));
+    });
+    inventory.delivery={
+      sending:()=>current!==null,
+      open:m=>{
+        if(!current || ++current.opens!==1 || !m || m.background)throw Error('ambiguous_network');
+        const role=current.role,primaryRoute=role==='primary' && m.method===routes[c.operation][0] && m.path===routes[c.operation][1];
+        const auxiliary=m.method==='GET' && (role==='metadata' && m.path===metadataPath ||
+          role==='list_refresh' && m.path===routes.status[1] ||
+          ['clear_before','clear_after'].includes(role) && m.path===routes.transfer_list[1]);
+        if(!primaryRoute && !auxiliary)throw Error('ambiguous_network');
+      }
+    };
+    wrap(queue,'send',original=>function(request,...args){
+      if(scope?.role==='root')throw Error('invalid_preconditions');
+      if(!scope || scope.callback)return original.call(this,request,...args);
+      if(!live() || typeof request?.send!=='function')throw Error('invalid_preconditions');
+      const token={role:scope.role,sent:false,opens:0};
+      if(token.role==='primary' && ++primary!==1)throw Error('ambiguous_network');
+      request.doRetry=false;request.doReauth=false;requests.push({request,token});
+      wrap(request,'send',send=>function(...more){
+        if(!live() || token.sent)throw Error('invalid_preconditions');
+        token.sent=true;const previous=current;current=token;
+        try{return send.apply(this,more);}finally{current=previous;}
+      });
+      return original.call(this,request,...args);
+    });
+    const verify=()=>{if(primary!==1 || requests.some(({token})=>!token.sent || token.opens!==1))throw Error('ambiguous_network');};
+    return {observable:within({role:'root',callback:false},invoke),finish,verify};}
     catch(e){finish(false);throw e;}
-    finally{if(queue.send===wrapped)queue.send=original;}
   }
   async function execute(c,controllerRead=false) {
     diagnostic(c?.id,'PAGE_ENTER');
@@ -351,7 +449,7 @@
     if(!valid(c))return out;
     if(!official()){out.result.error='wrong_page';return out;}
     if(busy || poisoned || window.__fcNativeCommandOwner!==document){out.result.error='bridge_busy';return out;}
-    busy=true;let restore=()=>{},restoreBid=()=>{},finishRead=()=>{},bidState=null;const start=performance.now(),p=c.params,op=c.operation,r=out.result;
+    busy=true;let restore=()=>{},restoreBid=()=>{},finishRead=()=>{},verifyRead=()=>{},bidState=null;const start=performance.now(),p=c.params,op=c.operation,r=out.result;
     if(op==='bid')r.bid_receipt=bidReceipt();
     try {
       if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc')throw Error('persona_unverified');
@@ -502,9 +600,10 @@
           window.__fcNativeCommandOwner!==document || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc'))throw Error('persona_unverified');
       diagnostic(c.id,'NATIVE_INVOKE');
       let observable;
-      if(controllerRead){const delivery=controllerReadInvocation(invoke,c);observable=delivery.observable;finishRead=delivery.finish;}
+      if(controllerRead){const delivery=controllerReadInvocation(invoke,c,inventory);observable=delivery.observable;finishRead=delivery.finish;verifyRead=delivery.verify;}
       else observable=invoke();
       const response=await observe(observable,c.id,!controllerRead);await new Promise(resolve=>setTimeout(resolve,0));
+      verifyRead();
       r.status=Number.isInteger(response?.status) && response.status>=100 && response.status<=599?response.status:null;
       if(op==='bid'){
         await finishBid(bidState,c);
