@@ -1,0 +1,91 @@
+{
+  "coverage": {
+    "at": "2026-11-16T01:35:20.583332+00:00",
+    "run": "9bdb55697d3658b11f01f99a495b94f6",
+    "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production03-periodic\\20261116T013118Z-7dafbb40",
+    "verified_cases": [
+      "discovery_pagination",
+      "fresh_pricing",
+      "native_legality_admission",
+      "minimum_initial_bid",
+      "natural_outbid_rebid",
+      "cap_stop",
+      "lost",
+      "expired_relist",
+      "occupancy_reservations",
+      "priority_cadence",
+      "reconnect_restart",
+      "normal_noop_rejection",
+      "identity_freshness"
+    ],
+    "unverified_cases": [
+      "cached_pricing",
+      "leading_hold",
+      "won",
+      "physical_ownership",
+      "stored_price_listing",
+      "sold_clear",
+      "capacity_pause_resume",
+      "sticky_draining",
+      "uncertain_reconciliation",
+      "unrelated_browser_activity",
+      "lost_supervision",
+      "post_bid_selector_reconciliation"
+    ],
+    "structural_findings": [],
+    "healthy_seconds": 315.18446060002316,
+    "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+    "stop_for_missing_event": false
+  },
+  "acceptance": {
+    "task": "003-04",
+    "status": "INCOMPLETE",
+    "run": "9bdb55697d3658b11f01f99a495b94f6",
+    "revision": "3153be359145d71f72fcbe90340904a3a6309716",
+    "results": [
+      {
+        "criterion": 0,
+        "status": "PASS"
+      },
+      {
+        "criterion": 1,
+        "status": "PASS"
+      },
+      {
+        "criterion": 2,
+        "status": "PASS"
+      },
+      {
+        "criterion": 3,
+        "status": "PASS"
+      },
+      {
+        "criterion": 4,
+        "status": "PASS"
+      },
+      {
+        "criterion": 5,
+        "status": "PASS"
+      },
+      {
+        "criterion": 6,
+        "status": "PASS"
+      },
+      {
+        "criterion": 7,
+        "status": "UNFULFILLED",
+        "reason": "four_consecutive_healthy_hours_missing"
+      },
+      {
+        "criterion": 8,
+        "status": "UNFULFILLED",
+        "reason": "LIVE-UNVERIFIED:cached_pricing"
+      },
+      {
+        "criterion": 9,
+        "status": "PASS"
+      }
+    ],
+    "scope": "LIVE_ACCEPTANCE_NOT_OFFLINE_TEST_SUCCESS"
+  }
+}

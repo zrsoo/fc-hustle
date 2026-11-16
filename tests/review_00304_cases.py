@@ -30,13 +30,16 @@ def review(index):
     with closing(read_db(snapshot/'journal.sqlite3')) as db:
         registry=[dict(seq=s,at=a,trade_id=t,**json.loads(b)) for s,a,t,b in db.execute(
             "SELECT seq,at,trade_id,body FROM registry_events_v1 WHERE json_extract(body,'$.epoch')=?",(fences['epoch'],))]
+        bid_events=[dict(command_id=c,reason=r,data=json.loads(d)) for c,r,d in db.execute(
+            "SELECT command_id,reason,data FROM events WHERE reason IN ('BID_VERIFIED','WON_VERIFIED','LOST_VERIFIED')")]
     values=[]
     with closing(read_db(snapshot/'native.sqlite3')) as db:
         for seq,c,v,a,b in db.execute("SELECT seq,command,response,started,finished FROM work WHERE state='DONE' AND response IS NOT NULL"):
             c,v=json.loads(c),json.loads(v)
             if c['fences']==fences and v['result']['success']:
                 values.append(dict(seq=seq,run=run,command=c,response=v,started=a,finished=b))
-    observations=dict(registry=registry,health=[r['body'] for r in control if r['run']==run and r['kind']=='SNAPSHOT'],controls=control)
+    observations=dict(registry=registry,health=[r['body'] for r in control if r['run']==run and r['kind']=='SNAPSHOT'],
+                      controls=control,bid_events=bid_events)
     matrix=load(ROOT/'docs/research/003/003-04'/index['matrix'])
     references=[dict(command_id=v['command']['id'],database='native',table='work',key=v['seq']) for v in values]
     witnessed=[];missing=[]

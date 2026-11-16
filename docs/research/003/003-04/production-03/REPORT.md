@@ -137,3 +137,5 @@ subsequent local monitoring continued without incidents. This is not four hours.
 The full acceptance check still exits 1 for required elapsed time and unobserved
 natural cases. Production remains active; no missing event is labelled a human
 blocker or manufactured to produce PASS.
+
+At 01:36 UTC the local-only reviewer was stopped and its exit recorded before an audit-only correction. Native uncertainty coverage now joins an earlier actual UNKNOWN bid delivery, the retained journal native reconciliation event and a later successful exact physical read; operator loss or cancelled unsent reads cannot satisfy it. The updated focused auditor batch passed 34 tests, including seven continued-evidence tests. Production actor source, its watchdog, exporter and healthy segment were uninterrupted.

@@ -359,7 +359,29 @@ def semantic_case(case, values, observations):
     if case=='reconnect_restart':
         return len({r['run'] for r in controls if r['kind']=='RUN_OPEN'})>=2 and sum(r['kind']=='RECONCILED' for r in controls)>=2
     if case=='uncertain_reconciliation':
-        return any(v.get('response') is None for v in values) and any(r['kind']=='RECONCILED' for r in controls)
+        # The uncertain delivery belongs to the sealed earlier segment; the
+        # referenced successful native read is the subsequent independent proof.
+        # An operator attestation or an unsent cancelled read cannot satisfy it.
+        uncertain={r['body']['command']['id']:(r['body']['command'],stamp(r['at'])) for r in controls
+                   if r['kind']=='NATIVE_RESULT' and r['body'].get('state')=='UNKNOWN' and
+                   r['body'].get('command',{}).get('operation')=='bid'}
+        for e in observations.get('bid_events',[]):
+            uncertain_row=uncertain.get(e.get('command_id'));read=byid.get(e.get('data',{}).get('read_id'))
+            if not uncertain_row or not read or e.get('reason') not in {'BID_VERIFIED','WON_VERIFIED','LOST_VERIFIED'}:continue
+            original,uncertain_at=uncertain_row
+            if read['command']['operation'] not in {'watched','status'}:continue
+            params=original['params']
+            if any(a['trade_id']==params['trade_id'] and a['item']['item_id']==params['item_id'] and
+                   a['item']['definition_id'] in (params['definition_id'],0,None) and
+                   (a['item']['definition_id']==params['definition_id'] or read['command']['operation']=='status' and
+                    read['command']['params']=={k:params[k] for k in ('trade_id','item_id','definition_id')}) and
+                   ((e['reason']=='BID_VERIFIED' and a['bid_state'] in {'highest','outbid'} and a['current_bid']>=params['amount']) or
+                    (e['reason']=='LOST_VERIFIED' and a['trade_state']=='closed' and a['bid_state']=='outbid' and a['expires']<=0) or
+                    (e['reason']=='WON_VERIFIED' and a['trade_state']=='closed' and a['bid_state']=='highest' and a['expires']<=0 and
+                     e['data'].get('paid',0)>0 and semantic_case('physical_ownership',values,observations))) and
+                   stamp(read['response']['freshness']['network_at'])>uncertain_at
+                   for a in read['response']['result']['auctions']):return True
+        return False
     if case=='unrelated_browser_activity':
         return any(r['kind']=='BROWSER_ACTIVITY_REVIEW' and r['body'].get('independent_native_read_ids') and
                    r['body'].get('retained_diagnostic_references') for r in controls)
@@ -624,9 +646,12 @@ def assess_task(index, directory=OUT):
     check(7,lambda: segment_contract(rows,run,resolved_intents=resolved_intents))
     with closing(read_db(bundle_dir/'journal.sqlite3')) as db:
         registry=[dict(at=a,trade_id=t,**json.loads(b)) for a,t,b in db.execute('SELECT at,trade_id,body FROM registry_events_v1')]
+        bid_events=[dict(command_id=c,reason=r,data=json.loads(d)) for c,r,d in db.execute(
+            "SELECT command_id,reason,data FROM events WHERE reason IN ('BID_VERIFIED','WON_VERIFIED','LOST_VERIFIED')")]
     epoch=next((r['body']['fences']['epoch'] for r in rows if r['run']==run and r['kind']=='ATTACHED'),None)
     observations=dict(registry=[e for e in registry if e.get('epoch')==epoch],
-                      health=[r['body'] for r in rows if r['run']==run and r['kind']=='SNAPSHOT'],controls=rows)
+                      health=[r['body'] for r in rows if r['run']==run and r['kind']=='SNAPSHOT'],controls=rows,
+                      bid_events=bid_events)
     check(8,lambda: coverage_contract(load(out/index.get('matrix','live-coverage-matrix.json')),commands,run,revision,observations))
 
     def restriction():

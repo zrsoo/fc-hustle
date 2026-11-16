@@ -171,5 +171,25 @@ class ContinuedEvidence(unittest.TestCase):
                     self.assertFalse(watch.step())
                 finally:watch.close();db.close()
 
+    def test_uncertain_write_needs_native_reconciliation_and_cannot_use_operator_loss_or_unsent_read(self):
+        identity=dict(trade_id='trade',item_id='item',definition_id=123)
+        command=dict(id='old-bid',operation='bid',params=dict(**identity,amount=800))
+        later=dict(command=dict(id='proof',operation='status',params=identity),response=dict(
+            result=dict(success=True,auctions=[dict(trade_id='trade',item=dict(item_id='item',definition_id=0),
+                bid_state='outbid',trade_state='closed',expires=-1,current_bid=900)]),freshness=dict(network_at='2030-01-01T00:00:10Z')))
+        observations=dict(controls=[dict(kind='NATIVE_RESULT',at='2030-01-01T00:00:00Z',body=dict(state='UNKNOWN',command=command))],
+            bid_events=[dict(command_id='old-bid',reason='LOST_VERIFIED',data=dict(read_id='proof'))])
+        self.assertTrue(semantic_case('uncertain_reconciliation',[later],observations))
+        for fault in ('operator','unsent-read','wrong-command','no-readback','wrong-item','wrong-version','stale'):
+            o=deepcopy(observations);v=deepcopy(later)
+            if fault=='operator':o['bid_events'][0]['reason']='OPERATOR_LOST_CONFIRMED'
+            if fault=='unsent-read':o['controls'][0]['body']['command']['operation']='watched'
+            if fault=='wrong-command':o['bid_events'][0]['command_id']='unrelated'
+            if fault=='no-readback':o['bid_events'][0]['data']['read_id']='unretained'
+            if fault=='wrong-item':v['response']['result']['auctions'][0]['item']['item_id']='other'
+            if fault=='wrong-version':v['response']['result']['auctions'][0]['item']['definition_id']=124
+            if fault=='stale':v['response']['freshness']['network_at']='2029-01-01T00:00:00Z'
+            with self.subTest(fault=fault):self.assertFalse(semantic_case('uncertain_reconciliation',[v],o))
+
 
 if __name__=='__main__':unittest.main(verbosity=2)

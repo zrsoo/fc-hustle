@@ -1,0 +1,12 @@
+test_actual_minimum_bid_can_be_independently_read_back_after_a_competitor_outbids_it (__main__.ContinuedEvidence.test_actual_minimum_bid_can_be_independently_read_back_after_a_competitor_outbids_it) ... ok
+test_exact_status_coverage_requires_an_actual_prior_bid_and_distinct_native_branch (__main__.ContinuedEvidence.test_exact_status_coverage_requires_an_actual_prior_bid_and_distinct_native_branch) ... ok
+test_fresh_probe_retains_three_independent_native_reads_and_physical_continuity (__main__.ContinuedEvidence.test_fresh_probe_retains_three_independent_native_reads_and_physical_continuity) ... ok
+test_normal_saved_login_needs_retained_ui_selection_and_real_authentication_readbacks (__main__.ContinuedEvidence.test_normal_saved_login_needs_retained_ui_selection_and_real_authentication_readbacks) ... ok
+test_operator_resolution_preserves_unknown_native_outcome_and_checks_restart_reads (__main__.ContinuedEvidence.test_operator_resolution_preserves_unknown_native_outcome_and_checks_restart_reads) ... ok
+test_persistent_review_keeps_running_for_missing_events_and_after_four_hour_success (__main__.ContinuedEvidence.test_persistent_review_keeps_running_for_missing_events_and_after_four_hour_success) ... ok
+test_uncertain_write_needs_native_reconciliation_and_cannot_use_operator_loss_or_unsent_read (__main__.ContinuedEvidence.test_uncertain_write_needs_native_reconciliation_and_cannot_use_operator_loss_or_unsent_read) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.299s
+
+OK

@@ -1,0 +1,93 @@
+{
+  "at": "2026-11-16T01:36:27.044886+00:00",
+  "run": "9bdb55697d3658b11f01f99a495b94f6",
+  "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production03-periodic\\20261116T013619Z-23ad55dd",
+  "verified_cases": [
+    "discovery_pagination",
+    "fresh_pricing",
+    "native_legality_admission",
+    "minimum_initial_bid",
+    "natural_outbid_rebid",
+    "cap_stop",
+    "lost",
+    "expired_relist",
+    "occupancy_reservations",
+    "priority_cadence",
+    "reconnect_restart",
+    "normal_noop_rejection",
+    "identity_freshness"
+  ],
+  "unverified_cases": [
+    "cached_pricing",
+    "leading_hold",
+    "won",
+    "physical_ownership",
+    "stored_price_listing",
+    "sold_clear",
+    "capacity_pause_resume",
+    "sticky_draining",
+    "uncertain_reconciliation",
+    "unrelated_browser_activity",
+    "lost_supervision",
+    "post_bid_selector_reconciliation"
+  ],
+  "structural_findings": [
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 244,
+        "command_id": "8b519fb83e0e12d5c397b87743dcb2b6"
+      },
+      "reason": "TRANSPORT_NOT_YET_CAPTURED"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 244,
+        "command_id": "8b519fb83e0e12d5c397b87743dcb2b6"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 244,
+        "command_id": "8b519fb83e0e12d5c397b87743dcb2b6"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 262,
+        "command_id": "eddc3238c94975d4719083d6a3206b79"
+      },
+      "reason": "TRANSPORT_NOT_YET_CAPTURED"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 262,
+        "command_id": "eddc3238c94975d4719083d6a3206b79"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 262,
+        "command_id": "eddc3238c94975d4719083d6a3206b79"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    }
+  ],
+  "healthy_seconds": 615.7551095000235,
+  "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+  "stop_for_missing_event": false
+}
