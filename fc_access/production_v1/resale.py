@@ -183,6 +183,17 @@ class Resale:
     def cycle(self):
         from fc_access.actors_v1.locking import process_lock
         f = self.f
+        f.registry.check()
+        # An idle bidder must not contend for the account's mutation lock.
+        # These reads only establish that there is no work; every positive
+        # path still seeds/reconciles and rechecks under the original lock.
+        active = f.journal.db.execute("SELECT 1 FROM resales_v1 WHERE scope=? AND state NOT IN ('LISTED','UNLISTABLE') LIMIT 1",
+                                      (f.registry.scope,)).fetchone()
+        unseeded = f.journal.db.execute("SELECT 1 FROM events e WHERE e.scope=? AND e.reason='WON_VERIFIED' AND NOT EXISTS("
+            "SELECT 1 FROM resales_v1 r WHERE r.scope=e.scope AND r.trade_id=e.trade_id) LIMIT 1",
+            (f.registry.scope,)).fetchone()
+        if not active and not unseeded and not pending(f.journal,f.registry.scope):
+            return
         with process_lock(f.journal_path.with_suffix('.bid.lock'), wait_seconds=35):
             f.registry.check()
             self.seed()

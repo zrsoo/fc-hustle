@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T08:35:43.209362+00:00",
+  "source_revision": "92d4296",
+  "evidence_class": "GENUINE_NATIVE_POSITIVE_READ_DIAGNOSTICS",
+  "live_zero_failure_observed": false,
+  "proof": [
+    {
+      "command_id": "0a86cff219b5a41ceac6c822122ae3ac",
+      "events": [
+        {
+          "transport_seq": 15689,
+          "record": {
+            "at": "2026-11-16T08:35:24.330Z",
+            "detail": {
+              "request_count": 1,
+              "status": 200,
+              "xhr_zero_status": false
+            },
+            "stage": "EA_RESPONSE"
+          }
+        }
+      ]
+    },
+    {
+      "command_id": "882af6cd8cf182477f7bfe134ec80f02",
+      "events": [
+        {
+          "transport_seq": 15697,
+          "record": {
+            "at": "2026-11-16T08:35:26.298Z",
+            "detail": {
+              "request_count": 1,
+              "status": 200,
+              "xhr_zero_status": false
+            },
+            "stage": "EA_RESPONSE"
+          }
+        }
+      ]
+    },
+    {
+      "command_id": "af8ec667c481a76247d3403df1970859",
+      "events": [
+        {
+          "transport_seq": 15705,
+          "record": {
+            "at": "2026-11-16T08:35:28.273Z",
+            "detail": {
+              "request_count": 1,
+              "status": 200,
+              "xhr_zero_status": false
+            },
+            "stage": "EA_RESPONSE"
+          }
+        }
+      ]
+    }
+  ]
+}

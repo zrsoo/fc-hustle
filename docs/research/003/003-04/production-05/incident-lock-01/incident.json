@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T083711Z-idle-resale-lock-contention",
+  "task": "003-04",
+  "run": "2a8011d59307b4b1eabe0a2b49577abc",
+  "recorded_at": "2026-11-16T08:48:11.459728+00:00",
+  "trigger_control_seqs": [
+    29353,
+    29692
+  ],
+  "triggering_command_id": null,
+  "evidence_command_ids": [
+    "00192a55abd2e7a4bc55c26cd43272e3",
+    "1fd0d4e86c421ec869971434970b6499",
+    "c249c8ccff3b1d50df2ff9939f61aa85",
+    "8ea75cd263a7a66971c3d1f2290f6b3d"
+  ],
+  "known_account_effects": {
+    "bid_mutations": 0,
+    "maintenance_relist": "Independently confirmed; exact native bulk command and readback retained.",
+    "outstanding_mutation_intents": 0,
+    "credits": 62827,
+    "physical_inventory": 5,
+    "post_gate_read_cancelled_before_send": "6e114044b10d7bd079e67d089e5a7b9c"
+  },
+  "unknown_account_effects": {
+    "actual_foreign_controller": "None observed; fenced supervisor and role locks remained in place.",
+    "scope": "No empty-queue resale ownership or refund inference is made; source error is unnecessary local lock contention."
+  },
+  "root_cause": "The bidder had no enrolled/pending bid or resale work, yet Resale.cycle always waited up to35s for the global mutation lock. Maintenance held the lock across a real due bulk relist while higher-priority discovery used native slots; acquisition then obtained the lock for its fresh checks. The idle bidder hit process_already_running at35s and caused controlled stop; maintenance timeout followed that stop. This is unnecessary empty-work contention, not evidence of a competing controller.",
+  "fix": {
+    "runtime_change": true,
+    "pushed_revision": null,
+    "source": "fc_access/production_v1/resale.py",
+    "disposition": "Check current owner and absence of active resales, pending resale writes and unseeded verified wins before attempting the global mutation lock. Positive work still seeds, reconciles and rechecks under the unchanged original lock and all native ownership/price/intent guards. No larger timeout, retry, guard bypass or generic exception suppression."
+  },
+  "regression_results": {
+    "status": "PASS",
+    "exit_code": 0,
+    "tests_run": 953,
+    "failures": 0,
+    "errors": 0,
+    "node_suites": 29,
+    "receipt": "production-05/incident-lock-01/repair-regressions.json"
+  },
+  "restart_reconciliation": {
+    "status": "NOT_RESTARTED",
+    "reason": "Await complete regression results and publication before a new owner."
+  },
+  "resolution": "TESTED_AWAITING_PUBLICATION_AND_RESTART",
+  "safe_state": {
+    "stop_control_seq": 29707,
+    "healthy_seconds": 33.745270199957304,
+    "healthy_segment_closed": true,
+    "all_owned_exits_verified": true,
+    "service_stopped_before_edit": true,
+    "proof": "production-05/incident-lock-01/pre-repair.json"
+  },
+  "human_or_external_prerequisite": {
+    "status": "NONE_CURRENTLY"
+  }
+}

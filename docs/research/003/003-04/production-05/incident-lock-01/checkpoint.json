@@ -1,0 +1,17 @@
+{
+  "task": "obj-da182a175410/003-04",
+  "stage": "ALL_REGRESSIONS_PASSED_AWAIT_PUBLICATION",
+  "healthy_seconds": 33.745270199957304,
+  "current_native_service_stopped": true,
+  "source_starting_revision": "92d42965044afda0b00606487a9b8ff1b1d37531",
+  "mutation_intents_unresolved": 0,
+  "do_not_replay": [
+    "00192a55abd2e7a4bc55c26cd43272e3",
+    "6e114044b10d7bd079e67d089e5a7b9c"
+  ],
+  "known_human_blocker": false,
+  "python_tests": 953,
+  "node_suites": 29,
+  "runner_session": 93368,
+  "runner_finished": true
+}

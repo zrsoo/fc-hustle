@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T083728Z-export-revision-label",
+  "task": "003-04",
+  "run": "2a8011d59307b4b1eabe0a2b49577abc",
+  "recorded_at": "2026-11-16T08:55:52.606937+00:00",
+  "triggering_command": [
+    "{python}",
+    "-m",
+    "fc_access.continuous_v1.exporter",
+    "--output",
+    "private-captures/continuous-evidence/00304-production05-periodic",
+    "--revision",
+    "92d4296dNEED_FULL"
+  ],
+  "evidence": [
+    "production-05/exporter-launch-invalid-01.json",
+    "production-05/exporter-launch.json",
+    "private-captures/continuous-evidence/00304-production05-periodic/events.jsonl",
+    "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production05-periodic-02\\20261116T083741Z-159ce03c"
+  ],
+  "known_account_effects": {
+    "exporter_EA_requests": 0,
+    "exporter_account_mutations": 0,
+    "incorrect_source_label": true,
+    "invalid_output_excluded": true
+  },
+  "unknown_account_effects": {
+    "invalid_label": "The wrong declared revision is not accepted as runtime provenance; complete core evidence is independently retained in corrected captures."
+  },
+  "root_cause": "Operator entered a placeholder in the actual exporter CLI while the launch receipt recorded intended HEAD. The sealed manifest exposed the mismatch. This did not create an actor or account command.",
+  "fix": {
+    "runtime_source_change": false,
+    "correct_revision": "92d42965044afda0b00606487a9b8ff1b1d37531",
+    "old_pid": 7004,
+    "old_exited": true,
+    "replacement_pid": 9384,
+    "corrected_output": "private-captures/continuous-evidence/00304-production05-periodic-02",
+    "invalid_output_preserved": "private-captures/continuous-evidence/00304-production05-periodic"
+  },
+  "regression_results": {
+    "validator": "tests/check_00304_export_correction.py",
+    "scope": "Operator evidence correction only; not live task completion."
+  },
+  "restart_reconciliation": {
+    "status": "REPLACEMENT_VERIFIED",
+    "corrected_capture": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production05-periodic-02\\20261116T083741Z-159ce03c",
+    "source": "Same sealed native run/control stream with independently checked revision identity; no new account owner or mutation was created by exporters."
+  },
+  "primary_runtime_stop_preceded_export_correction": true,
+  "resolution": "CORRECTED_EXCLUDED_INVALID_CAPTURE"
+}

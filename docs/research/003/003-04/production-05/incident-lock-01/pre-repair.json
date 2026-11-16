@@ -1,0 +1,16 @@
+{
+    "at":  "2026-11-16T08:43:42.3077060Z",
+    "all_owned_exits_verified":  true,
+    "service_pid":  3972,
+    "service_exited":  true,
+    "runtime_pids":  [
+                         12792,
+                         13100,
+                         6276,
+                         17508,
+                         10564,
+                         16956
+                     ],
+    "before_runtime_changes":  true,
+    "source_revision":  "92d42965044afda0b00606487a9b8ff1b1d37531"
+}

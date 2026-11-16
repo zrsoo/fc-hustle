@@ -1,0 +1,20 @@
+{
+  "command": [
+    "{python}",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 353.4837350999587,
+  "finished_at": "2026-11-16T08:54:21.296764+00:00",
+  "stdout": "production-05/incident-lock-01/offline-01/00-stdout.txt",
+  "stderr": "production-05/incident-lock-01/offline-01/00-stderr.txt",
+  "tests_run": 953,
+  "failures": 0,
+  "errors": 0,
+  "node_suites": 29
+}

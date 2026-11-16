@@ -1,0 +1,11 @@
+{
+    "replaced_invalid_exporter":  7004,
+    "invalid_output_preserved":  "private-captures/continuous-evidence/00304-production05-periodic",
+    "at":  "2026-11-16T08:37:28.0182117Z",
+    "old_exporter_exited":  true,
+    "actor_runtime_revision":  "92d42965044afda0b00606487a9b8ff1b1d37531",
+    "pid":  9384,
+    "added_EA_requests":  0,
+    "authoritative_output":  "private-captures/continuous-evidence/00304-production05-periodic-02",
+    "run":  "2a8011d59307b4b1eabe0a2b49577abc"
+}

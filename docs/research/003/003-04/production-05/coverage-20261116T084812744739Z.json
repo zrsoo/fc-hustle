@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-16T08:48:12.723921+00:00",
+  "run": "2a8011d59307b4b1eabe0a2b49577abc",
+  "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production05-periodic-02\\20261116T083741Z-159ce03c",
+  "verified_cases": [
+    "discovery_pagination",
+    "fresh_pricing",
+    "expired_relist",
+    "reconnect_restart"
+  ],
+  "unverified_cases": [
+    "cached_pricing",
+    "native_legality_admission",
+    "minimum_initial_bid",
+    "leading_hold",
+    "natural_outbid_rebid",
+    "cap_stop",
+    "won",
+    "lost",
+    "physical_ownership",
+    "stored_price_listing",
+    "sold_clear",
+    "occupancy_reservations",
+    "capacity_pause_resume",
+    "sticky_draining",
+    "priority_cadence",
+    "uncertain_reconciliation",
+    "unrelated_browser_activity",
+    "lost_supervision",
+    "normal_noop_rejection",
+    "identity_freshness",
+    "post_bid_selector_reconciliation"
+  ],
+  "structural_findings": [
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 948,
+        "command_id": "6e114044b10d7bd079e67d089e5a7b9c"
+      },
+      "reason": "TRANSPORT_NOT_YET_CAPTURED"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 948,
+        "command_id": "6e114044b10d7bd079e67d089e5a7b9c"
+      },
+      "reason": "MISSING_RESPONSE_NO_RETRY"
+    },
+    {
+      "reference": {
+        "database": "native",
+        "table": "work",
+        "seq": 948,
+        "command_id": "6e114044b10d7bd079e67d089e5a7b9c"
+      },
+      "reason": "UNSETTLED_COMMAND"
+    }
+  ],
+  "healthy_seconds": 33.745300800015684,
+  "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+  "stop_for_missing_event": false
+}

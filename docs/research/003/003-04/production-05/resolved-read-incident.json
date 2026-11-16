@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T081324Z-native-read-http-status-unavailable",
+  "task": "003-04",
+  "run": "e593e1be9debe924c2f9be3ba555e9a2",
+  "recorded_at": "2026-11-16T08:25:22.773921+00:00",
+  "trigger_control_seqs": [
+    28816,
+    28818,
+    29008
+  ],
+  "triggering_command_id": "2f2909de513d3229cc6a8e293449c872",
+  "evidence_command_ids": [
+    "2f2909de513d3229cc6a8e293449c872",
+    "663b8845906ad81b8b9cde2af179674a",
+    "f7f721723adf6a7dff8275bdc086b164"
+  ],
+  "known_account_effects": {
+    "failed_operation": "watched",
+    "failed_operation_is_read_only": true,
+    "failed_read_dispatch_claims": 1,
+    "raw_result_was_rejected": true,
+    "host_validation_reason": "invalid_network_status",
+    "native_failure": "service_failed",
+    "pending_accepted_bid_at_stop": "663b8845906ad81b8b9cde2af179674a",
+    "pending_bid_amount": 1000,
+    "pending_bid_independently_reconciled": true,
+    "fresh_reconciliation": "production-04/incident-read-01/fresh-reads/native.jsonl",
+    "post_reconciliation": "production-04/incident-read-01/after-reconciliation.json",
+    "post_gate_read_cancelled_before_send": "57a7d48bfd6ac5712d7cf9b6cc6698f8",
+    "account_mutations_during_recovery": 0,
+    "credits": 62827
+  },
+  "unknown_account_effects": {
+    "native_read_failure_cause": "No valid HTTP status was retained. Abort, connectivity, CORS and other transport causes are not distinguishable from the captured metadata; no rate-limit/authentication cause is invented.",
+    "original_invalid_status": "The host retained invalid_network_status and a sanitized null-status failure summary, not the raw invalid value. The page XHR-zero path is independently reproduced offline, not reconstructed as an observed native body.",
+    "before_recovery_bid_result": "At stop independent verification of the accepted1000 was pending. Fresh authenticated exact watched/funds reads subsequently reconciled it under new read-only epoch85; no retry or refund inference."
+  },
+  "root_cause": "A watched callback failed without a valid HTTP status; the original page num(this.status) can emit XHR0 as a network status. The strict host rejects0 as invalid_network_status, leaving delivery UNKNOWN with no retained result. Typed diagnostics preserved the failure but the bounded summary omitted the raw invalid value. Offline execution of the actual page with XHR0 reproduces that representational defect. The primary executor stopped; bidder and maintenance timeouts were consequences of the closed dispatch gate.",
+  "fix": {
+    "runtime_change": true,
+    "files": [
+      "browser/production-v1/page.js",
+      "browser/production-v1/diagnostics.js",
+      "fc_access/production_v1/diagnostics.py"
+    ],
+    "pushed_revision": "92d42965044afda0b00606487a9b8ff1b1d37531",
+    "disposition": "Represent XHR0 as absent HTTP status null, retain a typed zero-status diagnostic, and preserve native failure/unfreshness and controlled stop. Python still rejects literal0 and no successful response or account outcome is synthesized."
+  },
+  "regression_results": {
+    "status": "PASS",
+    "exit_code": 0,
+    "tests_run": 948,
+    "failures": 0,
+    "errors": 0,
+    "node_suites": 29,
+    "receipt": "production-04/incident-read-01/repair-regressions.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "2a8011d59307b4b1eabe0a2b49577abc",
+    "control_seq": 29052,
+    "read_ids": [
+      "b9af6b646f8337d28c01c86f2be0e647",
+      "25ba02ef6e62883b1607babe26924787",
+      "c8a4fdcd12876548045593c7ae760eb0"
+    ]
+  },
+  "resolution": "REPAIRED",
+  "safe_state": {
+    "stop_control_seq": 29015,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 2548.485090600152,
+    "all_owned_runtime_exited": true,
+    "process_stop": "production-04/incident-read-01/process-stop.json",
+    "pre_repair": "production-04/incident-read-01/pre-repair.json",
+    "service_stopped_before_edit": true
+  },
+  "human_or_external_prerequisite": {
+    "status": "NONE_CURRENTLY",
+    "reason": "The transient read condition cleared: fresh native watched/balance/complete inventory succeeded. Existing zzorniss session remains usable; no CAPTCHA/2FA/security challenge encountered."
+  },
+  "prior_incident": "production-04/incident-read-01/incident.json"
+}
