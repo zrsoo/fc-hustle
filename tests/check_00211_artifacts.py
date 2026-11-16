@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from fc_access.actors_v1.config import Config
 from fc_access.production_v1.contracts import ROUTES,LOCAL_OPERATIONS
-from regression_00211 import PYTHON,NODE
+from historical_00211_suites import PYTHON,NODE
 
 OUT=ROOT/'docs/research/002/002-11'
 

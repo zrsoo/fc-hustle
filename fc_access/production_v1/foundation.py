@@ -86,7 +86,7 @@ class ScheduledExecutor:
             try:
                 raw = self.executor.execute(c)
                 delivered = self.clock()
-                v = parse_response(raw, c, now=self.now(), source=self.source,
+                v = parse_response(raw, c, now=self.now(), source=self.source, require_bid_receipt=True,
                                    pricing_rows=c['operation'] == 'search' and c['params']['purpose'] == 'pricing')
                 metric.update(native_service_ms=v['timing']['native_service_ms'],
                               request_count=v['freshness']['request_count'])
@@ -153,7 +153,7 @@ class Registry:
     REASONS = {'ELIGIBLE', 'LEADING', 'PENDING', 'STALE', 'EXPIRED', 'OVER_CAP',
                'INSUFFICIENT_BALANCE', 'QUEUE_FULL', 'DRAINING', 'UNKNOWN', 'SKIP',
                'QUOTE_REJECTED', 'QUOTE_INCOMPLETE', 'ENROLLED', 'UNRESOLVED_INTENT',
-               'NOT_TRADEABLE', 'NATIVE_ACK', 'TIMEOUT', 'INVALID_RESULT', 'SERVICE_ERROR',
+               'NOT_TRADEABLE', 'NATIVE_ACK', 'NATIVE_REJECTED', 'TIMEOUT', 'INVALID_RESULT', 'SERVICE_ERROR',
                'CAPACITY_UNKNOWN', 'PIPELINE_FULL', 'CAPACITY_IDENTITY_CONFLICT',
                'TRANSFER_LIST_UNKNOWN', 'TRANSFER_LIST_STALE', 'TRANSFER_LIST_CONFLICT',
                'TRANSFER_LIST_TRUNCATED', 'TRANSFER_LIST_FULL', 'TRANSFER_LIST_OVER_CAP'}
@@ -249,7 +249,8 @@ class Registry:
                     reason='NEVER_DISPATCHED', state='UNKNOWN')
             elif e['kind'] == 'OPERATOR_RESOLUTION':
                 auctions.setdefault(e['trade_id'], {}).update(e, action='HOLD',
-                    reason='OPERATOR_LOST_CONFIRMED', state='LOST')
+                    reason='OPERATOR_NOT_REGISTERED' if e['outcome']=='NOT_REGISTERED' else 'OPERATOR_LOST_CONFIRMED',
+                    state='UNKNOWN' if e['outcome']=='NOT_REGISTERED' else 'LOST')
         unresolved = []
         for cid, trade, state in self.journal.db.execute(
                 "SELECT id,trade_id,state FROM commands WHERE scope=? AND state NOT IN ('RECONCILED','NOT_DISPATCHED')", (self.scope,)):
@@ -432,7 +433,7 @@ class Foundation:
                 foundation.journal.intend(intent, evidence)
                 def call():
                     result = send()
-                    return BidResult(result['command_id'], Outcome(result['outcome']), result['reason'])
+                    return BidResult(result['command_id'], Outcome(result['outcome']), result['reason'], result.get('receipt'))
                 result = foundation.journal.dispatch(intent, call)
                 return dict(command_id=result.command_id, outcome=result.outcome.value, reason=result.reason)
         return self.adapter.dispatch_intent(cid, params, journal=IntentBridge(), prices=prices,
@@ -447,7 +448,7 @@ class Foundation:
             if cid not in a.commands or v != a.responses.get(cid) or v['operation'] != op:
                 raise ValueError('adapter_read_required')
             parse_response(v, a.commands[cid], now=self.now(), source=a.source)
-        row = self.journal.db.execute('SELECT trade_id FROM commands WHERE id=? AND scope=?',
+        row = self.journal.db.execute('SELECT trade_id,state FROM commands WHERE id=? AND scope=?',
                                      (token(command_id), self.registry.scope)).fetchone()
         matches = [r for r in status_response['result']['auctions'] if row and r['trade_id'] == row[0]]
         if len(matches) != 1:
@@ -458,6 +459,9 @@ class Foundation:
                                epoch=self.registry.epoch, status=status, balance=balance)
         self.queue.refresh(Snapshot((status,), freshness(status_response), Coverage(False, None)), now=self.now())
         self.registry.credits(balance)
+        if row[1]=='REJECTED':
+            self.registry.decision(status,'HOLD' if status.identity.trade_id in self.queue.entries else 'REJECT','NATIVE_REJECTED')
+            return self.registry.current()
         self.registry.decision(status, 'REJECT' if status.state == State.LOST else 'HOLD',
                                'SKIP' if status.state == State.LOST else
                                'LEADING' if status.state == State.LEADING else 'ELIGIBLE')

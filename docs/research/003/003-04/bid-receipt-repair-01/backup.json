@@ -1,0 +1,30 @@
+{
+  "head": "148d9a4b91daedabf0eb2c6f2df41cefd5528c2f",
+  "backup": "private-captures\\bid-receipt-repair\\20261116T033249Z",
+  "databases": [
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\0.sqlite3"
+    },
+    {
+      "source": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\1.sqlite3"
+    },
+    {
+      "source": "private-captures/continuous-production/native.sqlite3",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\2.sqlite3"
+    },
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\3.sqlite3"
+    },
+    {
+      "source": "private-captures/continuous-production/control.sqlite3",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\4.sqlite3"
+    },
+    {
+      "source": ".orchestrator/state.db",
+      "capture": "private-captures\\bid-receipt-repair\\20261116T033249Z\\5.sqlite3"
+    }
+  ]
+}

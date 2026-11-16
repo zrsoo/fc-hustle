@@ -110,17 +110,26 @@ class NativeAdapter:
                                      starting_bid=a['starting_bid'], current_bid=a['current_bid'])
         if minimum != params['amount'] or funds['result']['credits'] < params['amount']:
             raise ValueError('bid_not_eligible')
+        # A stale injected page must be detected BEFORE a durable dispatch claim
+        # or EA mutation. This helper uses the same fenced executor, zero EA.
+        import secrets
+        support = self.status_support(secrets.token_hex(16))
+        if support['result'].get('bid_receipt_schema') != 1:
+            raise ValueError('reviewed_bid_receipt_bridge_required')
         def send():
             self.dispatched[command_id] = self.now()
             try:
-                v = parse_response(self.executor.execute(c), c, now=self.now(), source=self.source)
+                v = parse_response(self.executor.execute(c), c, now=self.now(), source=self.source, require_bid_receipt=True)
             except TimeoutError:
                 return {'command_id': command_id, 'outcome': 'UNKNOWN', 'reason': 'TIMEOUT'}
             except Exception:
                 return {'command_id': command_id, 'outcome': 'UNKNOWN', 'reason': 'INVALID_RESULT'}
             r = v['result']
-            return {'command_id': command_id, 'outcome': 'ACKNOWLEDGED' if r['success'] else 'UNKNOWN',
-                    'reason': 'NATIVE_ACK' if r['success'] else 'TIMEOUT' if r['error'] == 'service_timeout' else 'SERVICE_ERROR'}
+            receipt = r['bid_receipt']
+            verdict = receipt['verdict']
+            return {'command_id': command_id, 'outcome': {'ACCEPTED':'ACKNOWLEDGED','REJECTED':'REJECTED'}.get(verdict,'UNKNOWN'),
+                    'reason': 'NATIVE_ACK' if verdict=='ACCEPTED' else 'NATIVE_REJECTED' if verdict=='REJECTED' else
+                        'TIMEOUT' if r['error']=='service_timeout' else 'BID_UNCONFIRMED', 'receipt': receipt}
         return journal.dispatch_once(c, send)
 
     def correlate(self, write, status, balance):

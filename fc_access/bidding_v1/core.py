@@ -58,7 +58,7 @@ class AuctionQueue:
                     trade, data = event['trade_id'], event['data']
                     self.entries[trade] = None
                     self.identities[trade] = Identity(trade, data['item_id'], data['definition_id'])
-                elif event["reason"] in {"WON_VERIFIED", "LOST_VERIFIED", "ADMISSION_WITHDRAWN", "OPERATOR_LOST_CONFIRMED"}:
+                elif event["reason"] in {"WON_VERIFIED", "LOST_VERIFIED", "ADMISSION_WITHDRAWN", "OPERATOR_LOST_CONFIRMED", "OPERATOR_NOT_REGISTERED", "OPENING_REJECTED"}:
                     identity = self.identities.get(event['trade_id'])
                     if event['reason'] == 'WON_VERIFIED' and identity:
                         self.pending_resale[event['trade_id']] = identity

@@ -1,0 +1,14 @@
+[
+  {
+    "test": "FAIL: test_criteria_0_2_5_artifacts_and_historical_migration (test_001d02_contract.ContractAcceptance.test_criteria_0_2_5_artifacts_and_historical_migration)",
+    "cause": "finite actor experiment runner was placed inside production primitives layer"
+  },
+  {
+    "test": "FAIL: test_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal (test_001d06_foundation.Acceptance.test_c1_c3_c5_end_to_end_real_adapter_prices_admission_scheduler_journal)",
+    "cause": "operation inventory omitted new zero-EA receipt capability preflight"
+  },
+  {
+    "test": "FAIL: test_c0_c2_c3_acquirer_manual_all_states_full_and_over_cap_no_deletion (test_00205_occupancy.OccupancyAcceptance.test_c0_c2_c3_acquirer_manual_all_states_full_and_over_cap_no_deletion)",
+    "cause": "operation inventory omitted new zero-EA receipt capability preflight"
+  }
+]

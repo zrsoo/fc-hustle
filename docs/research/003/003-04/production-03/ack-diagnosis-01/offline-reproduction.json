@@ -1,0 +1,29 @@
+{
+  "mode": "OFFLINE_ONLY; not a replay or claim about captured EA bid bodies",
+  "EA_requests": 0,
+  "account_mutations": 0,
+  "wire": {
+    "method": "PUT",
+    "body": {
+      "bid": 2500
+    }
+  },
+  "native_dao": {
+    "success": true,
+    "status": 200,
+    "returned_items": 0,
+    "input_marked_stale": true
+  },
+  "native_service": {
+    "success": true,
+    "status": 200,
+    "reported_item_ids": 1
+  },
+  "actual_production_bridge": {
+    "success": true,
+    "error": null,
+    "auction_evidence": null,
+    "request_count": 1
+  },
+  "python_adapter_mapping": "ACKNOWLEDGED/NATIVE_ACK"
+}

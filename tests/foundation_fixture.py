@@ -88,6 +88,14 @@ class Page:
         elif op == 'caps':
             r['caps'] = dict(definition_id=c['params']['definition_id'], minimum=150, maximum=50000)
             query = dict(defId=c['params']['definition_id'])
+        elif op == 'bid':
+            p=c['params']; a=deepcopy(self.candidate)
+            a.update(trade_id=p['trade_id'],current_bid=p['amount'],bid_state='highest')
+            a['item'].update(item_id=p['item_id'],definition_id=p['definition_id'])
+            r['bid_receipt']=dict(schema=1,verdict='ACCEPTED',reason='MATCHING_NATIVE_PARTICIPATION',
+                wire_trade_id=p['trade_id'],wire_amount=p['amount'],wire_identity_matches=True,wire_amount_matches=True,
+                wire_item_count=1,wire_error_code=None,native_success=True,native_error_code=None,native_error_name=None,
+                native_item_count=1,matching_item_count=1,input_stale=False,before_bid_state='none',auction=a)
         at = self.clock.now().isoformat()
         f = dict(observed_at=at, network_at=at, request_count=1, read_id=c['id'], source='fixture')
         if op == 'price_helpers':
@@ -95,7 +103,7 @@ class Page:
                      probes=self.helper.price_helpers(c['id'], c['params']['probes'])['result']['probes'],network=[])
             f.update(network_at=None, request_count=0)
         elif op == 'status_support':
-            r = dict(success=True,error=None,function_available=True,retained_count=len(self.watched),network=[])
+            r = dict(success=True,error=None,function_available=True,retained_count=len(self.watched),bid_receipt_schema=1,network=[])
             f.update(network_at=None, request_count=0)
         else:
             method, route = ROUTES[op]

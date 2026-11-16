@@ -1,0 +1,29 @@
+{
+  "outcome": "RESOLVED",
+  "proof": {
+    "schema": 1,
+    "source": "operator",
+    "outcome": "NOT_REGISTERED",
+    "native_outcome_verified": false,
+    "command_id": "6b3faed8a418890da8147b59eae039fc",
+    "scope": "e7fce7c176935f0b95dc3db91dd28521",
+    "identity": {
+      "trade_id": "trade:4277ca1e7e0bc5625b51752f",
+      "item_id": "item:d5a3c8d9f578ce97882f8474",
+      "definition_id": 246191,
+      "platform": "pc",
+      "game": "fc27"
+    },
+    "amount": 950,
+    "attestation": "The user states the complete Transfer Targets history for the last 2-3 days contains Isak, Cherki and two Adeyemi only; the Alvarez and Doue logged bids did not register.",
+    "authorization": "User approved bid-receipt repair including exact audited non-registration clarification; no historical command replay and no refund/native-proof claim.",
+    "previous_command_state": "ACKNOWLEDGED",
+    "previous_operator_loss_retained": false,
+    "previous_owner": "2530e78ab633813f6345dc43c1a6e68f",
+    "previous_epoch": 76,
+    "owner": "4c7cd66d251be681f1d05d0b1f95e65b",
+    "epoch": 77,
+    "at": "2026-11-16T07:03:46.537655+00:00",
+    "refund_claimed": false
+  }
+}

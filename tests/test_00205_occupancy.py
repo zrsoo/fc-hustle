@@ -136,7 +136,9 @@ class OccupancyAcceptance(unittest.TestCase):
         a.cycle();self.assertEqual(p.bid_calls,1)
         self.assertEqual(self.evidence(f)['occupancy']['occupied'],49)
         self.assertEqual(len([x for x in p.calls if x['operation']=='transfer_list']),4)
-        self.assertEqual(set(x['operation'] for x in p.calls)-{'search','caps','price_helpers','balance','transfer_list','bid'},set())
+        self.assertEqual(set(x['operation'] for x in p.calls)-{'search','caps','price_helpers','status_support','balance','transfer_list','bid'},set())
+        self.assertEqual(len([x for x in p.calls if x['operation']=='status_support']),1)
+        self.assertTrue(all(m['request_count']==0 for m in f.executor.local_metrics if m['operation']=='status_support'))
 
     def test_c1_c3_acquirer_pauses_reason_coded_then_requires_new_read(self):
         f,p,c,a,b=self.api()

@@ -12,7 +12,9 @@ REASONS={'invalid_fields','invalid_result','invalid_status','invalid_cache_evide
  'invalid_network_status','invalid_query','invalid_request_source','unsupported_freshness','unsupported_coverage',
  'invalid_timing','stale_or_unauthenticated_source','native_status_mismatch','operation_payload_mismatch','cache_only_source',
  'missing_exact_wire_definition','wire_criteria_mismatch','response_correlation_mismatch','invalid_time','timezone_required',
- 'unknown_or_duplicate_result','wrong_result_peer','stale_peer','reattach_required','wire_metadata_identity_mismatch'}
+ 'unknown_or_duplicate_result','wrong_result_peer','stale_peer','reattach_required','wire_metadata_identity_mismatch',
+ 'bid_receipt_required','invalid_bid_receipt','bid_wire_binding_mismatch','bid_receipt_identity_mismatch',
+ 'unproven_bid_acceptance','unproven_bid_rejection','unconfirmed_bid_marked_successful','stale_bid_rejection'}
 
 def typename(value):
     if value is None:return 'null'

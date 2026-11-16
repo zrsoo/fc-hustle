@@ -95,7 +95,10 @@ class Acceptance(unittest.TestCase):
         evidence = f.registry.events(p.candidate['trade_id'])[-1]['quote']['evidence']
         self.assertEqual(evidence['price_searches'],2)
         self.assertEqual(evidence['claim'],'OBSERVED_MINIMUM_ONLY')
-        self.assertEqual(set(c['operation'] for c in p.calls), {'search','watched','balance','caps','price_helpers','bid','transfer_list'})
+        self.assertEqual(set(c['operation'] for c in p.calls), {'search','watched','balance','caps','price_helpers','status_support','bid','transfer_list'})
+        capability=[m for m in f.executor.local_metrics if m['operation']=='status_support']
+        self.assertEqual(len(capability),1)
+        self.assertEqual(capability[0]['request_count'],0)
         self.assertEqual(p.real_account_writes,0)
         self.assertEqual(f.executor.scheduler.concurrency,1)
         self.assertTrue(all(m['request_count']==1 for m in f.executor.metrics))

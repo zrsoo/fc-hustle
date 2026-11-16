@@ -1,0 +1,1 @@
+PASS bid receipts: accepted identity, empty/stale/none/error, prior-outbid, wrong wire zero sends, explicit rejection, no duplicate dispatch, hooks restored

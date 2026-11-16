@@ -1,0 +1,1 @@
+PASS: native all-state occupancy, empty/full/over-cap, missing/truncated/conflicting views and freshness/authentication failures

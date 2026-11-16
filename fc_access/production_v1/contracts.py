@@ -32,7 +32,7 @@ ERRORS = {'invalid_command', 'wrong_page', 'bridge_busy', 'persona_unverified',
           'unsafe_identity', 'stale_source', 'unauthenticated', 'ambiguous_network',
           'invalid_preconditions', 'internal_error', 'helpers_unavailable', 'helper_disagreement',
           'status_source_unsupported', 'known_identity_unavailable',
-          'transfer_list_conflict', 'bulk_contract_changed'}  # old errors retained for sealed responses
+          'bid_rejected', 'bid_unconfirmed', 'transfer_list_conflict', 'bulk_contract_changed'}  # old errors retained for sealed responses
 LOCAL_OPERATIONS = {'price_helpers', 'status_support'}
 CONTEXT = {'account', 'persona', 'game', 'platform', 'identity_namespace'}
 FENCES = {'owner', 'epoch', 'host_epoch', 'worker_epoch', 'document'}
@@ -211,9 +211,9 @@ def item(v, *, lite=False):
         integer(v['last_sale_price'])
 
 
-def auction(v):
+def auction(v, *, lite=False):
     """Safe projection shape, independent of market/comparable validity."""
-    fields(v, AUCTION); item(v['item']); token(v['trade_id'], 'trade')
+    fields(v, AUCTION); item(v['item'], lite=lite); token(v['trade_id'], 'trade')
     for k in ('starting_bid', 'current_bid', 'buy_now_price', 'expires'):
         integer(v[k], -1 if k == 'expires' else 0)
     if (v['trade_state'] not in {'active', 'closed', 'expired', 'inactive', None} or
@@ -235,7 +235,7 @@ def timing(value):
     return value
 
 
-def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=False):
+def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=False, require_bid_receipt=False):
     """Validate actual routes; no legacy route substitution or raw payload retention."""
     command(c)
     if pricing_rows and (c['operation'] != 'search' or c['params']['purpose'] != 'pricing'):
@@ -249,7 +249,10 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
         return parse_helpers(v, c, now=now, source=source, max_age=max_age)
     if op == 'status_support':
         return parse_status_support(v, c, now=now, source=source, max_age=max_age)
-    fields(r, empty_result())
+    receipt = op == 'bid' and 'bid_receipt' in r
+    fields(r, set(empty_result()) | ({'bid_receipt'} if receipt else set()))
+    if op == 'bid' and require_bid_receipt and not receipt:
+        raise ValueError('bid_receipt_required')
     if type(r['success']) is not bool or r['error'] not in ERRORS | {None} or r['success'] != (r['error'] is None):
         raise ValueError('invalid_result')
     if r['status'] is not None and not (type(r['status']) is int and 100 <= r['status'] <= 599):
@@ -427,12 +430,21 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
                 auction(row)
             except (ValueError, TypeError, KeyError):
                 v['result']['auctions'][index] = None
+    if receipt:
+        from .bid_receipt import validate
+        validate(r['bid_receipt'], c, r)
+        if r['bid_receipt']['verdict']=='REJECTED' and not 0 <= ((now or datetime.now(timezone.utc))-observed).total_seconds() <= max_age:
+            raise ValueError('stale_bid_rejection')
     return v
 
 
 def parse_status_support(v, c, *, now=None, source='native', max_age=30):
     """Local function availability only. Never a market/authentication claim."""
-    r = fields(v['result'], {'success', 'error', 'function_available', 'retained_count', 'network'})
+    r = v['result']
+    fields(r, {'success', 'error', 'function_available', 'retained_count', 'network'} |
+           ({'bid_receipt_schema'} if 'bid_receipt_schema' in r else set()))
+    if 'bid_receipt_schema' in r and (type(r['bid_receipt_schema']) is not int or r['bid_receipt_schema'] != 1):
+        raise ValueError('unsupported_bid_receipt_schema')
     if type(r['success']) is not bool or r['error'] not in ERRORS | {None} or r['success'] != (r['error'] is None):
         raise ValueError('invalid_result')
     if type(r['function_available']) is not bool:

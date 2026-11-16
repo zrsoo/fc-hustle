@@ -146,9 +146,9 @@ class Store:
             c = json.loads(row[0])
             if c['context'] != peer['context'] or c['fences'] != peer['fences']:
                 raise ValueError('wrong_result_peer')
-            value = parse_response(value, c, source=self.source, now=self.now(), pricing_rows=c['operation'] == 'search' and
+            value = parse_response(value, c, source=self.source, now=self.now(), require_bid_receipt=True, pricing_rows=c['operation'] == 'search' and
                                    c['params']['purpose'] == 'pricing')
-            state = 'ACKNOWLEDGED' if value['result']['success'] else 'UNKNOWN'
+            state = 'ACKNOWLEDGED' if value['result']['success'] else 'REJECTED' if c['operation']=='bid' and value['result']['bid_receipt']['verdict']=='REJECTED' else 'UNKNOWN'
             self.db.execute('UPDATE commands SET state=?,result=? WHERE id=?', (state, json.dumps(value, sort_keys=True), cid))
             self.db.execute('INSERT INTO events(command_id,event) VALUES(?,?)', (cid, state))
 

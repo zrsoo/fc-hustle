@@ -106,7 +106,8 @@ class ContinuousBroker(Broker):
             c, response = json.loads(c), json.loads(response) if response else None
             self.control.append(self.run_id, 'NATIVE_RESULT', command=c, response=response, state=state,
                                 measured=result)
-            if state == 'UNKNOWN' or not response['result']['success'] or response['freshness']['request_count'] > 16:
+            from fc_access.production_v1.bid_receipt import ordinary_rejection
+            if state == 'UNKNOWN' or (not response['result']['success'] and not ordinary_rejection(c,response)) or response['freshness']['request_count'] > 16:
                 self.control.stop(self.run_id, 'AMBIGUOUS_OR_FAILED_NATIVE_COMMAND')
                 raise ValueError('native_command_requires_reconciliation')
         # Expired queued commands also require a retained controlled stop.

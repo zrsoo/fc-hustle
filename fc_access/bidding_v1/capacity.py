@@ -52,10 +52,13 @@ def apply_event(journal, scope, reason, data, trade, *, recovering=False):
             return
         journal.db.execute('INSERT INTO capacity_slots_v1 VALUES(?,?,?,?,?)',
             (scope, trade, *identity, 'UNRESOLVED'))
+    elif reason == 'OPERATOR_NOT_REGISTERED':
+        journal.db.execute("UPDATE capacity_slots_v1 SET phase='OPERATOR_NOT_REGISTERED' "
+            "WHERE scope=? AND trade_id=? AND phase IN ('UNRESOLVED','OPERATOR_LOST')", (scope,trade))
     elif reason == 'OPERATOR_LOST_CONFIRMED':
         journal.db.execute("UPDATE capacity_slots_v1 SET phase='OPERATOR_LOST' "
             "WHERE scope=? AND trade_id=? AND phase='UNRESOLVED'", (scope, trade))
-    elif reason == 'ADMISSION_WITHDRAWN':
+    elif reason in {'ADMISSION_WITHDRAWN','OPENING_REJECTED'}:
         # Local, proven never-dispatched admission; no EA terminal state claimed.
         journal.db.execute("UPDATE capacity_slots_v1 SET phase='WITHDRAWN' "
             "WHERE scope=? AND trade_id=? AND phase='UNRESOLVED'", (scope, trade))

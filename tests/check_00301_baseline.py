@@ -145,7 +145,10 @@ def criterion_3():
          and py['exit_code'] == 0 and py['tests_run'] == 744 and py['result'] == 'OK', 'python_baseline_failed')
     node = load('node-baseline.json')
     need(len(node) == 27 and all(r['exit_code'] == 0 and r['stdout'] for r in node), 'node_baseline_failed')
-    need({r['command'][1] for r in node} == {f.relative_to(ROOT).as_posix() for f in (ROOT/'tests').glob('*checks.cjs')},
+    # Inventory at the recorded review boundary, not today's mutable test tree.
+    baseline_suites={name for name in git('ls-tree','-r','--name-only',BASELINE,'--','tests').splitlines()
+                     if name.endswith('checks.cjs')}
+    need({r['command'][1] for r in node} == baseline_suites,
          'node_suite_omitted')
     independent = load('independent-baseline.json')
     need(len(independent) == 4 and all(r['exit_code'] == 0 and r['stdout'] for r in independent),

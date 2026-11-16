@@ -187,6 +187,7 @@ class BidIntent:
 class Outcome(StrEnum):
     ACKNOWLEDGED = "ACKNOWLEDGED"  # Native success is not independent verification.
     UNKNOWN = "UNKNOWN"
+    REJECTED = "REJECTED"
 
 
 @dataclass(frozen=True)
@@ -194,13 +195,16 @@ class BidResult:
     command_id: str
     outcome: Outcome
     reason: str
+    receipt: dict | None = None
 
     def __post_init__(self):
         token(self.command_id)
-        if not isinstance(self.outcome, Outcome) or self.reason not in {"NATIVE_ACK", "TIMEOUT", "INVALID_RESULT", "SERVICE_ERROR"}:
+        if not isinstance(self.outcome, Outcome) or self.reason not in {"NATIVE_ACK", "NATIVE_REJECTED", "BID_UNCONFIRMED", "TIMEOUT", "INVALID_RESULT", "SERVICE_ERROR"}:
             raise ValueError("invalid_result")
         if (self.outcome == Outcome.ACKNOWLEDGED) != (self.reason == "NATIVE_ACK"):
             raise ValueError("inconsistent_result")
+        if (self.outcome == Outcome.REJECTED) != (self.reason == 'NATIVE_REJECTED') or self.outcome == Outcome.REJECTED and self.receipt is None:
+            raise ValueError('inconsistent_result')
 
 
 @dataclass(frozen=True)

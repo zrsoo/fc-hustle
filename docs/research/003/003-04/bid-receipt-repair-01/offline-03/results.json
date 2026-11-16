@@ -1,0 +1,283 @@
+[
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 347.72430110001005
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bidding_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2728029999998398
+  },
+  {
+    "command": [
+      "node",
+      "tests\\browser_observer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.1550404999870807
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bulk_background_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.3460571999894455
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bulk_transfer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.17816439998568967
+  },
+  {
+    "command": [
+      "node",
+      "tests\\durability_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.13113259995589033
+  },
+  {
+    "command": [
+      "node",
+      "tests\\durability_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2653358999523334
+  },
+  {
+    "command": [
+      "node",
+      "tests\\e2e_live_v2_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.11502010002732277
+  },
+  {
+    "command": [
+      "node",
+      "tests\\e2e_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.12229109997861087
+  },
+  {
+    "command": [
+      "node",
+      "tests\\final_inactive_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.12511929997708648
+  },
+  {
+    "command": [
+      "node",
+      "tests\\final_owned_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.09451540000736713
+  },
+  {
+    "command": [
+      "node",
+      "tests\\list_refresh_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.662922499992419
+  },
+  {
+    "command": [
+      "node",
+      "tests\\market_discovery_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2684789000195451
+  },
+  {
+    "command": [
+      "node",
+      "tests\\market_discovery_followup_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.20583049999549985
+  },
+  {
+    "command": [
+      "node",
+      "tests\\native_status_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 1.1179353999905288
+  },
+  {
+    "command": [
+      "node",
+      "tests\\occupancy_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.49835750000784174
+  },
+  {
+    "command": [
+      "node",
+      "tests\\pricing_timing_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.09264839999377728
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_bid_receipt_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.45414559997152537
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_bulk_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.8791976000065915
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_diagnostics_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.0945926999556832
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_inventory_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.749322600022424
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_metadata_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.1889478000230156
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5293092000065371
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5292150999885052
+  },
+  {
+    "command": [
+      "node",
+      "tests\\read_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.3115457000094466
+  },
+  {
+    "command": [
+      "node",
+      "tests\\resale_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5530338000389747
+  },
+  {
+    "command": [
+      "node",
+      "tests\\search_validation_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.11193290003575385
+  },
+  {
+    "command": [
+      "node",
+      "tests\\transaction_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.6294035000028089
+  },
+  {
+    "command": [
+      "node",
+      "tests\\watched_bulk_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.20895519998157397
+  },
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tests/validate_00203_gate.py",
+      "--attempt",
+      "20261114-adapter-repair-gate-06"
+    ],
+    "exit_code": 0,
+    "seconds": 0.23725549998926
+  },
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tests/validate_00203_stop.py",
+      "--attempt",
+      "20261114-adapter-repair-gate-06"
+    ],
+    "exit_code": 0,
+    "seconds": 0.30596510000759736
+  },
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tests/validate_adapter_repair.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.29763679997995496
+  },
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tests/check_bulk_blocker_recovery.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.222111799987033
+  },
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tests/check_00301_baseline.py"
+    ],
+    "exit_code": 0,
+    "seconds": 3.7831756999948993
+  }
+]

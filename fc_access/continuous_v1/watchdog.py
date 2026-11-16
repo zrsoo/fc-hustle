@@ -97,13 +97,14 @@ class Watchdog:
                 if state != 'DONE' or not response:
                     self.fail('AMBIGUOUS_NATIVE_OUTCOME')
                 try:
-                    value = parse_response(json.loads(response), command, source=runtime['source'], now=stamp(finished),
+                    value = parse_response(json.loads(response), command, source=runtime['source'], now=stamp(finished), require_bid_receipt=True,
                         pricing_rows=command['operation'] == 'search' and command['params']['purpose'] == 'pricing')
                 except (ValueError, KeyError, TypeError):
                     self.fail('NATIVE_SCHEMA_OR_FRESHNESS')
                 if command['context'] != opened['context'] or command['fences'] != attached['fences']:
                     self.fail('COMMAND_IDENTITY_CHANGED')
-                if not value['result']['success'] or value['freshness']['request_count'] > 16:
+                from fc_access.production_v1.bid_receipt import ordinary_rejection
+                if (not value['result']['success'] and not ordinary_rejection(command,value)) or value['freshness']['request_count'] > 16:
                     self.fail('NATIVE_RESPONSE_FAILURE')
                 self.commands += 1
                 self.requests += value['freshness']['request_count']

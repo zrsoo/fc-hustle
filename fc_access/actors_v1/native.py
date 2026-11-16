@@ -167,7 +167,7 @@ class Broker:
                 raise ValueError('command_expired_before_send')
             # The broker is the sole consumer and delegates to the reviewed boundary.
             raw = self.foundation.executor.executor.execute(c)
-            result = parse_response(raw, c, now=self.now(), source=self.foundation.adapter.source,
+            result = parse_response(raw, c, now=self.now(), source=self.foundation.adapter.source, require_bid_receipt=True,
                 pricing_rows=c['operation'] == 'search' and c['params']['purpose'] == 'pricing')
             reason = 'NATIVE_RESPONSE'
         except Exception:

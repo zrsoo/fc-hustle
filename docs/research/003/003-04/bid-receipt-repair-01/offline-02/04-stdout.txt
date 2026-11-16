@@ -1,0 +1,1 @@
+PASS bulk contracts: captured native DAO routes/body, single bulk invocation, prices/hour, identity, state filtering, ambiguity, duplicates, persona, no secrets

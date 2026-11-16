@@ -1,0 +1,1 @@
+PASS browser navigation and telemetry isolation; one mutation; blocked duplicate/write/body/query/host guards and sanitized diagnostics

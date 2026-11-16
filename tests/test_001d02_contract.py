@@ -163,6 +163,11 @@ class ContractAcceptance(unittest.TestCase):
             mode = 'ok'
             def attach(self, context, owner, epoch): return make_command()['fences']
             def execute(self, c):
+                if c['operation']=='status_support':
+                    r=reply(make_command());r.update(command_id=c['id'],operation=c['operation'],context=c['context'],fences=c['fences'])
+                    r['result']=dict(success=True,error=None,function_available=True,retained_count=1,bid_receipt_schema=1,network=[])
+                    r['freshness'].update(network_at=None,request_count=0,read_id=c['id']);r['coverage']['has_more']=None
+                    return r
                 if c['operation']=='price_helpers':
                     r=reply(make_command());r.update(command_id=c['id'],operation=c['operation'],context=c['context'],fences=c['fences'])
                     from native_price_fixture import FixturePriceAdapter
@@ -174,6 +179,14 @@ class ContractAcceptance(unittest.TestCase):
                 if self.mode == 'malformed': return {'secret': 'SECRET_BODY'}
                 r = reply(c)
                 if self.mode == 'failed': r['result'].update(success=False, error='service_failed')
+                if c['operation']=='bid':
+                    p=c['params'];a=reply(make_command('watched'))['result']['auctions'][0]
+                    a.update(current_bid=p['amount'],bid_state='highest')
+                    r['result']['bid_receipt']=dict(schema=1,verdict='ACCEPTED' if self.mode=='ok' else 'UNCONFIRMED',
+                        reason='MATCHING_NATIVE_PARTICIPATION' if self.mode=='ok' else 'MISSING_NATIVE_RECEIPT',
+                        wire_trade_id=p['trade_id'],wire_amount=p['amount'],wire_identity_matches=True,wire_amount_matches=True,
+                        wire_item_count=1,wire_error_code=None,native_success=self.mode=='ok',native_error_code=None,
+                        native_error_name=None,native_item_count=1,matching_item_count=1,input_stale=False,before_bid_state='none',auction=a)
                 return r
         class Journal:
             def __init__(self): self.ids = set()

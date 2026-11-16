@@ -13,9 +13,9 @@ from fc_access.sqlite_timing import TimedConnection
 
 from .contracts import BidIntent, BidResult, Outcome, State, instant, integer, token
 
-REASONS = {"SESSION_STARTED", "INTENT_DURABLE", "NATIVE_ACK", "TIMEOUT", "INVALID_RESULT", "SERVICE_ERROR",
+REASONS = {"SESSION_STARTED", "INTENT_DURABLE", "NATIVE_ACK", "NATIVE_REJECTED", "BID_UNCONFIRMED", "BID_REJECTION_VERIFIED", "OPENING_REJECTED", "TIMEOUT", "INVALID_RESULT", "SERVICE_ERROR",
            "BID_VERIFIED", "WON_VERIFIED", "LOST_VERIFIED", "HOLD", "SKIP", "PENDING", "UNKNOWN",
-           "ENROLLED", "ADMISSION_WITHDRAWN", "OPERATOR_LOST_CONFIRMED", "QUEUE_FULL", "DRAINING", "DRAINED", "STALE", "OVER_CAP", "INSUFFICIENT_BALANCE",
+           "ENROLLED", "ADMISSION_WITHDRAWN", "OPERATOR_LOST_CONFIRMED", "OPERATOR_NOT_REGISTERED", "QUEUE_FULL", "DRAINING", "DRAINED", "STALE", "OVER_CAP", "INSUFFICIENT_BALANCE",
            "EXPIRED", "REBID", "OPENING", "LIFECYCLE_ERROR", "DEADLINE_SKIPPED", "NOT_DISPATCHED", "RESERVATION_RELEASED",
            "READ_OBSERVED", "NATIVE_TIMING", "BALANCE_OBSERVED", "DELIVERY_OBSERVED", "CAPACITY_OBSERVED"}
 NUMBERS = {"amount", "cap", "target", "tax", "profit_threshold", "samples", "spendable", "held", "paid",
@@ -90,6 +90,11 @@ class Journal:
             epoch INTEGER NOT NULL, trade_id TEXT NOT NULL, item_id TEXT NOT NULL, definition_id INTEGER NOT NULL,
             amount INTEGER NOT NULL, state TEXT NOT NULL, deadline TEXT NOT NULL, status_read_id TEXT NOT NULL,
             balance_read_id TEXT NOT NULL, intended_at TEXT NOT NULL);
+          CREATE TABLE IF NOT EXISTS bid_receipts_v1(command_id TEXT PRIMARY KEY, receipt TEXT NOT NULL);
+          CREATE TRIGGER IF NOT EXISTS immutable_bid_receipts_update BEFORE UPDATE ON bid_receipts_v1
+            BEGIN SELECT RAISE(ABORT, 'append_only'); END;
+          CREATE TRIGGER IF NOT EXISTS immutable_bid_receipts_delete BEFORE DELETE ON bid_receipts_v1
+            BEGIN SELECT RAISE(ABORT, 'append_only'); END;
           CREATE TRIGGER IF NOT EXISTS immutable_events_update BEFORE UPDATE ON events
             BEGIN SELECT RAISE(ABORT, 'append_only'); END;
           CREATE TRIGGER IF NOT EXISTS immutable_events_delete BEFORE DELETE ON events
@@ -209,9 +214,15 @@ class Journal:
                 result = call()
                 if not isinstance(result, BidResult) or result.command_id != intent.command_id:
                     result = BidResult(intent.command_id, Outcome.UNKNOWN, "INVALID_RESULT")
+                if result.receipt is not None:
+                    from fc_access.production_v1.bid_receipt import shape
+                    shape(result.receipt, dict(trade_id=intent.identity.trade_id,item_id=intent.identity.item_id,
+                        definition_id=intent.identity.definition_id,amount=intent.amount))
             except Exception:
                 result = BidResult(intent.command_id, Outcome.UNKNOWN, "SERVICE_ERROR")
             self.db.execute("UPDATE commands SET state=? WHERE id=?", (result.outcome.value, intent.command_id))
+            if result.receipt is not None:
+                self.db.execute('INSERT INTO bid_receipts_v1 VALUES(?,?)', (intent.command_id,json.dumps(result.receipt,sort_keys=True)))
             self._event(intent.scope, result.reason, {}, intent.identity.trade_id, intent.command_id)
             return result
 
@@ -230,6 +241,19 @@ class Journal:
                     or status.freshness.read_id == command_id or balance.freshness.read_id == command_id
                     or status.freshness.network_at < at or balance.freshness.network_at < at):
                 raise ValueError("independent_fresh_readback_required")
+            if row[4] == 'REJECTED':
+                proof = self.db.execute('SELECT receipt FROM bid_receipts_v1 WHERE command_id=?', (command_id,)).fetchone()
+                if not proof or json.loads(proof[0])['verdict']!='REJECTED':
+                    raise ValueError('rejection_receipt_required')
+                earlier = self.db.execute("SELECT 1 FROM commands WHERE scope=? AND trade_id=? AND id!=? AND intended_at<=? AND "
+                    "EXISTS(SELECT 1 FROM events WHERE command_id=commands.id AND reason='BID_VERIFIED')", (scope,row[0],command_id,row[7])).fetchone()
+                if not earlier and status.state not in {State.ACTIVE,State.LOST}:
+                    raise ValueError('rejection_account_state_conflict')
+                self.db.execute("UPDATE commands SET state='RECONCILED' WHERE id=?", (command_id,))
+                self._event(scope, 'BID_REJECTION_VERIFIED' if earlier else 'OPENING_REJECTED',
+                    {'read_id':status.freshness.read_id,'balance_read_id':balance.freshness.read_id,
+                     'item_id':identity.item_id,'definition_id':identity.definition_id}, identity.trade_id,command_id)
+                return
             reason = {State.LEADING: "BID_VERIFIED", State.OUTBID: "BID_VERIFIED", State.WON: "WON_VERIFIED", State.LOST: "LOST_VERIFIED"}.get(status.state)
             if not reason or status.state in {State.LEADING, State.OUTBID, State.WON} and status.current_bid < row[3]:
                 raise ValueError("outcome_still_unknown")

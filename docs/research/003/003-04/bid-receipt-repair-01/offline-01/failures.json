@@ -1,0 +1,74 @@
+[
+  {
+    "kind": "ERROR",
+    "test": "test_c0_prerequisites_real_concurrent_processes_and_native_single_broker (test_final_artifacts_00212.CapturedFinalRun.test_c0_prerequisites_real_concurrent_processes_and_native_single_broker)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c1_native_filters_and_failure_are_actual_wire_evidence (test_final_artifacts_00212.CapturedFinalRun.test_c1_native_filters_and_failure_are_actual_wire_evidence)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c2_historical_bulk_research_never_counts_as_integrated_maintenance (test_final_artifacts_00212.CapturedFinalRun.test_c2_historical_bulk_research_never_counts_as_integrated_maintenance)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c3_capacity_actual_fanout_and_exact_unmeasured_load_are_distinguished (test_final_artifacts_00212.CapturedFinalRun.test_c3_capacity_actual_fanout_and_exact_unmeasured_load_are_distinguished)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c4_no_fabricated_enrollment_expiry_timer_or_50_auction_sample (test_final_artifacts_00212.CapturedFinalRun.test_c4_no_fabricated_enrollment_expiry_timer_or_50_auction_sample)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c5_c6_http_success_and_offline_pass_cannot_make_full_e2e_pass (test_final_artifacts_00212.CapturedFinalRun.test_c5_c6_http_success_and_offline_pass_cannot_make_full_e2e_pass)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "test_c7_sealed_captures_failure_and_all_process_exit_evidence (test_final_artifacts_00212.CapturedFinalRun.test_c7_sealed_captures_failure_and_all_process_exit_evidence)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "setUpClass (test_final_current_00212.CurrentContinuation)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "ERROR",
+    "test": "setUpClass (test_final_series_00212.FinalSeries)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "ValueError: incomplete_regression"
+  },
+  {
+    "kind": "FAIL",
+    "test": "test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged (test_001d02_contract.ContractAcceptance.test_criterion_4_adapter_error_timeout_ambiguous_write_never_acknowledged)",
+    "cause": "obsolete fixture supplied generic success without receipt",
+    "diagnostic": "+ ACKNOWLEDGED"
+  },
+  {
+    "kind": "FAIL",
+    "test": "test_all_criteria_artifacts_are_independently_checked (test_00301_baseline.ReconciliationBehavior.test_all_criteria_artifacts_are_independently_checked)",
+    "cause": "historical Node inventory compared with current tree",
+    "diagnostic": "AssertionError: 1 != 0 : {\"task\": \"003-01\", \"evidence_class\": \"OFFLINE_ARTIFACT_ASSESSMENT\", \"results\": [{\"criterion\": 0, \"status\": \"PASS\"}, {\"criterion\": 1, \"status\": \"PASS\"}, {\"criterion\": 2, \"status\": \"PASS\"}, {\"criterion\": 3, \"status\": \"FAIL\", \"diagnostic\": \"node_suite_omitted\"}, {\"criterion\": 4, \"status\": \"PASS\"}, {\"criterion\": 5, \"status\": \"PASS\"}]}"
+  },
+  {
+    "kind": "FAIL",
+    "test": "test_strict_full_acceptance_exits_nonzero_and_lists_missing_evidence (test_final_artifacts_00212.CapturedFinalRun.test_strict_full_acceptance_exits_nonzero_and_lists_missing_evidence)",
+    "cause": "historical regression inventory imported current runner inventory",
+    "diagnostic": "? ++++++++"
+  }
+]

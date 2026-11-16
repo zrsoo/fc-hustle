@@ -267,6 +267,27 @@ class ContinuousBehavior(unittest.TestCase):
         self.assertEqual(self.box.db.execute('SELECT state FROM work').fetchone()[0], 'UNKNOWN')
         self.assertFalse(self.page.calls)
 
+    def test_proven_bid_rejection_is_delivered_without_global_stop_or_duplicate(self):
+        # A typed, exact rejected delivery is not an ambiguous transport result.
+        from fc_access.production_v1.contracts import empty_result,ROUTES
+        p=dict(trade_id='trade:'+'3'*24,item_id='item:'+'4'*24,definition_id=123,amount=950,minimum=950,
+            cap=4000,deadline=(self.clock.now()+timedelta(seconds=60)).isoformat(),status_read_id='5'*32,balance_read_id='6'*32)
+        c=self.enqueue('bid','acquirer',p);at=self.clock.now().isoformat()
+        result=empty_result('bid_rejected');result.update(status=409)
+        result['network']=[dict(host='utas.test.ea.com',method='PUT',path=ROUTES['bid'][1],query={},status=409,session_header_present=True)]
+        result['bid_receipt']=dict(schema=1,verdict='REJECTED',reason='EXPLICIT_NATIVE_REJECTION',wire_trade_id=p['trade_id'],
+            wire_amount=950,wire_identity_matches=True,wire_amount_matches=True,wire_item_count=0,wire_error_code=123,
+            native_success=False,native_error_code=123,native_error_name='STATE_INVALID',native_item_count=0,
+            matching_item_count=0,input_stale=None,before_bid_state='none',auction=None)
+        response=dict(schema=2,command_id=c['id'],operation='bid',context=c['context'],fences=c['fences'],result=result,
+            freshness=dict(observed_at=at,network_at=None,request_count=1,read_id=c['id'],source='fixture'),
+            coverage=dict(complete=False,has_more=None),timing=dict(native_service_ms=1))
+        with patch.object(self.page,'execute',return_value=response) as call:
+            self.broker.run_one();self.assertIsNone(self.broker.run_one());self.assertEqual(call.call_count,1)
+        self.assertEqual(self.box.db.execute('SELECT state FROM work WHERE id=?',(c['id'],)).fetchone(),('DONE',))
+        self.assertFalse(self.control.latest(self.run,'STOP_REQUESTED'))
+        self.watchdog().step()
+
     def test_deadline_is_rechecked_after_the_dispatch_gate(self):
         c = self.enqueue()
         self.broker.dispatch_gate = lambda cmd: self.clock.sleep(31)

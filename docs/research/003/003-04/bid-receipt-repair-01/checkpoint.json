@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "task": "obj-da182a175410/003-04",
+  "status": "OFFLINE_PASS_PUBLICATION_PENDING",
+  "authorization": "User approved concrete bid-receipt repair plan and one bounded new live verification; preserve resumability across quota.",
+  "starting_head": "148d9a4b91daedabf0eb2c6f2df41cefd5528c2f",
+  "backup": "private-captures\\bid-receipt-repair\\20261116T033249Z",
+  "historical_commands_never_replay": [
+    "ff4174653771149736e63b1ac12630f9",
+    "6b3faed8a418890da8147b59eae039fc"
+  ],
+  "live_attempt": {
+    "id": "bid-receipt-v1-01",
+    "state": "NOT_STARTED",
+    "EA_request_limit": 16,
+    "bid_dispatch_limit": 1,
+    "EA_requests_consumed": 0,
+    "bid_dispatches_consumed": 0,
+    "automatic_retry": false
+  },
+  "completed": [
+    "Read current AGENTS.md",
+    "Verified no production actor processes",
+    "Backed up six SQLite stores, dirty patch and untracked diagnostic work",
+    "Implemented page wire binding and DAO receipt observation; strict active Python receipt parsing and append-only journal receipt table.",
+    "Added typed rejection and fresh-read reconciliation; opening releases tentative capacity, rejected rebid keeps confirmed participation.",
+    "Added operator NOT_REGISTERED amendment seam; no production journal amendment applied yet.",
+    "Targeted Foundation 16 tests and new receipt 10 tests PASS; new native receipt checks and existing production page checks PASS.",
+    "First full discovery retained: 916 tests, 3 failures and 9 errors. Exact entries in offline-01/failures.json; all 28 Node suites passed.",
+    "Fixed old ACK fixture and historical/current test-inventory coupling without changing sealed evidence.",
+    "Added zero-EA pre-dispatch receipt capability guard; finite <=16 EA / <=1 bid harness; 3 harness tests pass.",
+    "Additional focused checks: 11 receipt tests plus one continuous-broker rejection/watchdog test pass.",
+    "Verified current service read-only. Standard foreground API initially failed; same-session AttachThreadInput focus succeeded and official tab foreground verified. Home/Transfers UI markers visible. No native requests or production journal amendments.",
+    "offline-02: 937 tests, 3 failures, zero errors; all 28 Node and five independent validators passed. Three failures fixed by moving harness to actor layer and asserting new zero-EA preflight inventory.",
+    "Under account/supervisor/executor/bid locks appended operator NOT_REGISTERED assertions for both exact historical commands; both RESOLVED, native_outcome_verified=false. Previous Doue operator LOST proof/events retained. No unresolved bid commands remain. Proof JSON files saved exclusively; no native request or mutation.",
+    "offline-03 final: 937 Python tests, zero failures/errors (347.066s); all 28 Node suites and five independent validators pass. git diff --check passes."
+  ],
+  "remaining": [
+    "Commit and push scoped remediation; verify remote main.",
+    "Deploy fresh reviewed service/extension/page, verify schema-1 capability with zero EA.",
+    "Run exactly one new live bid-receipt-v1-01 attempt <=16 EA requests and <=1 bid; never recreate consumed ledger.",
+    "Publish outcome/evidence; only after live PASS run orchestrator recheck and verify safe progress."
+  ],
+  "offline_runner_session": 39230
+}

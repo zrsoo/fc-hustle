@@ -215,6 +215,7 @@ class Bidder(Actor):
                 self.record('OWNED_WIN_VERIFIED', trade=trade, paid=status.paid,
                     identity=asdict(status.identity), owned_read_id=owned['command_id'], win_read_id=source['command_id'])
             pending = [p for p in self.pending() if p['trade_id']==trade]
+            rejected = any(p['state']=='REJECTED' for p in pending)
             for p in pending:
                 try:
                     f.journal.reconcile(p['command_id'], scope=f.registry.scope, owner=f.registry.owner, epoch=f.registry.epoch,
@@ -222,6 +223,11 @@ class Bidder(Actor):
                 except ValueError:
                     self.record('OUTCOME_STILL_UNKNOWN', trade=trade)
             f.queue.refresh(Snapshot((status,),freshness(source),Coverage(False,None)), now=f.now(),reset_draining=False)
+            if rejected:
+                # A proven rejection is reconciled, never retried in this cycle.
+                # A future normal cadence must obtain fresh legal observations.
+                self.record('BID_REJECTION_RECONCILED',trade=trade)
+                continue
             policy = self.policy(trade)
             cap = policy['quote']['max_affordable_bid'] if policy else None
             if status.state in {State.WON,State.LOST}:

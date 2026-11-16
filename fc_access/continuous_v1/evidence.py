@@ -130,7 +130,8 @@ def assess(directory):
             return
         parse_response(v, c, source=bundle['source'], now=stamp(v['freshness']['observed_at']),
                        pricing_rows=c['operation']=='search' and c['params']['purpose']=='pricing')
-        if not v['result']['success']:
+        from fc_access.production_v1.bid_receipt import ordinary_rejection
+        if not v['result']['success'] and not ordinary_rejection(c,v):
             problems.append(dict(reference=ref, reason='FAILED_CALLBACK_RETAINED'))
 
     with closing(read_db(paths['native'])) as db:

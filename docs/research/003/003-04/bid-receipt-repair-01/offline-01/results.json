@@ -1,0 +1,239 @@
+[
+  {
+    "command": [
+      "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "exit_code": 1,
+    "seconds": 338.8619223999558
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bidding_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2353117000311613
+  },
+  {
+    "command": [
+      "node",
+      "tests\\browser_observer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.14729130000341684
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bulk_background_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.3221337999566458
+  },
+  {
+    "command": [
+      "node",
+      "tests\\bulk_transfer_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.15622960001928732
+  },
+  {
+    "command": [
+      "node",
+      "tests\\durability_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.15472180000506341
+  },
+  {
+    "command": [
+      "node",
+      "tests\\durability_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.24819810001645237
+  },
+  {
+    "command": [
+      "node",
+      "tests\\e2e_live_v2_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.129368300025817
+  },
+  {
+    "command": [
+      "node",
+      "tests\\e2e_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.13267849996918812
+  },
+  {
+    "command": [
+      "node",
+      "tests\\final_inactive_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.13245070003904402
+  },
+  {
+    "command": [
+      "node",
+      "tests\\final_owned_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.11995270004263148
+  },
+  {
+    "command": [
+      "node",
+      "tests\\list_refresh_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.6252286999952048
+  },
+  {
+    "command": [
+      "node",
+      "tests\\market_discovery_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2500185000244528
+  },
+  {
+    "command": [
+      "node",
+      "tests\\market_discovery_followup_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.20096859999466687
+  },
+  {
+    "command": [
+      "node",
+      "tests\\native_status_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 1.131212999986019
+  },
+  {
+    "command": [
+      "node",
+      "tests\\occupancy_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5357479000231251
+  },
+  {
+    "command": [
+      "node",
+      "tests\\pricing_timing_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.08882050000829622
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_bid_receipt_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.48839429998770356
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_bulk_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.9554629999911413
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_diagnostics_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.10057169996434823
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_inventory_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.7062808999908157
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_metadata_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.1371387999970466
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_page_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.49518249998800457
+  },
+  {
+    "command": [
+      "node",
+      "tests\\production_worker_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5002519999979995
+  },
+  {
+    "command": [
+      "node",
+      "tests\\read_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.28255150001496077
+  },
+  {
+    "command": [
+      "node",
+      "tests\\resale_native_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.5601462000049651
+  },
+  {
+    "command": [
+      "node",
+      "tests\\search_validation_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.1342144000227563
+  },
+  {
+    "command": [
+      "node",
+      "tests\\transaction_bridge_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.627660800004378
+  },
+  {
+    "command": [
+      "node",
+      "tests\\watched_bulk_v1_checks.cjs"
+    ],
+    "exit_code": 0,
+    "seconds": 0.17852499999571592
+  }
+]

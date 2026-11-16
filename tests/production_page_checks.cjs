@@ -25,9 +25,10 @@ function setup(mode='ok'){
       const done=()=>{
         if(mode!=='cache'){
           const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',owned_item:'item',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid',move:'item',list:'auctionhouse'}[op];
-          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'?params:{...params,private:secret}));
+          const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+(op==='bid'?'':'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'?params:{...params,private:secret})));
             if(op==='transfer_list' && transferWire!==undefined)x.responseText=JSON.stringify(transferWire);
-            if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send();};
+            if(op==='bid')x.responseText=JSON.stringify({auctionInfo:data.items??[]});
+            if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send(op==='bid'?JSON.stringify({bid:data.amount}):undefined);};
           wire();if(mode==='fanout')wire();
           if(mode.startsWith('metadata')){
             wire('attributes/metadata',{defIds:mode==='metadataWrongVersion'?'999999':'7654321'});
@@ -64,8 +65,16 @@ function setup(mode='ok'){
     requestUnassignedItems:()=>response('unassigned',{items:[raw()]}),
     requestTransferItems:()=>response('transfer_list',{items:[raw()]}),
     transfersDao:{getItemMarketDataByDefId(ids){assert.deepEqual(Array.from(ids),[7654321]);return response('caps',{marketData:[{defId:7654321,priceLimits:{minimum:150,maximum:50000}}]},{defId:7654321});}},
-    bid(raw,amount){const a=raw.getAuctionData();assert.equal(amount,a.currentBid===0?a.startingBid:sandbox.UTCurrencyInputControl.getIncrementAboveVal(a.currentBid));return response('bid',{});}
+    bid(raw,amount){const a=raw.getAuctionData();assert.equal(amount,a.currentBid===0?a.startingBid:sandbox.UTCurrencyInputControl.getIncrementAboveVal(a.currentBid));
+      const dao=this.transfersDao.bid(raw,amount);
+      return {observe(owner,cb){return dao.observe(owner,(sender,r)=>cb(sender,{...r,data:{itemIds:[raw.id]}}));},unobserve(){}};
+    }
   }};
+  services.Item.transfersDao.bid=(input,amount)=>{
+    const accepted={...input,getAuctionData:()=>({...input.getAuctionData(),currentBid:amount,bidState:'highest'})};
+    const o=response('bid',{items:[accepted],amount});
+    return {observe(owner,cb){return o.observe(owner,(sender,r)=>cb(sender,{...r,response:r.data}));},unobserve(){}};
+  };
   const sandbox=vm.createContext({window:{},services,crypto:webcrypto,TextEncoder,URL,GamePlatform:{PC:'PC'},
     // Fixture reproduces the retained official helper formulas, including rounding.
     UTCurrencyInputControl:{

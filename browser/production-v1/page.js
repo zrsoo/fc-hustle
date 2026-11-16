@@ -118,6 +118,65 @@
     return row;
   }
   const statusAvailable = () => typeof services.Item?.transfersDao?.getAuctionData==='function';
+  const bidReceipt = () => ({schema:1,verdict:'UNCONFIRMED',reason:'MISSING_NATIVE_RECEIPT',
+    wire_trade_id:null,wire_amount:null,wire_identity_matches:false,wire_amount_matches:false,
+    wire_item_count:null,wire_error_code:null,native_success:null,native_error_code:null,
+    native_error_name:null,native_item_count:null,matching_item_count:0,input_stale:null,before_bid_state:null,auction:null});
+  // Observe the service's existing DAO subscription. Do not subscribe a second
+  // time, dispatch a second request, or replace the returned observable.
+  function captureBid(raw,amount,state) {
+    const dao=services.Item.transfersDao,original=dao?.bid,restores=[];
+    if(typeof original!=='function')throw Error('service_unavailable');
+    const wrapped=function(input,value,...args){
+      if(input!==raw || value!==amount || ++state.invocations!==1)throw Error('invalid_preconditions');
+      const o=original.call(this,input,value,...args),observe=o?.observe;
+      if(typeof observe!=='function')throw Error('service_unavailable');
+      const intercepted=function(owner,cb,...more){return observe.call(this,owner,(sender,result)=>{
+        state.native=result;return cb(sender,result);
+      },...more);};
+      o.observe=intercepted;restores.push(()=>{if(o.observe===intercepted)o.observe=observe;});return o;
+    };
+    dao.bid=wrapped;
+    return ()=>{if(dao.bid===wrapped)dao.bid=original;restores.reverse().forEach(f=>f());};
+  }
+  async function finishBid(state,c) {
+    const receipt=state.receipt,p=c.params,result=state.native,data=result?.response;
+    receipt.native_success=typeof result?.success==='boolean'?result.success:null;
+    receipt.native_error_code=num(result?.error?.code)??num(result?.error);
+    // Only reviewed public enum names escape. Unknown errors remain ambiguous.
+    const names=['STATE_INVALID','NO_TRADE_EXISTS','NOT_ENOUGH_CREDIT','INVALID_OWNER','CARD_IN_TRADE'];
+    const codes=typeof UtasErrorCode==='undefined'?{}:UtasErrorCode;
+    receipt.native_error_name=receipt.native_error_code===null?null:
+      names.find(name=>Number.isSafeInteger(codes[name]) && codes[name]===receipt.native_error_code)??null;
+    const items=Array.isArray(data?.items)?data.items:null;
+    receipt.native_item_count=items?.length??null;
+    const a=state.raw.getAuctionData?.();
+    const stale=typeof a?.isStale==='function'?a.isStale():a?.isStale;
+    receipt.input_stale=typeof stale==='boolean'?stale:null;
+    const matches=[];
+    for(const raw of items??[]){
+      try{
+        const row=await auction(raw,{...c,operation:'status'},null);
+        if(row.trade_id===p.trade_id && row.item.item_id===p.item_id &&
+            [null,0,p.definition_id].includes(row.item.definition_id))matches.push(row);
+      }catch{} // Missing or malformed evidence never implies acceptance.
+    }
+    receipt.matching_item_count=matches.length;
+    if(matches.length===1)receipt.auction=matches[0];
+    const bound=state.invocations===1 && receipt.wire_identity_matches && receipt.wire_amount_matches;
+    const row=receipt.auction;
+    const participating=row && (row.bid_state==='highest' && row.current_bid===p.amount ||
+      row.bid_state==='outbid' && state.before.bid_state==='none' && row.current_bid>=p.amount);
+    if(bound && receipt.native_success===true && receipt.native_error_code===null && receipt.wire_error_code===null &&
+        receipt.wire_item_count===1 && receipt.native_item_count===1 && receipt.input_stale!==true && participating){
+      receipt.verdict='ACCEPTED';receipt.reason='MATCHING_NATIVE_PARTICIPATION';
+    }else if(bound && result?.status>=400 && result.status<500 && receipt.native_success===false && receipt.native_error_name &&
+        receipt.native_item_count===0 && !row && receipt.wire_error_code===receipt.native_error_code){
+      receipt.verdict='REJECTED';receipt.reason='EXPLICIT_NATIVE_REJECTION';
+    }else receipt.reason=receipt.input_stale===true?'STALE_NATIVE_ITEM':
+      receipt.native_item_count===0?'EMPTY_NATIVE_ITEMS':row?.bid_state==='none'?'NO_ACCOUNT_PARTICIPATION':'MISSING_NATIVE_RECEIPT';
+    return receipt;
+  }
   function observe(o,cid) {
     if (typeof o?.observe !== 'function') throw Error('service_unavailable');
     return new Promise((resolve,reject)=>{
@@ -142,6 +201,11 @@
         }
         if(u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/')) {
           const path=u.pathname.replace(/\/trade\/\d{1,24}\/bid$/,'/trade/:trade/bid');
+          if(c.operation==='bid'){
+            const state=inventory.bid,match=u.pathname.match(/^\/ut\/game\/fc27\/trade\/(\d{1,24})\/bid$/);
+            if(method!=='PUT' || !match || match[1]!==state?.nativeTrade || u.search!=='')throw Error('bad_query');
+            state.receipt.wire_identity_matches=true;state.receipt.wire_trade_id=c.params.trade_id;
+          }
           const query={};for(const k of ['start','num','definitionId','defId','macr','minb','maxb']) if(u.searchParams.has(k)) {
             const values=u.searchParams.getAll(k);if(values.length!==1 || !/^\d+$/.test(values[0]) || num(Number(values[0]))===null) throw Error('bad_query');
             query[k]=Number(values[0]);
@@ -182,6 +246,13 @@
       pending.set(this,m);return orig.open.call(this,method,url,...args);};
     const header=function(n,v){const m=pending.get(this);if(m && !m.background && String(n).toLowerCase()==='x-ut-sid')m.session_header_present=true;return orig.header.call(this,n,v);};
     const send=function(...args){const m=pending.get(this);if(m){
+      if(c.operation==='bid'){
+        const state=inventory.bid;let body;
+        try{body=JSON.parse(args[0]);}catch{}
+        if(!state?.receipt.wire_identity_matches || m.method!=='PUT' || m.path!==routes.bid[1] ||
+            !keys(body,'bid') || body.bid!==c.params.amount || rows.length)throw Error('invalid_preconditions');
+        state.receipt.wire_amount=body.bid;state.receipt.wire_amount_matches=true;
+      }
       if(m.background){
         diagnostic(c.id,'BACKGROUND_REQUEST',{traffic_scope:m.scope,method:m.method});
         this.addEventListener('loadend',()=>diagnostic(c.id,'BACKGROUND_RESPONSE',{traffic_scope:m.scope,method:m.method,status:num(this.status)}),{once:true});
@@ -207,6 +278,12 @@
       }
       const sent=performance.now();rows.push(m);this.addEventListener('loadend',()=>{
       m.status=num(this.status);timing.ea_rtt_ms+=performance.now()-sent;
+      if(c.operation==='bid'){
+        try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
+          inventory.bid.receipt.wire_item_count=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
+          inventory.bid.receipt.wire_error_code=num(data?.code);
+        }catch{} // Keep only allowlisted counts/codes, never raw HTTP bodies.
+      }
       // Inspect only this read's auction rows privately. Never retain the raw
       // response, headers, credentials, or unrelated response fields.
       if(c.operation==='transfer_list' && m.path===routes.transfer_list[1]){
@@ -226,11 +303,12 @@
       freshness:{observed_at:new Date().toISOString(),network_at:null,request_count:0,read_id:hex(c?.id)?c.id:'0'.repeat(32),source:'native'},
       coverage:{complete:false,has_more:null},timing:{native_service_ms:0,ea_rtt_ms:0,native_helper_ms:0}};
     if(c?.operation==='price_helpers')out.result={success:false,error:'invalid_command',version:1,above_available:false,below_available:false,probes:[],network:[]};
-    if(c?.operation==='status_support')out.result={success:false,error:'invalid_command',function_available:false,retained_count:0,network:[]};
+    if(c?.operation==='status_support')out.result={success:false,error:'invalid_command',function_available:false,retained_count:0,bid_receipt_schema:1,network:[]};
     if(!valid(c))return out;
     if(!official()){out.result.error='wrong_page';return out;}
     if(busy || poisoned || window.__fcNativeCommandOwner!==document){out.result.error='bridge_busy';return out;}
-    busy=true;let restore=()=>{};const start=performance.now(),p=c.params,op=c.operation,r=out.result;
+    busy=true;let restore=()=>{},restoreBid=()=>{},bidState=null;const start=performance.now(),p=c.params,op=c.operation,r=out.result;
+    if(op==='bid')r.bid_receipt=bidReceipt();
     try {
       if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc')throw Error('persona_unverified');
       if(op==='status_support'){
@@ -363,15 +441,28 @@
         // Consume this exact observation, not the trade for its entire lifetime.
         // A later outbid native read permits a new minimum-bid intent. Duplicate
         // commands/reads remain blocked; ambiguous writes still poison the page.
+        // Recheck the mutable native DTO against the independently retained row.
+        const current=await auction(e.raw,c,null),nativeTrade=String(e.raw.getAuctionData?.()?.tradeId);
+        if(!equal(current.item,e.row.item) || current.trade_id!==p.trade_id ||
+            ['starting_bid','current_bid','buy_now_price','trade_state','bid_state'].some(k=>current[k]!==e.row[k]) ||
+            current.expires<=0 || nativeTrade!==e.native_trade_id)throw Error('invalid_preconditions');
+        r.bid_receipt.before_bid_state=e.row.bid_state;
+        bidState={raw:e.raw,before:e.row,nativeTrade,invocations:0,native:null,receipt:r.bid_receipt};
+        restoreBid=captureBid(e.raw,p.amount,bidState);
         sent.add(c.id);sent.add('bid_read:'+p.status_read_id);known.delete(p.trade_id);invoke=()=>services.Item.bid(e.raw,p.amount);
       }
-      const inventory={wire:null,truncated:false,listRaw};
+      const inventory={wire:null,truncated:false,listRaw,bid:bidState};
       restore=capture(r.network,c,out.timing,inventory);const at=new Date().toISOString();
       if(bulk(op) && (!valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona ||
           window.__fcNativeCommandOwner!==document || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc'))throw Error('persona_unverified');
       diagnostic(c.id,'NATIVE_INVOKE');
       const response=await observe(invoke(),c.id);await new Promise(resolve=>setTimeout(resolve,0));
       r.status=Number.isInteger(response?.status) && response.status>=100 && response.status<=599?response.status:null;
+      if(op==='bid'){
+        await finishBid(bidState,c);
+        if(r.bid_receipt.verdict==='REJECTED')throw Error('bid_rejected');
+        if(r.bid_receipt.verdict!=='ACCEPTED')throw Error('bid_unconfirmed');
+      }
       if(bulk(op) && inventory.bulkViolation)throw Error('bulk_contract_changed');
       if(response?.success!==true)throw Error('service_failed');
       // A special-version search can fetch attributes before its observable completes.
@@ -513,12 +604,15 @@
       r.success=true;r.error=null;reads.set(c.id,{operation:op,at,credits:r.credits,caps:r.caps,complete:out.coverage.complete,
         rows:op==='transfer_list'?r.auctions:null,bulk:out.coverage.bulk});
     }catch(e){
-      r.success=false;r.error=['bulk_contract_changed','transfer_list_conflict','known_identity_unavailable','helpers_unavailable','helper_disagreement','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','persona_unverified','invalid_preconditions','unauthenticated','ambiguous_network','stale_source'].includes(e?.message)?e.message:'internal_error';
+      if(op==='bid' && r.bid_receipt?.verdict==='ACCEPTED'){
+        r.bid_receipt.verdict='UNCONFIRMED';r.bid_receipt.reason='ENVELOPE_VALIDATION_FAILED';
+      }
+      r.success=false;r.error=['bid_rejected','bid_unconfirmed','bulk_contract_changed','transfer_list_conflict','known_identity_unavailable','helpers_unavailable','helper_disagreement','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','persona_unverified','invalid_preconditions','unauthenticated','ambiguous_network','stale_source'].includes(e?.message)?e.message:'internal_error';
       if(r.error==='transfer_list_conflict')r.auctions=null;
       diagnostic(c.id,'PAGE_FAILURE',{error:r.error,error_class:e?.name});
-      if(!bulk(op) && (['bid','move','list'].includes(op) || ['service_timeout','ambiguous_network'].includes(r.error)))poisoned=true;
+      if(!bulk(op) && r.error!=='bid_rejected' && (['bid','move','list'].includes(op) || ['service_timeout','ambiguous_network'].includes(r.error)))poisoned=true;
     }finally{
-      restore();busy=false;out.freshness.observed_at=new Date().toISOString();out.freshness.request_count=r.network.length;out.timing.native_service_ms=performance.now()-start;
+      restoreBid();restore();busy=false;out.freshness.observed_at=new Date().toISOString();out.freshness.request_count=r.network.length;out.timing.native_service_ms=performance.now()-start;
       diagnostic(c.id,'PAGE_FINISHED',{success:r.success,error:r.error,request_count:r.network.length});
     }
     return out;
