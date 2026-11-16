@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "source": "verified Windows UI automation in this 004-02 session",
+  "official_login_host": "signin.ea.com",
+  "credential_values_read_or_retained": false,
+  "events": [
+    {"at":"2026-11-16T17:35:58.7142331Z","action":"inspect normal Edge autofill suggestions","saved_designated_suggestion":true,"foreground_verified":true,"official_login":true},
+    {"at":"2026-11-16T17:36:03.9959734Z","action":"select unique visible zzorniss saved-account suggestion with normal mouse control","foreground_verified":true,"official_login":true},
+    {"at":"2026-11-16T17:36:49.8216511Z","action":"normal Enter on account field","foreground_verified":true,"official_login":true},
+    {"at":"2026-11-16T17:36:51.0970527Z","action":"inspect password screen","foreground_verified":true,"official_login":true,"password_control_present":true,"challenge_visible":false},
+    {"at":"2026-11-16T17:37:08.4198023Z","action":"normal Enter on password control using saved autofill","foreground_verified":true,"official_login":true},
+    {"at":"2026-11-16T17:37:09.6482109Z","action":"inspect returned official Web App","foreground_verified":true,"official_app":true,"challenge_visible":false}
+  ],
+  "account_binding_contract":"Explicit selection supplies the designated account labels; attach pins the actual native user and selected PC persona objects privately. Every command and post-callback check verifies those same objects plus full scope/epoch fences. Persona display names are not saved sign-in identifiers."
+}

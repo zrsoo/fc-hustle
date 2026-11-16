@@ -1,0 +1,87 @@
+{
+  "classification": "OFFLINE_CHECKS",
+  "at": "2026-11-16T18:55:50.331350+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00404_controller.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 25.72,
+      "log": "verification/test_00404_controller.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00404_process.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 61.819,
+      "log": "verification/test_00404_process.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00404_artifacts.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 4.875,
+      "log": "verification/test_00404_artifacts.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00403_controller.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 28.142,
+      "log": "verification/test_00403_controller.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00402_controller.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 5.955,
+      "log": "verification/test_00402_controller.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00403_artifacts.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 2.584,
+      "log": "verification/test_00403_artifacts.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00402_artifacts.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 0.305,
+      "log": "verification/check_00402_artifacts.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00208_resale.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 18.048,
+      "log": "verification/test_00208_resale.py.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_00209_bulk.py"
+      ],
+      "exit_code": 0,
+      "elapsed": 13.16,
+      "log": "verification/test_00209_bulk.py.txt"
+    }
+  ]
+}

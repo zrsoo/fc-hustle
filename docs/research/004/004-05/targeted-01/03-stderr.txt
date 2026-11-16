@@ -1,0 +1,8 @@
+test_c6_c7_genuine_retained_projections_budgets_and_limits (__main__.EvidenceChecks.test_c6_c7_genuine_retained_projections_budgets_and_limits) ... ok
+test_c6_negative_wrong_identity_omission_version_and_unsubstantiated_success (__main__.EvidenceChecks.test_c6_negative_wrong_identity_omission_version_and_unsubstantiated_success) ... ok
+test_c7_exclusive_probe_cannot_reset_a_consumed_window (__main__.EvidenceChecks.test_c7_exclusive_probe_cannot_reset_a_consumed_window) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.187s
+
+OK

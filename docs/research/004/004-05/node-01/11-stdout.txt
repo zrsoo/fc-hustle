@@ -1,0 +1,1 @@
+PASS inactive pile: actual physical member counted using native defaults; explicit value/state/identity conflicts remain blocked

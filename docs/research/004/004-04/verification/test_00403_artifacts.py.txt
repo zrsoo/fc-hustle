@@ -1,0 +1,8 @@
+test_all_acceptance_criteria_have_executable_behavioral_checks (__main__.Artifacts.test_all_acceptance_criteria_have_executable_behavioral_checks) ... ok
+test_recorded_and_recomputed_complete_offline_lifecycle (__main__.Artifacts.test_recorded_and_recomputed_complete_offline_lifecycle) ... ok
+test_shipped_javascript_discovery_bid_status_owned_and_local_change_seams (__main__.Artifacts.test_shipped_javascript_discovery_bid_status_owned_and_local_change_seams) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.292s
+
+OK

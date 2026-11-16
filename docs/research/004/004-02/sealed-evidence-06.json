@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "scope": "Additional captured immutable read-only EA experiment only",
+  "sha256": {
+    "status-array-06/checkpoint.jsonl": "a3ec077fc108d12220a9c9110203391f3adf24605e39ec272909dc170b9fc6dc",
+    "status-array-06/result.json": "19dc11e0c400c75a7deddfa70e50c9e18cb31fa694944b487934f8ff941b0742",
+    "status-array-06/transport.sqlite": "0cd97bd929688263edea61752507d14ae0349b0c66e8276927b7ca7aeed7c834"
+  }
+}

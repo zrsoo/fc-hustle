@@ -1,0 +1,82 @@
+{
+  "task": "004-04",
+  "classification": "IMPLEMENTED_OFFLINE_VERIFIED_NATIVE_CONTRACTS_REUSED",
+  "coverage": [
+    {
+      "criterion": 0,
+      "tests": [
+        "test_0_imports_and_new_controller_are_inert_until_explicit_run",
+        "test_0_pause_stop_wait_for_dispatch_and_quiesce_every_operation",
+        "test_0_queued_commands_withdrawn_and_stale_owners_cannot_control",
+        "test_0_6_actual_ephemeral_http_status_pause_stop_and_account_rejection",
+        "test_0_3_6_cli_has_explicit_controls_and_readonly_persisted_status",
+        "test_0_6_canonical_process_guards_exclude_competing_owner_and_native_executor"
+      ]
+    },
+    {
+      "criterion": 1,
+      "tests": [
+        "test_1_exact_paid_win_moves_then_lists_at_stored_native_pair_and_hour",
+        "test_1_paid_identity_version_tradeability_terminal_cost_negatives",
+        "test_1_bad_listing_readbacks_cannot_account_for_win_or_replay",
+        "test_1_bulk_clear_and_3660_relist_reuse_independent_readbacks_and_prices",
+        "test_5_current_caps_native_tick_duration_and_stored_policy_enforced_at_authority"
+      ]
+    },
+    {
+      "criterion": 2,
+      "tests": [
+        "test_2_urgent_rebid_precedes_resale_and_bulk_without_overlap_or_credits",
+        "test_2_ambiguous_bulk_consumed_without_blocking_unrelated_work",
+        "test_5_long_final_auction_and_unknown_full_low_inventory_never_fake_settlement"
+      ]
+    },
+    {
+      "criterion": 3,
+      "tests": [
+        "test_3_reconnect_mapping_loss_never_uses_old_selector_or_owner",
+        "test_4_bid_crashes_never_replay_and_confirmed_membership_survives",
+        "test_4_real_process_crashes_all_work_boundaries_and_phase_transitions",
+        "test_3_separate_store_takeover_fences_surviving_old_process_connection"
+      ]
+    },
+    {
+      "criterion": 4,
+      "tests": [
+        "test_4_every_durable_persistence_failure_prevents_native_mutation",
+        "test_4_bid_crashes_never_replay_and_confirmed_membership_survives",
+        "test_4_real_process_crashes_all_work_boundaries_and_phase_transitions"
+      ]
+    },
+    {
+      "criterion": 5,
+      "tests": [
+        "test_0_pause_stop_wait_for_dispatch_and_quiesce_every_operation",
+        "test_3_reconnect_mapping_loss_never_uses_old_selector_or_owner",
+        "test_5_long_final_auction_and_unknown_full_low_inventory_never_fake_settlement",
+        "test_5_bulk_negative_readbacks_and_incompatible_evidence_stay_consumed",
+        "test_1_paid_identity_version_tradeability_terminal_cost_negatives",
+        "test_1_bad_listing_readbacks_cannot_account_for_win_or_replay",
+        "test_2_ambiguous_bulk_consumed_without_blocking_unrelated_work"
+      ]
+    },
+    {
+      "criterion": 6,
+      "tests": [
+        "test_6_fixture_cannot_open_production_socket_or_state_or_owner",
+        "test_6_forged_maintenance_requests_have_no_durable_authority",
+        "test_0_6_actual_ephemeral_http_status_pause_stop_and_account_rejection",
+        "test_0_3_6_cli_has_explicit_controls_and_readonly_persisted_status",
+        "test_1_6_7_shipped_native_calls_and_legacy_entry_points",
+        "test_0_6_canonical_process_guards_exclude_competing_owner_and_native_executor"
+      ]
+    },
+    {
+      "criterion": 7,
+      "tests": [
+        "test_6_7_historical_evidence_consumption_and_new_probe_decision",
+        "test_1_6_7_shipped_native_calls_and_legacy_entry_points"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "at": "2026-11-16T17:16:00.630431+00:00",
+  "command": [
+    "{python}",
+    "tests/check_00401_artifacts.py"
+  ],
+  "exit_code": 0,
+  "output": "checks/10-final-artifacts.txt",
+  "processes": {
+    "processes": [
+      {
+        "pid": 15740,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 2852,
+        "parent": 15740,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 9508,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11340,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 4844,
+        "parent": 17224,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 14372,
+        "parent": 4592,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 10156,
+        "parent": 14372,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 9780,
+        "parent": 10156,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18100,
+        "parent": 9780,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18104,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12304,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 5828,
+        "parent": 17996,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 6044,
+        "parent": 5828,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 15284,
+        "parent": 6044,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      }
+    ],
+    "listeners": []
+  },
+  "idle_locks": [
+    "actors-executor-18784.lock",
+    "actors-executor-8784.lock",
+    "continuous-e6112134c0ab40f9a2c0095fb6fb8c44.native.lock",
+    "continuous-e6112134c0ab40f9a2c0095fb6fb8c44.owner.lock",
+    "continuous-e7fce7c176935f0b95dc3db91dd28521.native.lock",
+    "continuous-e7fce7c176935f0b95dc3db91dd28521.owner.lock"
+  ],
+  "ea_requests": 0,
+  "mutations": 0,
+  "migrations": 0,
+  "production_started": false
+}

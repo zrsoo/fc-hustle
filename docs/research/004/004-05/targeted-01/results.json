@@ -1,0 +1,56 @@
+{
+  "task": "004-05",
+  "evidence_class": "OFFLINE_ONLY",
+  "group": "targeted",
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00405_handoff.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.559,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "tests_run": 6,
+      "finished": "2026-11-16T19:20:33.192047+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_market_discovery_transport.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.062,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "tests_run": 4,
+      "finished": "2026-11-16T19:20:36.253965+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00401_artifacts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.081,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-16T19:20:41.334616+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00402_artifacts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.354,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "tests_run": 3,
+      "finished": "2026-11-16T19:20:41.688952+00:00"
+    }
+  ]
+}

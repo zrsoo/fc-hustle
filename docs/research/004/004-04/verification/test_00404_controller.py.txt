@@ -1,0 +1,22 @@
+test_0_imports_and_new_controller_are_inert_until_explicit_run (__main__.Acceptance.test_0_imports_and_new_controller_are_inert_until_explicit_run) ... ok
+test_0_pause_stop_wait_for_dispatch_and_quiesce_every_operation (__main__.Acceptance.test_0_pause_stop_wait_for_dispatch_and_quiesce_every_operation) ... ok
+test_0_queued_commands_withdrawn_and_stale_owners_cannot_control (__main__.Acceptance.test_0_queued_commands_withdrawn_and_stale_owners_cannot_control) ... ok
+test_1_bad_listing_readbacks_cannot_account_for_win_or_replay (__main__.Acceptance.test_1_bad_listing_readbacks_cannot_account_for_win_or_replay) ... ok
+test_1_bulk_clear_and_3660_relist_reuse_independent_readbacks_and_prices (__main__.Acceptance.test_1_bulk_clear_and_3660_relist_reuse_independent_readbacks_and_prices) ... ok
+test_1_exact_paid_win_moves_then_lists_at_stored_native_pair_and_hour (__main__.Acceptance.test_1_exact_paid_win_moves_then_lists_at_stored_native_pair_and_hour) ... ok
+test_1_paid_identity_version_tradeability_terminal_cost_negatives (__main__.Acceptance.test_1_paid_identity_version_tradeability_terminal_cost_negatives) ... ok
+test_2_ambiguous_bulk_consumed_without_blocking_unrelated_work (__main__.Acceptance.test_2_ambiguous_bulk_consumed_without_blocking_unrelated_work) ... ok
+test_2_urgent_rebid_precedes_resale_and_bulk_without_overlap_or_credits (__main__.Acceptance.test_2_urgent_rebid_precedes_resale_and_bulk_without_overlap_or_credits) ... ok
+test_3_reconnect_mapping_loss_never_uses_old_selector_or_owner (__main__.Acceptance.test_3_reconnect_mapping_loss_never_uses_old_selector_or_owner) ... ok
+test_3_separate_store_takeover_fences_surviving_old_process_connection (__main__.Acceptance.test_3_separate_store_takeover_fences_surviving_old_process_connection) ... ok
+test_4_every_durable_persistence_failure_prevents_native_mutation (__main__.Acceptance.test_4_every_durable_persistence_failure_prevents_native_mutation) ... ok
+test_5_bulk_negative_readbacks_and_incompatible_evidence_stay_consumed (__main__.Acceptance.test_5_bulk_negative_readbacks_and_incompatible_evidence_stay_consumed) ... ok
+test_5_current_caps_native_tick_duration_and_stored_policy_enforced_at_authority (__main__.Acceptance.test_5_current_caps_native_tick_duration_and_stored_policy_enforced_at_authority) ... ok
+test_5_long_final_auction_and_unknown_full_low_inventory_never_fake_settlement (__main__.Acceptance.test_5_long_final_auction_and_unknown_full_low_inventory_never_fake_settlement) ... ok
+test_6_fixture_cannot_open_production_socket_or_state_or_owner (__main__.Acceptance.test_6_fixture_cannot_open_production_socket_or_state_or_owner) ... ok
+test_6_forged_maintenance_requests_have_no_durable_authority (__main__.Acceptance.test_6_forged_maintenance_requests_have_no_durable_authority) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 25.426s
+
+OK

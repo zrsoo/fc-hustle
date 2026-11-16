@@ -1,0 +1,11 @@
+﻿{
+    "observed_at":  "2026-11-16T18:56:35.9556913Z",
+    "production_listeners":  [
+
+                             ],
+    "production_workers":  [
+
+                           ],
+    "new_live_windows":  0,
+    "full_controller_lifecycles_started":  0
+}

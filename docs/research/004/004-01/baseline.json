@@ -1,0 +1,562 @@
+{
+  "schema": 1,
+  "captured_at": "2026-11-16T15:22:26.562461+00:00",
+  "backup_directory": "C:\\hustle\\fc-hustle-backups\\004-01-20261116T152219Z",
+  "git": {
+    "branch": "main",
+    "head": "8981096cc2bccb9bfbcb64debc14e08a7f0e71e8",
+    "status": "?? tests/baseline_00401.py"
+  },
+  "tracked_entries": 2698,
+  "processes": {
+    "processes": [
+      {
+        "pid": 15740,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 2852,
+        "parent": 15740,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 9508,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11340,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 4844,
+        "parent": 17224,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 14372,
+        "parent": 4592,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 10156,
+        "parent": 14372,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 9780,
+        "parent": 10156,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18100,
+        "parent": 9780,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18104,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12304,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11284,
+        "parent": 17996,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 17208,
+        "parent": 11284,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 16444,
+        "parent": 17208,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      }
+    ],
+    "listeners": []
+  },
+  "databases": [
+    {
+      "source": "private-captures/final-remediation/foundation.sqlite3",
+      "backup": "0-foundation.sqlite3",
+      "tables": {
+        "admission_withdrawals_v1": {
+          "columns": [
+            "scope",
+            "trade_id",
+            "proof"
+          ],
+          "rows": 1
+        },
+        "bid_receipts_v1": {
+          "columns": [
+            "command_id",
+            "receipt"
+          ],
+          "rows": 37
+        },
+        "bulk_recoveries_v1": {
+          "columns": [
+            "id",
+            "scope",
+            "proof"
+          ],
+          "rows": 1
+        },
+        "bulk_writes_v1": {
+          "columns": [
+            "id",
+            "scope",
+            "body",
+            "before_read",
+            "state",
+            "at",
+            "completed_at",
+            "incompatible"
+          ],
+          "rows": 6
+        },
+        "capacity_inventory_v1": {
+          "columns": [
+            "scope",
+            "read_id",
+            "network_at",
+            "items"
+          ],
+          "rows": 1
+        },
+        "capacity_migration_v1": {
+          "columns": [
+            "id"
+          ],
+          "rows": 1
+        },
+        "capacity_reads_v1": {
+          "columns": [
+            "scope",
+            "read_id"
+          ],
+          "rows": 521
+        },
+        "capacity_slots_v1": {
+          "columns": [
+            "scope",
+            "trade_id",
+            "item_id",
+            "definition_id",
+            "phase"
+          ],
+          "rows": 27
+        },
+        "commands": {
+          "columns": [
+            "id",
+            "scope",
+            "owner",
+            "epoch",
+            "trade_id",
+            "item_id",
+            "definition_id",
+            "amount",
+            "state",
+            "deadline",
+            "status_read_id",
+            "balance_read_id",
+            "intended_at"
+          ],
+          "rows": 69
+        },
+        "events": {
+          "columns": [
+            "seq",
+            "version",
+            "at",
+            "scope",
+            "trade_id",
+            "command_id",
+            "reason",
+            "data"
+          ],
+          "rows": 923
+        },
+        "metadata": {
+          "columns": [
+            "version"
+          ],
+          "rows": 1
+        },
+        "operator_losses_v1": {
+          "columns": [
+            "command_id",
+            "scope",
+            "proof"
+          ],
+          "rows": 1
+        },
+        "operator_nonregistrations_v1": {
+          "columns": [
+            "command_id",
+            "scope",
+            "proof"
+          ],
+          "rows": 2
+        },
+        "registry_context_v1": {
+          "columns": [
+            "scope",
+            "context"
+          ],
+          "rows": 2
+        },
+        "registry_events_v1": {
+          "columns": [
+            "seq",
+            "scope",
+            "trade_id",
+            "at",
+            "body"
+          ],
+          "rows": 7696
+        },
+        "relist_schedule_v1": {
+          "columns": [
+            "scope",
+            "next_due"
+          ],
+          "rows": 1
+        },
+        "relist_ticks_v1": {
+          "columns": [
+            "id",
+            "scope",
+            "started",
+            "state",
+            "result"
+          ],
+          "rows": 9
+        },
+        "resale_writes_v1": {
+          "columns": [
+            "id",
+            "scope",
+            "trade_id",
+            "body",
+            "state",
+            "at",
+            "before_trade",
+            "claimed_at",
+            "completed_at"
+          ],
+          "rows": 4
+        },
+        "resales_v1": {
+          "columns": [
+            "scope",
+            "trade_id",
+            "item_id",
+            "definition_id",
+            "paid",
+            "resale_price",
+            "state"
+          ],
+          "rows": 2
+        },
+        "sessions": {
+          "columns": [
+            "scope",
+            "owner",
+            "epoch"
+          ],
+          "rows": 2
+        },
+        "sqlite_sequence": {
+          "columns": [
+            "name",
+            "seq"
+          ],
+          "rows": 2
+        }
+      }
+    },
+    {
+      "source": "private-captures/final-remediation/completed-quotes.sqlite3",
+      "backup": "1-completed-quotes.sqlite3",
+      "tables": {
+        "completed_quotes_v1": {
+          "columns": [
+            "account",
+            "game",
+            "platform",
+            "definition_id",
+            "observed_at",
+            "payload"
+          ],
+          "rows": 16
+        }
+      }
+    },
+    {
+      "source": "private-captures/final-remediation/native.sqlite3",
+      "backup": "2-native.sqlite3",
+      "tables": {
+        "native_events": {
+          "columns": [
+            "seq",
+            "id",
+            "at",
+            "body"
+          ],
+          "rows": 2549
+        },
+        "runtime": {
+          "columns": [
+            "id",
+            "body"
+          ],
+          "rows": 1
+        },
+        "sqlite_sequence": {
+          "columns": [
+            "name",
+            "seq"
+          ],
+          "rows": 2
+        },
+        "work": {
+          "columns": [
+            "seq",
+            "id",
+            "role",
+            "priority",
+            "enqueued",
+            "deadline",
+            "state",
+            "command",
+            "response",
+            "started",
+            "finished",
+            "reason",
+            "queue_ms",
+            "roundtrip_ms"
+          ],
+          "rows": 851
+        }
+      }
+    },
+    {
+      "source": "private-captures/final-remediation/transport.sqlite3",
+      "backup": "3-transport.sqlite3",
+      "tables": {
+        "commands": {
+          "columns": [
+            "id",
+            "body",
+            "state",
+            "result"
+          ],
+          "rows": 404
+        },
+        "events": {
+          "columns": [
+            "seq",
+            "command_id",
+            "event"
+          ],
+          "rows": 1212
+        },
+        "owner": {
+          "columns": [
+            "context",
+            "owner",
+            "epoch"
+          ],
+          "rows": 1
+        }
+      }
+    },
+    {
+      "source": "private-captures/continuous-production/native.sqlite3",
+      "backup": "4-native.sqlite3",
+      "tables": {
+        "native_events": {
+          "columns": [
+            "seq",
+            "id",
+            "at",
+            "body"
+          ],
+          "rows": 7039
+        },
+        "runtime": {
+          "columns": [
+            "id",
+            "body"
+          ],
+          "rows": 1
+        },
+        "sqlite_sequence": {
+          "columns": [
+            "name",
+            "seq"
+          ],
+          "rows": 2
+        },
+        "work": {
+          "columns": [
+            "seq",
+            "id",
+            "role",
+            "priority",
+            "enqueued",
+            "deadline",
+            "state",
+            "command",
+            "response",
+            "started",
+            "finished",
+            "reason",
+            "queue_ms",
+            "roundtrip_ms"
+          ],
+          "rows": 2348
+        }
+      }
+    },
+    {
+      "source": "private-captures/continuous-production/control.sqlite3",
+      "backup": "5-control.sqlite3",
+      "tables": {
+        "records": {
+          "columns": [
+            "seq",
+            "run",
+            "kind",
+            "at",
+            "tick",
+            "body"
+          ],
+          "rows": 67442
+        },
+        "sqlite_sequence": {
+          "columns": [
+            "name",
+            "seq"
+          ],
+          "rows": 1
+        }
+      }
+    },
+    {
+      "source": "private-captures/002-bulk-transfer-operations/production-readonly-after.sqlite3",
+      "backup": "6-production-readonly-after.sqlite3",
+      "tables": {
+        "commands": {
+          "columns": [
+            "id",
+            "body",
+            "state",
+            "result"
+          ],
+          "rows": 3413
+        },
+        "events": {
+          "columns": [
+            "seq",
+            "command_id",
+            "event"
+          ],
+          "rows": 27359
+        },
+        "owner": {
+          "columns": [
+            "context",
+            "owner",
+            "epoch"
+          ],
+          "rows": 1
+        }
+      }
+    }
+  ],
+  "orchestrator_backup": "legacy-control.json",
+  "exclusions": [
+    "Edge profiles",
+    "credentials",
+    "cookies",
+    "headers",
+    "EA tokens/session IDs",
+    "raw orchestrator DB and session/payload columns",
+    "unreviewed private captures"
+  ],
+  "initial_untracked_tool": "tests/baseline_00401.py",
+  "activity": {
+    "ea_requests": 0,
+    "mutations": 0,
+    "migrations": 0,
+    "recovery": 0
+  }
+}

@@ -1,0 +1,23 @@
+test_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff (__main__.Acceptance.test_c0_c1_c2_c4_exact_fixed_prices_hour_new_trade_and_atomic_handoff) ... ok
+test_c0_lost_never_lists_even_with_owned_same_definition (__main__.Acceptance.test_c0_lost_never_lists_even_with_owned_same_definition) ... ok
+test_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list (__main__.Acceptance.test_c0_physical_definition_trade_and_paid_mismatches_never_move_or_list) ... ok
+test_c0_stale_foreign_or_reused_proof_rejected (__main__.Acceptance.test_c0_stale_foreign_or_reused_proof_rejected) ... ok
+test_c1_c2_c4_real_native_page_parameters_and_negative_fences (__main__.Acceptance.test_c1_c2_c4_real_native_page_parameters_and_negative_fences) ... ok
+test_c1_c2_illegal_ticks_caps_and_minimum_preserve_policy_no_mutation (__main__.Acceptance.test_c1_c2_illegal_ticks_caps_and_minimum_preserve_policy_no_mutation) ... ok
+test_c1_current_caps_rechecked_between_move_and_list (__main__.Acceptance.test_c1_current_caps_rechecked_between_move_and_list) ... ok
+test_c2_c3_ack_is_not_proof_and_ambiguous_moves_never_retry (__main__.Acceptance.test_c2_c3_ack_is_not_proof_and_ambiguous_moves_never_retry) ... ok
+test_c2_c3_epoch_takeover_or_aged_dispatch_never_sends_and_never_retries (__main__.Acceptance.test_c2_c3_epoch_takeover_or_aged_dispatch_never_sends_and_never_retries) ... ok
+test_c2_c3_incomplete_inventory_and_missing_caps_remain_reserved (__main__.Acceptance.test_c2_c3_incomplete_inventory_and_missing_caps_remain_reserved) ... ok
+test_c2_c3_unknown_listing_retains_reservation_even_after_pile_disappears (__main__.Acceptance.test_c2_c3_unknown_listing_retains_reservation_even_after_pile_disappears) ... ok
+test_c2_c4_intent_failure_and_readback_failure_roll_back_accounting (__main__.Acceptance.test_c2_c4_intent_failure_and_readback_failure_roll_back_accounting) ... ok
+test_c2_c4_wrong_readback_trade_item_prices_duration_never_confirms (__main__.Acceptance.test_c2_c4_wrong_readback_trade_item_prices_duration_never_confirms) ... ok
+test_c2_epoch_context_and_read_seam_cannot_authorize_mutations (__main__.Acceptance.test_c2_epoch_context_and_read_seam_cannot_authorize_mutations) ... ok
+test_c2_epoch_takeover_between_claim_and_send_has_no_dispatch_authority (__main__.Acceptance.test_c2_epoch_takeover_between_claim_and_send_has_no_dispatch_authority) ... ok
+test_c3_successful_side_effect_with_lost_response_reconciles_without_retry (__main__.Acceptance.test_c3_successful_side_effect_with_lost_response_reconciles_without_retry) ... ok
+test_c4_crashes_at_each_durable_boundary_both_operations (__main__.Acceptance.test_c4_crashes_at_each_durable_boundary_both_operations) ... ok
+test_c4_move_waits_at_full_physical_pile_then_lists_at_fifty (__main__.Acceptance.test_c4_move_waits_at_full_physical_pile_then_lists_at_fifty) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 17.760s
+
+OK

@@ -4,7 +4,8 @@ const hex=n=>n.toString(16).padStart(32,'0');
 const context={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_namespace:hex(3)};
 let owner={context,owner:hex(4),epoch:1},host=hex(5),document=hex(7),next=null,mode='ok';
 let stored={},executions=0,bulkExecutions=0,posts=[],badge='',files=[],personaOK=true,official=true;
-const listeners={},page={document,attach(c,f){return personaOK;},execute(c){executions++;return {command_id:c.id,safe:true};}};
+let controllerExecutions=0,controllerReads=0,controllerService=false;
+const listeners={},page={document,attach(c,f){return personaOK;},executeReadController(c){controllerReads++;return {command_id:c.id,safe:true};},executeController(c){controllerExecutions++;return {command_id:c.id,safe:true};},execute(c){executions++;return {command_id:c.id,safe:true};}};
 const chrome={
   storage:{session:{async get(){return stored;},async set(v){Object.assign(stored,v);}}},
   tabs:{async get(id){assert.equal(id,7);return {url:official?'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/':'https://evil.example/'};}},
@@ -25,7 +26,7 @@ const fetch=async(url,options)=>{
   const path=new URL(url).pathname,v=JSON.parse(options.body);posts.push({path,v});
   if(mode==='offline')throw Error('SECRET_NATIVE_ERROR');
   if(path==='/diagnostic')return {ok:true,json:async()=>({accepted:true})};
-  if(path==='/hello')return {ok:true,json:async()=>({schema:2,host_epoch:host,owner})};
+  if(path==='/hello')return {ok:true,json:async()=>({schema:2,host_epoch:host,owner,...(controllerService?{service:'fc-controller-v1'}:{})})};
   if(path==='/next'){
     assert.equal(v.fences.host_epoch,host);assert.equal(v.fences.epoch,owner.epoch);assert.equal(v.fences.document,page.document);
     if(next){const c={...next,context:{...context},fences:{...v.fences,...next.fences}};next=null;return {ok:true,json:async()=>c};}
@@ -45,7 +46,7 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
 (async()=>{
   await alarm();assert.equal(posts.length,0,'no selected tab: no work');
   mode='offline';await listeners.click({id:7,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'});await settle();assert.equal(badge,'WAIT');assert.equal(executions,0);
-  mode='ok';await alarm();assert.equal(executions,0,'idle only attaches');assert.deepEqual(files.slice(0,3),['persona.js','diagnostics.js','page.js']);
+  mode='ok';await alarm();assert.equal(executions,0,'idle only attaches');assert.deepEqual(files.slice(0,4),['persona.js','diagnostics.js','controller.js','page.js']);
   next=cmd(20);await alarm();assert.equal(executions,1);assert.equal(posts.filter(p=>p.path==='/result').length,1);
   await alarm();assert.equal(executions,1,'idle poll cannot replay a command');
   next={...cmd(21),fences:{host_epoch:hex(999)}};await alarm();assert.equal(executions,1);
@@ -62,6 +63,10 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
   official=false;await alarm();assert.equal(executions,3);assert.equal(badge,'WAIT');
   official=true;next={...cmd(28),operation:'bulk_inspect'};await alarm();
   assert.equal(executions,3);assert.equal(bulkExecutions,1);assert(files.includes('bulk-transfer.js'));
+  next={...cmd(29),schema:4,operation:'status_batch'};await alarm();assert.equal(controllerExecutions,1);assert.equal(executions,3);
+  await alarm();assert.equal(controllerExecutions,1,'controller commands are never replayed');
+  controllerService=true;next={...cmd(30),operation:'search'};await alarm();
+  assert.equal(controllerReads,1);assert.equal(executions,3,'controller shared reads use their explicit non-blocking seam');
   assert(!JSON.stringify(posts).includes('SECRET_NATIVE_ERROR'));
   console.log('PASS production worker: explicit tab, local-only idle, fences, dropped ACK, no replay, reload requires rebind, persona and no secret retention');
 })().catch(e=>{console.error(e);process.exitCode=1;});

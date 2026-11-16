@@ -1,0 +1,1 @@
+PASS controller native contracts: actual page, ten targets, ownership, versions, cleanup, receipts and no replay

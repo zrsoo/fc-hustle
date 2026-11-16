@@ -1,0 +1,18 @@
+{
+  "classification": "REUSE_VERIFIED_NATIVE_CONTRACTS",
+  "new_window_budget": {"ea_requests": 0, "mutations": 0},
+  "new_live_windows": [],
+  "full_controller_lifecycle_launched": false,
+  "external_limitations": [],
+  "evidence_limitations": [
+    "New authority move/list/bulk composition has offline behavioral and process evidence; no new live transactions are claimed.",
+    "The prior controller live probe used ten closed/outbid targets; active rebid and full lifecycle coverage remain deferred."
+  ],
+  "contracts": [
+    {"operation":"bid","native_invocation_changed":false,"additional_live_probe_required":false,"reason":"The previously reviewed dialect 4 bid/rebid implementation and arguments are unchanged; lifecycle withdrawal and restart audit classification are local authority changes.","offline_validator":"tests/controller_policy_native_checks.cjs","evidence":["docs/research/004/004-02/REPORT.md","docs/research/003/003-04/bid-receipt-repair-01/REPORT.md"]},
+    {"operation":"move","native_invocation_changed":false,"additional_live_probe_required":false,"reason":"Reuse services.Item.move([exactRaw], ItemPile.TRANSFER, false) and the existing physical ownership preconditions/readback contract. Only server authority and local scheduling change.","offline_validator":"tests/controller_work_native_checks.cjs","evidence":["docs/research/002/002-08/scenarios.json","docs/research/002/002-12/series-selection.json"]},
+    {"operation":"list","native_invocation_changed":false,"additional_live_probe_required":false,"reason":"Reuse services.Item.list(exactRaw, nativePreviousTick, storedBIN, 3600); new authority reuses the existing independently anchored readback assessor.","offline_validator":"tests/controller_work_native_checks.cjs","evidence":["docs/research/002/002-08/scenarios.json","docs/research/002/002-12/series-selection.json"]},
+    {"operation":"clear_sold","native_invocation_changed":false,"additional_live_probe_required":false,"reason":"The zero-argument clearSoldItems native API and sold-only bulk effect contract are already live verified. The five-item consumed window must not be repeated for integration.","offline_validator":"tests/controller_work_native_checks.cjs","evidence":["docs/research/002-bulk-transfer-operations/clear-sold.json","docs/research/002-bulk-transfer-operations/clear-sold-reconciliation.json","docs/research/002-bulk-transfer-operations/durable-ledger.json"]},
+    {"operation":"relist_all","native_invocation_changed":false,"additional_live_probe_required":false,"reason":"The zero-argument relistExpiredAuctions native API and server-observed one-hour duration contract are unchanged. Four-item consumed proof is retained; every new execution must independently verify prices and duration.","offline_validator":"tests/controller_work_native_checks.cjs","evidence":["docs/research/002-bulk-transfer-operations/relist-all.json","docs/research/002-bulk-transfer-operations/relist-all-reconciliation.json","docs/research/002-bulk-transfer-operations/durable-ledger.json"]}
+  ]
+}

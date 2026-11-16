@@ -361,26 +361,8 @@ class Resale:
             if (stamp(v['freshness']['network_at']) < at or
                     v['command_id'] in {cid, p['owned_read_id'], p['win_read_id'], p['caps_read_id']}):
                 raise ValueError('independent_post_mutation_read_required')
-        matches = [r for r in pile['result']['auctions'] if r['item']['item_id'] == p['item_id'] and
-            r['item']['definition_id'] == p['definition_id'] and r['item']['untradeable'] is False]
-        proven = len(matches) == 1
-        if proven and op == 'move':
-            proven = (not any(i['item_id'] == p['item_id'] for i in owned['result']['items']) and
-                matches[0]['trade_state'] == 'inactive' and matches[0]['item']['last_sale_price'] == p['paid'])
-        elif proven:
-            r = matches[0]
-            claimed = stamp(row[4]) if row[4] else at
-            elapsed = (stamp(pile['freshness']['network_at'])-claimed).total_seconds()
-            # Anchor expiry to the dispatch interval, including on restart.
-            # An unrelated later relist at the same prices is not our readback.
-            latency = (stamp(row[5])-claimed).total_seconds() if row[5] else 30
-            duration = r['expires']+elapsed
-            proven = (r['trade_id'] not in {before, p['trade_id']} and r['trade_state'] == 'active' and
-                r['bid_state'] in {'none','highest','outbid'} and r['starting_bid'] == p['starting_bid'] and
-                r['buy_now_price'] == p['buy_now_price'] and 0 < r['expires'] <= 3600 and
-                elapsed >= 0 and 3598 <= duration <= 3602+latency and
-                not any(other['trade_id'] == r['trade_id'] and other['item']['item_id'] != p['item_id']
-                    for other in pile['result']['auctions']))
+        proven,matches=assess_effect(c,pile,owned if op=='move' else None,at=at,
+            claimed=stamp(row[4]) if row[4] else None,completed=stamp(row[5]) if row[5] else None,before=before)
         with j.transaction():
             f.registry.check()
             # Complete inventory and pending->occupied handoff share this commit
@@ -397,3 +379,29 @@ class Resale:
                 new_trade_id=matches[0]['trade_id'] if proven and op == 'list' else None)
         return proven
 
+
+
+def assess_effect(c, pile, owned, *, at, claimed, completed, before):
+    """Pure exact physical move/list readback; acknowledgements grant no proof."""
+    p,op=c["params"],c["operation"]
+    matches = [r for r in pile['result']['auctions'] if r['item']['item_id'] == p['item_id'] and
+        r['item']['definition_id'] == p['definition_id'] and r['item']['untradeable'] is False]
+    proven = len(matches) == 1
+    if proven and op == 'move':
+        proven = (not any(i['item_id'] == p['item_id'] for i in owned['result']['items']) and
+            matches[0]['trade_state'] == 'inactive' and matches[0]['item']['last_sale_price'] == p['paid'])
+    elif proven:
+        r = matches[0]
+        claimed = claimed or at
+        elapsed = (stamp(pile['freshness']['network_at'])-claimed).total_seconds()
+        # Anchor expiry to the dispatch interval, including on restart.
+        # An unrelated later relist at the same prices is not our readback.
+        latency = (completed-claimed).total_seconds() if completed else 30
+        duration = r['expires']+elapsed
+        proven = (r['trade_id'] not in {before, p['trade_id']} and r['trade_state'] == 'active' and
+            r['bid_state'] in {'none','highest','outbid'} and r['starting_bid'] == p['starting_bid'] and
+            r['buy_now_price'] == p['buy_now_price'] and 0 < r['expires'] <= 3600 and
+            elapsed >= 0 and 3598 <= duration <= 3602+latency and
+            not any(other['trade_id'] == r['trade_id'] and other['item']['item_id'] != p['item_id']
+                for other in pile['result']['auctions']))
+    return bool(proven), matches

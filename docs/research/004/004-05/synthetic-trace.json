@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "classification": "SYNTHETIC_OFFLINE_ONLY",
+  "initial_confirmed_members": 10,
+  "terminal_lost": 10,
+  "final": {
+    "phase": "ACQUIRING",
+    "lifecycle": "HALTED",
+    "reason": "ENTRY_CREDITS_AT_OR_BELOW_THRESHOLD"
+  },
+  "requests": {
+    "balance": 2,
+    "search": 3,
+    "caps": 1,
+    "watched": 1,
+    "transfer_list": 3,
+    "bid": 20,
+    "status_batch": 4
+  },
+  "trace": [
+    {
+      "operation": "balance",
+      "phase": "ACQUIRING",
+      "at": 0.0
+    },
+    {
+      "operation": "search",
+      "phase": "ACQUIRING",
+      "at": 2.0
+    },
+    {
+      "operation": "caps",
+      "phase": "ACQUIRING",
+      "at": 4.0
+    },
+    {
+      "operation": "search",
+      "phase": "ACQUIRING",
+      "at": 6.0
+    },
+    {
+      "operation": "search",
+      "phase": "ACQUIRING",
+      "at": 8.0
+    },
+    {
+      "operation": "watched",
+      "phase": "ACQUIRING",
+      "at": 10.0
+    },
+    {
+      "operation": "transfer_list",
+      "phase": "ACQUIRING",
+      "at": 12.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 14.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 16.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 18.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 20.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 22.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 24.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 26.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 28.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 30.0
+    },
+    {
+      "operation": "bid",
+      "phase": "ACQUIRING",
+      "at": 32.0
+    },
+    {
+      "operation": "status_batch",
+      "phase": "ACQUIRING",
+      "at": 34.0
+    },
+    {
+      "operation": "status_batch",
+      "phase": "MANAGING",
+      "at": 36.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 38.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 40.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 42.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 44.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 46.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 48.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 50.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 52.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 54.0
+    },
+    {
+      "operation": "bid",
+      "phase": "MANAGING",
+      "at": 56.0
+    },
+    {
+      "operation": "status_batch",
+      "phase": "MANAGING",
+      "at": 58.0
+    },
+    {
+      "operation": "transfer_list",
+      "phase": "MANAGING",
+      "at": 60.0
+    },
+    {
+      "operation": "status_batch",
+      "phase": "MANAGING",
+      "at": 62.0
+    },
+    {
+      "operation": "transfer_list",
+      "phase": "MANAGING",
+      "at": 64.0
+    },
+    {
+      "operation": "balance",
+      "phase": "ACQUIRING",
+      "at": 66.0
+    }
+  ],
+  "acquisition": [
+    {
+      "burst_elapsed": 20.0,
+      "elapsed": 34.01,
+      "expiry_misses": 0,
+      "handoff_elapsed": 2.0
+    },
+    {
+      "burst_elapsed": 0,
+      "elapsed": 2.0,
+      "expiry_misses": 0,
+      "handoff_elapsed": 0
+    }
+  ],
+  "cycles": [
+    {
+      "elapsed": 26.0,
+      "missed_targets": 5,
+      "target": 5.0
+    },
+    {
+      "elapsed": 4.000000000000007,
+      "missed_targets": 0,
+      "target": 5.0
+    }
+  ],
+  "maximum_parallel_requests": 1,
+  "global_ten_participation_guarantee": false
+}

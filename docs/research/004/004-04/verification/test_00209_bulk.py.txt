@@ -1,0 +1,25 @@
+test_c0_c2_c3_both_production_operations_account_wide_and_independent (__main__.Acceptance.test_c0_c2_c3_both_production_operations_account_wide_and_independent) ... ok
+test_c0_c2_c3_c4_c5_deployed_javascript_contract_and_worker (__main__.Acceptance.test_c0_c2_c3_c4_c5_deployed_javascript_contract_and_worker) ... ok
+test_c0_c2_transport_rejects_forged_intents_extra_fields_and_all_fences (__main__.Acceptance.test_c0_c2_transport_rejects_forged_intents_extra_fields_and_all_fences) ... ok
+test_c0_c4_changed_wire_semantics_rejected_by_production_parser (__main__.Acceptance.test_c0_c4_changed_wire_semantics_rejected_by_production_parser) ... ok
+test_c1_c5_consumed_sealed_research_and_empty_inventory_no_research_calls (__main__.Acceptance.test_c1_c5_consumed_sealed_research_and_empty_inventory_no_research_calls) ... ok
+test_c2_c4_restart_readback_failure_keeps_intent_then_read_only_recovery (__main__.Acceptance.test_c2_c4_restart_readback_failure_keeps_intent_then_read_only_recovery) ... ok
+test_c2_dispatch_age_and_takeover_are_fenced (__main__.Acceptance.test_c2_dispatch_age_and_takeover_are_fenced) ... ok
+test_c2_durable_commit_failures_do_not_grant_dispatch_or_confirmation (__main__.Acceptance.test_c2_durable_commit_failures_do_not_grant_dispatch_or_confirmation) ... ok
+test_c2_epoch_takeover_after_durable_claim_blocks_send (__main__.Acceptance.test_c2_epoch_takeover_after_durable_claim_blocks_send) ... ok
+test_c2_incomplete_unowned_unclassified_and_changed_predicates_fail_before_intent (__main__.Acceptance.test_c2_incomplete_unowned_unclassified_and_changed_predicates_fail_before_intent) ... ok
+test_c2_intent_only_failure_never_dispatches_on_restart (__main__.Acceptance.test_c2_intent_only_failure_never_dispatches_on_restart) ... ok
+test_c2_priority_serialization_uses_shared_scheduler (__main__.Acceptance.test_c2_priority_serialization_uses_shared_scheduler) ... ok
+test_c3_c4_changed_duration_prices_identity_or_unaffected_row_stays_closed (__main__.Acceptance.test_c3_c4_changed_duration_prices_identity_or_unaffected_row_stays_closed) ... ok
+test_c3_c4_negative_readbacks_each_in_fresh_workspace (__main__.Acceptance.test_c3_c4_negative_readbacks_each_in_fresh_workspace) ... ok
+test_c4_explicit_wire_contract_change_cannot_be_cleared_by_good_readback (__main__.Acceptance.test_c4_explicit_wire_contract_change_cannot_be_cleared_by_good_readback) ... ok
+test_c4_lost_response_reconciles_without_retry (__main__.Acceptance.test_c4_lost_response_reconciles_without_retry) ... ok
+test_c4_partial_and_ack_without_effect_are_never_retried (__main__.Acceptance.test_c4_partial_and_ack_without_effect_are_never_retried) ... ok
+test_c4_real_process_crashes_all_durable_boundaries (__main__.Acceptance.test_c4_real_process_crashes_all_durable_boundaries) ... ok
+test_c4_relist_partial_unknown_and_no_effect_ack_do_not_authorize_more_writes (__main__.Acceptance.test_c4_relist_partial_unknown_and_no_effect_ack_do_not_authorize_more_writes) ... ok
+test_c4_success_ack_without_native_effect_stays_unresolved (__main__.Acceptance.test_c4_success_ack_without_native_effect_stays_unresolved) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 12.889s
+
+OK

@@ -14,6 +14,7 @@ sys.path.insert(0,str(ROOT))
 from experiments.market_discovery.bridge_server import SearchServer
 from experiments.market_discovery.replay import FixtureClock, FixtureTransport
 from experiments.market_discovery.transport import SearchTransport
+from http_fixture import CompleteRequestConnection
 
 
 class TransportTests(unittest.TestCase):
@@ -28,7 +29,7 @@ class TransportTests(unittest.TestCase):
         self.server.shutdown(); self.server.server_close(); self.thread.join(2)
 
     def request(self,path,body=None,extension=False,headers=None,method='POST',raw=None):
-        conn = http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=3)
+        conn = CompleteRequestConnection('127.0.0.1',self.server.server_port,timeout=3)
         h = {'Content-Type':'application/json'}
         if extension: h['Origin']='chrome-extension://'+'a'*32
         h.update(headers or {})

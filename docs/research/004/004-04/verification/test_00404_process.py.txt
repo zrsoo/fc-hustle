@@ -1,0 +1,7 @@
+test_4_bid_crashes_never_replay_and_confirmed_membership_survives (__main__.ProcessAcceptance.test_4_bid_crashes_never_replay_and_confirmed_membership_survives) ... ok
+test_4_real_process_crashes_all_work_boundaries_and_phase_transitions (__main__.ProcessAcceptance.test_4_real_process_crashes_all_work_boundaries_and_phase_transitions) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 61.542s
+
+OK

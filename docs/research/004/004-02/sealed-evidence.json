@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "scope": "Captured immutable finite read-only experiment evidence only; never mutable implementation bytes",
+  "sha256": {
+    "status-array-01/checkpoint.jsonl": "fb6c6d78d7864b76e2124bb30ae48d3aa3fa792d409324fddd012c29f83726cc",
+    "status-array-01/result.json": "ff13f754dea2a0d0f2a6e2c5e18b29a9858bf62e2d4608546b7c4c05130aad16",
+    "status-array-01/transport.sqlite": "9ba0924d3c40e6fb8b0ecfeff450c4761354ece64168ef5b8f31d1d8acf4240b",
+    "status-array-02/checkpoint.jsonl": "c64a1bcad6795b78283893af849834b560586aeaf0d2b4863efdf4a8c7e06504",
+    "status-array-02/result.json": "0c91f2bd60fe252af075dd650d499c33e7372511d47a4d08b558759bbea4890c",
+    "status-array-02/transport.sqlite": "742b5bb6d02207085225b3921bdfa44fd999da8927738ff9384a0a83a01cbc53",
+    "status-array-03/checkpoint.jsonl": "46a68704a953a1109c83974ce0eed5cbca78ec84d284e4a50214eaf3ce169ed7",
+    "status-array-03/result.json": "3c50afe54ed90f540ee8ecfe70a3a4bef15c7f23e79902e0347ae33e9b1c61ec",
+    "status-array-03/transport.sqlite": "d486d5ce05b2f9ec1ca126cab48f175093c4e4febff50a5b55625fa5648a0a3b",
+    "status-array-04/checkpoint.jsonl": "0e3a708f13993a91f3c3615329c464e781132f878e3f8c5410b14b5675df66a7",
+    "status-array-04/result.json": "dbbe886fa1c8d049bfa61656e48624111523b7021f08bb4f25926fe577038700",
+    "status-array-04/transport.sqlite": "9f3a889ec904d475919d478279ddb8b9f2d0758c8c9304ceb25e5bb69c1f402e",
+    "status-array-05/checkpoint.jsonl": "06f571518ff93dd9bf02723a57e70eb3b78568d56b1548a639b5238fc13c5d15",
+    "status-array-05/result.json": "45c67bf287d6f7c3fd044765492f117a88099a26dbfde92254731cf831bf9962",
+    "status-array-05/transport.sqlite": "53f9de5b8ba2d60e8e144fb8c61b7d9fbf14b458efbfde0fd5de6c8f9a0ec38d"
+  }
+}

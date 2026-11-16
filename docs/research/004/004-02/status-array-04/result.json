@@ -1,0 +1,515 @@
+{
+  "schema": 1,
+  "task": "004-02",
+  "mode": "AUTHENTICATED_READ_ONLY",
+  "status": "LIVE_VERIFIED_WITH_ACTUAL_LIMIT",
+  "max_requests": 3,
+  "max_mutations": 0,
+  "reserved_requests": 3,
+  "account_mutations": 0,
+  "actual_target_count": 10,
+  "requested": [
+    {
+      "trade_id": "trade:ada9c732d7690eb4317d05cf",
+      "item_id": "item:699bfeea42422ba202732991",
+      "definition_id": 251852
+    },
+    {
+      "trade_id": "trade:e4700a364f44b8438e987cb3",
+      "item_id": "item:8964121e9a0df4c621522567",
+      "definition_id": 251852
+    },
+    {
+      "trade_id": "trade:0c5a09b2086da6fa47c53e14",
+      "item_id": "item:9d2b8550b26487af8101a5cc",
+      "definition_id": 251570
+    },
+    {
+      "trade_id": "trade:ebedce0c612eacfef97a4743",
+      "item_id": "item:3efcd45b877a9f0f655cbc6f",
+      "definition_id": 233731
+    },
+    {
+      "trade_id": "trade:d48bd98c95426c2e0b6ea178",
+      "item_id": "item:15965efbd28a92a85df5d78d",
+      "definition_id": 251570
+    },
+    {
+      "trade_id": "trade:0ee808647be1675416c55255",
+      "item_id": "item:4b1e0c63b6fb71eb9ead14fb",
+      "definition_id": 246420
+    },
+    {
+      "trade_id": "trade:4a6d87d000e7062fd52dd63d",
+      "item_id": "item:9e717c9ad9217846e076766d",
+      "definition_id": 256079
+    },
+    {
+      "trade_id": "trade:656b5c667c973b40ec979182",
+      "item_id": "item:f75040d3682cc9916bf4964a",
+      "definition_id": 243404
+    },
+    {
+      "trade_id": "trade:f0a85e0e729b8d5c4e313bc4",
+      "item_id": "item:481441b47745ae478e862a01",
+      "definition_id": 227323
+    },
+    {
+      "trade_id": "trade:5be007b82a9dd0705fdf9d58",
+      "item_id": "item:2eb52176a02b20c15834db12",
+      "definition_id": 243404
+    }
+  ],
+  "returned": [
+    {
+      "trade_id": "trade:ada9c732d7690eb4317d05cf",
+      "item_id": "item:699bfeea42422ba202732991",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 5000,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:e4700a364f44b8438e987cb3",
+      "item_id": "item:8964121e9a0df4c621522567",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4300,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:0c5a09b2086da6fa47c53e14",
+      "item_id": "item:9d2b8550b26487af8101a5cc",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4400,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:ebedce0c612eacfef97a4743",
+      "item_id": "item:3efcd45b877a9f0f655cbc6f",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4500,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:d48bd98c95426c2e0b6ea178",
+      "item_id": "item:15965efbd28a92a85df5d78d",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4900,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:0ee808647be1675416c55255",
+      "item_id": "item:4b1e0c63b6fb71eb9ead14fb",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 1400,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:4a6d87d000e7062fd52dd63d",
+      "item_id": "item:9e717c9ad9217846e076766d",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4200,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:656b5c667c973b40ec979182",
+      "item_id": "item:f75040d3682cc9916bf4964a",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 5200,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:f0a85e0e729b8d5c4e313bc4",
+      "item_id": "item:481441b47745ae478e862a01",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 4700,
+      "expires": -1
+    },
+    {
+      "trade_id": "trade:5be007b82a9dd0705fdf9d58",
+      "item_id": "item:2eb52176a02b20c15834db12",
+      "definition_id": 0,
+      "trade_state": "closed",
+      "bid_state": "outbid",
+      "current_bid": 5500,
+      "expires": -1
+    }
+  ],
+  "missing": [],
+  "untested_limits": [
+    "live_interleaving",
+    "live_error_branches",
+    "live_mutations_new_authority"
+  ],
+  "cleanup": {
+    "service_thread_stopped": true,
+    "pending_commands": 0,
+    "controllers_started": 0,
+    "mutations_enabled": false
+  },
+  "before": {
+    "processes": [
+      {
+        "pid": 15740,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 2852,
+        "parent": 15740,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 9508,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11340,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 4844,
+        "parent": 17224,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 14372,
+        "parent": 4592,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 10156,
+        "parent": 14372,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 9780,
+        "parent": 10156,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18100,
+        "parent": 9780,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18104,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12304,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 6932,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 17720,
+        "parent": 17996,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 7064,
+        "parent": 17720,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12664,
+        "parent": 7064,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      }
+    ],
+    "listeners": []
+  },
+  "attachment": {
+    "service": "fc-controller-v1",
+    "write_authority": false,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "0984b067b4ec47b91360d0d051b99d93",
+        "epoch": 1,
+        "host_epoch": "9e9ae6bdaf1308815dd46064f6cdc82c",
+        "owner": "17b7b22fb7ee4d51ed33df5d1a2c387e",
+        "worker_epoch": "2b3e017970d10820c2acefd1c5a5c6ff"
+      }
+    }
+  },
+  "designated_account_verified": true,
+  "batch_success": true,
+  "batch_error": null,
+  "network": [
+    {
+      "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+      "method": "GET",
+      "path": "/ut/game/fc27/trade/status/lite",
+      "session_header_present": true,
+      "status": 200,
+      "targets": [
+        {
+          "definition_id": 251852,
+          "item_id": "item:699bfeea42422ba202732991",
+          "trade_id": "trade:ada9c732d7690eb4317d05cf"
+        },
+        {
+          "definition_id": 251852,
+          "item_id": "item:8964121e9a0df4c621522567",
+          "trade_id": "trade:e4700a364f44b8438e987cb3"
+        },
+        {
+          "definition_id": 251570,
+          "item_id": "item:9d2b8550b26487af8101a5cc",
+          "trade_id": "trade:0c5a09b2086da6fa47c53e14"
+        },
+        {
+          "definition_id": 233731,
+          "item_id": "item:3efcd45b877a9f0f655cbc6f",
+          "trade_id": "trade:ebedce0c612eacfef97a4743"
+        },
+        {
+          "definition_id": 251570,
+          "item_id": "item:15965efbd28a92a85df5d78d",
+          "trade_id": "trade:d48bd98c95426c2e0b6ea178"
+        },
+        {
+          "definition_id": 246420,
+          "item_id": "item:4b1e0c63b6fb71eb9ead14fb",
+          "trade_id": "trade:0ee808647be1675416c55255"
+        },
+        {
+          "definition_id": 256079,
+          "item_id": "item:9e717c9ad9217846e076766d",
+          "trade_id": "trade:4a6d87d000e7062fd52dd63d"
+        },
+        {
+          "definition_id": 243404,
+          "item_id": "item:f75040d3682cc9916bf4964a",
+          "trade_id": "trade:656b5c667c973b40ec979182"
+        },
+        {
+          "definition_id": 227323,
+          "item_id": "item:481441b47745ae478e862a01",
+          "trade_id": "trade:f0a85e0e729b8d5c4e313bc4"
+        },
+        {
+          "definition_id": 243404,
+          "item_id": "item:2eb52176a02b20c15834db12",
+          "trade_id": "trade:5be007b82a9dd0705fdf9d58"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 251852,
+        "item_id": "item:699bfeea42422ba202732991",
+        "trade_id": "trade:ada9c732d7690eb4317d05cf"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 251852,
+        "item_id": "item:8964121e9a0df4c621522567",
+        "trade_id": "trade:e4700a364f44b8438e987cb3"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 251570,
+        "item_id": "item:9d2b8550b26487af8101a5cc",
+        "trade_id": "trade:0c5a09b2086da6fa47c53e14"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 233731,
+        "item_id": "item:3efcd45b877a9f0f655cbc6f",
+        "trade_id": "trade:ebedce0c612eacfef97a4743"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 251570,
+        "item_id": "item:15965efbd28a92a85df5d78d",
+        "trade_id": "trade:d48bd98c95426c2e0b6ea178"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 246420,
+        "item_id": "item:4b1e0c63b6fb71eb9ead14fb",
+        "trade_id": "trade:0ee808647be1675416c55255"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 256079,
+        "item_id": "item:9e717c9ad9217846e076766d",
+        "trade_id": "trade:4a6d87d000e7062fd52dd63d"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 243404,
+        "item_id": "item:f75040d3682cc9916bf4964a",
+        "trade_id": "trade:656b5c667c973b40ec979182"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 227323,
+        "item_id": "item:481441b47745ae478e862a01",
+        "trade_id": "trade:f0a85e0e729b8d5c4e313bc4"
+      },
+      "version_observed": false
+    },
+    {
+      "current_dto_matches": true,
+      "full_observed_at": "2026-11-16T17:40:27.001Z",
+      "full_read_id": "e82d58371bf351a6c3b658e4b0d59229",
+      "status_read_id": "aa322b26bcabb5c94c981f7626a17dda",
+      "target": {
+        "definition_id": 243404,
+        "item_id": "item:2eb52176a02b20c15834db12",
+        "trade_id": "trade:5be007b82a9dd0705fdf9d58"
+      },
+      "version_observed": false
+    }
+  ],
+  "comparison_success": true,
+  "comparison_count": 19
+}

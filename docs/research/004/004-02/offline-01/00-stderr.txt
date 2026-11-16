@@ -1,0 +1,16 @@
+test_c0_c1_c3_c4_c5_shipped_page_samples_and_python_parser (__main__.ControllerContracts.test_c0_c1_c3_c4_c5_shipped_page_samples_and_python_parser) ... ok
+test_c1_c2_full_version_link_and_no_global_uncertainty_gate (__main__.ControllerContracts.test_c1_c2_full_version_link_and_no_global_uncertainty_gate) ... ok
+test_c1_lite_omission_never_becomes_authority (__main__.ControllerContracts.test_c1_lite_omission_never_becomes_authority) ... ok
+test_c1_parser_negative_identity_schema_versions_auth_and_scope (__main__.ControllerContracts.test_c1_parser_negative_identity_schema_versions_auth_and_scope) ... ok
+test_c2_c4_duplicate_waiting_and_expired_intents_do_not_block_other_work (__main__.ControllerContracts.test_c2_c4_duplicate_waiting_and_expired_intents_do_not_block_other_work) ... ok
+test_c2_durable_authority_schema_exact_binding_scope_and_restart (__main__.ControllerContracts.test_c2_durable_authority_schema_exact_binding_scope_and_restart) ... ok
+test_c2_missing_batch_inventory_and_auth_do_not_admit (__main__.ControllerContracts.test_c2_missing_batch_inventory_and_auth_do_not_admit) ... ok
+test_c3_c4_c5_actual_loopback_adapter_timeout_late_result_and_next_delivery (__main__.ControllerContracts.test_c3_c4_c5_actual_loopback_adapter_timeout_late_result_and_next_delivery) ... ok
+test_c4_adapter_receipts_remain_separate_from_confirmation (__main__.ControllerContracts.test_c4_adapter_receipts_remain_separate_from_confirmation) ... ok
+test_c4_late_mutation_receipt_preserved_without_replay (__main__.ControllerContracts.test_c4_late_mutation_receipt_preserved_without_replay) ... ok
+test_c5_legacy_page_status_and_worker_compatibility (__main__.ControllerContracts.test_c5_legacy_page_status_and_worker_compatibility) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 4.615s
+
+OK

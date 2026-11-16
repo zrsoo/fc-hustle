@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 OUT = ROOT/'docs/research/003/003-02'
 from run_00302_suites import INDEPENDENT
+from historical_00302_suites import NODE as HISTORICAL_NODE
 
 MODULES = {
     0: ['test_00302_continuous', 'test_00301_baseline', 'test_final_run_00212'],
@@ -43,7 +44,7 @@ def validate_receipt(group, value, read):
          'receipt_scope_mismatch')
     rows = value['results']
     expected = ([['{python}','-m','unittest','discover','-s','tests','-v']] if group=='python' else
-        [['node',p.relative_to(ROOT).as_posix()] for p in sorted((ROOT/'tests').glob('*checks.cjs'))] if group=='node' else
+        [['node','tests/'+name] for name in HISTORICAL_NODE] if group=='node' else
         [['{python}',*cmd] for cmd in INDEPENDENT])
     need([r['command'] for r in rows]==expected, 'incomplete_or_wrong_suite_inventory')
     need(value['status']=='PASS' and all(r['exit_code']==0 for r in rows), 'suite_failed')

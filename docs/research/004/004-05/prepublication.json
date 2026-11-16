@@ -1,0 +1,12 @@
+{
+  "command": [
+    "{python}",
+    "tests/check_00405.py",
+    "--prepublication"
+  ],
+  "exit_code": 0,
+  "seconds": 5.164,
+  "at": "2026-11-16T19:23:53.732204+00:00",
+  "stdout": "{\"status\": \"REVIEW_READY\", \"criteria\": [0, 1, 2, 3, 4, 5, 6, 8], \"verdict\": \"IMPLEMENTATION COMPLETE \\u2014 FULL CONTROLLER E2E PENDING\", \"counts\": {\"python\": 1049, \"node\": 33, \"independent\": 9, \"targeted\": 4}, \"preservation\": {\"evidence_files\": 2415, \"legacy\": {\"objective003\": \"PAUSED\", \"task00304\": \"RECONCILING (preserved under paused parent)\", \"objective002\": \"BLOCKED/PARTIAL\"}}, \"stopped\": {\"production_listeners\": [], \"observed_at\": \"2026-11-16T19:23:53.6402668Z\", \"scheduled_mutation_jobs\": [], \"production_workers\": []}, \"publication\": {\"status\": \"PENDING\"}}\n",
+  "stderr": ""
+}

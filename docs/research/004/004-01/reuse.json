@@ -1,0 +1,29 @@
+{
+  "schema":1,
+  "imports":[
+    {"module":"fc_access.production_v1.pricing","symbols":["PricingService","Quote","affordable_cap","select_comparables"],"use":"Unchanged exact-version two-search valuation"},
+    {"module":"fc_access.production_v1.price_cache","symbols":["QuoteCache","TTL_SECONDS"],"use":"Completed-only quotes, copied into new-mode storage"},
+    {"module":"fc_access.production_v1.prices","symbols":["CardKey","NativePrices","PriceService"],"use":"Native legality, limits and increment helpers"},
+    {"module":"fc_access.bidding_v1.rules","symbols":["minimum_bid"],"use":"Opening versus absolute next bid calculation"},
+    {"module":"fc_access.production_v1.contracts","symbols":["Search","context","fences","fields","integer","stamp","token"],"use":"Strict read and identity primitives, preserve legacy command/response dialect"},
+    {"module":"fc_access.production_v1.inventory","symbols":["KnownTrade","compare_lite_identity"],"use":"Retained exact identity and unobserved lite version distinction"},
+    {"module":"fc_access.production_v1.bid_receipt","symbols":["shape","validate","ordinary_rejection"],"use":"Genuine receipt validation, independent proof remains separate"},
+    {"module":"fc_access.production_v1.foundation","symbols":["scope_for","ScheduledExecutor"],"use":"Scope identity and reusable pacing/timing seam; avoid Foundation admission policy"},
+    {"module":"fc_access.actors_v1.locking","symbols":["process_lock"],"use":"Canonical cross-mode process ownership"},
+    {"module":"fc_access.continuous_v1.runtime","symbols":["account_locks"],"use":"Canonical owner/native lock paths only; do not invoke runtime.run"},
+    {"module":"fc_access.bidding_v1.scheduler","symbols":["Scheduler","Work"],"use":"One native executor and configurable request cadence"},
+    {"module":"fc_access.production_v1.executor","symbols":["EdgeExecutor","NoRedirect"],"use":"Loopback transport mechanics with new strict protocol routing"},
+    {"module":"fc_access.production_v1.resale","symbols":["verify_win","win_inventory","fresh_read"],"use":"Adapt physical ownership and paid-cost proof without cycle policy"},
+    {"module":"fc_access.production_v1.bulk","symbols":["classify","parameters"],"use":"Verified full-inventory classification/target validation"},
+    {"module":"fc_access.actors_v1.occupancy","symbols":["assess"],"use":"Complete known physical inventory assessment"},
+    {"module":"fc_access.bidding_v1.journal","symbols":["Journal","payload"],"use":"Reference short-transaction/durability patterns; no constructor against live DB"},
+    {"module":"fc_access.production_v1.store","symbols":["Store"],"use":"Reference fenced single-claim transport; replace global new-mode uncertainty policy"}
+  ],
+  "shared_changes":[
+    {"seam":"credits_freshness","locations":["fc_access.production_v1.foundation:Foundation.admit","fc_access.production_v1.foundation:Foundation.bid","fc_access.production_v1.adapter:NativeAdapter.dispatch_intent","fc_access.bidding_v1.journal:Journal.intend"],"callers":["actors_v1.actors.Acquirer","actors_v1.actors.Bidder","production_v1.once","actors_v1.verify_bid_receipt"],"new_mode":"Separate ControllerAdapter/BatchAuthority validates actual batch observation age; no per-bid fresh balance","legacy":"Existing Foundation/NativeAdapter/Journal defaults unchanged"},
+    {"seam":"uncertainty_gates","locations":["fc_access.production_v1.store:Store.enqueue","fc_access.production_v1.foundation:JournalAuthority.__call__","fc_access.production_v1.resale:Resale.dispatch","fc_access.production_v1.bulk:BulkTransfer.execute"],"callers":["production_v1.server.Server","bulk_transfer_v1.server","actors_v1.maintenance","continuous_v1.recovery"],"new_mode":"Separate durable authority consumes commands once, records unknown outcomes and permits unrelated valid writes","legacy":"Legacy unresolved-command and capacity policies retained"},
+    {"seam":"page_poisoning","locations":["browser/production-v1/page.js"],"callers":["browser/production-v1/worker.js","production_v1.adapter.NativeAdapter","production_v1.executor.EdgeExecutor"],"new_mode":"Explicit trusted mode, owned request attribution, bounded timeout and scoped quarantine with finally/late callback cleanup","legacy":"Legacy page policy and receipt/authentication/target checks retained"},
+    {"seam":"supervisor_policy","locations":["fc_access.actors_v1.native:Broker.run_one","fc_access.continuous_v1.watchdog:Watchdog.step"],"callers":["continuous_v1.runtime.ContinuousBroker","continuous_v1.runtime.run","actors_v1.final_supervisor"],"new_mode":"New lifecycle and sequential phase loop; no supervisor or actor loop import/invocation","legacy":"Existing continuous/final stop policies and entry points retained"},
+    {"seam":"protocol_and_executor","locations":["fc_access.production_v1.contracts:command","fc_access.production_v1.contracts:parse_response","fc_access.production_v1.foundation:ScheduledExecutor.run_one","fc_access.production_v1.server:Server"],"callers":["production_v1.adapter","production_v1.server.Handler","actors_v1.native","browser/production-v1/worker.js"],"new_mode":"New versioned dialect/route/parser injection plus durable server registration; preserve safe pricing read API","legacy":"No global relaxation of schema, read freshness or lite version authority"}
+  ]
+}

@@ -1,0 +1,16 @@
+test_missing_or_empty_live_receipt_never_persists_ack (test_bid_receipts.JournalReceipts.test_missing_or_empty_live_receipt_never_persists_ack) ... ok
+test_old_injected_bridge_is_detected_before_intent_or_dispatch (test_bid_receipts.JournalReceipts.test_old_injected_bridge_is_detected_before_intent_or_dispatch) ... ok
+test_opening_rejection_waits_for_fresh_state_then_releases_without_lost (test_bid_receipts.JournalReceipts.test_opening_rejection_waits_for_fresh_state_then_releases_without_lost) ... ok
+test_positive_receipt_is_durable_immutable_and_needs_readback (test_bid_receipts.JournalReceipts.test_positive_receipt_is_durable_immutable_and_needs_readback) ... ok
+test_rejected_rebid_preserves_previously_verified_participation (test_bid_receipts.JournalReceipts.test_rejected_rebid_preserves_previously_verified_participation) ... ok
+test_operator_assertion_cannot_override_verified_participation (test_bid_receipts.NonRegistration.test_operator_assertion_cannot_override_verified_participation) ... ok
+test_operator_clarification_preserves_old_loss_and_never_claims_native_proof (test_bid_receipts.NonRegistration.test_operator_clarification_preserves_old_loss_and_never_claims_native_proof) ... ok
+test_actual_page_accepted_and_rejected_outputs_parse (test_bid_receipts.ReceiptContracts.test_actual_page_accepted_and_rejected_outputs_parse) ... ok
+test_corrupted_or_contradictory_receipts_are_rejected (test_bid_receipts.ReceiptContracts.test_corrupted_or_contradictory_receipts_are_rejected) ... ok
+test_old_ack_is_archival_only_and_empty_success_is_not_accepted (test_bid_receipts.ReceiptContracts.test_old_ack_is_archival_only_and_empty_success_is_not_accepted) ... ok
+test_unknown_error_and_success_with_rejection_cannot_be_retired (test_bid_receipts.ReceiptContracts.test_unknown_error_and_success_with_rejection_cannot_be_retired) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 1.774s
+
+OK

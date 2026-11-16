@@ -1,0 +1,148 @@
+{
+  "at": "2026-11-16T17:59:03.985203+00:00",
+  "processes": {
+    "processes": [
+      {
+        "pid": 15740,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 2852,
+        "parent": 15740,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 9508,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11340,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 4844,
+        "parent": 17224,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 14372,
+        "parent": 4592,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 10156,
+        "parent": 14372,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 9780,
+        "parent": 10156,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18100,
+        "parent": 9780,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18104,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12304,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 6932,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 8172,
+        "parent": 17996,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18348,
+        "parent": 8172,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 5028,
+        "parent": 18348,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      }
+    ],
+    "listeners": []
+  },
+  "original_service": "absent",
+  "final_service": "absent",
+  "controllers_launched": 0,
+  "legacy_actors_launched": 0,
+  "live_account_mutations": 0
+}

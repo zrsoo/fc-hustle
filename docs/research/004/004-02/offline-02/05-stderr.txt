@@ -1,0 +1,11 @@
+test_both_old_commands_are_retired_only_by_separate_explicit_operator_nonregistration (__main__.ReceiptContinuation.test_both_old_commands_are_retired_only_by_separate_explicit_operator_nonregistration) ... ok
+test_fresh_prelaunch_retained_account_identity_inventory_and_existing_commitment (__main__.ReceiptContinuation.test_fresh_prelaunch_retained_account_identity_inventory_and_existing_commitment) ... ok
+test_genuine_receipt_is_durable_and_has_distinct_native_personal_readback (__main__.ReceiptContinuation.test_genuine_receipt_is_durable_and_has_distinct_native_personal_readback) ... ok
+test_http_success_none_stale_wrong_physical_or_missing_receipt_cannot_replace_live_proof (__main__.ReceiptContinuation.test_http_success_none_stale_wrong_physical_or_missing_receipt_cannot_replace_live_proof) ... ok
+test_prelaunch_rejects_every_mutation_before_transport_and_never_reuses_an_output (__main__.ReceiptContinuation.test_prelaunch_rejects_every_mutation_before_transport_and_never_reuses_an_output) ... ok
+test_receipt_experiment_remains_consumed_and_was_not_replayed_as_production (__main__.ReceiptContinuation.test_receipt_experiment_remains_consumed_and_was_not_replayed_as_production) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.342s
+
+OK

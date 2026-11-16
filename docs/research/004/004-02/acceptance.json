@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-16T18:02:14.624204+00:00",
+  "mode": "OFFLINE",
+  "checks": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_00402_controller.py"
+      ],
+      "exit": 0,
+      "stdout": "acceptance-0-stdout.txt",
+      "stderr": "acceptance-0-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00402_artifacts.py"
+      ],
+      "exit": 0,
+      "stdout": "acceptance-1-stdout.txt",
+      "stderr": "acceptance-1-stderr.txt"
+    }
+  ]
+}

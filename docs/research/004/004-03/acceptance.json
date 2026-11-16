@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "classification": "OFFLINE_VALIDATED_FULL_E2E_PENDING",
+  "coverage": [
+    {
+      "criterion": 0,
+      "tests": [
+        "test_0_threshold_boundaries_config_failed_read_and_durable_halt"
+      ]
+    },
+    {
+      "criterion": 1,
+      "tests": [
+        "test_1_discovery_filters_identity_fields_observation_ages_and_exact_counts"
+      ]
+    },
+    {
+      "criterion": 2,
+      "tests": [
+        "test_2_exclusions_early_rejection_and_one_quote_per_exact_version",
+        "test_2_imported_pricing_cache_version_ttl_tax_native_caps_and_no_funding_allocator"
+      ]
+    },
+    {
+      "criterion": 3,
+      "tests": [
+        "test_3_invalid_identity_tradeability_illegal_prices_and_ten_distinct_attempts",
+        "test_3_server_binds_immutable_selection_membership_capacity_and_inventory",
+        "test_3_sixty_second_selection_boundary_after_actual_age"
+      ]
+    },
+    {
+      "criterion": 4,
+      "tests": [
+        "test_4_physical_and_combined_capacity_include_manual_sold_expired_pending",
+        "test_4_shared_inventory_validity_expiry_and_external_invalidation"
+      ]
+    },
+    {
+      "criterion": 5,
+      "tests": [
+        "test_5_expiry_and_price_change_never_increase_or_retry_mutation",
+        "test_5_selection_and_individual_intent_committed_before_every_bid"
+      ]
+    },
+    {
+      "criterion": 6,
+      "tests": [
+        "test_6_independently_terminal_initial_results_are_processed",
+        "test_6_mixed_confirmed_highest_outbid_rejected_uncertain_and_immediate_reacquisition"
+      ]
+    },
+    {
+      "criterion": 7,
+      "tests": [
+        "test_7_lifecycle_deadline_order_minimum_rebids_holds_and_no_management_credits",
+        "test_7_won_requires_exact_physical_paid_cost_and_accounted_handoff"
+      ]
+    },
+    {
+      "criterion": 8,
+      "tests": [
+        "test_8_discarded_uncertainties_are_visible_but_no_global_ten_reservation_gate",
+        "test_8_fault_during_handoff_retains_prior_membership_and_exposes_remaining_effects",
+        "test_8_new_document_restores_exact_mappings_before_new_confirmed_decision",
+        "test_8_restart_and_late_callbacks_never_replay_or_restore_abandoned_action",
+        "test_8_restart_preserves_confirmed_membership_and_abandons_unfinished_intent",
+        "test_8_uncertain_rebid_preserves_membership_later_writes_and_fresh_decisions"
+      ]
+    },
+    {
+      "criterion": 9,
+      "tests": [
+        "test_0_threshold_boundaries_config_failed_read_and_durable_halt",
+        "test_10_no_overlap_catchup_actor_or_legacy_policy_and_metrics",
+        "test_10_serial_executor_prevents_parallel_requests_even_for_concurrent_callers",
+        "test_1_discovery_filters_identity_fields_observation_ages_and_exact_counts",
+        "test_2_exclusions_early_rejection_and_one_quote_per_exact_version",
+        "test_2_imported_pricing_cache_version_ttl_tax_native_caps_and_no_funding_allocator",
+        "test_3_invalid_identity_tradeability_illegal_prices_and_ten_distinct_attempts",
+        "test_3_server_binds_immutable_selection_membership_capacity_and_inventory",
+        "test_3_sixty_second_selection_boundary_after_actual_age",
+        "test_4_physical_and_combined_capacity_include_manual_sold_expired_pending",
+        "test_4_shared_inventory_validity_expiry_and_external_invalidation",
+        "test_5_expiry_and_price_change_never_increase_or_retry_mutation",
+        "test_5_selection_and_individual_intent_committed_before_every_bid",
+        "test_6_independently_terminal_initial_results_are_processed",
+        "test_6_mixed_confirmed_highest_outbid_rejected_uncertain_and_immediate_reacquisition",
+        "test_7_lifecycle_deadline_order_minimum_rebids_holds_and_no_management_credits",
+        "test_7_won_requires_exact_physical_paid_cost_and_accounted_handoff",
+        "test_8_discarded_uncertainties_are_visible_but_no_global_ten_reservation_gate",
+        "test_8_fault_during_handoff_retains_prior_membership_and_exposes_remaining_effects",
+        "test_8_new_document_restores_exact_mappings_before_new_confirmed_decision",
+        "test_8_restart_and_late_callbacks_never_replay_or_restore_abandoned_action",
+        "test_8_restart_preserves_confirmed_membership_and_abandons_unfinished_intent",
+        "test_8_uncertain_rebid_preserves_membership_later_writes_and_fresh_decisions",
+        "test_9_insufficient_funds_is_ordinary_outcome_without_stop_or_retry",
+        "test_shared_seam_cannot_dispatch_legacy_mutations"
+      ]
+    },
+    {
+      "criterion": 10,
+      "tests": [
+        "test_10_no_overlap_catchup_actor_or_legacy_policy_and_metrics",
+        "test_10_serial_executor_prevents_parallel_requests_even_for_concurrent_callers"
+      ]
+    }
+  ]
+}

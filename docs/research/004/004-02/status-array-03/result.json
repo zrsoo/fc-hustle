@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "task": "004-02",
+  "mode": "AUTHENTICATED_READ_ONLY",
+  "status": "EXTERNAL_LIMITATION",
+  "max_requests": 3,
+  "max_mutations": 0,
+  "reserved_requests": 1,
+  "account_mutations": 0,
+  "actual_target_count": 0,
+  "requested": [],
+  "returned": [],
+  "missing": [],
+  "untested_limits": [],
+  "cleanup": {
+    "service_thread_stopped": true,
+    "pending_commands": 0,
+    "controllers_started": 0,
+    "mutations_enabled": false
+  },
+  "before": {
+    "processes": [
+      {
+        "pid": 15740,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 2852,
+        "parent": 15740,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 9508,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 11340,
+        "parent": 15464,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 4844,
+        "parent": 17224,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 14372,
+        "parent": 4592,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 10156,
+        "parent": 14372,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": true
+      },
+      {
+        "pid": 9780,
+        "parent": 10156,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18100,
+        "parent": 9780,
+        "name": "node.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 18104,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 12304,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 6932,
+        "parent": 17996,
+        "name": "cmd.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 13876,
+        "parent": 17996,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 10180,
+        "parent": 13876,
+        "name": "python.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      },
+      {
+        "pid": 17564,
+        "parent": 10180,
+        "name": "powershell.exe",
+        "module": "",
+        "command_visible": true,
+        "production_worker": false,
+        "orchestrator": false
+      }
+    ],
+    "listeners": []
+  },
+  "attachment": {
+    "service": "fc-controller-v1",
+    "write_authority": false,
+    "peer": {
+      "context": {
+        "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+        "game": "fc27",
+        "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+        "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "2d6d125865a118a5fdfc48f522cd9e92",
+        "epoch": 1,
+        "host_epoch": "05713fcbec2a0a827e20a164b2cd3254",
+        "owner": "a4382b18de64b9e8652d3d548e7e871a",
+        "worker_epoch": "8d24384416cdfe110e785bf3c6ab4fc8"
+      }
+    }
+  },
+  "limitation": "fresh_watched_persona_unverified"
+}

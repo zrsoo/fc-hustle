@@ -93,9 +93,9 @@
     const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(`${key}|${ns}|${v}`));
     return ns+':'+[...new Uint8Array(h)].map(x => x.toString(16).padStart(2,'0')).join('').slice(0,24);
   }
-  async function item(raw,key,lite=false,cid=null) {
+  async function item(raw,key,lite=false,cid=null,allowNull=false) {
     const i=raw.itemData ?? raw;
-    if (!(num(i.definitionId) > 0) && !(lite && (i.definitionId===undefined || i.definitionId===0))) {
+    if (!(num(i.definitionId) > 0) && !(lite && (i.definitionId===undefined || i.definitionId===0 || allowNull && i.definitionId===null))) {
       diagnostic(cid,'ITEM_SCHEMA_FAILURE',{definition_type:fieldType(i.definitionId),resource_type:fieldType(i.resourceId)});
       throw Error('schema_unrecognized'); // no resource/base fallback
     }
@@ -107,7 +107,7 @@
     if(!raw || typeof raw!=='object' || Array.isArray(raw))throw Error('schema_unrecognized');
     const a=raw.getAuctionData?.() ?? raw.auctionData ?? raw._auction ?? raw;
     if(!a || typeof a!=='object' || Array.isArray(a))throw Error('schema_unrecognized');
-    const i=await item(raw,c.context.identity_namespace,c.operation==='status',c.id), t=await id(a.tradeId,'trade',c.context.identity_namespace);
+    const i=await item(raw,c.context.identity_namespace,c.operation==='status',c.id,c.schema===4), t=await id(a.tradeId,'trade',c.context.identity_namespace);
     const won=typeof a.isWon==='function'?a.isWon():null;
     const row={trade_id:t,item:i,starting_bid:num(a.startingBid),current_bid:num(a.currentBid),buy_now_price:num(a.buyNowPrice),
       expires:a.expires === -1 ? -1 : num(a.expires),trade_state:['active','closed','expired','inactive'].includes(a.tradeState)?a.tradeState:null,
@@ -177,17 +177,20 @@
       receipt.native_item_count===0?'EMPTY_NATIVE_ITEMS':row?.bid_state==='none'?'NO_ACCOUNT_PARTICIPATION':'MISSING_NATIVE_RECEIPT';
     return receipt;
   }
-  function observe(o,cid) {
+  function observe(o,cid,poisonFailure=true) {
     if (typeof o?.observe !== 'function') throw Error('service_unavailable');
     return new Promise((resolve,reject)=>{
       const owner={};let done=false;
-      const timer=setTimeout(()=>{if(!done){done=true;poisoned=true;diagnostic(cid,'NATIVE_TIMEOUT');o.unobserve?.(owner);reject(Error('service_timeout'));}},15000);
+      const timer=setTimeout(()=>{if(!done){done=true;if(poisonFailure)poisoned=true;diagnostic(cid,'NATIVE_TIMEOUT');o.unobserve?.(owner);reject(Error('service_timeout'));}},15000);
       try {o.observe(owner,(sender,r)=>{if(!done){done=true;clearTimeout(timer);diagnostic(cid,'NATIVE_CALLBACK',{success:r?.success,status:r?.status});sender?.unobserve?.(owner);resolve(r);}});}
-      catch(e) {done=true;clearTimeout(timer);poisoned=true;o.unobserve?.(owner);reject(Error(e?.message==='bulk_contract_changed'?'bulk_contract_changed':'internal_error'));}
+      catch(e) {done=true;clearTimeout(timer);if(poisonFailure)poisoned=true;o.unobserve?.(owner);reject(Error(e?.message==='bulk_contract_changed'?'bulk_contract_changed':'internal_error'));}
     });
   }
   function capture(rows,c,timing,inventory) {
     const proto=XMLHttpRequest.prototype, orig={open:proto.open,send:proto.send,header:proto.setRequestHeader}, pending=new WeakMap();
+    let active=true;const listeners=[];
+    const listen=(xhr,fn)=>{const guarded=()=>{if(!inventory.controllerRead || active)fn();};
+      if(inventory.controllerRead)listeners.push([xhr,guarded]);xhr.addEventListener('loadend',guarded,{once:true});};
     const open=function(method,url,...args){let m=null;
       try {const u=new URL(url,location.href);
         const ut=u.protocol==='https:' && /^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) && u.pathname.startsWith('/ut/game/fc27/');
@@ -267,7 +270,7 @@
       }
       if(m.background){
         diagnostic(c.id,'BACKGROUND_REQUEST',{traffic_scope:m.scope,method:m.method});
-        this.addEventListener('loadend',()=>diagnostic(c.id,'BACKGROUND_RESPONSE',{traffic_scope:m.scope,method:m.method,status:num(this.status)}),{once:true});
+        listen(this,()=>diagnostic(c.id,'BACKGROUND_RESPONSE',{traffic_scope:m.scope,method:m.method,status:num(this.status)}));
         return orig.send.apply(this,args);
       }
       if(c.operation==='list' && !(m.method==='POST' && m.path===routes.list[1] && equal(m.query,{}) ||
@@ -288,7 +291,7 @@
           throw Error('bulk_contract_changed');
         }
       }
-      const sent=performance.now();rows.push(m);this.addEventListener('loadend',()=>{
+      const sent=performance.now();rows.push(m);listen(this,()=>{
       // XHR zero means no HTTP status, not an HTTP response code. Preserve
       // that absence without manufacturing a status or a successful read.
       const wireStatus=num(this.status);m.status=wireStatus===0?null:wireStatus;
@@ -307,11 +310,36 @@
           inventory.truncated=data?.hasMore===true;
         }catch{inventory.wire=null;}
       }
-      diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length,xhr_zero_status:wireStatus===0});},{once:true});}return orig.send.apply(this,args);};
+      diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length,xhr_zero_status:wireStatus===0});});}return orig.send.apply(this,args);};
     proto.open=open;proto.send=send;proto.setRequestHeader=header;
-    return ()=>{if(proto.open===open)proto.open=orig.open;if(proto.send===send)proto.send=orig.send;if(proto.setRequestHeader===header)proto.setRequestHeader=orig.header;};
+    return ()=>{active=false;for(const [xhr,fn]of listeners)xhr.removeEventListener?.('loadend',fn);
+      if(proto.open===open)proto.open=orig.open;if(proto.send===send)proto.send=orig.send;if(proto.setRequestHeader===header)proto.setRequestHeader=orig.header;};
   }
-  async function execute(c) {
+  function controllerReadInvocation(invoke,c){
+    const queue=services.UTUtasRequestQueue,requests=[],restorers=[];let active=true;
+    if(typeof queue?.send!=='function' || !Array.isArray(queue.queue))throw Error('service_unavailable');
+    const original=queue.send;
+    const wrapped=function(request,...args){
+      if(typeof request?.send!=='function')throw Error('service_unavailable');
+      const send=request.send;let sent=false;
+      request.doRetry=false;request.doReauth=false;requests.push(request);
+      const owned=function(...more){
+        if(!active || sent || !valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona)throw Error('invalid_preconditions');
+        sent=true;return send.apply(this,more);
+      };
+      request.send=owned;restorers.push(()=>{if(request.send===owned)request.send=send;});
+      return original.call(this,request,...args);
+    };
+    const finish=success=>{active=false;
+      if(!success){for(let i=queue.queue.length-1;i>=0;i--)if(requests.includes(queue.queue[i].request))queue.queue.splice(i,1);
+        for(const request of requests){try{request.abort?.();}catch{}}}
+      restorers.reverse().forEach(f=>f());};
+    queue.send=wrapped;
+    try{return {observable:invoke(),finish};}
+    catch(e){finish(false);throw e;}
+    finally{if(queue.send===wrapped)queue.send=original;}
+  }
+  async function execute(c,controllerRead=false) {
     diagnostic(c?.id,'PAGE_ENTER');
     const out={schema:2,command_id:hex(c?.id)?c.id:'0'.repeat(32),operation:operation(c?.operation)?c.operation:null,
       context:binding?{...binding.context}:null,fences:binding?{...binding.fences}:null,result:empty('invalid_command'),
@@ -319,10 +347,11 @@
       coverage:{complete:false,has_more:null},timing:{native_service_ms:0,ea_rtt_ms:0,native_helper_ms:0}};
     if(c?.operation==='price_helpers')out.result={success:false,error:'invalid_command',version:1,above_available:false,below_available:false,probes:[],network:[]};
     if(c?.operation==='status_support')out.result={success:false,error:'invalid_command',function_available:false,retained_count:0,bid_receipt_schema:1,network:[]};
+    if(controllerRead && !['search','watched','transfer_list','caps','price_helpers','owned_item','unassigned','move','list','clear_sold','relist_all'].includes(c?.operation))return out;
     if(!valid(c))return out;
     if(!official()){out.result.error='wrong_page';return out;}
     if(busy || poisoned || window.__fcNativeCommandOwner!==document){out.result.error='bridge_busy';return out;}
-    busy=true;let restore=()=>{},restoreBid=()=>{},bidState=null;const start=performance.now(),p=c.params,op=c.operation,r=out.result;
+    busy=true;let restore=()=>{},restoreBid=()=>{},finishRead=()=>{},bidState=null;const start=performance.now(),p=c.params,op=c.operation,r=out.result;
     if(op==='bid')r.bid_receipt=bidReceipt();
     try {
       if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc')throw Error('persona_unverified');
@@ -354,9 +383,10 @@
       }else if(op==='balance')invoke=()=>services.User.requestCurrencies();
       else if(op==='owned_item'){
         const e=known.get(p.trade_id);
+        const terminal=e?.controller_status?.row??e?.row,terminalAt=e?.controller_status?.at??e?.at;
         if(!e || e.row.item.item_id!==p.item_id || e.row.item.definition_id!==p.definition_id ||
-           e.row.trade_state!=='closed' || e.row.bid_state!=='highest' || e.row.expires>0 ||
-           e.row.native_is_won!==true || Date.now()-Date.parse(e.at)>30000 ||
+           terminal.trade_state!=='closed' || terminal.bid_state!=='highest' || terminal.expires>0 ||
+           terminal.native_is_won!==true || Date.now()-Date.parse(terminalAt)<0 || Date.now()-Date.parse(terminalAt)>30000 ||
            typeof services.Item.requestItemsById!=='function')throw Error('known_identity_unavailable');
         invoke=()=>services.Item.requestItemsById([String(e.raw.id)]);
       }
@@ -466,12 +496,15 @@
         restoreBid=captureBid(e.raw,p.amount,bidState);
         sent.add(c.id);sent.add('bid_read:'+p.status_read_id);known.delete(p.trade_id);invoke=()=>services.Item.bid(e.raw,p.amount);
       }
-      const inventory={wire:null,truncated:false,listRaw,bid:bidState};
+      const inventory={wire:null,truncated:false,listRaw,bid:bidState,controllerRead};
       restore=capture(r.network,c,out.timing,inventory);const at=new Date().toISOString();
       if(bulk(op) && (!valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona ||
           window.__fcNativeCommandOwner!==document || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc'))throw Error('persona_unverified');
       diagnostic(c.id,'NATIVE_INVOKE');
-      const response=await observe(invoke(),c.id);await new Promise(resolve=>setTimeout(resolve,0));
+      let observable;
+      if(controllerRead){const delivery=controllerReadInvocation(invoke,c);observable=delivery.observable;finishRead=delivery.finish;}
+      else observable=invoke();
+      const response=await observe(observable,c.id,!controllerRead);await new Promise(resolve=>setTimeout(resolve,0));
       r.status=Number.isInteger(response?.status) && response.status>=100 && response.status<=599?response.status:null;
       if(op==='bid'){
         await finishBid(bidState,c);
@@ -617,7 +650,7 @@
       }
       if(Date.now()<Date.parse(at) || Date.now()-Date.parse(at)>30000)throw Error('stale_source');
       r.success=true;r.error=null;reads.set(c.id,{operation:op,at,credits:r.credits,caps:r.caps,complete:out.coverage.complete,
-        rows:op==='transfer_list'?r.auctions:null,bulk:out.coverage.bulk});
+        rows:['transfer_list','search','watched'].includes(op)?r.auctions:null,bulk:out.coverage.bulk,fences:{...c.fences}});
     }catch(e){
       if(op==='bid' && r.bid_receipt?.verdict==='ACCEPTED'){
         r.bid_receipt.verdict='UNCONFIRMED';r.bid_receipt.reason='ENVELOPE_VALIDATION_FAILED';
@@ -625,12 +658,22 @@
       r.success=false;r.error=['bid_rejected','bid_unconfirmed','bulk_contract_changed','transfer_list_conflict','known_identity_unavailable','helpers_unavailable','helper_disagreement','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','persona_unverified','invalid_preconditions','unauthenticated','ambiguous_network','stale_source'].includes(e?.message)?e.message:'internal_error';
       if(r.error==='transfer_list_conflict')r.auctions=null;
       diagnostic(c.id,'PAGE_FAILURE',{error:r.error,error_class:e?.name});
-      if(!bulk(op) && r.error!=='bid_rejected' && (['bid','move','list'].includes(op) || ['service_timeout','ambiguous_network'].includes(r.error)))poisoned=true;
+      if(!controllerRead && !bulk(op) && r.error!=='bid_rejected' && (['bid','move','list'].includes(op) || ['service_timeout','ambiguous_network'].includes(r.error)))poisoned=true;
     }finally{
-      restoreBid();restore();busy=false;out.freshness.observed_at=new Date().toISOString();out.freshness.request_count=r.network.length;out.timing.native_service_ms=performance.now()-start;
+      finishRead(r.success);restoreBid();restore();busy=false;out.freshness.observed_at=new Date().toISOString();out.freshness.request_count=r.network.length;out.timing.native_service_ms=performance.now()-start;
       diagnostic(c.id,'PAGE_FINISHED',{success:r.success,error:r.error,request_count:r.network.length});
     }
     return out;
   }
-  Object.defineProperty(window,'__fcProductionV1',{value:Object.freeze({attach,execute,document})});
+  const controller=window.__fcControllerFactoryV1?.({keys,hex,num,equal,id,auction,known,reads,helper,bidReceipt,captureBid,finishBid,diagnostic,
+    scope:(context,fences)=>!!binding && equal(context,binding.context) && equal(fences,binding.fences),
+    acquire:()=>{if(busy || poisoned || !official() || window.__fcNativeCommandOwner!==document)return false;busy=true;return true;},
+    release:()=>{busy=false;},
+    // Account labels are bound by explicit operator selection in attach. A PC
+    // persona display name is not an EA saved-sign-in identifier. Never infer
+    // account identity by reading login fields or by comparing these aliases.
+    auth:()=>{if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc')throw Error('persona_unverified');}});
+  Object.defineProperty(window,'__fcProductionV1',{value:Object.freeze({attach,execute,document,
+    executeReadController:c=>execute(c,true),
+    executeController:controller?.execute,interruptController:controller?.interrupt})});
 })();

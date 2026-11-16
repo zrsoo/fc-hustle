@@ -1,0 +1,386 @@
+{
+  "at": "2026-11-16T17:57:58.589382+00:00",
+  "mode": "OFFLINE",
+  "results": [
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00402_controller.py"
+      ],
+      "exit": 0,
+      "seconds": 5.682,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00201_native_status.py"
+      ],
+      "exit": 0,
+      "seconds": 2.054,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_001d02_contract.py"
+      ],
+      "exit": 0,
+      "seconds": 4.267,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00304_route_diagnostics.py"
+      ],
+      "exit": 0,
+      "seconds": 0.27,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00304_status_fallback.py"
+      ],
+      "exit": 0,
+      "seconds": 2.965,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00304_receipt_continuation.py"
+      ],
+      "exit": 0,
+      "seconds": 1.566,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt"
+    },
+    {
+      "command": [
+        "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "tests/test_00401_design.py"
+      ],
+      "exit": 0,
+      "seconds": 1.314,
+      "stdout": "06-stdout.txt",
+      "stderr": "06-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\bidding_v1_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.275,
+      "stdout": "07-stdout.txt",
+      "stderr": "07-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\browser_observer_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.151,
+      "stdout": "08-stdout.txt",
+      "stderr": "08-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\bulk_background_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.356,
+      "stdout": "09-stdout.txt",
+      "stderr": "09-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\bulk_transfer_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.189,
+      "stdout": "10-stdout.txt",
+      "stderr": "10-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\controller_native_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.363,
+      "stdout": "11-stdout.txt",
+      "stderr": "11-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\durability_page_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.159,
+      "stdout": "12-stdout.txt",
+      "stderr": "12-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\durability_worker_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.25,
+      "stdout": "13-stdout.txt",
+      "stderr": "13-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\e2e_live_v2_page_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.159,
+      "stdout": "14-stdout.txt",
+      "stderr": "14-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\e2e_page_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.146,
+      "stdout": "15-stdout.txt",
+      "stderr": "15-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\final_inactive_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.139,
+      "stdout": "16-stdout.txt",
+      "stderr": "16-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\final_owned_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.111,
+      "stdout": "17-stdout.txt",
+      "stderr": "17-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\list_refresh_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.847,
+      "stdout": "18-stdout.txt",
+      "stderr": "18-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\market_discovery_bridge_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.346,
+      "stdout": "19-stdout.txt",
+      "stderr": "19-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\market_discovery_followup_v1_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.263,
+      "stdout": "20-stdout.txt",
+      "stderr": "20-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\native_status_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 1.474,
+      "stdout": "21-stdout.txt",
+      "stderr": "21-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\occupancy_native_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.482,
+      "stdout": "22-stdout.txt",
+      "stderr": "22-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\pricing_timing_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.097,
+      "stdout": "23-stdout.txt",
+      "stderr": "23-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_bid_receipt_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.561,
+      "stdout": "24-stdout.txt",
+      "stderr": "24-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_bulk_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 1.045,
+      "stdout": "25-stdout.txt",
+      "stderr": "25-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_diagnostics_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.091,
+      "stdout": "26-stdout.txt",
+      "stderr": "26-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_inventory_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.796,
+      "stdout": "27-stdout.txt",
+      "stderr": "27-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_metadata_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.162,
+      "stdout": "28-stdout.txt",
+      "stderr": "28-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_network_failure_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.119,
+      "stdout": "29-stdout.txt",
+      "stderr": "29-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_page_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.61,
+      "stdout": "30-stdout.txt",
+      "stderr": "30-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_route_diagnostic_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.111,
+      "stdout": "31-stdout.txt",
+      "stderr": "31-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\production_worker_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.635,
+      "stdout": "32-stdout.txt",
+      "stderr": "32-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\read_bridge_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.386,
+      "stdout": "33-stdout.txt",
+      "stderr": "33-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\resale_native_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.688,
+      "stdout": "34-stdout.txt",
+      "stderr": "34-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\search_validation_v1_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.126,
+      "stdout": "35-stdout.txt",
+      "stderr": "35-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\transaction_bridge_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.811,
+      "stdout": "36-stdout.txt",
+      "stderr": "36-stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "tests\\watched_bulk_v1_checks.cjs"
+      ],
+      "exit": 0,
+      "seconds": 0.253,
+      "stdout": "37-stdout.txt",
+      "stderr": "37-stderr.txt"
+    }
+  ]
+}

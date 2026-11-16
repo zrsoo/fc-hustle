@@ -1,0 +1,11 @@
+test_early_denial_fixture_sends_exact_body_once_and_never_hides_transport_error (__main__.HandoffChecks.test_early_denial_fixture_sends_exact_body_once_and_never_hides_transport_error) ... ok
+test_full_suite_receipt_requires_actual_methods_success_and_complete_inventory (__main__.HandoffChecks.test_full_suite_receipt_requires_actual_methods_success_and_complete_inventory) ... ok
+test_historical_catalog_is_fixed_while_current_node_discovery_includes_new_mode (__main__.HandoffChecks.test_historical_catalog_is_fixed_while_current_node_discovery_includes_new_mode) ... ok
+test_publication_requires_real_main_clean_tree_ancestry_and_pushed_commit (__main__.HandoffChecks.test_publication_requires_real_main_clean_tree_ancestry_and_pushed_commit) ... ok
+test_report_and_individual_contract_gates_reject_missing_evidence_or_live_promotions (__main__.HandoffChecks.test_report_and_individual_contract_gates_reject_missing_evidence_or_live_promotions) ... ok
+test_stopped_requires_process_listener_scheduler_and_observation (__main__.HandoffChecks.test_stopped_requires_process_listener_scheduler_and_observation) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.328s
+
+OK

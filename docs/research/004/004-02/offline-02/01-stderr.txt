@@ -1,0 +1,11 @@
+test_c0_c1_actual_native_status_and_local_support_parse (__main__.NativeStatusAcceptance.test_c0_c1_actual_native_status_and_local_support_parse) ... ok
+test_c0_c1_parser_rejects_forged_auth_route_identity_schema_freshness_and_epochs (__main__.NativeStatusAcceptance.test_c0_c1_parser_rejects_forged_auth_route_identity_schema_freshness_and_epochs) ... ok
+test_c0_local_availability_cannot_be_promoted_to_authenticated_status (__main__.NativeStatusAcceptance.test_c0_local_availability_cannot_be_promoted_to_authenticated_status) ... ok
+test_c2_c3_historical_evidence_and_completed_windows_remain_unchanged (__main__.NativeStatusAcceptance.test_c2_c3_historical_evidence_and_completed_windows_remain_unchanged) ... ok
+test_c2_historical_digest_is_provenance_and_current_protocol_rejects_old_shape (__main__.NativeStatusAcceptance.test_c2_historical_digest_is_provenance_and_current_protocol_rejects_old_shape) ... ok
+test_c2_real_auditor_accepts_source_evolution_and_rejects_EA_evidence_changes (__main__.NativeStatusAcceptance.test_c2_real_auditor_accepts_source_evolution_and_rejects_EA_evidence_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.958s
+
+OK

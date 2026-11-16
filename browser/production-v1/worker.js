@@ -19,7 +19,7 @@ async function poll(){
       if(!Number.isInteger(productionTab))return;
       const tab=await chrome.tabs.get(productionTab);if(!official(tab.url))throw Error('wrong_tab');
       const h=await post('/hello',{schema:2});if(!h.owner){await chrome.action.setBadgeText({text:'IDLE'});return;}
-      await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',files:['persona.js','diagnostics.js','page.js']});
+      await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',files:['persona.js','diagnostics.js','controller.js','page.js']});
       const values=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:(h,worker,expectedDocument)=>{
         const p=window.__fcProductionV1;
         // Reload/account-context changes require operator selection and a higher
@@ -36,7 +36,7 @@ async function poll(){
         if(Object.keys(peer.context).some(k=>c.context[k]!==peer.context[k]) || Object.keys(peer.fences).some(k=>c.fences[k]!==peer.fences[k]))throw Error('stale_command');
         active={peer,id:c.id};stage='execute';await emit([event('WORKER_EXECUTE')]);
         if(c.operation?.startsWith('bulk_'))await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',files:['bulk-transfer.js']});
-        const results=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:c=>c.operation?.startsWith('bulk_')?window.__fcBulkTransferV1.execute(c):window.__fcProductionV1.execute(c),args:[c]});
+        const results=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:(c,service)=>c.schema===4?window.__fcProductionV1.executeController(c):service==='fc-controller-v1'?window.__fcProductionV1.executeReadController(c):c.operation?.startsWith('bulk_')?window.__fcBulkTransferV1.execute(c):window.__fcProductionV1.execute(c),args:[c,h.service]});
         stage='result';await emit([event('WORKER_RESULT')]);
         try{const trace=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:id=>window.__fcProductionDiagnosticsV1?.get(id)??[],args:[c.id]});await emit(trace[0]?.result??[]);}catch{}
         // No retry of execution or result delivery, even after an ACK is lost.

@@ -1,0 +1,11 @@
+test_0_3_6_cli_has_explicit_controls_and_readonly_persisted_status (__main__.Artifacts.test_0_3_6_cli_has_explicit_controls_and_readonly_persisted_status) ... ok
+test_0_6_actual_ephemeral_http_status_pause_stop_and_account_rejection (__main__.Artifacts.test_0_6_actual_ephemeral_http_status_pause_stop_and_account_rejection) ... ok
+test_0_6_canonical_process_guards_exclude_competing_owner_and_native_executor (__main__.Artifacts.test_0_6_canonical_process_guards_exclude_competing_owner_and_native_executor) ... ok
+test_1_6_7_shipped_native_calls_and_legacy_entry_points (__main__.Artifacts.test_1_6_7_shipped_native_calls_and_legacy_entry_points) ... ok
+test_6_7_historical_evidence_consumption_and_new_probe_decision (__main__.Artifacts.test_6_7_historical_evidence_consumption_and_new_probe_decision) ... ok
+test_all_criteria_have_reviewable_artifacts_and_named_behavioral_checks (__main__.Artifacts.test_all_criteria_have_reviewable_artifacts_and_named_behavioral_checks) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 4.585s
+
+OK

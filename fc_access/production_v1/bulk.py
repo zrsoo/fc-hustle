@@ -203,46 +203,13 @@ class BulkTransfer:
         if (after['command_id'] in {cid, before['command_id']} or
                 stamp(after['freshness']['network_at']) < stamp(row[4] or row[3])):
             raise ValueError('independent_post_mutation_read_required')
-        old = {r['item']['item_id']: r for r in before['result']['auctions']}
-        new = {r['item']['item_id']: r for r in after['result']['auctions']}
-        targets = set(c['params']['expected_item_ids'])
-        clear = c['operation'] == 'clear_sold'
-        expected = set(old)-targets if clear else set(old)
-        proven, incompatible = set(new) == expected, bool(row[5])
-        elapsed = max(0, (stamp(after['freshness']['network_at'])-stamp(before['freshness']['network_at'])).total_seconds())
-        # Expiry is a remaining-seconds counter, not an immutable duration field.
-        # Anchor the independent read to the actual serialized dispatch interval.
         dispatched,completed=stamp(row[3]),stamp(row[4] or row[3])
         mailbox=getattr(f.executor.executor,'mailbox',None)
         if mailbox is not None:
             timing=mailbox.db.execute('SELECT started,finished FROM work WHERE id=?',(cid,)).fetchone()
             if timing and all(timing):dispatched,completed=map(stamp,timing)
-        read_at=stamp(after['freshness']['network_at'])
-        for identity in set(old) & set(new):
-            a, b = old[identity], new[identity]
-            if not clear and identity in targets:
-                valid = (a['item'] == b['item'] and a['starting_bid'] == b['starting_bid'] and
-                    a['buy_now_price'] == b['buy_now_price'] and b['trade_id'] != a['trade_id'] and
-                    b['trade_id'] not in {r['trade_id'] for r in old.values()} and
-                    b['current_bid'] == 0 and b['bid_state'] == 'none' and b['trade_state'] == 'active' and
-                    0 < b['expires'] <= 3600 and read_at >= completed and
-                    3598 <= b['expires']+(read_at-dispatched).total_seconds() and
-                    b['expires']+(read_at-completed).total_seconds() <= 3602)
-                # An expired unchanged row is partial/unknown; changed prices,
-                # identity or non-hour active listing is incompatible and sticky.
-                incompatible |= (b['item'] != a['item'] or b['starting_bid'] != a['starting_bid'] or
-                    b['buy_now_price'] != a['buy_now_price'] or b['trade_state'] == 'active' and not valid)
-            else:
-                valid = all(a[k] == b[k] for k in a if k != 'expires') and (
-                    a['expires'] == b['expires'] if a['expires'] <= 0 else
-                    0 <= a['expires']-b['expires'] <= math.ceil(elapsed)+2)
-                incompatible |= not valid
-            proven &= valid
-        if not clear:
-            trades = [new[i]['trade_id'] for i in targets & set(new)]
-            proven &= len(trades) == len(set(trades)) == len(targets)
-        incompatible |= bool(set(new)-expected) or bool((set(old)-targets)-set(new))
-        proven &= row[2] != 'INTENT' and not incompatible
+        proven,incompatible=assess_effect(c,before,after,dispatched=dispatched,completed=completed,
+            submitted=row[2]!='INTENT',incompatible=bool(row[5]))
         with j.transaction():
             f.registry.check()
             j.db.execute('UPDATE bulk_writes_v1 SET state=?,incompatible=? WHERE id=?',
@@ -255,3 +222,43 @@ class BulkTransfer:
                 read_id=after['command_id'], readback=deepcopy(after))
         self.checkpoint('readback')
         return bool(proven)
+
+
+def assess_effect(c, before, after, *, dispatched, completed, submitted=True, incompatible=False):
+    """Pure native bulk readback contract, shared by both controller modes."""
+    old = {r['item']['item_id']: r for r in before['result']['auctions']}
+    new = {r['item']['item_id']: r for r in after['result']['auctions']}
+    targets = set(c['params']['expected_item_ids'])
+    clear = c['operation'] == 'clear_sold'
+    expected = set(old)-targets if clear else set(old)
+    proven, incompatible = set(new) == expected, bool(incompatible)
+    elapsed = max(0, (stamp(after['freshness']['network_at'])-stamp(before['freshness']['network_at'])).total_seconds())
+    # Expiry is a remaining-seconds counter, not an immutable duration field.
+    # Anchor the independent read to the actual serialized dispatch interval.
+    read_at=stamp(after['freshness']['network_at'])
+    for identity in set(old) & set(new):
+        a, b = old[identity], new[identity]
+        if not clear and identity in targets:
+            valid = (a['item'] == b['item'] and a['starting_bid'] == b['starting_bid'] and
+                a['buy_now_price'] == b['buy_now_price'] and b['trade_id'] != a['trade_id'] and
+                b['trade_id'] not in {r['trade_id'] for r in old.values()} and
+                b['current_bid'] == 0 and b['bid_state'] == 'none' and b['trade_state'] == 'active' and
+                0 < b['expires'] <= 3600 and read_at >= completed and
+                3598 <= b['expires']+(read_at-dispatched).total_seconds() and
+                b['expires']+(read_at-completed).total_seconds() <= 3602)
+            # An expired unchanged row is partial/unknown; changed prices,
+            # identity or non-hour active listing is incompatible and sticky.
+            incompatible |= (b['item'] != a['item'] or b['starting_bid'] != a['starting_bid'] or
+                b['buy_now_price'] != a['buy_now_price'] or b['trade_state'] == 'active' and not valid)
+        else:
+            valid = all(a[k] == b[k] for k in a if k != 'expires') and (
+                a['expires'] == b['expires'] if a['expires'] <= 0 else
+                0 <= a['expires']-b['expires'] <= math.ceil(elapsed)+2)
+            incompatible |= not valid
+        proven &= valid
+    if not clear:
+        trades = [new[i]['trade_id'] for i in targets & set(new)]
+        proven &= len(trades) == len(set(trades)) == len(targets)
+    incompatible |= bool(set(new)-expected) or bool((set(old)-targets)-set(new))
+    proven &= submitted and not incompatible
+    return bool(proven), bool(incompatible)

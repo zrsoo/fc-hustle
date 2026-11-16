@@ -1,0 +1,24 @@
+test_exact_imports_and_named_shared_call_sites_exist (__main__.DesignArtifacts.test_exact_imports_and_named_shared_call_sites_exist) ... ok
+test_future_probes_are_individually_bounded_and_unexecuted (__main__.DesignArtifacts.test_future_probes_are_individually_bounded_and_unexecuted) ... ok
+test_lifecycle_is_separate_from_exactly_two_phases (__main__.DesignArtifacts.test_lifecycle_is_separate_from_exactly_two_phases) ... ok
+test_missing_import_or_legacy_separation_is_detected (__main__.DesignArtifacts.test_missing_import_or_legacy_separation_is_detected) ... ok
+test_missing_policy_or_negative_case_is_detected (__main__.DesignArtifacts.test_missing_policy_or_negative_case_is_detected) ... ok
+test_policy_defaults_and_all_acceptance_mapped (__main__.DesignArtifacts.test_policy_defaults_and_all_acceptance_mapped) ... ok
+test_unbounded_mutating_required_probe_missing_checkpoint_or_cleanup_rejected (__main__.DesignArtifacts.test_unbounded_mutating_required_probe_missing_checkpoint_or_cleanup_rejected) ... ok
+test_wrong_strategy_spacing_and_local_slot_defaults_are_detected (__main__.DesignArtifacts.test_wrong_strategy_spacing_and_local_slot_defaults_are_detected) ... ok
+test_actual_scheduled_executor_helpers_consume_no_ea_slot (__main__.ReusedMechanisms.test_actual_scheduled_executor_helpers_consume_no_ea_slot) ... ok
+test_canonical_process_lock_excludes_competitor_and_releases (__main__.ReusedMechanisms.test_canonical_process_lock_excludes_competitor_and_releases) ... ok
+test_all_durable_entities_and_foreign_keys (__main__.StorageFixture.test_all_durable_entities_and_foreign_keys) ... ok
+test_claim_and_tombstone_survive_interruption_without_replay (__main__.StorageFixture.test_claim_and_tombstone_survive_interruption_without_replay) ... ok
+test_exact_phases_owner_uniqueness_and_lifecycle_controls (__main__.StorageFixture.test_exact_phases_owner_uniqueness_and_lifecycle_controls) ... ok
+test_probe_budget_is_bounded_consumed_and_cannot_reset (__main__.StorageFixture.test_probe_budget_is_bounded_consumed_and_cannot_reset) ... ok
+test_short_committed_claim_allows_another_writer_while_network_is_awaited (__main__.StorageFixture.test_short_committed_claim_allows_another_writer_while_network_is_awaited) ... ok
+test_stored_quote_and_intent_cannot_be_repriced_or_retargeted (__main__.StorageFixture.test_stored_quote_and_intent_cannot_be_repriced_or_retargeted) ... ok
+test_ten_distinct_selected_candidates_and_confirmed_members (__main__.StorageFixture.test_ten_distinct_selected_candidates_and_confirmed_members) ... ok
+test_tombstones_results_and_transitions_are_append_only (__main__.StorageFixture.test_tombstones_results_and_transitions_are_append_only) ... ok
+test_unconfirmed_membership_or_missing_proof_not_storable (__main__.StorageFixture.test_unconfirmed_membership_or_missing_proof_not_storable) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 1.112s
+
+OK

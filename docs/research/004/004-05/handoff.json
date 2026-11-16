@@ -1,0 +1,244 @@
+{
+  "task": "004-05",
+  "verdict": "IMPLEMENTATION COMPLETE — FULL CONTROLLER E2E PENDING",
+  "new_live_windows": [],
+  "new_ea_requests": 0,
+  "new_mutations": 0,
+  "deferred": [
+    "full_controller_e2e",
+    "production_cutover",
+    "soak",
+    "tuning",
+    "orchestrator_work"
+  ],
+  "verification": {
+    "python": "python-02",
+    "node": "node-01",
+    "independent": "independent-02",
+    "targeted": "targeted-01"
+  },
+  "coverage": [
+    {
+      "criterion": 0,
+      "checks": [
+        "full Python discovery",
+        "all current Node suites",
+        "independent validators"
+      ],
+      "negative": "missing suite, failure, skip or missing method rejected"
+    },
+    {
+      "criterion": 1,
+      "checks": [
+        "tests/test_00402_controller.py",
+        "tests/test_00403_controller.py",
+        "tests/test_00404_controller.py",
+        "tests/test_00404_process.py",
+        "tests/test_00405_handoff.py"
+      ],
+      "negative": "invalid authority, uncertainty, corruption and publication negatives execute"
+    },
+    {
+      "criterion": 2,
+      "checks": [
+        "immutable evidence preservation",
+        "check_00402_artifacts.py",
+        "legacy_preservation"
+      ],
+      "negative": "changed captured response or Objective 003 record rejected"
+    },
+    {
+      "criterion": 3,
+      "checks": [
+        "validate_handoff",
+        "REPORT.md",
+        "raw verification logs"
+      ],
+      "negative": "missing report section, CLI or evidence rejected"
+    },
+    {
+      "criterion": 4,
+      "checks": [
+        "individual contract classification",
+        "sealed genuine ten-ID window",
+        "historical native operation evidence"
+      ],
+      "negative": "unsupported PASS, absent evidence and missing limitations rejected"
+    },
+    {
+      "criterion": 5,
+      "checks": [
+        "explicit future CLI",
+        "fixture status/pause/stop tests",
+        "expiry and uncertainty risks"
+      ],
+      "negative": "missing CLI and risk statements rejected"
+    },
+    {
+      "criterion": 6,
+      "checks": [
+        "live Windows process/listener/scheduled-task inspection",
+        "legacy_preservation"
+      ],
+      "negative": "active worker, listener or scheduled job rejected"
+    },
+    {
+      "criterion": 7,
+      "checks": [
+        "Git clean main, tracked paths, commit ancestry, origin main",
+        "publication.json"
+      ],
+      "negative": "untracked/uncommitted/non-main/unpushed or failed push rejected"
+    },
+    {
+      "criterion": 8,
+      "checks": [
+        "new probe budget zero",
+        "live stopped inspection",
+        "explicit deferred boundary"
+      ],
+      "negative": "unexpected live window, mutation or altered deferred boundary rejected"
+    }
+  ],
+  "contracts": [
+    {
+      "operation": "status_batch",
+      "classification": "LIVE_VERIFIED_WITH_ACTUAL_LIMIT",
+      "evidence": [
+        "docs/research/004/004-02/status-array-06/result.json",
+        "docs/research/004/004-02/status-array-06/checkpoint.jsonl"
+      ],
+      "limitation": "Ten closed/outbid targets only; no active, omitted or live null-version result was induced.",
+      "rationale": "The current multi-target native DAO boundary is unchanged since final ten-ID probe; all original zero-version rows and full-DTO links validate.",
+      "offline_checks": [
+        "tests/check_00402_artifacts.py",
+        "tests/controller_native_checks.cjs"
+      ],
+      "actual_live_targets": 10
+    },
+    {
+      "operation": "attribution",
+      "classification": "OFFLINE_VERIFIED_LIVE_LIMITATION",
+      "evidence": [
+        "docs/research/004/004-02/status-array-06/result.json",
+        "docs/research/004/004-02/REPORT.md"
+      ],
+      "limitation": "No deliberately interleaved manual traffic, missing send or timeout in live window; those are synthetic negative tests.",
+      "rationale": "Current queue-object/request/XHR ownership mechanism is unchanged; live status had one bound owned GET. No new probe is needed for the local historical catalog fix.",
+      "offline_checks": [
+        "tests/controller_native_checks.cjs",
+        "tests/controller_policy_native_checks.cjs"
+      ]
+    },
+    {
+      "operation": "inventory",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/004/004-04/live-contract-review.json",
+        "docs/research/002-bulk-transfer-operations/REPORT.md"
+      ],
+      "limitation": "No fresh account inventory was queried in 004-05; completeness and capacity integration are offline verified.",
+      "rationale": "Reuse strict complete-inventory parser, native classifiers and retained mapping; no new wire behavior.",
+      "offline_checks": [
+        "tests/test_00404_controller.py",
+        "tests/production_inventory_checks.cjs"
+      ]
+    },
+    {
+      "operation": "initial_bid",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/003/003-04/bid-receipt-repair-01/REPORT.md",
+        "docs/research/004/004-04/live-contract-review.json"
+      ],
+      "limitation": "No new-mode live mutation or active rebid has been performed. Full account lifecycle integration remains pending; synthetic results are not live proof.",
+      "rationale": "Reuse reviewed native bid method/amount and receipt contract; server admission, no-replay and phase composition execute offline. No native invocation change in this task.",
+      "offline_checks": [
+        "tests/controller_policy_native_checks.cjs",
+        "tests/test_00403_controller.py",
+        "tests/test_00404_process.py"
+      ]
+    },
+    {
+      "operation": "rebid",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/003/003-04/bid-receipt-repair-01/REPORT.md",
+        "docs/research/004/004-04/live-contract-review.json"
+      ],
+      "limitation": "No new-mode live mutation or active rebid has been performed. Full account lifecycle integration remains pending; synthetic results are not live proof.",
+      "rationale": "Reuse reviewed native bid method/amount and receipt contract; server admission, no-replay and phase composition execute offline. No native invocation change in this task.",
+      "offline_checks": [
+        "tests/controller_policy_native_checks.cjs",
+        "tests/test_00403_controller.py",
+        "tests/test_00404_process.py"
+      ]
+    },
+    {
+      "operation": "move",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/002/002-08/scenarios.json",
+        "docs/research/002/002-12/series-selection.json",
+        "docs/research/004/004-04/live-contract-review.json"
+      ],
+      "limitation": "Historical genuine physical effects do not prove a new controller lifecycle; current new-mode authority/composition verified offline only.",
+      "rationale": "Reuse exact native method/arguments and pure production ownership/readback assessor; shared callers and legacy behavior regressions pass.",
+      "offline_checks": [
+        "tests/controller_work_native_checks.cjs",
+        "tests/test_00208_resale.py",
+        "tests/test_00404_controller.py",
+        "tests/test_00404_process.py"
+      ]
+    },
+    {
+      "operation": "list",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/002/002-08/scenarios.json",
+        "docs/research/002/002-12/series-selection.json",
+        "docs/research/004/004-04/live-contract-review.json"
+      ],
+      "limitation": "Historical genuine physical effects do not prove a new controller lifecycle; current new-mode authority/composition verified offline only.",
+      "rationale": "Reuse exact native method/arguments and pure production ownership/readback assessor; shared callers and legacy behavior regressions pass.",
+      "offline_checks": [
+        "tests/controller_work_native_checks.cjs",
+        "tests/test_00208_resale.py",
+        "tests/test_00404_controller.py",
+        "tests/test_00404_process.py"
+      ]
+    },
+    {
+      "operation": "clear_sold",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/002-bulk-transfer-operations/clear-sold.json",
+        "docs/research/002-bulk-transfer-operations/clear-sold-reconciliation.json",
+        "docs/research/002-bulk-transfer-operations/durable-ledger.json"
+      ],
+      "limitation": "The historical 5-item window remains consumed. No new-mode live bulk invocation or full E2E is claimed.",
+      "rationale": "Unchanged zero-argument official API and pure exact-set effect assessor. Advance durable ticks/consume generations offline; do not replay historical windows.",
+      "offline_checks": [
+        "tests/validate_bulk_transfer_evidence.py",
+        "tests/controller_work_native_checks.cjs",
+        "tests/test_00404_process.py"
+      ]
+    },
+    {
+      "operation": "relist_all",
+      "classification": "NOT_NEEDED_UNCHANGED_CONTRACT",
+      "evidence": [
+        "docs/research/002-bulk-transfer-operations/relist-all.json",
+        "docs/research/002-bulk-transfer-operations/relist-all-reconciliation.json",
+        "docs/research/002-bulk-transfer-operations/durable-ledger.json"
+      ],
+      "limitation": "The historical 4-item window remains consumed. No new-mode live bulk invocation or full E2E is claimed.",
+      "rationale": "Unchanged zero-argument official API and pure exact-set effect assessor. Advance durable ticks/consume generations offline; do not replay historical windows.",
+      "offline_checks": [
+        "tests/validate_bulk_transfer_evidence.py",
+        "tests/controller_work_native_checks.cjs",
+        "tests/test_00404_process.py"
+      ]
+    }
+  ]
+}
