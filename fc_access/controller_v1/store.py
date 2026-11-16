@@ -21,6 +21,7 @@ class ControllerStore:
         self.controller_lock = threading.Lock()
         self.now = now or (lambda: datetime.now(timezone.utc))
         self.write_authority = write_authority is True
+        self.supervision_guard = None
         names = {r[0] for r in self.db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if names and 'c4_meta' not in names:
             self.db.close(); raise ValueError('isolated_controller_database_required')
@@ -65,7 +66,11 @@ class ControllerStore:
         durable=self.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
         if not durable or json.loads(durable[0])!=peer:raise ValueError('stale_durable_owner')
 
+    def require_supervision(self):
+        if self.supervision_guard:self.supervision_guard()
+
     def running(self):
+        self.require_supervision()
         table=self.db.execute("SELECT 1 FROM sqlite_master WHERE name='c4_controller'").fetchone()
         return not table or self.db.execute('SELECT lifecycle FROM c4_controller').fetchone()[0]=='RUNNING'
 

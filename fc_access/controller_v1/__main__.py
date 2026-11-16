@@ -21,7 +21,7 @@ def guard_paths(root, scope, database, port):
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='action',required=True)
-    run=sub.add_parser('run',help='Explicit owned account activity; no automatic launch')
+    run=sub.add_parser('run',help='Supervised owned account activity; no automatic launch or restart')
     run.add_argument('--database',required=True);run.add_argument('--cache',required=True)
     run.add_argument('--context',required=True,help='JSON file containing public account/persona scope only')
     run.add_argument('--port',required=True,type=int)
@@ -48,6 +48,12 @@ def main(argv=None):
             data=payload,headers={'Content-Type':'application/json'})
         with urlopen(request,timeout=60) as response:print(response.read().decode())
         return
+    from .watchdog import supervise
+    return supervise(a)
+
+
+def run_controller(a, supervision):
+    """Worker entry, called only by the supervisor after an explicit CLI run."""
     from fc_access.production_v1.contracts import context
     from fc_access.production_v1.price_cache import QuoteCache
     from fc_access.actors_v1.locking import process_lock
@@ -63,22 +69,26 @@ def main(argv=None):
         for lock in guard_paths(root,scope,database,a.port):
             stack.enter_context(process_lock(lock))
         server=Server(database,a.port,write_authority=True)
+        server.store.supervision_guard=supervision.require
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
         cache=None;controller=None
         try:
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
             epoch=json.loads(previous[0])['fences']['epoch']+1 if previous else 1
-            adapter=ControllerAdapter(SerializedExecutor(ControllerExecutor(a.port)),context=scope,owner=secrets.token_hex(16),epoch=epoch)
+            adapter=ControllerAdapter(SerializedExecutor(ControllerExecutor(a.port),progress=supervision.progress),context=scope,owner=secrets.token_hex(16),epoch=epoch)
             cache=QuoteCache(a.cache)
             controller=Controller(server.store,adapter,cache);server.controller=controller
+            supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.
-            controller.run()
+            controller.run(progress=supervision.state)
         except KeyboardInterrupt:
             if controller:controller.stop()
         finally:
             if controller and controller.status()['lifecycle']=='RUNNING':controller.stop()
+            state=controller.status() if controller else None
             server.shutdown();thread.join(5);server.server_close()
             if cache:cache.close()
+    return state
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':raise SystemExit(main())

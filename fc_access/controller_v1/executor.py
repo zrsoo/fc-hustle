@@ -29,7 +29,7 @@ class SerializedExecutor:
     Local helpers consume no EA slot. Failed requests consume their slot too.
     There is no queue, retry, background worker, or catch-up delivery.
     """
-    def __init__(self, executor, *, spacing=2, clock=time.monotonic, sleep=time.sleep):
+    def __init__(self, executor, *, spacing=2, clock=time.monotonic, sleep=time.sleep, progress=None):
         import threading
         if spacing < 0:raise ValueError('invalid_spacing')
         self.executor,self.spacing,self.clock,self.sleep=executor,spacing,clock,sleep
@@ -37,9 +37,14 @@ class SerializedExecutor:
         self.guard=None
         self.last_start=None
         self.metrics=[]
+        self.progress=progress
 
     def attach(self, *args):
-        with self.lock:return self.executor.attach(*args)
+        with self.lock:
+            if self.progress:self.progress('ATTACHING')
+            try:return self.executor.attach(*args)
+            finally:
+                if self.progress:self.progress('LOCAL')
 
     def execute(self, value):
         from fc_access.production_v1.contracts import LOCAL_OPERATIONS, stamp
@@ -58,6 +63,9 @@ class SerializedExecutor:
                 if stamp(value['params']['deadline'])<=now:raise TimeoutError('deadline_skipped')
             start=self.clock()
             if not local:self.last_start=start
+            if self.progress:self.progress('NATIVE' if not local else 'LOCAL',value['operation'])
             try:return self.executor.execute(value)
-            finally:self.metrics.append(dict(command_id=value['id'],operation=value['operation'],
-                                            local=local,started=start,elapsed=self.clock()-start))
+            finally:
+                self.metrics.append(dict(command_id=value['id'],operation=value['operation'],
+                                         local=local,started=start,elapsed=self.clock()-start))
+                if self.progress:self.progress('LOCAL')

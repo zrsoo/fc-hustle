@@ -84,6 +84,7 @@ class Controller:
         return self.native.read(self.ids(),op,params)
 
     def step(self):
+        self.store.require_supervision()
         if not self.lock.acquire(blocking=False):raise RuntimeError('controller_step_already_running')
         try:
             if self.journal.state()['lifecycle']!='RUNNING':return self.status()
@@ -99,11 +100,13 @@ class Controller:
             return self.status()
         finally:self.lock.release()
 
-    def run(self, *, steps=None):
+    def run(self, *, steps=None, progress=None):
         self.resume()
         count=0
         while self.journal.state()['lifecycle']=='RUNNING' and (steps is None or count<steps):
-            self.step();count+=1
+            if progress:progress(self.status())
+            state=self.step();count+=1
+            if progress:progress(state)
 
     def _acquire(self):
         j=self.journal;bid=self.ids();start=self.clock()
