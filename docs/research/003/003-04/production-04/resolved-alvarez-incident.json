@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "id": "00304-20261116T013638Z-account-relative-status-unavailable",
+  "task": "003-04",
+  "run": "9bdb55697d3658b11f01f99a495b94f6",
+  "recorded_at": "2026-11-16T01:47:25.967348+00:00",
+  "trigger_control_seqs": [
+    9843,
+    9845,
+    10132
+  ],
+  "triggering_command_id": "6b3faed8a418890da8147b59eae039fc",
+  "triggering_read_id": "89e5be9315a480fa6edbf4313f8b3d96",
+  "terminal_read_id": "c8cda9d38e8ed5df65d0a8be8ddd9fde",
+  "evidence_command_ids": [
+    "6b3faed8a418890da8147b59eae039fc",
+    "1a68582eea9a9975ea74077d6e3396b0",
+    "91264e3988d0f10405e8491573f0a5ea",
+    "89e5be9315a480fa6edbf4313f8b3d96",
+    "83e07ce1a393a3e5f5aabe939c1ee617",
+    "3b4e0119919268a890902c3b49095ccc",
+    "c8cda9d38e8ed5df65d0a8be8ddd9fde"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 950,
+    "native_HTTP": 200,
+    "native_callback_success": true,
+    "command_state": "ACKNOWLEDGED",
+    "native_requests_diagnostic": 7,
+    "public_terminal_price": 4800,
+    "public_terminal_state": "closed",
+    "personal_bid_state": "none",
+    "native_version": 0,
+    "credits_observed": 62827,
+    "complete_transfer_list_occupied": 5,
+    "unassigned_items_observed": 0,
+    "unassigned_coverage_complete": false,
+    "maintenance_read_cancelled_before_dispatch": "97d2b4e437f0d7f3990be2b6876e98a7",
+    "identity": {
+      "trade_id": "trade:4277ca1e7e0bc5625b51752f",
+      "item_id": "item:d5a3c8d9f578ce97882f8474",
+      "definition_id": 246191
+    }
+  },
+  "unknown_account_effects": {
+    "account_result": "OPERATOR_ASSERTED_NOT_REGISTERED",
+    "bid_acceptance_or_debit": "No independent personal native outcome or refund proof. Closed/none, public price above cap, watched absence, false isWon and unchanged aggregate credits are not promoted to an authorized personal LOST outcome.",
+    "native_outcome_verified": false,
+    "note": "Historical personal native outcome remains unverified. Previous operator-loss assertion, if any, is retained separately; the later non-registration clarification is not native rejection or refund proof."
+  },
+  "root_cause": "The retained selector and new runtime fallback worked: an exact native GET 200 returned the correct trade/physical item, with version 0 kept unobserved. Unlike the earlier selector defect, this native lite response reports personal bid_state none. Journal.reconcile correctly rejects ACTIVE/UNKNOWN as outcome_still_unknown. The watchdog stopped at the primary OUTCOME_STILL_UNKNOWN event. Later independent native reads followed the public price from 950 through 1600/2400 to closed at 4800, but still none; watched omitted the exact target, unassigned was empty with incomplete coverage, and complete Transfer List excluded it. No retained bid-response personal auction DTO is available to resolve the account-relative proof gap. Secondary maintenance timeout followed the dispatch gate and was never sent.",
+  "fix": {
+    "runtime_change": true,
+    "pushed_revision": "a70f3592db8aa563b71447ff0aec3229515a648f",
+    "receipt_repair_revision": "87dc52c9dff50dbda4bce2df87a77c9d1e96d1ef",
+    "disposition": "Require allowlisted native participation/rejection receipts at live dispatch, journal them immutably, retain exact private wire-target/amount checks, and keep independent fresh readbacks. Exact old command retired only by its previously applied explicit operator non-registration amendment.",
+    "operator_evidence": "bid-receipt-repair-01/operator-6b3faed8a418890da8147b59eae039fc.json"
+  },
+  "regression_results": {
+    "exit_code": 0,
+    "tests_run": 937,
+    "failures": 0,
+    "errors": 0,
+    "node_suites": 28,
+    "receipt": "production-04/repair-regressions.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "e593e1be9debe924c2f9be3ba555e9a2",
+    "control_seq": 10176,
+    "read_ids": [
+      "4e58f20d75474a817739213ada358a4c",
+      "0e5346dc92e386c6fd69c34b29828f28",
+      "6919b0e1bc7675af3ebfb386d93b83ba"
+    ],
+    "note": "Fresh startup proof under epoch83; does not reconstruct old950 native outcomes or repeat the bounded live experiment."
+  },
+  "resolution": "OPERATOR_NONREGISTRATION",
+  "human_or_external_prerequisite": {
+    "status": "RESOLVED_BY_EXPLICIT_OPERATOR_AUTHORITY",
+    "evidence": "bid-receipt-repair-01/operator-6b3faed8a418890da8147b59eae039fc.json"
+  },
+  "safe_state": {
+    "stop_control_seq": 10140,
+    "all_runtime_stopped": true,
+    "verified_all_owned_exits": true,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 634.0719776999904,
+    "readonly_health": "production-03/incident-outcome-01/readonly-health.json",
+    "process_stop": "production-03/incident-outcome-01/process-stop.json",
+    "evidence_integrity": "production-03/incident-outcome-01/evidence-integrity.json"
+  },
+  "prior_incident": "production-03/incident-outcome-01/incident.json",
+  "updated_at": "2026-11-16T07:34:02.752390+00:00"
+}

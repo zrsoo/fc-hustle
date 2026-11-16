@@ -7,8 +7,8 @@
   "prelaunch_reads": "prelaunch-20261115T171020Z.jsonl",
   "incidents": [
     "production-02/resolved-original-incident.json",
-    "production-03/resolved-prior-incident.json",
-    "production-03/incident-outcome-01/incident.json"
+    "production-04/resolved-doue-incident.json",
+    "production-04/resolved-alvarez-incident.json"
   ],
   "runtime_fixes": [
     {
@@ -26,18 +26,27 @@
       "published_at": "2026-11-16T01:24:49.5969295Z",
       "publication_basis": "Remote main and local HEAD independently matched before recorded read-only service launch; this timestamp is a subsequent observation bound before actor launch, not remote commit time.",
       "regression_receipt": "production-03/repair-regressions.json"
+    },
+    {
+      "stopped_run": "9bdb55697d3658b11f01f99a495b94f6",
+      "restart_run": "e593e1be9debe924c2f9be3ba555e9a2",
+      "revision": "a70f3592db8aa563b71447ff0aec3229515a648f",
+      "published_at": "2026-11-16T07:30:46.1901391Z",
+      "publication_basis": "Remote main matched recorded actor revision before service transition and launch; independently observed this turn.",
+      "regression_receipt": "production-04/repair-regressions.json"
     }
   ],
-  "status": "BLOCKED_UNRESOLVED_ACCOUNT_RELATION",
+  "status": "CONTINUOUS_LIVE_INCOMPLETE",
   "phase": "CONTINUOUS_PRODUCTION",
-  "run": "9bdb55697d3658b11f01f99a495b94f6",
-  "export_events": "private-captures/continuous-evidence/00304-production03-periodic/events.jsonl",
-  "browser_record": "production-03/browser-recovery.jsonl",
-  "matrix": "production-03/live-coverage-matrix.json",
+  "run": "e593e1be9debe924c2f9be3ba555e9a2",
+  "export_events": "private-captures/continuous-evidence/00304-production04-periodic/events.jsonl",
+  "browser_record": "production-04/browser-recovery.jsonl",
+  "matrix": "production-04/live-coverage-matrix.json",
   "run_revisions": {
     "c7485d279225b0b726a5f6117a68ba10": "c4c7b5e5f8e036185dd6243143c0873733ec92c7",
     "956a2d483cf70c2d440709ed20a312fe": "dbc580c56cc5a37768ed41f0c6718369ee78dd57",
-    "9bdb55697d3658b11f01f99a495b94f6": "3153be359145d71f72fcbe90340904a3a6309716"
+    "9bdb55697d3658b11f01f99a495b94f6": "3153be359145d71f72fcbe90340904a3a6309716",
+    "e593e1be9debe924c2f9be3ba555e9a2": "a70f3592db8aa563b71447ff0aec3229515a648f"
   },
   "cancelled_before_dispatch": [
     "e84dcddef494468d3e12a2766ccd6fba",
@@ -51,12 +60,13 @@
   ],
   "incident_integrity": "production-02/incident-identity-01/evidence-integrity.json",
   "pending_runtime_fixes": [],
-  "processes_record": "production-03/processes-before.json",
-  "launch_record": "production-03/launch.json",
+  "processes_record": "production-04/processes-before.json",
+  "launch_record": "production-04/launch.json",
   "diagnostic_runs": {
     "production-02/incident-identity-01/exact-status.jsonl": "956a2d483cf70c2d440709ed20a312fe",
     "production-03/incident-outcome-01/native-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",
     "production-03/incident-outcome-01/terminal-diagnostic.jsonl": "9bdb55697d3658b11f01f99a495b94f6",
     "production-03/incident-outcome-01/followup-status.jsonl": "9bdb55697d3658b11f01f99a495b94f6"
-  }
+  },
+  "require_bid_receipt": true
 }

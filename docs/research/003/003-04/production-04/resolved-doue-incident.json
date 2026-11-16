@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "id": "00304-20261115T222121Z-missing-actual-bid-identity",
+  "task": "003-04",
+  "run": "956a2d483cf70c2d440709ed20a312fe",
+  "recorded_at": "2026-11-15T22:31:16.786933+00:00",
+  "trigger_control_seqs": [
+    4849,
+    4851,
+    5185
+  ],
+  "triggering_command_id": "ff4174653771149736e63b1ac12630f9",
+  "triggering_read_id": "804caa79bbb16c7b5f99ba837bb50253",
+  "evidence_command_ids": [
+    "ff4174653771149736e63b1ac12630f9",
+    "804caa79bbb16c7b5f99ba837bb50253",
+    "f2d79b99666cf4a4cd75a143bb27f877",
+    "b92923c8c69cd549332835ba7e7bb495"
+  ],
+  "known_account_effects": {
+    "bid_dispatched_once": true,
+    "amount": 950,
+    "native_HTTP": 200,
+    "native_callback_success": true,
+    "watched_entries": 3,
+    "watched_coverage_complete": false,
+    "credits_observed": 62827,
+    "maintenance_read_cancelled_before_dispatch": "e84dcddef494468d3e12a2766ccd6fba"
+  },
+  "unknown_account_effects": {
+    "auction_state": "Operator asserted LOST; native terminal outcome remains historically unverified. No refund inferred.",
+    "bid_acceptance_or_debit": "UNPROVEN. HTTP 200/native callback, missing watched membership and unchanged aggregate credits cannot prove accepted, lost, won or no effect.",
+    "native_outcome_verified": false,
+    "account_result": "OPERATOR_ASSERTED_NOT_REGISTERED",
+    "note": "Historical personal native outcome remains unverified. Previous operator-loss assertion, if any, is retained separately; the later non-registration clarification is not native rejection or refund proof."
+  },
+  "root_cause": "The fresh incomplete watched endpoint omitted the newly bid exact auction. The reason for that omission remains unknown. Separately, page.js consumed the write observation with known.delete before native bid, erasing the only exact read-only selector; the same-epoch exact-status diagnostic consequently failed known_identity_unavailable without an EA request. The monitor stopped on MISSING_OR_STALE_IDENTITY. Maintenance timeout followed the dispatch gate and is secondary, not a scheduling starvation diagnosis.",
+  "fix": {
+    "runtime_change": true,
+    "pushed_revision": "a70f3592db8aa563b71447ff0aec3229515a648f",
+    "receipt_repair_revision": "87dc52c9dff50dbda4bce2df87a77c9d1e96d1ef",
+    "disposition": "Require allowlisted native participation/rejection receipts at live dispatch, journal them immutably, retain exact private wire-target/amount checks, and keep independent fresh readbacks. Exact old command retired only by its previously applied explicit operator non-registration amendment.",
+    "operator_evidence": "bid-receipt-repair-01/operator-ff4174653771149736e63b1ac12630f9.json"
+  },
+  "regression_results": {
+    "exit_code": 0,
+    "tests_run": 937,
+    "failures": 0,
+    "errors": 0,
+    "node_suites": 28,
+    "receipt": "production-04/repair-regressions.json"
+  },
+  "restart_reconciliation": {
+    "status": "INDEPENDENTLY_RECONCILED",
+    "run": "e593e1be9debe924c2f9be3ba555e9a2",
+    "control_seq": 10176,
+    "read_ids": [
+      "4e58f20d75474a817739213ada358a4c",
+      "0e5346dc92e386c6fd69c34b29828f28",
+      "6919b0e1bc7675af3ebfb386d93b83ba"
+    ],
+    "note": "Fresh startup proof under epoch83; does not reconstruct old950 native outcomes or repeat the bounded live experiment."
+  },
+  "resolution": "OPERATOR_NONREGISTRATION",
+  "human_or_external_prerequisite": {
+    "status": "RESOLVED_BY_EXPLICIT_OPERATOR_AUTHORITY",
+    "evidence": "bid-receipt-repair-01/operator-ff4174653771149736e63b1ac12630f9.json"
+  },
+  "safe_state": {
+    "stop_control_seq": 5193,
+    "verified_all_owned_exits": true,
+    "healthy_segment_closed": true,
+    "healthy_seconds": 651.5459209999535,
+    "readonly_health": "production-02/incident-identity-01/readonly-health.json",
+    "all_runtime_stopped": true
+  },
+  "updated_at": "2026-11-16T07:34:02.751371+00:00",
+  "prior_incident": "production-03/resolved-prior-incident.json"
+}

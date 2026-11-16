@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T07:34:02.779112+00:00",
+  "context": {
+    "account": "aaa083e34a2b2243919889ab1c2a9d7e",
+    "game": "fc27",
+    "identity_namespace": "fee5075c1ad619c51fa7a805c8d8b65a",
+    "persona": "4508543c69902bc52e86f5fc36bdf8d5",
+    "platform": "pc"
+  },
+  "physical_identities": [
+    [
+      "item:0eb531d104feb860cffcade7",
+      220834
+    ],
+    [
+      "item:5859eff756a310898bae2ece",
+      247103
+    ],
+    [
+      "item:6c1821fd50efcf26deca9cb1",
+      239085
+    ],
+    [
+      "item:baedbe1a7c161538497cdc85",
+      236772
+    ],
+    [
+      "item:d9eeec4640229a959c3145fb",
+      244669
+    ]
+  ],
+  "read_ids": [
+    "5f6c4820d33e51e4801fb8c7045b9465",
+    "57cf96964ae627c5663b40410f6a2d87",
+    "72f4df311b5309abaf344f697f97776e"
+  ],
+  "prior_read_ids": [
+    "61743a6331331098007ca3b29649e92b",
+    "d1b47bb5837b7a821f4e2d38197ab576",
+    "f01e9a126a48408b87f857004fdd8b60"
+  ],
+  "recovery": {
+    "commitments": 1,
+    "occupied": 5,
+    "read_ids": [
+      "4e58f20d75474a817739213ada358a4c",
+      "0e5346dc92e386c6fd69c34b29828f28",
+      "6919b0e1bc7675af3ebfb386d93b83ba"
+    ]
+  },
+  "prior_historical_command_replayed": false,
+  "consumed_receipt_experiment_replayed": false
+}

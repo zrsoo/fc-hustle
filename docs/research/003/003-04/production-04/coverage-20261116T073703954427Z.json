@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-16T07:37:03.943225+00:00",
+  "run": "e593e1be9debe924c2f9be3ba555e9a2",
+  "snapshot": "C:\\hustle\\fc-hustle\\private-captures\\continuous-evidence\\00304-production04-periodic\\20261116T073621Z-90d18684",
+  "verified_cases": [
+    "discovery_pagination",
+    "fresh_pricing",
+    "native_legality_admission",
+    "minimum_initial_bid",
+    "leading_hold",
+    "cap_stop",
+    "occupancy_reservations",
+    "priority_cadence",
+    "reconnect_restart",
+    "identity_freshness"
+  ],
+  "unverified_cases": [
+    "cached_pricing",
+    "natural_outbid_rebid",
+    "won",
+    "lost",
+    "physical_ownership",
+    "stored_price_listing",
+    "sold_clear",
+    "expired_relist",
+    "capacity_pause_resume",
+    "sticky_draining",
+    "uncertain_reconciliation",
+    "unrelated_browser_activity",
+    "lost_supervision",
+    "normal_noop_rejection",
+    "post_bid_selector_reconciliation"
+  ],
+  "structural_findings": [],
+  "healthy_seconds": 326.07667580002453,
+  "source": "ACTUAL_NATIVE_CAPTURE_AND_INDEPENDENT_TRANSPORT",
+  "stop_for_missing_event": false
+}
