@@ -1,4 +1,4 @@
-# Objective 004 — Encapsulated single controller, offline implementation
+# Objective 004 — Encapsulated single controller implementation
 
 ## Outcome and execution boundary
 
@@ -9,16 +9,34 @@ infrastructure where its contracts fit. Keep the new orchestration, state and
 policy encapsulated, preferably in `fc_access/controller_v1/`.
 
 The orchestrator must implement the controller, repair implementation defects,
-run complete offline verification, document the result, and commit/push to
-`main`. **Then stop. Live E2E testing, production cutover and subsequent live
-adjustments belong to the user and the hands-on assistant.**
+run complete offline verification, use targeted live verification where needed,
+document the result, and commit/push to `main`. **Then stop. The full integrated
+controller E2E run, continuous production cutover and adjustments arising from
+that full E2E belong to the user and the hands-on assistant.**
 
-This objective authorizes **no EA request, including read-only requests**, no
-interaction with Edge/login/extensions, no production service deployment,
-and no real-account controller/actor/maintenance execution. Tests may start
-isolated fixture processes and loopback services with synthetic account data.
-Do not use production ports/databases/session owners as test fixtures. The
-existing browser-recovery authorization does not expand this offline scope.
+Live EA requests, normal browser interaction/recovery, reviewed extension/service
+setup and finite real-account operations are authorized when necessary to
+establish or verify implementation contracts. This includes targeted bid/rebid,
+move/list or bulk-operation checks when the changed behavior genuinely requires
+them; use read-only verification wherever sufficient. Ordinary saved-account
+login recovery follows AGENTS.md using the designated zzorniss account, without
+reading/extracting credentials or bypassing security challenges. Do not ask again
+for authorization already provided here.
+
+Each live probe must have a specific question, bounded operations/request budget,
+unique durable checkpoint, account ownership and sanitized evidence. Record
+intent before any mutation, independent outcomes, consumed operations and cleanup
+so quota/process interruption cannot replay a probe. Fix implementation defects
+revealed by targeted checks and retest in new explicitly recorded probe windows;
+never reset or rewrite old windows. Maintain account/strategy constraints and
+never manufacture market data, competitors, wins or sales for a test.
+
+Do not launch the autonomous full controller cycle, legacy actors, scheduled jobs,
+a full-batch lifecycle E2E or a stability soak as part of this objective. Targeted
+contract verification is not permission to leave trading running. Stop temporary
+live activity after each probe and leave production controllers stopped at the
+final handoff. Tests may use isolated fixture processes/loopback services, but
+must never pass production ports/databases/session owners off as fixtures.
 
 Keep Objective 003 (`obj-da182a175410`, task `003-04`) paused. Do not resume,
 recheck, complete, replace or otherwise edit its orchestration records. Preserve
@@ -168,7 +186,7 @@ reservation gate that defeats the user's non-blocking rule.
 
 One minute remains the eligibility window; do not extend it to avoid recording
 rejections or misses. Record actual acquisition/burst/handoff durations and
-expiry misses for later hands-on assessment. Offline completion must not claim
+expiry misses for later hands-on assessment. Implementation completion must not claim
 that this window eliminates expiry risk.
 
 ## Exact-target batch status and request attribution
@@ -190,9 +208,15 @@ read-only lite observations into new-mode bid authority needs an explicit tested
 link to the retained full item/version and current native DTO, not a global
 relaxation of legacy status contracts.
 
-Test the captured/source-backed contract offline. **Actual multi-ID server
-behavior, response completeness and practical limits remain LIVE-UNVERIFIED
-until the later hands-on E2E.** No live probe is authorized by this objective.
+Test the captured/source-backed contract offline, then verify the exact-target
+multi-ID GET against the authenticated official client in a bounded read-only
+live probe. This is an implementation contract check, not the full controller
+E2E. Record the actual requested/returned IDs, statuses, counts and omissions.
+Exercise up to ten real retained targets when available; report the actual count
+verified and any untested limits. Never promote fixture behavior to live proof.
+If a login challenge or market condition prevents a check, report the precise
+missing evidence and limitation instead of assuming success. The later full
+controller E2E remains deferred even when individual live contracts are verified.
 
 Repair the attribution defect that lets unrelated manual UI/background traffic
 contaminate the active command's captured request count. Identify owned requests
@@ -265,11 +289,12 @@ must restore on success, rejection, timeout, interruption and late callbacks.
 Inspect/back up the current workspace and preserve paused legacy state. Map
 reusable modules and identify inherited policy gates that conflict with this
 objective. Write a concise implementation/verification plan and additive state
-compatibility design. No production data migration is executed.
+compatibility design. No production data migration is executed. Prepare targeted
+live verification questions and separate probe budgets where required.
 
 Acceptance: preserved baseline; clear new ownership/state/configuration/API
 boundaries; explicit reuse imports and legacy compatibility; every agreed policy
-and the offline-only stop boundary covered by the plan.
+and the targeted-verification/full-E2E boundary covered by the plan.
 
 ### 004-02 — Implement new-mode native contracts and attribution
 
@@ -284,6 +309,9 @@ code with synthetic native observables/XHR. Verify ten requested identities in
 one GET, exact selector binding, partial/duplicate/wrong-item/version results,
 native lite omissions, manual traffic interleaving, zero captured owned request,
 late response/timeout cleanup, authenticated scope and exactly-once dispatch.
+The targeted multi-ID native contract check has retained genuine live evidence
+or an exact documented external limitation; fix and verify implementation defects
+it reveals. Other uncertain native contracts receive similarly scoped checks.
 
 ### 004-03 — Implement the encapsulated two-phase controller
 
@@ -304,7 +332,7 @@ cap HOLD, deadline ordering and non-blocking later writes after uncertainty.
 ### 004-04 — Integrate lifecycle, resale, maintenance and recovery
 
 Provide explicit run/status/pause/stop controls for the new controller, with no
-import-time execution and no production cutover during this objective. Reuse
+import-time execution and no continuous production cutover during this objective. Reuse
 verified ownership, resale and bulk behavior through the new authority. Keep
 state and logs restart-readable, and preserve legacy evidence/contracts.
 
@@ -316,7 +344,7 @@ one-hour stored-price listing, relist/clear readbacks, ambiguous maintenance and
 pause/stop quiescence. Commands default to no account activity unless explicitly
 started; fixture tests cannot attach to the production account/service/state.
 
-### 004-05 — Verify offline and hand back for live E2E
+### 004-05 — Verify implementation and hand back for full controller E2E
 
 Run the entire Python suite, all relevant JavaScript/Node suites, new-mode
 independent validators and applicable existing offline production validators.
@@ -328,16 +356,20 @@ failures or deletion of tests to manufacture a green suite.
 
 Deliver `docs/research/004/REPORT.md` with architecture/reuse map, implemented
 policy, exact commands/counts/results, encountered failures/fixes, persistence
-and compatibility behavior, timings measured offline, remaining risks and a
-concise hands-on E2E checklist. Include exact future CLI instructions, but do
-not execute the live commands. Distinguish fixture/offline proof from historical
-and future live evidence.
+and compatibility behavior, measured timings, targeted live probe commands/
+budgets/results, remaining risks and a concise hands-on full-E2E checklist.
+Include exact future CLI instructions for the full controller, but do not launch
+its autonomous lifecycle. Distinguish fixture/offline proof, historical evidence,
+new targeted live verification and the still-pending full E2E.
 
 Acceptance: zero failures/errors in required offline checks; meaningful validators
 cover every task acceptance criterion; source/report committed and pushed to
-`main`; final verdict **OFFLINE IMPLEMENTATION COMPLETE — LIVE E2E PENDING**.
-The final report must leave the new controller undeployed and all production
-controllers/actors stopped. No four-hour soak, live account outcome, live batch
-API test or post-live tuning is required or authorized. Do not resume Objective
-003, submit another objective, launch continuous trading, or keep making live
-adjustments after this handoff.
+`main`; final verdict **IMPLEMENTATION COMPLETE — FULL CONTROLLER E2E PENDING**,
+with each targeted live contract check individually classified. Do not call an
+essential implementation defect complete or a failed check PASS; distinguish
+external live-verification limitations from code defects and report them exactly.
+The final report must leave all production controllers/actors stopped and no
+temporary write-enabled probe service or mutation job running. No four-hour soak
+or full autonomous lifecycle E2E is required or authorized. Do not resume
+Objective 003, submit another objective, launch continuous trading, or perform
+full-E2E tuning after this handoff.
