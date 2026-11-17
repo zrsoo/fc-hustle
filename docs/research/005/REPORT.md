@@ -189,3 +189,191 @@ Stage01 publication uses the commit titled `Preserve Objective 005 incident and
 stop persistent controller failures`. Its report/evidence and progress log are
 part of that publication. This checkpoint continues the same task automatically;
 it is not a production-ready or objective-completed handoff.
+
+## Stage 02: diagnostic retention, owned runtime and reproduced live denial
+
+Started from published clean `4cc51c1`. No FC listener was running. A fresh
+canonical-lock-held, integrity/FK/row-compared controller/cache backup is recorded
+in `stage02/backup-20261117T012442462535Z.json`, outside Git under
+`C:/hustle/orchestrator-migration-evidence/005-stage02-20261117T012442462535Z/`.
+The additive diagnostic schema was first applied under those exclusive account
+guards. Original commands, attempts and evidence were not rewritten.
+
+Implemented and tested:
+
+- Successful local price helpers remain excluded from native freshness. Three
+  failed helpers stop with PERSISTENT_HELPER_FAILURE, including the actual
+  controller path where successful caps reads previously masked helper failure
+  as empty acquisition.
+- Controller `/diagnostic` now retains strictly typed, command/peer-bound records
+  in append-only `c4_diagnostics`. Maximum 64 records/post and 256/command; unknown
+  commands, unclaimed commands, stale epochs, unknown/sensitive fields and excess
+  records are rejected. Invalid native results preserve a typed RESULT_REJECTED
+  summary without storing the untrusted body or arbitrary error text. The real
+  serialized boundary checks retained diagnostics; three missing sets stop with
+  PERSISTENT_MISSING_DIAGNOSTICS.
+- The schema 4 page now emits PAGE_ENTER, NATIVE_INVOKE, EA_RESPONSE,
+  NATIVE_CALLBACK, timeout/failure and PAGE_FINISHED markers. These are diagnostics,
+  never authority to acknowledge a bid or enroll membership.
+- Verified foreground recovery now uses the bounded temporary thread-input
+  attachment fallback, detaching in finally. Input also permits a popup only
+  when Windows identifies its root owner as the exact intended Edge window;
+  another window in the same Edge process is rejected. Nine deterministic focus
+  and popup cases cover success and failure. Existing extension menus are
+  recognized before opening, avoiding a toggle that closes the needed menu;
+  visible-button discovery waits at most two seconds. Actual official Edge
+  recovery, extension reload, refresh and final attachment succeeded. No login
+  challenge or credential input was needed.
+- `fc_access.controller_v1.operational` supplies the scheduler service, health and
+  stop entry points. One OS-backed owner lock protects an exclusive consumed
+  generation directory; atomic fsynced manifests retain task, generation,
+  supervisor/child creation identity, real progress, semantic counters and exact
+  stop reason. No PID-only termination is used. A generation cannot be reused.
+  Health requires live matching creation identities, lock ownership, a manifest
+  at most five seconds old, actual work-boundary freshness and native success;
+  it independently checks failure thresholds. STARTING expires after 90 seconds
+  from the actual launch, and successful helpers cannot extend native freshness.
+  An owned stop request withdraws the existing lease and joins the owned child;
+  stale/foreign generations cannot stop a later service. Local state-file write
+  failure also stops/joins safely. No persistent production service was launched
+  in this stage; all service-process tests are finite socket-forbidden fixtures.
+
+The real-process tests cover duplicate launch, consumed-generation refusal,
+repeated stop, stop after parent death, child lease loss, stale process creation
+identity, foreign-task/stale-generation stop, failed reads despite live progress,
+strict JSON health CLI, bounded startup, stale samples and disk-write failure.
+They establish local runtime behavior, not EA lifecycle proof or provider-cleanup
+survival of a production launch. Scheduler-owned deployment remains required.
+
+### Actual live experiment
+
+Two attachment attempts (`stage02/bid-01`, `bid-02`) closed with **zero reserved
+commands, zero EA operations and zero mutations**. They exposed ordinary helper
+defects: the Extensions popup owns foreground through the intended root window,
+and opening an already-open menu toggles it closed. These attempts were not
+reset. After those fixes, separate `bid-03` attached and completed its finite
+window. This probe used the real production controller DB, quote cache, normal
+admission/selection/journal and native transport. Its subclass permits at most
+one initial attempt, with no maintenance operations; all ordinary price,
+balance, inventory and eligibility rules still apply.
+
+The window captured 129 command results, **26 actual EA requests (25 GET, one PUT)**,
+32 reserved EA slots, and one 850-coin native initial bid. No Buy Now, rebid, move,
+list, Clear Sold or relist occurred. The sole target is version 246191,
+`trade:a19d4fae0576c0918d65782f`, `item:658c3eb1bab5944f9e1d9006`.
+Stored resale 5100 and profitable legal cap 4300 were unchanged. Discovery observed
+current 800 at 01:43:43.821 UTC. Selection age 40.143535s left 71.856465s, satisfying
+the strict more-than 60s rule. The minimum 850 bid was sent at 01:44:25.840 UTC,
+**42.019 seconds** after discovery. Native target/body binding matched.
+
+The actual result reproduced the historical class:
+
+```text
+command 17bcb5a360204fbfee2fd7a766771d62
+wire PUT /ut/game/fc27/trade/:trade/bid -> 461
+native callback status 403 / success=false / error.code 461
+receipt UNCONFIRMED / EMPTY_NATIVE_ITEMS / matching count 0
+controller result UNKNOWN / ambiguous_network
+```
+
+The retained typed trace independently records EA_RESPONSE 461 then
+NATIVE_CALLBACK 403/false before PAGE_FAILURE. Fresh exact status at 01:44:27.835
+returned the same trade/item, current 900, active, 68 seconds remaining, account
+bid_state none. A fresh personal watched GET then returned empty. Membership is
+zero. The unknown command is consumed and was never retried; no rejection,
+refund, loss or ownership is inferred from these observations.
+
+**Hypothesis, not established cause:** competition advanced the required minimum
+while pricing consumed the initial discovery's age. The observations support a
+stale-price/competition hypothesis; they do not show whether current 900 preceded
+the failed write, nor prove an account restriction. The next finite experiment
+must use a new distinct target and a fresh exact status before its first bid,
+retaining the original full identity and unchanged profitable quote/cap. Scope
+any production freshness repair from those actual results; do not replay this
+unknown, change the filters/pricing/lookahead or fabricate a win.
+
+All 129 native responses are retained, but only 127 probe semantic callback records
+were captured. One caps and one helper response lack that secondary callback.
+The probe's SQLite diagnostic-count query had not taken the store lock; it now
+uses the same lock as the already-protected production callback. The exact two
+lost callback exception causes cannot be reconstructed. This gap is disclosed,
+not counted as operational health. Require complete callback/error evidence in
+the next probe. The live data confirms diagnostic retention and status translation,
+not successful acquisition or complete production readiness.
+
+`tests/check_005_stage02.py` independently reparses all 129 native response
+contracts at their original times, checks pre-dispatch intents, actual budgets,
+one write, exact identity/cap/age, independent status/watch results and the
+retained diagnostic chain. It verifies seals only for captured experiment/EA
+evidence, and runs six negative tampering checks. Its verdict explicitly remains
+STAGE_VERIFIED_OBJECTIVE_INCOMPLETE.
+
+### Verification and safe checkpoint
+
+Full discovery passed **1103 executions**, zero failures/errors/skips, in 484.045s
+recorded wall time. All 36 Node suites passed. Full receipts are under
+`checks/stage02/python` and `node`; the serial independent and final focused
+receipts are adjacent. Initial process-fixture defects were corrected: test
+generations require isolated fixture journal directories, and closed stderr pipes
+must not be communicated twice. The initial foreground popup guard and one
+misplaced PowerShell helper declaration were caught and corrected before the
+successful attachment. No functional check or original acceptance was weakened.
+
+The production DB is now STOPPED/ACQUIRING with 20 UNKNOWN attempts, zero active
+managed members, zero pending commands and 643 retained diagnostic rows. All 19
+old unknowns plus the new unknown remain protected. No background FC controller
+or watchdog was launched; healthy operational seconds remain zero. Continue this
+same task with the fresh-status experiment and evidence-driven repair, then
+deploy through the scheduler service handoff and prove the genuine full lifecycle
+and final uninterrupted 14400-second interval. No external blocker is proposed.
+
+The final health-message refinement preserves the exact recorded STOPPED reason
+after the parent exits, instead of replacing it with generic ownership loss.
+The five real-process tests passed again after that isolated refinement in
+`checks/stage02/focused-health-reason/`; this follow-up is separate from the
+1103-execution full receipt above. Final serial independent verification passed
+all nine commands. Stage02 publication title: `Add owned runtime health and
+retain native denial diagnostics`.
+
+The operational argv contract for the eventual scheduler handoff is:
+
+```json
+{
+  "monitor": {
+    "check": {"command": ["{python}", "-m", "fc_access.controller_v1.operational", "health", "--runtime-dir", "private-captures/controller-v1/operational", "--task-key", "obj-cb39371c785a/operate", "--generation", "<new-32-hex-generation>"], "timeout": 30},
+    "stop": {"command": ["{python}", "-m", "fc_access.controller_v1.operational", "stop", "--runtime-dir", "private-captures/controller-v1/operational", "--task-key", "obj-cb39371c785a/operate", "--generation", "<same-generation>"], "timeout": 60},
+    "interval": 30,
+    "startup_seconds": 90
+  },
+  "service": {
+    "id": "<new-single-use-launch-intent>",
+    "command": ["{python}", "-m", "fc_access.controller_v1.operational", "service", "--runtime-dir", "private-captures/controller-v1/operational", "--task-key", "obj-cb39371c785a/operate", "--generation", "<same-generation>", "--database", "private-captures/controller-v1/controller.sqlite", "--cache", "private-captures/controller-v1/quotes.sqlite", "--context", "private-captures/controller-v1/public-context.json", "--port", "8784"]
+  }
+}
+```
+
+This is a planned payload, not a consumed launch ID or running generation. The
+worker must substitute a genuine new ID only after reconciliation and use the
+existing scheduler's service handoff. The stop timeout60s allows the existing
+35s graceful drain and bounded joins; it sends no EA request or arbitrary kill.
+Once launched, exact PowerShell inspection/stop uses the retained generation:
+
+```powershell
+Set-Location C:/hustle/fc-hustle
+$generation = (Get-Content private-captures/controller-v1/operational/state.json -Raw | ConvertFrom-Json).generation
+python -m fc_access.controller_v1.operational health --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $generation
+python -m fc_access.controller_v1.operational stop --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $generation
+# If this objective was explicitly paused, resume its existing identity:
+& C:/hustle/agent-orchestrator/.venv/Scripts/orchestrator.exe --db C:/hustle/fc-hustle/.orchestrator/state.db resume obj-cb39371c785a
+```
+
+The scheduler already owns this active task. No scheduler launch, SQL lifecycle
+edit, replacement objective or legacy actor resumption occurred in this stage.
+
+`stage02/final-state.json` captures the stopped DB and no pending work. Its broad
+process heuristic also matched the collecting PowerShell command because that
+command mentioned probe filenames during Git staging. The separate collector-only
+`final-quiescence.json` at02:10:51 UTC avoids that false match and independently
+reports no FC workers, listeners or scheduled mutation jobs. Both captures remain
+retained; the stage validator uses the later quiescent observation and the DB
+projection without pretending the earlier heuristic was exact.

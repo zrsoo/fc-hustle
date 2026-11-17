@@ -32,6 +32,7 @@
         receipt:null,observed_at:new Date().toISOString(),network_at:null,designated_account_verified:false};
       if(!valid(c))return out;
       if(!s.acquire()){out.error='bridge_busy';return out;}
+      diagnostic(c.id,'PAGE_ENTER');
       const restorers=[],listeners=[],requests=[],pending=new WeakMap();
       let active=true,invoking=false,sending=false,invocations=0,queueCount=0,bidState=null,wireCredits=null,observable=null,owner={},timer;
       const restore=()=>{active=false;clearTimeout(timer);try{observable?.unobserve?.(owner);}catch{}
@@ -124,6 +125,7 @@
           }else if(body!=null && body!=='')throw Error('invalid_preconditions');
           out.network.push(n);out.network_at=new Date().toISOString();
           const f=()=>{if(!active)return;n.status=num(this.status)||null;
+            diagnostic(c.id,'EA_RESPONSE',{status:n.status,xhr_zero_status:this.status===0});
             if(op==='bid' || op==='balance'){
               try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
                 if(op==='bid'){
@@ -140,12 +142,12 @@
         });
         const response=await new Promise((resolve,reject)=>{
           cancel=()=>reject(Error('interrupted'));
-          timer=setTimeout(()=>reject(Error('service_timeout')),15000);
-          try{s.auth();invoking=true;observable=invoke();invoking=false;
+          timer=setTimeout(()=>{diagnostic(c.id,'NATIVE_TIMEOUT');reject(Error('service_timeout'));},15000);
+          try{s.auth();diagnostic(c.id,'NATIVE_INVOKE');invoking=true;observable=invoke();invoking=false;
             if(typeof observable?.observe!=='function')throw Error('service_unavailable');
             // Observable callbacks are never ownership scopes. A background request
             // during delivery cannot become an owned send.
-            observable.observe(owner,(sender,r)=>{if(active){try{sender?.unobserve?.(owner);}catch{}resolve(r);}});
+            observable.observe(owner,(sender,r)=>{if(active){diagnostic(c.id,'NATIVE_CALLBACK',{success:r?.success,status:r?.status});try{sender?.unobserve?.(owner);}catch{}resolve(r);}});
           }catch(e){invoking=false;reject(e);}
         });
         s.auth();out.status=num(response?.status);
@@ -210,8 +212,9 @@
       }catch(e){
         const errors=['known_identity_unavailable','invalid_preconditions','service_unavailable','service_timeout','interrupted','ambiguous_network','unauthenticated','schema_unrecognized','service_failed','persona_unverified','bid_unconfirmed'];
         out.error=errors.includes(e?.message)?e.message:'internal_error';
+        diagnostic(c.id,'PAGE_FAILURE',{error:out.error,error_class:e?.name});
         if(out.receipt?.verdict==='ACCEPTED'){out.receipt.verdict='UNCONFIRMED';out.receipt.reason='ENVELOPE_VALIDATION_FAILED';}
-      }finally{delete out._legacy;restore();out.observed_at=new Date().toISOString();}
+      }finally{delete out._legacy;restore();out.observed_at=new Date().toISOString();diagnostic(c.id,'PAGE_FINISHED',{success:out.success});}
       return out;
     }
     return Object.freeze({execute,interrupt:()=>{cancel?.();},valid});

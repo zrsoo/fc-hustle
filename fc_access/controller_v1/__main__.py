@@ -76,7 +76,11 @@ def run_controller(a, supervision):
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
             epoch=json.loads(previous[0])['fences']['epoch']+1 if previous else 1
             adapter=ControllerAdapter(SerializedExecutor(ControllerExecutor(a.port),progress=supervision.progress),context=scope,owner=secrets.token_hex(16),epoch=epoch)
-            adapter.executor.result=supervision.result
+            def report_result(c,v):
+                with server.store.lock:
+                    count=server.store.db.execute('SELECT coalesce(sum(json_array_length(body)),0) FROM c4_diagnostics WHERE command_id=?',(c['id'],)).fetchone()[0]
+                supervision.result(c,v,diagnostic_records=count)
+            adapter.executor.result=report_result
             server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
             controller=Controller(server.store,adapter,cache);server.controller=controller

@@ -1,0 +1,9 @@
+{
+  "status": "NOT_VERIFIED",
+  "account_mutations": 0,
+  "exception_type": "ValueError",
+  "pending": 0,
+  "reserved_ea": 0,
+  "commands": 0,
+  "service_stopped": true
+}

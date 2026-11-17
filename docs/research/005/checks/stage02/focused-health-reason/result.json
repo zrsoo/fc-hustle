@@ -1,0 +1,10 @@
+{
+  "command": [
+    "{python}",
+    "tests/test_005_operations.py"
+  ],
+  "exit_code": 0,
+  "seconds": 6.705,
+  "stdout": "stdout.txt",
+  "stderr": "stderr.txt"
+}

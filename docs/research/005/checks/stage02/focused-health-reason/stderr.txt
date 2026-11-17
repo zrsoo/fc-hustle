@@ -1,0 +1,10 @@
+test_health_rejects_life_only_failed_reads_gaps_and_unbounded_startup (__main__.OperationsTests.test_health_rejects_life_only_failed_reads_gaps_and_unbounded_startup) ... ok
+test_parent_death_releases_ownership_and_child_loses_dispatch_lease (__main__.OperationsTests.test_parent_death_releases_ownership_and_child_loses_dispatch_lease) ... ok
+test_real_semantic_fault_stops_without_restart_and_preserves_stop_reason (__main__.OperationsTests.test_real_semantic_fault_stops_without_restart_and_preserves_stop_reason) ... ok
+test_real_service_excludes_duplicate_and_stop_is_idempotent_with_generation_binding (__main__.OperationsTests.test_real_service_excludes_duplicate_and_stop_is_idempotent_with_generation_binding) ... ok
+test_runtime_state_write_failure_still_joins_owned_worker (__main__.OperationsTests.test_runtime_state_write_failure_still_joins_owned_worker) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.443s
+
+OK

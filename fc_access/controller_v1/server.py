@@ -97,8 +97,7 @@ class Handler(LegacyHandler):
                     return self.send(200,{'accepted':True})
                 if self.path=='/diagnostic':
                     fields(v,{'peer','id','records'});self.peer(v['peer'])
-                    # Page results carry strict sanitized diagnostics; legacy
-                    # worker diagnostics confer no admission or result authority.
+                    s.store.diagnostic(v['peer'],v['id'],v['records'])
                     return self.send(200,{'accepted':True})
                 self.peer(s.store.peer);s.store.enqueue(v,s.store.peer);s.condition.notify_all()
                 end=time.monotonic()+s.wait_seconds

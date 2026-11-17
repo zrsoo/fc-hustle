@@ -29,18 +29,14 @@ if($Action -eq 'load-path') {
  $modal=$w.FindFirst($scope,(New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Window)))
  if($modal){$h=[IntPtr]$modal.Current.NativeWindowHandle}
 }
-[void][FCDesktop]::ShowWindow($h,9)
-[void][FCDesktop]::SetForegroundWindow($h)
-Start-Sleep -Milliseconds 250
-if([FCDesktop]::GetForegroundWindow() -ne $h){throw 'Edge_foreground_control_failed'}
+Confirm-FCEdgeForeground -WindowHandle $h.ToInt64()
 function Find-Name($name) {
  $cond=New-Object System.Windows.Automation.PropertyCondition([System.Windows.Automation.AutomationElement]::NameProperty,$name)
  return $w.FindFirst($scope,$cond)
 }
 function Activate($e){
  if(!$e){throw 'UI_element_missing'}
- $fg=[System.Windows.Automation.AutomationElement]::FromHandle([FCDesktop]::GetForegroundWindow())
- if(($Action -eq 'load-path' -and [FCDesktop]::GetForegroundWindow() -ne $h) -or ($Action -ne 'load-path' -and $fg.Current.ProcessId -ne $w.Current.ProcessId)){throw 'foreground_changed'}
+ if(!(Test-FCEdgeForegroundOwner -WindowHandle $h.ToInt64())){throw 'foreground_changed'}
  $p=$null
  if($e.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern,[ref]$p)){$p.Invoke();return}
  if($e.TryGetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern,[ref]$p)){$p.Select();return}
@@ -55,9 +51,12 @@ if($Action -eq 'navigate'){
 } elseif($Action -eq 'attach') {
  $currentUrl=(Find-Name 'Address and search bar').GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value
  if($currentUrl -notmatch '^(https://)?(www\.)?ea\.com/(?:[a-z]{2}-[a-z]{2}/)?ea-sports-fc/ultimate-team/web-app/?$'){throw 'official_tab_required'}
- Activate (Find-Name 'Extensions');Start-Sleep -Milliseconds 300
- $btn=@($w.FindAll($scope,$all)|Where-Object {$_.Current.ControlType.ProgrammaticName -eq 'ControlType.Button' -and $_.Current.Name -like 'FC27 production one-shot bridge Allowed only when clicked*'})
- if($btn.Count -ne 1){throw 'extension_button_ambiguous'}
+ function Production-Buttons { $w.FindAll($scope,$all)|Where-Object {!$_.Current.IsOffscreen -and $_.Current.ControlType.ProgrammaticName -eq 'ControlType.Button' -and $_.Current.Name -like 'FC27 production one-shot bridge Allowed only when clicked*'} }
+ $btn=@(Production-Buttons)
+ if($btn.Count -eq 0){Activate (Find-Name 'Extensions')}
+ $fcMenuWait=[System.Diagnostics.Stopwatch]::StartNew()
+ while($btn.Count -ne 1 -and $fcMenuWait.Elapsed.TotalSeconds -lt 2){Start-Sleep -Milliseconds 100;$btn=@(Production-Buttons)}
+ if($btn.Count -ne 1){throw ('extension_button_ambiguous_count_'+$btn.Count)}
  Activate $btn[0]
 } elseif($Action -eq 'click') { Activate (Find-Name $Name)
 } elseif($Action -eq 'select-ea') {

@@ -32,9 +32,8 @@ $selected=@($candidates|Where-Object {$_.login})
 if($selected.Count -eq 0){$selected=$candidates}
 if($selected.Count -ne 1){throw 'EA_window_ambiguous'}
 $w=$selected[0].window;$h=[IntPtr]$w.Current.NativeWindowHandle
-[void][FCControllerUI]::ShowWindow($h,9);[void][FCControllerUI]::SetForegroundWindow($h)
-Start-Sleep -Milliseconds 150
-if([FCControllerUI]::GetForegroundWindow() -ne $h){throw 'Edge_foreground_control_failed'}
+. (Join-Path $PSScriptRoot '../fc_access/production_v1/desktop_window.ps1')
+Confirm-FCEdgeForeground -WindowHandle $h.ToInt64()
 $elements=@($w.FindAll($scope,$all))
 $names=@{login='Login';next='NEXT';'sign-in'='SIGN IN';'focus-account'='Email or EA ID'}
 if($Action -in @('next','sign-in','focus-account','filter-account','submit-account','submit-password','saved-account') -and !$selected[0].login){throw 'official_EA_login_required'}

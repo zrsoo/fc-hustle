@@ -1,0 +1,56 @@
+{
+  "status": "NO_CONFIRMED_PARTICIPATION",
+  "account_mutations": 1,
+  "batch_id": "341cfe13c75dccc077ba643a3927eb5d",
+  "attempts": [
+    {
+      "command_id": "17bcb5a360204fbfee2fd7a766771d62",
+      "state": "UNKNOWN",
+      "result": {
+        "command_id": "17bcb5a360204fbfee2fd7a766771d62",
+        "independently_confirmed": false,
+        "outcome": "UNKNOWN",
+        "reason": "ambiguous_network",
+        "receipt": {
+          "auction": null,
+          "before_bid_state": "none",
+          "input_stale": false,
+          "matching_item_count": 0,
+          "native_error_code": 461,
+          "native_error_name": null,
+          "native_item_count": 0,
+          "native_success": false,
+          "reason": "EMPTY_NATIVE_ITEMS",
+          "schema": 1,
+          "verdict": "UNCONFIRMED",
+          "wire_amount": 850,
+          "wire_amount_matches": true,
+          "wire_error_code": null,
+          "wire_identity_matches": true,
+          "wire_item_count": null,
+          "wire_trade_id": "trade:a19d4fae0576c0918d65782f"
+        }
+      }
+    }
+  ],
+  "confirmed_members": 0,
+  "semantic": {
+    "reason": null,
+    "native_successes": 23,
+    "native_success_age": 0.00442249997286126,
+    "read_failures": 0,
+    "write_failures": 1,
+    "auth_failures": 0,
+    "missing_statuses": 0,
+    "batch_failures": 0,
+    "helper_failures": 0,
+    "diagnostic_failures": 0,
+    "unconfirmed_attempts": 1,
+    "confirmed": 0,
+    "batches": 1
+  },
+  "pending": 0,
+  "reserved_ea": 32,
+  "commands": 129,
+  "service_stopped": true
+}

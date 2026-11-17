@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "live": {"commands": 129, "ea_requests": 26, "bid_intents": 1, "confirmed_members": 0, "unknown_preserved": 1, "wire_status": 461, "service_status": 403, "discovery_age_seconds": 42.019, "callback_messages_missing": 2}, "negative_checks": 6}

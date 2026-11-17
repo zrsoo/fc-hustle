@@ -43,8 +43,8 @@ class Supervision:
         self.lock=threading.RLock()
         self.snapshot=None
 
-    def result(self, command, response):
-        self.report('native_result',**native_summary(command,response))
+    def result(self, command, response, diagnostic_records=None):
+        self.report('native_result',**native_summary(command,response),diagnostic_records=diagnostic_records)
 
     def policy_result(self, **fields):
         self.report('batch_result',**fields)
@@ -160,7 +160,7 @@ class Watchdog:
                 + (label(reason) if reason else f"stage {max(0,self.clock()-v['tick']):.0f}s"))
 
 
-def supervise(arguments, *, target=worker, limits=Limits(), output=None):
+def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime=None):
     """Explicit run only. One worker, one status line, one retained event log.
 
     No restart, notification service, web dashboard, account probe or trading
@@ -178,6 +178,13 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None):
     process=ctx.Process(target=target,args=(child,vars(arguments),limits),name='fc-controller-v1')
     monitor=Watchdog(limits,semantic=SemanticHealth())
     reason=None;forced=False;started=False;width=0;log_failed=False;output_failed=False;exit_code=None;alive=False
+    runtime_failed=False
+
+    def publish(state,reason=None,*,force=False):
+        nonlocal runtime_failed
+        if runtime:
+            try:runtime.publish(monitor,state,reason,force=force)
+            except (OSError,ValueError,TypeError):runtime_failed=True
 
     def display(state, reason=None):
         nonlocal width,output_failed
@@ -205,10 +212,15 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None):
         try:
             parent.send(dict(action='lease',tick=time.monotonic()))
             process.start();started=True;child.close()
-            record('STARTED',pid=process.pid,limits=vars(limits))
+            if runtime:runtime.bind(process.pid,log_path)
+            record('STARTED',pid=process.pid,limits=vars(limits),generation=runtime.generation if runtime else None)
             while True:
                 connected=drain()
-                reason=('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else monitor.check())
+                reason=('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else 'RUNTIME_STATE_FAILED' if runtime_failed else monitor.check())
+                if runtime:
+                    reason=reason or runtime.stop_reason()
+                    publish('RUNNING' if monitor.latest.get('lifecycle')=='RUNNING' else 'STARTING',reason)
+                    if runtime_failed:reason='RUNTIME_STATE_FAILED'
                 if reason:break
                 if not connected or not process.is_alive():
                     reason='PROCESS_EXIT';break
@@ -228,6 +240,7 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None):
             if started:
                 display('STOPPING',reason)
                 record('STOP_REQUESTED',reason=reason)
+                publish('STOPPING',reason,force=True)
                 try:parent.send(dict(action='stop'))
                 except (OSError,EOFError):pass
                 # Stop takes effect at the dispatch/claim guards. Let the one
@@ -241,13 +254,15 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None):
                 exit_code=process.exitcode
                 record('STOPPED' if not alive else 'STOP_FAILED',reason=reason,
                        exit_code=exit_code,forced=forced)
+                publish('STOPPED' if not alive else 'STOP_FAILED',reason,force=True)
                 display('STOPPED' if not alive else 'STOP_FAILED',reason)
             else:
                 record('STOPPED',reason=reason,worker_started=False)
+                publish('STOPPED',reason,force=True)
                 display('STOPPED',reason)
             try:print(file=output,flush=True)
             except OSError:pass
             parent.close();child.close()
             if started and not process.is_alive():process.close()
-    return 0 if (not log_failed and not output_failed and not forced and not alive and exit_code==0 and
-                 reason in {'OPERATOR_STOP','OPERATOR_STOPPED','OPERATOR_PAUSED'}) else 1
+    return 0 if (not log_failed and not output_failed and not runtime_failed and not forced and not alive and exit_code==0 and
+                 reason in {'OPERATOR_STOP','OPERATOR_STOPPED','OPERATOR_PAUSED','OPERATIONAL_STOP'}) else 1

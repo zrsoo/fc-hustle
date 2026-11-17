@@ -216,74 +216,43 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 01, 2026-11-17: preserved the actual 302-command/905-event incident and all
-19 UNKNOWN attempts without changing production DBs. Fresh quiescent backups,
-integrity/FK checks and row-for-row comparisons are recorded under
-`docs/research/005/incident-20261117T010101301454Z/backup.json` (earlier additive
-projection/backup also retained). Starting main was `972c01e`, clean. Current
-source extension path is `browser/production-v1/`, not the nonexistent extension
-path in the input's preparation notes.
+Stage 02 completed engineering checkpoint (2026-11-17), starting published main
+`4cc51c1`. Fresh quiescent canonical-lock backup is recorded in
+`docs/research/005/stage02/backup-20261117T012442462535Z.json`. Added helper and
+missing-diagnostic fault detection, strict append-only diagnostic retention,
+verified foreground/owned-popup recovery, and the generation/creation-identity
+bound operational service/health/stop module. All 1103 full Python executions,
+36 Node suites and the final focused process/diagnostic/probe checks pass; serial
+independent results are in `docs/research/005/checks/stage02/`. No persistent
+production service has been launched and healthy operational seconds remain zero.
 
-Actual finite read-02 window: six native commands, seven authenticated HTTP200
-GETs (including discovery metadata), zero mutations, 63702 coins, empty watched
-and unassigned sets, five active complete Transfer List entries, 21 discovery
-rows, ten exact status targets/rows/full-version links, no missing rows. The
-probe closed with no pending commands; it does not prove new-controller wins or
-resolve old unknowns. This worker verified official Edge foreground/UI control;
-no security challenge or missing credentials were encountered. Read-01's setup
-timeout-parameter failure is separately retained and was not reset/replayed.
+Actual finite bid-03 used normal admission/selection and one minimum initial bid:
+129 native command responses, 26 actual EA requests (25 GET, one PUT), amount 850,
+stored cap 4300/resale 5100, selection remaining 71.856465s. It reproduced wire 461 /
+service 403 / native error 461 and remains UNKNOWN. Independent exact status showed
+current 900 versus discovery 800, active, account bid_state none; personal watched
+was empty. Discovery age at dispatch was 42.019s. This supports a stale-price or
+competition hypothesis, not a proven server-denial cause or account restriction.
+Two earlier attachment windows dispatched no commands; all windows are consumed.
+Native evidence/diagnostic chain and six negative audit checks are independently
+verified by `python tests/check_005_stage02.py` (explicitly objective incomplete).
+The probe captured 127 secondary semantic records for 129 native responses; the
+query now uses the store lock, but the exact two callback exceptions are unknown.
+Require complete callback/error records next time; claim no healthy time here.
 
-Implemented semantic outcome monitoring in the existing watchdog and real native
-boundary, plus post-readback batch results. Tests prove repeated 401, failed reads,
-failed writes, handled failed batches, all-missing managed status, missing native
-freshness and repeated unconfirmed acquisition stop rather than remaining healthy
-on progress. Single uncertainty and ordinary market outcomes remain non-blocking.
-Retained incident replay stops at the third 461 bid, before the later auth storm.
-Seventeen focused semantic tests and five evidence tests pass. Final full Python
-discovery passed 1088 executions, zero failures/errors/skips, 475.429 seconds;
-all 36 Node suites and all nine final independent commands passed. Complete
-receipts are in `docs/research/005/checks/stage01/`. The first independent batch
-had canonical-lock contention with discovery; its serial rerun exposed one
-scheduler no-op audit addition, corrected behaviorally as described below.
-Both failed batches remain retained. No original historical evidence was changed.
-
-Next concrete actions: retain controller
-diagnostic POSTs with strict sanitization; verify native current-code write/status
-and authentication/identity behavior in a new finite, durable-intent window,
-without replaying any unknown. Implement tested exclusive scheduler-owned runtime
-lock, restart-readable generation/ownership and bounded semantic health/stop JSON.
-Then reconcile actual account state and use the SAME task's service handoff for
-production launch. No persistent service has been launched, no external blocker
-is proposed and healthy operational seconds remain zero. Full live lifecycle and
-the consecutive 14400-second interval remain required. Report:
-`docs/research/005/REPORT.md`; independent stage-only audit:
-`python tests/check_005_stage01.py` (explicitly not objective acceptance).
-
-Additional serial-audit finding: the scheduler appended one no-op transition
-event 594021 for paused 003-04 (RECONCILING to RECONCILING, null diagnostic, no
-turn). Every original historical row and checkpoint is unchanged. The archival
-checker now validates that precise append-only no-op rather than rejecting all
-audit additions, with negative tests for real activity, deletions and state edits.
-All nine independent validators pass in `checks/stage01/independent-final` and all
-36 Node suites pass in `node-final`; final full Python discovery passes 1088
-executions in `python-final`. Stage01 publication title:
-`Preserve Objective 005 incident and stop persistent controller failures`.
-
-Inspection follow-up for the next repair stage: local price_helpers are correctly
-excluded from native freshness, but stage01 currently ignores their failure
-streak too. Reproduce/add a separate typed helper-failure stop without counting
-successful local helpers as EA freshness; otherwise caps/read successes could
-mask repeated helper failures as empty acquisition. Address before any production
-launch. Full remaining integration contract is `docs/research/005/runtime-plan.md`.
-
-Before further browser actions, add a reusable verified foreground fallback:
-ordinary helper calls later failed `Edge_foreground_control_failed`, but this
-worker's temporary AttachThreadInput + restore/BringWindowToTop/SetForegroundWindow
-call verified the intended official Edge foreground successfully with no keyboard
-or mouse input (`desktop-focus-recovery.json`). Separate unmodified helper calls
-still lack that fallback. No desktop-access blocker is established. A newly
-observed scheduled FC-005 orchestrator review task is not an FC actor and was not
-modified by this worker. Keep ownership checks current; do not launch duplicates.
+Next concrete action: create a NEW finite experiment, with a new distinct target,
+that obtains fresh exact native status before its minimum initial bid, preserving
+full-version links, the unchanged quote/cap, one batch balance, capacity, filters,
+more-than60s eligibility and no uncertain-command replay. Reconcile actual account
+readback. Scope a production freshness/receipt repair only from actual evidence;
+record every failed method and never fabricate a rejection or success. Harden
+callback-failure reporting if needed. Then use the tested operational interface
+for scheduler-owned launch in this SAME task, reconcile on restart, and continue
+monitor/stop/repair until genuine lifecycle evidence and 14400 consecutive healthy
+seconds after the final restart. Keep 003 PAUSED and 004 COMPLETED. Production is
+STOPPED/ACQUIRING, 20 UNKNOWN attempts (all 19 original plus the new one), zero active
+members, zero pending commands. No external blocker or human prerequisite exists.
+Detailed evidence and exact current hypotheses: `docs/research/005/REPORT.md`.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -308,3 +277,31 @@ shows no current read-only auth barrier; write behavior still needs genuine
 validation after current extension reload. WAIT provenance remains open because
 the controller service discards worker diagnostics; preserve typed diagnostics
 before the next write probe. No security or saved-authentication values accessed.
+
+
+2026-11-17 H4 / VERIFIED ENGINEERING REPAIRS: real controller fixtures reproduce
+successful caps reads masking persistent failed local helpers; three helper
+failures now stop without treating successful helpers as native freshness.
+Controller diagnostics were discarded; they are now strictly validated and
+retained append-only, and missing diagnostics stop after three operations.
+Actual bid-03 retains EA_RESPONSE 461 followed by NATIVE_CALLBACK 403/false.
+
+2026-11-17 H5 / LOCAL OWNERSHIP CONTRACT VERIFIED OFFLINE, DEPLOYMENT PENDING:
+`fc_access.controller_v1.operational` implements an exclusive owner lock,
+consumed generation, process creation identities, atomic state, strict semantic
+health JSON and idempotent generation-bound stop. Finite real-process fixtures
+verify duplicate/stale ownership refusal, parent death/child lease withdrawal,
+state-write failure and semantic stops. No production runtime generation exists.
+
+2026-11-17 H6 / STALE-PRICE-COMPETITION HYPOTHESIS OPEN: the fresh document still
+returned 461 for a minimum 850 bid based on discovery current 800 aged 42.019s.
+Independent status two seconds later showed 900 and no account participation.
+This does not prove when the competitive change happened or the exact denial
+cause. Next: a separately journaled fresh exact-status-before-bid experiment,
+with unchanged pricing/filters/cap, no replay of unknown 17bcb5a360204fbfee2fd7a766771d62.
+
+2026-11-17 H7 / BROWSER RECOVERY VERIFIED: temporary input-thread attachment
+recovers foreground; a popup is allowed only through the exact intended root
+owner. Reusing an existing Extensions menu avoids closing it by toggling. Two
+failed attachment windows had zero native dispatch; distinct bid-03 attached
+successfully after extension reload/document refresh. No auth values accessed.

@@ -1,0 +1,25 @@
+{
+  "production_listeners": [],
+  "observed_at": "2026-11-17T02:09:53.4182188Z",
+  "scheduled_mutation_jobs": [],
+  "production_workers": [
+    {
+      "pid": 14372,
+      "name": "powershell.exe",
+      "category": "FC account service or probe"
+    }
+  ],
+  "controller": [
+    {
+      "phase": "ACQUIRING",
+      "lifecycle": "STOPPED",
+      "reason": "OPERATOR_STOPPED"
+    }
+  ],
+  "attempt_states": {
+    "UNKNOWN": 20
+  },
+  "active_members": 0,
+  "pending_commands": 0,
+  "diagnostic_rows": 643
+}

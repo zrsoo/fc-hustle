@@ -1,0 +1,57 @@
+{
+  "task": "005",
+  "classification": "OFFLINE_FIXTURES_AND_RETAINED_EVIDENCE_ONLY",
+  "finished": "2026-11-17T02:02:13.670829+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_diagnostics.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.629,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_operations.py"
+      ],
+      "exit_code": 0,
+      "seconds": 6.632,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_probe.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.217,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage01.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.111,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage02.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.282,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt"
+    }
+  ]
+}

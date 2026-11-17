@@ -33,6 +33,12 @@ class ControllerStore:
           CREATE TABLE IF NOT EXISTS c4_batches(id TEXT PRIMARY KEY, body TEXT NOT NULL);
           CREATE TABLE IF NOT EXISTS c4_decisions(id TEXT PRIMARY KEY, batch_id TEXT NOT NULL, body TEXT NOT NULL);
           CREATE TABLE IF NOT EXISTS c4_tombstones(action TEXT PRIMARY KEY, command_id TEXT UNIQUE NOT NULL);
+          CREATE TABLE IF NOT EXISTS c4_diagnostics(seq INTEGER PRIMARY KEY,
+            command_id TEXT NOT NULL REFERENCES c4_commands(id), at TEXT NOT NULL, body TEXT NOT NULL);
+          CREATE TRIGGER IF NOT EXISTS c4_diagnostic_no_update BEFORE UPDATE ON c4_diagnostics
+            BEGIN SELECT RAISE(ABORT,'immutable_diagnostic'); END;
+          CREATE TRIGGER IF NOT EXISTS c4_diagnostic_no_delete BEFORE DELETE ON c4_diagnostics
+            BEGIN SELECT RAISE(ABORT,'immutable_diagnostic'); END;
         ''')
         self.host_epoch = secrets.token_hex(16)
         with self.db:
@@ -81,6 +87,21 @@ class ControllerStore:
 
     def event(self, cid, kind, value):
         self.db.execute('INSERT INTO c4_events(id,kind,body) VALUES (?,?,?)', (cid,kind,encode(value)))
+
+    def diagnostic(self, peer, cid, records):
+        from fc_access.production_v1.diagnostics import validate_records
+        token(cid);validate_records(records)
+        with self.lock,self.db:
+            self.check_peer(peer)
+            row=self.db.execute('SELECT body,state FROM c4_commands WHERE id=?',(cid,)).fetchone()
+            if not row or row[1] not in {'CLAIMED','DONE','UNKNOWN'}:
+                raise ValueError('diagnostic_command_required')
+            c=json.loads(row[0])
+            if any(c[k]!=peer[k] for k in ('context','fences')):raise ValueError('diagnostic_scope_mismatch')
+            count=self.db.execute('SELECT coalesce(sum(json_array_length(body)),0) FROM c4_diagnostics WHERE command_id=?',(cid,)).fetchone()[0]
+            if count+len(records)>256:raise ValueError('diagnostic_limit')
+            if records:self.db.execute('INSERT INTO c4_diagnostics(command_id,at,body) VALUES (?,?,?)',
+                (cid,self.now().isoformat(),encode(records)))
 
     def observation(self, cid, operation=None):
         row = self.db.execute('SELECT body,state,result FROM c4_commands WHERE id=?', (cid,)).fetchone()
@@ -252,16 +273,23 @@ class ControllerStore:
             self.event(cid,'UNCERTAIN',{})
 
     def finish(self, peer, cid, value):
-        with self.lock, self.db:
+        with self.lock:
             self.check_peer(peer)
             row = self.db.execute('SELECT body,state FROM c4_commands WHERE id=?',(cid,)).fetchone()
             if not row or row[1] not in {'CLAIMED','UNKNOWN'}: raise ValueError('unclaimed_result')
             c = json.loads(row[0])
-            parsed = delivery_response(value,c,now=self.now())
-            self.event(cid,'LATE_RESULT' if row[1]=='UNKNOWN' else 'RESULT',parsed)
-            if row[1] == 'CLAIMED':
-                success=parsed['success'] if c['schema']==4 else parsed['result']['success']
-                self.db.execute('UPDATE c4_commands SET state=?,result=? WHERE id=?',('DONE' if success else 'UNKNOWN',encode(parsed),cid))
+            try:parsed = delivery_response(value,c,now=self.now())
+            except (ValueError,TypeError,KeyError,OverflowError) as error:
+                from .semantic import native_summary
+                from fc_access.production_v1.diagnostics import result_summary
+                with self.db:self.event(cid,'RESULT_REJECTED',dict(exception_type=type(error).__name__,
+                    summary=native_summary(c,value) if c['schema']==4 else result_summary(value,c)))
+                raise
+            with self.db:
+                self.event(cid,'LATE_RESULT' if row[1]=='UNKNOWN' else 'RESULT',parsed)
+                if row[1] == 'CLAIMED':
+                    success=parsed['success'] if c['schema']==4 else parsed['result']['success']
+                    self.db.execute('UPDATE c4_commands SET state=?,result=? WHERE id=?',('DONE' if success else 'UNKNOWN',encode(parsed),cid))
 
     def policy_authority(self, decision, command_id):
         from .journal import BatchJournal

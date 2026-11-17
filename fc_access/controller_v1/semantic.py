@@ -12,6 +12,8 @@ class SemanticLimits:
     unconfirmed_attempts: int = 3
     missing_statuses: int = 3
     batch_failures: int = 3
+    helper_failures: int = 3
+    diagnostic_failures: int = 3
     native_freshness: float = 90
 
 
@@ -36,11 +38,12 @@ def native_summary(command, response=None):
     local = command['operation'] == 'price_helpers'
     return dict(operation=command['operation'], command_id=command['id'],
         local=local, read=command['operation'] in READS | SHARED_READS and not local,
-        success=correlated and result.get('success') is True and bool(network) and
-                all(n.get('session_header_present') is True and n.get('status') == 200 for n in network),
+        success=correlated and result.get('success') is True and
+                (local and not network or not local and bool(network) and result.get('status') == 200 and
+                 all(n.get('session_header_present') is True and n.get('status') == 200 for n in network)),
         error=error if type(error) is str and error in allowed else None,
         service_status=status if type(status) is int and 100 <= status <= 599 else None,
-        wire_statuses=statuses, receipt_verdict=receipt.get('verdict') if receipt.get('verdict') in {'ACCEPTED','REJECTED','UNCONFIRMED'} else None,
+        wire_statuses=statuses, receipt_verdict=receipt.get('verdict') if type(receipt.get('verdict')) is str and receipt['verdict'] in {'ACCEPTED','REJECTED','UNCONFIRMED'} else None,
         requested=len(command['params'].get('targets', [])),
         returned=len(result['auctions']) if type(result.get('auctions')) is list else 0)
 
@@ -56,12 +59,20 @@ class SemanticHealth:
         self.read_streaks = {}
         self.write_streaks = {}
         self.batch_failures = 0
+        self.helper_failures = 0
+        self.diagnostic_failures = 0
         self.reason = None
 
     def observe(self, message):
         if self.reason: return
         if message['kind'] == 'native_result':
-            if message['local']: return
+            if message.get('diagnostic_records') is not None:
+                count=message['diagnostic_records']
+                self.diagnostic_failures = 0 if type(count) is int and count>0 else self.diagnostic_failures+1
+            if message['local']:
+                self.helper_failures = 0 if message['success'] else self.helper_failures+1
+                self.check()
+                return
             success = message['success']
             if success:
                 self.last_native_success = self.clock()
@@ -99,6 +110,8 @@ class SemanticHealth:
             (self.write_failures, self.limits.write_failures, 'PERSISTENT_WRITE_FAILURE'),
             (self.missing_statuses, self.limits.missing_statuses, 'PERSISTENT_EMPTY_MANAGED_STATUS'),
             (self.batch_failures, self.limits.batch_failures, 'PERSISTENT_ACQUISITION_FAILURE'),
+            (self.helper_failures, self.limits.helper_failures, 'PERSISTENT_HELPER_FAILURE'),
+            (self.diagnostic_failures, self.limits.diagnostic_failures, 'PERSISTENT_MISSING_DIAGNOSTICS'),
             (self.unconfirmed_attempts, self.limits.unconfirmed_attempts, 'PERSISTENT_UNCONFIRMED_ACQUISITION')):
             if observed >= threshold:
                 self.reason = reason; return reason
@@ -113,4 +126,6 @@ class SemanticHealth:
                     read_failures=self.read_failures, write_failures=self.write_failures,
                     auth_failures=self.auth_failures, missing_statuses=self.missing_statuses,
                     batch_failures=self.batch_failures,
+                    helper_failures=self.helper_failures,
+                    diagnostic_failures=self.diagnostic_failures,
                     unconfirmed_attempts=self.unconfirmed_attempts, confirmed=self.confirmed, batches=self.batches)

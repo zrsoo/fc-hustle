@@ -1,0 +1,1104 @@
+{
+  "classification": "LIVE_CAPTURE_ANALYSIS_NO_INFERRED_ACCOUNT_EFFECT",
+  "target": {
+    "trade_id": "trade:a19d4fae0576c0918d65782f",
+    "item_id": "item:658c3eb1bab5944f9e1d9006",
+    "definition_id": 246191
+  },
+  "amount": 850,
+  "cap": 4300,
+  "discovery_at": "2026-11-17T01:43:43.821Z",
+  "bid_at": "2026-11-17T01:44:25.840Z",
+  "discovery_row": {
+    "bid_state": "none",
+    "buy_now_price": 11000,
+    "current_bid": 800,
+    "expires": 112,
+    "item": {
+      "definition_id": 246191,
+      "item_id": "item:658c3eb1bab5944f9e1d9006",
+      "last_sale_price": 0,
+      "untradeable": false
+    },
+    "native_is_won": false,
+    "starting_bid": 700,
+    "trade_id": "trade:a19d4fae0576c0918d65782f",
+    "trade_state": "active"
+  },
+  "status_at": "2026-11-17T01:44:27.835Z",
+  "status_row": {
+    "bid_state": "none",
+    "buy_now_price": 11000,
+    "current_bid": 900,
+    "expires": 68,
+    "item": {
+      "definition_id": 0,
+      "item_id": "item:658c3eb1bab5944f9e1d9006",
+      "last_sale_price": 0,
+      "untradeable": false
+    },
+    "native_is_won": false,
+    "starting_bid": 700,
+    "trade_id": "trade:a19d4fae0576c0918d65782f",
+    "trade_state": "active"
+  },
+  "wire_status": 461,
+  "service_status": 403,
+  "watched_count_after": 0,
+  "actual_ea_requests": 26,
+  "commands": 129,
+  "semantic_messages": 127,
+  "discovery_age_at_bid_seconds": 42.019,
+  "candidate_selection": {
+    "cap": 4300,
+    "deadline": "2026-11-17T01:45:35.821000+00:00",
+    "minimum": 850,
+    "observed_at": "2026-11-17T01:43:43.821Z",
+    "quote": {
+      "X": 500,
+      "completed": true,
+      "evidence": {
+        "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+        "age_seconds": 13027.57557,
+        "cache_hit": true,
+        "candidate": {
+          "item_id": "item:658c3eb1bab5944f9e1d9006",
+          "last_sale_price": 0,
+          "trade_id": "trade:a19d4fae0576c0918d65782f"
+        },
+        "claim": "OBSERVED_MINIMUM_ONLY",
+        "comparables": [
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5500,
+              "current_bid": 0,
+              "expires": 204,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:cb53afc900a642e15ea13342",
+                "last_sale_price": 5000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5400,
+              "trade_id": "trade:1b79dbf42c0949cb02895dc3",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721812+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6300,
+              "current_bid": 0,
+              "expires": 123,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:fefd61888c9bec80a4feebb4",
+                "last_sale_price": 5400,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6200,
+              "trade_id": "trade:23e9c6cebe035eb8dc19bc30",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679209+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 121,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:72256a28595d23139f6497a9",
+                "last_sale_price": 5500,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:288551149c03645e3f872f74",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721785+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 11000,
+              "current_bid": 700,
+              "expires": 93,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:55ab2dc43024763c37f2c860",
+                "last_sale_price": 0,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 700,
+              "trade_id": "trade:2d438a8b5f410a14d1745f0a",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679182+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5200,
+              "current_bid": 0,
+              "expires": 818,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:4941bc0917e142f49410e9ba",
+                "last_sale_price": 4900,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5100,
+              "trade_id": "trade:394b4aeed38aac622392759b",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722033+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5200,
+              "current_bid": 0,
+              "expires": 1526,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:ba7d730ffffd93048fd76216",
+                "last_sale_price": 8300,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 700,
+              "trade_id": "trade:42729ee7f1f0a585d1f98521",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722192+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8200,
+              "current_bid": 0,
+              "expires": 62,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:923c51d2eed0bf96ed210ebf",
+                "last_sale_price": 5600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 8100,
+              "trade_id": "trade:49704c3ce120e4e9c89fbbd3",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679068+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6000,
+              "current_bid": 0,
+              "expires": 1145,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:00c05952bd83f08d9c944e45",
+                "last_sale_price": 4800,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5900,
+              "trade_id": "trade:512ba3440de93de7ca320c96",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722110+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8100,
+              "current_bid": 0,
+              "expires": 60,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:4dd53ed31ca5edf6f5618b2b",
+                "last_sale_price": 5600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7900,
+              "trade_id": "trade:53ba6384bea9251f8a93ef41",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678976+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5100,
+              "current_bid": 0,
+              "expires": 257,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:89a96353bbc9e5be6731690d",
+                "last_sale_price": 4600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5000,
+              "trade_id": "trade:610612827703b12a3da25113",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721854+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8200,
+              "current_bid": 0,
+              "expires": 63,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:8fe7976a410b2d0472c5a514",
+                "last_sale_price": 5200,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 8100,
+              "trade_id": "trade:6df7dcd15e43cc4f4854d225",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679090+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5700,
+              "current_bid": 0,
+              "expires": 428,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:d0ddd5cb8cc1becb33f872cf",
+                "last_sale_price": 5000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5600,
+              "trade_id": "trade:6f11e2447969452f08bc2f01",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721933+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5100,
+              "current_bid": 0,
+              "expires": 1033,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:af49a7c9dc3b98361bd39a68",
+                "last_sale_price": 0,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5000,
+              "trade_id": "trade:715b51adcaced849e86862bc",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722051+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6000,
+              "current_bid": 0,
+              "expires": 1473,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:408c5dc206f4c101c866dec1",
+                "last_sale_price": 55000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5900,
+              "trade_id": "trade:73601d944f60392baf738b0d",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722171+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5900,
+              "current_bid": 0,
+              "expires": 1210,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:98648cc6814fdf482663820b",
+                "last_sale_price": 5000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5800,
+              "trade_id": "trade:7738f394150db9517178d6de",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722130+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6100,
+              "current_bid": 0,
+              "expires": 404,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:79138c4f6771e8e4c9667d84",
+                "last_sale_price": 0,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 1400,
+              "trade_id": "trade:845f82021cae9b241992059a",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721913+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7800,
+              "current_bid": 0,
+              "expires": 60,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:2a2fe9a3ba17c68ae4528a94",
+                "last_sale_price": 5700,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7700,
+              "trade_id": "trade:86b73b883defc5a6321c4df4",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678996+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7600,
+              "current_bid": 0,
+              "expires": 60,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:cc75c911b2d31561e6b4665e",
+                "last_sale_price": 5500,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7500,
+              "trade_id": "trade:88cf8836748f69f06bc2ff5b",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678986+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7900,
+              "current_bid": 0,
+              "expires": 60,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:cb172ae183103cbb8a908534",
+                "last_sale_price": 5600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7800,
+              "trade_id": "trade:88d4a1bb5fcea21203b84704",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679019+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7900,
+              "current_bid": 0,
+              "expires": 59,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:625725d37185c0365d2c66f2",
+                "last_sale_price": 5500,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7800,
+              "trade_id": "trade:90bb9ab051084cc96717c81e",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678965+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8300,
+              "current_bid": 0,
+              "expires": 63,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:38e165da111a8a2d17dd227e",
+                "last_sale_price": 5700,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 8200,
+              "trade_id": "trade:9af89ac87cd7c87663e950fc",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679100+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 1079,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:a47a8d6ff0a29d42edf63d14",
+                "last_sale_price": 4800,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:a4c3455d7c5a21ca09891c9e",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722071+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5600,
+              "current_bid": 0,
+              "expires": 373,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:2cb2578263ce9115f9a10d5e",
+                "last_sale_price": 4900,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5500,
+              "trade_id": "trade:a92bfbb14b39db4c958f1039",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721874+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7400,
+              "current_bid": 0,
+              "expires": 59,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:c21f8a90f060f2c4d8d8e40e",
+                "last_sale_price": 5800,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7300,
+              "trade_id": "trade:aabca02a5fe68fbfd710a35a",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678906+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5900,
+              "current_bid": 0,
+              "expires": 599,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:e775e8c612a759c99d07e136",
+                "last_sale_price": 5000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5800,
+              "trade_id": "trade:ad41a6a5f5465954acd77f51",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721972+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8200,
+              "current_bid": 0,
+              "expires": 59,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:2af533728c1e894b02a220ee",
+                "last_sale_price": 5600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 8100,
+              "trade_id": "trade:b7c6d03919cc344f03bcfe29",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678927+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5900,
+              "current_bid": 0,
+              "expires": 1088,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:d59d84e5a1d26bceba98e074",
+                "last_sale_price": 5300,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5800,
+              "trade_id": "trade:c04d63ff1a3dafa7c8734611",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722090+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6800,
+              "current_bid": 0,
+              "expires": 73,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:c847cbd8d39bfa58ede0b2a1",
+                "last_sale_price": 6000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6700,
+              "trade_id": "trade:c3163169d3e7e7ce29ebaafe",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679171+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 248,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:abbb3dde5235aeaed1cd8047",
+                "last_sale_price": 5100,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:c63cd11feface17af965858b",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721834+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5900,
+              "current_bid": 0,
+              "expires": 1362,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:ae9c731d5bc678550ed4f03f",
+                "last_sale_price": 5000,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5800,
+              "trade_id": "trade:d24e8550ce7fcc94be2ddf93",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722152+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 5800,
+              "current_bid": 0,
+              "expires": 381,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:655a9c0f5998620860ba5694",
+                "last_sale_price": 5200,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 5700,
+              "trade_id": "trade:d96fea133a2337ac0876427d",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721895+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7400,
+              "current_bid": 0,
+              "expires": 49,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:f7051a3e8587e7dca95054f4",
+                "last_sale_price": 0,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7300,
+              "trade_id": "trade:d9ec5068477e46db13ad9796",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678891+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6300,
+              "current_bid": 0,
+              "expires": 70,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:64010751b46b6282d521afee",
+                "last_sale_price": 5200,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6200,
+              "trade_id": "trade:db6d41c1a73f312f34f27ec0",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679160+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7500,
+              "current_bid": 0,
+              "expires": 63,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:c4a43de3beb96b7411f1f9d8",
+                "last_sale_price": 5500,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7400,
+              "trade_id": "trade:dc20ee89a1046d784853ce7e",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679140+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7700,
+              "current_bid": 0,
+              "expires": 126,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:47c2c1f2565ac60e2ca7308c",
+                "last_sale_price": 6300,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7600,
+              "trade_id": "trade:defd258f771de3e66f3903b6",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679258+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 8300,
+              "current_bid": 0,
+              "expires": 63,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:d2e34fe8fcbbec47264553b8",
+                "last_sale_price": 5600,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 8200,
+              "trade_id": "trade:e0ffca085db600fb78baf2d0",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679079+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 629,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:b582c75c0c866450aa9d4458",
+                "last_sale_price": 4900,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:e1da525c701ead84381a02d0",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721991+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 800,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:587826a50fc546bd4f2f7ddb",
+                "last_sale_price": 5200,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:e33208f7e5e1f3639ad316ee",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.722013+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7600,
+              "current_bid": 0,
+              "expires": 65,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:25df607493285be96042c364",
+                "last_sale_price": 5500,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7500,
+              "trade_id": "trade:e4c60c24b35b9a1c15d24dd6",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.679150+00:00"
+          },
+          {
+            "max_buy": null,
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 7700,
+              "current_bid": 0,
+              "expires": 59,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:447599565d8236daf699089d",
+                "last_sale_price": 5800,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 7600,
+              "trade_id": "trade:e5426aae4176e364e7370f2f",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:12.678917+00:00"
+          },
+          {
+            "max_buy": 6200,
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "row": {
+              "bid_state": "none",
+              "buy_now_price": 6200,
+              "current_bid": 0,
+              "expires": 490,
+              "item": {
+                "definition_id": 246191,
+                "item_id": "item:18731290b89e87d9bd0e3d3a",
+                "last_sale_price": 5100,
+                "untradeable": false
+              },
+              "native_is_won": false,
+              "starting_bid": 6100,
+              "trade_id": "trade:fad605f7707a42f5777f534c",
+              "trade_state": "active"
+            },
+            "validated_at": "2026-11-16T22:07:14.721952+00:00"
+          }
+        ],
+        "complete_market_coverage": false,
+        "completed": true,
+        "coverage": "TWO_FIRST_PAGE_SAMPLES_ONLY",
+        "definition_id": 246191,
+        "exclusions": {
+          "duplicate": 1
+        },
+        "first_min": 6200,
+        "first_page_profit_cap": 5300,
+        "game": "fc27",
+        "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+        "minimum_legal_bid": 850,
+        "observed_at": "2026-11-16T22:07:12.541Z",
+        "platform": "pc",
+        "price_searches": 0,
+        "reasons": [
+          "two_successful_samples"
+        ],
+        "sample_count": 41,
+        "samples": [
+          {
+            "age_seconds": 13027.57558,
+            "combined_unique_count": 21,
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "exclusions": {},
+            "network_at": "2026-11-16T22:07:12.541Z",
+            "number": 1,
+            "params": {
+              "count": 21,
+              "definition_id": 246191,
+              "fresh": true,
+              "page": 1,
+              "purpose": "pricing"
+            },
+            "returned_count": 21,
+            "success": true,
+            "valid_unique_count": 21
+          },
+          {
+            "age_seconds": 13025.555583,
+            "combined_unique_count": 41,
+            "coverage": {
+              "complete": false,
+              "has_more": null
+            },
+            "exclusions": {},
+            "network_at": "2026-11-16T22:07:14.561Z",
+            "number": 2,
+            "params": {
+              "count": 21,
+              "definition_id": 246191,
+              "fresh": true,
+              "max_buy": 6200,
+              "page": 1,
+              "purpose": "pricing"
+            },
+            "returned_count": 21,
+            "success": true,
+            "valid_unique_count": 21
+          }
+        ],
+        "schema": 1,
+        "source": "native"
+      },
+      "max_affordable_bid": 4300,
+      "resale_price": 5100,
+      "status": "COMPLETE",
+      "tax": 255
+    },
+    "read_id": "cf027f31a963a28f8d336def0d50b981",
+    "resale_price": 5100,
+    "row": {
+      "bid_state": "none",
+      "buy_now_price": 11000,
+      "current_bid": 800,
+      "expires": 112,
+      "item": {
+        "definition_id": 246191,
+        "item_id": "item:658c3eb1bab5944f9e1d9006",
+        "last_sale_price": 0,
+        "untradeable": false
+      },
+      "native_is_won": false,
+      "starting_bid": 700,
+      "trade_id": "trade:a19d4fae0576c0918d65782f",
+      "trade_state": "active"
+    },
+    "selection_age": 40.143535,
+    "selection_remaining": 71.856465,
+    "target": {
+      "definition_id": 246191,
+      "item_id": "item:658c3eb1bab5944f9e1d9006",
+      "trade_id": "trade:a19d4fae0576c0918d65782f"
+    }
+  },
+  "diagnostics": [
+    [
+      {
+        "at": "2026-11-17T01:44:25.834Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ],
+    [
+      {
+        "at": "2026-11-17T01:44:26.032Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ],
+    [
+      {
+        "at": "2026-11-17T01:44:25.839Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T01:44:25.839Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T01:44:26.030Z",
+        "detail": {
+          "status": 461,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T01:44:26.031Z",
+        "detail": {
+          "status": 403,
+          "success": false
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T01:44:26.031Z",
+        "detail": {
+          "error": "ambiguous_network",
+          "error_class": "Error"
+        },
+        "stage": "PAGE_FAILURE"
+      },
+      {
+        "at": "2026-11-17T01:44:26.031Z",
+        "detail": {
+          "success": false
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ],
+    [
+      {
+        "at": "2026-11-17T01:44:26.048Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ],
+    [
+      {
+        "at": "2026-11-17T01:44:26.070Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  ]
+}

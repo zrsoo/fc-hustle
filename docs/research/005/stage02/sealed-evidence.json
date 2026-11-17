@@ -1,0 +1,33 @@
+{
+  "classification": "IMMUTABLE_FINITE_EXPERIMENT_EVIDENCE",
+  "files": [
+    {
+      "path": "docs/research/005/stage02/bid-01/checkpoint.jsonl",
+      "sha256": "d40a6a0fca226fe1876a03aeac1dc2fd6562cac484e07bf5c17763d5062e8e89"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-01/result.json",
+      "sha256": "34dd747cb3d5917aeac70269117b814c6b79d59e0396dd52ae9675cc175be93b"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-02/checkpoint.jsonl",
+      "sha256": "9d37357ac76609789e41b27be12fc61f7a250e87df245433f4028ec22e667cb1"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-02/result.json",
+      "sha256": "34dd747cb3d5917aeac70269117b814c6b79d59e0396dd52ae9675cc175be93b"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-03/checkpoint.jsonl",
+      "sha256": "1fd99cc32f675e0de14e1919f1118c462a33b780d9bfed818a48e57d636eb92e"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-03/result.json",
+      "sha256": "7bb4cdf65068297904314e39973f7c4c7c084903a9a4d6d9ed8f86d2345076cf"
+    },
+    {
+      "path": "docs/research/005/stage02/bid-03/analysis.json",
+      "sha256": "1f4baab4a3a3ea32cf52b027c4e8d966d0fa8d9a53176a69abec93f0239d0fff"
+    }
+  ]
+}
