@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "native_commands": 0, "unknowns_preserved": 20, "healthy_seconds": 0, "negative_checks": 4}

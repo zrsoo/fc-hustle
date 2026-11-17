@@ -457,3 +457,63 @@ member through genuine native reads. Continue semantic monitoring and automatic
 repair in this same task. First-production run must still prove management,
 terminal ownership/move/one-hour resale/eligible maintenance and the final
 uninterrupted 14400s. Original requirements are unchanged; no blocker proposed.
+
+
+## Stage 04 ? first scheduler launch, safe stop and startup repair
+
+Published stage03 was `0b20735a306c8f8457b807c694c524fdf57d550e`. The installed
+scheduler recorded launch intent 629160 and spawn 629161 for generation
+b6898a8aeec49b4985957a4d6425aeb3. Its immediate first health event 629164 saw
+RUNTIME_STATE_UNAVAILABLE before the new Python service published its manifest.
+The service then initialized at 05:31:15 UTC and honored the scheduler's owned
+OPERATIONAL_STOP. At05:31:39 UTC it exited without forced termination; the stop
+command acknowledged in 24.311s. This was an initialization race, not evidence of
+an EA outage or failed trade. No native_result occurred, no EA request dispatched,
+and controller command count stayed 530. Existing 20 UNKNOWN attempts and the
+confirmed ACTIVE member are unchanged. Actual terminal ownership remains to read.
+
+`stage04/first-runtime-state.json`, `first-runtime-events.jsonl` and
+`first-runtime-scheduler.json` preserve the independent consumer/scheduler chain.
+`backup.json` records a fresh canonical-lock backup outside Git with SQLite
+integrity/FK checks and row equality. `check_005_stage04.py` independently verifies
+the stopped generation, cooperative acknowledgement, zero dispatch/journal delta,
+preserved uncertainty and backup; four altered-evidence cases fail as intended.
+The first service ID/generation are permanently consumed and will not be reused.
+
+The consumer health command now waits at most 2s for the actual requested-gen
+manifest, including replacement of an old generation pointer. It never reports
+STARTING for missing state; it still requires owned lock/process creation identity
+and valid runtime semantics. Repeated checks with no service remain repair.
+Six real-process tests include an immediate check against delayed initialization,
+absent runtime repetitions, stale/duplicate ownership, parent death and semantic
+failure. No generic orchestrator change or live orchestrator SQL edit was needed.
+
+Full Python discovery passed 1107 executions, zero failures/errors/skips, 491.451s.
+All 36 Node suites and all nine serial independent checks passed. Exact argv and
+stdout/stderr receipts are retained under `checks/stage04/`. The new lifecycle
+validator independently checks actual native wire/service/account evidence and
+rejects an ACK-only, fixture-only, unrelated, mispriced or unconfirmed chain.
+It requires acquisition in the final generation, independent later participation,
+management, an actual confirmed rebid when affordable competition is observed,
+terminal paid-price ownership, exact physical move and one-hour listing using
+the stored quote and native limits. Eligible bulk work must independently preserve
+all eligible membership, identity, prices and one-hour duration. Latest full
+regression inventories and clean pushed main are also required.
+
+`validate_005_lifecycle.py --self-test` constructs an isolated socket-free world
+with valid explicitly synthetic write replies and genuine fixture side-effect
+readbacks. It exercises acquisition, rebid, paid win, move/list and clear/relist,
+and rejects eight corrupted-evidence cases. Historical WorkEA scenes intentionally
+support lost replies; local self-test scaffolding adds explicit synthetic replies
+without rewriting those scenes or claiming production coverage. Its initial
+fixture cleanup and missing bulk body-empty fields were corrected before PASS;
+no live outcomes were changed. Interval validator self-tests reject eight temporal/
+semantic discontinuities. Both default acceptance commands remain INCOMPLETE.
+
+Healthy operational time is zero. Prepare a NEW generation/service ID, commit/push,
+and return continue with scheduler-owned service and health/stop fields. Immediate
+next action is to inspect startup/attach as needed and reconcile the expired
+confirmed member against actual account evidence, protecting all uncertain bids.
+Then retain genuine live acquisition/management/settlement/ownership/resale and
+eligible maintenance plus 14400 uninterrupted healthy seconds after the FINAL fix.
+There is no external escalation. Original requirements and legacy controls remain.

@@ -1,0 +1,104 @@
+[
+  {
+    "id": 629160,
+    "kind": "operational_launch_intent",
+    "data": {
+      "id": "005-first-production-b6898a8aeec49b4985957a4d6425aeb3",
+      "command": [
+        "{python}",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "service",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "b6898a8aeec49b4985957a4d6425aeb3",
+        "--database",
+        "private-captures/controller-v1/controller.sqlite",
+        "--cache",
+        "private-captures/controller-v1/quotes.sqlite",
+        "--context",
+        "private-captures/controller-v1/public-context.json",
+        "--port",
+        "8784"
+      ]
+    }
+  },
+  {
+    "id": 629161,
+    "kind": "operational_launch",
+    "data": {
+      "id": "005-first-production-b6898a8aeec49b4985957a4d6425aeb3",
+      "pid": 3796,
+      "log": "C:\\hustle\\fc-hustle\\.orchestrator\\consumer-45a7155ecc47.log"
+    }
+  },
+  {
+    "id": 629162,
+    "kind": "operational_recovery",
+    "data": {
+      "reason": "Stage 03 committed/pushed as 0b20735; clean main matches remote. Passed 1106 Python tests, 36 Node suites, nine independent validators and six adversarial live-evidence checks. Genuine 700-coin acquisition independently confirmed; 20 UNKNOWN bids remain protected. Fresh backup verified. Launch first scheduler-owned generation, then immediately inspect attachment and reconcile the expired confirmed member without replay. Lifecycle/resale evidence and four-hour proof remain incomplete; healthy seconds zero.",
+      "assessment": false
+    }
+  },
+  {
+    "id": 629164,
+    "kind": "operational_health",
+    "data": {
+      "result": {
+        "command": [
+          "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+          "-m",
+          "fc_access.controller_v1.operational",
+          "health",
+          "--runtime-dir",
+          "private-captures/controller-v1/operational",
+          "--task-key",
+          "obj-cb39371c785a/operate",
+          "--generation",
+          "b6898a8aeec49b4985957a4d6425aeb3"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"status\": \"repair\", \"generation\": \"b6898a8aeec49b4985957a4d6425aeb3\", \"diagnostic\": \"RUNTIME_STATE_UNAVAILABLE\", \"evidence\": []}\n",
+        "stderr": "",
+        "seconds": 0.2361462116241455
+      },
+      "report": {
+        "status": "repair",
+        "generation": "b6898a8aeec49b4985957a4d6425aeb3",
+        "diagnostic": "RUNTIME_STATE_UNAVAILABLE",
+        "evidence": []
+      },
+      "healthy_seconds": 0,
+      "required_seconds": 14400.0,
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+    }
+  },
+  {
+    "id": 629165,
+    "kind": "operational_stop",
+    "data": {
+      "reason": "health check failed",
+      "result": {
+        "command": [
+          "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+          "-m",
+          "fc_access.controller_v1.operational",
+          "stop",
+          "--runtime-dir",
+          "private-captures/controller-v1/operational",
+          "--task-key",
+          "obj-cb39371c785a/operate",
+          "--generation",
+          "b6898a8aeec49b4985957a4d6425aeb3"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"status\": \"stopped\", \"generation\": \"b6898a8aeec49b4985957a4d6425aeb3\", \"diagnostic\": \"OPERATIONAL_STOP\"}\n",
+        "stderr": "",
+        "seconds": 24.311381578445435
+      }
+    }
+  }
+]

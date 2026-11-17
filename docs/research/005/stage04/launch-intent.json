@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-17T05:48:39.139266+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "fb6b1dcd8851445b6c616c772a700ab5",
+  "service_id": "005-startup-repair-fb6b1dcd8851445b6c616c772a700ab5",
+  "supersedes_stopped_generation": "b6898a8aeec49b4985957a4d6425aeb3",
+  "launch_owner": "installed orchestrator service handoff only",
+  "healthy_seconds": 0
+}

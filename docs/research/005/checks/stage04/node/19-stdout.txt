@@ -1,0 +1,1 @@
+PASS native status: availability, independent functions, authenticated GET, schema, exact retained identities, freshness, omissions, reconnect epochs, no source digests

@@ -43,6 +43,7 @@ def fixture_worker(connection,arguments,limits):
 
 
 def fixture_service(directory,generation,mode):
+    if mode=='delayed':time.sleep(.35)
     directory=Path(directory);fixture=directory/'fixtures'/generation;fixture.mkdir(parents=True,exist_ok=True)
     args=Namespace(database=str(fixture/'fixture.sqlite'),fixture=str(fixture),mode=mode)
     with Runtime(directory/'owner',TASK,generation) as runtime:
@@ -102,6 +103,26 @@ class OperationsTests(unittest.TestCase):
             self.assertIsNone(newer.poll())
             self.assertEqual(stop(Path(path)/'owner',TASK,'c'*32,timeout=5)['status'],'stopped')
             self.assertEqual(newer.wait(5),0);newer.communicate()
+
+    def test_immediate_health_waits_for_real_manifest_and_absence_never_extends_startup(self):
+        with tempfile.TemporaryDirectory() as path:
+            p=self.start(path,mode='delayed');self.addCleanup(self.cleanup_process,p)
+            # No readiness wait before the scheduler-style first health check.
+            first=health(Path(path)/'owner',TASK,GEN)
+            self.assertIn(first['status'],{'starting','healthy'},first)
+            actual=read(Path(path)/'owner/state.json')
+            self.assertEqual(actual['generation'],GEN)
+            self.assertTrue(same_process(actual['supervisor']))
+            self.wait_health(path,p)
+            self.assertEqual(stop(Path(path)/'owner',TASK,GEN,timeout=5)['status'],'stopped')
+            self.assertEqual(p.wait(5),0);p.communicate()
+        with tempfile.TemporaryDirectory() as path:
+            started=time.monotonic()
+            for _ in range(2):
+                result=health(Path(path)/'absent',TASK,GEN)
+                self.assertEqual(result['status'],'repair')
+                self.assertEqual(result['diagnostic'],'RUNTIME_STATE_UNAVAILABLE')
+            self.assertLess(time.monotonic()-started,6)
 
     def test_real_semantic_fault_stops_without_restart_and_preserves_stop_reason(self):
         with tempfile.TemporaryDirectory() as path:

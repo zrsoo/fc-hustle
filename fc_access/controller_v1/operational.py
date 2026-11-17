@@ -176,7 +176,17 @@ def evaluate(value,*,task,generation,now,owner_held,supervisor_alive,child_alive
 def health(directory,task,generation):
     generation=token(generation)
     try:
-        value=read(Path(directory)/'state.json')
+        # The scheduler can poll immediately after spawning the service, before
+        # Python has published its first manifest (or replaced an old pointer).
+        # Wait only for actual state; absence never fabricates STARTING/health.
+        deadline=time.monotonic()+2
+        while True:
+            try:value=read(Path(directory)/'state.json')
+            except FileNotFoundError:
+                if time.monotonic()>=deadline:raise
+            else:
+                if type(value) is not dict or value.get('generation')==generation or time.monotonic()>=deadline:break
+            time.sleep(.05)
         if type(value) is not dict:raise ValueError('invalid_runtime_state')
         return evaluate(value,task=task,generation=generation,now=time.monotonic(),owner_held=held(directory),
                         supervisor_alive=same_process(value.get('supervisor')),child_alive=same_process(value.get('child')))

@@ -1,0 +1,1 @@
+{"status": "PASS", "criteria": [0, 1, 2, 3, 4, 5, 6], "baseline": {"databases": 7, "historical_evidence": 155, "idle_locks": 8}, "legacy": {"objective003": "PAUSED", "task00304": "RECONCILING (preserved under paused parent)", "objective002": "BLOCKED/PARTIAL", "appended_scheduler_noops": 1}, "policies": 32, "planned_probes": 8, "live_requests": 0}

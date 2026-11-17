@@ -1,0 +1,6 @@
+{"at": "2026-11-17T05:31:15.458622+00:00", "kind": "STARTED", "pid": 9048, "limits": {"startup": 90, "native": 45, "local": 60, "lease": 10, "grace": 35, "poll": 0.5}, "generation": "b6898a8aeec49b4985957a4d6425aeb3"}
+{"at": "2026-11-17T05:31:15.962332+00:00", "kind": "WORKER", "message": {"kind": "progress", "tick": 424663.4024444, "stage": "STARTING", "operation": null}}
+{"at": "2026-11-17T05:31:15.962777+00:00", "kind": "WORKER", "message": {"kind": "progress", "tick": 424663.5277782, "stage": "ATTACHING", "operation": null}}
+{"at": "2026-11-17T05:31:15.974107+00:00", "kind": "STOP_REQUESTED", "reason": "OPERATIONAL_STOP"}
+{"at": "2026-11-17T05:31:39.619782+00:00", "kind": "WORKER", "message": {"kind": "exit", "tick": 424687.4094388, "lifecycle": "STOPPED", "reason": "SUPERVISION_LOST"}}
+{"at": "2026-11-17T05:31:39.619869+00:00", "kind": "STOPPED", "reason": "OPERATIONAL_STOP", "exit_code": 1, "forced": false}

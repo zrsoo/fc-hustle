@@ -216,47 +216,46 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 03 engineering checkpoint (2026-11-17), starting published main `2d7294f`.
-The consumed fresh-status experiment confirmed one genuine 700-coin initial bid:
-99 responses, 99 monitoring callbacks, 21 successful native requests (20 GET,
-one PUT), and separate exact-status and personal-watch membership confirmation.
-Captured receipt is ACCEPTED; membership rests on independent reads, not ACK.
-Its target is now expired by wall time; current outcome MUST be reconciled.
-No terminal win/loss, move, resale or four-hour proof is claimed from this probe.
+Stage 04 repair checkpoint (2026-11-17), starting published main `0b20735`.
+The installed scheduler consumed the first service intent/generation
+b6898a8aeec49b4985957a4d6425aeb3. Its immediate first health check raced process
+initialization and saw RUNTIME_STATE_UNAVAILABLE. Scheduler requested an owned
+stop; watchdog honored OPERATIONAL_STOP cooperatively, without forced termination.
+There were ZERO native commands/account requests. Controller journal remained
+530 commands, 20 UNKNOWN attempts, one ACKNOWLEDGED, one ACTIVE member and zero
+pending commands. The expired confirmed member still needs actual reconciliation.
+First-generation and scheduler evidence are retained in `docs/research/005/stage04/`.
 
-Production now refreshes exact auction status once after pricing and before
-immutable selection, retains full-version identity/quote/cap and enforces the
-same minimum, expiry, filters and balance/batch policy. Missing/expired/over-cap
-rows cannot authorize bids. Result-monitor exceptions latch dispatch admission,
-report only exception type and stop via supervision. Full Python discovery
-passed 1106 executions with zero failures/errors/skips (488.333s); all 36 Node
-suites and nine serial independent checks passed. Retained failed stage03 run
-had one obsolete ordering assertion; its replacement verifies both pre-burst
-freshness and membership proof from the separate POST-bid status. Historical
-004 observations stay sealed and are replayed only in an explicit offline fixture.
+Consumer health now waits at most two seconds for the actual requested-generation
+manifest, including replacement of an older pointer. It never invents STARTING
+for absent state, never performs account writes, and still checks actual owned
+process identity, lock, freshness and semantic outcomes. Repeated absent checks
+remain repair. Real delayed-start/missing-runtime tests pass. No orchestrator
+code, lifecycle rows, historical evidence, quotas or legacy actors were changed.
+Fresh canonical-lock backup integrity/FK/row comparisons are in `stage04/backup.json`.
 
-The independent consumed-window audit `python tests/check_005_stage03.py` passes
-six adversarial evidence cases. `tests/validate_005_interval.py` rejects missing
-runtime/four-hour history; eight negative self-tests pass, never counted as live.
-Final lifecycle acceptance validator remains to implement against real generation
-evidence. All original acceptance criteria remain unfulfilled pending production.
+Full Python discovery passed 1107 executions, zero failures/errors/skips, in
+491.451s. All 36 Node suites and nine serial independent validators passed;
+receipts are in `checks/stage04/`. `check_005_stage04.py` independently verifies
+the zero-dispatch incident and rejects four altered-evidence cases. Final
+`validate_005_lifecycle.py` checks actual generation-bound acquisition, separate
+membership/management reads, competition/rebid where available, paid win,
+physical move, native profitable one-hour listing and eligible bulk readbacks,
+plus latest full regression inventories and clean pushed main. Its isolated
+positive scene and eight negative cases pass. `validate_005_interval.py` has
+eight negative interval cases. Both live acceptance commands correctly report
+INCOMPLETE while the owned service is stopped; healthy operational seconds zero.
 
-Fresh pre-service runtime backup, integrity/FK/row comparisons and stopped state
-are retained under `docs/research/005/stage03/pre-service-backup.json`.
-Independent process/browser captures show no workers/listeners/scheduled jobs,
-o visible challenge and verified foreground access to official Edge Web App.
-Production is STOPPED/MANAGING, one ACTIVE member independently confirmed in the
-finite experiment, 20 UNKNOWN attempts preserved, one ACKNOWLEDGED initial bid,
-zero pending commands. No persistent production runtime yet; healthy seconds zero.
-
-Next: publish this stage, then use ONLY the scheduler-owned service handoff with
-the unique prepared generation in `stage03/launch-intent.json`. Continue in this
-same task immediately to inspect/attach startup and reconcile current account
-state for the expired member. Do not resend its bid or any UNKNOWN command.
-Monitor/stop/repair autonomously on actual semantic faults, retain full lifecycle
-readbacks, finish independent lifecycle acceptance, and then prove at least 14400
-consecutive monitored healthy seconds after the FINAL fix/restart. Leave healthy
-runtime running. Keep 003 PAUSED/004 COMPLETED. No external blocker is proposed.
+Next: commit/push this repair, then hand off a NEW scheduler-owned generation
+from `stage04/launch-intent.json` with status continue. Immediately inspect startup
+and attach the reviewed extension if necessary in this SAME worker/session.
+Reconcile actual account watched/status/ownership for the old confirmed member;
+never replay its bid or any UNKNOWN command. Continue monitor/stop/diagnose/test/
+reconcile/restart automatically. Finish only with genuine full lifecycle evidence
+and at least 14400 consecutive monitored healthy seconds after the FINAL repair
+and restart, independent audit, final report and pushed commits. Leave the healthy
+runtime running. Original criteria unchanged; 003 PAUSED and 004 COMPLETED.
+No external blocker or human prerequisite is proposed.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -331,3 +330,12 @@ capture and canonical locks show quiescence. Existing confirmed member remains
 ACTIVE locally, account outcome unknown until fresh native read. Preserved its
 intent/proof and all 20 UNKNOWN bids. Prepared new scheduler launch only; no
 ordinary provider-child persistent processes or duplicate writes.
+
+2026-11-17 H11 / STARTUP MANIFEST RACE VERIFIED AND REPAIRED: scheduler first health
+ran before service initialization published its state. It correctly failed closed
+and cooperatively stopped the newly owned runtime; native dispatch count and
+journal delta were both zero. Health now waits boundedly for real requested-gen
+state instead of racing its first atomic publication. Absent state never becomes
+starting/healthy and scheduler grace cannot be extended. Six real-process tests
+and the full 1107-execution regression pass. Preserve the consumed failed launch;
+next attempt must use a new deliberate generation, never replay its service ID.
