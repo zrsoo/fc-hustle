@@ -216,54 +216,70 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 06 repair in progress (2026-11-17), published starting main `92f0b6f`.
-Scheduler generation 26407ef02dc7d322407f4c575c0c7ac7 attached automatically and
-reconciled the prior 750 bid as LOST through fresh native account evidence.
-Its next normal acquisition batch genuinely confirmed TEN initial bids, followed
-by successful genuine rebids. One exact item (definition 251852) was independently
-verified WON at our paid 3100 and moved once, with fresh exact transfer-list and
-unassigned readback confirming the move. No list intent was created. Later fresh
-transfer-list reads omit that item; neither disappearance nor ACK authorizes a
-repeat move or a listing. Ownership/location investigation remains open.
+Stage07 in progress, starting published main 91795d4. Trading remains stopped;
+31 UNKNOWN old intents and the one moved 3100-coin item remain consumed. The
+final healthy interval is zero. A fresh canonical-lock backup of controller and
+quotes databases is outside Git, with integrity/FK and row equality checks,
+recorded in docs/research/005/stage07/backup.json. No legacy actors or controls
+were resumed. The original four-hour and genuine full-flow requirements stand.
 
-The scheduler stopped this generation after RUNTIME_STATE_UNAVAILABLE, despite
-166 native successes and zero semantic failure streaks in the final persisted
-snapshot. Stop was cooperative, exit zero, no forced termination. The original
-I/O exception was not retained; a reproducible Windows sharing test demonstrates
-an ordinary reader can deny atomic replacement (winerror 5). Runtime reads now
-share delete access, Windows publication uses ReplaceFileW, local replacement
-retries are bounded to 0.5 seconds, and health retries transient manifest access
-for at most two seconds. Typed safe I/O diagnostics now survive future failures.
-Nine focused ownership, failure and real Windows I/O tests pass. Full discovery
-passed 1111 Python executions with zero failures/errors/skips in 494.890 seconds;
-all 37 Node suites and nine serial independent validators pass. Stage06's audit
-reparses all 305 actual results, verifies ten initial bids and TEN competitive
-rebids, paid win/move/stop/reset, and rejects four altered evidence cases.
-Both full acceptance validators correctly return INCOMPLETE; their eight-case
-self-tests also pass. No completion or healthy interval is claimed.
+Reproduced two actual-contract defects in a socket-free account world: listing
+failed after a claim removed the watched auction, and persisted terminal proof
+failed across a new owner epoch. Both positive tests failed before the repair.
+The corrected work contract reparses the exact original terminal/our-paid-bid,
+physical ownership and confirmed move effect with original chronology. It uses
+that historical chain only for provenance. Listing still requires independently
+fresh complete physical inventory, exact identity/paid price, current caps/ticks,
+stored profitable price/hour, current fences and a new durable consumed intent.
+Confirmed claimed auctions no longer enter status polling. Eight physical and
+four history-negative scenes preserve rejection for mismatched or corrupt proof.
 
-All 31 earlier UNKNOWN initial attempts stay consumed. Trading is stopped and
-healthy consecutive seconds are ZERO. Stage06 backup outside Git was made under
-canonical locks with integrity/FK/row equality checks. A distinct zero-write
-window at epoch 10 obtained fresh watched, transfer-list and unassigned reads;
-its exact target status was refused locally (known_identity_unavailable) because
-the new fence cleared that target's selector. No fourth native request or write
-was inferred. The window is consumed, evidence preserved in stage06/win-read-01.
+A separate bounded read-only selector recovery uses only the selected account's
+native inventory cache (max2048 entries), exact pseudonym/version matching and
+then an independently authenticated native GET. It grants no write authority.
+Both legacy and reviewed controller-native entry points pass positive/negative
+Node fixtures, including unknown/version/oversize/persona refusal, one-shot native
+ownership and no raw identifiers/secrets. The original unowned-active-auction
+lookup rejection is preserved. Safe item-pile categories are optional diagnostic
+metadata only. Six focused Python tests pass, as do 17 existing lifecycle
+regressions. The new independent stage07 audit reparses the genuine historical
+3100 move chain and rejects six altered-evidence cases; current ownership and
+live resale remain UNPROVEN. Source integrity is not asserted.
 
-Next: commit/push the verified Windows publication repair and stage06 evidence.
-Then reproduce/test post-move recovery when the native watched endpoint removes
-the claimed auction: the current work contract incorrectly demands a NEW watched
-terminal win before listing, and current peer checks reject old terminal proofs
-after restart. Scope a persisted exact terminal/paid-bid evidence chain combined
-with independently fresh physical ownership/caps, without granting authority from
-ACK or stale inventory. Investigate the missing moved item's native selector and
-location without replaying its move. Reconcile the actual binding epoch before
-a NEW scheduler-owned generation (the isolated read window consumed epoch 10,
-while production DB last held 9). Continue autonomous engineering and genuine
-resale validation. No external blocker or human prerequisite is established.
-Require the entire lifecycle and 14400 consecutive healthy monitored seconds
-AFTER the final fix/restart, independent acceptance, pushed main and live healthy
-service. Original requirements and historical objective verdicts are unchanged.
+Fresh official Edge saved sign-in recovery and read-only windows now locate the
+exact moved item on the TRANSFER LIST: inactive, tradable, definition 251852,
+last sale price 3100, with complete six-entry wire/callback/repository inventory
+and an independent owned-item native GET plus safe transfer-pile diagnostic.
+The old auction is absent from watched and its status selector correctly refuses
+locally. owned-read-03 records four genuine GETs, five commands, no writes and a
+stopped service. The missing-item cause in the earlier document remains unknown;
+current physical ownership is independently proven. No move/list was repeated.
+owned-read-01 rejected UI-owned queued traffic; owned-read-02 found a probe
+argument bug before owned lookup, now fixed. Both windows are consumed/retained.
+
+Initial full discovery ran 1115 tests and retained two failures: the selector
+change regressed rejection of unowned active-auction lookup (fixed, original test
+unchanged), and one local Windows connection-abort error (complete integration
+suite reran successfully, no speculative server change). Final discovery passed
+1117 executions, zero failures/errors/skips, in 515.295 unittest seconds;
+38 Node suites and all nine serial independent inventory commands passed.
+Both eight-case acceptance self-tests and the new focused recovery/audit checks
+passed. Actual full acceptance remains INCOMPLETE while production is stopped.
+The public epoch-floor control is tested: it can
+advance the next runtime fence beyond observed native epoch13 while never lowering
+the persisted DB epoch or replaying any intent. Launch will use floor14.
+Fresh pre-service backup is verified under canonical locks. No production
+worker/listener or scheduled mutation job exists, and zero commands are pending.
+DB retains 31 UNKNOWN / 22 ACKNOWLEDGED attempts and 9 ACTIVE / 2 LOST /
+1 PENDING_WIN members. Fresh native status must reconcile all expired auctions;
+wall time does not settle any of them. Native page last consumed epoch13.
+Prepared scheduler generation d019ab7647ea4aaac981c9319019b87b will use floor14;
+its unique launch intent has not been dispatched. Browser foreground/official
+authenticated app is independently observed with no challenge.
+Next: commit/push and launch this NEW scheduler-owned generation. Immediately
+verify recovered listing and genuine new lifecycle; preserve strict semantic
+stops and require final 14400 monitored healthy seconds. No external blocker or
+human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -380,3 +396,12 @@ nine passing focused tests. Exact original I/O exception and missing item cause
 remain unproven. Full 1111 Python / 37 Node / nine independent checks passed;
 stage06 evidence audit rejects four corruptions. Publish, then repair/test safe
 post-move terminal-proof and selector recovery. Both full acceptances remain false.
+
+2026-11-17 stage07: reproduced claimed-watch disappearance and restart listing
+failure; repaired retained provenance versus fresh physical authority separation.
+Added bounded read-only selector recovery and safe pile diagnostic categories.
+Focused Python/Node and actual retained-chain negative audits pass. Current live
+location is now independently confirmed by full transfer inventory and owned GET;
+resale and four-hour proof remain outstanding. Final 1117 Python / 38 Node / nine
+independent checks pass. Publish and launch the prepared unique scheduler service,
+verify actual recovered listing/new lifecycle, then continue semantic monitoring.

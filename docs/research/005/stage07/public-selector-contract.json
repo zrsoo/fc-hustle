@@ -1,0 +1,30 @@
+{
+  "scope": "PUBLIC_STATIC_METHODS_ONLY_NO_BROWSER_STATE",
+  "url": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/compiled_2.js",
+  "methods": [
+    {
+      "method": "UTItemDomainRepository.prototype.getClub",
+      "source": "UTItemDomainRepository.prototype.getClub=function(){return this.club}"
+    },
+    {
+      "method": "UTItemDomainRepository.prototype.getTransferItems",
+      "source": "UTItemDomainRepository.prototype.getTransferItems=function(){return this.transfer.values()}"
+    },
+    {
+      "method": "UTItemDomainRepository.prototype.getWatchedItems",
+      "source": "UTItemDomainRepository.prototype.getWatchedItems=function(){return this.inbox.values()}"
+    },
+    {
+      "method": "UTItemDomainRepository.prototype.getStorageItems",
+      "source": "UTItemDomainRepository.prototype.getStorageItems=function(){return this.storage.values()}"
+    },
+    {
+      "method": "UTItemDomainRepository.prototype.getUnassignedItems",
+      "source": "UTItemDomainRepository.prototype.getUnassignedItems=function(){return this.unassigned.values()}"
+    },
+    {
+      "method": "UTClubRepository.prototype.getItem",
+      "source": "UTClubRepository.prototype.getItem=function(t,e,i){switch(t){case ItemType.TRAINING:case ItemType.HEALTH:return this.consumables.get(i);default:return this.items.get(i)}"
+    }
+  ]
+}

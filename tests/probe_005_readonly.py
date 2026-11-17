@@ -70,8 +70,8 @@ def run(output, *, epoch=1, idle_seconds=0, target=None):
                 commands=[lambda:adapter.read(secrets.token_hex(16),'watched'),
                           lambda:adapter.native.read(secrets.token_hex(16),'transfer_list'),
                           lambda:adapter.native.read(secrets.token_hex(16),'unassigned'),
-                          lambda:adapter.status_batch(secrets.token_hex(16),[target]),
-                          lambda:adapter.native.read(secrets.token_hex(16),'owned_item',**target)]
+                          lambda:adapter.native.read(secrets.token_hex(16),'owned_item',target),
+                          lambda:adapter.status_batch(secrets.token_hex(16),[target])]
             responses = []
             for call in commands:
                 v = call(); r = v if v['schema'] == 4 else v['result']

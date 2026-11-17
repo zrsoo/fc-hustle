@@ -1,0 +1,1 @@
+PASS search DTO mapping, paging, independent wire projection, empty results, privacy, fail-closed inputs, hook restoration

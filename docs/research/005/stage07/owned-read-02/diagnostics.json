@@ -1,0 +1,256 @@
+[
+  {
+    "command_id": "4d32a1f13a57f5bdd883af9d11d425a7",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:32.971Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "4d32a1f13a57f5bdd883af9d11d425a7",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:33.147Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "4d32a1f13a57f5bdd883af9d11d425a7",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:32.976Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T10:41:32.977Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T10:41:33.145Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T10:41:33.146Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T10:41:33.146Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "4d32a1f13a57f5bdd883af9d11d425a7",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:33.157Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "4d32a1f13a57f5bdd883af9d11d425a7",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:33.165Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "ceef1e8d0017335dda99a978a5e5e980",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:34.994Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "ceef1e8d0017335dda99a978a5e5e980",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:35.131Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "ceef1e8d0017335dda99a978a5e5e980",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:35.006Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T10:41:35.006Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T10:41:35.127Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T10:41:35.128Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T10:41:35.128Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 6
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T10:41:35.131Z",
+        "detail": {
+          "request_count": 1,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "ceef1e8d0017335dda99a978a5e5e980",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:35.140Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "ceef1e8d0017335dda99a978a5e5e980",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:35.147Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "2f2f50679bc5a27ac6665478e03874b0",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:36.983Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "2f2f50679bc5a27ac6665478e03874b0",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:37.048Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "2f2f50679bc5a27ac6665478e03874b0",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:36.991Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T10:41:36.991Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T10:41:37.047Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T10:41:37.047Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T10:41:37.047Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 0
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T10:41:37.047Z",
+        "detail": {
+          "request_count": 1,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "2f2f50679bc5a27ac6665478e03874b0",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:37.065Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "2f2f50679bc5a27ac6665478e03874b0",
+    "records": [
+      {
+        "at": "2026-11-17T10:41:37.080Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  }
+]

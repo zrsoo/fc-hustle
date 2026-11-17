@@ -272,11 +272,14 @@ def main(argv=None):
     parser.add_argument('--runtime-dir',required=True);parser.add_argument('--task-key',required=True)
     parser.add_argument('--generation',required=True)
     parser.add_argument('--database');parser.add_argument('--cache');parser.add_argument('--context');parser.add_argument('--port',type=int)
+    parser.add_argument('--epoch-floor',type=int,default=1)
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0
         if a.action=='stop':print(json.dumps(stop(a.runtime_dir,a.task_key,a.generation)));return 0
         if not all((a.database,a.cache,a.context,a.port)) or not 1024<=a.port<=65535:raise ValueError('service_arguments_required')
+        from .__main__ import next_owner_epoch
+        next_owner_epoch(0,a.epoch_floor)
         with Runtime(a.runtime_dir,a.task_key,a.generation) as runtime:
             return supervise(a,runtime=runtime)
     except (OSError,ValueError,TimeoutError,KeyError,TypeError) as error:

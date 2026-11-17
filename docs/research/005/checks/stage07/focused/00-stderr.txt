@@ -1,0 +1,11 @@
+test_claimed_auction_lists_after_watch_disappears_and_terminal_read_ages (__main__.WinRecovery.test_claimed_auction_lists_after_watch_disappears_and_terminal_read_ages) ... ok
+test_claimed_auction_recovers_across_epoch_without_replaying_move (__main__.WinRecovery.test_claimed_auction_recovers_across_epoch_without_replaying_move) ... ok
+test_current_physical_identity_cost_tradability_and_caps_still_gate_listing (__main__.WinRecovery.test_current_physical_identity_cost_tradability_and_caps_still_gate_listing) ... ok
+test_item_location_diagnostics_accept_only_public_pile_categories (__main__.WinRecovery.test_item_location_diagnostics_accept_only_public_pile_categories) ... ok
+test_owner_epoch_floor_never_lowers_persisted_fences_or_accepts_invalid_control (__main__.WinRecovery.test_owner_epoch_floor_never_lowers_persisted_fences_or_accepts_invalid_control) ... ok
+test_unconfirmed_move_and_corrupt_retained_proof_never_authorize_listing (__main__.WinRecovery.test_unconfirmed_move_and_corrupt_retained_proof_never_authorize_listing) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 13.583s
+
+OK

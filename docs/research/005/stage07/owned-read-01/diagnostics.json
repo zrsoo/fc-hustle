@@ -1,0 +1,193 @@
+[
+  {
+    "command_id": "b37003eee2c2cee5dc34823447a9e2a2",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:33.881Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "b37003eee2c2cee5dc34823447a9e2a2",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:34.158Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "b37003eee2c2cee5dc34823447a9e2a2",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:33.905Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T10:40:33.909Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T10:40:34.154Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T10:40:34.156Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T10:40:34.157Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "b37003eee2c2cee5dc34823447a9e2a2",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:34.167Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "b37003eee2c2cee5dc34823447a9e2a2",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:34.175Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "4670884f3007419d5564e849ec82d929",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:35.870Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "4670884f3007419d5564e849ec82d929",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:36.190Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "4670884f3007419d5564e849ec82d929",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:35.876Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T10:40:35.876Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T10:40:35.975Z",
+        "detail": {
+          "method": "GET",
+          "traffic_scope": "ea_read"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T10:40:36.016Z",
+        "detail": {
+          "method": "POST",
+          "traffic_scope": "outside_ut"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T10:40:36.128Z",
+        "detail": {
+          "method": "GET",
+          "status": 200,
+          "traffic_scope": "ea_read"
+        },
+        "stage": "BACKGROUND_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T10:40:36.133Z",
+        "detail": {
+          "method": "GET",
+          "traffic_scope": "ea_read"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T10:40:36.183Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T10:40:36.189Z",
+        "detail": {
+          "error": "ambiguous_network",
+          "error_class": "Error"
+        },
+        "stage": "PAGE_FAILURE"
+      },
+      {
+        "at": "2026-11-17T10:40:36.189Z",
+        "detail": {
+          "error": "ambiguous_network",
+          "request_count": 0,
+          "success": false
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "4670884f3007419d5564e849ec82d929",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:36.209Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "4670884f3007419d5564e849ec82d929",
+    "records": [
+      {
+        "at": "2026-11-17T10:40:36.217Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  }
+]

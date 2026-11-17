@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-17T10:49:33.749763+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "d019ab7647ea4aaac981c9319019b87b",
+  "service_id": "005-claimed-win-recovery-d019ab7647ea4aaac981c9319019b87b",
+  "epoch_floor": 14,
+  "observed_native_epoch": 13,
+  "persisted_production_epoch": 9,
+  "authorization": "Objective005 existing task; genuine original win/move consumed, current physical ownership independently verified; first listing needs new native inventory/caps and durable intent",
+  "launch_method": "SCHEDULER_SERVICE_HANDOFF_ONLY",
+  "required_healthy_seconds": 14400
+}

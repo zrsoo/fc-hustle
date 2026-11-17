@@ -86,6 +86,15 @@ recovery work and leaves its known win pending until proved; unrelated urgent
 auction management continues. A proven list and the final genuine settlement
 allow ACQUIRING; timer expiry and missing rows do not establish loss.
 
+A confirmed move can remove the claimed auction from watched. Before listing,
+the controller reparses its original terminal/our-paid-bid lineage and separate
+move readbacks in their original account/epoch. Those are historical evidence,
+not fresh observations. The listing still needs a new complete exact physical
+inventory, matching paid price, current caps/ticks and current owner fences.
+Claimed auctions with this proof are excluded from subsequent status polling.
+Across reconnect, native inventory can provide a bounded private item selector
+for an independent item GET; that selector grants no move/list authority.
+
 After urgent status/rebid/readback work, maintenance inspects complete inventory.
 Sold clearing uses the existing native classifier, zero-argument bulk API and
 independent effect assessor. Each durable relist tick advances by 3660 seconds

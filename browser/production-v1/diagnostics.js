@@ -20,6 +20,7 @@
     if(Number.isSafeInteger(detail.wire_expires)&&detail.wire_expires>=-1)safe.wire_expires=detail.wire_expires;
     if(['none','highest','outbid','buyNow','sold'].includes(detail.wire_bid_state))safe.wire_bid_state=detail.wire_bid_state;
     if(['active','closed','expired','inactive'].includes(detail.wire_trade_state))safe.wire_trade_state=detail.wire_trade_state;
+    if(['club','transfer','purchased','inbox','storage','other'].includes(detail.item_pile))safe.item_pile=detail.item_pile;
     for(const key of ['definition_type','resource_type','data_type'])if(types.has(detail[key]))safe[key]=detail[key];
     if(errors.has(detail.error))safe.error=detail.error;
     if(detail.error==='bulk_contract_changed')safe.error=detail.error;

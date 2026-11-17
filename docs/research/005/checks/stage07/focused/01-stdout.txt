@@ -1,0 +1,2 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "initial_confirmed": 10, "genuine_rebids": 10, "paid_win": 3100, "move_confirmed": true, "later_inventory_missing": true, "resale_unproven": true, "healthy_seconds": 0}
+{"status": "RETAINED_MOVE_VERIFIED_OBJECTIVE_INCOMPLETE", "paid": 3100, "terminal_read_id": "b528c120f1cbab9708b66a97888f2427", "negative_checks": 6, "current_owned_location": "NATIVE_TRANSFER_LIST_AND_ITEM_GET", "live_listing": false, "healthy_seconds": 0}

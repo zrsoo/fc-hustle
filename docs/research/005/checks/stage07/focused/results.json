@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_win_recovery.py"
+      ],
+      "exit_code": 0,
+      "seconds": 13.871205499977805,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "finished": "2026-11-17T10:48:04.369895+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage07.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.3998096999712288,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "finished": "2026-11-17T10:48:05.769808+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "seconds": 2.220887200033758,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "finished": "2026-11-17T10:48:07.990785+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "seconds": 0.17801560001680627,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "finished": "2026-11-17T10:48:08.168866+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_integration_harness.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 2.244708999991417,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "finished": "2026-11-17T10:48:10.413646+00:00"
+    }
+  ]
+}

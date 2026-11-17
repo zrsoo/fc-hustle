@@ -376,9 +376,10 @@ class Controller:
             delay=self.last_cycle+self.config.cycle_target-self.clock()
             if delay>0:self.sleep(delay)
         start=self.clock();self.last_cycle=start;bid=members[0]['batch_id']
-        # Pending wins remain exact targets too: refresh their terminal proof
-        # before physical ownership reads, without treating them as rebid work.
-        active=members
+        # A claimed auction can disappear from watched/status. Its independently
+        # confirmed move retains terminal/paid provenance; listing still requires
+        # a new exact physical inventory and current caps in this runtime.
+        active=[m for m in members if m['state']!='PENDING_WIN' or not self.work.moved(m)]
         try:
             if self.mapping_refresh_needed:
                 try:self._read('watched')

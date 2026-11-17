@@ -18,6 +18,13 @@ def guard_paths(root, scope, database, port):
             database.with_suffix('.controller.lock'))
 
 
+def next_owner_epoch(previous, floor=1):
+    """Public native fence recovery; cannot lower a persisted epoch or replay work."""
+    if type(previous) is not int or not 0<=previous<2**53-1 or type(floor) is not int or not 1<=floor<=2**53-1:
+        raise ValueError('invalid_owner_epoch_floor')
+    return max(previous+1,floor)
+
+
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='action',required=True)
@@ -25,6 +32,7 @@ def main(argv=None):
     run.add_argument('--database',required=True);run.add_argument('--cache',required=True)
     run.add_argument('--context',required=True,help='JSON file containing public account/persona scope only')
     run.add_argument('--port',required=True,type=int)
+    run.add_argument('--epoch-floor',type=int,default=1)
     for action in ('status','pause','stop'):
         c=sub.add_parser(action)
         if action=='status':
@@ -74,7 +82,7 @@ def run_controller(a, supervision):
         cache=None;controller=None
         try:
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
-            epoch=json.loads(previous[0])['fences']['epoch']+1 if previous else 1
+            epoch=next_owner_epoch(json.loads(previous[0])['fences']['epoch'] if previous else 0,getattr(a,'epoch_floor',1))
             adapter=ControllerAdapter(SerializedExecutor(ControllerExecutor(a.port),progress=supervision.progress),context=scope,owner=secrets.token_hex(16),epoch=epoch)
             def report_result(c,v):
                 with server.store.lock:

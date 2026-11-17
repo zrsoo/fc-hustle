@@ -8,7 +8,7 @@ from datetime import timedelta
 import json
 
 from .store import encode
-from .protocol import MAINTENANCE, delivery_response
+from .protocol import MAINTENANCE, delivery_command, delivery_response
 from fc_access.production_v1.contracts import stamp
 from fc_access.production_v1.bulk import parameters, classify, assess_effect as bulk_effect
 from fc_access.production_v1.resale import assess_effect as resale_effect
@@ -23,6 +23,66 @@ def shared_read(store, cid, op):
     delivery_response(v,c,now=store.now())
     if c['schema']!=2 or c['operation']!=op or not v['result']['success']:raise ValueError('independent_read_required')
     return v
+
+
+def retained_read(store, cid, op):
+    """Historical evidence at its original observation time, never fresh authority.
+
+    Only the confirmed-move chain below may use this across runtime fences.
+    Current physical ownership, caps and helpers still use shared_read.
+    """
+    saved=store.db.execute('SELECT body,state,result FROM c4_commands WHERE id=?',(cid,)).fetchone()
+    if not saved or saved[1]!='DONE' or not saved[2]:raise ValueError('retained_read_required')
+    c,v=json.loads(saved[0]),json.loads(saved[2]);delivery_command(c)
+    if c['schema']!=2 or c['operation']!=op or c['context']!=store.peer['context']:
+        raise ValueError('retained_account_read_required')
+    delivery_response(v,c,now=stamp(v['freshness']['observed_at']))
+    if v['result']['success'] is not True:raise ValueError('retained_success_required')
+    return c,v
+
+
+def paid_terminal(store, win, target, paid):
+    wins=[r for r in win['result']['auctions'] if r['trade_id']==target['trade_id'] and
+          r['item']['item_id']==target['item_id'] and r['item']['definition_id']==target['definition_id']]
+    bids=[json.loads(r[0]) for r in store.db.execute('SELECT a.body FROM c4_attempts a JOIN c4_tombstones t ON t.command_id=a.id')]
+    if len(wins)!=1 or wins[0]['trade_state']!='closed' or wins[0]['bid_state']!='highest' or wins[0]['native_is_won'] is not True or wins[0]['expires']>0 or wins[0]['current_bid']!=paid or not any(b['candidate']['target']==target and b['params']['amount']==paid for b in bids):
+        raise ValueError('paid_terminal_win_required')
+
+
+def confirmed_move(store, target):
+    """Reparse consumed move and independent effect, not its state/ACK alone."""
+    rows=store.db.execute("""SELECT body,before_read,state,at,dispatched_at,completed_at,proof
+        FROM c4_work WHERE json_extract(body,'$.operation')='move'
+        AND json_extract(body,'$.params.item_id')=?""",(target['item_id'],)).fetchall()
+    if len(rows)!=1:return None
+    body,before,state,at,dispatched,completed,proof=rows[0]
+    if state!='CONFIRMED' or not all((dispatched,completed,proof)):return None
+    c=json.loads(body);delivery_command(c);p=c['params']
+    if c['context']!=store.peer['context'] or {k:p[k] for k in target}!=target:
+        raise ValueError('move_account_identity_mismatch')
+    if not store.db.execute('SELECT 1 FROM c4_tombstones WHERE command_id=?',(c['id'],)).fetchone():
+        raise ValueError('move_dispatch_lineage_required')
+    wc,win=retained_read(store,p['win_read_id'],'watched');paid_terminal(store,win,target,p['paid'])
+    oc,owned=retained_read(store,p['owned_read_id'],'owned_item')
+    if not stamp(at)<=stamp(dispatched)<=stamp(completed) or any(
+        not 0<=(stamp(dispatched)-stamp(v['freshness']['network_at'])).total_seconds()<=30 for v in (win,owned)):
+        raise ValueError('move_original_fresh_chronology_required')
+    if owned!=json.loads(before) or any(x['fences']!=c['fences'] for x in (wc,oc)):
+        raise ValueError('move_original_read_lineage_required')
+    if sum(i['item_id']==target['item_id'] and i['definition_id']==target['definition_id'] and
+           i['last_sale_price']==p['paid'] and i['untradeable'] is False for i in owned['result']['items'])!=1:
+        raise ValueError('move_original_paid_ownership_required')
+    after=json.loads(proof)['after'];ac,av=retained_read(store,after['command_id'],'transfer_list')
+    if av!=after or av['coverage']['complete'] is not True or ac['fences']!=c['fences'] or stamp(av['freshness']['network_at'])<stamp(completed):
+        raise ValueError('independent_confirmed_move_inventory_required')
+    for cid, in store.db.execute("""SELECT id FROM c4_commands WHERE state='DONE'
+        AND json_extract(body,'$.operation')='unassigned'
+        AND json_extract(body,'$.fences.owner')=? AND json_extract(result,'$.result.success')=1""",(c['fences']['owner'],)):
+        uc,uv=retained_read(store,cid,'unassigned');observed=stamp(uv['freshness']['network_at'])
+        if uc['fences']!=c['fences'] or not stamp(completed)<=observed<=stamp(av['freshness']['network_at'])+timedelta(seconds=30):continue
+        if resale_effect(c,av,uv,at=stamp(at),claimed=stamp(dispatched),completed=stamp(completed),before=target['trade_id'])[0]:
+            return dict(command=c,win=win)
+    raise ValueError('independent_confirmed_move_effect_required')
 
 
 def action(c, before):
@@ -58,11 +118,13 @@ def validate(store, c):
         raise ValueError('stored_policy_required')
     # Re-establish terminal physical ownership and cost at dispatch. There is no
     # inference from HTTP success, a balance delta or a market comparable.
-    win=shared_read(store,p['win_read_id'],'watched')
-    wins=[r for r in win['result']['auctions'] if r['trade_id']==t['trade_id'] and r['item']['item_id']==t['item_id'] and r['item']['definition_id']==t['definition_id']]
-    bids=[json.loads(r[0]) for r in store.db.execute('SELECT a.body FROM c4_attempts a JOIN c4_tombstones t ON t.command_id=a.id')]
-    if len(wins)!=1 or wins[0]['trade_state']!='closed' or wins[0]['bid_state']!='highest' or wins[0]['native_is_won'] is not True or wins[0]['expires']>0 or wins[0]['current_bid']!=p['paid'] or not any(b['candidate']['target']==t and b['params']['amount']==p['paid'] for b in bids):
-        raise ValueError('paid_terminal_win_required')
+    moved=confirmed_move(store,t) if op=='list' else None
+    if moved:
+        win=moved['win']
+        if win['command_id']!=p['win_read_id'] or moved['command']['params']['paid']!=p['paid']:
+            raise ValueError('confirmed_move_terminal_lineage_required')
+    else:win=shared_read(store,p['win_read_id'],'watched')
+    paid_terminal(store,win,t,p['paid'])
     before=shared_read(store,p['owned_read_id'],'owned_item' if op=='move' else 'transfer_list')
     items=before['result']['items'] if op=='move' else [r['item'] for r in before['result']['auctions'] if r['trade_state']=='inactive' and r['current_bid']==0]
     matches=[i for i in items if i['item_id']==t['item_id'] and i['definition_id']==t['definition_id'] and i['untradeable'] is False and i['last_sale_price']==p['paid']]
@@ -131,6 +193,10 @@ class Work:
         self.inventory=v
         return v
 
+    def moved(self,member):
+        try:return confirmed_move(self.s,member['target'])
+        except (ValueError,KeyError,TypeError):return None
+
     def dispatch(self,op,params):
         c=self.c.native.envelope(self.c.ids(),op,params);s=self.s
         self.checkpoint('before_intent')
@@ -192,7 +258,8 @@ class Work:
         if any(old==op for _,old,_ in writes):return False # Consumed, even if not sent.
         if matches and (len(matches)!=1 or matches[0]['trade_state']!='inactive' or matches[0]['current_bid']!=0):return False
         if not matches and len(pile['result']['auctions'])>=50:return False
-        win=self.c._read('watched')
+        moved=confirmed_move(s,t) if op=='list' else None
+        win=moved['win'] if moved else self.c._read('watched')
         owned=self.c._read('owned_item',**t) if op=='move' else self.pile()
         rules=self.c.prices.load(key=CardKey(t['definition_id']))
         pair=rules.validate_listing(m['resale_price'])

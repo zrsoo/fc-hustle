@@ -38,6 +38,7 @@ def validate_records(records):
             elif key=='wire_expires':valid=type(value) is int and -1<=value<=2**53-1
             elif key=='wire_bid_state':valid=value in {'none','highest','outbid','buyNow','sold'}
             elif key=='wire_trade_state':valid=value in {'active','closed','expired','inactive'}
+            elif key=='item_pile':valid=value in {'club','transfer','purchased','inbox','storage','other'}
             elif key in {'definition_type','resource_type','data_type'}:valid=value in TYPES
             elif key=='error':valid=value in ERRORS
             elif key=='error_class':valid=value in {'Error','TypeError','RangeError','SyntaxError'}

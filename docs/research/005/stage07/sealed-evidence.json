@@ -1,0 +1,49 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_AND_EXPERIMENT_EVIDENCE_NOT_MUTABLE_SOURCE",
+  "files": [
+    {
+      "path": "owned-read-01/checkpoint.jsonl",
+      "sha256": "272346a67c59c4d365a0ea36945892e1a9cf3b3491dcd11627c3fb0b82bedc98"
+    },
+    {
+      "path": "owned-read-01/diagnostics.json",
+      "sha256": "fb4d729fb65b73653f7948dfd3b3f10b3213a2dbe4a0c902a4e509df3510326d"
+    },
+    {
+      "path": "owned-read-01/result.json",
+      "sha256": "28cd163b5e3db2fdab9d5e925a59d06a55a165955138c991f4d513dc7267a048"
+    },
+    {
+      "path": "owned-read-02/checkpoint.jsonl",
+      "sha256": "f57ae8a5de3348d8ee4f5a6b07417cbe6c6f40f08d0501bbdcd640548a27cb4f"
+    },
+    {
+      "path": "owned-read-02/diagnostics.json",
+      "sha256": "c354fde5e6740af2899e5ae1939ec6655523592a3897abe7e8acfa487922445a"
+    },
+    {
+      "path": "owned-read-02/result.json",
+      "sha256": "8f486f5807d7a04bf7a3848b74f15ea03f1fb2face8d77957f3e4ac077df7427"
+    },
+    {
+      "path": "owned-read-03/checkpoint.jsonl",
+      "sha256": "899c4d36a770884ac57ff5af17642ea8aad4862ecf0c1e8b8ab6f00c000caa1e"
+    },
+    {
+      "path": "owned-read-03/diagnostics.json",
+      "sha256": "1f105f4c9fc8e4bbf83a65d65ba6629e4855cf157312fd3a2af2163f9f3a328b"
+    },
+    {
+      "path": "owned-read-03/result.json",
+      "sha256": "da325e88a0bb9f4c15db88305c30b08c25cf6c6efc1bcd468bd3671764903c43"
+    },
+    {
+      "path": "public-selector-contract.json",
+      "sha256": "b452fef2e128e1e15419a9af2c9fe71f8422bd4be2bba334b56d8c16eae3c130"
+    },
+    {
+      "path": "retained-move-chain.json",
+      "sha256": "8d3d6d4766b94c971c5ba9ec0c631d9739cff55e6a009fc34735e7e4a6005c8d"
+    }
+  ]
+}

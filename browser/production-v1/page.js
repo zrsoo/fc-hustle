@@ -235,8 +235,8 @@
             query.trade_id=c.params.trade_id; // exact wire match; never export the native ID
           }
           if(c.operation==='owned_item' && path===routes.owned_item[1]){
-            const e=known.get(c.params.trade_id),values=u.searchParams.getAll('idList');
-            if(method!=='GET' || values.length!==1 || values[0]!==String(e?.raw?.id) ||
+            const values=u.searchParams.getAll('idList');
+            if(method!=='GET' || values.length!==1 || values[0]!==String(inventory.ownedRaw?.id) ||
                [...u.searchParams.keys()].some(k=>k!=='idList'))throw Error('bad_query');
             query.item_id=c.params.item_id; // exact private wire match, no raw ID export
           }
@@ -467,7 +467,7 @@
         if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona)throw Error('persona_unverified');
         r.probes=probes;r.success=true;r.error=null;return out;
       }
-      let invoke,listRaw=null;
+      let invoke,listRaw=null,ownedRaw=null;
       if(op==='search'){
         const q=new UTSearchCriteriaDTO();q.type='player';if(p.definition_id!==undefined)q.defId=[p.definition_id];q.count=21;
         diagnostic(c.id,'NATIVE_DATA',{definition_type:fieldType(q.defId),definition_count:Array.isArray(q.defId)?q.defId.length:undefined});
@@ -481,12 +481,35 @@
       }else if(op==='balance')invoke=()=>services.User.requestCurrencies();
       else if(op==='owned_item'){
         const e=known.get(p.trade_id);
-        const terminal=e?.controller_status?.row??e?.row,terminalAt=e?.controller_status?.at??e?.at;
-        if(!e || e.row.item.item_id!==p.item_id || e.row.item.definition_id!==p.definition_id ||
-           terminal.trade_state!=='closed' || terminal.bid_state!=='highest' || terminal.expires>0 ||
-           terminal.native_is_won!==true || Date.now()-Date.parse(terminalAt)<0 || Date.now()-Date.parse(terminalAt)>30000 ||
-           typeof services.Item.requestItemsById!=='function')throw Error('known_identity_unavailable');
-        invoke=()=>services.Item.requestItemsById([String(e.raw.id)]);
+        if(e){
+          if(e.row.item.item_id!==p.item_id || e.row.item.definition_id!==p.definition_id)throw Error('known_identity_unavailable');
+          const terminal=e.controller_status?.row??e.row,terminalAt=e.controller_status?.at??e.at;
+          const won=terminal.trade_state==='closed' && terminal.bid_state==='highest' && terminal.expires<=0 &&
+            terminal.native_is_won===true && Date.now()-Date.parse(terminalAt)>=0 && Date.now()-Date.parse(terminalAt)<=30000;
+          const physicalPile=[ItemPile.CLUB,ItemPile.TRANSFER,ItemPile.PURCHASED,ItemPile.STORAGE]
+            .some(pile=>pile!==undefined && e.raw.pile===pile);
+          if(!won && !physicalPile)throw Error('known_identity_unavailable');
+          ownedRaw=e.raw;
+        }else{
+          // A claimed auction may leave watched, and a new owner clears its
+          // selector. Native inventory supplies only a bounded private GET
+          // selector here, never a fresh ownership observation or write proof.
+          const repo=repositories?.Item,pools=[];
+          for(const method of ['getWatchedItems','getTransferItems','getUnassignedItems','getStorageItems'])
+            if(typeof repo?.[method]==='function'){
+              const rows=repo[method]();
+              if(!Array.isArray(rows) || rows.length>2048)throw Error('known_identity_unavailable');
+              pools.push(method==='getWatchedItems'?rows.filter(raw=>{
+                const a=raw?.getAuctionData?.();return a?.isWon?.()===true && a.bidState==='highest' && a.tradeState==='closed';
+              }):rows);
+            }
+          const club=repo?.getClub?.();if(typeof club?.items?.values==='function')pools.push(club.items.values());
+          if(pools.some(rows=>!Array.isArray(rows)) || pools.reduce((n,rows)=>n+rows.length,0)>2048)throw Error('known_identity_unavailable');
+          for(const raw of pools.flat())if(raw?.definitionId===p.definition_id && /^\d{1,24}$/.test(String(raw.id)) &&
+              await id(raw.id,'item',c.context.identity_namespace)===p.item_id){ownedRaw=raw;break;}
+        }
+        if(!ownedRaw || typeof services.Item.requestItemsById!=='function')throw Error('known_identity_unavailable');
+        invoke=()=>services.Item.requestItemsById([String(ownedRaw.id)]);
       }
       else if(op==='status'){
         if(!statusAvailable())throw Error('service_unavailable');
@@ -594,7 +617,7 @@
         restoreBid=captureBid(e.raw,p.amount,bidState);
         sent.add(c.id);sent.add('bid_read:'+p.status_read_id);known.delete(p.trade_id);invoke=()=>services.Item.bid(e.raw,p.amount);
       }
-      const inventory={wire:null,truncated:false,listRaw,bid:bidState,controllerRead};
+      const inventory={wire:null,truncated:false,listRaw,ownedRaw,bid:bidState,controllerRead};
       restore=capture(r.network,c,out.timing,inventory);const at=new Date().toISOString();
       if(bulk(op) && (!valid(c) || services.User.getUser?.()!==nativeUser || selected()!==nativePersona ||
           window.__fcNativeCommandOwner!==document || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc'))throw Error('persona_unverified');
@@ -653,6 +676,11 @@
         else r.auctions=await Promise.all(rows.map(raw=>auction(raw,c,at)));
         if(op==='search' && p.definition_id!==undefined && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
         if(op==='owned_item' && (r.items.length>1 || r.items.some(i=>i.item_id!==p.item_id || i.definition_id!==p.definition_id)))throw Error('schema_unrecognized');
+        if(op==='owned_item' && rows.length===1){
+          const pile=Object.entries({club:ItemPile.CLUB,transfer:ItemPile.TRANSFER,purchased:ItemPile.PURCHASED,
+            inbox:ItemPile.INBOX,storage:ItemPile.STORAGE}).find(([,value])=>value!==undefined && rows[0].pile===value)?.[0]??'other';
+          diagnostic(c.id,'NATIVE_DATA',{item_pile:pile});
+        }
         if(auxiliary.some(x=>!keys(x.query,'defIds') || !x.query.defIds?.length ||
             x.query.defIds.some(d=>!r.auctions.some(a=>a.item.definition_id===d))))throw Error('schema_unrecognized');
         if(op==='status' && (r.auctions.length>1 || r.auctions.some(a=>a.trade_id!==p.trade_id || a.item.item_id!==p.item_id ||

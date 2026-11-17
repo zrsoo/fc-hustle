@@ -727,3 +727,116 @@ terminal/our-paid-bid lineage from current independently fresh physical ownershi
 and caps. ACK, an old inventory row, a missing auction or an unrelated owned card
 must never authorize listing. The separate unexplained disappearance of the
 physical transfer item remains open and must not be hidden by this repair.
+
+## Stage 07: claimed-win recovery and fresh physical location
+
+Starting published main 91795d4. A fresh canonical-lock backup before repairs is
+documented in stage07/backup.json; SQLite integrity/FK and row equality passed.
+Trading remained stopped throughout engineering and finite read-only windows.
+All 31 earlier UNKNOWN initial intents and the already dispatched move stayed
+consumed. No legacy actor, objective verdict or historical evidence was changed.
+
+Two socket-free positive cases reproduced the recovery defect before repair:
+claiming a won auction removed its watched entry, preventing the next listing;
+reopening the durable world with a new owner epoch also prevented listing. The
+current work contract reparses the original exact terminal win, our paid-bid
+dispatch lineage, original physical ownership, original chronology and separate
+confirmed move effect. It does not infer those facts from state labels or ACK.
+That immutable chain supplies historical provenance across epochs. Admission and
+claim still require a NEW complete physical inventory with exact item/version,
+tradability and paid price, current caps and native ticks, stored profitable BIN,
+3600 seconds, current owner fences, durable intent and no consumed list action.
+Confirmed claimed auctions leave status polling, since they need no further bid
+management. Other urgent auction management remains sequential and unchanged.
+
+The new Python recovery scenes cover watched disappearance, aged terminal proof,
+restart with new fences and no repeated move, eight physical/caps negatives and
+four corrupted-history negatives. Separate tests cover typed diagnostic category
+redaction and an epoch floor that only advances public native fencing. Existing
+17 controller lifecycle tests passed. tests/check_005_stage07.py reparses the
+genuine retained 3100 move chain and rejects six corruptions, including account,
+paid-bid lineage, ACK-only state, false readback, paid ownership and chronology.
+It never labels historical evidence as a new ownership observation.
+
+A bounded read-only selector recovery now matches the exact item pseudonym and
+version in the selected account's native inventory cache (at most 2048 entries),
+then performs a separate native requestItemsById GET. Cached selectors are not
+fresh ownership, terminal evidence or write authority. Unowned active watched
+auctions remain rejected before GET. Public source review verified the native
+inventory methods; stage07/public-selector-contract.json contains method-only
+projections from the official public compiled_2.js, with no browser/auth state.
+Both the legacy read entry and reviewed controller queue entry pass exact-target,
+unknown/version/oversize/persona negative and single-dispatch Node tests. Optional
+item_pile diagnostics accept only club/transfer/purchased/inbox/storage/other;
+no raw ID, native selector, header, session or credential value is exported.
+
+The first full Python run retained 1115 executions with two failures. One exposed
+an actual regression in unowned active-auction read rejection: it was corrected,
+and the original final_owned_checks.cjs test was preserved unchanged. The other
+was Windows ConnectionAbortedError 10053 during a local rejected-origin HTTP test;
+the full 12-test integration harness passed on rerun. No speculative server fix
+or weakened rejection expectation was used. Final complete inventories after
+these changes are recorded separately; a failed run is never replaced or hidden.
+
+Own desktop/foreground inspection verified the intended official Edge tab.
+The reviewed extension was reloaded and the app navigated normally. Saved zzorniss
+sign-in required repeated normal login controls, the displayed saved designated
+account suggestion, Next and ordinary saved-password submission. No credential
+value was inspected and no challenge was visible. These were ordinary authorized
+recovery actions, not human prerequisites.
+
+Three NEW finite zero-write windows retain every outcome:
+
+- owned-read-01 (epoch 11): genuine watched GET succeeded. Transfer-list callback
+  supplied no owned request while login/UI GETs were observed as background, so
+  the ownership guard correctly refused ambiguous_network. It made no writes.
+- owned-read-02 (epoch 12): fresh watched, transfer-list and unassigned reads
+  succeeded. An incorrect Python argument shape stopped the probe BEFORE owned
+  lookup dispatch; that probe bug was fixed. Its consumed window was preserved.
+- owned-read-03 (epoch 13): four genuine GETs succeeded (watched, transfer-list,
+  unassigned, owned item). Five commands were reserved; old auction status then
+  correctly failed locally with known_identity_unavailable and no EA request.
+  Overall window status remains FAILED, with zero mutations/pending and service
+  stopped. Partial valid reads are distinguished from whole-window success.
+
+**Current physical location is now independently established.** Fresh complete
+transfer-list wire/callback/repository agreement contains six entries, including
+item:4fa51171b8d65f02a7e65198 / definition 251852, inactive/current bid zero,
+tradable and last_sale_price 3100. A separate native item GET returns the same
+physical identity, exact paid price and transfer-pile diagnostic. Watched omits
+the old trade, as expected after a claim. The earlier document's omission cause
+is still unproven; normal recovery and fresh readback establish current state
+without inventing an explanation or repeating the move. Immutable window logs,
+results and diagnostics are sealed alongside the retained transaction snapshot.
+
+Production DB last held owner epoch 9; isolated native probes reached epoch 13.
+The explicit public --epoch-floor option chooses max(persisted + 1, floor), with
+safe integer validation, and cannot lower a fence, reset a budget or replay an
+intent. The next unique scheduler-owned service will use floor 14, current
+account state and the existing production databases. No tool child launches a
+persistent runtime. Its first work must reconcile existing members and list only
+the genuinely owned pending win through the repaired authority contract.
+
+Live resale and the final 14400-second interval are still unproven. Both full
+acceptance validators remain authoritative and must reject incomplete operation.
+After final regression/audit and publication, launch a new generation, immediately
+verify genuine listing and continued acquisition/management, then hand semantic
+monitoring to the scheduler. Every further defect or stop resets the interval.
+
+Stage07 final discovery passed **1117 executions**, zero failures/errors/skips,
+in **515.295 unittest seconds** (516.033 seconds including the process wrapper).
+All **38 Node suites** and **nine serial independent inventory commands** passed.
+Focused recovery/native-chain checks and both eight-case acceptance self-tests
+passed. The earlier failed full run is retained alongside the final receipts.
+The new stage audit is included in the final criterion 0 regression/evidence gate.
+
+Fresh pre-service backup and desktop/process observations are adjacent. Local
+DB has 31 UNKNOWN and 22 ACKNOWLEDGED attempts, nine ACTIVE, two LOST and one
+PENDING_WIN member, no pending command. All expired ACTIVE auctions require fresh
+native status, never wall-time settlement. There is no production worker,
+listener or scheduled mutation job. Prepared generation
+d019ab7647ea4aaac981c9319019b87b and unique service ID in launch-intent.json remain
+undispatched until the scheduler consumes the handoff, using --epoch-floor 14.
+Normal production must read current ownership/caps again before the first list;
+the finite probe is not a reusable dispatch authorization. Full acceptances and
+the final four-hour interval remain unfulfilled.
