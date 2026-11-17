@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "failed_native_bids": 3, "unsent_consumed_intents": 7, "genuine_relist": true, "old_confirmed_auction": "LOST", "new_confirmed_bid": 750, "negative_checks": 4, "healthy_seconds": 0}

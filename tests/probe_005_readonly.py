@@ -20,7 +20,8 @@ from fc_access.controller_v1.server import Server
 from fc_access.production_v1.contracts import Search
 
 
-def run(output):
+def run(output, *, epoch=1, idle_seconds=0):
+    if type(epoch) is not int or epoch<1 or not 0<=idle_seconds<=40:raise ValueError('invalid_probe_scope')
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     def record(kind, **fields):
@@ -29,6 +30,7 @@ def run(output):
             stream.flush(); os.fsync(stream.fileno())
     scope = json.loads((ROOT / 'private-captures/controller-v1/public-context.json').read_text())
     record('PREPARED', question='Current native account/authentication, inventory and exact-target transport after ownership repair',
+           owner_epoch=epoch,local_idle_seconds=idle_seconds,
            max_commands=6, max_ea_requests=7, max_mutations=0, deadline_seconds=240, context=scope)
     deadline = time.monotonic() + 240
     reserved = 0
@@ -53,7 +55,7 @@ def run(output):
         result = dict(status='FAILED', mutations=0)
         try:
             print('READ_ONLY_SERVICE_READY', flush=True)
-            adapter = ControllerAdapter(SerializedExecutor(Bounded()), context=scope, owner=secrets.token_hex(16), epoch=1)
+            adapter = ControllerAdapter(SerializedExecutor(Bounded()), context=scope, owner=secrets.token_hex(16), epoch=epoch)
             record('ATTACHED', context=adapter.context, fences=adapter.fences)
             commands = [lambda: adapter.read(secrets.token_hex(16), 'balance'),
                         lambda: adapter.read(secrets.token_hex(16), 'watched'),
@@ -77,9 +79,16 @@ def run(output):
                     result['status_missing'] = len(status['missing'])
                     if not status['success']: raise ValueError('status_failed')
                 result['status'] = 'READS_VERIFIED'
+                if idle_seconds:
+                    record('OBSERVING_LOCAL_POLLING',seconds=idle_seconds,ea_requests=0)
+                    end=min(time.monotonic()+idle_seconds,deadline)
+                    while time.monotonic()<end:time.sleep(min(.5,end-time.monotonic()))
         except Exception as error:
             result['exception_type'] = type(error).__name__
         finally:
+            with server.store.lock:
+                diagnostics=[dict(command_id=cid,records=json.loads(body)) for cid,body in server.store.db.execute('SELECT command_id,body FROM c4_diagnostics ORDER BY seq')]
+            (output/'diagnostics.json').write_text(json.dumps(diagnostics,indent=2)+'\n',encoding='utf-8')
             server.shutdown(); thread.join(5)
             result['pending'] = server.store.db.execute("SELECT count(*) FROM c4_commands WHERE state IN ('WAITING','CLAIMED')").fetchone()[0]
             server.server_close()
@@ -93,4 +102,7 @@ def run(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True)
-    raise SystemExit(run(parser.parse_args().output))
+    parser.add_argument('--epoch',type=int,default=1)
+    parser.add_argument('--idle-seconds',type=float,default=0)
+    args=parser.parse_args()
+    raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds))

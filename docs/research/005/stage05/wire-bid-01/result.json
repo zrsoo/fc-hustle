@@ -1,0 +1,38 @@
+{
+  "status": "NO_CONFIRMED_PARTICIPATION",
+  "account_mutations": 1,
+  "batch_id": "26bc40699b5d1fe8a60ba5136df07700",
+  "attempts": [
+    {
+      "command_id": "b4b1fd21faeb907e8de1a029c41e8f70",
+      "state": "UNKNOWN",
+      "result": {
+        "command_id": "b4b1fd21faeb907e8de1a029c41e8f70",
+        "independently_confirmed": false,
+        "outcome": "UNKNOWN",
+        "reason": "DELIVERY_UNCONFIRMED",
+        "receipt": null
+      }
+    }
+  ],
+  "confirmed_members": 0,
+  "semantic": {
+    "reason": null,
+    "native_successes": 19,
+    "native_success_age": 0.006573399994522333,
+    "read_failures": 0,
+    "write_failures": 1,
+    "auth_failures": 0,
+    "missing_statuses": 0,
+    "batch_failures": 0,
+    "helper_failures": 0,
+    "diagnostic_failures": 0,
+    "unconfirmed_attempts": 1,
+    "confirmed": 0,
+    "batches": 1
+  },
+  "pending": 0,
+  "reserved_ea": 23,
+  "commands": 103,
+  "service_stopped": true
+}

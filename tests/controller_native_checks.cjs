@@ -33,7 +33,7 @@ function setup(count=10){
     const request={send(){
       const x=new XHR();x.status=o.http??200;x.responseText=JSON.stringify(op==='balance'?
         (Object.hasOwn(o,'balanceWire')?o.balanceWire:{currencies:[{name:'COINS',funds:o.balanceAmount??90000}]}):
-        {auctionInfo:o.empty?[]:items,code:o.rejection?402:null});
+        (o.wire??{auctionInfo:o.empty?[]:items,code:o.rejection?402:null}));
       if(o.responseType==='json'){x.responseType='json';x.response=JSON.parse(x.responseText);}
       if(o.responseType==='arraybuffer'){x.responseType='arraybuffer';x.response=new TextEncoder().encode(x.responseText).buffer;}
       const path=op==='status_batch'?'trade/status/lite?tradeIds='+input.map(x=>x.getAuctionData().tradeId).join(','):
@@ -84,7 +84,7 @@ function setup(count=10){
     UTCurrencyInputControl:{getIncrementAboveVal:v=>v+100,getIncrementBelowVal:v=>Math.max(0,v-100)},UtasErrorCode:{NOT_ENOUGH_CREDIT:402},
     location:{protocol:'https:',hostname:'www.ea.com',pathname:'/ea-sports-fc/ultimate-team/web-app/',href:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'},
     setTimeout:(fn,delay)=>setTimeout(fn,delay===15000?20:delay),clearTimeout});
-  for(const file of ['persona.js','controller.js','page.js'])vm.runInContext(fs.readFileSync('browser/production-v1/'+file,'utf8'),sandbox);
+  for(const file of ['persona.js','diagnostics.js','controller.js','page.js'])vm.runInContext(fs.readFileSync('browser/production-v1/'+file,'utf8'),sandbox);
   const api=sandbox.window.__fcProductionV1,fences={owner:hex(4),epoch:1,host_epoch:hex(5),worker_epoch:hex(6),document:api.document};
   assert(api.attach(ctx,fences));
   const command=(operation,params={})=>({schema:4,id:hex(++sequence),operation,params,context:{...ctx},fences:{...fences}});

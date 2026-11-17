@@ -1,0 +1,106 @@
+{
+  "sealed_at": "2026-11-17T06:37:16.078079+00:00",
+  "scope": "Immutable consumed EA/transaction/experiment captures only; excludes implementation, tests, instructions and configuration",
+  "files": [
+    {
+      "path": "commands.jsonl",
+      "sha256": "6ecebb5fdafb32044b2efa9817cb0ea27f0d77a62492ea9ac93fbdd07252d061"
+    },
+    {
+      "path": "failed-runtime-attempts.json",
+      "sha256": "a76cc26f7ac25c586516ba6c86799ce545d6fdc0a88c25f7e979c8d432dffded"
+    },
+    {
+      "path": "maintenance-work.json",
+      "sha256": "d64add2bd9ce818e0c2c6127cc78f9ece4f538b79d4a4c43e87dd1b89cdfea96"
+    },
+    {
+      "path": "poll-bid-01/checkpoint.jsonl",
+      "sha256": "170a9dd1dba90c9a2a05cde8ee9414f68c67e0f5653de6603ddc9513a6a44eec"
+    },
+    {
+      "path": "poll-bid-01/diagnostics-projection.json",
+      "sha256": "db87ca595fa66ce9a3b9c83554e571228d65887ededce76ce038f3f58e07e47f"
+    },
+    {
+      "path": "poll-bid-01/result.json",
+      "sha256": "c8eb8d274005d5ba8002da8e06067d9047df138dc5556d5806e19a18008f7c5b"
+    },
+    {
+      "path": "poll-read-01/checkpoint.jsonl",
+      "sha256": "16464e5874e2822cf49e2e58b445114893992135215e4645466947c97dd87baa"
+    },
+    {
+      "path": "poll-read-01/diagnostics.json",
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f"
+    },
+    {
+      "path": "poll-read-01/result.json",
+      "sha256": "8ef15905ecc5ab74b16ed9817c47f676be5fcb8fbcda79bfe77be4386aacd29f"
+    },
+    {
+      "path": "poll-read-02/checkpoint.jsonl",
+      "sha256": "3529756dd3f9bef7fb06c8a797d292a5ac840480a4620ad3b61166f61a205c79"
+    },
+    {
+      "path": "poll-read-02/diagnostics.json",
+      "sha256": "1c823cfbb6a55af9ed1c0e9e474e71dfd0eb1f539d540501c027c263aa280c98"
+    },
+    {
+      "path": "poll-read-02/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    },
+    {
+      "path": "runtime-events.jsonl",
+      "sha256": "8ab411077502b000c43f1c6c88a6bafbbd0d04b46b2d56c83f3555df65a232e6"
+    },
+    {
+      "path": "runtime-state.json",
+      "sha256": "8bd174abd613b25194096810c349f0f6dcf433c55833ba6d1c9a8b7eee172d04"
+    },
+    {
+      "path": "scheduler-run.json",
+      "sha256": "d6c65fc6c045f696277578bf0df099d35cc07e1efe3fd0f6073c71fafcf02e45"
+    },
+    {
+      "path": "terminal-loss.json",
+      "sha256": "adf34e991d0ad24d57ba1e1d825ea796f7e1863adadeef153c2fd75bc563167f"
+    },
+    {
+      "path": "wire-bid-01/checkpoint.jsonl",
+      "sha256": "ddfb57d3fac23c96515816e232d5ea00b0e14df3a4069b10fba4063df70180dc"
+    },
+    {
+      "path": "wire-bid-01/diagnostics-projection.json",
+      "sha256": "3103777521784a3af65ece15e8397015f2231a71f8446ada5d9846a42350da1f"
+    },
+    {
+      "path": "wire-bid-01/result.json",
+      "sha256": "6291a747e634e8e46592348948d303a035f6332c4ed97534b0c50987a1e153ca"
+    },
+    {
+      "path": "wire-bid-01/unclaimed-proof.json",
+      "sha256": "b48059cca29861d1bdfbf60adbc3a3468cac6431850fa7f2245eaa89fffb590b"
+    },
+    {
+      "path": "wire-read-01/checkpoint.jsonl",
+      "sha256": "9a8eada983d09d8bc408180b003c1f2d08969c098752c7eb8b4c20cf887ea128"
+    },
+    {
+      "path": "wire-read-01/result.json",
+      "sha256": "8ef15905ecc5ab74b16ed9817c47f676be5fcb8fbcda79bfe77be4386aacd29f"
+    },
+    {
+      "path": "wire-read-02/checkpoint.jsonl",
+      "sha256": "0413cb60d0afd42f7ea74e3c1c5cf164a2405766b9c3d24a8a11629523d30032"
+    },
+    {
+      "path": "wire-read-02/diagnostics-projection.json",
+      "sha256": "e23361cd92e16df0bc1eb370311867070a751b7fc3e8b3172cd0043cbdd29ddc"
+    },
+    {
+      "path": "wire-read-02/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    }
+  ]
+}

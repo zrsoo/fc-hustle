@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-17T06:39:41.753666+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+  "service_id": "005-native-diagnostics-26407ef02dc7d322407f4c575c0c7ac7",
+  "supersedes_stopped_generation": "fb6b1dcd8851445b6c616c772a700ab5",
+  "launch_owner": "installed orchestrator service handoff only",
+  "healthy_seconds": 0,
+  "reconcile_target": "trade:3ebc22bd4a6a9be28c286aeb"
+}

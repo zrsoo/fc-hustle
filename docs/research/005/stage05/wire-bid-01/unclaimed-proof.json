@@ -1,0 +1,49 @@
+{
+  "command_id": "b4b1fd21faeb907e8de1a029c41e8f70",
+  "command_state": "UNKNOWN",
+  "result_present": 0,
+  "tombstone_count": 0,
+  "diagnostic_records": 0,
+  "events": [
+    {
+      "kind": "INTENT",
+      "body": {
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "019fe5e90e4e8b4d26f6cd5b861826ff",
+          "epoch": 6,
+          "host_epoch": "f23c931ca7c9febef8907123cc47a9ad",
+          "owner": "f1f76d4f22d3b81800f21bb13f008f94",
+          "worker_epoch": "d4424f468a3ed2c940a302bc87d83d9e"
+        },
+        "id": "b4b1fd21faeb907e8de1a029c41e8f70",
+        "operation": "bid",
+        "params": {
+          "amount": 800,
+          "batch_id": "26bc40699b5d1fe8a60ba5136df07700",
+          "cap": 4100,
+          "deadline": "2026-11-17T06:10:26.473000+00:00",
+          "decision_id": "c5e0a1361a621ad4409351edab2300c6",
+          "minimum": 800,
+          "status_read_id": "5d88754c155fd37ac67b37843a4d865f",
+          "target": {
+            "definition_id": 251570,
+            "item_id": "item:672d45902480f1453ce92c89",
+            "trade_id": "trade:1c843c033aeece40a06d53fd"
+          }
+        },
+        "schema": 4
+      }
+    },
+    {
+      "kind": "UNCERTAIN",
+      "body": {}
+    }
+  ]
+}

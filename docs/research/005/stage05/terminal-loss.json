@@ -1,0 +1,25 @@
+[
+  {
+    "id": "trade:d4e9c4b3d4ee3636cb3e9df6",
+    "kind": "LOST",
+    "body": {
+      "read_id": "b62dd62c335baedecf8c5e0792974f02",
+      "row": {
+        "bid_state": "outbid",
+        "buy_now_price": 11250,
+        "current_bid": 4600,
+        "expires": -1,
+        "item": {
+          "definition_id": 233731,
+          "item_id": "item:e211ec5628440e33479fdaf8",
+          "last_sale_price": 0,
+          "untradeable": true
+        },
+        "native_is_won": false,
+        "starting_bid": 700,
+        "trade_id": "trade:d4e9c4b3d4ee3636cb3e9df6",
+        "trade_state": "closed"
+      }
+    }
+  }
+]

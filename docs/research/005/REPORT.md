@@ -1,6 +1,6 @@
 # Objective 005 production repair
 
-Status: **IN PROGRESS. No integrated trading run or four-hour proof yet.**
+Status: **IN PROGRESS. Integrated runs stopped on semantic faults; no four-hour proof yet.**
 This report is the working record for `obj-cb39371c785a/operate`, not a completion
 verdict. Objective 003 remains paused and Objective 004 completed. Their historical
 evidence, budgets and verdicts have not been amended.
@@ -517,3 +517,102 @@ confirmed member against actual account evidence, protecting all uncertain bids.
 Then retain genuine live acquisition/management/settlement/ownership/resale and
 eligible maintenance plus 14400 uninterrupted healthy seconds after the FINAL fix.
 There is no external escalation. Original requirements and legacy controls remain.
+
+
+## Stage 05 ? operational stop, real relist and two independent native confirmations
+
+Generation fb6b1dcd8851445b6c616c772a700ab5 attached automatically and reported
+semantic health with real fresh native EA successes. It reconciled the old 700
+confirmed auction as LOST: fresh read b62dd62c335baedecf8c5e0792974f02 showed
+closed/outbid, current 4600 and native_is_won false. The old membership body's
+entry proof remains historical; the separate LOST event carries terminal proof.
+No ownership, move or resale was inferred for that lost item.
+
+The same run genuinely performed relist_all 09cae9aad9c5ae1d86e1133370f83de7.
+`maintenance-work.json` retains exact pre-inventory and independent fresh post
+readback. The independent native bulk assessor verifies all eligible entries,
+unchanged prices/physical identities and one-hour duration. Clear-sold was not
+eligible. This is genuine production maintenance evidence, separate from synthetic
+resale tests and still-unobserved genuine won-item move/list behavior.
+
+The run then submitted three initial bids: 750, 900 and 700, each returned owned
+wire 461/service 403/native error 461 with empty native receipt. Pre-burst status
+was fresh; remaining times exceeded 60s. Watchdog stopped cooperatively under
+PERSISTENT_WRITE_FAILURE before a fourth native bid. Of ten planned intents,
+three reached native dispatch and seven were consumed unsent, leaving 30 UNKNOWN
+attempts in total then. No unknown was replayed or promoted. Earlier healthy
+samples remain historical in `scheduler-run.json`; final healthy time is zero.
+This demonstrates semantic failure detection, not successful acquisition.
+
+The fresh-status repair is therefore insufficient to explain every 461. Added
+positive-allowlist diagnostics record owned wire auction numbers/states and
+boolean identity/coherence against the native callback, never raw response data,
+authentication values or arbitrary error text. Negative tests cover mismatched
+wire/callback values, response encodings, secret canaries and strict Python types.
+`wire-read-02` completed six commands, zero writes and ten exact status targets:
+all ten independently retained wire projections matched the callback. The first
+window closed with zero commands during normal sign-in recovery; it remains
+consumed. Saved zzorniss account selection and password submission used ordinary
+Edge UI/autofill; no saved values were read/exported. A repeated normal Login
+click was necessary; no visible challenge or unavailable prerequisite occurred.
+
+`wire-bid-01` then recorded a new 800 intent b4b1fd21faeb907e8de1a029c41e8f70.
+It was never claimed: no tombstone, no native diagnostics/result, only INTENT and
+UNCERTAIN. It is a local delivery uncertainty, not another captured EA 461 or a
+confirmed failed bid. Later personal readback conferred no membership. Its UNKNOWN
+record remains consumed. The worker formerly lost between-command failures when
+active=null after ACK. Typed WORKER_POLL_FAILURE now reports only an allowlisted
+poll phase/reason against the last acknowledged scope. Existing fencing rejects
+stale diagnostic scopes; no execution/result retry or new trading authority exists.
+The exact cause of that earlier missing claim is still unresolved.
+
+`poll-read-01` was correctly refused before any command because epoch 6 had already
+been consumed by the previous production-backed probe. The actual persisted peer
+was inspected; `poll-read-02` used epoch 7 and completed six native reads, then
+observed 25 seconds of local polling without a retained failure and without any
+additional EA request. Epoch floors are now explicit finite-probe public control
+inputs; they cannot reset windows or authorize stale/uncertain writes. These are
+normal engineering/recovery conditions, not external blockers.
+
+`poll-bid-01` used a NEW target and epoch 8, without refreshing the signed-in page.
+It genuinely bid 750 via command 6635a5408d33817c3de33a017a402baf on
+trade:3ebc22bd4a6a9be28c286aeb / item:bb160ebf4efd88ee511a6196 / definition 256079.
+The stored cap was 4200. Owned pre-status wire/current native data agreed, and
+wire 200/service 200/native ACCEPTED receipt matched exact item/trade/amount.
+Later exact status AND personal watched independently confirmed highest/current 750.
+It retained 120 native command results and 120 monitoring callbacks, 20 actual EA
+requests (19 GET/one PUT), 21 reservations, zero pending commands and no semantic
+fault. It ended stopped with one ACTIVE confirmed member, one historical LOST,
+31 UNKNOWN attempts protected and two ACKNOWLEDGED initial bids. Expiry was about
+06:38:11 UTC; subsequent management must reconcile genuine current state.
+This proves current write ability, not a precise server explanation for old 461
+or a general account restriction. Do not invent either conclusion.
+
+`check_005_stage05.py` reparses actual native envelopes and independent account
+confirmation, re-runs the native bulk effect contract from captured commands,
+checks the three-failure stop/seven unsent intents and unclaimed 800 isolation,
+and rejects four altered-evidence cases. It explicitly reports objective incomplete.
+No genuine won-item move/resale or final four-hour interval has been observed.
+All 37 Node suites pass; full Python and serial independent verification will be
+recorded before publication. Then issue a new scheduler-only generation; normal
+next production owner epoch 9 follows the persisted epoch 8. Immediately reconcile
+and manage the new confirmed member, continue autonomous stop/repair on semantic
+faults, and retain the full intended lifecycle plus 14400 consecutive healthy
+seconds after FINAL fix/restart. Leave the healthy service running at completion.
+
+
+Stage05 final verification: **1108 Python executions**, zero failures/errors/skips,
+496.406s; **37 Node suites** and all **nine serial independent validators** passed.
+Receipts are in `checks/stage05/`; focused evidence and acceptance self-tests are
+adjacent. Both live acceptance commands correctly remain INCOMPLETE. Captured
+EA/transaction/consumed-window evidence is sealed, excluding all mutable source,
+tests, instructions and configuration. Full inventories were completed with
+trading stopped; no historical check was skipped to obtain green output.
+
+Fresh `pre-service-backup.json` records integrity/FK/row-equal backups outside Git.
+Local DB has 907 commands, 31 UNKNOWN attempts, two ACKNOWLEDGED, one ACTIVE locally,
+one historical LOST and zero pending commands. Separate collector-only and
+browser observations are adjacent. The confirmed 750 auction is now expired by
+wall time, so startup must reconcile actual native status/ownership rather than
+assuming won/lost, replaying a bid or moving an unrelated item. A new scheduler
+launch intent will be recorded before dispatch; healthy consecutive time is zero.

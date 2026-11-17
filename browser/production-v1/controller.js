@@ -34,7 +34,7 @@
       if(!s.acquire()){out.error='bridge_busy';return out;}
       diagnostic(c.id,'PAGE_ENTER');
       const restorers=[],listeners=[],requests=[],pending=new WeakMap();
-      let active=true,invoking=false,sending=false,invocations=0,queueCount=0,bidState=null,wireCredits=null,observable=null,owner={},timer;
+      let active=true,invoking=false,sending=false,invocations=0,queueCount=0,bidState=null,wireCredits=null,wireAuctions=null,observable=null,owner={},timer;
       const restore=()=>{active=false;clearTimeout(timer);try{observable?.unobserve?.(owner);}catch{}
         const queue=services.UTUtasRequestQueue;
         if(Array.isArray(queue?.queue))for(let i=queue.queue.length-1;i>=0;i--)if(requests.includes(queue.queue[i].request))queue.queue.splice(i,1);
@@ -126,12 +126,16 @@
           out.network.push(n);out.network_at=new Date().toISOString();
           const f=()=>{if(!active)return;n.status=num(this.status)||null;
             diagnostic(c.id,'EA_RESPONSE',{status:n.status,xhr_zero_status:this.status===0});
-            if(op==='bid' || op==='balance'){
+            if(op==='bid' || op==='balance' || op==='status_batch'){
               try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
+                diagnostic(c.id,'EA_BODY',{data_type:data===null?'null':Array.isArray(data)?'array':typeof data,
+                  row_count:Array.isArray(data?.auctionInfo)?data.auctionInfo.length:undefined,
+                  wire_error_code:num(data?.code??data?.error?.code),message_present:typeof data?.message==='string',reason_present:data?.reason!=null});
                 if(op==='bid'){
                   bidState.receipt.wire_item_count=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
                   bidState.receipt.wire_error_code=num(data?.code);
-                }else{
+                }else if(op==='status_batch')wireAuctions=Array.isArray(data?.auctionInfo)?data.auctionInfo:null;
+                else{
                   const coins=Array.isArray(data?.currencies)?data.currencies.filter(x=>x?.name===GameCurrency.COINS):[];
                   wireCredits=coins.length===1?num(coins[0].funds):null;
                 }
@@ -166,6 +170,19 @@
           if(!Array.isArray(rows) || rows.length>(op==='status_batch'?10:100))throw Error('schema_unrecognized');
           out.auctions=await Promise.all(rows.map(raw=>auction(raw,{...c,operation:op==='status_batch'?'status':'watched'},out.network_at)));
           if(new Set(out.auctions.map(r=>r.trade_id)).size!==rows.length || new Set(out.auctions.map(r=>r.item.item_id)).size!==rows.length)throw Error('schema_unrecognized');
+          if(op==='status_batch')for(let index=0;index<p.targets.length;index++){
+            const entry=entries[index],row=out.auctions.find(r=>r.trade_id===p.targets[index].trade_id);
+            const matches=(wireAuctions??[]).filter(w=>String(w?.tradeId)===entry.native_trade_id),wire=matches.length===1?matches[0]:null;
+            const detail={target_index:index,wire_ready:Array.isArray(wireAuctions),wire_target_found:!!wire};
+            if(wire){
+              Object.assign(detail,{wire_current_bid:wire.currentBid,wire_starting_bid:wire.startingBid,wire_buy_now_price:wire.buyNowPrice,
+                wire_expires:wire.expires,wire_bid_state:wire.bidState,wire_trade_state:wire.tradeState,
+                wire_identity_matches:wire.itemData?.id!=null && String(wire.itemData.id)===String(entry.raw.id),
+                wire_callback_matches:!!row && wire.currentBid===row.current_bid && wire.startingBid===row.starting_bid &&
+                  wire.buyNowPrice===row.buy_now_price && wire.expires===row.expires && wire.bidState===row.bid_state && wire.tradeState===row.trade_state});
+            }
+            diagnostic(c.id,'WIRE_AUCTION',detail);
+          }
           if(op==='watched'){
             for(let i=0;i<rows.length;i++){
               const row=out.auctions[i],old=known.get(row.trade_id);

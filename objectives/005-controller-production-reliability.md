@@ -44,7 +44,7 @@ guaranteed away, and its evidence must not be fabricated.
 
 - `AGENTS.md` (reread before browser recovery); normal saved sign-in is already
   authorized for the intended **zzorniss** account in official Edge FC27 PC.
-- `objectives/004-single-controller-implementation.md`, especially strategy,
+- `objectives/ 004-single-controller-implementation.md`, especially strategy,
   execution, journal and resale contracts; `fc_access/controller_v1/README.md`
   and `DESIGN.md`, watchdog, controller, executor, adapter and store.
 - `objectives/002-two-actor-competitive-bidding.md`,
@@ -53,9 +53,9 @@ guaranteed away, and its evidence must not be fabricated.
 - `docs/research/003/003-04/bid-receipt-repair-01/REPORT.md`,
   `docs/research/003/003-04/production-06/REPORT.md`,
   `docs/research/003/003-04/production-07/REPORT.md`.
-- `docs/research/004/watchdog/REPORT.md`,
-  `docs/research/004/bridge-audit/REPORT.md`,
-  `docs/research/004/request-ownership-fix/native-followup-contract.json`,
+- `docs/research/ 004/watchdog/REPORT.md`,
+  `docs/research/ 004/bridge-audit/REPORT.md`,
+  `docs/research/ 004/request-ownership-fix/native-followup-contract.json`,
   current `fc_access/production_v1/extension/page.js` and its ownership tests.
 - `C:/hustle/agent-orchestrator/docs/autonomous-operations.md` for exact monitoring,
   scheduler-owned launch, repair and quota handoff contracts.
@@ -209,53 +209,67 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 - [ ] Preserve/inspect initial incident; correlate all failure classes.
 - [ ] Reproduce and fix root causes with regressions and genuine contract checks.
-- [ ] Implement semantic watchdog/ownership/health/stop integration; verify it.
+- [x] Implement semantic watchdog/ownership/health/stop integration; verify it.
 - [ ] Run genuine lifecycle, diagnose and repair each incident automatically.
 - [ ] Prove final four-hour interval and intended trading/resale behavior.
 - [ ] Independent audit, final report, commit/push, leave healthy runtime running.
 
 ## Progress and next action (update before handoffs)
 
-Stage 04 repair checkpoint (2026-11-17), starting published main `0b20735`.
-The installed scheduler consumed the first service intent/generation
-b6898a8aeec49b4985957a4d6425aeb3. Its immediate first health check raced process
-initialization and saw RUNTIME_STATE_UNAVAILABLE. Scheduler requested an owned
-stop; watchdog honored OPERATIONAL_STOP cooperatively, without forced termination.
-There were ZERO native commands/account requests. Controller journal remained
-530 commands, 20 UNKNOWN attempts, one ACKNOWLEDGED, one ACTIVE member and zero
-pending commands. The expired confirmed member still needs actual reconciliation.
-First-generation and scheduler evidence are retained in `docs/research/005/stage04/`.
+Stage 05 repair/diagnostic checkpoint (2026-11-17), starting published main
+`993d3a2`. The second scheduler generation attached automatically, obtained fresh
+native reads, reconciled the old confirmed 700 auction as LOST (closed/outbid,
+current 4600, native_is_won false), and genuinely relisted all eligible expired
+inventory with independent exact readback. It then stopped after THREE native
+461/service403 bid failures under PERSISTENT_WRITE_FAILURE. No fourth bid reached
+EA. Its ten planned intents remain consumed: three dispatched, seven unsent.
+There were 30 UNKNOWN attempts then; all retained. No healthy interval survives.
 
-Consumer health now waits at most two seconds for the actual requested-generation
-manifest, including replacement of an older pointer. It never invents STARTING
-for absent state, never performs account writes, and still checks actual owned
-process identity, lock, freshness and semantic outcomes. Repeated absent checks
-remain repair. Real delayed-start/missing-runtime tests pass. No orchestrator
-code, lifecycle rows, historical evidence, quotas or legacy actors were changed.
-Fresh canonical-lock backup integrity/FK/row comparisons are in `stage04/backup.json`.
+Fresh wire/callback diagnostics and typed between-command polling diagnostics
+are implemented with strict positive allowlists and negative secret/type tests.
+A read-only window verified exact wire/native callback agreement on ten targets.
+Normal saved sign-in recovery used official Edge UI only, never credential values.
+A subsequent 800-coin intent was never claimed: no tombstone, native diagnostic
+or result; it remains UNKNOWN and is not an EA461 incident. A read-only idle test
+at a new higher owner epoch kept polling through 25s with no retained failure.
+One earlier epoch 6 window was correctly refused (previous probe already owned 6);
+zero commands. Explicit finite-probe epoch floors now reconcile this public fence
+without changing account labels, budgets, prior IDs or original strategy.
 
-Full Python discovery passed 1107 executions, zero failures/errors/skips, in
-491.451s. All 36 Node suites and nine serial independent validators passed;
-receipts are in `checks/stage04/`. `check_005_stage04.py` independently verifies
-the zero-dispatch incident and rejects four altered-evidence cases. Final
-`validate_005_lifecycle.py` checks actual generation-bound acquisition, separate
-membership/management reads, competition/rebid where available, paid win,
-physical move, native profitable one-hour listing and eligible bulk readbacks,
-plus latest full regression inventories and clean pushed main. Its isolated
-positive scene and eight negative cases pass. `validate_005_interval.py` has
-eight negative interval cases. Both live acceptance commands correctly report
-INCOMPLETE while the owned service is stopped; healthy operational seconds zero.
+A NEW distinct-target probe then genuinely bid 750, receipt ACCEPTED with exact
+wire/native identity/amount, fresh pre-bid wire/callback agreement and separate
+later exact-status AND personal-watch confirmation. It retained 120 responses /
+120 monitor callbacks, 20 actual EA requests (19 GET, one PUT), 21 reservations,
+no pending commands and no semantic fault. This proves current write capability,
+not the exact cause of every historical461 or the earlier missing claim.
+Production is stopped with one new ACTIVE confirmed member, one LOST historical
+member, 31 UNKNOWN attempts protected and two ACKNOWLEDGED initial bids.
+The 750 auction expires approximately 06:38:11 UTC; fresh account reconciliation
+is required before management, never infer terminal outcome or ownership.
 
-Next: commit/push this repair, then hand off a NEW scheduler-owned generation
-from `stage04/launch-intent.json` with status continue. Immediately inspect startup
-and attach the reviewed extension if necessary in this SAME worker/session.
-Reconcile actual account watched/status/ownership for the old confirmed member;
-never replay its bid or any UNKNOWN command. Continue monitor/stop/diagnose/test/
-reconcile/restart automatically. Finish only with genuine full lifecycle evidence
-and at least 14400 consecutive monitored healthy seconds after the FINAL repair
-and restart, independent audit, final report and pushed commits. Leave the healthy
-runtime running. Original criteria unchanged; 003 PAUSED and 004 COMPLETED.
-No external blocker or human prerequisite is proposed.
+Independent stage audit `tests/check_005_stage05.py` verifies genuine relist,
+terminal loss, three-failure stop/seven unsent intents, unclaimed 800 isolation
+and independently confirmed 750, with four altered-evidence cases. Full Python
+discovery passed 1108 executions, zero failures/errors/skips, in 496.406s; all
+37 Node suites and nine serial independent validators passed. Full acceptance remains
+unfulfilled; no won-item move/list or four-hour production proof is claimed.
+Evidence and precise remaining hypotheses are in `docs/research/005/REPORT.md`.
+
+Fresh pre-service canonical-lock backup and process/browser observations are in
+`stage05/pre-service-backup.json`, `pre-service-quiescence.json` and
+`pre-service-browser.json`. Local DB: 907 commands, no pending commands. The new
+confirmed auction has now expired by wall time; only fresh native account evidence
+can establish its terminal outcome or ownership. No expired bid will be replayed.
+
+Next: commit/push this stage, then launch a NEW scheduler-owned generation
+in this SAME task/session. Native/production owner epoch is now 8; the production
+DB's persisted peer also records 8, so its normal next epoch 9 is appropriate.
+Immediately verify startup and reconcile/manage the confirmed 750 member using
+actual account state. Keep all 31 UNKNOWN intents consumed. On any semantic fault,
+stop and repair automatically with the new wire/polling evidence. Require genuine
+full lifecycle and 14400 consecutive monitored healthy seconds after FINAL restart,
+independent audit, final report and pushed commits; leave healthy service running.
+Keep 003 PAUSED / 004 COMPLETED. No external blocker or human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -339,3 +353,26 @@ state instead of racing its first atomic publication. Absent state never becomes
 starting/healthy and scheduler grace cannot be extended. Six real-process tests
 and the full 1107-execution regression pass. Preserve the consumed failed launch;
 next attempt must use a new deliberate generation, never replay its service ID.
+
+2026-11-17 H12 / SEMANTIC STOP AND GENUINE MAINTENANCE VERIFIED LIVE:
+Second scheduler generation completed real relist_all and exact readback; old
+confirmed 700 settled LOST through fresh native status. Three initial native bids
+then returned 461/service403 and caused prompt cooperative semantic stop. Seven
+remaining intents were consumed without dispatch. Fresh selection alone does not
+explain/fix all denial cases. Preserve all outcomes; no restriction inferred.
+
+2026-11-17 H13 / CURRENT WIRE-CALLBACK COHERENCE VERIFIED, PRIOR CASES OPEN:
+Typed diagnostics compare only allowlisted auction numbers/states and boolean
+identity/coherence, never raw response bodies or authentication fields. Ten
+read-only targets and new bid pre-status matched wire exactly. New750 probe
+succeeded after ordinary saved sign-in recovery. This falsifies a blanket current
+write barrier and stale-callback claim for these captures, not for uncaptured
+historical wire payloads. Exact server reasons for the three 461 remain open.
+
+2026-11-17 H14 / BETWEEN-COMMAND DIAGNOSTIC GAP REPAIRED:
+The 800 intent had no claim/tombstone/native result. Old worker dropped failures
+when active=null after ACK. It now records typed poll phase/reason against last
+acknowledged scope; stale scopes still fail existing server fencing. Fake error
+canaries are not retained; no execution/result replay was added. Read-only idle
+polling passed 25s. Missing claim remains an unresolved hypothesis, not success,
+explicit rejection, account restriction or manual prerequisite.

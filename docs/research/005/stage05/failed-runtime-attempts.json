@@ -1,0 +1,132 @@
+[
+  {
+    "command_id": "b222891a17fab1a972100ff332ef6c2b",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 239580,
+      "item_id": "item:cb8b74ad001d0c0f2c2851f3",
+      "trade_id": "trade:1196333f6feab6d68fc810a3"
+    },
+    "amount": 750,
+    "native_command_present": true,
+    "tombstone_count": 1
+  },
+  {
+    "command_id": "2c2d0a4005e78c5b07496c23bfaae997",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 246420,
+      "item_id": "item:60d8fa5f736ca5910579ff65",
+      "trade_id": "trade:09396e3e811310aa3e828feb"
+    },
+    "amount": 900,
+    "native_command_present": true,
+    "tombstone_count": 1
+  },
+  {
+    "command_id": "4495c08e3a3f0d2b7e40a1e829592137",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 236772,
+      "item_id": "item:460b68731abadc4209882f91",
+      "trade_id": "trade:94972182d20237e23c504e0a"
+    },
+    "amount": 700,
+    "native_command_present": true,
+    "tombstone_count": 1
+  },
+  {
+    "command_id": "0ef470d8d6f853c1c660c7c714063f9b",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 251570,
+      "item_id": "item:45bb80471d033f79675965eb",
+      "trade_id": "trade:00f0ee94ece99df9cc22c53f"
+    },
+    "amount": 750,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "6b12eab917f984dc2caef3bb3bef2ba7",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 251852,
+      "item_id": "item:7641f96e1bf29cba4255eaac",
+      "trade_id": "trade:8db2ea1f4483f8b6704855fa"
+    },
+    "amount": 700,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "5bfc65bf992062a3cbcc9480186302d5",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 236772,
+      "item_id": "item:3e5fe8b3df927bd00f016728",
+      "trade_id": "trade:ffeff4bc0f0b83fb064bdd46"
+    },
+    "amount": 700,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "d07c9a7da9105b7c7592142a935ed3cf",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 231432,
+      "item_id": "item:1b722d714d125c75e0f6d5da",
+      "trade_id": "trade:ef5a64c8f7f92c8b22b02926"
+    },
+    "amount": 700,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "2abcf1e0a812cc597b39c742f34a1212",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 231432,
+      "item_id": "item:a4911b15f0379aa4740720df",
+      "trade_id": "trade:f00f87851ce208f8cc1d95ef"
+    },
+    "amount": 700,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "67021eb7fe9f25d1aff88bda26a77491",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 243404,
+      "item_id": "item:a2d9521f0e0802b115141069",
+      "trade_id": "trade:e688bc1f7b358fe92bb3b616"
+    },
+    "amount": 950,
+    "native_command_present": false,
+    "tombstone_count": 0
+  },
+  {
+    "command_id": "ce655c3c1e076d7e4087f13b79c67a3d",
+    "kind": "initial",
+    "state": "UNKNOWN",
+    "target": {
+      "definition_id": 246191,
+      "item_id": "item:49d768d1aae0a520977ebc8d",
+      "trade_id": "trade:e2d9a6ece6c1cffa231a17d5"
+    },
+    "amount": 700,
+    "native_command_present": false,
+    "tombstone_count": 0
+  }
+]

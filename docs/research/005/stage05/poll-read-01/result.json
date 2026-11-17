@@ -1,0 +1,8 @@
+{
+  "status": "FAILED",
+  "mutations": 0,
+  "exception_type": "ValueError",
+  "pending": 0,
+  "reserved_commands": 0,
+  "service_stopped": true
+}

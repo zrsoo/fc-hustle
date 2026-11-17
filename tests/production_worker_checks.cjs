@@ -49,6 +49,8 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
   mode='ok';await alarm();assert.equal(executions,0,'idle only attaches');assert.deepEqual(files.slice(0,4),['persona.js','diagnostics.js','controller.js','page.js']);
   next=cmd(20);await alarm();assert.equal(executions,1);assert.equal(posts.filter(p=>p.path==='/result').length,1);
   await alarm();assert.equal(executions,1,'idle poll cannot replay a command');
+  assert(posts.some(p=>p.path==='/diagnostic'&&p.v.id===hex(20)&&p.v.records.some(r=>r.stage==='WORKER_POLL_FAILURE'&&r.detail.poll_phase==='claim')),
+    'failure between commands is retained against the last acknowledged scope without replay');
   next={...cmd(21),fences:{host_epoch:hex(999)}};await alarm();assert.equal(executions,1);
   next={...cmd(22),fences:{worker_epoch:hex(999)}};await alarm();assert.equal(executions,1);
   next={...cmd(23),fences:{document:hex(999)}};await alarm();assert.equal(executions,1);

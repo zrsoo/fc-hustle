@@ -1,0 +1,9 @@
+{
+  "eligible": {
+    "clear_sold": false,
+    "relist_all": true
+  },
+  "confirmed": [
+    "relist_all"
+  ]
+}

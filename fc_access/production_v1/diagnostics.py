@@ -3,9 +3,9 @@ from datetime import datetime,timezone
 import math
 from .contracts import fields,integer,stamp,ERRORS,ROUTES,METADATA_PATH
 
-STAGES={'UNCLASSIFIED_EA_REQUEST','BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','NATIVE_DATA',
+STAGES={'UNCLASSIFIED_EA_REQUEST','BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','EA_BODY','WIRE_AUCTION','NATIVE_DATA',
         'ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED','WORKER_EXECUTE','WORKER_RESULT',
-        'WORKER_POST_RESULT','WORKER_ACK','WORKER_FAILURE'}
+        'WORKER_POST_RESULT','WORKER_ACK','WORKER_FAILURE','WORKER_POLL_FAILURE'}
 TYPES={'undefined','null','boolean','number','string','object','array','function'}
 REASONS={'invalid_fields','invalid_result','invalid_status','invalid_cache_evidence','invalid_integer','invalid_item',
  'invalid_rows','invalid_auction','duplicate_identity','wrong_exact_definition','invalid_network','wrong_native_route',
@@ -32,11 +32,18 @@ def validate_records(records):
             if key in {'row_count','request_count','definition_count'}:integer(value,0);valid=value<=100
             elif key in {'status','local_status'}:valid=type(value) is int and 100<=value<=599
             elif key in {'success','xhr_zero_status'}:valid=type(value) is bool
+            elif key in {'wire_ready','wire_target_found','wire_identity_matches','wire_callback_matches','message_present','reason_present'}:valid=type(value) is bool
+            elif key=='target_index':valid=type(value) is int and 0<=value<10
+            elif key in {'wire_current_bid','wire_starting_bid','wire_buy_now_price','wire_error_code'}:valid=type(value) is int and 0<=value<=2**53-1
+            elif key=='wire_expires':valid=type(value) is int and -1<=value<=2**53-1
+            elif key=='wire_bid_state':valid=value in {'none','highest','outbid','buyNow','sold'}
+            elif key=='wire_trade_state':valid=value in {'active','closed','expired','inactive'}
             elif key in {'definition_type','resource_type','data_type'}:valid=value in TYPES
             elif key=='error':valid=value in ERRORS
             elif key=='error_class':valid=value in {'Error','TypeError','RangeError','SyntaxError'}
             elif key=='worker_stage':valid=value in {'execute','result','post_result'}
-            elif key=='reason':valid=value in {'local_rejected','worker_exception'}
+            elif key=='reason':valid=value in {'local_rejected','worker_exception','persona_or_document_unverified','wrong_tab','stale_command'}
+            elif key=='poll_phase':valid=value in {'tab','hello','inject','persona','bind','claim'}
             elif key=='traffic_scope':valid=value in {'ea_read','ea_write','outside_ut'}
             elif key=='method':valid=value in {'GET','POST','PUT','DELETE','OTHER'}
             elif key=='route_group':valid=value in {'SETTINGS','USER_MASSINFO','USER','CLUB','SQUAD','STORE','FAVORITES','AUCTIONHOUSE','ITEM','OTHER'}

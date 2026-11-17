@@ -1,0 +1,10 @@
+{
+  "status": "READS_VERIFIED",
+  "mutations": 0,
+  "status_targets": 10,
+  "status_returned": 10,
+  "status_missing": 0,
+  "pending": 0,
+  "reserved_commands": 6,
+  "service_stopped": true
+}

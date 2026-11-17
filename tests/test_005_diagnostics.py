@@ -22,6 +22,19 @@ from fc_access.controller_v1.store import ControllerStore
 
 
 class DiagnosticsTests(unittest.TestCase):
+    def test_wire_comparison_typed_fields_retained_but_raw_data_and_sensitive_keys_rejected(self):
+        detail=dict(target_index=0,wire_ready=True,wire_target_found=True,wire_identity_matches=True,wire_callback_matches=False,
+                    wire_current_bid=700,wire_starting_bid=500,wire_buy_now_price=11000,wire_expires=-1,
+                    wire_bid_state='outbid',wire_trade_state='closed')
+        record=dict(stage='WIRE_AUCTION',at=self.trace[0]['at'],detail=detail)
+        self.assertEqual(self.post(records=[record]),(200,{'accepted':True}))
+        for field,value in [('responseText','PRIVATE_CANARY'),('token','PRIVATE_CANARY'),('wire_current_bid',True),
+                            ('wire_bid_state','PRIVATE_CANARY'),('wire_expires',-2),('target_index',10)]:
+            bad=deepcopy(record);bad['detail'][field]=value
+            self.assertEqual(self.post(records=[bad])[0],409)
+        retained=[json.loads(r[0]) for r in self.server.store.db.execute('SELECT body FROM c4_diagnostics')]
+        self.assertNotIn('PRIVATE_CANARY',json.dumps(retained))
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.path=Path(self.temp.name)/'fixture.sqlite'

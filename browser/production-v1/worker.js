@@ -2,7 +2,7 @@
 // Local delivery only. A click selects the official tab; alarms never search EA.
 const BASE='http://127.0.0.1:8784';
 const WORKER=[...crypto.getRandomValues(new Uint8Array(16))].map(v=>v.toString(16).padStart(2,'0')).join('');
-let running=false;
+let running=false,recent=null;
 const official=text=>{const u=new URL(text);return u.protocol==='https:' && /^(www\.)?ea\.com$/.test(u.hostname) && /\/ultimate-team\/web-app(?:\/|$)/.test(u.pathname);};
 async function post(path,value,timeout=24000){
   const r=await fetch(BASE+path,{method:'POST',credentials:'omit',redirect:'error',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify(value),signal:AbortSignal.timeout(timeout)});
@@ -10,17 +10,19 @@ async function post(path,value,timeout=24000){
 }
 async function poll(){
   if(running)return;running=true;
-  let active=null,stage='execute';
-  const emit=async(records)=>{if(active)try{await post('/diagnostic',{peer:active.peer,id:active.id,records},2000);}catch{}};
+  let active=null,stage='execute',pollPhase='tab';
+  const emit=async(records,scope=active)=>{if(scope)try{await post('/diagnostic',{peer:scope.peer,id:scope.id,records},2000);}catch{}};
   const event=(stage,detail={})=>({stage,at:new Date().toISOString(),detail});
   try{
     while(true){
+      pollPhase='tab';
       const {productionTab,productionDocument}=await chrome.storage.session.get(['productionTab','productionDocument']);
       if(!Number.isInteger(productionTab))return;
       const tab=await chrome.tabs.get(productionTab);if(!official(tab.url))throw Error('wrong_tab');
-      const h=await post('/hello',{schema:2});if(!h.owner){await chrome.action.setBadgeText({text:'IDLE'});return;}
+      pollPhase='hello';const h=await post('/hello',{schema:2});if(!h.owner){await chrome.action.setBadgeText({text:'IDLE'});return;}
+      pollPhase='inject';
       await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',files:['persona.js','diagnostics.js','controller.js','page.js']});
-      const values=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:(h,worker,expectedDocument)=>{
+      pollPhase='persona';const values=await chrome.scripting.executeScript({target:{tabId:productionTab},world:'MAIN',func:(h,worker,expectedDocument)=>{
         const p=window.__fcProductionV1;
         // Reload/account-context changes require operator selection and a higher
         // host owner epoch. Do not silently bind account labels to a new page.
@@ -30,8 +32,8 @@ async function poll(){
       },args:[h,WORKER,productionDocument]});
       const peer=values[0]?.result;if(!peer)throw Error('persona_or_document_unverified');
       await chrome.storage.session.set({productionDocument:peer.fences.document});
-      await post('/hello',{schema:2,peer});
-      const c=await post('/next',peer);
+      pollPhase='bind';await post('/hello',{schema:2,peer});
+      pollPhase='claim';const c=await post('/next',peer);
       if(c){
         if(Object.keys(peer.context).some(k=>c.context[k]!==peer.context[k]) || Object.keys(peer.fences).some(k=>c.fences[k]!==peer.fences[k]))throw Error('stale_command');
         active={peer,id:c.id};stage='execute';await emit([event('WORKER_EXECUTE')]);
@@ -42,11 +44,16 @@ async function poll(){
         // No retry of execution or result delivery, even after an ACK is lost.
         stage='post_result';await emit([event('WORKER_POST_RESULT')]);
         await post('/result',{peer,id:c.id,result:results[0]?.result});
-        await emit([event('WORKER_ACK')]);active=null;
+        await emit([event('WORKER_ACK')]);recent=active;active=null;
       }
       await chrome.action.setBadgeText({text:'READ'});
     }
-  }catch(error){await emit([event('WORKER_FAILURE',{worker_stage:stage,reason:error?.message==='local_rejected'?'local_rejected':'worker_exception'})]);await chrome.action.setBadgeText({text:'WAIT'});}finally{running=false;}
+  }catch(error){
+    const reason=['local_rejected','persona_or_document_unverified','wrong_tab','stale_command'].includes(error?.message)?error.message:'worker_exception';
+    if(active)await emit([event('WORKER_FAILURE',{worker_stage:stage,reason})]);
+    else await emit([event('WORKER_POLL_FAILURE',{poll_phase:pollPhase,reason})],recent);
+    await chrome.action.setBadgeText({text:'WAIT'});
+  }finally{running=false;}
 }
 chrome.action.onClicked.addListener(async tab=>{
   try{if(!official(tab.url))throw Error('wrong_tab');await chrome.storage.session.set({productionTab:tab.id,productionDocument:null});

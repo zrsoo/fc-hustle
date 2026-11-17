@@ -69,15 +69,17 @@ class Bounded:
             self.record('DELIVERY_UNCERTAIN',command_id=c['id'],exception_type=type(error).__name__);raise
 
 
-def run(output, *, fresh_status=False):
+def run(output, *, fresh_status=False, question=None, epoch_floor=1):
+    if type(epoch_floor) is not int or epoch_floor<1:raise ValueError('invalid_owner_epoch_floor')
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=False)
     def record(kind,**fields):
         with (output/'checkpoint.jsonl').open('a',encoding='utf-8',newline='\n') as stream:
             stream.write(json.dumps(dict(at=datetime.now(timezone.utc).isoformat(),kind=kind,**fields))+'\n')
             stream.flush();os.fsync(stream.fileno())
     base=ROOT/'private-captures/controller-v1';scope=json.loads((base/'public-context.json').read_text())
-    record('PREPARED',question='Does a minimum initial bid from fresh exact status succeed versus the earlier aged-discovery denial?' if fresh_status else 'Does a current-document controller bid still return461/403 or401; what does independent account evidence show?',
+    record('PREPARED',question=question or ('Does a minimum initial bid from fresh exact status succeed versus the earlier aged-discovery denial?' if fresh_status else 'Does a current-document controller bid still return461/403 or401; what does independent account evidence show?'),
            fresh_status_experiment=fresh_status,
+           owner_epoch_floor=epoch_floor,
            max_initial_mutations=1,max_other_mutations=0,max_reserved_ea=96,max_commands=1024,deadline_seconds=900,context=scope)
     result=dict(status='NOT_VERIFIED',account_mutations=0)
     with ExitStack() as stack:
@@ -87,7 +89,7 @@ def run(output, *, fresh_status=False):
         cache=None;controller=None;bounded=None
         try:
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
-            epoch=json.loads(previous[0])['fences']['epoch']+1 if previous else 1
+            epoch=max(json.loads(previous[0])['fences']['epoch']+1 if previous else 1,epoch_floor)
             semantic=SemanticHealth()
             bounded=Bounded(ControllerExecutor(8784,attach_timeout=60),record,semantic)
             executor=SerializedExecutor(bounded)
@@ -139,5 +141,7 @@ def run(output, *, fresh_status=False):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True)
     parser.add_argument('--fresh-status',action='store_true')
+    parser.add_argument('--question')
+    parser.add_argument('--epoch-floor',type=int,default=1)
     args=parser.parse_args()
-    raise SystemExit(run(args.output,fresh_status=args.fresh_status))
+    raise SystemExit(run(args.output,fresh_status=args.fresh_status,question=args.question,epoch_floor=args.epoch_floor))
