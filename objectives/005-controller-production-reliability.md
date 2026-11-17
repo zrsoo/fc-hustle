@@ -216,55 +216,37 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage15 complete repair stage: generation470e3a23b7e363792dd230e271941202
-independently settled the950 member LOST at1900, then stopped cooperatively for
-repair at20:49:19 UTC. Its complete110-delivery evidence is retained. All62 prior
-UNKNOWN command IDs remain unchanged; journal244 ACKNOWLEDGED,62 UNKNOWN,
-68 LOST,one historical WON_ACCOUNTED,zero pending. Healthy interval is zero.
+Stage16: stage15 repair committed/pushed as4005620. Scheduler-owned generation
+6c2549d24df0b1155c3b8de951412965 launched at21:40:34 UTC,epoch31,supervisor4264,
+child19556. Lock,process creation/image identities and semantic health verify.
+The first batch independently confirmed all10 initial bids and handed off to
+MANAGING. At21:43:28 UTC the retained prefix has185 unique native/local deliveries,
+69 genuine native successes,one completed batch and zero operational failure
+streaks. No rebid is present in this prefix; no ownership/resale is inferred.
+All62 prior UNKNOWN IDs remain UNKNOWN; legacy003 PAUSED,004 COMPLETED.
 
-Implemented and regression-tested exact durable native clear_lost cleanup and
-supervision-before-bid/work-intent. Cleanup uses fresh matched watch coverage,
-exact all-eligible expired/closed non-won targets, immutable intent/tombstone,
-one owned DELETE with no native retry/renewal, and independent watched readback
-preserving every non-target identity. Uncertain replies never become native
-acknowledgements or blind replays. Repeated missing effects use the existing
-three-acquisition-failure stop. No pricing, strategy or threshold was changed.
+Independent captured-evidence audit passes six negative cases covering receipt,
+participation,strategy,UNKNOWN promotion,ownership and stopped runtime. Capture
+seals cover only immutable native/runtime/account evidence. Both final validators
+and their eight negative fixtures each were exercised. Actual criterion0 stays
+INCOMPLETE for missing genuine final-generation owned-win/move/hour-listing;
+criterion1 stays INCOMPLETE for the short monitored interval (captured121.398s).
+Previous full production regressions remain1139 Python executions,41 Node suites,
+nine independent commands PASS; this stage changes evidence/checks/docs only.
 
-Final complete regressions PASS:1139 Python executions,41 Node suites,nine
-independent checks. Eight cleanup/store/stop cases,two independent audit cases,
-14 captured-native JavaScript cases and finite probe limits pass. The initial
-Python run's single resale-test error and the aborted zero-command/zero-mutation
-window are retained and explained; no failing check or historical verdict was
-rewritten. The resale test retains all exact move/list price/hour assertions
-and now separately asserts cleanup membership/effect. New acceptance auditing
-covers current-generation cleanup without changing sealed older contracts.
+Next: publish the stage16 evidence/checks and hand off monitoring of this SAME
+running generation. Do not replay the consumed service launch or restart healthy
+actors. The scheduler checks every30s without AI quota. On a semantic fault it
+safely stops this runtime and resumes this same worker for diagnosis,regression,
+actual-account reconciliation and a new generation. Preserve all historical
+UNKNOWNs and exact individual intents. Any fault,stop,restart,scheduler restart
+or unmonitored gap resets the required14400 consecutive healthy seconds.
 
-Live cleanup independently confirmed after green regressions: command
-e9a229b340c044c1b8d1192beb892b8c removed exactly the expired950 loss through one
-native DELETE. Four owned commands total:before watched,DELETE,independent
-readback and separate final watched. Both readbacks show exact absence; mode
-NATIVE_ACK_AND_READBACK,zero semantic faults,zero pending,window stopped.
-Intent/claim/result ordering and individual tombstone are independently audited.
-Five negative artifact cases pass. Historical empty-watch reads are retained
-as evidence against attributing every original461 to later50-slot capacity.
-No private server reason or outcome was invented.
-
-Fresh canonical-lock pre-service backups verify integrity/FK and every table
-row equality. Official Edge is foreground verified; no visible challenge or
-connection failure. Legacy003 remains PAUSED,004 COMPLETED. Prepared scheduler
-service 005-stage15-6c2549d24df0b1155c3b8de951412965, generation
-6c2549d24df0b1155c3b8de951412965,epoch floor31,startup90s,health interval30s.
-No generation directory or consumed launch exists yet; no persistent tool child.
-
-Next: publish this stage and launch exactly once through the scheduler handoff.
-Immediately verify attachment,actual account reconciliation and initial trading,
-then return monitoring so deterministic checks retain at least14400 consecutive
-healthy seconds without AI quota. Final-generation full native acquisition,
-confirmed management/competitive rebids,terminal owned win/move/hour resale and
-eligible maintenance still require genuine observation. Any defect,stop,restart,
-scheduler restart or monitored gap resets the interval and resumes repair in
-this same task. Do not declare completion for idle/failed acquisition,heartbeat
-or old-generation resale. No external barrier or human prerequisite exists.
+When the scheduler resumes after the interval, independently audit the entire
+current generation and actual trading/resale/eligible maintenance. If a required
+market event has not occurred, continue monitoring; elapsed time,old-generation
+resale or idle/failed acquisition cannot substitute. Leave healthy watchdog and
+controller running. No external barrier or human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -520,3 +502,15 @@ owned DELETE and two fresh account readbacks; all62 old UNKNOWNs preserved.
 Final acceptance validators correctly report stopped/incomplete; negative
 fixtures and five new artifact negatives pass. Prepared one fresh scheduler
 launch; final14400 seconds and current-generation full lifecycle remain open.
+
+2026-11-17 H22 / STAGE16 GENUINE RESTARTED ACQUISITION VERIFIED: scheduler launch
+6c2549d24df0b1155c3b8de951412965 uses published4005620 and epoch31. A read-only
+185-delivery snapshot independently binds10 matching native bid receipts to
+later fresh exact-version account participation and real management reads.
+Admission remains >40000,discovery maxBid1000/minBuy11000,at most10 attempts,
+remaining>60s,completed exact profitable quotes and original ceilings. Native
+failure streaks are zero. All62 pre-existing UNKNOWN IDs and legacy controls
+remain preserved. No rebid was observed in this retained prefix. Six corrupted
+artifact cases fail; final lifecycle/interval checks correctly stay INCOMPLETE.
+Next: same-generation quota-free monitoring,then independent full interval and
+owned-win/move/hour-resale audit. No restart or extra account probe is needed.

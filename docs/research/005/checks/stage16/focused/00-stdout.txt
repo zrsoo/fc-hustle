@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 6, "generation": "6c2549d24df0b1155c3b8de951412965", "confirmed_initials": 10, "confirmed_rebids": 0, "unknown_attempts": [], "native_deliveries": 185, "captured_healthy_seconds": 121.39816950005479}

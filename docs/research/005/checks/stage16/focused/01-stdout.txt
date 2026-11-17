@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 5, "stopped": {"native_deliveries": 110, "terminal": "LOST_AT_1900", "healthy_seconds": 0}, "cleanup": {"live_cleanup_observed": true, "removed_targets": 1, "native_command": "e9a229b340c044c1b8d1192beb892b8c"}}

@@ -1,0 +1,18 @@
+{
+  "generation": "6c2549d24df0b1155c3b8de951412965",
+  "healthy": 121.39816950005479,
+  "faulted": 0,
+  "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+  "legacy": [
+    {
+      "id": "obj-da182a175410",
+      "state": "PAUSED",
+      "control": "pause"
+    },
+    {
+      "id": "obj-fefda5e912eb",
+      "state": "COMPLETED",
+      "control": null
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "at": "2026-11-17T21:44:02.399637+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage16.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.6834976999671198
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage15.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.42142680002143607
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 1.7543786999885924
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.1808547000400722
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "seconds": 0.8853775999741629
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "seconds": 0.18928369996137917
+    }
+  ]
+}

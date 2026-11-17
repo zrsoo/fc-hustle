@@ -1651,3 +1651,44 @@ documented in stage13. The scheduler launch argv for this prepared generation
 uses the same operational service/database/cache/context/port arguments with
 `--epoch-floor 31`. All current fixes and tests must be committed/pushed to main
 before this handoff; no source integrity pin is imposed on future repairs.
+
+
+Stage16 ? genuine scheduler-owned restarted acquisition and monitoring
+
+Stage15 repair was published to main as40056209426501303dc02a24eb3d7d6f2407bb67.
+The scheduler launched generation6c2549d24df0b1155c3b8de951412965 at21:40:34 UTC,
+epoch31. The retained snapshot at21:43:28 UTC verifies the exclusive runtime lock,
+supervisor4264 and child19556 with their creation/image identities. Semantic
+state MANAGING has10 confirmed initial bids,one completed acquisition batch,
+69 native successes and zero auth/read/write/diagnostic/missing-status failures.
+This run remains healthy; no stop or restart was performed in this stage.
+
+The independent stage16 audit validates185 unique delivered envelopes and
+native diagnostics,unchanged batch threshold/filter/attempt/capacity/remaining/
+completed-profit policy,matching native accepted bid receipts and later fresh
+exact-version participation for all10 initial bids. Real management status reads
+are retained. No competitive rebid is present in this captured prefix. All62
+prior UNKNOWN IDs are still UNKNOWN; no bid replay or promotion occurred.
+Legacy003 is PAUSED and004 COMPLETED. Captured-evidence seals contain only
+immutable runtime/native/account projections,no mutable implementation files.
+Six altered-evidence cases reject bad receipts,missing participation,changed
+strategy,promoted UNKNOWN,false ownership and a stopped runtime.
+
+Validation: python tests/check_005_stage16.py and check_005_stage15.py pass;
+both final validators' eight negative fixtures each pass. Actual lifecycle
+validation exits1 INCOMPLETE: genuine_owned_win_move_and_hour_listing_missing.
+Actual interval validation exits1 INCOMPLETE: scheduler_interval_incomplete.
+The captured scheduler counter is121.3981695 healthy seconds,not four hours.
+Focused receipts are under checks/stage16/focused. Production code is unchanged
+since the full1139 Python/41 Node/nine independent-command passing regression
+receipts. New checks extend the retained artifact inventory without weakening
+any historical verdict or original acceptance requirement.
+
+Continue deterministic30-second monitoring of this exact generation without a
+new service launch. On a fault the scheduler safely stops/resumes this worker;
+on restart/gap the interval resets. After at least14400 consecutive healthy
+seconds,independently audit genuine current-generation acquisition,management,
+terminal owned win/paid identity,move/hour resale and eligible maintenance.
+If a market event remains unobserved,continue monitoring. Leave the healthy
+watchdog/controller running. Neither heartbeat nor this startup prefix fulfills
+the objective. No external barrier or manual prerequisite is claimed.
