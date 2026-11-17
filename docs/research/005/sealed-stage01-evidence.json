@@ -1,0 +1,17 @@
+{
+  "classification": "IMMUTABLE_CAPTURED_EA_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "docs/research/005/incident-20261117T010101301454Z/incident.json",
+      "sha256": "a41fec6d84c8a5b2be138e6fc3d7dded22f1a692aa9578c782de2c166c12a7ea"
+    },
+    {
+      "path": "docs/research/005/read-02/checkpoint.jsonl",
+      "sha256": "7321a952bbc8ae2762a11214927672403d5ea49f7cc6b496dc76d2c581efcd83"
+    },
+    {
+      "path": "docs/research/005/read-02/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"task": "003-01", "evidence_class": "OFFLINE_ARTIFACT_ASSESSMENT", "results": [{"criterion": 0, "status": "PASS"}, {"criterion": 1, "status": "PASS"}, {"criterion": 2, "status": "PASS"}, {"criterion": 3, "status": "PASS"}, {"criterion": 4, "status": "PASS"}, {"criterion": 5, "status": "PASS"}]}

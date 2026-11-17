@@ -38,6 +38,7 @@ class SerializedExecutor:
         self.last_start=None
         self.metrics=[]
         self.progress=progress
+        self.result=None
 
     def attach(self, *args):
         with self.lock:
@@ -64,8 +65,12 @@ class SerializedExecutor:
             start=self.clock()
             if not local:self.last_start=start
             if self.progress:self.progress('NATIVE' if not local else 'LOCAL',value['operation'])
-            try:return self.executor.execute(value)
+            response=None
+            try:
+                response=self.executor.execute(value)
+                return response
             finally:
+                if self.result:self.result(value,response)
                 self.metrics.append(dict(command_id=value['id'],operation=value['operation'],
                                          local=local,started=start,elapsed=self.clock()-start))
                 if self.progress:self.progress('LOCAL')

@@ -13,6 +13,7 @@ import tempfile
 import threading
 import time
 import traceback
+from .semantic import SemanticHealth, native_summary
 
 
 @dataclass(frozen=True)
@@ -41,6 +42,12 @@ class Supervision:
         self.reason=None
         self.lock=threading.RLock()
         self.snapshot=None
+
+    def result(self, command, response):
+        self.report('native_result',**native_summary(command,response))
+
+    def policy_result(self, **fields):
+        self.report('batch_result',**fields)
 
     def require(self):
         with self.lock:
@@ -103,17 +110,21 @@ def worker(connection, arguments, limits):
 
 
 class Watchdog:
-    """Pure policy over worker messages and monotonic time, not trading outcomes."""
-    def __init__(self, limits=Limits(), *, clock=time.monotonic):
+    """Progress deadlines plus optional semantic policy over actual outcomes."""
+    def __init__(self, limits=Limits(), *, clock=time.monotonic, semantic=None):
         self.limits,self.clock=limits,clock
         self.latest=dict(stage='STARTING',operation=None,tick=clock())
         self.reason=None
+        self.semantic=semantic
 
     def observe(self, message):
         if self.reason:return
-        if not isinstance(message,dict) or message.get('kind') not in {'progress','failure','exit'}:
+        if not isinstance(message,dict) or message.get('kind') not in {'progress','failure','exit','native_result','batch_result'}:
             self.reason='INVALID_MONITOR_MESSAGE';return
         kind=message['kind']
+        if kind in {'native_result','batch_result'}:
+            if self.semantic:self.semantic.observe(message)
+            return
         if kind=='failure':
             self.reason=message.get('reason') or 'CONTROLLER_EXCEPTION'
         elif kind=='exit':
@@ -128,6 +139,9 @@ class Watchdog:
 
     def check(self):
         if self.reason:return self.reason
+        if self.semantic:
+            reason=self.semantic.check()
+            if reason:return reason
         age=self.clock()-self.latest['tick']
         limit={'STARTING':self.limits.startup,'ATTACHING':self.limits.startup,
                'NATIVE':self.limits.native,'LOCAL':self.limits.local}[self.latest['stage']]
@@ -162,7 +176,7 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None):
     ctx=multiprocessing.get_context('spawn')
     parent,child=ctx.Pipe()
     process=ctx.Process(target=target,args=(child,vars(arguments),limits),name='fc-controller-v1')
-    monitor=Watchdog(limits)
+    monitor=Watchdog(limits,semantic=SemanticHealth())
     reason=None;forced=False;started=False;width=0;log_failed=False;output_failed=False;exit_code=None;alive=False
 
     def display(state, reason=None):

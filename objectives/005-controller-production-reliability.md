@@ -216,13 +216,95 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Submission preparation: orchestrator operational-mode implementation has isolated
-regression coverage; production state backups verified. FC repairs and live
-validation belong to this task and are not claimed complete. First action:
-inspect current processes/Git/schema and preserve sanitized Nov16 failure
-projections, then trace authentication and native/service status handling.
+Stage 01, 2026-11-17: preserved the actual 302-command/905-event incident and all
+19 UNKNOWN attempts without changing production DBs. Fresh quiescent backups,
+integrity/FK checks and row-for-row comparisons are recorded under
+`docs/research/005/incident-20261117T010101301454Z/backup.json` (earlier additive
+projection/backup also retained). Starting main was `972c01e`, clean. Current
+source extension path is `browser/production-v1/`, not the nonexistent extension
+path in the input's preparation notes.
+
+Actual finite read-02 window: six native commands, seven authenticated HTTP200
+GETs (including discovery metadata), zero mutations, 63702 coins, empty watched
+and unassigned sets, five active complete Transfer List entries, 21 discovery
+rows, ten exact status targets/rows/full-version links, no missing rows. The
+probe closed with no pending commands; it does not prove new-controller wins or
+resolve old unknowns. This worker verified official Edge foreground/UI control;
+no security challenge or missing credentials were encountered. Read-01's setup
+timeout-parameter failure is separately retained and was not reset/replayed.
+
+Implemented semantic outcome monitoring in the existing watchdog and real native
+boundary, plus post-readback batch results. Tests prove repeated 401, failed reads,
+failed writes, handled failed batches, all-missing managed status, missing native
+freshness and repeated unconfirmed acquisition stop rather than remaining healthy
+on progress. Single uncertainty and ordinary market outcomes remain non-blocking.
+Retained incident replay stops at the third 461 bid, before the later auth storm.
+Seventeen focused semantic tests and five evidence tests pass. Final full Python
+discovery passed 1088 executions, zero failures/errors/skips, 475.429 seconds;
+all 36 Node suites and all nine final independent commands passed. Complete
+receipts are in `docs/research/005/checks/stage01/`. The first independent batch
+had canonical-lock contention with discovery; its serial rerun exposed one
+scheduler no-op audit addition, corrected behaviorally as described below.
+Both failed batches remain retained. No original historical evidence was changed.
+
+Next concrete actions: retain controller
+diagnostic POSTs with strict sanitization; verify native current-code write/status
+and authentication/identity behavior in a new finite, durable-intent window,
+without replaying any unknown. Implement tested exclusive scheduler-owned runtime
+lock, restart-readable generation/ownership and bounded semantic health/stop JSON.
+Then reconcile actual account state and use the SAME task's service handoff for
+production launch. No persistent service has been launched, no external blocker
+is proposed and healthy operational seconds remain zero. Full live lifecycle and
+the consecutive 14400-second interval remain required. Report:
+`docs/research/005/REPORT.md`; independent stage-only audit:
+`python tests/check_005_stage01.py` (explicitly not objective acceptance).
+
+Additional serial-audit finding: the scheduler appended one no-op transition
+event 594021 for paused 003-04 (RECONCILING to RECONCILING, null diagnostic, no
+turn). Every original historical row and checkpoint is unchanged. The archival
+checker now validates that precise append-only no-op rather than rejecting all
+audit additions, with negative tests for real activity, deletions and state edits.
+All nine independent validators pass in `checks/stage01/independent-final` and all
+36 Node suites pass in `node-final`; final full Python discovery passes 1088
+executions in `python-final`. Stage01 publication title:
+`Preserve Objective 005 incident and stop persistent controller failures`.
+
+Inspection follow-up for the next repair stage: local price_helpers are correctly
+excluded from native freshness, but stage01 currently ignores their failure
+streak too. Reproduce/add a separate typed helper-failure stop without counting
+successful local helpers as EA freshness; otherwise caps/read successes could
+mask repeated helper failures as empty acquisition. Address before any production
+launch. Full remaining integration contract is `docs/research/005/runtime-plan.md`.
+
+Before further browser actions, add a reusable verified foreground fallback:
+ordinary helper calls later failed `Edge_foreground_control_failed`, but this
+worker's temporary AttachThreadInput + restore/BringWindowToTop/SetForegroundWindow
+call verified the intended official Edge foreground successfully with no keyboard
+or mouse input (`desktop-focus-recovery.json`). Separate unmodified helper calls
+still lack that fallback. No desktop-access blocker is established. A newly
+observed scheduled FC-005 orchestrator review task is not an FC actor and was not
+modified by this worker. Keep ownership checks current; do not launch duplicates.
 
 ## Hypotheses, actions and results (append with evidence)
 
-No root cause established by this objective yet. Preserve prior research as
-historical context and distinguish fresh observations from earlier claims.
+2026-11-17 H1 / VERIFIED: original watchdog only bounded work progress; handled
+operational failure supplied continuing progress. Added pure semantic policy and
+outcome messages, with real stopped-worker and retained-incident replay tests.
+Production health/service integration is still pending, so no readiness claim.
+
+2026-11-17 H2 / STATUS TRANSLATION VERIFIED, SERVER DENIAL CAUSE OPEN: captured
+public FC27 native methods map PERMISSION_DENIED=461 to service HTTP403 while
+retaining native error.code461. The bridge's equality check produces
+ambiguous_network for that legitimate client translation. Captured function
+behavior reproduces this offline. This does not establish why EA denied twelve
+specific bid requests, an account restriction or a successful/failed account
+effect. All nineteen historical unknown writes remain unchanged and consumed.
+
+2026-11-17 H3 / CURRENT READ PATH VERIFIED, HISTORICAL AUTH TRANSITION OPEN:
+fresh current-persona/native balance, watched, full inventory, unassigned,
+discovery (with owned metadata follow-up) and exact ten-target status all passed.
+Seven historical bids and thirty balance reads returned401. Current read success
+shows no current read-only auth barrier; write behavior still needs genuine
+validation after current extension reload. WAIT provenance remains open because
+the controller service discards worker diagnostics; preserve typed diagnostics
+before the next write probe. No security or saved-authentication values accessed.

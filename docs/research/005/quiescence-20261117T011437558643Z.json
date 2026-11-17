@@ -1,0 +1,12 @@
+{
+  "production_listeners": [],
+  "observed_at": "2026-11-17T01:14:37.4813976Z",
+  "scheduled_mutation_jobs": [
+    {
+      "path": "\\",
+      "name": "FC-005-Orchestrator-Review-20261117",
+      "state": "Ready"
+    }
+  ],
+  "production_workers": []
+}

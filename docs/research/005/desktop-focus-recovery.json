@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-11-17T01:15:47.0922191Z",
+  "classification": "ACTUAL_DESKTOP_FOCUS_API_RESULT_NO_ACCOUNT_ACTION",
+  "ordinary_helper_failure": "Edge_foreground_control_failed",
+  "recovery_methods": [
+    "verify unique official Web App address privately through UI Automation",
+    "AttachThreadInput(current thread, foreground thread, true)",
+    "ShowWindow(restore)",
+    "BringWindowToTop",
+    "SetForegroundWindow",
+    "verify GetForegroundWindow matches selected Edge window",
+    "detach input threads in finally"
+  ],
+  "thread_input_attached": true,
+  "foreground_requested": true,
+  "foreground_verified": true,
+  "keyboard_or_mouse_input": false,
+  "subsequent_unmodified_helper": "still fails foreground check from a separate process; add reusable bounded fallback before next browser actions",
+  "human_prerequisite": null
+}

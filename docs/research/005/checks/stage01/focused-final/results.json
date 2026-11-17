@@ -1,0 +1,37 @@
+{
+  "task": "005",
+  "classification": "STAGE_CHECKS_NOT_OBJECTIVE_ACCEPTANCE",
+  "finished": "2026-11-17T01:21:28.560090+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_semantic.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.025,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_evidence.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.322,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage01.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.107,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt"
+    }
+  ]
+}

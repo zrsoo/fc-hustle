@@ -1,0 +1,10 @@
+test_actual_native_read_envelopes_reject_forged_success_and_targets (__main__.EvidenceTests.test_actual_native_read_envelopes_reject_forged_success_and_targets) ... ok
+test_backup_preserves_all_rows_and_integrity_without_mutating_source (__main__.EvidenceTests.test_backup_preserves_all_rows_and_integrity_without_mutating_source) ... ok
+test_captured_native_functions_explain_461_to_403_without_account_claim (__main__.EvidenceTests.test_captured_native_functions_explain_461_to_403_without_account_claim) ... ok
+test_legacy_control_preservation_accepts_only_append_only_paused_scheduler_noop (__main__.EvidenceTests.test_legacy_control_preservation_accepts_only_append_only_paused_scheduler_noop) ... ok
+test_retained_historical_status_layers_and_unknowns (__main__.EvidenceTests.test_retained_historical_status_layers_and_unknowns) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.136s
+
+OK

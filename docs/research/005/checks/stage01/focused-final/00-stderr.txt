@@ -1,0 +1,22 @@
+test_acks_wait_for_batch_confirmation_and_never_count_as_membership (__main__.SemanticTests.test_acks_wait_for_batch_confirmation_and_never_count_as_membership) ... ok
+test_actual_parent_stops_failed_but_progressing_worker_without_restart (__main__.SemanticTests.test_actual_parent_stops_failed_but_progressing_worker_without_restart) ... ok
+test_empty_market_batches_and_partial_missing_results_allow_waiting (__main__.SemanticTests.test_empty_market_batches_and_partial_missing_results_allow_waiting) ... ok
+test_failed_reads_do_not_become_healthy_from_local_helpers (__main__.SemanticTests.test_failed_reads_do_not_become_healthy_from_local_helpers) ... ok
+test_fresh_native_success_required_despite_indefinite_local_progress (__main__.SemanticTests.test_fresh_native_success_required_despite_indefinite_local_progress) ... ok
+test_no_native_success_startup_has_finite_grace (__main__.SemanticTests.test_no_native_success_startup_has_finite_grace) ... ok
+test_real_controller_reports_confirmed_membership_after_independent_status (__main__.SemanticTests.test_real_controller_reports_confirmed_membership_after_independent_status) ... ok
+test_real_read_failure_batches_trigger_semantic_stop_without_replay (__main__.SemanticTests.test_real_read_failure_batches_trigger_semantic_stop_without_replay) ... ok
+test_repeated_all_missing_management_rows_stop_without_inventing_loss (__main__.SemanticTests.test_repeated_all_missing_management_rows_stop_without_inventing_loss) ... ok
+test_repeated_handled_acquisition_exceptions_cannot_be_empty_market_success (__main__.SemanticTests.test_repeated_handled_acquisition_exceptions_cannot_be_empty_market_success) ... ok
+test_repeated_owned_or_inventory_failure_is_not_masked_by_other_read_success (__main__.SemanticTests.test_repeated_owned_or_inventory_failure_is_not_masked_by_other_read_success) ... ok
+test_retained_incident_would_stop_at_third_failed_write_before_later_auth_storm (__main__.SemanticTests.test_retained_incident_would_stop_at_third_failed_write_before_later_auth_storm) ... ok
+test_single_uncertain_action_and_proven_rejections_are_not_global_stops (__main__.SemanticTests.test_single_uncertain_action_and_proven_rejections_are_not_global_stops) ... ok
+test_successful_native_read_allows_transient_auth_recovery (__main__.SemanticTests.test_successful_native_read_allows_transient_auth_recovery) ... ok
+test_summary_omits_unknown_fields_and_unbound_success (__main__.SemanticTests.test_summary_omits_unknown_fields_and_unbound_success) ... ok
+test_two_auth_failures_stop_even_while_progress_packets_continue (__main__.SemanticTests.test_two_auth_failures_stop_even_while_progress_packets_continue) ... ok
+test_wire_permission_failures_persist_across_successful_readbacks (__main__.SemanticTests.test_wire_permission_failures_persist_across_successful_readbacks) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.823s
+
+OK

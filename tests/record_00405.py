@@ -35,7 +35,7 @@ def commands(group):
     raise ValueError('unknown_suite_group')
 
 
-def run(group, output):
+def run(group, output, *, task='004-05'):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     rows = []
@@ -56,7 +56,7 @@ def run(group, output):
                    finished=datetime.now(timezone.utc).isoformat())
         rows.append(row)
         print(json.dumps(row), flush=True)
-    value = dict(task='004-05', evidence_class='OFFLINE_ONLY', group=group,
+    value = dict(task=task, evidence_class='OFFLINE_ONLY', group=group,
                  status='PASS' if all(r['exit_code'] == 0 for r in rows) else 'FAIL', results=rows)
     (output/'results.json').write_text(json.dumps(value, indent=2)+'\n', encoding='utf-8')
     return int(value['status'] != 'PASS')

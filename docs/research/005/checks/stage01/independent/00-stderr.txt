@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 188, in <module>
+    main()
+    ~~~~^^
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 182, in main
+    result=dict(status='PASS',criteria=list(range(7)),baseline=baseline_and_backups(),legacy=legacy_preservation(),
+                                                               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 111, in baseline_and_backups
+    current=processes(); locks=idle_locks()
+                               ~~~~~~~~~~^^
+  File "C:\hustle\fc-hustle\tests\baseline_00401.py", line 105, in idle_locks
+    msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied

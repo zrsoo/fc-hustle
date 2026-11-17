@@ -1,0 +1,9 @@
+{
+  "status": "SETUP_FAILED_NO_EA_DISPATCH",
+  "reason": "attach_timeout=120 exceeded existing EdgeExecutor maximum 60 seconds; corrected harness and opened distinct read-02 window",
+  "exception_type": "ValueError",
+  "error_category": "invalid_transport",
+  "reserved_commands": 0,
+  "account_mutations": 0,
+  "process_exited": true
+}

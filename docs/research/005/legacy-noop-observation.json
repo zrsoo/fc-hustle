@@ -1,0 +1,22 @@
+{
+  "classification": "SANITIZED_CONTROL_AUDIT_NOT_ACTOR_ACTIVITY",
+  "event": {
+    "id": 594021,
+    "owner": "obj-da182a175410/003-04",
+    "turn_id": null,
+    "at_utc": "2026-11-17T00:51:31.455614+00:00",
+    "kind": "transition",
+    "from": "RECONCILING",
+    "to": "RECONCILING",
+    "diagnostic": null
+  },
+  "comparison": {
+    "historical_rows_removed": 0,
+    "historical_rows_modified": 0,
+    "extra_turns": 0,
+    "additional_events": 1
+  },
+  "objective003": "PAUSED",
+  "control003": "pause",
+  "historical_checkpoint00304": "RECONCILING"
+}

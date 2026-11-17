@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 188, in <module>
+    main()
+    ~~~~^^
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 182, in main
+    result=dict(status='PASS',criteria=list(range(7)),baseline=baseline_and_backups(),legacy=legacy_preservation(),
+                                                                                             ~~~~~~~~~~~~~~~~~~~^^
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 160, in legacy_preservation
+    need(current==old,'legacy_orchestration_records_changed')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\check_00401_artifacts.py", line 21, in need
+    raise ValueError(reason)
+ValueError: legacy_orchestration_records_changed

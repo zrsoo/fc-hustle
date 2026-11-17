@@ -232,6 +232,13 @@ class Controller:
         finally:
             if j.members() and j.state()['lifecycle']=='RUNNING' and j.state()['phase']=='ACQUIRING':
                 j.checkpoint(phase='MANAGING',batch_id=bid)
+            report=getattr(self.store,'semantic_report',None)
+            if report:
+                with self.store.lock:
+                    confirmed=self.store.db.execute('SELECT count(*) FROM c4_members WHERE batch_id=?',(bid,)).fetchone()[0]
+                    uncertain=self.store.db.execute("SELECT count(*) FROM c4_attempts WHERE batch_id=? AND state IN ('UNKNOWN','ACKNOWLEDGED','INTENT')",(bid,)).fetchone()[0]
+                    batch_state=self.store.db.execute('SELECT state FROM c4_policy_batches WHERE id=?',(bid,)).fetchone()[0]
+                report(batch_id=bid,state=batch_state,confirmed=confirmed,uncertain=uncertain)
             end=self.clock()
             j.metric(bid,'ACQUISITION',elapsed=end-start,burst_elapsed=(handoff or end)-burst if burst is not None else 0,
                      handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses)

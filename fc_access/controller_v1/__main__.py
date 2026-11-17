@@ -76,6 +76,8 @@ def run_controller(a, supervision):
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
             epoch=json.loads(previous[0])['fences']['epoch']+1 if previous else 1
             adapter=ControllerAdapter(SerializedExecutor(ControllerExecutor(a.port),progress=supervision.progress),context=scope,owner=secrets.token_hex(16),epoch=epoch)
+            adapter.executor.result=supervision.result
+            server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
             controller=Controller(server.store,adapter,cache);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())

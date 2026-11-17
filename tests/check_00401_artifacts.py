@@ -152,12 +152,50 @@ def baseline_and_backups():
     return dict(databases=len(b['databases']),historical_evidence=len(evidence),idle_locks=len(locks))
 
 
+def validate_preserved_control(old, current, transitions):
+    """Preserve every historical row/checkpoint; permit audited scheduler no-ops.
+
+    A paused task can acquire a same-state transition audit event on scheduler
+    recovery. That adds no actor turn or state change. Every other addition and
+    every alteration/removal of original records is still rejected.
+    """
+    added=[]
+    need(set(old)==set(current),'legacy_control_tables')
+    for table, value in old.items():
+        need(value['columns']==current[table]['columns'],'legacy_control_columns')
+        left={r[0]:r for r in value['rows']};right={r[0]:r for r in current[table]['rows']}
+        need(len(left)==len(value['rows']) and len(right)==len(current[table]['rows']),'duplicate_control_record')
+        need(all(key in right and right[key]==row for key,row in left.items()),'legacy_orchestration_records_changed')
+        extra=[row for key,row in right.items() if key not in left]
+        if table!='event':need(not extra,'legacy_control_record_added:'+table)
+        else:added=extra
+    need(set(transitions)=={row[0] for row in added},'unverified_transition_inventory')
+    objectives={r[0]:r for r in current['objective']['rows']}
+    tasks={r[0]:r for r in current['task']['rows']}
+    for event in added:
+        _,owner,turn_id,_,kind=event
+        task=tasks.get(owner)
+        need(task is not None and objectives[task[1]][1:3]==['PAUSED','pause'] and
+             turn_id is None and kind=='transition','legacy_actor_activity')
+        need(transitions[event[0]]==dict(previous=task[3],following=task[3],diagnostic=None,keys=['diagnostic','from','to']),
+             'legacy_transition_changed_checkpoint')
+    return len(added)
+
+
 def legacy_preservation():
     b=load('baseline.json')
     old=json.loads((Path(b['backup_directory'])/b['orchestrator_backup']).read_text(encoding='utf-8'))
     with readonly(ROOT/'.orchestrator/state.db') as db:
         current=control_projection(db)
-    need(current==old,'legacy_orchestration_records_changed')
+        original={r[0] for r in old['event']['rows']}
+        transitions={}
+        for row in current['event']['rows']:
+            if row[0] in original:continue
+            # Only explicit control-state fields, never provider/session payloads.
+            before,after,diagnostic=db.execute("SELECT json_extract(data,'$.from'),json_extract(data,'$.to'),json_extract(data,'$.diagnostic') FROM event WHERE id=?",(row[0],)).fetchone()
+            keys=sorted(r[0] for r in db.execute('SELECT j.key FROM event,json_each(event.data) j WHERE event.id=?',(row[0],)))
+            transitions[row[0]]=dict(previous=before,following=after,diagnostic=diagnostic,keys=keys)
+    noops=validate_preserved_control(old,current,transitions)
     objectives={r[0]:r for r in current['objective']['rows']}
     need(objectives[LEGACY[0]][1]=='BLOCKED','objective002_verdict')
     need(objectives[LEGACY[1]][1:3]==['PAUSED','pause'],'objective003_not_paused')
@@ -168,7 +206,7 @@ def legacy_preservation():
     need(verdict['status']=='PARTIAL/NOT FULL PASS','historical_partial_verdict')
     forbidden={'session','provider_turn','config','spec','text','result','data'}
     need(all(not forbidden.intersection(v['columns']) for v in old.values()), 'unsafe_orchestrator_projection')
-    return dict(objective003='PAUSED',task00304='RECONCILING (preserved under paused parent)',objective002='BLOCKED/PARTIAL')
+    return dict(objective003='PAUSED',task00304='RECONCILING (preserved under paused parent)',objective002='BLOCKED/PARTIAL',appended_scheduler_noops=noops)
 
 
 def main():
