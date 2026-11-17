@@ -1,0 +1,1 @@
+{"status": "OFFLINE_SELF_TEST_PASS_NOT_OPERATIONAL_EVIDENCE", "negative_cases": 8}

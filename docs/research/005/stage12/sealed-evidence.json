@@ -1,0 +1,25 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_ACQUISITION_MANAGEMENT_PREFIX_ONLY",
+  "files": [
+    {
+      "path": "acquisition.json",
+      "sha256": "592f457a6a3cd9feac276b2f512068d198ca62a2b6a1dbcc36215c53bc18354c"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "a8c06a69f0cd97038f727f82ade350228b541e367b87d73f29f997fabc0d3c5f"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "65910d7d00b291bddc322e3bdef6f9741b6ec554d5b7b60911c9aa3bc4700d67"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "901b47c24ccf23f6e3e0132aa9fa57997d028ee64131ca6e570b6f17c7a980b5"
+    },
+    {
+      "path": "work.json",
+      "sha256": "50ec9d12d00d72adb72eec2d4b48a3bd7d225467d90e0d27001b1f86a6a9d490"
+    }
+  ]
+}

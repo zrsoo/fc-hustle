@@ -1,0 +1,1 @@
+{"status": "INCOMPLETE", "criterion": 0, "diagnostic": "full_genuine_lifecycle_not_observed: genuine_owned_win_move_and_hour_listing_missing,independent_post_bid_participation_missing"}

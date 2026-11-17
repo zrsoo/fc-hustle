@@ -1,0 +1,113 @@
+{
+  "runtime": {
+    "at": "2026-11-17T16:04:07.535303+00:00",
+    "child": {
+      "created": 134394048032320228,
+      "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "pid": 18196
+    },
+    "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+    "latest": {
+      "kind": "progress",
+      "lifecycle": "RUNNING",
+      "managed": 6,
+      "operation": null,
+      "phase": "MANAGING",
+      "reason": null,
+      "stage": "LOCAL",
+      "tick": 462633.7877903
+    },
+    "limits": {
+      "grace": 35,
+      "lease": 10,
+      "local": 60,
+      "native": 45,
+      "poll": 0.5,
+      "startup": 90
+    },
+    "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl",
+    "operational_state": "MANAGING",
+    "published_mono": 462635.3432412,
+    "reason": null,
+    "schema": 1,
+    "semantic": {
+      "auth_failures": 0,
+      "batch_failures": 0,
+      "batches": 1,
+      "confirmed": 8,
+      "diagnostic_failures": 0,
+      "helper_failures": 0,
+      "missing_statuses": 0,
+      "native_success_age": 1.5326168999890797,
+      "native_successes": 99,
+      "read_failures": 0,
+      "reason": null,
+      "unconfirmed_attempts": 0,
+      "write_failures": 0
+    },
+    "semantic_limits": {
+      "auth_failures": 2,
+      "batch_failures": 3,
+      "diagnostic_failures": 3,
+      "helper_failures": 3,
+      "missing_statuses": 3,
+      "native_freshness": 90,
+      "read_failures": 3,
+      "unconfirmed_attempts": 3,
+      "write_failures": 3
+    },
+    "started_mono": 462391.0001463,
+    "state": "RUNNING",
+    "supervisor": {
+      "created": 134394048028313979,
+      "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "pid": 7948
+    },
+    "task": "obj-cb39371c785a/operate"
+  },
+  "health": {
+    "status": "healthy",
+    "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+    "diagnostic": "MANAGING",
+    "evidence": [
+      {
+        "state": "MANAGING",
+        "native_successes": 100,
+        "confirmed": 8,
+        "batches": 1,
+        "published_mono": 462636.3624904,
+        "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+      }
+    ]
+  },
+  "owner_held": true,
+  "supervisor_matches": true,
+  "child_matches": true,
+  "journal": {
+    "attempts": [
+      [
+        "ACKNOWLEDGED",
+        49
+      ],
+      [
+        "UNKNOWN",
+        42
+      ]
+    ],
+    "members": [
+      [
+        "ACTIVE",
+        6
+      ],
+      [
+        "LOST",
+        22
+      ],
+      [
+        "WON_ACCOUNTED",
+        1
+      ]
+    ],
+    "pending": 1
+  }
+}

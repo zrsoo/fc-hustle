@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "healthy_seconds": 0, "live_renewal_not_yet_proven": true, "baseline_native_reads": {"read-after-repair": 6, "read-final": 6}, "confirmed_rebids": 4, "terminal": "LOST", "failed_operations": ["search", "balance"], "successful_native_operations": 274, "unowned_callbacks": ["3f7d4e5808d5672c92b0df9bf623b21f"]}

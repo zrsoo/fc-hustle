@@ -216,58 +216,51 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 11 repair complete; publication and new scheduler launch next. Starting
-published main f10695f. The prior generation stopped cooperatively at 11:47:35 UTC
-after 274 successful native operations and four confirmed competitive rebids
-(1600, 1800, 2000, 2200). Native status independently settled the member LOST at
-4900, above stored cap 4300. Successful balance200 was followed within seconds by
-search401 and balance401 without account/document/owner change; the second auth
-failure caused immediate stop. One earlier callback200 with no owned request
-remains UNKNOWN/unusable; its exact source is unproven. Scheduler peak was
-621.70 healthy seconds / 22 samples, then ZERO. The complete stopped run and
-quiescent integrity/FK/row-equal backups are retained under stage11. All 41 UNKNOWN
-intents are consumed, no active member remains, and no native crash recurred.
+Stage 12: scheduler-owned generation 718d2acbcab1b4d9cdcb75d7e0035b70 is RUNNING /
+MANAGING, owner epoch 20, launched 16:00:03 UTC. Supervisor PID 7948 and child PID
+18196 have matching creation/image identities and exclusive runtime ownership.
+Fresh native reads reconciled actual account state, then the original policy
+selected nine initial attempts. Eight bids have matching native receipts AND
+independent account participation; handoff to management is genuine. The retained
+prefix also independently confirms three competitive rebids and eligible native
+relist_all maintenance. No pricing/filter/cap/threshold/pacing change occurred.
 
-Reproduced root defect: the bridge disabled ordinary native renewal for every
-read. Current public native _handleFail/_handleReauth/handleTelemetry show that
-an enabled native renewal with doRetry=false reports the original 401 unchanged
-and permits a later independently journaled read to recover. Pure reads now
-preserve only an already-enabled native renewal flag; automatic retries and all
-mutation lineage renewals remain disabled. A native opt-out is never enabled.
-NATIVE_RENEWAL_RESULT retains only the actual UTAS completion's success boolean;
-non-UTAS notifications, authentication data and exception values are not retained.
-Original 401 trigger and exact historical 461 server reasons remain unproven;
-this repair addresses failed-read persistence without inventing those causes.
+One new initial, ad9626eed7a19edd5b8f1978d3ddf56a, remains consumed UNKNOWN:
+wire/service200 and an ACCEPTED/outbid receipt at 1100 were followed by fresh exact
+status with bid_state none/current1100. No participation was inferred from the
+receipt, no member was enrolled and no bid was replayed. Total UNKNOWN is now 42.
+The immediate read is inconclusive about a final outcome; this ordinary isolated
+uncertainty is protected, not a global failure or a manual prerequisite.
 
-Final regressions PASS: 1121 Python test executions, 39 Node suites, nine
-independent commands. Eleven renewal cases cover original failure retention,
-next-read recovery, native opt-out, renewal failure, no replay/mutation renewal,
-callback restoration, privacy and unrelated-environment false-success rejection.
-Captured stage11 audit verifies all four rebids/loss, actual auth transition and
-prompt stop, and rejects four corruptions including promotion of an unowned
-callback. Two finite genuine read-only windows each passed six commands and ten
-exact targets, zero missing, zero mutations/pending work, and closed cleanly.
-The final window followed extension/page reload with the complete repair.
-These baselines do not prove a LIVE expiry-and-renewal event or four healthy hours.
+Stage12 captured prefix has 207 completed logical deliveries, eight confirmed
+initials, one protected UNKNOWN, three confirmed rebids, native maintenance and
+sequential ACQUIRING-to-MANAGING evidence. The pure audit rejects missing receipt,
+missing participation, promoted UNKNOWN and weakened entry admission. A live
+snapshot includes six ACTIVE and two newly LOST members; one normal in-flight
+command is outside the completed-delivery prefix. No source integrity assertion
+or historical evidence rewrite was added. Full tested production remains 1121
+Python executions / 39 Node suites / nine independent commands; this checkpoint
+changes captured-proof auditors and docs only. Focused audits and both acceptance
+validators' negative fixtures pass. Actual validators still report INCOMPLETE:
+genuine owned win/move/hour listing missing, and scheduler interval incomplete.
 
-Normal official UI recovery used the designated saved account through autofill
-and standard controls; no credential value or EA session identifier was read.
-No challenge or external restriction was observed. Fresh pre-service backup and
-ownership checks follow before the scheduler-only launch. Production DB epoch
-remains 17; last finite read-only native owner epoch is 19, so the next runtime
-must use epoch floor 20 and a NEW generation. Safe journal: 38 ACKNOWLEDGED,
-41 UNKNOWN, 20 LOST, one WON_ACCOUNTED, no active member or pending command.
-Prepared unused generation 718d2acbcab1b4d9cdcb75d7e0035b70, service ID
-005-native-read-renewal-718d2acbcab1b4d9cdcb75d7e0035b70, epoch floor 20, is retained in stage11/launch-intent.json.
-Fresh pre-service backup, quiescence and official browser projections passed.
-Objective 003 remains PAUSED and Objective 004 COMPLETED, independently read-only
-verified. Next: publish this complete stage, launch once through the existing
-scheduler, immediately verify attachment/current account reconciliation and
-original-policy trading. Observe genuine renewal metadata/read recovery if expiry
-occurs. Keep repairing actual failures; any stop/restart/gap resets the final
-interval. Require full genuine final-generation lifecycle and 14400 consecutive
-semantic healthy seconds before done. No manual prerequisite or external blocker
-is established.
+Current semantic health was MANAGING with 215 genuine native successes and eight
+confirmed acquisitions. Scheduler projection retained 19 samples and 515.15
+healthy seconds, faulted false, same generation/epoch. No native renewal result
+has yet been observed; the expiry/renewal behavior remains live-unproven. This is
+real trading progress, not four-hour completion. Final-generation full resale
+lifecycle and at least 14400 consecutive healthy monitored seconds are mandatory.
+
+Next: commit/push this checkpoint, leave this exact healthy generation running,
+and return monitoring with the existing 30s generation-bound check/stop commands;
+no service launch or new startup grace. The scheduler monitors independently of
+AI quota and resumes this worker for real faults or completion assessment. Any
+fault/stop/restart/gap resets the interval and requires preserved evidence plus
+autonomous diagnosis/repair/reconciliation. If required market events have not
+occurred after the interval, continue monitoring rather than claiming coverage.
+Independently audit full final lifecycle and every final interval sample before
+done; leave healthy service running. Preserve all 42 UNKNOWNs and unresolved
+historical server-cause uncertainty. No external barrier is established.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -457,3 +450,11 @@ and four captured-evidence negatives pass. Two finite six-read native baselines
 pass after ordinary authorized UI recovery and reviewed extension reload. Live
 renewal, original server trigger, final lifecycle and 14400s remain unproven.
 Proceed with a new scheduler generation at epoch floor 20; preserve 41 UNKNOWNs.
+
+2026-11-17 stage12: verified epoch-20 scheduler runtime, genuine eight confirmed
+initials, three independently confirmed rebids and native eligible maintenance.
+A ninth initial remains UNKNOWN despite native receipt because independent status
+showed no participation; it was not enrolled/replayed. Four proof corruptions are
+rejected. No production change/restart during this checkpoint. Healthy time is
+only hundreds of seconds, full win/move/resale and live renewal not yet observed.
+Publish, retain the running generation and hand monitoring back to the scheduler.

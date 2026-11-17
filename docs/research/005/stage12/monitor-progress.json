@@ -1,0 +1,407 @@
+{
+  "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+  "healthy_seconds": 515.1507990999962,
+  "faulted": 0,
+  "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+  "samples": [
+    {
+      "event_id": 678717,
+      "report": {
+        "status": "starting",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "STARTING_OWNED_WORKER",
+        "evidence": [
+          {
+            "state": "STARTING",
+            "native_successes": 0,
+            "confirmed": 0,
+            "batches": 0,
+            "published_mono": 462391.0001481,
+            "log": null
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 0,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678945,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "ACQUIRING",
+        "evidence": [
+          {
+            "state": "ACQUIRING",
+            "native_successes": 6,
+            "confirmed": 0,
+            "batches": 0,
+            "published_mono": 462420.7547629,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 0,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678956,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "ACQUIRING",
+        "evidence": [
+          {
+            "state": "ACQUIRING",
+            "native_successes": 20,
+            "confirmed": 0,
+            "batches": 0,
+            "published_mono": 462451.5237599,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 30.31565279996721,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678959,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 35,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462481.2404989,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 60.550665999995545,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678971,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 50,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462512.0146175,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 90.82662649999838,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678974,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 62,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462541.8256389,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 121.16991459997371,
+      "exit_code": 0
+    },
+    {
+      "event_id": 678979,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 74,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462572.6869519,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 151.34976009995444,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679035,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 86,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462602.496154,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 181.6320308999857,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679046,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 98,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462633.2934988,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 212.0597729999572,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679061,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 110,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462663.0732008,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 242.30845109996153,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679064,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 122,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462692.9015713,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 272.50278509996133,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679073,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 136,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462723.6706129,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 302.8108844999806,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679178,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 150,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462754.432885,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 333.1016002999968,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679181,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 162,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462784.2400022,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 363.54491810000036,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679250,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 174,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462815.1481362,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 393.92297959997086,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679253,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 186,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462844.9364968,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 424.20997699996224,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679256,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 201,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462875.7958689,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 454.5669207999599,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679266,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 214,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462905.5824918,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 484.86652499996126,
+      "exit_code": 0
+    },
+    {
+      "event_id": 679275,
+      "report": {
+        "status": "healthy",
+        "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 226,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 462936.4177569,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T160003Z-uo6nannm\\events.jsonl"
+          }
+        ]
+      },
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+      "healthy_seconds": 515.1507990999962,
+      "exit_code": 0
+    }
+  ]
+}

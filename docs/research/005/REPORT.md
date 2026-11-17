@@ -1254,3 +1254,70 @@ privacy tests and both acceptance validators' negative fixtures. The real criter
 0/1 commands still return INCOMPLETE/nonzero while this service is stopped. The
 new runtime must establish actual native trading/resale behavior, genuine recovery
 if renewal occurs, and the uninterrupted four-hour semantic interval before done.
+
+
+## Stage 12 ? genuine restarted acquisition and management
+
+Generation **718d2acbcab1b4d9cdcb75d7e0035b70** launched through the scheduler at
+**16:00:03 UTC**, owner epoch **20**. Supervisor PID **7948** / creation FILETIME
+**134394048028313979** and child PID **18196** / FILETIME **134394048032320228**
+match the actual Python313 process images and exclusive runtime owner lock.
+Fresh account reads preceded original-policy acquisition. Native entry balance,
+strict >40000 admission, discovery maxBid1000/minBuy11000, completed profitable
+pricing, exact identity, remaining time and original stored caps are preserved.
+
+The batch made **nine initial attempts**. **Eight** have actual wire/service 200,
+matching ACCEPTED native receipts and independent native participation, then
+entered the single sequential MANAGING phase. The retained prefix independently
+verifies **three competitive rebids** from fresh outbid status within unchanged
+stored caps. Eligible **relist_all** maintenance has separate complete before/after
+inventory proof, original prices and one-hour duration. No unrelated manual card
+was moved/listed by this checkpoint, and prior uncertain bids were not replayed.
+
+Command **ad9626eed7a19edd5b8f1978d3ddf56a** remains **UNKNOWN**. Its actual bid
+returned service/wire 200, an ACCEPTED receipt with native auction outbid/current
+**1100**, but the following fresh exact native status returned **bid_state none**
+and current **1100**. The receipt is not independent confirmation. The controller
+correctly withheld membership and consumed the action without replay. This
+readback does not establish a final successful/failed account outcome. The total
+protected UNKNOWN count is **42**; that does not mean 42 writes reached EA.
+
+**stage12/** retains the completed **207-delivery prefix**, exact commands/native
+responses/typed diagnostics, original acquisition policies, immutable attempts,
+maintenance proofs, ownership and semantic snapshot. At capture the journal had
+six ACTIVE members, 22 total historical/current LOST, one WON_ACCOUNTED and one
+normal in-flight command outside the completed-delivery prefix. Two of this new
+batch's confirmed members had already settled LOST. These counts are time-bound
+observations of an ongoing service, not its eventual outcome.
+
+**tests/check_005_stage12.py** independently reparses native full/lite identity
+links, actual admission/filters, exact receipts, post-bid participation, competitive
+rebids, maintenance membership/prices/duration, unique deliveries and sequential
+handoff. Four negative cases reject an absent receipt, absent participation,
+promotion of the UNKNOWN and weakened entry admission. Only captured EA evidence
+is sealed; mutable implementation files are not pinned. It explicitly reports
+STAGE_VERIFIED_OBJECTIVE_INCOMPLETE.
+
+The full tested production inventory remains **1121 Python executions, 39 Node
+suites and nine independent commands**. This checkpoint changes proof auditors
+and documentation only. Focused receipts include actual full acceptance failures:
+criterion 0 still lacks genuine final-generation owned-win/move/hour-listing proof,
+criterion 1 reports scheduler_interval_incomplete. Both validators' negative
+fixtures pass. No original criterion or historical verdict was changed.
+
+At the later health check the runtime remained **healthy / MANAGING**, with
+**215 genuine native successes** and **eight confirmed acquisitions**. The separate
+read-only scheduler projection in monitor-progress.json retained **19 samples**,
+**515.15 healthy seconds**, faulted false, same runtime generation/scheduler epoch.
+That is far below **14400 seconds**. No NATIVE_RENEWAL_RESULT had yet been
+observed. Live expiry/renewal recovery and the complete final-generation resale
+lifecycle remain unproven, even though current reads and trading genuinely work.
+
+Publish this checkpoint and leave the same service running under its existing
+30-second semantic monitor. **No new launch or startup grace** is requested. The
+scheduler retains health evidence without AI quota and resumes this worker after
+a real fault or when completion assessment is due. Preserve/reset on faults as
+required; market waiting is not a blocker. Independently audit the entire final
+interval and genuine outcomes before done. Preserve all UNKNOWN intents and
+honestly distinguish unresolved historical server-denial causes. No verified
+external barrier or human prerequisite is established.

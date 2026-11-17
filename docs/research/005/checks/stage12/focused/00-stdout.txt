@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "generation": "718d2acbcab1b4d9cdcb75d7e0035b70", "confirmed_initials": 8, "unknown_initials": ["ad9626eed7a19edd5b8f1978d3ddf56a"], "confirmed_rebids": 3, "maintenance": ["relist_all"]}
