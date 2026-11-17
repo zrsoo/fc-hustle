@@ -1,0 +1,102 @@
+[
+  {
+    "id": "e9a229b340c044c1b8d1192beb892b8c",
+    "command": {
+      "context": {
+        "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+        "game": "fc27",
+        "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+        "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+        "platform": "pc"
+      },
+      "fences": {
+        "document": "f3d71df77b1276b82841854a98a19753",
+        "epoch": 30,
+        "host_epoch": "2fdbdfbb7d58db493d1faf8dd7249d5c",
+        "owner": "32d7fb56e70e455978f450c1cad2f336",
+        "worker_epoch": "292f2df317157fb93db2573fab12c305"
+      },
+      "id": "e9a229b340c044c1b8d1192beb892b8c",
+      "operation": "clear_lost",
+      "params": {
+        "before_read_id": "2a96e3b0219d554d9b852f6b8a4c07da",
+        "targets": [
+          {
+            "definition_id": 246420,
+            "item_id": "item:8aef7859641834fa53d09a96",
+            "trade_id": "trade:a2c4ba61fc42b8324ee9f1a4"
+          }
+        ]
+      },
+      "schema": 4
+    },
+    "state": "CONFIRMED",
+    "dispatched_at": "2026-11-17T21:28:16.486275+00:00",
+    "completed_at": "2026-11-17T21:28:16.731310+00:00",
+    "proof": {
+      "after": {
+        "command_id": "4df3aa3eecbc937f8d11fd082caff0af",
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "coverage": {
+          "complete": false,
+          "has_more": null,
+          "watch_list": {
+            "callback_count": 0,
+            "capacity": 50,
+            "repository_count": 0,
+            "repository_full": false,
+            "wire_count": 0
+          }
+        },
+        "fences": {
+          "document": "f3d71df77b1276b82841854a98a19753",
+          "epoch": 30,
+          "host_epoch": "2fdbdfbb7d58db493d1faf8dd7249d5c",
+          "owner": "32d7fb56e70e455978f450c1cad2f336",
+          "worker_epoch": "292f2df317157fb93db2573fab12c305"
+        },
+        "freshness": {
+          "network_at": "2026-11-17T21:28:18.501Z",
+          "observed_at": "2026-11-17T21:28:18.565Z",
+          "read_id": "4df3aa3eecbc937f8d11fd082caff0af",
+          "request_count": 1,
+          "source": "native"
+        },
+        "operation": "watched",
+        "result": {
+          "auctions": [],
+          "cache_invalidated": true,
+          "caps": null,
+          "credits": null,
+          "error": null,
+          "items": null,
+          "network": [
+            {
+              "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+              "method": "GET",
+              "path": "/ut/game/fc27/watchlist",
+              "query": {},
+              "session_header_present": true,
+              "status": 200
+            }
+          ],
+          "status": 200,
+          "success": true
+        },
+        "schema": 2,
+        "timing": {
+          "ea_rtt_ms": 62.89999997615814,
+          "native_helper_ms": 0,
+          "native_service_ms": 64
+        }
+      },
+      "mode": "NATIVE_ACK_AND_READBACK"
+    }
+  }
+]

@@ -1,0 +1,104 @@
+{
+  "command_id": "e9a229b340c044c1b8d1192beb892b8c",
+  "action": "[\"05d6a82f7a6cecb077c5fe16e9cd532a\",\"clear_lost\",[[\"trade:a2c4ba61fc42b8324ee9f1a4\",\"item:8aef7859641834fa53d09a96\",246420]]]",
+  "intended_at": "2026-11-17T21:28:14.892549+00:00",
+  "dispatched_at": "2026-11-17T21:28:16.486275+00:00",
+  "completed_at": "2026-11-17T21:28:16.731310+00:00",
+  "tombstones": [
+    {
+      "action": "[\"05d6a82f7a6cecb077c5fe16e9cd532a\",\"clear_lost\",[[\"trade:a2c4ba61fc42b8324ee9f1a4\",\"item:8aef7859641834fa53d09a96\",246420]]]",
+      "command_id": "e9a229b340c044c1b8d1192beb892b8c"
+    }
+  ],
+  "events": [
+    {
+      "seq": 17360,
+      "kind": "INTENT",
+      "body": {
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "fences": {
+          "document": "f3d71df77b1276b82841854a98a19753",
+          "epoch": 30,
+          "host_epoch": "2fdbdfbb7d58db493d1faf8dd7249d5c",
+          "owner": "32d7fb56e70e455978f450c1cad2f336",
+          "worker_epoch": "292f2df317157fb93db2573fab12c305"
+        },
+        "id": "e9a229b340c044c1b8d1192beb892b8c",
+        "operation": "clear_lost",
+        "params": {
+          "before_read_id": "2a96e3b0219d554d9b852f6b8a4c07da",
+          "targets": [
+            {
+              "definition_id": 246420,
+              "item_id": "item:8aef7859641834fa53d09a96",
+              "trade_id": "trade:a2c4ba61fc42b8324ee9f1a4"
+            }
+          ]
+        },
+        "schema": 4
+      }
+    },
+    {
+      "seq": 17361,
+      "kind": "CLAIMED",
+      "body": {}
+    },
+    {
+      "seq": 17362,
+      "kind": "RESULT",
+      "body": {
+        "auctions": [],
+        "background": [],
+        "command_id": "e9a229b340c044c1b8d1192beb892b8c",
+        "context": {
+          "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+          "game": "fc27",
+          "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+          "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+          "platform": "pc"
+        },
+        "credits": null,
+        "designated_account_verified": true,
+        "error": null,
+        "fences": {
+          "document": "f3d71df77b1276b82841854a98a19753",
+          "epoch": 30,
+          "host_epoch": "2fdbdfbb7d58db493d1faf8dd7249d5c",
+          "owner": "32d7fb56e70e455978f450c1cad2f336",
+          "worker_epoch": "292f2df317157fb93db2573fab12c305"
+        },
+        "links": [],
+        "missing": [],
+        "network": [
+          {
+            "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+            "method": "DELETE",
+            "path": "/ut/game/fc27/watchlist",
+            "session_header_present": true,
+            "status": 200,
+            "targets": [
+              {
+                "definition_id": 246420,
+                "item_id": "item:8aef7859641834fa53d09a96",
+                "trade_id": "trade:a2c4ba61fc42b8324ee9f1a4"
+              }
+            ]
+          }
+        ],
+        "network_at": "2026-11-17T21:28:16.508Z",
+        "observed_at": "2026-11-17T21:28:16.633Z",
+        "operation": "clear_lost",
+        "receipt": null,
+        "schema": 4,
+        "status": 200,
+        "success": true
+      }
+    }
+  ]
+}

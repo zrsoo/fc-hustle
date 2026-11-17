@@ -1,0 +1,13 @@
+test_all_losses_cleaned_before_new_acquisition_and_other_cards_untouched (__main__.LostTargets.test_all_losses_cleaned_before_new_acquisition_and_other_cards_untouched) ... ok
+test_intent_only_crash_is_not_replayed_after_restart (__main__.LostTargets.test_intent_only_crash_is_not_replayed_after_restart) ... ok
+test_lost_reply_resolves_actual_absence_without_replay_or_forged_ack (__main__.LostTargets.test_lost_reply_resolves_actual_absence_without_replay_or_forged_ack) ... ok
+test_no_eligible_target_never_dispatches_cleanup (__main__.LostTargets.test_no_eligible_target_never_dispatches_cleanup) ... ok
+test_omitted_extra_or_stale_target_cannot_create_work_intent (__main__.LostTargets.test_omitted_extra_or_stale_target_cannot_create_work_intent) ... ok
+test_repeated_ack_without_effect_is_consumed_and_semantically_stops (__main__.LostTargets.test_repeated_ack_without_effect_is_consumed_and_semantically_stops) ... ok
+test_supervision_loss_before_work_creates_no_intent (__main__.LostTargets.test_supervision_loss_before_work_creates_no_intent) ... ok
+test_supervision_loss_during_burst_creates_no_later_intents (__main__.LostTargets.test_supervision_loss_during_burst_creates_no_later_intents) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.044s
+
+OK

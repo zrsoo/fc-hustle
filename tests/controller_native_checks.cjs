@@ -80,7 +80,8 @@ function setup(count=10){
   }};
   const originalQueue=queue.send,originalBid=services.Item.transfersDao.bid;
   const sandbox=vm.createContext({window:{},crypto:webcrypto,TextEncoder,TextDecoder,URL,services,Date:Clock,
-    performance:{now:()=>now},XMLHttpRequest:XHR,UTSearchCriteriaDTO:class{},repositories:{Item:{setDirty(){},isPileFull:()=>options.watchFull===true}},ItemPile:{INBOX:1},GamePlatform:{PC:'PC'},GameCurrency:{COINS:'COINS'},
+    performance:{now:()=>now},XMLHttpRequest:XHR,UTSearchCriteriaDTO:class{},repositories:{Item:{setDirty(){},isPileFull:()=>options.watchFull===true,
+      getPileSize:()=>50,getWatchedItems:()=>raw}},ItemPile:{INBOX:1},GamePlatform:{PC:'PC'},GameCurrency:{COINS:'COINS'},
     UTCurrencyInputControl:{getIncrementAboveVal:v=>v+100,getIncrementBelowVal:v=>Math.max(0,v-100)},UtasErrorCode:{NOT_ENOUGH_CREDIT:402},
     location:{protocol:'https:',hostname:'www.ea.com',pathname:'/ea-sports-fc/ultimate-team/web-app/',href:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'},
     setTimeout:(fn,delay)=>setTimeout(fn,delay===15000?20:delay),clearTimeout});

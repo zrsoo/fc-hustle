@@ -6,7 +6,7 @@ from fc_access.production_v1.contracts import fields, context, fences, token, in
 VERSION = 4
 READS = {'watched', 'balance', 'status_batch'}
 SHARED_READS = {'search', 'transfer_list', 'watched', 'caps', 'price_helpers', 'owned_item', 'unassigned'}
-MAINTENANCE = {'move', 'list', 'clear_sold', 'relist_all'}
+MAINTENANCE = {'move', 'list', 'clear_sold', 'relist_all', 'clear_lost'}
 
 
 def delivery_command(value):
@@ -45,10 +45,11 @@ def command(value):
     p, op = value['params'], value['operation']
     if op in {'watched', 'balance'}:
         fields(p, set())
-    elif op == 'status_batch':
-        fields(p, {'targets'})
+    elif op in {'status_batch','clear_lost'}:
+        fields(p, {'targets','before_read_id'} if op=='clear_lost' else {'targets'})
+        if op=='clear_lost':token(p['before_read_id'])
         rows = p['targets']
-        if not isinstance(rows, list) or not 1 <= len(rows) <= 10:
+        if not isinstance(rows, list) or not 1 <= len(rows) <= (100 if op=='clear_lost' else 10):
             raise ValueError('invalid_target_count')
         for row in rows: target(row)
         if any(len({r[k] for r in rows}) != len(rows) for k in ('trade_id', 'item_id')):
@@ -79,15 +80,16 @@ def parse_response(value, c, *, now=None):
     if not isinstance(value['background'], list) or len(value['background']) > 32 or any(r != {'event':'UNOWNED_SEND'} for r in value['background']):
         raise ValueError('unsafe_diagnostics')
     op = c['operation']
-    path = {'status_batch':'trade/status/lite','watched':'watchlist','balance':'user/credits','bid':'trade/:trade/bid'}[op]
-    expected = c['params']['targets'] if op == 'status_batch' else [c['params']['target']] if op == 'bid' else []
+    path = {'status_batch':'trade/status/lite','watched':'watchlist','balance':'user/credits','bid':'trade/:trade/bid','clear_lost':'watchlist'}[op]
+    method='PUT' if op=='bid' else 'DELETE' if op=='clear_lost' else 'GET'
+    expected = c['params']['targets'] if op in {'status_batch','clear_lost'} else [c['params']['target']] if op == 'bid' else []
     network = value['network']
     if not isinstance(network,list) or len(network)>1 or type(value['designated_account_verified']) is not bool:
         raise ValueError('invalid_network_schema')
     import re
     for n in network:
         fields(n, {'method','path','host','targets','status','session_header_present'})
-        if n['method'] != ('PUT' if op=='bid' else 'GET') or n['path'] != '/ut/game/fc27/'+path or n['targets'] != expected or type(n['session_header_present']) is not bool or not isinstance(n['host'],str) or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com',n['host']):
+        if n['method'] != method or n['path'] != '/ut/game/fc27/'+path or n['targets'] != expected or type(n['session_header_present']) is not bool or not isinstance(n['host'],str) or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com',n['host']):
             raise ValueError('invalid_owned_binding')
         if n['status'] is not None:integer(n['status'],1)
     if value['status'] is not None:integer(value['status'],1)
@@ -97,6 +99,7 @@ def parse_response(value, c, *, now=None):
     if value['credits'] is not None:integer(value['credits'])
     if op!='balance' and value['credits'] is not None or op!='bid' and value['receipt'] is not None:
         raise ValueError('invalid_operation_payload')
+    if op=='clear_lost' and (value['auctions'] or value['links'] or value['missing']):raise ValueError('invalid_operation_payload')
     for row in value['auctions']:projection(row,lite=op=='status_batch')
     for t in value['missing']:target(t)
     for link in value['links']:
@@ -125,7 +128,7 @@ def parse_response(value, c, *, now=None):
         raise ValueError('owned_request_required')
     n = network[0]
     fields(n, {'method','path','host','targets','status','session_header_present'})
-    if n['method'] != ('PUT' if op == 'bid' else 'GET') or n['path'] != '/ut/game/fc27/'+path or n['targets'] != expected or n['session_header_present'] is not True or type(n['status']) is not int or n['status'] != 200 or value['status'] != 200 or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com', n['host']):
+    if n['method'] != method or n['path'] != '/ut/game/fc27/'+path or n['targets'] != expected or n['session_header_present'] is not True or type(n['status']) is not int or n['status'] != 200 or value['status'] != 200 or not re.fullmatch(r'utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com', n['host']):
         raise ValueError('unauthenticated_or_unbound')
     if op == 'balance': integer(value['credits'])
     rows = value['auctions']

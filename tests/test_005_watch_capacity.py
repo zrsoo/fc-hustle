@@ -9,6 +9,9 @@ from fc_access.controller_v1.watch_capacity import slots
 
 class WatchCapacityTests(unittest.TestCase):
     def occupied(self,h,count):
+        # Isolate the capacity admission seam. Complete cleanup-before-bidding
+        # behavior is exercised separately by test_005_lost_targets.py.
+        h.controller.work.clear_lost=lambda before:before
         h.ea.manual=[]
         for i in range(count):
             r=auction(123,15000,8000+i);r.update(trade_state='closed',bid_state='outbid',expires=-1,native_is_won=False)

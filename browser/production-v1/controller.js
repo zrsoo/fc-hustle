@@ -14,6 +14,9 @@
       if(['watched','balance'].includes(c.operation))return keys(p,'');
       if(c.operation==='status_batch')return keys(p,'targets') && Array.isArray(p.targets) && p.targets.length>0 && p.targets.length<=10 &&
         p.targets.every(target) && new Set(p.targets.map(t=>t.trade_id)).size===p.targets.length && new Set(p.targets.map(t=>t.item_id)).size===p.targets.length;
+      if(c.operation==='clear_lost')return keys(p,'targets,before_read_id') && hex(p.before_read_id) &&
+        Array.isArray(p.targets) && p.targets.length>0 && p.targets.length<=100 && p.targets.every(target) &&
+        new Set(p.targets.map(t=>t.trade_id)).size===p.targets.length && new Set(p.targets.map(t=>t.item_id)).size===p.targets.length;
       return c.operation==='bid' && keys(p,'target,amount,minimum,cap,deadline,status_read_id,batch_id,decision_id') && target(p.target) &&
         [p.amount,p.minimum,p.cap].every(n=>num(n)>0) && p.amount===p.minimum && p.amount<=p.cap &&
         [p.batch_id,p.decision_id,p.status_read_id].every(hex) && Number.isFinite(Date.parse(p.deadline)) && Date.parse(p.deadline)>Date.now();
@@ -51,6 +54,24 @@
         }else if(op==='watched'){
           repositories.Item.setDirty(ItemPile.INBOX);invoke=()=>services.Item.requestWatchedItems();
         }else if(op==='balance')invoke=()=>services.User.requestCurrencies();
+        else if(op==='clear_lost'){
+          const proof=reads.get(p.before_read_id),eligible=row=>['closed','expired'].includes(row.trade_state) &&
+            row.expires<=0 && ['none','outbid'].includes(row.bid_state) && row.native_is_won===false;
+          const expected=proof?.rows?.filter(eligible).map(row=>({trade_id:row.trade_id,item_id:row.item.item_id,definition_id:row.item.definition_id}));
+          if(!proof || proof.operation!=='watched' || !fresh(proof.at) || !equal(proof.fences,c.fences) ||
+              !expected || expected.length!==p.targets.length || !p.targets.every(t=>expected.some(e=>equal(e,t))) ||
+              typeof services.Item.untarget!=='function')throw Error('invalid_preconditions');
+          entries=await Promise.all(p.targets.map(t=>retained(t,c)));
+          for(const e of entries){
+            const a=e.raw.getAuctionData(),current=await auction(e.raw,{...c,operation:'watched'},null);
+            if(e.read_id!==p.before_read_id || !eligible(current) || a.watched!==true ||
+                typeof a.isWon!=='function' || a.isWon()!==false)throw Error('invalid_preconditions');
+          }
+          const action='clear_lost|'+p.targets.map(t=>t.trade_id+'|'+t.item_id+'|'+t.definition_id).sort().join(';');
+          if(attempted.has(c.id) || attempted.has(action))throw Error('invalid_preconditions');
+          attempted.add(c.id);attempted.add(action);
+          invoke=()=>services.Item.untarget(entries.map(e=>e.raw));
+        }
         else{
           const e=await retained(p.target,c),proof=proofs.get(p.status_read_id)??reads.get(p.status_read_id),row=proof?.rows?.find(r=>r?.trade_id===p.target.trade_id);
           const action=[c.context.account,p.target.trade_id,p.target.item_id,p.target.definition_id,p.amount,p.decision_id].join('|');
@@ -84,7 +105,7 @@
             // Native renewal may maintain a pure read's session, but the original
             // request must still fail: never replay it or renew a possible bid.
             // Preserve only an explicitly enabled native default, not global policy.
-            request.doRetry=false;request.doReauth=op!=='bid' && request.doReauth===true;
+            request.doRetry=false;request.doReauth=!['bid','clear_lost'].includes(op) && request.doReauth===true;
             trackReadRenewal(request,c,wrap,()=>active && s.scope(c.context,c.fences));
             wrap(request,'send',send=>function(...more){
               if(!active || !s.scope(c.context,c.fences))throw Error('interrupted');
@@ -102,15 +123,16 @@
           if(!sending){pending.set(this,null);return original.call(this,method,url,...args);}
           let u;try{u=new URL(url,location.href);}catch{throw Error('ambiguous_network');}
           const path=op==='bid'?'/ut/game/fc27/trade/'+bidState.nativeTrade+'/bid':
-            '/ut/game/fc27/'+({status_batch:'trade/status/lite',watched:'watchlist',balance:'user/credits'}[op]);
-          const query=op==='status_batch'?'?tradeIds='+entries.map(e=>e.native_trade_id).join(','):'';
+            '/ut/game/fc27/'+({status_batch:'trade/status/lite',watched:'watchlist',balance:'user/credits',clear_lost:'watchlist'}[op]);
+          const queryKey=op==='clear_lost'?'tradeId':'tradeIds';
+          const query=['status_batch','clear_lost'].includes(op)?entries.map(e=>e.native_trade_id).join(','):'';
           // URLSearchParams accounts for percent encoded commas without relaxing keys/order/IDs.
-          const queryOK=op==='status_batch'?[...u.searchParams.keys()].join(',')==='tradeIds' &&
-            u.searchParams.getAll('tradeIds').length===1 && u.searchParams.get('tradeIds')===query.slice(10):u.search==='';
+          const queryOK=['status_batch','clear_lost'].includes(op)?[...u.searchParams.keys()].join(',')===queryKey &&
+            u.searchParams.getAll(queryKey).length===1 && u.searchParams.get(queryKey)===query:u.search==='';
           if(u.protocol!=='https:' || !/^utas(?:\.[a-z0-9-]{1,20}){1,8}\.ea\.com$/.test(u.hostname) ||
-            method!==(op==='bid'?'PUT':'GET') || u.pathname!==path || !queryOK)throw Error('ambiguous_network');
+            method!==(op==='bid'?'PUT':op==='clear_lost'?'DELETE':'GET') || u.pathname!==path || !queryOK)throw Error('ambiguous_network');
           pending.set(this,{method,path:op==='bid'?'/ut/game/fc27/trade/:trade/bid':path,host:u.hostname,
-            targets:op==='status_batch'?p.targets:op==='bid'?[p.target]:[],status:null,session_header_present:false});
+            targets:['status_batch','clear_lost'].includes(op)?p.targets:op==='bid'?[p.target]:[],status:null,session_header_present:false});
           return original.call(this,method,url,...args);
         });
         wrap(proto,'setRequestHeader',original=>function(name,value){const n=pending.get(this);
@@ -169,7 +191,7 @@
           const credits=coins?.type===GameCurrency.COINS && typeof coins.value==='function'?num(coins.value()):null;
           if(credits===null || wireCredits===null || credits!==wireCredits)throw Error('schema_unrecognized');
           out.credits=credits;
-        }else if(op!=='bid'){
+        }else if(!['bid','clear_lost'].includes(op)){
           const rows=(response.response??response.data)?.items;
           if(!Array.isArray(rows) || rows.length>(op==='status_batch'?10:100))throw Error('schema_unrecognized');
           out.auctions=await Promise.all(rows.map(raw=>auction(raw,{...c,operation:op==='status_batch'?'status':'watched'},out.network_at)));

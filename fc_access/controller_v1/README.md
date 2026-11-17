@@ -217,5 +217,22 @@ uses at most the remaining native slots in addition to the original ten-attempt
 and50-item pipeline bounds; dispatch revalidates the retained same-scope read.
 Missing or contradictory coverage grants no new bid authority. The native bid
 boundary also preserves the UI's full-INBOX guard for unwatched targets.
-This admission guard does not clear lost targets; durable cleanup remains a
-separate maintenance repair required before final operational acceptance.
+The controller clears eligible lost targets through the durable clear_lost
+contract below before it admits the next acquisition batch.
+
+
+`clear_lost` is controller schema4 maintenance. A fresh native watched read with
+matched watch-capacity coverage selects exactly all expired/closed,non-won,
+none/outbid targets. Both Python admission/claim and the native page check that
+set and its scope. An immutable work intent and tombstone precede the one native
+Item.untarget/transfersDao.unwatchItems DELETE. It disables native retry/renewal;
+no partial target set or consumed generation is replayed. Only a new watched GET
+showing exactly before-minus-targets, preserving non-target identities, confirms
+the account effect. Normal success is NATIVE_ACK_AND_READBACK; a lost reply can
+resolve CURRENT_ABSENCE_AFTER_UNKNOWN without becoming a native acknowledgement.
+An acknowledgement without the actual effect remains UNKNOWN and repeated
+acquisition failures use the existing semantic stop policy. No unrelated owned
+card is moved/listed by cleanup, and pricing/entry/attempt policy stays unchanged.
+
+Bid and work intent creation now checks supervision first. Stop during a burst
+cannot mint later local intents; original uncertain intents stay consumed.

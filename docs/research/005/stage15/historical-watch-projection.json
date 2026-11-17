@@ -1,0 +1,27 @@
+{
+  "source": "docs/research/005/incident-20261117T005412938938Z/backup.json",
+  "classification": "HISTORICAL_PUBLIC_PROJECTION_NOT_CURRENT_PROOF",
+  "observations": [
+    {
+      "command_id": "93a874f384ccc3ca038d737b5bf7dbc9",
+      "success": true,
+      "service_status": 200,
+      "error": null,
+      "watched_count": 0,
+      "wire_statuses": [
+        200
+      ]
+    },
+    {
+      "command_id": "4bc0f36e357b425f3b595a613f8ed69f",
+      "success": true,
+      "service_status": 200,
+      "error": null,
+      "watched_count": 0,
+      "wire_statuses": [
+        200
+      ]
+    }
+  ],
+  "conclusion": "The later watch-capacity defect is not established as the cause of original denied bids."
+}

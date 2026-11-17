@@ -216,57 +216,55 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage14: generation d5fb66757752d0191bc5f66574ed9d22 ran from16:47:54 UTC to
-18:03:27 UTC and stopped cooperatively after three actual native461/service403
-initial-bid failures. Scheduler healthy time is zero. Complete2518-delivery
-capture,147 delivered bid intents and four additional UNKNOWN intents with no
-transport record are preserved. Actual run has29 accepted initials and109
-accepted rebids with independent participation; nine delivered UNKNOWNs plus
-four undelivered UNKNOWNs stay consumed. Global UNKNOWN count is62 before any
-new diagnostic bid. No managed member remains ACTIVE;67 are LOST,one WON_ACCOUNTED.
+Stage15 complete repair stage: generation470e3a23b7e363792dd230e271941202
+independently settled the950 member LOST at1900, then stopped cooperatively for
+repair at20:49:19 UTC. Its complete110-delivery evidence is retained. All62 prior
+UNKNOWN command IDs remain unchanged; journal244 ACKNOWLEDGED,62 UNKNOWN,
+68 LOST,one historical WON_ACCOUNTED,zero pending. Healthy interval is zero.
 
-New capacity defect evidenced: the last fresh watched GET returned47 closed,
-non-won/outbid targets. The next three new bids got native200/ACCEPTED receipts,
-then three new bids got461/403. The three accepted receipts have no independent
-readback and remain UNKNOWN. Current native capacity is independently observed
-as50 through a matched wire/callback/repository watched GET. The official UI's
-onBid blocks an unwatched bid when repositories.Item.isPileFull(INBOX); the
-bridge bypassed this UI guard and admission counted only active participation.
-The account's watched list is now empty; that change was already present before
-this worker's page refresh, with no account writes by this repair. Its cause is
-unattributed. Do not claim a witnessed cleanup or exact server error message.
-This does not explain every historical/rebid461 class.
+Implemented and regression-tested exact durable native clear_lost cleanup and
+supervision-before-bid/work-intent. Cleanup uses fresh matched watch coverage,
+exact all-eligible expired/closed non-won targets, immutable intent/tombstone,
+one owned DELETE with no native retry/renewal, and independent watched readback
+preserving every non-target identity. Uncertain replies never become native
+acknowledgements or blind replays. Repeated missing effects use the existing
+three-acquisition-failure stop. No pricing, strategy or threshold was changed.
 
-Implemented matched native watch-capacity coverage for controller reads, batch
-selection bounded by actual free slots including closed entries, durable-read
-revalidation at dispatch, and native preflight matching the UI capacity guard.
-No source integrity assertions, strategy/pricing thresholds or stop thresholds
-changed. Focused cases47/50=>three,35/36=>one,full=>zero,missing/corrupt proof,
-recovery and native/UI behavior pass. Full regressions PASS:1129 Python
-executions,40 Node suites,nine independent commands. Five stopped-run negative
-artifact cases and three probe negative cases pass; both acceptance validators
-correctly reject the stopped runtime. A real read-only six-command window
-verifies capacity50,count0,zero pending/mutations.
+Final complete regressions PASS:1139 Python executions,41 Node suites,nine
+independent checks. Eight cleanup/store/stop cases,two independent audit cases,
+14 captured-native JavaScript cases and finite probe limits pass. The initial
+Python run's single resale-test error and the aborted zero-command/zero-mutation
+window are retained and explained; no failing check or historical verdict was
+rewritten. The resale test retains all exact move/list price/hour assertions
+and now separately asserts cleanup membership/effect. New acceptance auditing
+covers current-generation cleanup without changing sealed older contracts.
 
-One finite new-target bid after the guard repair independently confirmed at950:
-command ea909ac38a41698a72cfec9912e2cbea,definition246420,
-trade:a2c4ba61fc42b8324ee9f1a4,item:8aef7859641834fa53d09a96.
-Native200/ACCEPTED plus a separate exact-price highest readback; one mutation,
-129 logical commands,19 reserved EA requests,zero pending and probe stopped.
-All62 prior UNKNOWNs remain UNKNOWN. One confirmed managed member needs prompt
-fresh reconciliation/management. Full lifecycle/terminal ownership not inferred.
+Live cleanup independently confirmed after green regressions: command
+e9a229b340c044c1b8d1192beb892b8c removed exactly the expired950 loss through one
+native DELETE. Four owned commands total:before watched,DELETE,independent
+readback and separate final watched. Both readbacks show exact absence; mode
+NATIVE_ACK_AND_READBACK,zero semantic faults,zero pending,window stopped.
+Intent/claim/result ordering and individual tombstone are independently audited.
+Five negative artifact cases pass. Historical empty-watch reads are retained
+as evidence against attributing every original461 to later50-slot capacity.
+No private server reason or outcome was invented.
 
-Next: publish and launch one scheduler-owned integration generation
-470e3a23b7e363792dd230e271941202 with service 005-stage14-470e3a23b7e363792dd230e271941202
-and epoch floor28. Immediately verify attachment and reconcile/manage the950
-member through existing genuine terminal/win/resale rules. This integrates the
-capacity fix; remaining repairs are still required before final completion:
-(1) durable native lost-target cleanup using the captured Item.untarget ->
-transfersDao.unwatchItems contract; (2) supervision check before minting new
-intents. Stop owned service and take fresh quiescent backups before those code
-repairs, then regress/reconcile/restart with a new generation. No four-hour
-interval can be claimed across that stop or final fix. Preserve all62 UNKNOWNs;
-no retries of old commands. No external barrier or human prerequisite exists.
+Fresh canonical-lock pre-service backups verify integrity/FK and every table
+row equality. Official Edge is foreground verified; no visible challenge or
+connection failure. Legacy003 remains PAUSED,004 COMPLETED. Prepared scheduler
+service 005-stage15-6c2549d24df0b1155c3b8de951412965, generation
+6c2549d24df0b1155c3b8de951412965,epoch floor31,startup90s,health interval30s.
+No generation directory or consumed launch exists yet; no persistent tool child.
+
+Next: publish this stage and launch exactly once through the scheduler handoff.
+Immediately verify attachment,actual account reconciliation and initial trading,
+then return monitoring so deterministic checks retain at least14400 consecutive
+healthy seconds without AI quota. Final-generation full native acquisition,
+confirmed management/competitive rebids,terminal owned win/move/hour resale and
+eligible maintenance still require genuine observation. Any defect,stop,restart,
+scheduler restart or monitored gap resets the interval and resumes repair in
+this same task. Do not declare completion for idle/failed acquisition,heartbeat
+or old-generation resale. No external barrier or human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -496,3 +494,29 @@ Audits retain five plus three negative cases and both acceptance validators'
 negative fixtures. Actual acceptance is INCOMPLETE/stopped; healthy interval0.
 Canonical-lock pre-service DB backups verified. Prepared one scheduler launch
 for prompt management, then continue scoped cleanup/supervision repairs safely.
+
+2026-11-17 stage15: native950 terminal loss independently established; owned stop
+and fresh backup complete. Implemented exact durable lost-target cleanup and
+supervision-before-intent with negative/recovery/native-method regressions.
+Independent acceptance now separately audits current-generation lost cleanup;
+sealed older maintenance verdicts/contracts stay unchanged. Historical empty
+watched reads preserved as evidence against an unjustified capacity diagnosis.
+
+2026-11-17 stage15 regression correction: full Python run executed1139 cases and
+failed one existing resale test because it treated every maintenance command as
+priced listing work. Updated that functional test to retain exact move/list
+price/hour assertions, require exactly those two resales, and independently
+verify the additional clear_lost eligibility/set and confirmed readback. Its17
+cases now pass. Repeating the complete Python inventory in python-final2;
+original red run remains retained. A PowerShell sequencing mistake started the
+bounded cleanup window after the red check; attachment did not complete and it
+closed with zero reserved commands,zero mutations,zero pending. No transaction
+was executed or replayed. Further live work waits for separately verified green
+full regression output; any next window uses a new directory and higher epoch.
+
+2026-11-17 stage15 final: full Python rerun1139 PASS,41 Node suites PASS,nine
+independent checks PASS. Bounded native cleanup succeeded with exact journal,
+owned DELETE and two fresh account readbacks; all62 old UNKNOWNs preserved.
+Final acceptance validators correctly report stopped/incomplete; negative
+fixtures and five new artifact negatives pass. Prepared one fresh scheduler
+launch; final14400 seconds and current-generation full lifecycle remain open.

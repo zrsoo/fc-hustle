@@ -1,0 +1,7 @@
+test_actual_controller_effect_and_negative_receipt_readback_targets (__main__.LostAudit.test_actual_controller_effect_and_negative_receipt_readback_targets) ... ok
+test_resolved_unknown_is_reported_without_becoming_native_success (__main__.LostAudit.test_resolved_unknown_is_reported_without_becoming_native_success) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.595s
+
+OK

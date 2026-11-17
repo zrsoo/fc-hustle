@@ -1,0 +1,65 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_NATIVE_AND_TRANSACTION_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "cleanup-commands.jsonl",
+      "sha256": "74ea60c44341fb0c5199b23b6b3e05ec857072efb5d55c01b2561470411cca57"
+    },
+    {
+      "path": "cleanup-dispatch-proof.json",
+      "sha256": "b82b3a30de62c129cee5ff5cca7b8000adbe3c8c186581b7808321ed83ed931a"
+    },
+    {
+      "path": "cleanup-work.json",
+      "sha256": "450d99f384c4b4b8d7fc37e875cdd5a98f490e4461491f2f40fb7e80c4d0736e"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "1b155972adc05462f1414bc7eece6abfde962c344d68a2dad9fd86fa91525c5e"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "08f92eb1019d6a76574bdb7a9a6d1f1f82d5a550c213beb41fbbe9d89f658a58"
+    },
+    {
+      "path": "historical-watch-projection.json",
+      "sha256": "b75180986b620708a9144b4069b0abdce9a45c45006077bc6ba7349fe3fd929f"
+    },
+    {
+      "path": "initial-unknowns.json",
+      "sha256": "a8b209d054dd7390d28053ed1881086e6676e8e26046e327e07aa8c589db6285"
+    },
+    {
+      "path": "journal.json",
+      "sha256": "54f361722211f66e57d81b2c24467699f3909e1129c0a02eb50c3fc57d83faa1"
+    },
+    {
+      "path": "live-cleanup-after-regressions/checkpoint.jsonl",
+      "sha256": "c2d57f60148a4f114c03ec821b12101541db587e6187cc0854b403d138d4fb94"
+    },
+    {
+      "path": "live-cleanup-after-regressions/diagnostics.json",
+      "sha256": "dfd0fb0c6c56bcb6309eca558a83f199e0897672fd22e02671f401f099850b7d"
+    },
+    {
+      "path": "live-cleanup-after-regressions/result.json",
+      "sha256": "db9e6e91f3b22240a5428a48477efaea817a48e362cd813d351ebcc80cc48de4"
+    },
+    {
+      "path": "live-cleanup/checkpoint.jsonl",
+      "sha256": "08dfa71b3a5fc8e1dcfad823218f4fbe3b7b0e373bd75c9052f265fdd3a925b4"
+    },
+    {
+      "path": "live-cleanup/result.json",
+      "sha256": "36c4a8bbefb924d611835f3bb3438bf4c4af4e84e83f98b230cc9ba55ec160ce"
+    },
+    {
+      "path": "post-cleanup-state.json",
+      "sha256": "af25e06c9eebbf49b72e9984ecbd2d9a3c449e6903681cd15aa8e04f2af452ec"
+    },
+    {
+      "path": "stopped-state.json",
+      "sha256": "f9f7e6709dd5aac3b9edee908313a53ea97160bca69deff6036d1e34d5d02892"
+    }
+  ]
+}

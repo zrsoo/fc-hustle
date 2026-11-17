@@ -1523,3 +1523,131 @@ same operational service argv with this prepared generation and **--epoch-floor2
 (spelled as separate argv `--epoch-floor`, `28`). Native losses must be cleaned
 through the reviewed durable contract before final acceptance; a full list of
 closed targets and idle acquisition is not completion.
+
+
+## Stage15 ? durable lost-target cleanup and supervision-before-intent
+
+Generation470e3a23b7e363792dd230e271941202 attached and independently established
+that the diagnostic950 member ended closed/outbid at1900, native_is_won=false.
+The controller settled it LOST from native statusa5aa375426bd40e3778a95af1cee81ef,
+with an exact full-version watched link. It was stopped cooperatively for repair
+at20:49:19 UTC, normal exit/no forced kill. All110 completed native/helper
+responses and journal counts are retained. Journal:244 ACKNOWLEDGED,62 UNKNOWN,
+68 LOST,one historical WON_ACCOUNTED,zero pending. This stop resets the final
+healthy interval; a native terminal loss is not a win or resale proof.
+
+The new schema4 clear_lost operation remains inside the one serialized controller.
+It requires a fresh, matched native watch-capacity read and exactly all eligible
+expired/closed,non-won,none/outbid targets. Python admission and native preflight
+both reject changed scope,stale/missing evidence,omitted targets,active/won/unknown
+ownership,unwatched raw DTOs and consumed generations. The store journals an
+immutable work intent; claim consumes a tombstone before dispatch. One owned
+native DELETE /watchlist binds the complete private native tradeId query to the
+public exact target set. Retry and renewal remain disabled for this mutation.
+No native acknowledgement fabricates a removal: a separate fresh watched read
+must show exactly before-minus-targets and preserve every non-target identity.
+
+A lost reply may be reconciled to CURRENT_ABSENCE_AFTER_UNKNOWN. That records
+actual current account absence without claiming a native acknowledgement and
+without replay. Submitted work can be reconciled after restart; intent-only or
+consumed target generations are not resubmitted. If an acknowledged cleanup
+never changes account state, one mutation remains consumed and repeated failed
+acquisition readbacks trigger the existing three-failure stop. The independent
+current-generation acceptance audit separately requires genuine native cleanup
+when eligible, distinguishes resolved unknowns and verifies all non-target
+identities. Older sealed maintenance contracts/verdicts remain unchanged.
+
+Supervision is now checked before minting bid and maintenance intents. A stop
+received after the first bid prevents later local intents from being created.
+This repairs the four unsent UNKNOWN records from the prior generation; those
+historical records remain unchanged and consumed. There is no new threshold,
+concurrent actor,background maintenance queue or strategy/pricing change.
+
+Offline verification includes eight controller/store cleanup,restart,unknown,
+no-effect and supervision cases; two independent audit cases with corrupted
+wire,scope,targets and readback;14 JavaScript cases running captured official
+Item.untarget and transfersDao.unwatchItems with the shipped bridge. Cases test
+exact DELETE query/body/auth boundaries,no native retry/renewal/replay,stale or
+foreign reads,partial target sets,active/won/unwatched DTOs and preservation of
+unrelated entries. Stage14 capacity-specific tests isolate their original
+admission seam; new complete-flow tests verify cleanup before acquisition.
+No test was removed or source/configuration/instruction hash asserted.
+
+The first full Python run executed1139 cases and reported one resale-test error:
+it assumed every maintenance command had starting_bid/buy_now_price/duration.
+The corrected behavioral test retains the exact move/list pair/hour assertions,
+requires exactly those two resales and explicitly validates the additional
+cleanup's exact eligible set and confirmed readback. All17 cases in that module
+then passed. Full Python is being repeated in python-final2; the original red
+receipt remains retained.41 Node suites and nine independent checks passed.
+
+A shell sequencing mistake started the bounded live-cleanup window after the
+failed Python guard. Attachment did not complete; its retained CLOSED result is
+zero reserved commands,zero mutations,zero pending and service stopped. No
+transaction was executed. Further live work waits for a separately verified
+passing full receipt, and uses a new output directory and higher owner epoch.
+The finite harness permits at most four owned watched/cleanup commands and one
+clear_lost mutation, reserves before transport,refuses all other mutations and
+cannot reopen a consumed directory. Its offline budget/deadline/semantic-fault
+checks pass. It selects work evidence only from its own runtime owner.
+
+Historical recheck: the original incident's two successful native watched GETs
+returned zero entries. The later50-slot guard defect therefore must not be
+asserted as the cause of original denied bids. historical-watch-projection.json
+preserves this negative evidence. Existing status translation,authentication
+renewal,ownership/freshness diagnoses and historical uncertainty stay explicit.
+No private server reason or witnessed cleanup is invented.
+
+
+Stage15 final verification: the full rerun **PASS:1139 Python test executions**
+(python-final2), **41 Node suites** (node-final) and **nine independent commands**
+(independent-final). The original failed1139-case receipt remains in python-final.
+The updated resale test's17 cases passed without dropping price,identity,hour,
+resale-count or maintenance-effect checks. Focused-final includes the independent
+captured-evidence audit,finite probe limits,new cleanup/audit contracts,both
+acceptance validators' negative fixtures and their actual INCOMPLETE results.
+The whole historical/current receipt-inventory audit also passed before publish,
+including the new stage15 capture and finite-probe contract checks.
+
+After these passing receipts were checked in a separate command, the new epoch30
+window completed **NATIVE_CLEANUP_CONFIRMED**. Native command
+**e9a229b340c044c1b8d1192beb892b8c** removed exactly the expired950 loss,
+trade:a2c4ba61fc42b8324ee9f1a4 / item:8aef7859641834fa53d09a96 / definition246420.
+Four owned commands were executed: fresh watched GET,one DELETE /watchlist,
+independent watched GET and separate final watched GET. Native acknowledgement
+and both exact readbacks agree; the work mode is **NATIVE_ACK_AND_READBACK**.
+No non-target watched identity was removed. The window closed with **one
+mutation,four native successes,zero semantic faults,zero pending** and service
+stopped. The immutable intent was created at21:28:14.892549Z,claim consumed its
+individual tombstone at21:28:16.486275Z,before the native send; completion was
+21:28:16.731310Z. The independent audit verifies real timing and the ordered
+INTENT/CLAIMED/RESULT records,exact native binding and subsequent readbacks.
+
+Every prior UNKNOWN ID is compared against the fresh pre-repair backup: **all62
+remain UNKNOWN**,not merely an equal aggregate count. No bid was sent in this
+cleanup window. The stopped generation's950 terminal loss is independently
+validated from the fresh full-version/status lineage. Five artifact negatives
+reject changed loss,stop state,DELETE wire status,readback and promoted unknown.
+Captured-evidence seals cover only native/transaction/experiment records.
+
+Fresh pre-service canonical-lock backups verify both production databases by
+integrity,foreign keys and every-table row equality. Separate process/port/job
+inspection finds no production actor/listener/job. Official Edge is foreground
+verified with no visible challenge or connection failure. Objective003 is still
+PAUSED and004 COMPLETED. The service launch intent is new and unconsumed; the
+scheduler starts the persistent watchdog outside the provider process tree.
+
+Prepared service **005-stage15-6c2549d24df0b1155c3b8de951412965**, generation
+**6c2549d24df0b1155c3b8de951412965**, epoch floor**31**, startup grace**90 seconds**,
+health interval**30 seconds**,owned stop timeout**60 seconds**. After launch,
+this same worker immediately verifies attachment/reconciliation/trading and
+hands off monitoring. Any further repair/restart/gap resets the required final
+**14400 consecutive healthy seconds**. Final-generation owned-win/move/hour
+listing and complete lifecycle remain unproven; prior-generation wins and this
+cleanup cannot substitute. No completion or external barrier is claimed.
+
+PowerShell status/stop/resume still uses the actual state.json generation as
+documented in stage13. The scheduler launch argv for this prepared generation
+uses the same operational service/database/cache/context/port arguments with
+`--epoch-floor 31`. All current fixes and tests must be committed/pushed to main
+before this handoff; no source integrity pin is imposed on future repairs.

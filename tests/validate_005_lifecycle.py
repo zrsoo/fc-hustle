@@ -200,6 +200,39 @@ def audit_maintenance(e):
     return dict(eligible=eligible,confirmed=sorted(confirmed))
 
 
+def audit_lost_cleanup(e):
+    """Current controller contract only; sealed older maintenance is unchanged."""
+    eligible=False;confirmed=[];resolved_unknown=[]
+    key=lambda r:(r['trade_id'],r['item']['item_id'],r['item']['definition_id'])
+    for cid in e.operations.get('watched',[]):
+        try:c,v=e.get(cid,'watched')
+        except ValueError:continue
+        rows=v['result']['auctions'] if c['schema']==2 else v['auctions']
+        eligible|=any(r['trade_state'] in {'closed','expired'} and r['expires']<=0 and r['bid_state'] in {'none','outbid'} and r['native_is_won'] is False for r in rows)
+    for cid in e.operations.get('clear_lost',[]):
+        acknowledged=True
+        try:c,v=e.get(cid,'clear_lost')
+        except ValueError:
+            raw=e.db.execute('SELECT body FROM c4_commands WHERE id=?',(cid,)).fetchone()
+            need(raw is not None,'cleanup_unknown_intent_missing')
+            c=json.loads(raw[0]);delivery_command(c);acknowledged=False;v=None
+        p=c['params'];bc,before=e.get(p['before_read_id'],'watched')
+        need(bc['schema']==2 and bc['context']==c['context'] and bc['fences']==c['fences'],'cleanup_native_before_scope')
+        rows=before['result']['auctions'];expected={key(r) for r in rows if r['trade_state'] in {'closed','expired'} and r['expires']<=0 and r['bid_state'] in {'none','outbid'} and r['native_is_won'] is False}
+        targets={(t['trade_id'],t['item_id'],t['definition_id']) for t in p['targets']}
+        need(targets==expected and targets,'cleanup_exact_all_eligible')
+        row=e.db.execute('SELECT state,dispatched_at,completed_at,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
+        need(row and row[0]=='CONFIRMED' and row[1] and row[2] and row[3],'cleanup_durable_readback_required')
+        proof=json.loads(row[3]);after=proof['after'];ac,av=e.get(after['command_id'],'watched')
+        boundary=observed(c,v) if acknowledged else at(row[2])
+        need(ac['schema']==2 and after==av and ac['context']==c['context'] and ac['fences']==c['fences'] and after['command_id']!=before['command_id'] and network_at(ac,av)>=boundary,'cleanup_independent_fresh_readback')
+        need({key(r) for r in av['result']['auctions']}=={key(r) for r in rows}-targets,'cleanup_unrelated_identity_preservation')
+        need(proof.get('mode')==('NATIVE_ACK_AND_READBACK' if acknowledged else 'CURRENT_ABSENCE_AFTER_UNKNOWN'),'absence_is_not_native_ack')
+        (confirmed if acknowledged else resolved_unknown).append(cid)
+    need(not eligible or confirmed,'eligible_native_lost_cleanup_not_yet_proven')
+    return dict(eligible=eligible,confirmed=confirmed,resolved_unknown=resolved_unknown)
+
+
 def regression_evidence():
     from record_00405 import commands
     summary={}
@@ -225,7 +258,7 @@ def regression_evidence():
                      '... skipped' not in stderr,'python_result_does_not_match_receipt')
             count+=row['tests_run']
         summary[group]=dict(receipt=path.relative_to(ROOT).as_posix(),commands=len(rows),python_executions=count)
-    for script in ('check_005_stage01.py','check_005_stage02.py','check_005_stage03.py','check_005_stage04.py','check_005_stage05.py','check_005_stage06.py','check_005_stage07.py','check_005_stage08.py','check_005_stage09.py','check_005_stage10.py','check_005_stage11.py','check_005_stage12.py','check_005_stage13.py','check_005_stage14.py','check_005_stage14_probe.py'):
+    for script in ('check_005_stage01.py','check_005_stage02.py','check_005_stage03.py','check_005_stage04.py','check_005_stage05.py','check_005_stage06.py','check_005_stage07.py','check_005_stage08.py','check_005_stage09.py','check_005_stage10.py','check_005_stage11.py','check_005_stage12.py','check_005_stage13.py','check_005_stage14.py','check_005_stage14_probe.py','check_005_stage15.py','check_005_cleanup_probe_bounds.py'):
         result=subprocess.run([sys.executable,str(ROOT/'tests'/script)],cwd=ROOT,capture_output=True,text=True,timeout=30 if script=='check_005_stage14.py' else 15)
         need(result.returncode==0,'incident_or_consumed_window_audit_failed_'+script)
     return summary
@@ -262,9 +295,10 @@ def retained_lifecycle():
             except ValueError as error:failures.append(str(error))
         need(results,'full_genuine_lifecycle_not_observed: '+','.join(sorted(set(failures))))
         maintenance=audit_maintenance(e)
+        lost_cleanup=audit_lost_cleanup(e)
     finally:db.close()
     need(health(directory,TASK,gen)['status']=='healthy','runtime_not_healthy_after_audit')
-    return dict(generation=gen,lifecycles=results,maintenance=maintenance,
+    return dict(generation=gen,lifecycles=results,maintenance=maintenance,lost_cleanup=lost_cleanup,
                 regressions=regression_evidence(),published_commit=published())
 
 

@@ -40,6 +40,7 @@ class SyntheticEA:
         self.discovery=None;self.inventory=[];self.manual=[];self.owned=[]
         self.credits=50000;self.balance_fail=False;self.inventory_complete=True;self.watched_fail=False
         self.watch_capacity=50
+        self.lost_mode='ok'
         self.bid_modes={};self.missing=set();self.full={};self.calls=[];self.phase=None
         self.duration=.01;self.on_request=None;self.active=0;self.max_active=0
         self.native=FixturePriceAdapter()
@@ -114,12 +115,16 @@ class SyntheticEA:
     def controller(self,c,at):
         op=c['operation'];p=c['params'];targets=p.get('targets',[p['target']] if 'target' in p else [])
         v=dict(schema=4,command_id=c['id'],operation=op,context=deepcopy(c['context']),fences=deepcopy(c['fences']),
-            success=True,error=None,status=200,network=[dict(method='PUT' if op=='bid' else 'GET',
-                path='/ut/game/fc27/'+{'bid':'trade/:trade/bid','balance':'user/credits','status_batch':'trade/status/lite'}[op],
+            success=True,error=None,status=200,network=[dict(method='PUT' if op=='bid' else 'DELETE' if op=='clear_lost' else 'GET',
+                path='/ut/game/fc27/'+{'bid':'trade/:trade/bid','balance':'user/credits','status_batch':'trade/status/lite','clear_lost':'watchlist'}[op],
                 host='utas.test.ea.com',targets=deepcopy(targets),status=200,session_header_present=True)],
             background=[],auctions=[],links=[],missing=[],credits=None,receipt=None,
             observed_at=self.clock.now().isoformat(),network_at=at,designated_account_verified=True)
-        if op=='balance':
+        if op=='clear_lost':
+            targets=p['targets']
+            if self.lost_mode!='no_effect':self.manual=[r for r in self.manual if identity(r) not in targets]
+            if self.lost_mode=='lost_reply':raise TimeoutError('synthetic_lost_cleanup_reply')
+        elif op=='balance':
             if self.balance_fail:v.update(success=False,error='ambiguous_network',credits=None,network=[],network_at=None)
             else:v['credits']=self.credits
         elif op=='status_batch':

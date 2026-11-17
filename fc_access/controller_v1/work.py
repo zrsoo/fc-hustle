@@ -87,6 +87,7 @@ def confirmed_move(store, target):
 
 def action(c, before):
     op,p=c['operation'],c['params']
+    if op=='clear_lost':return encode([c['context']['account'],op,sorted((t['trade_id'],t['item_id'],t['definition_id']) for t in p['targets'])])
     if op in {'move','list'}:key=[p['trade_id'],p['item_id'],p['definition_id']]
     else:
         targets=set(p['expected_item_ids'])
@@ -99,6 +100,13 @@ def validate(store, c):
     op,p=c['operation'],c['params']
     if not store.write_authority or op not in MAINTENANCE or not store.running():raise ValueError('work_authority_required')
     store.check_peer({k:c[k] for k in ('context','fences')})
+    if op=='clear_lost':
+        from .lost_targets import parameters as lost_parameters,consumed
+        before=shared_read(store,p['before_read_id'],'watched')
+        if not p['targets'] or lost_parameters(before)!=p:raise ValueError('lost_target_membership_mismatch')
+        if any((t['trade_id'],t['item_id'],t['definition_id']) in consumed(store,exclude=c['id']) for t in p['targets']):
+            raise ValueError('consumed_lost_target_generation')
+        return before
     if op in {'clear_sold','relist_all'}:
         before=shared_read(store,p['before_read_id'],'transfer_list')
         if parameters(before,op)!=p:raise ValueError('bulk_membership_mismatch')
@@ -183,7 +191,7 @@ class Work:
         # Submitted records supply read-only recovery inputs, never replay work.
         # Bound recovery to one operation; an unresolved effect is no write gate.
         row=self.s.db.execute("""SELECT id FROM c4_work WHERE state!='CONFIRMED'
-            AND dispatched_at IS NOT NULL AND json_extract(body,'$.operation') IN ('clear_sold','relist_all')
+            AND dispatched_at IS NOT NULL AND json_extract(body,'$.operation') IN ('clear_sold','relist_all','clear_lost')
             ORDER BY rowid LIMIT 1""").fetchone()
         if row:self.reconcile(row[0])
 
@@ -198,7 +206,8 @@ class Work:
         except (ValueError,KeyError,TypeError):return None
 
     def dispatch(self,op,params):
-        c=self.c.native.envelope(self.c.ids(),op,params);s=self.s
+        self.s.require_supervision()
+        c=(self.c.adapter if op=='clear_lost' else self.c.native).envelope(self.c.ids(),op,params);s=self.s
         self.checkpoint('before_intent')
         with s.lock,s.db:
             before=validate(s,c);key=action(c,before)
@@ -209,7 +218,7 @@ class Work:
             # The HTTP/native claim consumes a tombstone before dispatch. No
             # transaction or account data lock spans this synchronous I/O.
             v=delivery_response(self.c.adapter.executor.execute(c),c,now=s.now())
-            outcome='ACKNOWLEDGED' if v['result']['success'] else 'UNKNOWN'
+            outcome='ACKNOWLEDGED' if (v['success'] if c['schema']==4 else v['result']['success']) else 'UNKNOWN'
         except Exception:outcome='UNKNOWN'
         self.checkpoint('reply')
         with s.lock,s.db:
@@ -226,6 +235,7 @@ class Work:
         if c['context']!=self.c.adapter.context:raise ValueError('wrong_recovery_context')
         if not row[4]:return False # Intent-only progress is never submitted work.
         try:
+            if op=='clear_lost':return self.reconcile_lost(cid,c,before,row)
             after=self.pile();at=stamp(after['freshness']['network_at'])
             if after['command_id'] in {cid,before['command_id']} or at<stamp(row[5] or row[4]):return False
             if op in {'clear_sold','relist_all'}:
@@ -245,6 +255,30 @@ class Work:
             self.checkpoint('confirmation')
             return proven
         except (ValueError,TimeoutError):return False
+
+    def reconcile_lost(self,cid,c,before,record):
+        from .lost_targets import effect
+        after=self.c._read('watched')
+        if after['command_id']==before['command_id'] or stamp(after['freshness']['network_at'])<stamp(record[5] or record[4]):return False
+        proven=effect(c,before,after)
+        result=self.s.result(cid)
+        mode='NATIVE_ACK_AND_READBACK' if result and result.get('success') is True else 'CURRENT_ABSENCE_AFTER_UNKNOWN'
+        with self.s.lock,self.s.db:
+            self.s.db.execute('UPDATE c4_work SET state=?,proof=? WHERE id=?',
+                ('CONFIRMED' if proven else 'UNKNOWN',encode(dict(after=after,mode=mode)),cid))
+        return proven
+
+    def clear_lost(self,before):
+        """One fresh exact cleanup, or read-only reconciliation; never replay."""
+        from .lost_targets import parameters,consumed
+        self.s.require_supervision()
+        p=parameters(before)
+        if not p['targets']:return before
+        used=consumed(self.s)
+        if any((t['trade_id'],t['item_id'],t['definition_id']) in used for t in p['targets']):return None
+        cid=self.dispatch('clear_lost',p)
+        state,proof=self.s.db.execute('SELECT state,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
+        return json.loads(proof)['after'] if state=='CONFIRMED' else None
 
     def win(self,m,proof):
         t=m['target'];s=self.s

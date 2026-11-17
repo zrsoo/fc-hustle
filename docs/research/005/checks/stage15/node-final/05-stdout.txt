@@ -1,0 +1,1 @@
+PASS 14 native lost-target contracts: captured methods, exact DELETE, no retry/renewal/replay or unrelated deletion

@@ -1,0 +1,2 @@
+{"at": "2026-11-17T21:15:31.245168+00:00", "kind": "PREPARED", "question": "Does exact native lost-target cleanup free observed INBOX slots while preserving non-target identities?", "max_owned_ea_commands": 4, "max_clear_lost_commands": 1, "max_other_mutations": 0, "deadline_seconds": 180, "epoch_floor": 29}
+{"at": "2026-11-17T21:16:31.783821+00:00", "kind": "CLOSED", "result": {"status": "UNCONFIRMED", "account_mutations": 0, "exception_type": "ValueError", "pending": 0, "service_stopped": true, "reserved_commands": 0}}

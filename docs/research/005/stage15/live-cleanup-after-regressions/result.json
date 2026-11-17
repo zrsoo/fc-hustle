@@ -1,0 +1,32 @@
+{
+  "status": "NATIVE_CLEANUP_CONFIRMED",
+  "account_mutations": 1,
+  "command_id": "e9a229b340c044c1b8d1192beb892b8c",
+  "work_state": "CONFIRMED",
+  "mode": "NATIVE_ACK_AND_READBACK",
+  "targets": [
+    {
+      "trade_id": "trade:a2c4ba61fc42b8324ee9f1a4",
+      "item_id": "item:8aef7859641834fa53d09a96",
+      "definition_id": 246420
+    }
+  ],
+  "semantic": {
+    "reason": null,
+    "native_successes": 4,
+    "native_success_age": 0.004651299968827516,
+    "read_failures": 0,
+    "write_failures": 0,
+    "auth_failures": 0,
+    "missing_statuses": 0,
+    "batch_failures": 0,
+    "helper_failures": 0,
+    "diagnostic_failures": 0,
+    "unconfirmed_attempts": 0,
+    "confirmed": 0,
+    "batches": 0
+  },
+  "pending": 0,
+  "service_stopped": true,
+  "reserved_commands": 4
+}

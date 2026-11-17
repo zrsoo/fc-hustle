@@ -168,6 +168,9 @@ class Controller:
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
             watched=self._read('watched')
+            watched=self.work.clear_lost(watched)
+            if watched is None:
+                j.update_batch(bid,state='OPERATION_FAILED',reason='LOST_TARGET_CLEANUP_UNCONFIRMED');return
             from .watch_capacity import slots
             watch_slots=slots(watched)
             j.update_batch(bid,watch_read_id=watched['command_id'],watch_slots=watch_slots)
@@ -285,6 +288,7 @@ class Controller:
         return refreshed
 
     def _bid(self, bid, candidate, read_id, row, kind):
+        self.store.require_supervision()
         j=self.journal
         try:
             rules=self.prices.latest.get(CardKey(candidate['target']['definition_id']))

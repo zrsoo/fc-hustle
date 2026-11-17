@@ -100,9 +100,21 @@ class Acceptance(unittest.TestCase):
         h.controller.step();self.assertEqual(effects(h),[('list',1),('move',1)])
         self.assertEqual(h.controller.status()['phase'],'ACQUIRING')
         self.assertEqual(len(h.calls('balance')),2)
+        resales=[];cleanups=[]
         for _,state,body,proof in self.work(h):
             c=json.loads(body);self.assertEqual(state,'CONFIRMED');self.assertIsNotNone(json.loads(proof)['after'])
-            self.assertEqual((c['params']['starting_bid'],c['params']['buy_now_price'],c['params']['duration']),(11750,price,3600))
+            if c['operation']=='clear_lost':
+                cleanups.append(c)
+                before=h.store.result(c['params']['before_read_id'])
+                self.assertEqual(before['operation'],'watched')
+                expected={(r['trade_id'],r['item']['item_id'],r['item']['definition_id']) for r in before['result']['auctions']
+                    if r['trade_state'] in {'closed','expired'} and r['expires']<=0 and r['bid_state'] in {'none','outbid'} and r['native_is_won'] is False}
+                self.assertEqual({(t['trade_id'],t['item_id'],t['definition_id']) for t in c['params']['targets']},expected)
+                self.assertEqual(len(expected),1)
+            else:
+                self.assertIn(c['operation'],{'move','list'});resales.append(c['operation'])
+                self.assertEqual((c['params']['starting_bid'],c['params']['buy_now_price'],c['params']['duration']),(11750,price,3600))
+        self.assertEqual(sorted(resales),['list','move']);self.assertEqual(len(cleanups),1)
         self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='WON_ACCOUNTED'").fetchone()[0],1)
         self.assertEqual(h.ea.max_active,1)
 

@@ -1,0 +1,8 @@
+{
+  "status": "UNCONFIRMED",
+  "account_mutations": 0,
+  "exception_type": "ValueError",
+  "pending": 0,
+  "service_stopped": true,
+  "reserved_commands": 0
+}

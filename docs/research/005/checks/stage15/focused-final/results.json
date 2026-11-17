@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage15.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.4190488000167534,
+      "finished": "2026-11-17T21:33:49.792698+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_cleanup_probe_bounds.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.2063996999640949,
+      "finished": "2026-11-17T21:33:49.999154+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_lost_targets.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.4583448999910615,
+      "finished": "2026-11-17T21:33:53.457511+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_lost_audit.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.8527351000229828,
+      "finished": "2026-11-17T21:33:54.310292+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.7431452000164427,
+      "finished": "2026-11-17T21:33:56.053457+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.22997079999186099,
+      "finished": "2026-11-17T21:33:56.283476+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.22203239996451885,
+      "finished": "2026-11-17T21:33:56.505538+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.16870179999386892,
+      "finished": "2026-11-17T21:33:56.674256+00:00"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_lost_targets.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.28174249996664,
+      "finished": "2026-11-17T21:15:02.422843+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_lost_audit.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.8427400999935344,
+      "finished": "2026-11-17T21:15:03.265606+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "tests/controller_lost_targets_checks.cjs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.22352010000031441,
+      "finished": "2026-11-17T21:15:03.489170+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_cleanup_probe_bounds.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2197884000488557,
+      "finished": "2026-11-17T21:15:03.708974+00:00"
+    }
+  ]
+}
