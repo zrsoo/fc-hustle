@@ -1321,3 +1321,107 @@ required; market waiting is not a blocker. Independently audit the entire final
 interval and genuine outcomes before done. Preserve all UNKNOWN intents and
 honestly distinguish unresolved historical server-denial causes. No verified
 external barrier or human prerequisite is established.
+
+
+## Stage13 ? competitive race classification and live native renewal
+
+The epoch20 generation stopped cooperatively at **16:26:50 UTC**, after its
+**16:00:03 UTC** launch. The scheduler discarded the incomplete healthy interval.
+The complete sealed capture retains **980 unique deliveries**, **18 initial
+receipts plus fresh account participation**, **49 rebid receipts plus fresh
+account participation**, and **seven UNKNOWN intents** in this generation.
+**14 initials and 47 rebids** additionally have exact-price highest readback;
+four initials and two rebids were already outbid when read independently. There
+were **684 successful native operations**. The production journal contains
+**49 UNKNOWN intents** in total. Nothing was replayed or promoted.
+
+The stopping streak included **16e5a43b1ce8e00ce3e87024c23a266e**, a new 850-coin
+rebid based on an 800-coin status at16:19:11.351Z. Dispatch was16:19:13.363Z.
+The same owned native200 response returned outbid/current4500; a separate fresh
+status at16:19:15.343Z confirmed that price. The unchanged ceiling was3800.
+This is an evidenced competitive race, not a failed transport. The semantic
+monitor previously counted it with two subsequent wire461/service403 denials.
+The corrected monitor excludes only coherent200/native-success/outbid receipts
+with exact identity/amount and a strictly greater competitor price. The intent
+stays UNKNOWN, native successes and confirmed membership stay unchanged, and
+actual write-failure streaks are neither cleared nor hidden. Equal-price
+uncertainty and native denials remain failures. The threshold stays **three**.
+
+The two later denials **5e52ce34012c95812c5caf3799a543cf** (900 coins) and
+**80417bb062cfea7e0409687da803d079** (800 coins) remain unexplained. Their status
+prerequisites were about two seconds before dispatch; they are not evidence of
+an hours-old management decision. Native461 translated to service403 with empty
+native items. No account effect is inferred. Fresh exact account status later
+shows these and the 850-coin race target closed/outbid/not-won. An exact server
+reason has not been established; no account restriction or challenge is claimed.
+
+A different diagnostic approach kept the same page and used two finite
+read-only windows. The first had balance/watched/transfer-list200 followed by
+one owned unassigned GET401. Its sanitized NATIVE_RENEWAL_RESULT was true. The
+failed request remained failed, with one owned network request and no replay.
+The second window used new logical commands and fresh native requests: balance,
+watched, transfer-list, unassigned and status for the three exact targets all
+succeeded200, with zero missing status targets. This is **live confirmed native
+renewal and subsequent fresh-read recovery** after the stage11 fix. No page
+refresh, login click or mutation occurred in either window. Both closed with
+zero pending commands. The first window is retained as FAILED, never rewritten.
+
+The new independent check validates the entire stopped run, native receipts and
+fresh participation, prompt cooperative stop, uncertain intents, failed401,
+renewal timing, successful new read and terminal target status. Negative cases
+reject missing receipts, misrepresented461, forged stop state and failed renewal.
+Captured evidence seals cover only immutable EA/log/experiment records. Mutable
+source, tests, configuration and instructions have no integrity assertions.
+
+Production remains stopped pending the scheduler handoff. Full regressions
+passed: **1125 Python test executions**, **39 Node suites**, **nine independent
+commands**. Receipts are checks/stage13/python-final, node-final and
+independent-final; the complete receipt/inventory audit passes. Focused-final
+retains the stage13 audit, four negative cases and both acceptance validators'
+eight negative fixtures each. Full acceptance returns INCOMPLETE for stopped
+service. No failed acceptance result was hidden.
+
+Fresh canonical-lock pre-service backup verifies controller.sqlite and
+quotes.sqlite by integrity/FK and every-table row equality. The first process
+projection matched the collecting PowerShell shell (PID3468); separately
+collected pre-service-quiescence2.json verifies no worker/listener/job. A
+foreground-verified official Edge inspection shows no visible challenge or
+connection failure. Read-after-renewal watched evidence independently shows all
+nine persisted ACTIVE members closed/outbid/not-won; prior-member-reconciliation
+records these without changing their durable states. Legacy objectives remain
+003 PAUSED and004 COMPLETED. Global UNKNOWN count stays49.
+
+Prepared scheduler service **005-stage13-d5fb66757752d0191bc5f66574ed9d22**, generation
+**d5fb66757752d0191bc5f66574ed9d22**, epoch floor**23** and startup grace**90 seconds**.
+Its generation directory has not been created and the launch intent has not
+been consumed. The monitor uses30-second generation-bound health and a60-second
+owned stop timeout. The service launches exclusively through the final scheduler
+handoff, then this same worker immediately verifies attachment and reconciliation.
+This stage's changes preserve every operational threshold and the required
+four-hour interval. Reconcile nine persisted ACTIVE members before new acquisition.
+Continue diagnosing actual denials autonomously. The full final-generation
+win/ownership/move/hour-listing chain and **14400 consecutive monitored healthy
+seconds** remain required. Previous resale proof cannot substitute for this.
+
+
+Current PowerShell diagnostic commands after the scheduler has launched:
+
+```powershell
+Set-Location C:/hustle/fc-hustle
+$fcPython = 'C:/hustle/agent-orchestrator/.venv/Scripts/python.exe'
+$fcGeneration = (Get-Content private-captures/controller-v1/operational/state.json -Raw | ConvertFrom-Json).generation
+& $fcPython -m fc_access.controller_v1.operational health --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $fcGeneration
+& $fcPython -m fc_access.controller_v1.operational stop --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $fcGeneration
+& C:/hustle/agent-orchestrator/.venv/Scripts/orchestrator.exe --db C:/hustle/fc-hustle/.orchestrator/state.db resume obj-cb39371c785a
+```
+
+The corrected scheduler launch argv is `python -m
+fc_access.controller_v1.operational service --runtime-dir
+private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate
+--generation <prepared-generation> --database
+private-captures/controller-v1/controller.sqlite --cache
+private-captures/controller-v1/quotes.sqlite --context
+private-captures/controller-v1/public-context.json --port 8784 --epoch-floor 23`.
+The final service handoff supplies this public argv. No provider/tool child
+starts a persistent service. Scheduler monitoring owns the healthy interval;
+future failure or restart resets it. No completion or external barrier claimed.

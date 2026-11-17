@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "initials": 18, "rebids": 49, "unknowns": 7, "native_denials": 2, "native_read_renewal": "LIVE_CONFIRMED", "objective_complete": false, "negative_cases": 4}

@@ -20,11 +20,18 @@ from fc_access.controller_v1.server import Server
 from fc_access.production_v1.contracts import Search
 
 
-def run(output, *, epoch=1, idle_seconds=0, target=None):
+def run(output, *, epoch=1, idle_seconds=0, target=None, status_targets=None):
     if type(epoch) is not int or epoch<1 or not 0<=idle_seconds<=40:raise ValueError('invalid_probe_scope')
     if target is not None:
         from fc_access.controller_v1.protocol import target as validate_target
         validate_target(target)
+    if status_targets is not None:
+        from fc_access.controller_v1.protocol import target as validate_target
+        if target is not None or type(status_targets) is not list or not 1<=len(status_targets)<=10:
+            raise ValueError('invalid_status_probe_scope')
+        for value in status_targets:validate_target(value)
+        if len({v['trade_id'] for v in status_targets})!=len(status_targets):
+            raise ValueError('duplicate_status_probe_target')
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     def record(kind, **fields):
@@ -35,6 +42,7 @@ def run(output, *, epoch=1, idle_seconds=0, target=None):
     record('PREPARED', question='Current native account/authentication, inventory and exact-target transport after ownership repair',
            owner_epoch=epoch,local_idle_seconds=idle_seconds,
            exact_owned_target=target,
+           exact_status_targets=status_targets,
            max_commands=6, max_ea_requests=7, max_mutations=0, deadline_seconds=240, context=scope)
     deadline = time.monotonic() + 240
     reserved = 0
@@ -72,6 +80,8 @@ def run(output, *, epoch=1, idle_seconds=0, target=None):
                           lambda:adapter.native.read(secrets.token_hex(16),'unassigned'),
                           lambda:adapter.native.read(secrets.token_hex(16),'owned_item',target),
                           lambda:adapter.status_batch(secrets.token_hex(16),[target])]
+            if status_targets is not None:
+                commands=commands[:4]+[lambda:adapter.status_batch(secrets.token_hex(16),status_targets)]
             responses = []
             for call in commands:
                 v = call(); r = v if v['schema'] == 4 else v['result']
@@ -80,7 +90,10 @@ def run(output, *, epoch=1, idle_seconds=0, target=None):
                 if not r['success']:
                     result['reason'] = 'FAILED_NATIVE_READ'; break
             else:
-                rows = [] if target is not None else responses[-1]['result']['auctions'][:10]
+                rows = [] if target is not None or status_targets is not None else responses[-1]['result']['auctions'][:10]
+                if status_targets is not None:
+                    result.update(status_targets=len(status_targets),status_returned=len(responses[-1]['auctions']),
+                                  status_missing=len(responses[-1]['missing']))
                 if rows:
                     targets = [dict(trade_id=r['trade_id'], item_id=r['item']['item_id'], definition_id=r['item']['definition_id']) for r in rows]
                     status = adapter.status_batch(secrets.token_hex(16), targets)
@@ -115,5 +128,7 @@ if __name__ == '__main__':
     parser.add_argument('--epoch',type=int,default=1)
     parser.add_argument('--idle-seconds',type=float,default=0)
     parser.add_argument('--target-json')
+    parser.add_argument('--status-targets-file')
     args=parser.parse_args()
-    raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds,target=json.loads(args.target_json) if args.target_json else None))
+    raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds,target=json.loads(args.target_json) if args.target_json else None,
+                        status_targets=json.loads(Path(args.status_targets_file).read_text()) if args.status_targets_file else None))

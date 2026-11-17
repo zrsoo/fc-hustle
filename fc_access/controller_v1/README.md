@@ -112,7 +112,7 @@ for independent validators, fault boundaries and evidence limits.
 
 ## Transport and native contracts retained from 004-02
 
-Implemented: dialect 4 commands, exact-target `status_batch` (1–10 distinct
+Implemented: dialect 4 commands, exact-target `status_batch` (1â€“10 distinct
 trade/item/version targets), watched/balance reads, durable batch/decision/intent
 admission and one-shot bid delivery. Importing these modules starts nothing.
 The phase controller and pricing/selection composition are implemented by 004-03
@@ -199,3 +199,12 @@ completion emits only a NATIVE_RENEWAL_RESULT success boolean; no authentication
 response, header, token, cookie or EA session identifier is retained. A non-UTAS
 notification does not produce that diagnostic. Existing failure streaks,
 freshness bounds, stop policy and challenge handling remain in force.
+
+
+A coherent native bid response can report a competitor's higher price before
+independent confirmation. The semantic monitor keeps that command UNKNOWN and
+counts neither native success nor confirmed membership. When native/wire status,
+exact identities, amount and receipt all establish this specific active outbid
+race, it neither increments nor clears the write failure streak. Incoherent or
+stale receipts, equal-price uncertainty and native 461/service 403 still count
+as failures. Three actual consecutive write failures still stop the runtime.

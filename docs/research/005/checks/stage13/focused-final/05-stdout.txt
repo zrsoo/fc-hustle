@@ -1,0 +1,1 @@
+{"status": "INCOMPLETE", "criterion": 1, "diagnostic": "required_owned_service_not_healthy"}

@@ -1,0 +1,49 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_NATIVE_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "attempts.json",
+      "sha256": "72c19015a6247007b7ae842385a460399c7c573733ed2217d46d75a9a18be6ca"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "dc6a9107f32cc224e949973f0338779e499a2a011c4c71f58e11e9d8157a83c8"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "7fe514def31071f1d8750c2c40c28028a10fd249f2f3dc620298f3aca0f13cea"
+    },
+    {
+      "path": "read-after-native-renewal/checkpoint.jsonl",
+      "sha256": "4f8103f36e8e77757d41a8cf774653044711ac7d88aadf100f82b4454df1f654"
+    },
+    {
+      "path": "read-after-native-renewal/diagnostics.json",
+      "sha256": "8f9c3dc8cc2c85124c3579aa02c257003232f88f88bcf2c92b3f676d3324a19e"
+    },
+    {
+      "path": "read-after-native-renewal/result.json",
+      "sha256": "5cf3dc7ce676d6dfe404916302709e3205cbdee3cd7ae95ab7d642b4cbb78c43"
+    },
+    {
+      "path": "read-stopped-targets/checkpoint.jsonl",
+      "sha256": "6a2679c228661921b8dd060f87c6857aa24304c1cb7a8a3654a14021ba8f50f7"
+    },
+    {
+      "path": "read-stopped-targets/diagnostics.json",
+      "sha256": "711b903a1c14fe200554d398d38e885358d38b9e47c7c49604b8f8554116115b"
+    },
+    {
+      "path": "read-stopped-targets/result.json",
+      "sha256": "4aa1c6a9c27e74e79ad5e8618de3bc9394407613a61e3b65dae6f96c816a83a6"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "f588fd2a69836aeda8e2f8aba351805c55b9f1b540f7c79cee69ffc0ab9ec9ea"
+    },
+    {
+      "path": "targets.json",
+      "sha256": "b24f0364e8ab89e335d4eff3814829c90fdb0b7eac5b0ac58b6f1d7eaea87a40"
+    }
+  ]
+}

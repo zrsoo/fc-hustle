@@ -1,0 +1,392 @@
+[
+  {
+    "command_id": "42822e646a68fa0ff70e1e966d91f702",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:50.932Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "42822e646a68fa0ff70e1e966d91f702",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:51.025Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "42822e646a68fa0ff70e1e966d91f702",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:50.941Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T16:33:50.941Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T16:33:51.022Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:51.022Z",
+        "detail": {
+          "data_type": "object",
+          "message_present": false,
+          "reason_present": false
+        },
+        "stage": "EA_BODY"
+      },
+      {
+        "at": "2026-11-17T16:33:51.024Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T16:33:51.024Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "42822e646a68fa0ff70e1e966d91f702",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:51.035Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "42822e646a68fa0ff70e1e966d91f702",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:51.044Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "54d8b386a96f0e05a6e1b6b33a6bd3d4",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:52.944Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "54d8b386a96f0e05a6e1b6b33a6bd3d4",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:53.088Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "54d8b386a96f0e05a6e1b6b33a6bd3d4",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:52.951Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T16:33:52.951Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T16:33:53.084Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:53.086Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T16:33:53.087Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "54d8b386a96f0e05a6e1b6b33a6bd3d4",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:53.100Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "54d8b386a96f0e05a6e1b6b33a6bd3d4",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:53.110Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "17ac32ba01ae1cda5286116b5af57c54",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:54.932Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "17ac32ba01ae1cda5286116b5af57c54",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:55.097Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "17ac32ba01ae1cda5286116b5af57c54",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:54.938Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T16:33:54.938Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T16:33:55.091Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:55.093Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T16:33:55.093Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 5
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T16:33:55.097Z",
+        "detail": {
+          "request_count": 1,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "17ac32ba01ae1cda5286116b5af57c54",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:55.106Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "17ac32ba01ae1cda5286116b5af57c54",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:55.115Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "b4f7830f35bac258d6e76459c1bc8cb2",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:56.953Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "b4f7830f35bac258d6e76459c1bc8cb2",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:58.193Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "b4f7830f35bac258d6e76459c1bc8cb2",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:56.958Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T16:33:56.958Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T16:33:57.112Z",
+        "detail": {
+          "method": "GET",
+          "traffic_scope": "outside_ut"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T16:33:57.112Z",
+        "detail": {
+          "request_count": 1,
+          "status": 401,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:57.411Z",
+        "detail": {
+          "method": "GET",
+          "status": 200,
+          "traffic_scope": "outside_ut"
+        },
+        "stage": "BACKGROUND_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:57.412Z",
+        "detail": {
+          "method": "POST",
+          "traffic_scope": "outside_ut"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T16:33:57.958Z",
+        "detail": {
+          "method": "POST",
+          "status": 200,
+          "traffic_scope": "outside_ut"
+        },
+        "stage": "BACKGROUND_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:57.958Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "NATIVE_RENEWAL_RESULT"
+      },
+      {
+        "at": "2026-11-17T16:33:58.132Z",
+        "detail": {
+          "method": "POST",
+          "traffic_scope": "ea_write"
+        },
+        "stage": "BACKGROUND_REQUEST"
+      },
+      {
+        "at": "2026-11-17T16:33:58.189Z",
+        "detail": {
+          "method": "POST",
+          "status": 200,
+          "traffic_scope": "ea_write"
+        },
+        "stage": "BACKGROUND_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T16:33:58.191Z",
+        "detail": {
+          "status": 401,
+          "success": false
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T16:33:58.192Z",
+        "detail": {
+          "error": "service_failed",
+          "error_class": "Error"
+        },
+        "stage": "PAGE_FAILURE"
+      },
+      {
+        "at": "2026-11-17T16:33:58.192Z",
+        "detail": {
+          "error": "service_failed",
+          "request_count": 1,
+          "success": false
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "b4f7830f35bac258d6e76459c1bc8cb2",
+    "records": [
+      {
+        "at": "2026-11-17T16:33:58.230Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  }
+]

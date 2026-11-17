@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage13.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.182443500030786,
+      "finished": "2026-11-17T16:45:25.704323+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_market_race.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.3072713000001386,
+      "finished": "2026-11-17T16:45:26.011620+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.7581384999793954,
+      "finished": "2026-11-17T16:45:27.769801+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.17730689997551963,
+      "finished": "2026-11-17T16:45:27.947122+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.18565320002380759,
+      "finished": "2026-11-17T16:45:28.132790+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.16034010000294074,
+      "finished": "2026-11-17T16:45:28.293145+00:00"
+    }
+  ]
+}

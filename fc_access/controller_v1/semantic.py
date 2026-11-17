@@ -36,8 +36,30 @@ def native_summary(command, response=None):
     status = result.get('status')
     statuses = [n['status'] for n in network if type(n.get('status')) is int and 100 <= n['status'] <= 599]
     local = command['operation'] == 'price_helpers'
+    # A coherent native 200 can report that a competitor overtook this bid.
+    # It grants no acknowledgement or membership, but is not a transport fault.
+    row = receipt.get('auction')
+    target = command['params'].get('target', {})
+    amount = command['params'].get('amount')
+    market_race = (correlated and command['schema'] == 4 and command['operation'] == 'bid' and
+        result.get('success') is False and error == 'bid_unconfirmed' and status == 200 and
+        len(network) == 1 and network[0].get('status') == 200 and
+        network[0].get('session_header_present') is True and receipt.get('verdict') == 'UNCONFIRMED' and
+        receipt.get('native_success') is True and receipt.get('native_error_code') is None and
+        receipt.get('wire_error_code') is None and receipt.get('wire_identity_matches') is True and
+        receipt.get('wire_amount_matches') is True and type(amount) is int and
+        receipt.get('wire_trade_id') == target.get('trade_id') and
+        receipt.get('wire_amount') == amount and receipt.get('wire_item_count') == 1 and
+        receipt.get('native_item_count') == 1 and receipt.get('matching_item_count') == 1 and
+        receipt.get('input_stale') is False and type(row) is dict and
+        row.get('trade_id') == target.get('trade_id') and type(row.get('item')) is dict and
+        row['item'].get('item_id') == target.get('item_id') and
+        row['item'].get('definition_id') in (None, 0, target.get('definition_id')) and
+        row.get('trade_state') == 'active' and row.get('bid_state') == 'outbid' and
+        type(row.get('current_bid')) is int and row['current_bid'] > amount)
     return dict(operation=command['operation'], command_id=command['id'],
         local=local, read=command['operation'] in READS | SHARED_READS and not local,
+        market_race=market_race,
         success=correlated and result.get('success') is True and
                 (local and not network or not local and bool(network) and result.get('status') == 200 and
                  all(n.get('session_header_present') is True and n.get('status') == 200 for n in network)),
@@ -86,7 +108,7 @@ class SemanticHealth:
                 self.read_failures = max(self.read_streaks.values())
                 if message['operation'] == 'status_batch':
                     self.missing_statuses = self.missing_statuses + 1 if success and message['requested'] and not message['returned'] else 0
-            elif message['receipt_verdict'] != 'REJECTED':
+            elif message['receipt_verdict'] != 'REJECTED' and message.get('market_race') is not True:
                 # An ordinary proven rejection is an account outcome. Other
                 # failed writes remain unknown; no effect or refund is inferred.
                 op=message['operation']

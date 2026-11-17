@@ -216,51 +216,49 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 12: scheduler-owned generation 718d2acbcab1b4d9cdcb75d7e0035b70 is RUNNING /
-MANAGING, owner epoch 20, launched 16:00:03 UTC. Supervisor PID 7948 and child PID
-18196 have matching creation/image identities and exclusive runtime ownership.
-Fresh native reads reconciled actual account state, then the original policy
-selected nine initial attempts. Eight bids have matching native receipts AND
-independent account participation; handoff to management is genuine. The retained
-prefix also independently confirms three competitive rebids and eligible native
-relist_all maintenance. No pricing/filter/cap/threshold/pacing change occurred.
+Stage13 repair: generation 718d2acbcab1b4d9cdcb75d7e0035b70 stopped cooperatively
+at 16:26:50 UTC for PERSISTENT_WRITE_FAILURE; scheduler healthy duration reset to
+zero. Complete 980-delivery evidence and a fresh canonical-lock SQLite backup are
+retained. No forced kill, duplicate actor, intent replay or historical rewrite.
+The completed run has 18 accepted initial bids with independent participation,
+49 accepted rebids with independent participation, seven UNKNOWN intents and
+684 genuine successful native operations. Of the accepted actions, 14 initials
+and 47 rebids have fresh exact-price highest readback; four initials and two
+rebids were already outbid at their independent readback. Total durable UNKNOWN
+in the actual production DB is 49, preserved without promotion or replay.
 
-One new initial, ad9626eed7a19edd5b8f1978d3ddf56a, remains consumed UNKNOWN:
-wire/service200 and an ACCEPTED/outbid receipt at 1100 were followed by fresh exact
-status with bid_state none/current1100. No participation was inferred from the
-receipt, no member was enrolled and no bid was replayed. Total UNKNOWN is now 42.
-The immediate read is inconclusive about a final outcome; this ordinary isolated
-uncertainty is protected, not a global failure or a manual prerequisite.
+Diagnosed a semantic false-positive component: the last failure streak counted
+one coherent native200 competitive race (800 to 4500 during the delivery gap,
+850 bid / unchanged 3800 ceiling) before two wire461/service403 denials. A narrow
+fix excludes only this exact proven race from operational streak counting; it
+cannot acknowledge or enroll a bid, reset an actual fault streak or count native
+success. All original stop thresholds and trading policy remain unchanged.
+Two actual 461 denials remain unexplained and are NOT reclassified as ordinary
+competition, authentication failure, successful bids or an external blocker.
 
-Stage12 captured prefix has 207 completed logical deliveries, eight confirmed
-initials, one protected UNKNOWN, three confirmed rebids, native maintenance and
-sequential ACQUIRING-to-MANAGING evidence. The pure audit rejects missing receipt,
-missing participation, promoted UNKNOWN and weakened entry admission. A live
-snapshot includes six ACTIVE and two newly LOST members; one normal in-flight
-command is outside the completed-delivery prefix. No source integrity assertion
-or historical evidence rewrite was added. Full tested production remains 1121
-Python executions / 39 Node suites / nine independent commands; this checkpoint
-changes captured-proof auditors and docs only. Focused audits and both acceptance
-validators' negative fixtures pass. Actual validators still report INCOMPLETE:
-genuine owned win/move/hour listing missing, and scheduler interval incomplete.
+Two finite read-only windows (epochs21/22, zero account mutations) established
+live native renewal: one unassigned GET returned401, NATIVE_RENEWAL_RESULT was
+true, and a separate fresh unassigned GET succeeded200 without any UI refresh
+or replay of the failed request. Fresh exact status confirms the three last
+failed-write targets closed as losses. Full native expiry recovery is now
+observed; server-denial causality and final-generation resale remain open.
 
-Current semantic health was MANAGING with 215 genuine native successes and eight
-confirmed acquisitions. Scheduler projection retained 19 samples and 515.15
-healthy seconds, faulted false, same generation/epoch. No native renewal result
-has yet been observed; the expiry/renewal behavior remains live-unproven. This is
-real trading progress, not four-hour completion. Final-generation full resale
-lifecycle and at least 14400 consecutive healthy monitored seconds are mandatory.
+Full regressions passed: 1125 Python executions, 39 Node suites and nine
+independent commands. Stage13 artifact audit has four negative cases; both full
+acceptance validators' negative fixtures pass. Actual acceptance reports stopped
+service and remains incomplete. Fresh canonical-lock pre-service backups pass
+integrity/FK and every-table row equality. Official Edge is foreground verified,
+no visible challenge or connection error. All nine persisted ACTIVE members are
+independently observed closed/outbid/not-won; the controller must settle them
+from its own fresh reads. Legacy objective003 remains PAUSED,004 COMPLETED.
 
-Next: commit/push this checkpoint, leave this exact healthy generation running,
-and return monitoring with the existing 30s generation-bound check/stop commands;
-no service launch or new startup grace. The scheduler monitors independently of
-AI quota and resumes this worker for real faults or completion assessment. Any
-fault/stop/restart/gap resets the interval and requires preserved evidence plus
-autonomous diagnosis/repair/reconciliation. If required market events have not
-occurred after the interval, continue monitoring rather than claiming coverage.
-Independently audit full final lifecycle and every final interval sample before
-done; leave healthy service running. Preserve all 42 UNKNOWNs and unresolved
-historical server-cause uncertainty. No external barrier is established.
+Next: publish this complete stage and launch once through scheduler service
+005-stage13-d5fb66757752d0191bc5f66574ed9d22, generation d5fb66757752d0191bc5f66574ed9d22,
+epoch floor23. Immediately verify attachment and reconciliation before new
+acquisition; monitor the first native denial/renewal with exact command and
+account readback. Preserve
+uncertain effects; do not retry the prior failed bids. Final full lifecycle and
+14400 consecutive semantic healthy seconds still require genuine observation.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -458,3 +456,19 @@ showed no participation; it was not enrolled/replayed. Four proof corruptions ar
 rejected. No production change/restart during this checkpoint. Healthy time is
 only hundreds of seconds, full win/move/resale and live renewal not yet observed.
 Publish, retain the running generation and hand monitoring back to the scheduler.
+
+2026-11-17 stage13: retained full stopped generation under docs/research/005/stage13.
+Read-only native renewal succeeded without refresh; current exact target status
+shows terminal losses. Reproduced watchdog race misclassification from captured
+wire/service/native receipt plus independent status. Added negative contracts
+for identity/amount/status/staleness/competition and persistent461 failures.
+No pricing, strategy, native retry/reauth, membership or dispatch changes.
+Full acceptance remains incomplete; no external human prerequisite established.
+
+2026-11-17 stage13 final audit: all full regression inventories PASS (1125 Python,
+39 Node, nine independent). New artifact check validates complete stopped run
+and live renewal, with four negative cases. Both acceptance validators reject
+the stopped runtime, as required. Prepared single scheduler launch; generation
+directory does not yet exist. Pre-service quiescence2 is empty; the earlier
+quiescence projection matched the collecting shell itself and was independently
+reassessed. No account writes occurred during this repair stage.

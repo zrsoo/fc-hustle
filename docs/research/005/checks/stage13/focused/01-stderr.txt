@@ -1,0 +1,9 @@
+test_captured_native_race_is_neither_ack_nor_operational_failure (__main__.MarketRaceTests.test_captured_native_race_is_neither_ack_nor_operational_failure) ... ok
+test_incoherent_stale_wrong_identity_or_noncompetitive_receipts_are_faults (__main__.MarketRaceTests.test_incoherent_stale_wrong_identity_or_noncompetitive_receipts_are_faults) ... ok
+test_probe_rejects_invalid_or_duplicate_targets_before_creating_artifacts (__main__.MarketRaceTests.test_probe_rejects_invalid_or_duplicate_targets_before_creating_artifacts) ... ok
+test_race_never_resets_permission_failure_streak (__main__.MarketRaceTests.test_race_never_resets_permission_failure_streak) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.108s
+
+OK

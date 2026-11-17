@@ -1,0 +1,7 @@
+{
+  "generation": "d5fb66757752d0191bc5f66574ed9d22",
+  "service_id": "005-stage13-d5fb66757752d0191bc5f66574ed9d22",
+  "epoch_floor": 23,
+  "prepared_at": "2026-11-17T16:44:15.578586+00:00",
+  "diagnostic": "New scheduler launch after semantic race repair and independently verified native read renewal; old failed bids not replayed."
+}
