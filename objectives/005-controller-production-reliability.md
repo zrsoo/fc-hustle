@@ -216,60 +216,54 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 05 repair/diagnostic checkpoint (2026-11-17), starting published main
-`993d3a2`. The second scheduler generation attached automatically, obtained fresh
-native reads, reconciled the old confirmed 700 auction as LOST (closed/outbid,
-current 4600, native_is_won false), and genuinely relisted all eligible expired
-inventory with independent exact readback. It then stopped after THREE native
-461/service403 bid failures under PERSISTENT_WRITE_FAILURE. No fourth bid reached
-EA. Its ten planned intents remain consumed: three dispatched, seven unsent.
-There were 30 UNKNOWN attempts then; all retained. No healthy interval survives.
+Stage 06 repair in progress (2026-11-17), published starting main `92f0b6f`.
+Scheduler generation 26407ef02dc7d322407f4c575c0c7ac7 attached automatically and
+reconciled the prior 750 bid as LOST through fresh native account evidence.
+Its next normal acquisition batch genuinely confirmed TEN initial bids, followed
+by successful genuine rebids. One exact item (definition 251852) was independently
+verified WON at our paid 3100 and moved once, with fresh exact transfer-list and
+unassigned readback confirming the move. No list intent was created. Later fresh
+transfer-list reads omit that item; neither disappearance nor ACK authorizes a
+repeat move or a listing. Ownership/location investigation remains open.
 
-Fresh wire/callback diagnostics and typed between-command polling diagnostics
-are implemented with strict positive allowlists and negative secret/type tests.
-A read-only window verified exact wire/native callback agreement on ten targets.
-Normal saved sign-in recovery used official Edge UI only, never credential values.
-A subsequent 800-coin intent was never claimed: no tombstone, native diagnostic
-or result; it remains UNKNOWN and is not an EA461 incident. A read-only idle test
-at a new higher owner epoch kept polling through 25s with no retained failure.
-One earlier epoch 6 window was correctly refused (previous probe already owned 6);
-zero commands. Explicit finite-probe epoch floors now reconcile this public fence
-without changing account labels, budgets, prior IDs or original strategy.
+The scheduler stopped this generation after RUNTIME_STATE_UNAVAILABLE, despite
+166 native successes and zero semantic failure streaks in the final persisted
+snapshot. Stop was cooperative, exit zero, no forced termination. The original
+I/O exception was not retained; a reproducible Windows sharing test demonstrates
+an ordinary reader can deny atomic replacement (winerror 5). Runtime reads now
+share delete access, Windows publication uses ReplaceFileW, local replacement
+retries are bounded to 0.5 seconds, and health retries transient manifest access
+for at most two seconds. Typed safe I/O diagnostics now survive future failures.
+Nine focused ownership, failure and real Windows I/O tests pass. Full discovery
+passed 1111 Python executions with zero failures/errors/skips in 494.890 seconds;
+all 37 Node suites and nine serial independent validators pass. Stage06's audit
+reparses all 305 actual results, verifies ten initial bids and TEN competitive
+rebids, paid win/move/stop/reset, and rejects four altered evidence cases.
+Both full acceptance validators correctly return INCOMPLETE; their eight-case
+self-tests also pass. No completion or healthy interval is claimed.
 
-A NEW distinct-target probe then genuinely bid 750, receipt ACCEPTED with exact
-wire/native identity/amount, fresh pre-bid wire/callback agreement and separate
-later exact-status AND personal-watch confirmation. It retained 120 responses /
-120 monitor callbacks, 20 actual EA requests (19 GET, one PUT), 21 reservations,
-no pending commands and no semantic fault. This proves current write capability,
-not the exact cause of every historical461 or the earlier missing claim.
-Production is stopped with one new ACTIVE confirmed member, one LOST historical
-member, 31 UNKNOWN attempts protected and two ACKNOWLEDGED initial bids.
-The 750 auction expires approximately 06:38:11 UTC; fresh account reconciliation
-is required before management, never infer terminal outcome or ownership.
+All 31 earlier UNKNOWN initial attempts stay consumed. Trading is stopped and
+healthy consecutive seconds are ZERO. Stage06 backup outside Git was made under
+canonical locks with integrity/FK/row equality checks. A distinct zero-write
+window at epoch 10 obtained fresh watched, transfer-list and unassigned reads;
+its exact target status was refused locally (known_identity_unavailable) because
+the new fence cleared that target's selector. No fourth native request or write
+was inferred. The window is consumed, evidence preserved in stage06/win-read-01.
 
-Independent stage audit `tests/check_005_stage05.py` verifies genuine relist,
-terminal loss, three-failure stop/seven unsent intents, unclaimed 800 isolation
-and independently confirmed 750, with four altered-evidence cases. Full Python
-discovery passed 1108 executions, zero failures/errors/skips, in 496.406s; all
-37 Node suites and nine serial independent validators passed. Full acceptance remains
-unfulfilled; no won-item move/list or four-hour production proof is claimed.
-Evidence and precise remaining hypotheses are in `docs/research/005/REPORT.md`.
-
-Fresh pre-service canonical-lock backup and process/browser observations are in
-`stage05/pre-service-backup.json`, `pre-service-quiescence.json` and
-`pre-service-browser.json`. Local DB: 907 commands, no pending commands. The new
-confirmed auction has now expired by wall time; only fresh native account evidence
-can establish its terminal outcome or ownership. No expired bid will be replayed.
-
-Next: commit/push this stage, then launch a NEW scheduler-owned generation
-in this SAME task/session. Native/production owner epoch is now 8; the production
-DB's persisted peer also records 8, so its normal next epoch 9 is appropriate.
-Immediately verify startup and reconcile/manage the confirmed 750 member using
-actual account state. Keep all 31 UNKNOWN intents consumed. On any semantic fault,
-stop and repair automatically with the new wire/polling evidence. Require genuine
-full lifecycle and 14400 consecutive monitored healthy seconds after FINAL restart,
-independent audit, final report and pushed commits; leave healthy service running.
-Keep 003 PAUSED / 004 COMPLETED. No external blocker or human prerequisite exists.
+Next: commit/push the verified Windows publication repair and stage06 evidence.
+Then reproduce/test post-move recovery when the native watched endpoint removes
+the claimed auction: the current work contract incorrectly demands a NEW watched
+terminal win before listing, and current peer checks reject old terminal proofs
+after restart. Scope a persisted exact terminal/paid-bid evidence chain combined
+with independently fresh physical ownership/caps, without granting authority from
+ACK or stale inventory. Investigate the missing moved item's native selector and
+location without replaying its move. Reconcile the actual binding epoch before
+a NEW scheduler-owned generation (the isolated read window consumed epoch 10,
+while production DB last held 9). Continue autonomous engineering and genuine
+resale validation. No external blocker or human prerequisite is established.
+Require the entire lifecycle and 14400 consecutive healthy monitored seconds
+AFTER the final fix/restart, independent acceptance, pushed main and live healthy
+service. Original requirements and historical objective verdicts are unchanged.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -376,3 +370,13 @@ acknowledged scope; stale scopes still fail existing server fencing. Fake error
 canaries are not retained; no execution/result replay was added. Read-only idle
 polling passed 25s. Missing claim remains an unresolved hypothesis, not success,
 explicit rejection, account restriction or manual prerequisite.
+
+2026-11-17 stage06: ten genuine initial confirmations and subsequent rebids;
+paid 3100 terminal win and one confirmed move; no listing. Later inventory omits
+that item. Isolated readonly epoch10 cannot resolve its old selector and makes no
+writes. Scheduler I/O fault stopped otherwise semantically healthy generation;
+Windows file-sharing mechanism reproduced, bounded replacement/read repair has
+nine passing focused tests. Exact original I/O exception and missing item cause
+remain unproven. Full 1111 Python / 37 Node / nine independent checks passed;
+stage06 evidence audit rejects four corruptions. Publish, then repair/test safe
+post-move terminal-proof and selector recovery. Both full acceptances remain false.

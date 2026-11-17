@@ -1,0 +1,6 @@
+{
+  "replace_with_open_reader": "failed",
+  "exception_type": "PermissionError",
+  "winerror": 5,
+  "errno": 13
+}

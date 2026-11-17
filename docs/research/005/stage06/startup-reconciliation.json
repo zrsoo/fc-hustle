@@ -1,0 +1,212 @@
+{
+  "observed_at": "2026-11-17T06:46:10.877189+00:00",
+  "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+  "runtime_state": {
+    "at": "2026-11-17T06:46:10.436258+00:00",
+    "child": {
+      "created": 134393714495182626,
+      "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "pid": 19344
+    },
+    "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+    "latest": {
+      "kind": "progress",
+      "lifecycle": "RUNNING",
+      "managed": 10,
+      "operation": null,
+      "phase": "MANAGING",
+      "reason": null,
+      "stage": "LOCAL",
+      "tick": 429158.1827078
+    },
+    "limits": {
+      "grace": 35,
+      "lease": 10,
+      "local": 60,
+      "native": 45,
+      "poll": 0.5,
+      "startup": 90
+    },
+    "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T064409Z-jgu215b_\\events.jsonl",
+    "operational_state": "MANAGING",
+    "published_mono": 429158.2442106,
+    "reason": null,
+    "schema": 1,
+    "semantic": {
+      "auth_failures": 0,
+      "batch_failures": 0,
+      "batches": 1,
+      "confirmed": 10,
+      "diagnostic_failures": 0,
+      "helper_failures": 0,
+      "missing_statuses": 0,
+      "native_success_age": 0.00018959998851642013,
+      "native_successes": 49,
+      "read_failures": 0,
+      "reason": null,
+      "unconfirmed_attempts": 0,
+      "write_failures": 0
+    },
+    "semantic_limits": {
+      "auth_failures": 2,
+      "batch_failures": 3,
+      "diagnostic_failures": 3,
+      "helper_failures": 3,
+      "missing_statuses": 3,
+      "native_freshness": 90,
+      "read_failures": 3,
+      "unconfirmed_attempts": 3,
+      "write_failures": 3
+    },
+    "started_mono": 429037.3076517,
+    "state": "RUNNING",
+    "supervisor": {
+      "created": 134393714491919417,
+      "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "pid": 18624
+    },
+    "task": "obj-cb39371c785a/operate"
+  },
+  "health": {
+    "status": "healthy",
+    "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+    "diagnostic": "MANAGING",
+    "evidence": [
+      {
+        "state": "MANAGING",
+        "native_successes": 49,
+        "confirmed": 10,
+        "batches": 1,
+        "published_mono": 429158.2442106,
+        "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T064409Z-jgu215b_\\events.jsonl"
+      }
+    ]
+  },
+  "supervisor_identity_matches": true,
+  "child_identity_matches": true,
+  "terminal_loss": {
+    "read_id": "171f5e6b259413676149e2b417d52f28",
+    "row": {
+      "bid_state": "outbid",
+      "buy_now_price": 11250,
+      "current_bid": 3800,
+      "expires": -1,
+      "item": {
+        "definition_id": 256079,
+        "item_id": "item:bb160ebf4efd88ee511a6196",
+        "last_sale_price": 0,
+        "untradeable": false
+      },
+      "native_is_won": false,
+      "starting_bid": 700,
+      "trade_id": "trade:3ebc22bd4a6a9be28c286aeb",
+      "trade_state": "closed"
+    }
+  },
+  "command": {
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "fences": {
+      "document": "019fe5e90e4e8b4d26f6cd5b861826ff",
+      "epoch": 9,
+      "host_epoch": "1c62f58ef5872fd3039787861b0e7f3c",
+      "owner": "3820177776b3b376185b6f010bcfb765",
+      "worker_epoch": "0cdeef370f7e05b76659cefbab99a3b4"
+    },
+    "id": "171f5e6b259413676149e2b417d52f28",
+    "operation": "status_batch",
+    "params": {
+      "targets": [
+        {
+          "definition_id": 256079,
+          "item_id": "item:bb160ebf4efd88ee511a6196",
+          "trade_id": "trade:3ebc22bd4a6a9be28c286aeb"
+        }
+      ]
+    },
+    "schema": 4
+  },
+  "response": {
+    "auctions": [
+      {
+        "bid_state": "outbid",
+        "buy_now_price": 11250,
+        "current_bid": 3800,
+        "expires": -1,
+        "item": {
+          "definition_id": 0,
+          "item_id": "item:bb160ebf4efd88ee511a6196",
+          "last_sale_price": 0,
+          "untradeable": false
+        },
+        "native_is_won": false,
+        "starting_bid": 700,
+        "trade_id": "trade:3ebc22bd4a6a9be28c286aeb",
+        "trade_state": "closed"
+      }
+    ],
+    "background": [],
+    "command_id": "171f5e6b259413676149e2b417d52f28",
+    "context": {
+      "account": "05d6a82f7a6cecb077c5fe16e9cd532a",
+      "game": "fc27",
+      "identity_namespace": "845af286456d6fd586f22975a9de8aff",
+      "persona": "99fb9c45c6229ec5b509d0f955877fc0",
+      "platform": "pc"
+    },
+    "credits": null,
+    "designated_account_verified": true,
+    "error": null,
+    "fences": {
+      "document": "019fe5e90e4e8b4d26f6cd5b861826ff",
+      "epoch": 9,
+      "host_epoch": "1c62f58ef5872fd3039787861b0e7f3c",
+      "owner": "3820177776b3b376185b6f010bcfb765",
+      "worker_epoch": "0cdeef370f7e05b76659cefbab99a3b4"
+    },
+    "links": [
+      {
+        "current_dto_matches": true,
+        "full_observed_at": "2026-11-17T06:44:27.209Z",
+        "full_read_id": "c7f939e750ad3b029708d38502aa05da",
+        "status_read_id": "171f5e6b259413676149e2b417d52f28",
+        "target": {
+          "definition_id": 256079,
+          "item_id": "item:bb160ebf4efd88ee511a6196",
+          "trade_id": "trade:3ebc22bd4a6a9be28c286aeb"
+        },
+        "version_observed": false
+      }
+    ],
+    "missing": [],
+    "network": [
+      {
+        "host": "utas.mob.v1.prd.futc-ext.gcp.ea.com",
+        "method": "GET",
+        "path": "/ut/game/fc27/trade/status/lite",
+        "session_header_present": true,
+        "status": 200,
+        "targets": [
+          {
+            "definition_id": 256079,
+            "item_id": "item:bb160ebf4efd88ee511a6196",
+            "trade_id": "trade:3ebc22bd4a6a9be28c286aeb"
+          }
+        ]
+      }
+    ],
+    "network_at": "2026-11-17T06:44:29.219Z",
+    "observed_at": "2026-11-17T06:44:29.317Z",
+    "operation": "status_batch",
+    "receipt": null,
+    "schema": 4,
+    "status": 200,
+    "success": true
+  },
+  "objective_complete": false
+}

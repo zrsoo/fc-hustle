@@ -616,3 +616,114 @@ browser observations are adjacent. The confirmed 750 auction is now expired by
 wall time, so startup must reconcile actual native status/ownership rather than
 assuming won/lost, replaying a bid or moving an unrelated item. A new scheduler
 launch intent will be recorded before dispatch; healthy consecutive time is zero.
+
+## Stage 06: genuine bidding, win and move; Windows manifest repair
+
+Starting revision `92f0b6f`. Scheduler-owned generation
+`26407ef02dc7d322407f4c575c0c7ac7` started at 06:44:09 UTC on November 17.
+Supervisor PID 18624 had creation FILETIME 134393714491919417; child PID 19344
+had creation 134393714495182626. Executable and creation identities, account/
+persona pseudonyms and complete fences are retained in stage06/stopped-state.json;
+PID alone never authorizes stop. The retained watchdog log is
+stage06/stopped-events.jsonl. Correlation labels are not authentication values.
+
+Fresh native status reconciled the prior confirmed 750 auction as LOST:
+closed/outbid, current 3800, native_is_won false. The next ordinary batch
+2a147a4b9137d6d28fb1ecec33320d8d made ten initial bids, all with matching
+wire/native ACCEPTED receipts and independent later native participation.
+Ten genuine rebids followed fresh outbid competition and independent readbacks.
+These are real account operations. All 31 earlier UNKNOWN initial intents remain
+consumed. Strategy thresholds, pricing, filters, ticks and maximum ten initial
+attempts were preserved.
+
+One item was genuinely WON at our paid **3100**: definition 251852,
+trade:324779fd0ad15aad19df591a / item:4fa51171b8d65f02a7e65198.
+Fresh terminal watched evidence, our accepted bid and an independent owned-item
+GET establish exact physical identity, tradability and paid price. Move command
+81c934d665ebdfaa732e3aab67545153 dispatched once through native Item.move.
+Wire PUT /item and service returned 200. Its effect was independently confirmed
+by transfer-list read 067e9571f0dde4de2e263b45e71f51c0 at 06:47:56.845 UTC:
+complete wire/callback/repository agreement on six entries including this
+inactive item, and fresh unassigned read 6c21b12b5a399dcc50affeb9ede5171e
+showing it absent there. Listing policy remained start 4200 / BIN 4300 / 3600
+seconds; **no listing was dispatched**. confirmed-move.json retains exact proof.
+
+At 06:48:00 a second complete transfer-list read still contained the item.
+From 06:48:08 onward fresh complete reads returned five entries, excluding it.
+No second move, list or intervening bulk command exists. The old auction's later
+lite status remained terminal/highest, which cannot establish physical location
+after a move. The inventory change remains unexplained. Do not infer a sale,
+listing, return or loss. post-move-projection.json and commands.jsonl retain the
+observations. Native DTO/cache mutation is a hypothesis, not a server diagnosis.
+
+Scheduler health event 642165 reported RUNTIME_STATE_UNAVAILABLE. The prior
+sample had 150 native successes and 303 consecutive healthy seconds; the final
+persisted snapshot had **166 native successes**, ten confirmations, one batch,
+native age 1.65 seconds and zero semantic failure streaks. Event 642166
+acknowledged the owned stop in 2.232 seconds. Watchdog STOPPED at 06:50:15 UTC
+with OPERATIONAL_STOP, exit 0, forced false. This is an I/O health incident;
+the old catch discarded its exact exception. It cannot establish authentication
+or market failure. Healthy consecutive time resets to **zero**.
+
+A real Windows experiment reproduced PermissionError winerror 5 / errno 13 when
+an ordinary open reader denied atomic destination replacement. Runtime readers
+now use CreateFileW with FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE;
+publication uses ReplaceFileW to preserve destination attributes/ACLs and support
+existing shared readers. First publication uses atomic rename. Only local sharing
+errors 5/32/33 receive bounded 0.5 second replacement retries. Health retries
+transient missing/denied manifest access for at most two seconds, then reports
+repair with safe exception type/errno/winerror, never raw exception text. It
+does not extend startup or fabricate health. See Microsoft's
+[CreateFileW contract](https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew)
+and [ReplaceFileW contract](https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-replacefilew).
+This fixes a reproduced mechanism; the original unretained exception is unknown.
+The held-reader regression failed with os.replace and passed with ReplaceFileW;
+the test was not weakened.
+
+Three new tests exercise complete old/new snapshots across a held reader,
+transient/persistent real Windows contention, bounded denied health reads,
+diagnostic redaction and temporary-file cleanup. All six existing real service/
+ownership/stop tests pass. Full Python discovery completed **1111 executions**,
+zero failures/errors/skips, in **494.890 seconds**; all **37 Node suites** pass.
+Serial independent and focused audit receipts are retained alongside them.
+All nine serial independent inventory commands passed. Focused verification
+passed the nine ownership/I/O tests, stage06 audit and both eight-case acceptance
+self-tests. The actual criterion 0 and criterion 1 commands returned nonzero
+INCOMPLETE as required for the stopped, unfinished production objective; those
+failures are recorded explicitly, not represented as acceptance passes.
+
+A distinct finite zero-write win-read-01 window consumed epoch 10. Fresh watched,
+transfer-list and unassigned native reads succeeded; the moved target was absent.
+Exact target status failed locally with known_identity_unavailable before native
+dispatch because the new binding cleared its old selector. Four commands / three
+GETs / zero writes / zero pending / service stopped are retained. No owned-item
+request followed the failure. Production DB last held epoch 9; restart must
+reconcile the browser binding instead of reusing consumed epoch 10.
+
+tests/check_005_stage06.py reparses all 305 actual native command results and
+diagnostics, verifying ten initial bids, ten competitive rebids and independent
+confirmation, paid terminal win, exact owned item, move effect, subsequent missing
+inventory, scheduler stop and interval reset. Four corrupt evidence cases reject
+ACK-only bids, wrong paid ownership, false move readback and counting a failed
+sample as healthy. It explicitly reports STAGE_VERIFIED_OBJECTIVE_INCOMPLETE.
+Only immutable captured EA/transaction/experiment evidence is sealed.
+
+Safe state: runtime and finite probe stopped, move consumed, resale unproven.
+The fresh backup outside Git is documented in stage06/backup.json with canonical
+locks, integrity/FK and row comparison. Next: publish the verified repair, then
+repair/test native selector and post-move proof recovery, establish current
+physical location from fresh native evidence, and use a NEW scheduler generation.
+No external blocker exists. Full acceptance validators remain
+tests/validate_005_lifecycle.py (criterion 0) and tests/validate_005_interval.py
+(criterion 1); neither can pass until the full genuine lifecycle and final
+uninterrupted 14400 healthy seconds exist.
+
+The next repair has a concrete contract defect to reproduce: Work.win currently
+requests a new watched terminal win before listing, although native Item.move
+claims the auction and its watched entry can disappear. Its trusted validator
+also requires terminal reads in the current peer epoch, preventing use of genuine
+persisted terminal proof across restart. Tests must distinguish immutable exact
+terminal/our-paid-bid lineage from current independently fresh physical ownership
+and caps. ACK, an old inventory row, a missing auction or an unrelated owned card
+must never authorize listing. The separate unexplained disappearance of the
+physical transfer item remains open and must not be hidden by this repair.

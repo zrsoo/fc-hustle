@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "acceptance_complete": false,
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_operations.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 15.298130400013179,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "finished": "2026-11-17T10:19:41.758088+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage06.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.0612059000413865,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "finished": "2026-11-17T10:19:42.819454+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.940012699982617,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "finished": "2026-11-17T10:19:44.759548+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.1789553999551572,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "finished": "2026-11-17T10:19:44.938555+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.21532799996202812,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "finished": "2026-11-17T10:19:45.153950+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.16656709997914732,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt",
+      "finished": "2026-11-17T10:19:45.320594+00:00"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+[
+  {
+    "id": 642162,
+    "kind": "operational_health",
+    "data": {
+      "result": {
+        "command": [
+          "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+          "-m",
+          "fc_access.controller_v1.operational",
+          "health",
+          "--runtime-dir",
+          "private-captures/controller-v1/operational",
+          "--task-key",
+          "obj-cb39371c785a/operate",
+          "--generation",
+          "26407ef02dc7d322407f4c575c0c7ac7"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"status\": \"healthy\", \"generation\": \"26407ef02dc7d322407f4c575c0c7ac7\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 150, \"confirmed\": 10, \"batches\": 1, \"published_mono\": 429370.323443, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T064409Z-jgu215b_\\\\events.jsonl\"}]}\n",
+        "stderr": "",
+        "seconds": 0.15623784065246582
+      },
+      "report": {
+        "status": "healthy",
+        "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+        "diagnostic": "MANAGING",
+        "evidence": [
+          {
+            "state": "MANAGING",
+            "native_successes": 150,
+            "confirmed": 10,
+            "batches": 1,
+            "published_mono": 429370.323443,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T064409Z-jgu215b_\\events.jsonl"
+          }
+        ]
+      },
+      "healthy_seconds": 303.00636639998993,
+      "required_seconds": 14400.0,
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+    }
+  },
+  {
+    "id": 642163,
+    "kind": "item/started",
+    "data": {
+      "item": {
+        "type": "reasoning",
+        "id": "rs_000f12e3e3c4d225016afbf9197e7087d2aa072a62e9b69b83",
+        "summary": [],
+        "content": [],
+        "startedAtMs": 1794898201670,
+        "completedAtMs": null
+      },
+      "threadId": "01a1e6fd-02ed-7ce1-ba68-25804c270527",
+      "turnId": "01a1e83f-ed5c-7481-8418-2a76a5d4207e",
+      "startedAtMs": 1794898201670
+    }
+  },
+  {
+    "id": 642164,
+    "kind": "item/completed",
+    "data": {
+      "item": {
+        "type": "reasoning",
+        "id": "rs_000f12e3e3c4d225016afbf9197e7087d2aa072a62e9b69b83",
+        "summary": [],
+        "content": [],
+        "startedAtMs": 1794898201670,
+        "completedAtMs": 1794898201671
+      },
+      "threadId": "01a1e6fd-02ed-7ce1-ba68-25804c270527",
+      "turnId": "01a1e83f-ed5c-7481-8418-2a76a5d4207e",
+      "completedAtMs": 1794898201671
+    }
+  },
+  {
+    "id": 642165,
+    "kind": "operational_health",
+    "data": {
+      "result": {
+        "command": [
+          "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+          "-m",
+          "fc_access.controller_v1.operational",
+          "health",
+          "--runtime-dir",
+          "private-captures/controller-v1/operational",
+          "--task-key",
+          "obj-cb39371c785a/operate",
+          "--generation",
+          "26407ef02dc7d322407f4c575c0c7ac7"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"status\": \"repair\", \"generation\": \"26407ef02dc7d322407f4c575c0c7ac7\", \"diagnostic\": \"RUNTIME_STATE_UNAVAILABLE\", \"evidence\": []}\n",
+        "stderr": "",
+        "seconds": 0.17589855194091797
+      },
+      "report": {
+        "status": "repair",
+        "generation": "26407ef02dc7d322407f4c575c0c7ac7",
+        "diagnostic": "RUNTIME_STATE_UNAVAILABLE",
+        "evidence": []
+      },
+      "healthy_seconds": 0,
+      "required_seconds": 14400.0,
+      "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+    }
+  },
+  {
+    "id": 642166,
+    "kind": "operational_stop",
+    "data": {
+      "reason": "health check failed",
+      "result": {
+        "command": [
+          "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+          "-m",
+          "fc_access.controller_v1.operational",
+          "stop",
+          "--runtime-dir",
+          "private-captures/controller-v1/operational",
+          "--task-key",
+          "obj-cb39371c785a/operate",
+          "--generation",
+          "26407ef02dc7d322407f4c575c0c7ac7"
+        ],
+        "exit_code": 0,
+        "stdout": "{\"status\": \"stopped\", \"generation\": \"26407ef02dc7d322407f4c575c0c7ac7\", \"diagnostic\": \"OPERATIONAL_STOP\"}\n",
+        "stderr": "",
+        "seconds": 2.231868267059326
+      }
+    }
+  }
+]

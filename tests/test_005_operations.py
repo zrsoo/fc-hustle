@@ -16,7 +16,7 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'tests')]
 from controller_policy_fixture import Harness
-from fc_access.controller_v1.operational import Runtime,identity,same_process,evaluate,health,stop,read
+from fc_access.controller_v1.operational import Runtime,identity,same_process,evaluate,health,stop,read,state_stream,atomic
 from fc_access.controller_v1.watchdog import Supervision,SupervisionLost,Watchdog,Limits,supervise
 from fc_access.controller_v1.semantic import SemanticHealth
 
@@ -52,6 +52,42 @@ def fixture_service(directory,generation,mode):
 
 
 class OperationsTests(unittest.TestCase):
+    def test_atomic_snapshot_reader_allows_replacement_and_keeps_old_complete_snapshot(self):
+        with tempfile.TemporaryDirectory() as path:
+            target=Path(path)/'state.json';atomic(target,dict(version=1,rows=list(range(100))))
+            with state_stream(target) as opened:
+                atomic(target,dict(version=2,rows=list(range(200))))
+                self.assertEqual(json.load(opened),dict(version=1,rows=list(range(100))))
+            self.assertEqual(read(target),dict(version=2,rows=list(range(200))))
+
+    @unittest.skipUnless(sys.platform=='win32','Windows sharing contract')
+    def test_legacy_windows_reader_contention_is_bounded_and_never_exposes_partial_state(self):
+        import threading
+        with tempfile.TemporaryDirectory() as path:
+            target=Path(path)/'state.json';atomic(target,dict(version=1));opened=target.open()
+            errors=[]
+            def replace():
+                try:atomic(target,dict(version=2))
+                except OSError as error:errors.append(type(error).__name__)
+            writer=threading.Thread(target=replace);writer.start();time.sleep(.1)
+            self.assertTrue(writer.is_alive());opened.close();writer.join(2)
+            self.assertFalse(writer.is_alive());self.assertEqual(errors,[]);self.assertEqual(read(target),dict(version=2))
+            with target.open():
+                started=time.monotonic()
+                with self.assertRaises(OSError):atomic(target,dict(version=3))
+                self.assertLess(time.monotonic()-started,1.5)
+            self.assertEqual(read(target),dict(version=2));self.assertEqual(list(Path(path).glob('*.tmp')),[])
+
+    def test_transient_and_persistent_read_denial_do_not_fabricate_health_or_leak_error_values(self):
+        from fc_access.controller_v1 import operational as module
+        base=self.fixture_state()
+        with patch.object(module,'read',side_effect=[PermissionError('SECRET_CANARY'),base]),patch.object(module,'held',return_value=True),patch.object(module,'same_process',return_value=True),patch.object(module.time,'monotonic',return_value=100):
+            self.assertEqual(health('unused',TASK,GEN)['status'],'healthy')
+        with patch.object(module,'read',side_effect=PermissionError('SECRET_CANARY')):
+            started=time.monotonic();result=health('unused',TASK,GEN)
+            self.assertLess(time.monotonic()-started,3)
+            self.assertEqual(result['status'],'repair');self.assertEqual(result['evidence'][0]['runtime_read_error'],'PermissionError')
+            self.assertNotIn('CANARY',json.dumps(result))
     def start(self,directory,generation=GEN,mode='healthy'):
         return subprocess.Popen([sys.executable,__file__,'fixture',str(directory),generation,mode],
                                 cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,text=True)

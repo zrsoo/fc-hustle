@@ -1,0 +1,73 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_TRANSACTION_EXPERIMENT_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "attempts.json",
+      "sha256": "4f2ce40bd0296d8db2c0b8ad10bef1086851ba624ecd7dafdae1f72f30d401cb"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "918d0c3dd8d986190b33c6330cdb01a311cb6a3511a3e0ff66fc6971a0f97473"
+    },
+    {
+      "path": "confirmed-acquisition.json",
+      "sha256": "a869d5d57238b454afff5e7bc27c479b830fe5b57c6635e08c3d7228803529ca"
+    },
+    {
+      "path": "confirmed-move.json",
+      "sha256": "09d7a854ce732a21ad76de5f61a32f1acc2f480b8f63d16d130d921eabfaacfb"
+    },
+    {
+      "path": "file-sharing-experiment.json",
+      "sha256": "02fb65983dff9d1b50e125793b926bc81ccc6f4ea004dc564b4631695436b11b"
+    },
+    {
+      "path": "native-inventory-contract.json",
+      "sha256": "5523c7ecd0c6cbcc47913236a99761ff8f6ff08c581062a09a2d008212748b1a"
+    },
+    {
+      "path": "native-move-contract.json",
+      "sha256": "da77d9244a3874376f91eff7cc3337508a7874d4b9deb7651131df300b1d5e59"
+    },
+    {
+      "path": "policy-batch.json",
+      "sha256": "8cec5038f3d94d5166ac1856aad8f63b8911425ca3c01711397f9edb120eba62"
+    },
+    {
+      "path": "post-move-projection.json",
+      "sha256": "6d65fc1ea91aa02bd4ff65f3acf82b7f66848ff7ac91cfc48186032a029035ff"
+    },
+    {
+      "path": "scheduler-stop.json",
+      "sha256": "59071f858100dfdb51c4b6bacae6dc174766fd40038b01f2b049271d37a3b5be"
+    },
+    {
+      "path": "startup-monitor.json",
+      "sha256": "c8244f6b7d91925eb7eab16a3ef78384435d7ca01a4418da8c860705044dc542"
+    },
+    {
+      "path": "startup-reconciliation.json",
+      "sha256": "0756d07b14d19592d10619fc99c1e4598d05ae9184271a0bb9f97270a5e69595"
+    },
+    {
+      "path": "stopped-events.jsonl",
+      "sha256": "8694368281b89f6f94c751c63f0821f168e07f35b0401c56ac006740b8a595d9"
+    },
+    {
+      "path": "stopped-state.json",
+      "sha256": "bac531a5ce3477d11c4c398b582533e44f638e470e259356c7a42a1ce36d00e7"
+    },
+    {
+      "path": "win-read-01/checkpoint.jsonl",
+      "sha256": "58eb3cb9f12aa1d0f6647c484d141a0ac89c8a03e4afb9b8f97c22b042881ca9"
+    },
+    {
+      "path": "win-read-01/diagnostics.json",
+      "sha256": "e606c158bae8319219a7950a8962033f00d4a4caf456c6de6b5e1c0f81d24d98"
+    },
+    {
+      "path": "win-read-01/result.json",
+      "sha256": "c58baf0fa96a5534f728fd32bd7a55c6e06ab9b255e944fcdcc3845e58c37c06"
+    }
+  ]
+}

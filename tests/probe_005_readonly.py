@@ -20,8 +20,11 @@ from fc_access.controller_v1.server import Server
 from fc_access.production_v1.contracts import Search
 
 
-def run(output, *, epoch=1, idle_seconds=0):
+def run(output, *, epoch=1, idle_seconds=0, target=None):
     if type(epoch) is not int or epoch<1 or not 0<=idle_seconds<=40:raise ValueError('invalid_probe_scope')
+    if target is not None:
+        from fc_access.controller_v1.protocol import target as validate_target
+        validate_target(target)
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     def record(kind, **fields):
@@ -31,6 +34,7 @@ def run(output, *, epoch=1, idle_seconds=0):
     scope = json.loads((ROOT / 'private-captures/controller-v1/public-context.json').read_text())
     record('PREPARED', question='Current native account/authentication, inventory and exact-target transport after ownership repair',
            owner_epoch=epoch,local_idle_seconds=idle_seconds,
+           exact_owned_target=target,
            max_commands=6, max_ea_requests=7, max_mutations=0, deadline_seconds=240, context=scope)
     deadline = time.monotonic() + 240
     reserved = 0
@@ -45,7 +49,7 @@ def run(output, *, epoch=1, idle_seconds=0):
             def attach(self, *args): return edge.attach(*args)
             def execute(self, command):
                 nonlocal reserved
-                if command['operation'] not in {'balance', 'watched', 'transfer_list', 'unassigned', 'search', 'status_batch'} or reserved >= 6 or time.monotonic() >= deadline:
+                if command['operation'] not in {'balance', 'watched', 'transfer_list', 'unassigned', 'search', 'status_batch','owned_item'} or reserved >= 6 or time.monotonic() >= deadline:
                     raise ValueError('window_exhausted_or_operation_denied')
                 reserved += 1
                 record('RESERVED_BEFORE_DELIVERY', ordinal=reserved, command=command)
@@ -62,6 +66,12 @@ def run(output, *, epoch=1, idle_seconds=0):
                         lambda: adapter.native.read(secrets.token_hex(16), 'transfer_list'),
                         lambda: adapter.native.read(secrets.token_hex(16), 'unassigned'),
                         lambda: adapter.native.search(secrets.token_hex(16), Search.discovery())]
+            if target is not None:
+                commands=[lambda:adapter.read(secrets.token_hex(16),'watched'),
+                          lambda:adapter.native.read(secrets.token_hex(16),'transfer_list'),
+                          lambda:adapter.native.read(secrets.token_hex(16),'unassigned'),
+                          lambda:adapter.status_batch(secrets.token_hex(16),[target]),
+                          lambda:adapter.native.read(secrets.token_hex(16),'owned_item',**target)]
             responses = []
             for call in commands:
                 v = call(); r = v if v['schema'] == 4 else v['result']
@@ -70,7 +80,7 @@ def run(output, *, epoch=1, idle_seconds=0):
                 if not r['success']:
                     result['reason'] = 'FAILED_NATIVE_READ'; break
             else:
-                rows = responses[-1]['result']['auctions'][:10]
+                rows = [] if target is not None else responses[-1]['result']['auctions'][:10]
                 if rows:
                     targets = [dict(trade_id=r['trade_id'], item_id=r['item']['item_id'], definition_id=r['item']['definition_id']) for r in rows]
                     status = adapter.status_batch(secrets.token_hex(16), targets)
@@ -104,5 +114,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--epoch',type=int,default=1)
     parser.add_argument('--idle-seconds',type=float,default=0)
+    parser.add_argument('--target-json')
     args=parser.parse_args()
-    raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds))
+    raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds,target=json.loads(args.target_json) if args.target_json else None))

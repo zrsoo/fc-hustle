@@ -1,0 +1,26 @@
+{
+  "scope": "PUBLIC_STATIC_METHOD_PROJECTION_ONLY_NO_BROWSER_STATE",
+  "provenance": "private-captures/003-04/public-native-20261116/ocompiled.js",
+  "methods": [
+    {
+      "method": "requestItemsById",
+      "prefix": "_0x16df02;return this[\"itemDao\"][\"getItemDataByDefId\"](_0x5aee5e);},_0x55f20f[\"prototype\"]",
+      "source": "[\"requestItemsById\"]=function(_0x1987e3){var _0x1e3b10=_0x16df02;return this[\"itemDao\"][\"getItemDataById\"](JSUtils[\"valToArray\"](_0x1987e3));}"
+    },
+    {
+      "method": "requestTransferItems",
+      "prefix": "d2=_0x16df02;return this[\"itemDao\"][\"getItemsPendingSelection\"]();},_0x55f20f[\"prototype\"]",
+      "source": "[\"requestTransferItems\"]=function(){var _0x1d8647=_0x16df02;return this[\"itemDao\"][\"getTransferPile\"]();}"
+    },
+    {
+      "method": "getTransferPile",
+      "prefix": "response\"]=_0x5ed61b;}_0xdfefc3[\"notify\"](_0x471367);}),_0xdfefc3;},_0x1786e7[\"prototype\"]",
+      "source": "[\"getTransferPile\"]=function(){var _0x3adbc6=_0x436f56,_0x3794c2=this,_0x2b6e09=new EAObservable(),_0x4f2ef5=new UTHttpResponseDTO();if(!this[\"itemRepo\"][\"isDirty\"](ItemPile[\"TRANSFER\"])){_0x4f2ef5[\"success\"]=!![],_0x4f2ef5[\"status\"]=HttpStatusCode[\"NOT_MODIFIED\"];var _0x579a65={};return _0x579a65[\"items\"]=repositories[\"Item\"][\"getTransferItems\"](),_0x4f2ef5[\"response\"]=_0x579a65,_0x2b6e09[\"notify\"](_0x4f2ef5),_0x2b6e09;}var _0x266711=new UTHttpRequest(this[\"authDelegate\"]);return _0x266711[\"cache\"]=![],_0x266711[\"setPath\"](\"/ut/game/\"[\"concat\"](GAME_NAME,\"/tradepile\")),services[\"UTUtasRequestQueue\"][\"send\"](_0x266711)[\"observe\"](this,function(_0x5a1a24,_0x2a962c){var _0x365c5d=_0x3adbc6;_0x5a1a24[\"unobserve\"](_0x3794c2),JSUtils[\"assignPropertyValues\"](_0x2a962c,_0x4f2ef5);if(_0x2a962c[\"success\"]&&JSUtils[\"isObject\"](_0x2a962c[\"response\"])){var _0x1415e3=factories[\"Item\"][\"generateItemsFromAuctionData\"](_0x2a962c[\"response\"][\"auctionInfo\"],_0x2a962c[\"response\"][\"duplicateItemIdList\"]);_0x1415e3[\"forEach\"](function(_0x47bdfd){var _0x5cb96c=_0x365c5d;return _0x47bdfd[\"pile\"]=ItemPile[\"TRANSFER\"];});var _0x308336={};_0x308336[\"items\"]=_0x1415e3,_0x4f2ef5[\"response\"]=_0x308336,_0x3794c2[\"itemRepo\"][\"setTransferItems\"](_0x1415e3),_0x3794c2[\"itemRepo\"][\"setCacheTimestamp\"](ItemPile[\"TRANSFER\"],Date[\"now\"](),_0x2a962c[\"maxAge\"]>0x0?_0x2a962c[\"maxAge\"]:undefined);}else{var _0x586e24={};_0x586e24[\"items\"]=[],_0x4f2ef5[\"response\"]=_0x586e24;}_0x2b6e09[\"notify\"](_0x4f2ef5);}),_0x2b6e09;}"
+    },
+    {
+      "method": "getItemDataById",
+      "prefix": "response\"]=_0x4993e6;}_0x499be9[\"notify\"](_0x587920);}),_0x499be9;},_0x1786e7[\"prototype\"]",
+      "source": "[\"getItemDataById\"]=function(_0x3bc13b){var _0x31a244=_0x436f56,_0x1c1503=this,_0x207b22=new EAObservable(),_0x55c87d=new UTHttpRequest(this[\"authDelegate\"]);_0x55c87d[\"setPath\"](\"/ut/game/\"[\"concat\"](GAME_NAME,\"/item\"));var _0x93f096={};return _0x93f096[\"idList\"]=_0x3bc13b[\"join\"](','),_0x55c87d[\"setUrlVariables\"](_0x93f096),services[\"UTUtasRequestQueue\"][\"send\"](_0x55c87d)[\"observe\"](this,function(_0x545a20,_0x3a63a2){var _0xc97c17=_0x31a244;_0x545a20[\"unobserve\"](_0x1c1503);var _0x182dbf=new UTHttpResponseDTO();JSUtils[\"assignPropertyValues\"](_0x3a63a2,_0x182dbf);if(_0x3a63a2[\"success\"]&&JSUtils[\"isObject\"](_0x3a63a2[\"response\"])){var _0x3957f3={};_0x3957f3[\"items\"]=factories[\"Item\"][\"generateItemsFromItemData\"](_0x3a63a2[\"response\"][\"itemData\"],_0x3a63a2[\"response\"][\"duplicateItemIdList\"]),_0x182dbf[\"response\"]=_0x3957f3;}else{var _0x13a397={};_0x13a397[\"items\"]=[],_0x182dbf[\"response\"]=_0x13a397;}_0x207b22[\"notify\"](_0x182dbf);}),_0x207b22;}"
+    }
+  ]
+}

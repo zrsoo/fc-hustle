@@ -1,6 +1,6 @@
 """Owned watchdog service and bounded local health/stop. Never invokes EA itself."""
 import argparse
-from contextlib import ExitStack
+from contextlib import ExitStack,contextmanager
 from datetime import datetime, timezone
 import json
 import math
@@ -50,19 +50,61 @@ def same_process(value):
     return type(value) is dict and identity(value.get('pid'))==value
 
 
+def replace_snapshot(temporary,path):
+    if os.name!='nt':os.replace(temporary,path);return
+    import ctypes
+    from ctypes import wintypes
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+    kernel.ReplaceFileW.argtypes=[wintypes.LPCWSTR,wintypes.LPCWSTR,wintypes.LPCWSTR,wintypes.DWORD,wintypes.LPVOID,wintypes.LPVOID]
+    kernel.ReplaceFileW.restype=wintypes.BOOL
+    # ReplaceFile preserves attributes/ACLs and supports existing shared readers.
+    # https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-replacefilew
+    if kernel.ReplaceFileW(str(Path(path).resolve()),str(Path(temporary).resolve()),None,0,None,None):return
+    error=ctypes.get_last_error()
+    if error==2 and not Path(path).exists():os.replace(temporary,path);return
+    raise ctypes.WinError(error)
+
+
 def atomic(path,value):
     path=Path(path);temporary=path.with_name(path.name+'.'+secrets.token_hex(8)+'.tmp')
     try:
         with temporary.open('x',encoding='utf-8',newline='\n') as stream:
             json.dump(value,stream,sort_keys=True,allow_nan=False);stream.write('\n')
             stream.flush();os.fsync(stream.fileno())
-        os.replace(temporary,path)
+        # An ordinary Windows reader may temporarily deny delete sharing. Only
+        # retry this local rename, boundedly; account requests are never retried.
+        deadline=time.monotonic()+.5
+        while True:
+            try:replace_snapshot(temporary,path);break
+            except OSError as error:
+                if os.name!='nt' or getattr(error,'winerror',None) not in {5,32,33} or time.monotonic()>=deadline:raise
+                time.sleep(.01)
     finally:
         if temporary.exists():temporary.unlink()
 
 
+@contextmanager
+def state_stream(path):
+    """Read a complete atomic snapshot without blocking Windows replacement."""
+    if os.name!='nt':
+        with Path(path).open(encoding='utf-8') as stream:yield stream
+        return
+    import ctypes
+    import msvcrt
+    from ctypes import wintypes
+    kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+    kernel.CreateFileW.argtypes=[wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,wintypes.LPVOID,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
+    kernel.CreateFileW.restype=wintypes.HANDLE
+    kernel.CloseHandle.argtypes=[wintypes.HANDLE]
+    handle=kernel.CreateFileW(str(Path(path).resolve()),0x80000000,0x7,None,3,0x80,None)
+    if handle==wintypes.HANDLE(-1).value:raise ctypes.WinError(ctypes.get_last_error())
+    try:descriptor=msvcrt.open_osfhandle(int(handle),os.O_RDONLY|os.O_BINARY)
+    except BaseException:kernel.CloseHandle(handle);raise
+    with os.fdopen(descriptor,'r',encoding='utf-8') as stream:yield stream
+
+
 def read(path):
-    with Path(path).open(encoding='utf-8') as stream:
+    with state_stream(path) as stream:
         value=stream.read(65537)
     if len(value)>65536:raise ValueError('oversize_runtime_record')
     return json.loads(value)
@@ -182,7 +224,7 @@ def health(directory,task,generation):
         deadline=time.monotonic()+2
         while True:
             try:value=read(Path(directory)/'state.json')
-            except FileNotFoundError:
+            except (FileNotFoundError,PermissionError):
                 if time.monotonic()>=deadline:raise
             else:
                 if type(value) is not dict or value.get('generation')==generation or time.monotonic()>=deadline:break
@@ -190,8 +232,14 @@ def health(directory,task,generation):
         if type(value) is not dict:raise ValueError('invalid_runtime_state')
         return evaluate(value,task=task,generation=generation,now=time.monotonic(),owner_held=held(directory),
                         supervisor_alive=same_process(value.get('supervisor')),child_alive=same_process(value.get('child')))
-    except (OSError,ValueError,TypeError):
-        return dict(status='repair',generation=generation,diagnostic='RUNTIME_STATE_UNAVAILABLE',evidence=[])
+    except (OSError,ValueError,TypeError) as error:
+        # No exception messages/paths or arbitrary values enter diagnostics.
+        evidence=dict(runtime_read_error=type(error).__name__ if type(error).__name__ in
+            {'FileNotFoundError','PermissionError','OSError','ValueError','TypeError','JSONDecodeError'} else 'invalid_state')
+        for name in ('errno','winerror'):
+            code=getattr(error,name,None)
+            if type(code) is int and 0<=code<=65535:evidence[name]=code
+        return dict(status='repair',generation=generation,diagnostic='RUNTIME_STATE_UNAVAILABLE',evidence=[evidence])
 
 
 def stop(directory,task,generation,*,timeout=50):

@@ -1,0 +1,160 @@
+[
+  {
+    "command_id": "00fd82ccced573e5ba20dcbc17e68a2f",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:50:12.929Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "0f9ae12b3e9dde49dadf4cc8455fec9a",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:50:10.925Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "9c1cb866edb3b1cdaefcdab9d7ab32a7",
+    "operation": "status_batch",
+    "network_at": "2026-11-17T06:50:08.936Z",
+    "matching_rows": [
+      {
+        "bid_state": "highest",
+        "buy_now_price": 11250,
+        "current_bid": 3100,
+        "expires": -1,
+        "item": {
+          "definition_id": 0,
+          "item_id": "item:4fa51171b8d65f02a7e65198",
+          "last_sale_price": 0,
+          "untradeable": false
+        },
+        "native_is_won": true,
+        "starting_bid": 700,
+        "trade_id": "trade:324779fd0ad15aad19df591a",
+        "trade_state": "closed"
+      }
+    ]
+  },
+  {
+    "command_id": "f359a57fce1926e060d8481aea312d3b",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:50:06.945Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "43f06ca53089dfbefbdf8ccf7da8788b",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:50:04.933Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "d1b2ae5b7babc0005446007267d95642",
+    "operation": "status_batch",
+    "network_at": "2026-11-17T06:50:02.922Z",
+    "matching_rows": [
+      {
+        "bid_state": "highest",
+        "buy_now_price": 11250,
+        "current_bid": 3100,
+        "expires": -1,
+        "item": {
+          "definition_id": 0,
+          "item_id": "item:4fa51171b8d65f02a7e65198",
+          "last_sale_price": 0,
+          "untradeable": false
+        },
+        "native_is_won": true,
+        "starting_bid": 700,
+        "trade_id": "trade:324779fd0ad15aad19df591a",
+        "trade_state": "closed"
+      }
+    ]
+  },
+  {
+    "command_id": "df09d5ba15617df81c326f785b9b97c5",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:50:00.912Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "7b2d421c4f8f72af1de2228e0820bcfe",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:49:58.925Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "8841a0c0a1c32d7fff730cd10379a66a",
+    "operation": "status_batch",
+    "network_at": "2026-11-17T06:49:56.930Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "1146572f4e6add820c90b67b5d087c26",
+    "operation": "status_batch",
+    "network_at": "2026-11-17T06:49:52.926Z",
+    "matching_rows": [
+      {
+        "bid_state": "highest",
+        "buy_now_price": 11250,
+        "current_bid": 3100,
+        "expires": -1,
+        "item": {
+          "definition_id": 0,
+          "item_id": "item:4fa51171b8d65f02a7e65198",
+          "last_sale_price": 0,
+          "untradeable": false
+        },
+        "native_is_won": true,
+        "starting_bid": 700,
+        "trade_id": "trade:324779fd0ad15aad19df591a",
+        "trade_state": "closed"
+      }
+    ]
+  },
+  {
+    "command_id": "77786050d860ed53b77d087fadc5319e",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:49:50.931Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "ef7e631a114c1ca3e6df09ae0a6d0bf0",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:49:48.916Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "c40ca4afce20eb4c606e454c2f93dc75",
+    "operation": "status_batch",
+    "network_at": "2026-11-17T06:49:46.920Z",
+    "matching_rows": [
+      {
+        "bid_state": "highest",
+        "buy_now_price": 11250,
+        "current_bid": 3100,
+        "expires": -1,
+        "item": {
+          "definition_id": 0,
+          "item_id": "item:4fa51171b8d65f02a7e65198",
+          "last_sale_price": 0,
+          "untradeable": false
+        },
+        "native_is_won": true,
+        "starting_bid": 700,
+        "trade_id": "trade:324779fd0ad15aad19df591a",
+        "trade_state": "closed"
+      }
+    ]
+  },
+  {
+    "command_id": "ada0d6825834aa8244fad73624a8d3a0",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:49:44.917Z",
+    "matching_rows": []
+  },
+  {
+    "command_id": "18854dcf1839452bf4623ed6c258800c",
+    "operation": "transfer_list",
+    "network_at": "2026-11-17T06:49:42.908Z",
+    "matching_rows": []
+  }
+]

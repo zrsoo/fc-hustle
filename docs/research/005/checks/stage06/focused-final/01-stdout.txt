@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "initial_confirmed": 10, "genuine_rebids": 10, "paid_win": 3100, "move_confirmed": true, "later_inventory_missing": true, "resale_unproven": true, "healthy_seconds": 0}
