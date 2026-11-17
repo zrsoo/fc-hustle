@@ -63,7 +63,7 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertEqual(len(discovery),1)
         self.assertEqual(discovery[0]['command']['params'],dict(purpose='discovery',page=1,count=21,fresh=True,max_bid=1000,min_buy=11000))
         self.assertEqual(discovery[0]['command']['context']['platform'],'pc')
-        for op,n in [('balance',1),('watched',1),('transfer_list',1),('bid',10),('status_batch',1)]:
+        for op,n in [('balance',1),('watched',1),('transfer_list',1),('bid',10),('status_batch',2)]:
             self.assertEqual(len(h.calls(op)),n,op)
         batch=h.controller.journal.batch(state['batch_id'])
         self.assertEqual(batch['discovery']['result']['auctions'][0]['item'],h.ea.rows[0]['item'])
@@ -78,6 +78,10 @@ class ControllerAcceptance(unittest.TestCase):
         bids=h.calls('bid');burst=[c for c in h.ea.calls if bids[0]['at']<=c['at']<=bids[-1]['at']]
         self.assertEqual({c['command']['operation'] for c in burst},{'bid'})
         self.assertEqual(len(h.calls('status_batch')[0]['command']['params']['targets']),10)
+        self.assertLess(h.calls('status_batch')[0]['at'],bids[0]['at'])
+        self.assertGreater(h.calls('status_batch')[-1]['at'],bids[-1]['at'])
+        self.assertTrue(all(c['read_id']==h.calls('status_batch')[0]['command']['id'] for c in selected))
+        self.assertTrue(all(c['discovery_read_id']==discovery[0]['command']['id'] for c in selected))
 
     def test_2_imported_pricing_cache_version_ttl_tax_native_caps_and_no_funding_allocator(self):
         h=self.harness(10);h.ea.credits=40001;h.controller.step()
@@ -381,7 +385,7 @@ class ControllerAcceptance(unittest.TestCase):
     def test_6_independently_terminal_initial_results_are_processed(self):
         h=self.harness(2)
         def terminal(c):
-            if c['operation']=='status_batch':
+            if c['operation']=='status_batch' and len(h.calls('bid'))==2:
                 for r in h.ea.rows:r.update(trade_state='closed',bid_state='outbid',expires=0)
         h.ea.on_request=terminal;state=h.controller.step()
         self.assertEqual(state['phase'],'ACQUIRING');self.assertFalse(state['members'])

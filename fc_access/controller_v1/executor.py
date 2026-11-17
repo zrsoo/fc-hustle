@@ -39,6 +39,8 @@ class SerializedExecutor:
         self.metrics=[]
         self.progress=progress
         self.result=None
+        self.failure=None
+        self.monitor_failure=False
 
     def attach(self, *args):
         with self.lock:
@@ -52,6 +54,7 @@ class SerializedExecutor:
         delivery_command(value)
         local=value['schema']==2 and value['operation'] in LOCAL_OPERATIONS
         with self.lock:
+            if self.monitor_failure:raise RuntimeError('RESULT_MONITOR_FAILED')
             if self.guard:self.guard(value)
             if not local and self.last_start is not None:
                 delay=self.last_start+self.spacing-self.clock()
@@ -70,7 +73,12 @@ class SerializedExecutor:
                 response=self.executor.execute(value)
                 return response
             finally:
-                if self.result:self.result(value,response)
+                if self.result:
+                    try:self.result(value,response)
+                    except Exception as error:
+                        self.monitor_failure=True
+                        if self.failure:self.failure(type(error).__name__)
+                        raise
                 self.metrics.append(dict(command_id=value['id'],operation=value['operation'],
                                          local=local,started=start,elapsed=self.clock()-start))
                 if self.progress:self.progress('LOCAL')

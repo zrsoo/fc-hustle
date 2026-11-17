@@ -160,7 +160,7 @@ def main():
     from check_00402_artifacts import validate as live_artifacts
     live_artifacts()  # Independently parse sealed native GET evidence; no EA requests.
     from record_00403_offline import record
-    validate_trace(load(OUT/'synthetic-trace.json'), record())
+    validate_trace(load(OUT/'synthetic-trace.json'), record(historical=True))
     historical = preservation()
     validate_stopped(load(OUT/'final-state.json'))
     state = current_state()

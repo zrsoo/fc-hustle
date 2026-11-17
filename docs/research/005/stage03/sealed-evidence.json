@@ -1,0 +1,14 @@
+{
+  "sealed_at": "2026-11-17T05:27:47.281901+00:00",
+  "scope": "Immutable consumed native experiment captures only; no implementation integrity assertions",
+  "files": [
+    {
+      "path": "docs/research/005/stage03/fresh-bid-01/checkpoint.jsonl",
+      "sha256": "8592798b86326466db1b47f1fcd5d96f86e4318497bbdd0b8c678e06074abbd1"
+    },
+    {
+      "path": "docs/research/005/stage03/fresh-bid-01/result.json",
+      "sha256": "94ca906799a1eaa4481b0867ed2be8f3a1ad7c2087c6b265a65e6995e6e7c417"
+    }
+  ]
+}

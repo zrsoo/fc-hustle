@@ -198,6 +198,11 @@ class Controller:
                 c=deepcopy(candidate);c.update(selection_age=age,selection_remaining=remaining)
                 selected.append(c)
                 if len(selected)>=min(10,50-known):break
+            if selected:
+                refreshed=self._refresh_selection(bid,selected)
+                if refreshed is None:
+                    j.update_batch(bid,state='READ_FAILED',reason='PRE_BURST_STATUS_REQUIRED');return
+                selected=refreshed
             j.select(bid,selected)
             j.update_batch(bid,selection_at=self.now().isoformat(),selected_count=len(selected))
             burst=self.clock();submitted=[]
@@ -246,6 +251,35 @@ class Controller:
     def _minimum(self, row, rules):
         return rules.minimum_bid(definition_id=row['item']['definition_id'],platform=self.adapter.context['platform'],
                                  starting_bid=row['starting_bid'],current_bid=row['current_bid'])
+
+    def _refresh_selection(self, bid, candidates):
+        """One exact batch read after pricing, before immutable selection/intents.
+
+        The quote and full version provenance remain unchanged. Only current
+        auction state, expiry and its minimum legal bid come from this new read.
+        Missing or no-longer-profitable rows confer no write authority.
+        """
+        status=self._status([c['target'] for c in candidates],bid)
+        if status is None:return None
+        refreshed=[]
+        for old in candidates:
+            try:row,_=self.store.linked_row(status['command_id'],old['target'])
+            except ValueError:
+                self.journal.metric(bid,'INITIAL_SKIPPED',target=old['target'],reason='PRE_BURST_TARGET_MISSING');continue
+            age=(self.now()-stamp(status['network_at'])).total_seconds()
+            remaining=row['expires']-age
+            rules=self.prices.loaded[self.prices.latest[CardKey(old['target']['definition_id'])]]
+            minimum=self._minimum(row,rules)
+            if row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False or remaining<=60 or minimum is None or minimum>old['cap'] or row['buy_now_price'] and minimum>=row['buy_now_price']:
+                self.journal.metric(bid,'INITIAL_SKIPPED',target=old['target'],reason='PRE_BURST_NOT_ELIGIBLE');continue
+            candidate=deepcopy(old)
+            candidate.update(row=row,read_id=status['command_id'],observed_at=status['network_at'],minimum=minimum,
+                deadline=(stamp(status['network_at'])+timedelta(seconds=row['expires'])).isoformat(),
+                selection_age=age,selection_remaining=remaining,discovery_read_id=old['read_id'],
+                discovery_observed_at=old['observed_at'],discovery_selection_age=old['selection_age'])
+            refreshed.append(candidate)
+        self.journal.metric(bid,'PRE_BURST_STATUS',read_id=status['command_id'],requested=len(candidates),eligible=len(refreshed))
+        return refreshed
 
     def _bid(self, bid, candidate, read_id, row, kind):
         j=self.journal

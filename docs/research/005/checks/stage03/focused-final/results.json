@@ -1,0 +1,62 @@
+{
+  "status": "STAGE_PASS_OBJECTIVE_INCOMPLETE",
+  "finished": "2026-11-17T05:30:16.674062+00:00",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage01.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.104,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage02.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.335,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage03.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.327,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.184,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.148,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt"
+    }
+  ]
+}

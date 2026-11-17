@@ -216,43 +216,47 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 02 completed engineering checkpoint (2026-11-17), starting published main
-`4cc51c1`. Fresh quiescent canonical-lock backup is recorded in
-`docs/research/005/stage02/backup-20261117T012442462535Z.json`. Added helper and
-missing-diagnostic fault detection, strict append-only diagnostic retention,
-verified foreground/owned-popup recovery, and the generation/creation-identity
-bound operational service/health/stop module. All 1103 full Python executions,
-36 Node suites and the final focused process/diagnostic/probe checks pass; serial
-independent results are in `docs/research/005/checks/stage02/`. No persistent
-production service has been launched and healthy operational seconds remain zero.
+Stage 03 engineering checkpoint (2026-11-17), starting published main `2d7294f`.
+The consumed fresh-status experiment confirmed one genuine 700-coin initial bid:
+99 responses, 99 monitoring callbacks, 21 successful native requests (20 GET,
+one PUT), and separate exact-status and personal-watch membership confirmation.
+Captured receipt is ACCEPTED; membership rests on independent reads, not ACK.
+Its target is now expired by wall time; current outcome MUST be reconciled.
+No terminal win/loss, move, resale or four-hour proof is claimed from this probe.
 
-Actual finite bid-03 used normal admission/selection and one minimum initial bid:
-129 native command responses, 26 actual EA requests (25 GET, one PUT), amount 850,
-stored cap 4300/resale 5100, selection remaining 71.856465s. It reproduced wire 461 /
-service 403 / native error 461 and remains UNKNOWN. Independent exact status showed
-current 900 versus discovery 800, active, account bid_state none; personal watched
-was empty. Discovery age at dispatch was 42.019s. This supports a stale-price or
-competition hypothesis, not a proven server-denial cause or account restriction.
-Two earlier attachment windows dispatched no commands; all windows are consumed.
-Native evidence/diagnostic chain and six negative audit checks are independently
-verified by `python tests/check_005_stage02.py` (explicitly objective incomplete).
-The probe captured 127 secondary semantic records for 129 native responses; the
-query now uses the store lock, but the exact two callback exceptions are unknown.
-Require complete callback/error records next time; claim no healthy time here.
+Production now refreshes exact auction status once after pricing and before
+immutable selection, retains full-version identity/quote/cap and enforces the
+same minimum, expiry, filters and balance/batch policy. Missing/expired/over-cap
+rows cannot authorize bids. Result-monitor exceptions latch dispatch admission,
+report only exception type and stop via supervision. Full Python discovery
+passed 1106 executions with zero failures/errors/skips (488.333s); all 36 Node
+suites and nine serial independent checks passed. Retained failed stage03 run
+had one obsolete ordering assertion; its replacement verifies both pre-burst
+freshness and membership proof from the separate POST-bid status. Historical
+004 observations stay sealed and are replayed only in an explicit offline fixture.
 
-Next concrete action: create a NEW finite experiment, with a new distinct target,
-that obtains fresh exact native status before its minimum initial bid, preserving
-full-version links, the unchanged quote/cap, one batch balance, capacity, filters,
-more-than60s eligibility and no uncertain-command replay. Reconcile actual account
-readback. Scope a production freshness/receipt repair only from actual evidence;
-record every failed method and never fabricate a rejection or success. Harden
-callback-failure reporting if needed. Then use the tested operational interface
-for scheduler-owned launch in this SAME task, reconcile on restart, and continue
-monitor/stop/repair until genuine lifecycle evidence and 14400 consecutive healthy
-seconds after the final restart. Keep 003 PAUSED and 004 COMPLETED. Production is
-STOPPED/ACQUIRING, 20 UNKNOWN attempts (all 19 original plus the new one), zero active
-members, zero pending commands. No external blocker or human prerequisite exists.
-Detailed evidence and exact current hypotheses: `docs/research/005/REPORT.md`.
+The independent consumed-window audit `python tests/check_005_stage03.py` passes
+six adversarial evidence cases. `tests/validate_005_interval.py` rejects missing
+runtime/four-hour history; eight negative self-tests pass, never counted as live.
+Final lifecycle acceptance validator remains to implement against real generation
+evidence. All original acceptance criteria remain unfulfilled pending production.
+
+Fresh pre-service runtime backup, integrity/FK/row comparisons and stopped state
+are retained under `docs/research/005/stage03/pre-service-backup.json`.
+Independent process/browser captures show no workers/listeners/scheduled jobs,
+o visible challenge and verified foreground access to official Edge Web App.
+Production is STOPPED/MANAGING, one ACTIVE member independently confirmed in the
+finite experiment, 20 UNKNOWN attempts preserved, one ACKNOWLEDGED initial bid,
+zero pending commands. No persistent production runtime yet; healthy seconds zero.
+
+Next: publish this stage, then use ONLY the scheduler-owned service handoff with
+the unique prepared generation in `stage03/launch-intent.json`. Continue in this
+same task immediately to inspect/attach startup and reconcile current account
+state for the expired member. Do not resend its bid or any UNKNOWN command.
+Monitor/stop/repair autonomously on actual semantic faults, retain full lifecycle
+readbacks, finish independent lifecycle acceptance, and then prove at least 14400
+consecutive monitored healthy seconds after the FINAL fix/restart. Leave healthy
+runtime running. Keep 003 PAUSED/004 COMPLETED. No external blocker is proposed.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -305,3 +309,25 @@ recovers foreground; a popup is allowed only through the exact intended root
 owner. Reusing an existing Extensions menu avoids closing it by toggling. Two
 failed attachment windows had zero native dispatch; distinct bid-03 attached
 successfully after extension reload/document refresh. No auth values accessed.
+
+2026-11-17 H8 / CONFIRMED ACQUISITION, STALE-SELECTION CONTRIBUTION SUPPORTED:
+New finite fresh-bid-01 obtained exact current status after pricing, then bid 700
+with unchanged cap 4100/resale 4900. Wire200/native success and exact receipt
+matched physical/full-version target. Separate later exact status and watched
+both showed highest/current700. This disproves a blanket inability to bid in
+this document/account epoch; it does not establish the precise cause of every
+historical461. Production refreshes all eligible targets once before intent.
+New negative/recovery tests preserve all original strategy constraints.
+
+2026-11-17 H9 / MONITOR CALLBACK FAIL-CLOSED VERIFIED: result callback exceptions
+previously could be swallowed by policy handling. Executor now latches admission,
+supervision receives RESULT_MONITOR_FAILED and typed exception only, and a
+second request is rejected before native dispatch. Successful live experiment
+retains all 99 callbacks; no missing-result tolerance or fabricated health added.
+
+2026-11-17 H10 / QUOTA INTERRUPTION RECONCILED: no service launched before quota
+interruption. On resumption, full fresh regression passed 1106; separate process
+capture and canonical locks show quiescence. Existing confirmed member remains
+ACTIVE locally, account outcome unknown until fresh native read. Preserved its
+intent/proof and all 20 UNKNOWN bids. Prepared new scheduler launch only; no
+ordinary provider-child persistent processes or duplicate writes.

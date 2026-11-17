@@ -81,6 +81,7 @@ def run_controller(a, supervision):
                     count=server.store.db.execute('SELECT coalesce(sum(json_array_length(body)),0) FROM c4_diagnostics WHERE command_id=?',(c['id'],)).fetchone()[0]
                 supervision.result(c,v,diagnostic_records=count)
             adapter.executor.result=report_result
+            adapter.executor.failure=supervision.failure
             server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
             controller=Controller(server.store,adapter,cache);server.controller=controller

@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-17T05:29:55.492478+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "b6898a8aeec49b4985957a4d6425aeb3",
+  "service_id": "005-first-production-b6898a8aeec49b4985957a4d6425aeb3",
+  "public_port": 8784,
+  "reconciliation": "Read current watched/exact status for the existing confirmed member before further management; never replay UNKNOWN attempts.",
+  "healthy_seconds": 0,
+  "launch_owner": "installed orchestrator service handoff only"
+}

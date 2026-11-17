@@ -150,7 +150,10 @@ class SemanticTests(unittest.TestCase):
                 self.assertEqual(len(h.controller.journal.members()),3)
                 status=[i for i,m in enumerate(messages) if m['operation']=='status_batch']
                 bids=[i for i,m in enumerate(messages) if m['operation']=='bid']
-                self.assertGreater(min(status),max(bids))
+                self.assertLess(min(status),min(bids),'fresh exact status must precede the bid burst')
+                self.assertGreater(max(status),max(bids),'independent confirmation must follow the bid burst')
+                last_status=[m['command_id'] for m in messages if m['operation']=='status_batch'][-1]
+                self.assertTrue(all(m['proof']['read_id']==last_status for m in h.controller.journal.members()))
             finally:h.close()
 
     def test_real_read_failure_batches_trigger_semantic_stop_without_replay(self):

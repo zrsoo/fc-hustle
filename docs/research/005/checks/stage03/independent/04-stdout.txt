@@ -1,0 +1,1 @@
+{"status": "PASS", "repair_probe_EA_GETs": 5, "metadata_fanout": "LIVE_VERIFIED", "gate": {"status": "PASS", "elapsed_seconds": 12.0698056, "pricing_GETs": 2, "definition_id": 278046, "decision": "BID/ELIGIBLE", "bid_dispatches": 0}}

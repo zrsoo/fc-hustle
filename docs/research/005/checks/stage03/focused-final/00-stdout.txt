@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "incident": {"commands": 302, "bids": 19, "unknown": 19, "wire461_service403": 12, "wire401_service401": 7, "balance_401": 30, "confirmed_members": 0}, "reads": {"commands": 6, "actual_gets": 7, "mutations": 0, "status_targets": 10}}

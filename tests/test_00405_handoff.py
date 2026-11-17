@@ -57,7 +57,7 @@ class HandoffChecks(unittest.TestCase):
             with self.assertRaises(ValueError):check.validate_handoff(value, report.replace(text, ''))
         from record_00403_offline import record
         trace = check.load(check.OUT/'synthetic-trace.json')
-        recomputed = record()
+        recomputed = record(historical=True)
         check.validate_trace(trace, recomputed)
         for edit in (lambda r:r.update(classification='LIVE_VERIFIED'),
                      lambda r:r['requests'].update(balance=0),

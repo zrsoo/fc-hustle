@@ -24,6 +24,10 @@ from fc_access.controller_v1.executor import ControllerExecutor,SerializedExecut
 from fc_access.controller_v1.semantic import SemanticHealth,native_summary
 from fc_access.controller_v1.server import Server
 from fc_access.production_v1.price_cache import QuoteCache
+from fc_access.production_v1.prices import CardKey
+from fc_access.production_v1.contracts import stamp
+from copy import deepcopy
+from datetime import timedelta
 
 
 class ProbeController(Controller):
@@ -33,6 +37,14 @@ class ProbeController(Controller):
         if getattr(self,'probe_attempted',False):return None
         self.probe_attempted=True
         return super()._bid(*args,**kwargs)
+
+
+class FreshProbeController(ProbeController):
+    """Record the now-production refresh seam, without a second status read."""
+    def _refresh_selection(self,batch_id,candidates):
+        refreshed=super()._refresh_selection(batch_id,candidates)
+        self.probe_record('FRESH_SELECTION',before=candidates,after=refreshed)
+        return refreshed
 
 
 class Bounded:
@@ -57,14 +69,15 @@ class Bounded:
             self.record('DELIVERY_UNCERTAIN',command_id=c['id'],exception_type=type(error).__name__);raise
 
 
-def run(output):
+def run(output, *, fresh_status=False):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=False)
     def record(kind,**fields):
         with (output/'checkpoint.jsonl').open('a',encoding='utf-8',newline='\n') as stream:
             stream.write(json.dumps(dict(at=datetime.now(timezone.utc).isoformat(),kind=kind,**fields))+'\n')
             stream.flush();os.fsync(stream.fileno())
     base=ROOT/'private-captures/controller-v1';scope=json.loads((base/'public-context.json').read_text())
-    record('PREPARED',question='Does a current-document controller bid still return461/403 or401; what does independent account evidence show?',
+    record('PREPARED',question='Does a minimum initial bid from fresh exact status succeed versus the earlier aged-discovery denial?' if fresh_status else 'Does a current-document controller bid still return461/403 or401; what does independent account evidence show?',
+           fresh_status_experiment=fresh_status,
            max_initial_mutations=1,max_other_mutations=0,max_reserved_ea=96,max_commands=1024,deadline_seconds=900,context=scope)
     result=dict(status='NOT_VERIFIED',account_mutations=0)
     with ExitStack() as stack:
@@ -84,12 +97,16 @@ def run(output):
                 message=dict(kind='native_result',**native_summary(c,v),diagnostic_records=count)
                 semantic.observe(message);record('SEMANTIC_RESULT',message=message)
             executor.result=native
+            def failed_monitor(exception_type):
+                semantic.reason='RESULT_MONITOR_FAILED';record('MONITOR_FAILURE',exception_type=exception_type)
+            executor.failure=failed_monitor
             server.store.semantic_report=lambda **fields:semantic.observe(dict(kind='batch_result',**fields))
             print('ONE_BID_PROBE_SERVICE_READY',flush=True)
             adapter=ControllerAdapter(executor,context=scope,owner=secrets.token_hex(16),epoch=epoch)
             record('ATTACHED',context=scope,fences=adapter.fences)
             cache=QuoteCache(base/'quotes.sqlite')
-            controller=ProbeController(server.store,adapter,cache);server.controller=controller
+            controller=(FreshProbeController if fresh_status else ProbeController)(server.store,adapter,cache);server.controller=controller
+            controller.probe_record=record
             controller.resume();controller._acquire()
             state=controller.journal.state();batch=state['batch_id']
             attempts=[dict(command_id=cid,state=state,result=json.loads(value) if value else None)
@@ -121,4 +138,6 @@ def run(output):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True)
-    raise SystemExit(run(parser.parse_args().output))
+    parser.add_argument('--fresh-status',action='store_true')
+    args=parser.parse_args()
+    raise SystemExit(run(args.output,fresh_status=args.fresh_status))

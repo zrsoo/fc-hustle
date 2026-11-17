@@ -157,7 +157,10 @@ class WatchdogTests(unittest.TestCase):
                 h.store.supervision_guard=s.require;h.executor.progress=s.progress
                 h.ea.bid_modes[h.ea.rows[0]['trade_id']]='timeout'
                 h.ea.bid_modes[h.ea.rows[1]['trade_id']]='reject'
-                h.ea.missing.add(h.ea.rows[2]['trade_id'])
+                def missing_after_dispatch(c):
+                    if c['operation']=='status_batch' and len(h.calls('bid'))==3:
+                        h.ea.missing.add(h.ea.rows[2]['trade_id'])
+                h.ea.on_request=missing_after_dispatch
                 h.controller.run(steps=2,progress=s.state)
                 self.assertEqual(h.controller.status()['lifecycle'],'RUNNING')
                 self.assertEqual(len(h.calls('bid')),3,'uncertainty must not block unrelated dispatch or replay old work')

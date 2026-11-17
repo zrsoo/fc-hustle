@@ -1,0 +1,38 @@
+{
+  "at": "20261117T021430788530Z",
+  "canonical_locks_held": true,
+  "backup_directory": "C:\\hustle\\orchestrator-migration-evidence\\005-stage03-20261117T021430788530Z",
+  "databases": {
+    "controller.sqlite": {
+      "integrity": "ok",
+      "foreign_key_errors": 0,
+      "row_comparison": "equal",
+      "tables": {
+        "c4_attempts": 20,
+        "c4_batches": 3,
+        "c4_candidates": 29,
+        "c4_commands": 431,
+        "c4_controller": 1,
+        "c4_decisions": 20,
+        "c4_diagnostics": 643,
+        "c4_events": 1295,
+        "c4_inventory": 1,
+        "c4_maintenance": 1,
+        "c4_members": 0,
+        "c4_meta": 2,
+        "c4_metrics": 63,
+        "c4_policy_batches": 42,
+        "c4_tombstones": 20,
+        "c4_work": 0
+      }
+    },
+    "quotes.sqlite": {
+      "integrity": "ok",
+      "foreign_key_errors": 0,
+      "row_comparison": "equal",
+      "tables": {
+        "completed_quotes_v1": 12
+      }
+    }
+  }
+}

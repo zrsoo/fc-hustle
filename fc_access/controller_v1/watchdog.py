@@ -49,6 +49,10 @@ class Supervision:
     def policy_result(self, **fields):
         self.report('batch_result',**fields)
 
+    def failure(self, exception_type):
+        self.reason='RESULT_MONITOR_FAILED'
+        self.report('failure',reason=self.reason,exception=exception_type)
+
     def require(self):
         with self.lock:
             try:

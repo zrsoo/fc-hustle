@@ -377,3 +377,83 @@ command mentioned probe filenames during Git staging. The separate collector-onl
 reports no FC workers, listeners or scheduled mutation jobs. Both captures remain
 retained; the stage validator uses the later quiescent observation and the DB
 projection without pretending the earlier heuristic was exact.
+
+
+## Stage 03 ? fresh selection and first confirmed live participation
+
+The separately consumed `stage03/fresh-bid-01` experiment answered whether a
+minimum bid based on current exact status could succeed after the aged-discovery
+461 denial. It did: command 16ccdb47cc35f608ba0bf72d7ac6eaf8 bid 700 on
+trade:d4e9c4b3d4ee3636cb3e9df6 / item:e211ec5628440e33479fdaf8 / definition 233731.
+Native wire 200, service 200, receipt ACCEPTED with exact matching item/amount;
+separate exact status a8661367041b03df13454d6319dc61cb and later personal watched
+077a1978da8c5347b9fdc6bab32c555d both independently showed highest/current700.
+Full-version provenance comes from the owned native full read, never the lite
+DTO's zero definition field. The probe ended stopped with zero pending commands.
+It retained 99 native responses AND 99 semantic callbacks, 21 actual EA requests
+(20 GET/one PUT),26 request reservations and one irreversible intent. No lost
+callback is hidden. All 20 earlier UNKNOWN attempts remain protected.
+
+Before/after selection retained the same completed quote, cap 4100/resale 4900 and
+minimum 700. Original discovery selection age 30.203395s became 0.356731s for the
+fresh exact status; remaining 230.643269s exceeded 60. This confirms working
+acquisition in this account/document epoch and supports stale selection as a
+contributor. It does not prove the exact EA server reason for every historical 461
+or explain all 401 failures. Ordinary competition, explicit native translation,
+authentication and uncertain dispatch remain distinct evidence classes.
+
+Production now batches one exact status read after pricing and before immutable
+selection. It keeps completed pricing and full-version provenance unchanged,
+recomputes only legal current minimum/expiry, and rejects missing, expired or
+over-cap candidates. Balance remains one entry check, strictly >40000; discovery
+filters/max10/fee/profit/native increments and sequential management remain.
+Tests change live fixture request counts to include this read and ensure the
+post-bid membership proof still uses a later independent status. Sealed004 traces
+are unchanged; explicit socket-free historical replay preserves their original
+observations while current fixtures exercise the corrected production behavior.
+
+A result-monitor exception now closes admission immediately and reports only
+its type to supervision with RESULT_MONITOR_FAILED. Canary-negative tests prove
+no exception value leaks and no second account request dispatches. This repairs
+a path where policy exception handling could otherwise continue after monitor
+failure. The live experiment had complete callbacks; the old two missing
+callbacks remain honestly unresolved historical evidence.
+
+Full regressions: 1106 Python executions, zero failures/errors/skips, 488.333s,
+all 36 Node suites and all nine serial independent checks passed. Exact argv,
+stdout/stderr and receipts are in `checks/stage03/python-final`, `node` and
+`independent`. The retained earlier Python run failed one obsolete post-status
+ordering assertion. Its stronger replacement checks both pre-bid freshness AND
+all membership proof IDs against the separate later post-bid status; no functional
+coverage was removed. `check_005_stage03.py` independently reparses the captured
+wire/service/account envelopes and rejects six altered-evidence cases. Its
+explicit verdict is STAGE_VERIFIED_OBJECTIVE_INCOMPLETE. Only immutable consumed
+experiment captures are sealed, never mutable source/tests/instructions.
+
+`validate_005_interval.py` independently audits scheduler monotonic samples,
+constant generation/epoch, gaps, actual process ownership, and separately
+correlated native successes from watchdog log plus controller SQLite envelopes.
+It rejects heartbeat/helper-only history, fixture provenance, missing diagnostics,
+stale native success, short duration, restart/fault or unmonitored gaps. Eight
+negative self-tests passed; these are OFFLINE, not operational evidence. Default
+acceptance currently fails because no production runtime/four-hour history exists.
+A full lifecycle acceptance checker remains necessary before completion.
+
+Quota interruption occurred with trading stopped. The confirmed auction has
+since expired by wall time; its actual terminal outcome/ownership is UNKNOWN
+until fresh account reconciliation. Do not infer won/lost or move unrelated
+items. `pre-service-backup.json` retains a new canonical-lock runtime backup
+with row equality/integrity/FK checks; DB STOPPED/MANAGING, one ACTIVE member,
+20 UNKNOWN, one ACKNOWLEDGED, zero pending commands. Collector-only
+`pre-service-quiescence.json` shows no FC workers/listeners/jobs;
+`pre-service-browser.json` verifies this worker's official Edge foreground
+access and no visible challenge. No saved authentication values were accessed.
+
+`launch-intent.json` prepares a unique generation/service ID for the installed
+scheduler only; no persistent service has yet been dispatched and healthy seconds
+remain zero. Publish this repair, hand off service+monitor with status continue,
+then immediately inspect startup/reattach if needed and reconcile the existing
+member through genuine native reads. Continue semantic monitoring and automatic
+repair in this same task. First-production run must still prove management,
+terminal ownership/move/one-hour resale/eligible maintenance and the final
+uninterrupted 14400s. Original requirements are unchanged; no blocker proposed.
