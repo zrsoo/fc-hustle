@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "healthy_seconds": 0, "reconciled_losses": 8, "sold_resale_price": 4300, "maintenance": "clear_sold", "denied_bids": 3, "new_confirmed_bid": "118ad356722de9343285f70598498466", "amount": 700}

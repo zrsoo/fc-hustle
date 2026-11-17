@@ -1,0 +1,80 @@
+{
+  "status": "EXPECTED_RESULTS",
+  "full_acceptance": "INCOMPLETE",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage09.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.473,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "finished": "2026-11-17T11:32:55.968557+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage08.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.956,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "finished": "2026-11-17T11:32:56.924296+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.689,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "finished": "2026-11-17T11:32:58.613382+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.193,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "finished": "2026-11-17T11:32:58.806634+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.183,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "finished": "2026-11-17T11:32:58.989923+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.162,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt",
+      "finished": "2026-11-17T11:32:59.152225+00:00"
+    }
+  ]
+}

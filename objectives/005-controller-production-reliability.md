@@ -216,47 +216,52 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 08 repair complete, publication and scheduler launch next. The prior
-published main was 26457b9. Generation d019ab7647ea4aaac981c9319019b87b ran
-10:54:00 through 10:58:14 UTC, owner epoch 14. Actual native evidence confirms
-recovered listing of the earlier owned win (paid 3100, start 4200, BIN 4300,
-3600 seconds), eligible relist maintenance, eight new initial bids and FOUR
-competitive rebids. The original successful-prefix capture contained three
-rebids; the complete 220-delivery final capture independently verifies the fourth.
-Nine earlier active members settled LOST; the recovered win became WON_ACCOUNTED.
-No move was replayed. One new rebid remains UNKNOWN in its immutable journal
-history despite a matching native ACCEPTED receipt and later independent highest
-status. All original 31 UNKNOWN intents and that new UNKNOWN remain consumed.
+Stage 09 live recovery complete; publish and scheduler launch next. Starting
+published main 9ab412b. Generation 2a7a7c6219060321031664a0e4b5d86f launched
+11:25:56 UTC, owner epoch 15, and made genuine native reads. All eight inherited
+active auctions independently settled LOST. The earlier paid-3100 item listed
+at 4300 was independently observed sold at 4300 and removed through exact native
+clear_sold maintenance, with before/after inventory proof. This completes that
+historical resale outcome but does not count as final-generation acceptance.
 
-The child suffered Windows access violation 0xC0000005 in python313.dll at
-10:58:11 UTC. The watchdog stopped cooperatively after PROCESS_EXIT, the scheduler
-reset healthy seconds to ZERO, and both owned process identities exited. No
-production actor or listener remains. A finite, isolated workload reproduced
-incorrect concurrent SELECT results on the ACTUAL shared ControllerStore in
-0.220 seconds; an independent cached control failed in 0.151 seconds. Disabling
-only CPython's unsafe shared prepared-statement cache then passed 147634 exact
-reads across 12 threads over 30 seconds. This proves a bad-read defect and supports
-the native-crash hypothesis; the original C stack was unavailable. New workers
-retain stack metadata through faulthandler, and pre-transport status failures
-retain planned invocation IDs and safe exception types without exception values.
+The next batch's first three bids returned wire 461, native error 461 and service
+403; all remained UNCONFIRMED. At the third failure the watchdog requested stop
+within one second and exited cooperatively at 11:27:06 UTC, without force or a
+native crash. No fourth bid was dispatched. All nine selected intents (including
+six unsent) became consumed UNKNOWN, bringing total UNKNOWN to 41. Healthy time
+is ZERO. Reads and cleanup success do not establish current bid permission or
+explain the server denial. No blanket account restriction is inferred.
 
-Passed 1120 Python test executions, 38 Node suites and nine independent inventory
-commands. Focused checks verify the complete live captures, four corrupted-listing
-negative cases, cache concurrency, safe fault traces, and both acceptance
-validators' negative fixtures. Full acceptance validators still correctly return
-INCOMPLETE while stopped; genuine final-generation lifecycle and 14400 consecutive
-healthy seconds remain unproven. Captured historical evidence was not rewritten.
+After fresh quiescent backups, ordinary official-page navigation refreshed the
+existing app. A transient Login control disappeared before any click was made;
+the page loaded using its normal saved session, without a challenge or credential
+access. This worker verified the official foreground and reattached the reviewed
+extension. A separately journaled one-bid experiment on a NEW target at epoch 16
+confirmed a 700-coin initial bid through wire/service 200, matching ACCEPTED native
+receipt, independent status and independent watched account read. Exactly one
+mutation, 124 commands, 23 reserved EA requests, zero pending commands, probe
+closed cleanly. The three earlier uncertain bids were not retried. Refresh changed
+the document/session and candidate, so this comparison does not establish the
+exact cause of the preceding 461s. Continue investigation if they recur.
 
-Fresh pre-service canonical-lock backups passed integrity, foreign-key and
-row-equality comparisons. Safe state: 33 ACKNOWLEDGED and 32 UNKNOWN attempts,
-eight ACTIVE members requiring fresh native settlement, eleven LOST and one
-WON_ACCOUNTED, zero pending commands, persisted epoch 14. Prepared scheduler-only
-launch intent: generation 2a7a7c6219060321031664a0e4b5d86f, epoch floor 15,
-service ID 005-sqlite-cache-repair-2a7a7c6219060321031664a0e4b5d86f.
-Next: commit/push this completed stage, hand that new generation to the scheduler,
-immediately verify attachment and fresh actual account reconciliation before new
-writes, then continue autonomous repair/proof. Do not replay confirmed move,
-listing, relist or prior bids. No external blocker or human prerequisite exists.
+Stage09 captured-evidence audit verifies all eight losses, exact sold resale and
+cleanup, three-layer denials, prompt stop, unchanged production policy for the
+new bid, independent confirmation, and four negative cases. Existing complete
+production regressions remain 1120 Python, 38 Node suites and nine independent
+commands; no production implementation changed this stage. Focused audits and
+both acceptance validators' negative fixtures pass. Actual acceptance remains
+INCOMPLETE while stopped, with no four-hour interval or final-generation lifecycle.
+
+Fresh pre-service backup/quiescence/browser evidence and launch intent are under
+docs/research/005/stage09. Safe journal: 34 ACKNOWLEDGED, 41 UNKNOWN; one ACTIVE,
+19 LOST, one WON_ACCOUNTED; zero pending commands, epoch 16. Prepared unique
+scheduler generation e4f748f311fbcdaccdfe983600a8726c, epoch floor 17, service
+ID 005-normal-session-recovery-e4f748f311fbcdaccdfe983600a8726c. Next: publish this
+stage, launch through the scheduler, immediately reconcile/manage the confirmed
+700-coin member and continue trading with original policy. Do not replay earlier
+UNKNOWN bids or completed move/list/bulk operations. On another failure preserve
+fresh layer evidence and continue repair. Require full genuine final-generation
+behavior and 14400 uninterrupted healthy seconds. No human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -399,3 +404,14 @@ the one original UNKNOWN remains unchanged. Final regressions: 1120 Python,
 stopped. Fresh quiescent backup and unique epoch-15 launch intent retained.
 Publish and restart only through the scheduler, immediately reconcile eight
 existing members, and continue genuine final-generation lifecycle/14400s proof.
+
+2026-11-17 stage09: new runtime independently reconciled eight losses and cleared
+the earlier exact won/resold item after a genuine 4300 sale. Three native461 /
+service403 bid failures triggered immediate cooperative stop; 41 UNKNOWN intents
+preserved, no fourth dispatch. Official-page refresh and extension reattachment
+then permitted one NEW 700-coin bid with independent participation evidence.
+Different target/document confound exact denial causality; no account restriction
+or historical bid outcome inferred. Native-fault trace did not record a crash in
+this run. Focused captured-proof audit rejects four corruptions; full acceptance
+still INCOMPLETE, healthy seconds zero. Publish, scheduler-launch epoch 17 and
+reconcile/manage the actual new member before continuing four-hour proof.

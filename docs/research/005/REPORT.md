@@ -978,3 +978,83 @@ then continue production. Do not repeat the already confirmed move/list/relist o
 prior bids. Any later fault or fix resets the required final uninterrupted 14400
 seconds. Current healthy time is zero. No human prerequisite or external blocker
 exists; this is continued authorized engineering.
+
+
+## Stage 09 ? successful sold-item cleanup, persistent denial stop and normal recovery
+
+Scheduler generation **2a7a7c6219060321031664a0e4b5d86f**, epoch 15, launched
+**11:25:56 UTC**. Owned supervisor PID 2720 / child PID 7124 made genuine native
+requests. Fresh watched/full-version-linked status independently showed all eight
+inherited members closed/outbid/not-won; the journal recorded their terminal losses.
+No expired wall-clock mapping was treated as settlement or new bidding authority.
+
+The exact earlier owned item **item:4fa51171b8d65f02a7e65198**, paid 3100, was
+observed on its same resale auction **closed at current_bid 4300**. The native
+**clear_sold 120f19032950b98dcdeb40ffd955e7a2** contract targeted that sole eligible
+sold item, preserved unrelated entries, and confirmed its removal in a separate
+complete inventory read. Original listing/native readbacks remain sealed in
+stage08; stage09/work.json and commands.jsonl retain the sale/cleanup evidence.
+This extends the historical win/move/list lifecycle through actual sale and
+maintenance. It does not substitute for the required final generation's proof.
+
+The next original-policy batch **6ef9ec1d6736c0885dc92176f7ab014f** dispatched
+three initial bids at 750, 800 and 700. Every owned PUT returned wire **461**;
+native callback returned **403**, native receipt error **461**, empty native items,
+UNCONFIRMED participation and no successful account confirmation. Diagnostics
+retain invocation, send, response, callback and ACK chronology separately. Reads
+and the preceding clear operation had succeeded, so an HTTP response/heartbeat
+alone would have been false health. The third failure was reported at
+**11:27:04.474708 UTC**; STOP_REQUESTED followed at **11:27:04.474972**, and STOPPED
+at **11:27:06.670769**, exit 0 / forced false. No fourth bid was sent. The three
+dispatched and six selected-but-unsent intents remain consumed UNKNOWN. Total
+UNKNOWN is **41**, not an assertion that 41 writes reached EA. The service is
+stopped and the final healthy interval reset to zero. No native crash recurred
+in this short run; that is not four-hour validation of the cache repair.
+
+A fresh canonical-lock backup passed SQLite integrity/FK and row-equality checks.
+This worker verified official Edge foreground and navigated normally to the Web
+App. A transient Login control disappeared before the attempted click; the helper
+rejected the missing exact control and sent no input. The page completed its normal
+saved-session load with no challenge. The reviewed extension was reattached at
+**11:29:22 UTC**. No credential value, cookie, authentication header/token or EA
+session identifier was inspected, retained or changed.
+
+Finite experiment **stage09/after-refresh-one-bid** reserved one mutation and
+used unchanged production admission, exact-version completed pricing, limits,
+filters and fresh exact status. At epoch 16, new command
+**118ad356722de9343285f70598498466** bid **700** on a different target. Its actual
+wire/service 200 and matching native ACCEPTED receipt were followed by independent
+status and watched account evidence, confirming genuine participation. The probe
+closed with **one mutation, 124 commands, 23 reserved EA requests and zero pending
+commands**. It did not replay any of the prior uncertain targets. The comparison
+establishes currently usable bidding after ordinary recovery. Candidate and document
+changed, so it does **not** establish the exact server-side reason for prior 461s,
+a blanket account restriction, a new authentication-error classification, or the
+outcome of those prior bids. Those causal questions remain explicitly open.
+
+**tests/check_005_stage09.py** independently reparses these native contracts,
+full/lite identity links, exact terminal losses, original listing-to-sale identity,
+all-eligible sold cleanup, bid policy and post-bid account confirmation. Four
+negative cases reject false terminal membership, changed sale price, missing bid
+receipt and missing independent participation. It also checks three dispatched
+failures, prompt cooperative stop, finite probe closure and protected UNKNOWN
+intents. Only captured experiment/EA evidence is sealed. It reports
+STAGE_VERIFIED_OBJECTIVE_INCOMPLETE / healthy_seconds 0.
+
+No production implementation changed in this recovery stage. The complete tested
+production inventory remains **1120 Python executions, 38 Node suites and nine
+independent commands**, with new focused receipts under checks/stage09. Both
+actual acceptance validators still return INCOMPLETE while stopped, and their
+negative fixtures pass. No incomplete live contract is relabeled as PASS.
+
+The pre-service canonical-lock backup and verified quiescence are retained under
+stage09. Safe journal state: **34 ACKNOWLEDGED, 41 UNKNOWN, one ACTIVE member,
+19 LOST, one WON_ACCOUNTED, zero pending commands**, persisted epoch 16. Unique
+prepared scheduler generation **e4f748f311fbcdaccdfe983600a8726c**, service ID
+**005-normal-session-recovery-e4f748f311fbcdaccdfe983600a8726c**, uses epoch floor
+**17**. Publish and launch it once through the scheduler, immediately reconcile
+and manage the actual 700-coin member, then continue original-policy production.
+Earlier UNKNOWN commands and completed move/list/bulk operations must not replay.
+Any new fault requires preservation, safe stop, diagnosis and repair. Final genuine
+lifecycle and **14400 consecutive healthy seconds remain unproven**; there is no
+verified external barrier or human prerequisite.

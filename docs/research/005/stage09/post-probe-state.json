@@ -1,0 +1,66 @@
+{
+  "attempt_states": [
+    [
+      "ACKNOWLEDGED",
+      34
+    ],
+    [
+      "UNKNOWN",
+      41
+    ]
+  ],
+  "member_states": [
+    [
+      "ACTIVE",
+      1
+    ],
+    [
+      "LOST",
+      19
+    ],
+    [
+      "WON_ACCOUNTED",
+      1
+    ]
+  ],
+  "pending": 0,
+  "epoch": 16,
+  "prior_unknowns": [
+    {
+      "id": "188be48552549dbf1e2f75da4a2dbae4",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1da11c1d1af0b42a8e613667aa1e885a",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "2c3d39c57340859623cdd74f83ef5c8c",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "509541d08a70a9a8121646a01f9a436f",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "68a50082ee2f498470387208b272c910",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "b54de24f311a113e5c651e80e3257770",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "c3d9082d1274f0be2006d346986e8dc1",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "cac1c0d99deed503f6da1d0a16c6ad77",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "f3d301e2866fb2b78f5f81f693296272",
+      "state": "UNKNOWN"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-17T11:32:41.761998+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "e4f748f311fbcdaccdfe983600a8726c",
+  "service_id": "005-normal-session-recovery-e4f748f311fbcdaccdfe983600a8726c",
+  "epoch_floor": 17,
+  "persisted_production_epoch": 16,
+  "launch_method": "SCHEDULER_SERVICE_HANDOFF_ONLY",
+  "first_action": "Fresh reconciliation and management of confirmed 700-coin member; no earlier uncertain bid or completed bulk/list/move replay",
+  "required_healthy_seconds": 14400
+}

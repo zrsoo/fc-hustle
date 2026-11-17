@@ -1,0 +1,49 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_EXPERIMENT_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "after-refresh-one-bid/checkpoint.jsonl",
+      "sha256": "1951e812edf48c6a8285ae5806b23b6e8e2db9b01756a9aa343a99197d971e12"
+    },
+    {
+      "path": "after-refresh-one-bid/result.json",
+      "sha256": "eb276179e9389274e38531f3da5805b187a4faeec2e73f5db98cb754f164dd52"
+    },
+    {
+      "path": "attempts.json",
+      "sha256": "95a6af20e60013bfbb584cead747dd47e7fe493cbf37a1ce9d1dd74bfdda2cf2"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "755f5619f82dd02bddd45805f382f344cc400b72adcd16ffbb440b0e46a6aceb"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "6a3e27bc589569ec93f2b4357103df7c3baca5f5a26725910b85e46260428e72"
+    },
+    {
+      "path": "post-probe-state.json",
+      "sha256": "e8fd929fa8af1001da5e8d82c1f01df823a1e1a4cfba67633c488e856b744ef9"
+    },
+    {
+      "path": "prior-member-reconciliation.json",
+      "sha256": "06906bf32eea7e86ed6db22a52454fc12745392742ece1cd0cba28002190627a"
+    },
+    {
+      "path": "probe-acquisition.json",
+      "sha256": "a70906d0d013b07af1a63f5f8b63ac82085546909b7b39541a750db4f9226e36"
+    },
+    {
+      "path": "probe-commands.jsonl",
+      "sha256": "5dc68c92affb39f98d467b50c2307a82bd9ea2216c5c10389bb5a5ed3d72ffb6"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "c57573409239f1c9279822e912230eebec5e3b7401d88288ed6fc847601ca7ff"
+    },
+    {
+      "path": "work.json",
+      "sha256": "98da0cf4101e586cf9e1f797d44e6eeef815fa7a16bd8cfbd12f1ad7b161b03b"
+    }
+  ]
+}
