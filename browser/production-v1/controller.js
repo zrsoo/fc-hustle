@@ -3,7 +3,7 @@
   'use strict';
   if(window.__fcControllerFactoryV1)return;
   window.__fcControllerFactoryV1=function(s){
-    const {keys,hex,num,equal,id,auction,known,reads,helper,bidReceipt,captureBid,finishBid,diagnostic}=s;
+    const {keys,hex,num,equal,id,auction,known,reads,helper,bidReceipt,captureBid,finishBid,diagnostic,trackReadRenewal}=s;
     const attempted=new Set(),proofs=new Map();let cancel=null;
     const target=t=>keys(t,'trade_id,item_id,definition_id') && /^trade:[a-f0-9]{24}$/.test(t.trade_id) &&
       /^item:[a-f0-9]{24}$/.test(t.item_id) && num(t.definition_id)>0;
@@ -79,9 +79,11 @@
           if(invoking){
             if(++queueCount!==1 || typeof request?.send!=='function')throw Error('ambiguous_network');
             requests.push(request);
-            // These are settings on this finite request, never global auth policy.
-            // Automatic reauthentication/retry must not replay a possible mutation.
-            request.doRetry=false;request.doReauth=false;
+            // Native renewal may maintain a pure read's session, but the original
+            // request must still fail: never replay it or renew a possible bid.
+            // Preserve only an explicitly enabled native default, not global policy.
+            request.doRetry=false;request.doReauth=op!=='bid' && request.doReauth===true;
+            trackReadRenewal(request,c,wrap,()=>active && s.scope(c.context,c.fences));
             wrap(request,'send',send=>function(...more){
               if(!active || !s.scope(c.context,c.fences))throw Error('interrupted');
               s.auth();

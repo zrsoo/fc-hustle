@@ -22,6 +22,14 @@ from fc_access.controller_v1.store import ControllerStore
 
 
 class DiagnosticsTests(unittest.TestCase):
+    def test_native_renewal_diagnostic_retains_only_success_metadata(self):
+        from fc_access.production_v1.diagnostics import validate_records
+        row=dict(stage='NATIVE_RENEWAL_RESULT',at=datetime.now(timezone.utc).isoformat(),detail=dict(success=True))
+        self.assertEqual(validate_records([row]),[row])
+        for key in ('token','session','headers','response'):
+            changed=deepcopy(row);changed['detail'][key]='VALUE_CANARY'
+            with self.assertRaises(ValueError):validate_records([changed])
+
     def test_wire_comparison_typed_fields_retained_but_raw_data_and_sensitive_keys_rejected(self):
         detail=dict(target_index=0,wire_ready=True,wire_target_found=True,wire_identity_matches=True,wire_callback_matches=False,
                     wire_current_bid=700,wire_starting_bid=500,wire_buy_now_price=11000,wire_expires=-1,

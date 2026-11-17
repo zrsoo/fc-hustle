@@ -1106,3 +1106,151 @@ have not occurred after four hours, continue safe monitoring. Independently audi
 the full final lifecycle and interval before done; preserve uncertainty about the
 historical 461 server causes. **41 earlier UNKNOWN intents remain protected**.
 No external barrier or human prerequisite is established.
+
+
+## Stage 11 ? preserve native read renewal without retrying failed requests
+
+### Genuine incident and safe state
+
+The complete stopped run of generation **e4f748f311fbcdaccdfe983600a8726c** is
+retained separately from stage10's unchanged successful prefix. It contains
+**298 logical native/helper deliveries**, **274 successful native operations**,
+and four actual rebids at **1600, 1800, 2000 and 2200**. Each has a matching
+native receipt and later independent highest readbacks. Competition eventually
+reached **4900**, above stored cap **4300**; no unaffordable rebid was sent.
+Fresh status **c1cd5f526fc802cbabd6a9b99bcc992c** independently observed the exact
+member closed/outbid/not-won, after which the journal settled it LOST.
+
+One earlier status command **3f7d4e5808d5672c92b0df9bf623b21f** received a service
+callback200 with **no owned request**. It remained UNKNOWN/ambiguous_network and
+granted no fresh-read, participation or settlement proof. Later separately
+journaled native reads recovered. A native cache/coalescing origin is a hypothesis;
+the missing owned send cannot be reconstructed into a confirmed outcome.
+
+Balance **67cb333ebb906a8cdc6df1e47fd79c0d** succeeded with actual wire/service200
+at **11:47:30 UTC**. Next discovery **fe24ab38f77b62a112fd295e785bd2a1** returned
+wire/service401, followed by balance **7fd2deee68b00bf8d94b2f2b88b1586a** returning
+wire/service401. Account, persona, document and owner fences did not change.
+Failed legacy reads intentionally lack a successful-read network_at; their
+owned EA_RESPONSE diagnostic timestamps establish the actual transition instead
+of fabricated freshness. Authentication-header presence is a boolean, not proof
+that authentication remained valid. No header value or EA session identifier was
+inspected. The initial server-side invalidation/expiry trigger remains unproven.
+
+The second auth failure was reported **11:47:34.245522 UTC**, STOP_REQUESTED
+followed **11:47:34.245872**, and STOPPED **11:47:35.947403**, exit 0 / forced false.
+The scheduler retained **22 healthy samples**, peaking at **621.6986 seconds**,
+then reset to **zero**. The owned stop acknowledged both identities exited.
+Quota waiting left the broken runtime stopped until this same worker resumed.
+No native crash recurred during this short run. Safe journal: **38 ACKNOWLEDGED,
+41 UNKNOWN, 20 LOST, one WON_ACCOUNTED, no active members or pending commands**.
+Fresh canonical-lock backups passed SQLite integrity/FK and row comparisons.
+
+### Root defect, repair and limits
+
+Both controller.js and the controller-mode shared page bridge forced
+**doReauth=false** on every finite request. The native client normally enables
+renewal for requests with an authentication delegate. The current official
+[public native client](https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/ocompiled.js)
+shows _handleFail starting ordinary UTAS renewal on a 401, then _handleReauth and
+handleTelemetry honoring doRetry. With **doRetry=false**, native renewal does
+**not** replay the original request: it reports that original failure through
+_notify. A later independently journaled read must establish success. This
+mechanism was reproduced with the captured public native functions and shipped
+bridge, synthetic HTTP/native observables and credential-access traps. No browser
+or authentication values are present in those offline fixtures.
+
+The read adapter now preserves **only an already-enabled native renewal flag**
+for pure balance/watch/status and shared search/caps/owned-inventory reads.
+Native opt-out remains disabled. **All automatic request retries remain off**;
+bids and every move/list/bulk mutation lineage also keep renewal disabled.
+The first read401 remains failed and cannot supply balance, quote, ownership or
+membership authority. Existing failure streak/freshness/stop thresholds remain
+in force. This is normal native session maintenance, not direct authentication
+API calls, credential handling, challenge bypass, write replay or changed global
+security policy. It repairs a proven reason that ordinary renewal was suppressed;
+it does not establish why the server first rejected that particular session.
+Historical 461 denial causes also remain explicitly open.
+
+A private wrapper retains **NATIVE_RENEWAL_RESULT** only when the native
+observable completes the UTAS environment, with a single **success boolean**.
+An unrelated authentication environment's early success cannot claim UTAS
+recovery. Native callback hooks are restored. No authentication response object,
+header, cookie, token, credential, EA session ID or arbitrary exception is retained.
+This metadata does not count as a native trading success or fresh account proof.
+
+### Verification and genuine baselines
+
+The pre-fix regression retained zero native renewal calls despite an enabled
+native default. After repair the same scenario renews once, reports original
+read401 unchanged and succeeds only on a separate new read. Final verification:
+**1121 Python test executions**, **39 Node suites**, **nine independent commands**,
+all passing. Eleven focused renewal cases cover native opt-out, failed renewal,
+request no-replay, mutation no-renewal, restoration, privacy and wrong-environment
+false-success rejection. Red/green/final receipts remain separate under
+checks/stage11; no red history or failed live evidence was rewritten.
+
+**tests/check_005_stage11.py** reparses every captured delivery and native
+readback, all four rebids, actual terminal loss, coherent auth failures, prompt
+stop and protected journal state. Four negative cases reject missing receipt,
+changed wire auth status, life-only stop reason and promotion of the unowned
+callback to success. Only immutable captured native/experiment/public-method
+projections are sealed; mutable implementation files are not hashed or pinned.
+
+This worker used ordinary official Edge UI recovery: verified foreground,
+reviewed extension reload, normal app navigation, designated saved-account
+selection through autofill, NEXT and standard password submission controls.
+Credential values were never read. No security challenge, restriction or absent
+desktop access was observed. Both **read-after-repair** and final **read-final**
+windows independently passed **six commands / ten exact targets / zero missing**,
+with **zero mutations and pending work**, and closed their local service. The final
+window followed reload of the complete instrumented repair, native owner epoch
+**19**. Captured contracts and typed diagnostics are independently reparsed.
+These are genuine native-read baselines; no forced expiry or successful live
+renewal is claimed. Actual renewal and sustained trading must be observed in the
+next monitored run. Both final acceptance criteria remain incomplete.
+
+### Next operational run
+
+Production DB fencing remains epoch **17**, while the isolated read-only native
+window used epoch **19**. The next unique scheduler launch therefore requires
+**epoch floor 20**, fresh actual account reconciliation and unchanged production
+policy. Fresh pre-service quiescence/backup/browser evidence and finite launch
+intent are retained under stage11 before dispatch. No previous UNKNOWN bid
+or completed move/list/bulk action may replay. Any operational failure, stop,
+restart or monitored gap resets the required interval. Continue autonomous repair
+if needed; leave the eventual healthy runtime running. **Live renewal recovery,
+final-generation full lifecycle and 14400 consecutive healthy seconds remain
+unproven. No external barrier or human prerequisite is established.**
+
+Prepared generation **718d2acbcab1b4d9cdcb75d7e0035b70**, service ID
+**005-native-read-renewal-718d2acbcab1b4d9cdcb75d7e0035b70**, is not yet dispatched or consumed. Its
+canonical backup passed integrity/FK/row-equality comparisons. The official browser
+snapshot shows no challenge and a usable foreground app; actual fresh read success
+is established separately by the six-command final native window. Read-only legacy
+objective checks confirm Objective 003 PAUSED and Objective 004 COMPLETED.
+
+The existing scheduler will launch the following reviewed public argv once through
+this task's service handoff. This PowerShell spelling documents the corrected
+controller-under-watchdog launch; persistent execution for this objective remains
+scheduler-owned. Its exclusive owner lock and consumed generation directory reject
+a second launch.
+
+```powershell
+Set-Location C:/hustle/fc-hustle
+$fcPython = 'C:/hustle/agent-orchestrator/.venv/Scripts/python.exe'
+$fcGeneration = '718d2acbcab1b4d9cdcb75d7e0035b70'
+& $fcPython -m fc_access.controller_v1.operational service --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $fcGeneration --database private-captures/controller-v1/controller.sqlite --cache private-captures/controller-v1/quotes.sqlite --context private-captures/controller-v1/public-context.json --port 8784 --epoch-floor 20
+# Inspect the actual generation:
+& $fcPython -m fc_access.controller_v1.operational health --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $fcGeneration
+# Cooperatively stop only this generation:
+& $fcPython -m fc_access.controller_v1.operational stop --runtime-dir private-captures/controller-v1/operational --task-key obj-cb39371c785a/operate --generation $fcGeneration
+# Resume the existing objective only if it was explicitly paused:
+& C:/hustle/agent-orchestrator/.venv/Scripts/orchestrator.exe --db C:/hustle/fc-hustle/.orchestrator/state.db resume obj-cb39371c785a
+```
+
+Focused-final receipts include the four corrupted-evidence cases, typed diagnostic
+privacy tests and both acceptance validators' negative fixtures. The real criteria
+0/1 commands still return INCOMPLETE/nonzero while this service is stopped. The
+new runtime must establish actual native trading/resale behavior, genuine recovery
+if renewal occurs, and the uninterrupted four-hour semantic interval before done.

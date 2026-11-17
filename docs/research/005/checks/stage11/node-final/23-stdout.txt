@@ -1,0 +1,1 @@
+PASS read-only selector recovery: exact pseudonym/version, fresh owned GET, bounded native cache, persona/fences, no write authority or secret export

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "tests/controller_native_renewal_checks.cjs"
+  ],
+  "exit_code": 0,
+  "seconds": 0.1368883000104688,
+  "at": "2026-11-17T15:49:12.366666+00:00"
+}

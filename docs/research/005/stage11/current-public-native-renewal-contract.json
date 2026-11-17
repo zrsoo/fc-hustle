@@ -1,0 +1,10 @@
+{
+  "classification": "CURRENT_PUBLIC_STATIC_METHODS_NO_BROWSER_STATE",
+  "source": "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/js/ocompiled.js",
+  "capture_date": "2026-11-17",
+  "methods": {
+    "_handleFail": "function(){var _0x18269a=_0x512d02;this[\"authDelegate\"]&&this[\"doReauth\"]&&this[\"http\"][\"status\"]===HttpStatusCode[\"UNAUTHORIZED\"]?this[\"authDelegate\"][\"authenticate\"](AuthEnvironment[\"UTAS\"])[\"observe\"](this,this[\"_handleReauth\"]):this[\"_notify\"]();}",
+    "_handleReauth": "function(_0x26e3c4,_0x2c6aef){var _0x2e2df0=_0x512d02;if(JSUtils[\"isObject\"](_0x2c6aef[\"response\"])&&_0x2c6aef[\"response\"][\"environment\"]!==AuthEnvironment[\"UTAS\"])return;_0x26e3c4[\"unobserve\"](this);if(_0x2c6aef[\"success\"]){if(this[\"authDelegate\"])this[\"authDelegate\"][\"requestTelemetry\"]()[\"observe\"](this,this[\"handleTelemetry\"]);else this[\"doRetry\"]?this[\"send\"]():this[\"_notify\"]();}else this[\"doReauth\"]=![],this[\"_handleFail\"]();}",
+    "handleTelemetry": "function(_0x36fa21,_0x58b12c){var _0x20e1f1=_0x512d02;_0x36fa21[\"unobserve\"](this),this[\"doRetry\"]?this[\"send\"]():this[\"_notify\"]();}"
+  }
+}

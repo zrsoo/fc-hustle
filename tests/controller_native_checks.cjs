@@ -30,7 +30,7 @@ function setup(count=10){
   function response(op,items,input,amount){
     const o={...options};
     let callback,nativeResponse;
-    const request={send(){
+    const request={doReauth:o.doReauthDefault,doRetry:true,send(){
       const x=new XHR();x.status=o.http??200;x.responseText=JSON.stringify(op==='balance'?
         (Object.hasOwn(o,'balanceWire')?o.balanceWire:{currencies:[{name:'COINS',funds:o.balanceAmount??90000}]}):
         (o.wire??{auctionInfo:o.empty?[]:items,code:o.rejection?402:null}));

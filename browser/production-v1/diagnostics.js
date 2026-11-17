@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   if(window.__fcProductionDiagnosticsV1)return;
-  const stages=new Set(['UNCLASSIFIED_EA_REQUEST','BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_TIMEOUT','EA_RESPONSE','EA_BODY','WIRE_AUCTION','NATIVE_DATA','ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED']);
+  const stages=new Set(['UNCLASSIFIED_EA_REQUEST','BACKGROUND_REQUEST','BACKGROUND_RESPONSE','BULK_REQUEST_BLOCKED','PAGE_ENTER','NATIVE_INVOKE','NATIVE_CALLBACK','NATIVE_RENEWAL_RESULT','NATIVE_TIMEOUT','EA_RESPONSE','EA_BODY','WIRE_AUCTION','NATIVE_DATA','ITEM_SCHEMA_FAILURE','PAGE_FAILURE','PAGE_FINISHED']);
   const types=new Set(['undefined','null','boolean','number','string','object','array','function']);
   const errors=new Set(['invalid_command','wrong_page','bridge_busy','persona_unverified','service_unavailable','service_timeout','service_failed','schema_unrecognized','unsafe_identity','stale_source','unauthenticated','ambiguous_network','invalid_preconditions','internal_error','helpers_unavailable','helper_disagreement','known_identity_unavailable']);
   const records=new Map();

@@ -1,0 +1,17 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_READONLY_EA_EXPERIMENT_EVIDENCE",
+  "files": [
+    {
+      "path": "checkpoint.jsonl",
+      "sha256": "d1fd5bda42f6d61827dad0cc973b3e43702de0c0c4be93b56a63edd52c20df55"
+    },
+    {
+      "path": "result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "9cfc9b4fec2863616b95ac4d6b4deaea77e23f7a06afff9faa0f8b0746ecfb11"
+    }
+  ]
+}

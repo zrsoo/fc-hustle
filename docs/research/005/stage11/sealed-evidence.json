@@ -1,0 +1,33 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_EXPERIMENT_AND_PUBLIC_METHOD_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "attempts.json",
+      "sha256": "2bd0841d0ac86a4a7a787ab494e3ca07bec82e1e0d0b53264cf2d53ec0f5afdf"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "ea7d7254d960673e60318faca3bd263d52ea6640b1fcbe0d6203b8b05f338491"
+    },
+    {
+      "path": "current-public-native-renewal-contract.json",
+      "sha256": "b760724a685bd85974c9435158be75481aff299a0e412e60590e2560cda6d8fa"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "fbe304470bdba24c5b939c7443fb36098166d8d2b51daf6f70ce64b6abfa2172"
+    },
+    {
+      "path": "public-native-renewal-contract.json",
+      "sha256": "d1373f9f07d4ac57236404e1f336c0bbea71bfa90ff50f5ebe721d099836e05c"
+    },
+    {
+      "path": "safe-journal.json",
+      "sha256": "5402e42688022aac1aeceb9cef8da9ff733d874d3e474f71f3db1585b9abc05b"
+    },
+    {
+      "path": "stopped-state.json",
+      "sha256": "23fd1f91c2fc33234cac9e5cbe0764c6b4a8e54078b12d0b572e5a392c7928ac"
+    }
+  ]
+}

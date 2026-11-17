@@ -7,6 +7,21 @@
   const keys = (v, k) => !!v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).sort().join() === k.split(',').sort().join();
   const random = () => [...crypto.getRandomValues(new Uint8Array(16))].map(v => v.toString(16).padStart(2,'0')).join('');
   const diagnostic=(id,stage,detail={})=>{try{window.__fcProductionDiagnosticsV1?.record(id,stage,detail);}catch{}};
+  const trackReadRenewal=(request,c,wrap,live)=>{
+    if(request.doReauth!==true || typeof request._handleReauth!=='function')return;
+    let recorded=false;
+    wrap(request,'_handleReauth',original=>function(...args){
+      const response=args[1],body=response?.response;
+      const environment=typeof AuthEnvironment==='object'?AuthEnvironment.UTAS:undefined;
+      // The native observable may first publish another authentication environment.
+      // Record only its UTAS completion, never values from the authentication DTO.
+      if(!recorded && live() && environment!==undefined &&
+          (!body || typeof body!=='object' || body.environment===environment)){
+        recorded=true;diagnostic(c.id,'NATIVE_RENEWAL_RESULT',{success:response?.success===true});
+      }
+      return original.apply(this,args);
+    });
+  };
   const fieldType=v=>v===null?'null':Array.isArray(v)?'array':typeof v;
   const document = random(), known = new Map(), statusSelectors = new Map(), physical = new Map(), reads = new Map(), sent = new Set();
   const routes = {search:['GET','/ut/game/fc27/transfermarket'], watched:['GET','/ut/game/fc27/watchlist'],
@@ -425,7 +440,12 @@
       if(!live() || typeof request?.send!=='function')throw Error('invalid_preconditions');
       const token={role:scope.role,sent:false,opens:0};
       if(token.role==='primary' && ++primary!==1)throw Error('ambiguous_network');
-      request.doRetry=false;request.doReauth=false;requests.push({request,token});
+      // Preserve ordinary native renewal for pure reads only. doRetry=false
+      // makes the original failed request report failure after renewal; the next
+      // separately journaled read must establish success. Writes never renew.
+      const readOnly=['search','watched','transfer_list','unassigned','owned_item','caps'].includes(c.operation);
+      request.doRetry=false;request.doReauth=readOnly && request.doReauth===true;requests.push({request,token});
+      trackReadRenewal(request,c,wrap,live);
       wrap(request,'send',send=>function(...more){
         if(!live() || token.sent)throw Error('invalid_preconditions');
         token.sent=true;const previous=current;current=token;
@@ -792,7 +812,7 @@
     }
     return out;
   }
-  const controller=window.__fcControllerFactoryV1?.({keys,hex,num,equal,id,auction,known,reads,helper,bidReceipt,captureBid,finishBid,diagnostic,
+  const controller=window.__fcControllerFactoryV1?.({keys,hex,num,equal,id,auction,known,reads,helper,bidReceipt,captureBid,finishBid,diagnostic,trackReadRenewal,
     scope:(context,fences)=>!!binding && equal(context,binding.context) && equal(fences,binding.fences),
     acquire:()=>{if(busy || poisoned || !official() || window.__fcNativeCommandOwner!==document)return false;busy=true;return true;},
     release:()=>{busy=false;},

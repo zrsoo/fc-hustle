@@ -187,3 +187,15 @@ captured official DAO, actual adapter/store/HTTP transport and worker behavior.
 `python tests/check_00402_artifacts.py` checks retained genuine ten-ID live evidence,
 budget history, independent comparisons, original lite versions and cleanup.
 Neither validator invokes EA or hashes mutable implementation files.
+
+
+Pure native reads preserve only a request's already-enabled native session renewal
+permission. Automatic request retry remains disabled: the original 401 is retained
+as a failed read, and a separately journaled fresh read must establish recovery.
+A native opt-out remains disabled. Bids and every request in move/list/bulk
+mutation lineages keep both retry and renewal disabled. Native renewal does not
+supply balance, participation, ownership or write authority. Its normal UTAS
+completion emits only a NATIVE_RENEWAL_RESULT success boolean; no authentication
+response, header, token, cookie or EA session identifier is retained. A non-UTAS
+notification does not produce that diagnostic. Existing failure streaks,
+freshness bounds, stop policy and challenge handling remain in force.

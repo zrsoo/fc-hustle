@@ -1,0 +1,10 @@
+{
+  "healthy_samples": 22,
+  "peak_healthy_seconds": 621.6986143999966,
+  "current": {
+    "generation": "e4f748f311fbcdaccdfe983600a8726c",
+    "healthy": 0.0,
+    "faulted": 1,
+    "scheduler_epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  }
+}

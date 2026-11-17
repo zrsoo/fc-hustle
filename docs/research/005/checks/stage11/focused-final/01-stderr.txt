@@ -1,0 +1,15 @@
+test_http_records_retained_and_append_only_without_granting_dispatch (__main__.DiagnosticsTests.test_http_records_retained_and_append_only_without_granting_dispatch) ... ok
+test_native_renewal_diagnostic_retains_only_success_metadata (__main__.DiagnosticsTests.test_native_renewal_diagnostic_retains_only_success_metadata) ... ok
+test_rejected_untrusted_result_leaves_typed_diagnostic_without_secret (__main__.DiagnosticsTests.test_rejected_untrusted_result_leaves_typed_diagnostic_without_secret) ... ok
+test_sensitive_unknown_malformed_stale_and_unclaimed_records_rejected (__main__.DiagnosticsTests.test_sensitive_unknown_malformed_stale_and_unclaimed_records_rejected) ... ok
+test_total_diagnostic_limit_cannot_be_bypassed_by_multiple_posts (__main__.DiagnosticsTests.test_total_diagnostic_limit_cannot_be_bypassed_by_multiple_posts) ... ok
+test_wire_comparison_typed_fields_retained_but_raw_data_and_sensitive_keys_rejected (__main__.DiagnosticsTests.test_wire_comparison_typed_fields_retained_but_raw_data_and_sensitive_keys_rejected) ... ok
+test_actual_controller_caps_success_cannot_mask_failed_helpers_as_empty_batches (__main__.HelperFailureTests.test_actual_controller_caps_success_cannot_mask_failed_helpers_as_empty_batches) ... ok
+test_foreground_policy_fixture_and_existing_window_selection (__main__.HelperFailureTests.test_foreground_policy_fixture_and_existing_window_selection) ... ok
+test_missing_worker_diagnostics_stop_even_with_successful_native_reads (__main__.HelperFailureTests.test_missing_worker_diagnostics_stop_even_with_successful_native_reads) ... ok
+test_successful_local_helper_does_not_renew_native_freshness_and_failures_stop (__main__.HelperFailureTests.test_successful_local_helper_does_not_renew_native_freshness_and_failures_stop) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 4.544s
+
+OK

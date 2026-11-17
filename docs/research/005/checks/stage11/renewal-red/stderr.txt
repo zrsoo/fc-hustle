@@ -1,0 +1,19 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  {
++   renewals: 0,
+-   renewals: 1,
+    sends: 1,
++   telemetry: 0
+-   telemetry: 1
+  }
+
+    at suite (C:\hustle\fc-hustle\tests\controller_native_renewal_checks.cjs:40:10) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

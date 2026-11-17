@@ -216,44 +216,58 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 10: scheduler-owned generation e4f748f311fbcdaccdfe983600a8726c is genuinely
-RUNNING / MANAGING after normal session recovery. It launched at 11:36:18 UTC,
-owner epoch 17, supervisor PID 19088 / child PID 1872 with verified creation/image
-ownership and exclusive lock. Fresh watched/full-linked status reestablished the
-one real 700-coin member from the finite stage09 probe. Competition was observed;
-new rebid 59abe62de9f8971e732996e209630158 bid 1600, within the original stored
-4300 cap, and independent later native status confirmed highest/current 1600.
-No initial bid or uncertain command was replayed. Current management remains
-sequential, paced, fresh and free of semantic failure streaks. No restart or
-production implementation change occurred during this checkpoint.
+Stage 11 repair complete; publication and new scheduler launch next. Starting
+published main f10695f. The prior generation stopped cooperatively at 11:47:35 UTC
+after 274 successful native operations and four confirmed competitive rebids
+(1600, 1800, 2000, 2200). Native status independently settled the member LOST at
+4900, above stored cap 4300. Successful balance200 was followed within seconds by
+search401 and balance401 without account/document/owner change; the second auth
+failure caused immediate stop. One earlier callback200 with no owned request
+remains UNKNOWN/unusable; its exact source is unproven. Scheduler peak was
+621.70 healthy seconds / 22 samples, then ZERO. The complete stopped run and
+quiescent integrity/FK/row-equal backups are retained under stage11. All 41 UNKNOWN
+intents are consumed, no active member remains, and no native crash recurred.
 
-Retained stage10 prefix contains 31 actual native deliveries, exact durable rebid,
-current member, ownership/health snapshot and independent native diagnostics.
-The pure stage10 audit verifies original-member identity, stored cap, actual
-outbid prerequisite, accepted native receipt, eleven later highest readbacks,
-unique deliveries and management-only phase. Three corruptions are rejected.
-Full acceptance remains INCOMPLETE: this runtime has not yet produced its own
-complete acquisition-to-resale lifecycle and has not accumulated 14400 healthy
-seconds. At 11:38:50 UTC the scheduler reported approximately 121 healthy seconds,
-faulted false, same generation/epoch. This is progress, not four-hour proof.
+Reproduced root defect: the bridge disabled ordinary native renewal for every
+read. Current public native _handleFail/_handleReauth/handleTelemetry show that
+an enabled native renewal with doRetry=false reports the original 401 unchanged
+and permits a later independently journaled read to recover. Pure reads now
+preserve only an already-enabled native renewal flag; automatic retries and all
+mutation lineage renewals remain disabled. A native opt-out is never enabled.
+NATIVE_RENEWAL_RESULT retains only the actual UTAS completion's success boolean;
+non-UTAS notifications, authentication data and exception values are not retained.
+Original 401 trigger and exact historical 461 server reasons remain unproven;
+this repair addresses failed-read persistence without inventing those causes.
 
-Existing full production regressions remain 1120 Python test executions, 38 Node
-suites and nine independent commands; only captured-proof auditors/docs changed
-this stage. Focused captured audits and both acceptance validators' negative
-fixtures pass. Both real acceptance commands correctly return nonzero INCOMPLETE
-(full_genuine_lifecycle_not_observed / scheduler_interval_incomplete). All 41
-prior UNKNOWN intents remain consumed; no historical evidence was rewritten.
+Final regressions PASS: 1121 Python test executions, 39 Node suites, nine
+independent commands. Eleven renewal cases cover original failure retention,
+next-read recovery, native opt-out, renewal failure, no replay/mutation renewal,
+callback restoration, privacy and unrelated-environment false-success rejection.
+Captured stage11 audit verifies all four rebids/loss, actual auth transition and
+prompt stop, and rejects four corruptions including promotion of an unowned
+callback. Two finite genuine read-only windows each passed six commands and ten
+exact targets, zero missing, zero mutations/pending work, and closed cleanly.
+The final window followed extension/page reload with the complete repair.
+These baselines do not prove a LIVE expiry-and-renewal event or four healthy hours.
 
-Next: commit/push this checkpoint, leave this exact healthy service running and
-return monitoring with the existing generation-bound check/stop commands, 30s
-interval and no service launch. The scheduler polls without AI quota and resumes
-this same worker after an actual fault or the required interval. On a fault,
-retain evidence, safely stop, diagnose/repair/reconcile and restart under a NEW
-generation, resetting the interval. If an event needed for genuine end-to-end
-proof has not occurred after four hours, continue safe monitoring; elapsed time
-alone cannot pass. Audit all final native lifecycle and semantic samples before
-done, preserve earlier 461 causal uncertainty honestly, and leave healthy runtime
-running. No external barrier or human prerequisite is established.
+Normal official UI recovery used the designated saved account through autofill
+and standard controls; no credential value or EA session identifier was read.
+No challenge or external restriction was observed. Fresh pre-service backup and
+ownership checks follow before the scheduler-only launch. Production DB epoch
+remains 17; last finite read-only native owner epoch is 19, so the next runtime
+must use epoch floor 20 and a NEW generation. Safe journal: 38 ACKNOWLEDGED,
+41 UNKNOWN, 20 LOST, one WON_ACCOUNTED, no active member or pending command.
+Prepared unused generation 718d2acbcab1b4d9cdcb75d7e0035b70, service ID
+005-native-read-renewal-718d2acbcab1b4d9cdcb75d7e0035b70, epoch floor 20, is retained in stage11/launch-intent.json.
+Fresh pre-service backup, quiescence and official browser projections passed.
+Objective 003 remains PAUSED and Objective 004 COMPLETED, independently read-only
+verified. Next: publish this complete stage, launch once through the existing
+scheduler, immediately verify attachment/current account reconciliation and
+original-policy trading. Observe genuine renewal metadata/read recovery if expiry
+occurs. Keep repairing actual failures; any stop/restart/gap resets the final
+interval. Require full genuine final-generation lifecycle and 14400 consecutive
+semantic healthy seconds before done. No manual prerequisite or external blocker
+is established.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -415,3 +429,31 @@ corruptions; actual final acceptance still INCOMPLETE. No production source fix
 or restart at this checkpoint. Leave healthy service running and hand monitoring
 to the scheduler; continue same-session engineering if it faults. No life-only
 PASS, no replay of 41 UNKNOWN intents, no claimed four-hour interval.
+
+2026-11-17 stage11 preservation: complete stopped generation retained after late
+search/balance wire401 transition immediately following successful balance200.
+Member terminal loss is real native evidence. Root cause of authentication
+transition remains open; no account restriction or challenge inferred. Quiescent
+backup integrity/FK/row comparisons passed. Continue native/UI contract diagnosis.
+
+2026-11-17 H15 / NATIVE READ RENEWAL SUPPRESSION REPRODUCED AND REPAIRED:
+Current official public _handleFail delegates normal UTAS renewal on401 when its
+native doReauth flag is enabled; _handleReauth and handleTelemetry with doRetry
+false notify the original failure without resending it. Bridge disabled renewal
+for all reads, producing persistence that normal client maintenance could address.
+Red/green captured-method tests establish the defect and bounded recovery seam.
+Pure reads preserve only native true, mutation lineages remain false; metadata
+contains success boolean only. Original401 server trigger and live expiry renewal
+are not claimed proven. Full post-metadata regressions and monitored integration
+remain next. Original requirements, budgets and historical verdicts unchanged.
+
+2026-11-17 stage11 repair: official current public native renewal functions and
+shipped bridge reproduce the forced-doReauth=false defect. Pure reads now preserve
+only native-enabled renewal while doRetry stays false; mutations never renew or
+retry. Original read401 remains failed, new independent read establishes recovery.
+UTAS-only boolean completion diagnostics reject unrelated-environment success.
+Final 1121 Python / 39 Node / nine independent checks pass; eleven renewal cases
+and four captured-evidence negatives pass. Two finite six-read native baselines
+pass after ordinary authorized UI recovery and reviewed extension reload. Live
+renewal, original server trigger, final lifecycle and 14400s remain unproven.
+Proceed with a new scheduler generation at epoch floor 20; preserve 41 UNKNOWNs.

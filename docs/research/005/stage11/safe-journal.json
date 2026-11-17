@@ -1,0 +1,23 @@
+{
+  "attempts": [
+    [
+      "ACKNOWLEDGED",
+      38
+    ],
+    [
+      "UNKNOWN",
+      41
+    ]
+  ],
+  "members": [
+    [
+      "LOST",
+      20
+    ],
+    [
+      "WON_ACCOUNTED",
+      1
+    ]
+  ],
+  "pending": 0
+}

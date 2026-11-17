@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-17T15:52:07.970355+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "718d2acbcab1b4d9cdcb75d7e0035b70",
+  "service_id": "005-native-read-renewal-718d2acbcab1b4d9cdcb75d7e0035b70",
+  "persisted_production_epoch": 17,
+  "observed_native_epoch": 19,
+  "epoch_floor": 20,
+  "required_healthy_seconds": 14400,
+  "launch_method": "SCHEDULER_SERVICE_HANDOFF_ONLY",
+  "first_action": "Verify fresh native reads, reconcile actual account state, then original-policy acquisition; no replay of 41 UNKNOWN or completed work; retain actual expiry/renewal diagnostics"
+}

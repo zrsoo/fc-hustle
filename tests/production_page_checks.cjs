@@ -95,7 +95,7 @@ function setup(mode='ok'){
   const fences={owner:hex(4),epoch:1,host_epoch:hex(5),worker_epoch:hex(6),document:api.document};
   assert(api.attach(ctx,fences));
   const command=(operation,params={})=>({schema:2,id:hex(++sequence),operation,params,context:{...ctx},fences:{...fences}});
-  function enableControllerQueue(){
+  function enableControllerQueue({defaultReauth}={}){
     function observable(){
       let ready=false,value,observers=[];
       return {notify(v){ready=true;value=v;for(const [owner,cb]of [...observers])cb(this,v);},
@@ -104,7 +104,7 @@ function setup(mode='ok'){
     }
     const requests=[],queue={queue:[],send(request){request.send();return request;}};
     controllerQueue={requests,queue,observable,request(operation,work){
-      const r=observable();r.operation=operation;r.send=function(){r.count=(r.count??0)+1;work(value=>r.notify(value));};
+      const r=observable();r.operation=operation;r.doReauth=defaultReauth;r.send=function(){r.count=(r.count??0)+1;work(value=>r.notify(value));};
       r.abort=()=>{r.aborted=true;};r.originalSend=r.send;r.originalObserve=r.observe;requests.push(r);
       services.UTUtasRequestQueue.send(r);return r;
     }};
