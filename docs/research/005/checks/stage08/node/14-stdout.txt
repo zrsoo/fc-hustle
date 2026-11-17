@@ -1,0 +1,1 @@
+PASS: native opening, HOLD zero writes, minimum rebid, cap, expiry, duplicate and owner fences (SIMULATION ONLY)

@@ -1,5 +1,6 @@
 """Minimal process supervisor. Local IPC only; never sends an EA request."""
 from dataclasses import dataclass
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import json
 import math
@@ -86,7 +87,26 @@ class Supervision:
         self.report('progress',stage='LOCAL',operation=None,**self.state_fields(state))
 
 
+@contextmanager
+def fault_trace(path):
+    """Native failure stacks only: no locals, exception values or memory dumps."""
+    import faulthandler
+    previous=faulthandler.is_enabled()
+    with Path(path).open('x',encoding='utf-8') as stream:
+        faulthandler.enable(file=stream,all_threads=True)
+        try:yield stream
+        finally:
+            faulthandler.disable()
+            if previous:faulthandler.enable(all_threads=True)
+
+
 def worker(connection, arguments, limits):
+    path=arguments.pop('_fault_trace',None)
+    if path is None:return worker_body(connection,arguments,limits)
+    with fault_trace(path):return worker_body(connection,arguments,limits)
+
+
+def worker_body(connection, arguments, limits):
     # The visible supervisor handles Ctrl+C and withdraws the worker's lease.
     signal.signal(signal.SIGINT,signal.SIG_IGN)
     supervision=Supervision(connection,limits)
@@ -179,7 +199,8 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     print(f'Watchdog log: {log_path}',file=output,flush=True)
     ctx=multiprocessing.get_context('spawn')
     parent,child=ctx.Pipe()
-    process=ctx.Process(target=target,args=(child,vars(arguments),limits),name='fc-controller-v1')
+    worker_arguments=dict(vars(arguments),_fault_trace=str(directory/'python-fault.txt'))
+    process=ctx.Process(target=target,args=(child,worker_arguments,limits),name='fc-controller-v1')
     monitor=Watchdog(limits,semantic=SemanticHealth())
     reason=None;forced=False;started=False;width=0;log_failed=False;output_failed=False;exit_code=None;alive=False
     runtime_failed=False

@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-17T11:13:59.360983+00:00",
+  "operation": {
+    "task_key": "obj-cb39371c785a/operate",
+    "healthy": 0.0,
+    "generation": "d019ab7647ea4aaac981c9319019b87b",
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6",
+    "faulted": 1
+  },
+  "events": [
+    {
+      "id": 661740,
+      "kind": "operational_health",
+      "report": {
+        "status": "repair",
+        "generation": "d019ab7647ea4aaac981c9319019b87b",
+        "diagnostic": "PROCESS_EXIT",
+        "evidence": [
+          {
+            "state": "STOPPED",
+            "native_successes": 112,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 444282.7853373,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+          }
+        ]
+      },
+      "healthy_seconds": 0,
+      "result": null
+    },
+    {
+      "id": 661735,
+      "kind": "operational_health",
+      "report": {
+        "status": "repair",
+        "generation": "d019ab7647ea4aaac981c9319019b87b",
+        "diagnostic": "PROCESS_EXIT",
+        "evidence": [
+          {
+            "state": "STOPPED",
+            "native_successes": 112,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 444282.7853373,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+          }
+        ]
+      },
+      "healthy_seconds": 0,
+      "result": null
+    },
+    {
+      "id": 661724,
+      "kind": "operational_health",
+      "report": {
+        "status": "repair",
+        "generation": "d019ab7647ea4aaac981c9319019b87b",
+        "diagnostic": "PROCESS_EXIT",
+        "evidence": [
+          {
+            "state": "STOPPED",
+            "native_successes": 112,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 444282.7853373,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+          }
+        ]
+      },
+      "healthy_seconds": 0,
+      "result": null
+    },
+    {
+      "id": 661721,
+      "kind": "operational_health",
+      "report": {
+        "status": "repair",
+        "generation": "d019ab7647ea4aaac981c9319019b87b",
+        "diagnostic": "PROCESS_EXIT",
+        "evidence": [
+          {
+            "state": "STOPPED",
+            "native_successes": 112,
+            "confirmed": 8,
+            "batches": 1,
+            "published_mono": 444282.7853373,
+            "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+          }
+        ]
+      },
+      "healthy_seconds": 0,
+      "result": null
+    }
+  ]
+}

@@ -16,7 +16,13 @@ def encode(v): return json.dumps(v, sort_keys=True, separators=(',', ':'), allow
 class ControllerStore:
     def __init__(self, path, *, write_authority=False, now=None):
         self.path = Path(path)
-        self.db = sqlite3.connect(path, check_same_thread=False)
+        # Policy and HTTP threads share this connection. CPython's prepared
+        # statement cache can concurrently reuse a not-yet-busy statement,
+        # corrupting SELECT results or crashing even with SQLite threadsafety=3.
+        # Keep durable transactions/locks; remove only this unsafe local cache.
+        # https://github.com/python/cpython/issues/118172
+        # https://github.com/python/cpython/issues/160699
+        self.db = sqlite3.connect(path, check_same_thread=False, cached_statements=0)
         self.lock = threading.RLock()
         self.controller_lock = threading.Lock()
         self.now = now or (lambda: datetime.now(timezone.utc))

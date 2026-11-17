@@ -1,0 +1,8 @@
+test_actual_controller_connection_preserves_all_concurrent_blob_results (__main__.SQLiteConcurrency.test_actual_controller_connection_preserves_all_concurrent_blob_results) ... ok
+test_fault_trace_contains_stack_metadata_without_local_values (__main__.SQLiteConcurrency.test_fault_trace_contains_stack_metadata_without_local_values) ... ok
+test_pretransport_status_failure_retains_invocation_type_without_values (__main__.SQLiteConcurrency.test_pretransport_status_failure_retains_invocation_type_without_values) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.378s
+
+OK

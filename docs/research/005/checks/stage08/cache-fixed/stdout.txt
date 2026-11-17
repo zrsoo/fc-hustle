@@ -1,0 +1,1 @@
+{"status": "SYNTHETIC_STRESS_PASS", "mode": "controller", "readers": 12, "reads": 147634, "seconds": 30.0, "python": "3.13.17", "sqlite": "3.50.4", "threadsafety": 3}

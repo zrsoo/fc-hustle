@@ -840,3 +840,141 @@ undispatched until the scheduler consumes the handoff, using --epoch-floor 14.
 Normal production must read current ownership/caps again before the first list;
 the finite probe is not a reusable dispatch authorization. Full acceptances and
 the final four-hour interval remain unfulfilled.
+
+## Stage 08: genuine resale; shared SQLite statement-cache repair
+
+Starting published main 26457b9. Scheduler generation
+d019ab7647ea4aaac981c9319019b87b launched at 10:54:00 UTC with owner epoch 14.
+Supervisor PID14972 / creation134393864405050358 and child PID1800 /
+creation134393864408833148 matched actual live creation identities. The owned
+service reconciled all nine earlier ACTIVE auctions as LOST through fresh native
+status, then completed the original pending win's first genuine listing.
+
+List command **9669d0fec6b3c4039b8c655c0690f21d** dispatched at
+10:54:16.029754 UTC. The exact original won item (definition251852,
+item:4fa51171b8d65f02a7e65198, paid3100) had a NEW complete inactive physical
+inventory read and current native caps/ticks. Listing preserved stored start4200,
+BIN4300 and 3600 seconds. Native POST /auctionhouse and its owned native status
+follow-up both returned200. Separate full transfer-list read
+ca04f05ad88c07b7c0147d759a027913 verified exact physical identity, new auction,
+prices and one-hour duration. The original move was not repeated. The member
+became WON_ACCOUNTED only after effect readback. This is genuine recovered
+resale, not a synthetic fixture or ACK-based promotion.
+
+Eligible maintenance command c3103db63d2bd8709c2f3a8a6de408e4 independently
+confirmed native relist_all for exactly the two expired eligible items, preserving
+their original prices and one-hour durations. Other inventory was preserved.
+The next unchanged production batch abb68611488515c726ebb0526a335cf9 independently
+confirmed **eight initial bids** and **three competitive rebids** with fresh
+native account/auction evidence. The independent stage audit verifies original
+entry>40000, discovery maxBid1000/minBuy11000, at most ten initial attempts,
+more than60 seconds, completed quotes, exact version and original caps.
+
+One rebid, 925f719d16be53d8feec724535aa7168, was marked UNKNOWN by policy after
+an immediate local STATUS_UNKNOWN before any new native read was dispatched.
+It is **not** a wire461 failure: the actual bid returned wire/service200 and a
+matching ACCEPTED receipt for950. A later independent native status returned
+highest/current950 for the same exact target. This establishes participation
+without rewriting the original UNKNOWN journal entry or repeating it. The old
+exception type/read invocation was discarded by _status, so its precise local
+cause cannot be asserted; new diagnostics retain only planned read_id and safe
+exception class, never arbitrary exception values. Eight already-confirmed
+members continued management through independent reads.
+
+### Crash and safe state
+
+At **10:58:11.839726 UTC** Windows Application event1000 recorded child PID0x708
+(1800) dying with **c0000005**, fault module **python313.dll**, version
+3.13.17150.1013, offset000000000002b341. The watchdog independently retained
+STOPPED/PROCESS_EXIT at10:58:14.975948, exit3221225477, forcedfalse. Its final
+snapshot had112 genuine native successes, eight confirmed members, one batch and
+zero semantic failure streaks. The scheduler detected the process fault and reset
+consecutive healthy time to **zero**. The idempotent owned stop acknowledged that
+both identities had exited. No production listener/actor remained; eight auction
+members need fresh native settlement reconciliation after repair. All earlier31
+UNKNOWN intents and the new UNKNOWN rebid remain consumed.
+
+stage08/windows-fault.json contains only allowlisted Windows event fields;
+stopped-state.json and stopped-events.jsonl retain independent runtime evidence.
+The successful-prefix snapshot is preserved separately, not rewritten to conceal
+the crash. No original native crash stack existed. We do not infer an EA outage,
+account restriction, security challenge or a specific missing C call stack.
+Fresh quiescent canonical-lock backups outside Git passed integrity/FK and
+row-for-row comparisons before repair; see stage08/backup.json.
+
+### Reproduced defect and repair
+
+The controller's one SQLite connection was shared by policy and HTTP threads
+with check_same_thread=False and the default prepared-statement cache. An isolated
+finite test of the **actual ControllerStore connection** returned an incorrect
+row under concurrent parameterized SELECTs in **0.220 seconds**. A separate
+cached-connection control failed with the same synthetic-read mismatch in
+**0.151 seconds**. Both red receipts and tracebacks are retained; these tests have
+no network or production database access, and compare complete synthetic data.
+
+The upstream [CPython cache-inconsistency report](https://github.com/python/cpython/issues/118172)
+describes wrong concurrent reads in Python3.12/3.13 and an uncached workaround.
+The [Windows native-crash report](https://github.com/python/cpython/issues/160699)
+documents the same shared-connection pattern producing access violations even
+with SQLite serialized threading. The [proposed CPython fix](https://github.com/python/cpython/pull/160706)
+explains that the cached statement can be obtained concurrently before it becomes
+busy, while execution releases the GIL. These primary sources support the
+mechanism; they do not supply the missing original production stack.
+
+The shared controller connection now uses **cached_statements=0**, removing that
+unsafe statement reuse. Existing transactions, locks, durable intents, account
+scope, pricing and native request pacing remain in force. QuoteCache retains its
+separate thread-owned connection. The **unchanged actual-store workload** then
+passed **147634 exact reads across12 concurrent readers over30 seconds** on
+Python3.13.17 / SQLite3.50.4, threadsafety3, GIL enabled. A behavioral regression
+runs the actual connection under the same concurrent bound-query pattern; it
+does not assert source bytes or configuration text.
+
+This establishes a real bad-read root cause and an evidenced explanation for the
+native crash class. Attribution of the exact original fatal instruction remains
+an inference. New workers enable faulthandler in their own fresh watchdog run
+directory (python-fault.txt), recording stack locations for every thread on a
+future native fault. No locals, exception values, raw memory dumps, browser
+credentials, authentication values or provider/session data enter that file.
+Tests verify stack metadata, canary redaction, exclusive trace creation and
+pre-transport diagnostic correlation. There is no automatic process restart or
+account-write retry in this repair.
+
+tests/check_005_stage08.py reparses genuine native listing and exact effect,
+maintenance, original-policy acquisition and competitive rebid confirmation;
+four altered-evidence cases reject ACK-only listing, false ownership, changed
+price and wrong duration. It also matches the Windows crash to the owned child,
+checks the scheduler reset and verifies the red/control/green experiments. Only
+immutable captured native, fault and experiment evidence is sealed. It explicitly
+returns STAGE_VERIFIED_OBJECTIVE_INCOMPLETE with healthy_seconds0.
+
+Final regression receipts under checks/stage08 show **1120 Python test
+executions**, **38 Node suites** and **nine independent inventory commands**
+passing. Focused-final receipts include three concurrency/diagnostic regressions,
+four altered-listing negatives and both acceptance validators' negative fixtures.
+The real acceptance commands both return INCOMPLETE/nonzero while stopped; these
+expected failures are retained rather than reported as acceptance success.
+
+The successful-prefix capture retained 204 native deliveries and three rebids.
+Separate **final-commands.jsonl** and **final-acquisition.json** contain all **220**
+deliveries in the complete stopped runtime log and independently verify **four**
+rebids, including the original UNKNOWN whose later account participation is
+confirmed. A separate immutable final seal preserves this additional capture;
+the original prefix and its seal remain unchanged. The stage auditor checks exact
+command coverage against the stopped log, actual readback for every bid, and
+rejects altered listing outcomes. These remain historical stage outcomes, not a
+claim that the final runtime has completed its lifecycle.
+
+Pre-service quiescence and browser projections, a fresh canonical-lock backup,
+and a finite launch intent are retained under stage08. Both DB backups passed
+integrity/FK and row equality checks. The production journal has 33 ACKNOWLEDGED
+and 32 UNKNOWN attempts, eight ACTIVE members, eleven LOST, one WON_ACCOUNTED and
+zero pending commands at owner epoch 14. Wall-clock expiry is not settlement.
+The next scheduler-owned generation is **2a7a7c6219060321031664a0e4b5d86f**,
+service ID **005-sqlite-cache-repair-2a7a7c6219060321031664a0e4b5d86f**,
+with epoch floor **15**. After publication, launch it once through the existing
+scheduler handoff, immediately verify attachment and fresh account reconciliation,
+then continue production. Do not repeat the already confirmed move/list/relist or
+prior bids. Any later fault or fix resets the required final uninterrupted 14400
+seconds. Current healthy time is zero. No human prerequisite or external blocker
+exists; this is continued authorized engineering.

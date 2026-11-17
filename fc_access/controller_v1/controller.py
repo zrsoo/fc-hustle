@@ -315,11 +315,15 @@ class Controller:
         return self.native.responses[cid]['freshness']['network_at']
 
     def _status(self, targets, bid):
+        cid=self.ids();failure=None
         try:
-            status=self.adapter.status_batch(self.ids(),targets)
+            status=self.adapter.status_batch(cid,targets)
             if status['success']:return status
-        except Exception:pass
-        self.journal.metric(bid,'STATUS_UNKNOWN',targets=targets)
+        except Exception as error:
+            failure=type(error).__name__ if type(error).__name__ in {'ValueError','TypeError','KeyError','RuntimeError','TimeoutError','OSError'} else 'LOCAL_EXCEPTION'
+        # A pre-transport failure has no native result to correlate. Retain its
+        # planned logical invocation and safe type, never the exception value.
+        self.journal.metric(bid,'STATUS_UNKNOWN',targets=targets,read_id=cid,exception_type=failure)
         return None
 
     def _apply(self, status, candidates, bid, *, initial=False, after=None):

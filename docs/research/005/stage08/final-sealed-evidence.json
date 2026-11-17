@@ -1,0 +1,13 @@
+{
+  "scope": "IMMUTABLE_FINAL_CAPTURED_EA_TRANSACTION_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "final-commands.jsonl",
+      "sha256": "8a506f01aa048847aae8a98bc865101e76ce4e76d8ff235ed23d4315843b3931"
+    },
+    {
+      "path": "final-acquisition.json",
+      "sha256": "2b6bc472ba44b02e21cf46b05c294475d4727b3d8f7cbff560a8bd69a1213d5d"
+    }
+  ]
+}

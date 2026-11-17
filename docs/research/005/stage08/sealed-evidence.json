@@ -1,0 +1,81 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_NATIVE_OPERATIONS_FAULT_AND_SYNTHETIC_EXPERIMENTS_ONLY",
+  "files": [
+    {
+      "path": "checks/stage08/cache-control/result.json",
+      "sha256": "09a12759c1ae9ec3123ea1d56a16f567d862e9d4024d0c615b554156261aced0"
+    },
+    {
+      "path": "checks/stage08/cache-control/stderr.txt",
+      "sha256": "65385105d81162a89d2724317736379d1d4fac5e1a7a5d72a61fd8ef791660dc"
+    },
+    {
+      "path": "checks/stage08/cache-control/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "checks/stage08/cache-fixed/result.json",
+      "sha256": "c89c7003b0a1dce14cea111e1962c29987ef1f813a4998c29f21687c9a355d8d"
+    },
+    {
+      "path": "checks/stage08/cache-fixed/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "checks/stage08/cache-fixed/stdout.txt",
+      "sha256": "0b4f96b7893306167e3f2d8cc7fc88b9835307ad75c11691008c074d3975d3c4"
+    },
+    {
+      "path": "checks/stage08/cache-reproduction/result.json",
+      "sha256": "9de211fa8e682776994e6fac2d78e1e63c58a39010f77a61b42832a3bb5757a7"
+    },
+    {
+      "path": "checks/stage08/cache-reproduction/stderr.txt",
+      "sha256": "65385105d81162a89d2724317736379d1d4fac5e1a7a5d72a61fd8ef791660dc"
+    },
+    {
+      "path": "checks/stage08/cache-reproduction/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stage08/acquisition.json",
+      "sha256": "48739286d54365ec091a4c8f9280b0ac7798b96e169d254a5e278ee77c1cf740"
+    },
+    {
+      "path": "stage08/commands.jsonl",
+      "sha256": "45acfc550623df607ea59fefeeb7f30e693cdececa39cf94b97a9df1be7009b8"
+    },
+    {
+      "path": "stage08/fault-monitor.json",
+      "sha256": "5679bd3496cc2a9079473c326d5b1cf716752c67be0ada2a1afa06829e7cc25d"
+    },
+    {
+      "path": "stage08/runtime-events.jsonl",
+      "sha256": "31db2d291983a277c0071fe033bb0e3dc74b0314cecb8167241f78a8dbe46a62"
+    },
+    {
+      "path": "stage08/runtime-snapshot.json",
+      "sha256": "267b88eabba58076d4355d636f2d1a7273f1a5ab67033ad6b2fb142bc9e006ed"
+    },
+    {
+      "path": "stage08/scheduler-samples.json",
+      "sha256": "66ae40f036cc5c4d47156ba5c53ca5419067ec1ba70e849e097cebc29204922b"
+    },
+    {
+      "path": "stage08/stopped-events.jsonl",
+      "sha256": "456968dda92a88d710c3ea401151893d77f6e1c4c4a4979d74ebc71b063ae73c"
+    },
+    {
+      "path": "stage08/stopped-state.json",
+      "sha256": "8a61a42266f5ea644dab00d6a99b5f3afcc343e96278437fa1632c97f8fc3f12"
+    },
+    {
+      "path": "stage08/windows-fault.json",
+      "sha256": "9613399fd7bf938508c4c0558b838315ba4c17e8bb89ee698706106a22c83190"
+    },
+    {
+      "path": "stage08/work.json",
+      "sha256": "31fde33dc1b416434f4049b65980d13a77f8a2bb2c148036362abd2e9b55e8d4"
+    }
+  ]
+}

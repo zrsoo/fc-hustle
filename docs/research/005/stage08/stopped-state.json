@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-17T10:58:14.977397+00:00",
+  "child": {
+    "created": 134393864408833148,
+    "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "pid": 1800
+  },
+  "generation": "d019ab7647ea4aaac981c9319019b87b",
+  "latest": {
+    "kind": "progress",
+    "lifecycle": "RUNNING",
+    "managed": 8,
+    "operation": null,
+    "phase": "MANAGING",
+    "reason": null,
+    "stage": "LOCAL",
+    "tick": 444278.9702498
+  },
+  "limits": {
+    "grace": 35,
+    "lease": 10,
+    "local": 60,
+    "native": 45,
+    "poll": 0.5,
+    "startup": 90
+  },
+  "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl",
+  "operational_state": "STOPPED",
+  "published_mono": 444282.7853373,
+  "reason": "PROCESS_EXIT",
+  "schema": 1,
+  "semantic": {
+    "auth_failures": 0,
+    "batch_failures": 0,
+    "batches": 1,
+    "confirmed": 8,
+    "diagnostic_failures": 0,
+    "helper_failures": 0,
+    "missing_statuses": 0,
+    "native_success_age": 3.6151619000011124,
+    "native_successes": 112,
+    "read_failures": 0,
+    "reason": null,
+    "unconfirmed_attempts": 0,
+    "write_failures": 0
+  },
+  "semantic_limits": {
+    "auth_failures": 2,
+    "batch_failures": 3,
+    "diagnostic_failures": 3,
+    "helper_failures": 3,
+    "missing_statuses": 3,
+    "native_freshness": 90,
+    "read_failures": 3,
+    "unconfirmed_attempts": 3,
+    "write_failures": 3
+  },
+  "started_mono": 444028.6538777,
+  "state": "STOPPED",
+  "supervisor": {
+    "created": 134393864405050358,
+    "image": "C:\\Users\\zneam\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "pid": 14972
+  },
+  "task": "obj-cb39371c785a/operate"
+}

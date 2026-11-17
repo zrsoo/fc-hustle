@@ -1,0 +1,314 @@
+[
+  {
+    "event_id": 659803,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"starting\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"STARTING_OWNED_WORKER\", \"evidence\": [{\"state\": \"STARTING\", \"native_successes\": 0, \"confirmed\": 0, \"batches\": 0, \"published_mono\": 444028.6538795, \"log\": null}]}\n",
+      "stderr": "",
+      "seconds": 0.45023536682128906
+    },
+    "report": {
+      "status": "starting",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "STARTING_OWNED_WORKER",
+      "evidence": [
+        {
+          "state": "STARTING",
+          "native_successes": 0,
+          "confirmed": 0,
+          "batches": 0,
+          "published_mono": 444028.6538795,
+          "log": null
+        }
+      ]
+    },
+    "healthy_seconds": 0,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660086,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"ACQUIRING\", \"evidence\": [{\"state\": \"ACQUIRING\", \"native_successes\": 13, \"confirmed\": 0, \"batches\": 0, \"published_mono\": 444058.4526256, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.19544386863708496
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "ACQUIRING",
+      "evidence": [
+        {
+          "state": "ACQUIRING",
+          "native_successes": 13,
+          "confirmed": 0,
+          "batches": 0,
+          "published_mono": 444058.4526256,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 0,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660095,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"ACQUIRING\", \"evidence\": [{\"state\": \"ACQUIRING\", \"native_successes\": 27, \"confirmed\": 0, \"batches\": 0, \"published_mono\": 444089.2622802, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.17970609664916992
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "ACQUIRING",
+      "evidence": [
+        {
+          "state": "ACQUIRING",
+          "native_successes": 27,
+          "confirmed": 0,
+          "batches": 0,
+          "published_mono": 444089.2622802,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 30.30601459997706,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660173,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 42, \"confirmed\": 8, \"batches\": 1, \"published_mono\": 444119.0234766, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.16847801208496094
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "MANAGING",
+      "evidence": [
+        {
+          "state": "MANAGING",
+          "native_successes": 42,
+          "confirmed": 8,
+          "batches": 1,
+          "published_mono": 444119.0234766,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 60.493908900010865,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660177,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 56, \"confirmed\": 8, \"batches\": 1, \"published_mono\": 444149.7907439, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.14982128143310547
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "MANAGING",
+      "evidence": [
+        {
+          "state": "MANAGING",
+          "native_successes": 56,
+          "confirmed": 8,
+          "batches": 1,
+          "published_mono": 444149.7907439,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 90.87931649998063,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660189,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 68, \"confirmed\": 8, \"batches\": 1, \"published_mono\": 444179.5636199, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.14752888679504395
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "MANAGING",
+      "evidence": [
+        {
+          "state": "MANAGING",
+          "native_successes": 68,
+          "confirmed": 8,
+          "batches": 1,
+          "published_mono": 444179.5636199,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 121.30164919997333,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660192,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 80, \"confirmed\": 8, \"batches\": 1, \"published_mono\": 444210.386324, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.14987421035766602
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "MANAGING",
+      "evidence": [
+        {
+          "state": "MANAGING",
+          "native_successes": 80,
+          "confirmed": 8,
+          "batches": 1,
+          "published_mono": 444210.386324,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 151.5098175999592,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  },
+  {
+    "event_id": 660197,
+    "result": {
+      "command": [
+        "C:\\hustle\\agent-orchestrator\\.venv\\Scripts\\python.exe",
+        "-m",
+        "fc_access.controller_v1.operational",
+        "health",
+        "--runtime-dir",
+        "private-captures/controller-v1/operational",
+        "--task-key",
+        "obj-cb39371c785a/operate",
+        "--generation",
+        "d019ab7647ea4aaac981c9319019b87b"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"healthy\", \"generation\": \"d019ab7647ea4aaac981c9319019b87b\", \"diagnostic\": \"MANAGING\", \"evidence\": [{\"state\": \"MANAGING\", \"native_successes\": 93, \"confirmed\": 8, \"batches\": 1, \"published_mono\": 444240.1757984, \"log\": \"C:\\\\hustle\\\\fc-hustle\\\\private-captures\\\\controller-v1\\\\watchdog-runs\\\\20261117T105400Z-otiz3pt3\\\\events.jsonl\"}]}\n",
+      "stderr": "",
+      "seconds": 0.1551656723022461
+    },
+    "report": {
+      "status": "healthy",
+      "generation": "d019ab7647ea4aaac981c9319019b87b",
+      "diagnostic": "MANAGING",
+      "evidence": [
+        {
+          "state": "MANAGING",
+          "native_successes": 93,
+          "confirmed": 8,
+          "batches": 1,
+          "published_mono": 444240.1757984,
+          "log": "C:\\hustle\\fc-hustle\\private-captures\\controller-v1\\watchdog-runs\\20261117T105400Z-otiz3pt3\\events.jsonl"
+        }
+      ]
+    },
+    "healthy_seconds": 181.67305079998914,
+    "required_seconds": 14400.0,
+    "epoch": "3efc845ebfd24a4381cecdd3a13f7bd6"
+  }
+]

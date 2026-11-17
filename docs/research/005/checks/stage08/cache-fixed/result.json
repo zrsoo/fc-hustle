@@ -1,0 +1,13 @@
+{
+  "command": [
+    "{python}",
+    "tests/stress_005_sqlite.py",
+    "--mode",
+    "controller",
+    "--seconds",
+    "30"
+  ],
+  "exit_code": 0,
+  "seconds": 30.228078600019217,
+  "finished": "2026-11-17T11:07:41.877733+00:00"
+}

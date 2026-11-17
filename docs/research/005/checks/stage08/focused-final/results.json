@@ -1,0 +1,80 @@
+{
+  "status": "EXPECTED_RESULTS",
+  "full_acceptance": "INCOMPLETE",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_sqlite_concurrency.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 2.575,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "finished": "2026-11-17T11:23:25.428065+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage08.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.04,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "finished": "2026-11-17T11:23:26.468021+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.767,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "finished": "2026-11-17T11:23:28.234611+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.187,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "finished": "2026-11-17T11:23:28.422044+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.186,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "finished": "2026-11-17T11:23:28.608283+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.17,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt",
+      "finished": "2026-11-17T11:23:28.778695+00:00"
+    }
+  ]
+}

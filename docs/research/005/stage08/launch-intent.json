@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-17T11:18:42.922816+00:00",
+  "state": "PREPARED_NOT_DISPATCHED",
+  "task": "obj-cb39371c785a/operate",
+  "generation": "2a7a7c6219060321031664a0e4b5d86f",
+  "service_id": "005-sqlite-cache-repair-2a7a7c6219060321031664a0e4b5d86f",
+  "epoch_floor": 15,
+  "persisted_production_epoch": 14,
+  "observed_native_epoch": 14,
+  "required_healthy_seconds": 14400,
+  "launch_method": "SCHEDULER_SERVICE_HANDOFF_ONLY",
+  "first_action": "Fresh native account reconciliation of eight existing members; no prior move/list/relist/bid replay"
+}

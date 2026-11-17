@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 4, "healthy_seconds": 0, "crash": "0xC0000005", "cache_fixed_reads": 147634, "initial_confirmed": 8, "competitive_rebids": 4, "recovered_listing": true, "maintenance": true, "preserved_unknown_rebid": "925f719d16be53d8feec724535aa7168"}

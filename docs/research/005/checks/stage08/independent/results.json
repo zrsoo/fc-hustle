@@ -1,0 +1,121 @@
+{
+  "task": "005",
+  "evidence_class": "OFFLINE_ONLY",
+  "group": "independent",
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_00401_artifacts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.29,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:04.217779+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00402_artifacts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.327,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt",
+      "tests_run": 3,
+      "finished": "2026-11-17T11:19:04.544807+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_00203_gate.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "seconds": 0.238,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:04.782424+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_00203_stop.py",
+        "--attempt",
+        "20261114-adapter-repair-gate-06"
+      ],
+      "exit_code": 0,
+      "seconds": 0.309,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:05.091314+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_adapter_repair.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.292,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:05.383487+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_bulk_blocker_recovery.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.223,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:05.606847+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00301_baseline.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.679,
+      "stdout": "06-stdout.txt",
+      "stderr": "06-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:09.286389+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_00302_production.py",
+        "--prepublication"
+      ],
+      "exit_code": 0,
+      "seconds": 0.23,
+      "stdout": "07-stdout.txt",
+      "stderr": "07-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:09.516916+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_bulk_transfer_evidence.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.217,
+      "stdout": "08-stdout.txt",
+      "stderr": "08-stderr.txt",
+      "tests_run": 0,
+      "finished": "2026-11-17T11:19:09.733868+00:00"
+    }
+  ]
+}

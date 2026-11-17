@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "C:\hustle\fc-hustle\tests\stress_005_sqlite.py", line 52, in <module>
+    a=p.parse_args();run(a.mode,a.seconds)
+                     ~~~^^^^^^^^^^^^^^^^^^
+  File "C:\hustle\fc-hustle\tests\stress_005_sqlite.py", line 41, in run
+    with ThreadPoolExecutor(max_workers=12) as pool:counts=list(pool.map(query,range(12)))
+                                                           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 625, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 318, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 453, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 402, in __get_result
+    raise self._exception
+  File "C:\Users\zneam\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\hustle\fc-hustle\tests\stress_005_sqlite.py", line 36, in query
+    if row!=(key,values[key]):raise AssertionError('synthetic_read_mismatch')
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: synthetic_read_mismatch

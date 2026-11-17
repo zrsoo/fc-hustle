@@ -216,70 +216,47 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage07 in progress, starting published main 91795d4. Trading remains stopped;
-31 UNKNOWN old intents and the one moved 3100-coin item remain consumed. The
-final healthy interval is zero. A fresh canonical-lock backup of controller and
-quotes databases is outside Git, with integrity/FK and row equality checks,
-recorded in docs/research/005/stage07/backup.json. No legacy actors or controls
-were resumed. The original four-hour and genuine full-flow requirements stand.
+Stage 08 repair complete, publication and scheduler launch next. The prior
+published main was 26457b9. Generation d019ab7647ea4aaac981c9319019b87b ran
+10:54:00 through 10:58:14 UTC, owner epoch 14. Actual native evidence confirms
+recovered listing of the earlier owned win (paid 3100, start 4200, BIN 4300,
+3600 seconds), eligible relist maintenance, eight new initial bids and FOUR
+competitive rebids. The original successful-prefix capture contained three
+rebids; the complete 220-delivery final capture independently verifies the fourth.
+Nine earlier active members settled LOST; the recovered win became WON_ACCOUNTED.
+No move was replayed. One new rebid remains UNKNOWN in its immutable journal
+history despite a matching native ACCEPTED receipt and later independent highest
+status. All original 31 UNKNOWN intents and that new UNKNOWN remain consumed.
 
-Reproduced two actual-contract defects in a socket-free account world: listing
-failed after a claim removed the watched auction, and persisted terminal proof
-failed across a new owner epoch. Both positive tests failed before the repair.
-The corrected work contract reparses the exact original terminal/our-paid-bid,
-physical ownership and confirmed move effect with original chronology. It uses
-that historical chain only for provenance. Listing still requires independently
-fresh complete physical inventory, exact identity/paid price, current caps/ticks,
-stored profitable price/hour, current fences and a new durable consumed intent.
-Confirmed claimed auctions no longer enter status polling. Eight physical and
-four history-negative scenes preserve rejection for mismatched or corrupt proof.
+The child suffered Windows access violation 0xC0000005 in python313.dll at
+10:58:11 UTC. The watchdog stopped cooperatively after PROCESS_EXIT, the scheduler
+reset healthy seconds to ZERO, and both owned process identities exited. No
+production actor or listener remains. A finite, isolated workload reproduced
+incorrect concurrent SELECT results on the ACTUAL shared ControllerStore in
+0.220 seconds; an independent cached control failed in 0.151 seconds. Disabling
+only CPython's unsafe shared prepared-statement cache then passed 147634 exact
+reads across 12 threads over 30 seconds. This proves a bad-read defect and supports
+the native-crash hypothesis; the original C stack was unavailable. New workers
+retain stack metadata through faulthandler, and pre-transport status failures
+retain planned invocation IDs and safe exception types without exception values.
 
-A separate bounded read-only selector recovery uses only the selected account's
-native inventory cache (max2048 entries), exact pseudonym/version matching and
-then an independently authenticated native GET. It grants no write authority.
-Both legacy and reviewed controller-native entry points pass positive/negative
-Node fixtures, including unknown/version/oversize/persona refusal, one-shot native
-ownership and no raw identifiers/secrets. The original unowned-active-auction
-lookup rejection is preserved. Safe item-pile categories are optional diagnostic
-metadata only. Six focused Python tests pass, as do 17 existing lifecycle
-regressions. The new independent stage07 audit reparses the genuine historical
-3100 move chain and rejects six altered-evidence cases; current ownership and
-live resale remain UNPROVEN. Source integrity is not asserted.
+Passed 1120 Python test executions, 38 Node suites and nine independent inventory
+commands. Focused checks verify the complete live captures, four corrupted-listing
+negative cases, cache concurrency, safe fault traces, and both acceptance
+validators' negative fixtures. Full acceptance validators still correctly return
+INCOMPLETE while stopped; genuine final-generation lifecycle and 14400 consecutive
+healthy seconds remain unproven. Captured historical evidence was not rewritten.
 
-Fresh official Edge saved sign-in recovery and read-only windows now locate the
-exact moved item on the TRANSFER LIST: inactive, tradable, definition 251852,
-last sale price 3100, with complete six-entry wire/callback/repository inventory
-and an independent owned-item native GET plus safe transfer-pile diagnostic.
-The old auction is absent from watched and its status selector correctly refuses
-locally. owned-read-03 records four genuine GETs, five commands, no writes and a
-stopped service. The missing-item cause in the earlier document remains unknown;
-current physical ownership is independently proven. No move/list was repeated.
-owned-read-01 rejected UI-owned queued traffic; owned-read-02 found a probe
-argument bug before owned lookup, now fixed. Both windows are consumed/retained.
-
-Initial full discovery ran 1115 tests and retained two failures: the selector
-change regressed rejection of unowned active-auction lookup (fixed, original test
-unchanged), and one local Windows connection-abort error (complete integration
-suite reran successfully, no speculative server change). Final discovery passed
-1117 executions, zero failures/errors/skips, in 515.295 unittest seconds;
-38 Node suites and all nine serial independent inventory commands passed.
-Both eight-case acceptance self-tests and the new focused recovery/audit checks
-passed. Actual full acceptance remains INCOMPLETE while production is stopped.
-The public epoch-floor control is tested: it can
-advance the next runtime fence beyond observed native epoch13 while never lowering
-the persisted DB epoch or replaying any intent. Launch will use floor14.
-Fresh pre-service backup is verified under canonical locks. No production
-worker/listener or scheduled mutation job exists, and zero commands are pending.
-DB retains 31 UNKNOWN / 22 ACKNOWLEDGED attempts and 9 ACTIVE / 2 LOST /
-1 PENDING_WIN members. Fresh native status must reconcile all expired auctions;
-wall time does not settle any of them. Native page last consumed epoch13.
-Prepared scheduler generation d019ab7647ea4aaac981c9319019b87b will use floor14;
-its unique launch intent has not been dispatched. Browser foreground/official
-authenticated app is independently observed with no challenge.
-Next: commit/push and launch this NEW scheduler-owned generation. Immediately
-verify recovered listing and genuine new lifecycle; preserve strict semantic
-stops and require final 14400 monitored healthy seconds. No external blocker or
-human prerequisite exists.
+Fresh pre-service canonical-lock backups passed integrity, foreign-key and
+row-equality comparisons. Safe state: 33 ACKNOWLEDGED and 32 UNKNOWN attempts,
+eight ACTIVE members requiring fresh native settlement, eleven LOST and one
+WON_ACCOUNTED, zero pending commands, persisted epoch 14. Prepared scheduler-only
+launch intent: generation 2a7a7c6219060321031664a0e4b5d86f, epoch floor 15,
+service ID 005-sqlite-cache-repair-2a7a7c6219060321031664a0e4b5d86f.
+Next: commit/push this completed stage, hand that new generation to the scheduler,
+immediately verify attachment and fresh actual account reconciliation before new
+writes, then continue autonomous repair/proof. Do not replay confirmed move,
+listing, relist or prior bids. No external blocker or human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -405,3 +382,20 @@ location is now independently confirmed by full transfer inventory and owned GET
 resale and four-hour proof remain outstanding. Final 1117 Python / 38 Node / nine
 independent checks pass. Publish and launch the prepared unique scheduler service,
 verify actual recovered listing/new lifecycle, then continue semantic monitoring.
+
+2026-11-17 stage08: genuine recovered one-hour listing and relist confirmed;
+eight new initial bids and three competitive rebids independently confirmed.
+One policy UNKNOWN preserved despite subsequent native confirmation. Child died
+with0xC0000005; interval reset. Actual shared store wrong-row race reproduced,
+cache disabled, 147634 correct concurrent reads passed. Exact original crash C
+stack missing; matching upstream mechanism is evidenced, future safe fault traces
+installed. Continue full regressions/reconciliation/restart, never manual recheck.
+
+2026-11-17 stage08 final audit: the separately retained complete 220-delivery
+capture adds the fourth competitive rebid after the unchanged successful prefix.
+All eight initials and four rebids have independent later native participation;
+the one original UNKNOWN remains unchanged. Final regressions: 1120 Python,
+38 Node suites, nine independent checks; acceptance still INCOMPLETE while
+stopped. Fresh quiescent backup and unique epoch-15 launch intent retained.
+Publish and restart only through the scheduler, immediately reconcile eight
+existing members, and continue genuine final-generation lifecycle/14400s proof.
