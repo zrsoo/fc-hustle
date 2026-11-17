@@ -1,0 +1,706 @@
+[
+  {
+    "command_id": "1c15ad5566952dc219d4efa00291660f",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:11.679Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "1c15ad5566952dc219d4efa00291660f",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:11.754Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "1c15ad5566952dc219d4efa00291660f",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:11.685Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:11.687Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:11.752Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:11.753Z",
+        "detail": {
+          "data_type": "object",
+          "message_present": false,
+          "reason_present": false
+        },
+        "stage": "EA_BODY"
+      },
+      {
+        "at": "2026-11-17T20:31:11.754Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:11.754Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "1c15ad5566952dc219d4efa00291660f",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:11.765Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "1c15ad5566952dc219d4efa00291660f",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:11.773Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "b183344c3c284fbd91d8184e689f3065",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:13.678Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "b183344c3c284fbd91d8184e689f3065",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:13.761Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "b183344c3c284fbd91d8184e689f3065",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:13.683Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:13.683Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:13.760Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:13.761Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:13.761Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "b183344c3c284fbd91d8184e689f3065",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:13.770Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "b183344c3c284fbd91d8184e689f3065",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:13.778Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "d9ddde51306984cc8e992f8a50c104bd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:15.698Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "d9ddde51306984cc8e992f8a50c104bd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:15.786Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "d9ddde51306984cc8e992f8a50c104bd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:15.703Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:15.704Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:15.781Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:15.782Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:15.782Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 5
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T20:31:15.785Z",
+        "detail": {
+          "request_count": 1,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "d9ddde51306984cc8e992f8a50c104bd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:15.795Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "d9ddde51306984cc8e992f8a50c104bd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:15.803Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "34d38a6bb5570147804abc6d7c5b7f71",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:17.678Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "34d38a6bb5570147804abc6d7c5b7f71",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:17.786Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "34d38a6bb5570147804abc6d7c5b7f71",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:17.683Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:17.683Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:17.785Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:17.785Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:17.785Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 0
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T20:31:17.786Z",
+        "detail": {
+          "request_count": 1,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "34d38a6bb5570147804abc6d7c5b7f71",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:17.795Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "34d38a6bb5570147804abc6d7c5b7f71",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:17.803Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "886e06ba0b2babca9e314eb4329beb9c",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:19.714Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "886e06ba0b2babca9e314eb4329beb9c",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:20.342Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "886e06ba0b2babca9e314eb4329beb9c",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:19.718Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:19.718Z",
+        "detail": {
+          "definition_count": 0,
+          "definition_type": "array"
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T20:31:19.718Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:20.243Z",
+        "detail": {
+          "request_count": 1,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:20.337Z",
+        "detail": {
+          "request_count": 2,
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:20.338Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:20.338Z",
+        "detail": {
+          "data_type": "object",
+          "row_count": 21
+        },
+        "stage": "NATIVE_DATA"
+      },
+      {
+        "at": "2026-11-17T20:31:20.341Z",
+        "detail": {
+          "request_count": 2,
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "886e06ba0b2babca9e314eb4329beb9c",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:20.353Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "886e06ba0b2babca9e314eb4329beb9c",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:20.362Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  },
+  {
+    "command_id": "dcd479f0b33351a20cc9836542abbecd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:21.829Z",
+        "detail": {},
+        "stage": "WORKER_EXECUTE"
+      }
+    ]
+  },
+  {
+    "command_id": "dcd479f0b33351a20cc9836542abbecd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:21.956Z",
+        "detail": {},
+        "stage": "WORKER_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "dcd479f0b33351a20cc9836542abbecd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:21.833Z",
+        "detail": {},
+        "stage": "PAGE_ENTER"
+      },
+      {
+        "at": "2026-11-17T20:31:21.834Z",
+        "detail": {},
+        "stage": "NATIVE_INVOKE"
+      },
+      {
+        "at": "2026-11-17T20:31:21.953Z",
+        "detail": {
+          "status": 200,
+          "xhr_zero_status": false
+        },
+        "stage": "EA_RESPONSE"
+      },
+      {
+        "at": "2026-11-17T20:31:21.953Z",
+        "detail": {
+          "data_type": "object",
+          "message_present": false,
+          "reason_present": false,
+          "row_count": 10
+        },
+        "stage": "EA_BODY"
+      },
+      {
+        "at": "2026-11-17T20:31:21.954Z",
+        "detail": {
+          "status": 200,
+          "success": true
+        },
+        "stage": "NATIVE_CALLBACK"
+      },
+      {
+        "at": "2026-11-17T20:31:21.954Z",
+        "detail": {
+          "target_index": 0,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11250,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 129,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.954Z",
+        "detail": {
+          "target_index": 1,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11250,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 159,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 2,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11000,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 236,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 3,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11000,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 277,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 4,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11000,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 508,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 5,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11250,
+          "wire_callback_matches": true,
+          "wire_current_bid": 0,
+          "wire_expires": 510,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 6,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11000,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 543,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 7,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11750,
+          "wire_callback_matches": true,
+          "wire_current_bid": 900,
+          "wire_expires": 554,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 900,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 8,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11000,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 573,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "target_index": 9,
+          "wire_bid_state": "none",
+          "wire_buy_now_price": 11500,
+          "wire_callback_matches": true,
+          "wire_current_bid": 700,
+          "wire_expires": 599,
+          "wire_identity_matches": true,
+          "wire_ready": true,
+          "wire_starting_bid": 700,
+          "wire_target_found": true,
+          "wire_trade_state": "active"
+        },
+        "stage": "WIRE_AUCTION"
+      },
+      {
+        "at": "2026-11-17T20:31:21.955Z",
+        "detail": {
+          "success": true
+        },
+        "stage": "PAGE_FINISHED"
+      }
+    ]
+  },
+  {
+    "command_id": "dcd479f0b33351a20cc9836542abbecd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:21.965Z",
+        "detail": {},
+        "stage": "WORKER_POST_RESULT"
+      }
+    ]
+  },
+  {
+    "command_id": "dcd479f0b33351a20cc9836542abbecd",
+    "records": [
+      {
+        "at": "2026-11-17T20:31:21.975Z",
+        "detail": {},
+        "stage": "WORKER_ACK"
+      }
+    ]
+  }
+]

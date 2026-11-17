@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 5, "native_capacity": 50, "historical_occupied": 47, "new_receipts_without_confirmation": 3, "denials": 3, "accepted_initials_with_participation": 29, "accepted_rebids": 109, "protected_uncertain": 13, "healthy_seconds": 0}

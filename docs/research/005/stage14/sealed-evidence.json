@@ -1,0 +1,65 @@
+{
+  "scope": "IMMUTABLE_NATIVE_CAPTURE_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "attempts.json",
+      "sha256": "12b983463c873ef18ac51ae963a77a5d1e5b57626d769509ef574931c61e0942"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "ed34106b36f67d9525ebe794c035dc9c1b8d81fd7cb085b925a8051bee6d0cac"
+    },
+    {
+      "path": "current-account/checkpoint.jsonl",
+      "sha256": "5b4b80c0f35937f0c3679f0714d1e2da32cd8e9b5aea9570e52e569e6f935430"
+    },
+    {
+      "path": "current-account/diagnostics.json",
+      "sha256": "abe3723f9dabf57e79e00a017e7c66c94b921fa7e88ac1c0febb51ba480d4875"
+    },
+    {
+      "path": "current-account/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "587306fd6eafcdc55afcbb4952a7a697217af7f10455b17f55044a572e7c26f1"
+    },
+    {
+      "path": "native-capacity-final/checkpoint.jsonl",
+      "sha256": "dc0067c55d82d7e142e3674e8b1c4bc524d31c140980e0df10bde8ceb8bfd91d"
+    },
+    {
+      "path": "native-capacity-final/diagnostics.json",
+      "sha256": "7235deecbb581c6ff0f12d4eb3e56777b8b65f191368609047a509584a72bb83"
+    },
+    {
+      "path": "native-capacity-final/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    },
+    {
+      "path": "native-capacity/checkpoint.jsonl",
+      "sha256": "445f3ea7acf70dbba0d36740d7144542fcecd0ba7beb67dfb55601dec830cec9"
+    },
+    {
+      "path": "native-capacity/diagnostics.json",
+      "sha256": "ae6f055ad17551d781aedc45804f558b800b538f674ddffb2d8fe8fc7a33f652"
+    },
+    {
+      "path": "native-capacity/result.json",
+      "sha256": "e5ba3bada30a9a5626db259383bec21c647c7b82eb0d9097ea24b5398c64820d"
+    },
+    {
+      "path": "public-watch-contract.json",
+      "sha256": "f5c5db828a5c5f36c35143d745d8e0a185435900499b2ebffe1c3e24cf2b38aa"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "a9ad472d5b5a8976d3f50591d39beaac2f0bf5d72385a61dedbd1d25570a4b54"
+    },
+    {
+      "path": "undelivered-intents.json",
+      "sha256": "7a8c72caed20d29dd4d3f69eaac27c330cda37777122f6fa4833c9a21bbfac83"
+    }
+  ]
+}

@@ -60,6 +60,8 @@
             Date.parse(p.deadline)>Date.parse(proof.at)+row.expires*1000 || row.buy_now_price>0 && p.amount>=row.buy_now_price ||
             p.minimum!==(row.current_bid===0?row.starting_bid:helper('above',row.current_bid)))throw Error('invalid_preconditions');
           const current=await auction(e.raw,{...c,operation:'status'},null);
+          if(typeof repositories.Item.isPileFull!=='function' ||
+              e.raw.getAuctionData().watched!==true && repositories.Item.isPileFull(ItemPile.INBOX))throw Error('invalid_preconditions');
           if(current.trade_id!==row.trade_id || current.item.item_id!==row.item.item_id || current.item.definition_id!==row.item.definition_id || current.item.untradeable!==false || current.expires<=0 ||
             current.starting_bid!==row.starting_bid || current.buy_now_price!==row.buy_now_price ||
             current.current_bid!==row.current_bid || current.bid_state!==row.bid_state || current.trade_state!==row.trade_state)throw Error('invalid_preconditions');

@@ -27,6 +27,7 @@ function setup(mode='ok'){
           const path={balance:mode==='currencies'?'user/currencies':'user/credits',watched:'watchlist',search:'transfermarket',unassigned:'purchased/items',owned_item:'item',transfer_list:'tradepile',caps:'marketdata/pricelimits',status:'trade/status/lite',bid:'trade/20000000000000000001/bid',move:'item',list:'auctionhouse'}[op];
           const wire=(route=path,params=query,method=op==='list'?'POST':['bid','move'].includes(op)?'PUT':'GET')=>{const x=new XHR();x.open(method,'https://utas.test.ea.com/ut/game/fc27/'+route+(op==='bid'?'':'?'+new URLSearchParams(route==='attributes/metadata'||op==='owned_item'||controllerQueue?params:{...params,private:secret})));
             if(op==='transfer_list' && transferWire!==undefined)x.responseText=JSON.stringify(transferWire);
+            if(op==='watched')x.responseText=JSON.stringify({auctionInfo:data.items});
             if(op==='bid')x.responseText=JSON.stringify({auctionInfo:data.items??[]});
             if(mode!=='noAuth')x.setRequestHeader('X-UT-SID',secret);x.send(op==='bid'?JSON.stringify({bid:data.amount}):undefined);};
           wire();if(mode==='fanout')wire();
@@ -88,7 +89,8 @@ function setup(mode='ok'){
     },
     location:{protocol:'https:',hostname:'www.ea.com',pathname:'/ea-sports-fc/ultimate-team/web-app/',href:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'},
     Date:Clock,performance:{now:()=>time},XMLHttpRequest:XHR,UTSearchCriteriaDTO:function(){},
-    repositories:{Item:{setDirty(pile){events.push('dirty:'+pile);}}},ItemPile:{INBOX:1,PURCHASED:2,TRANSFER:3},
+    repositories:{Item:{setDirty(pile){events.push('dirty:'+pile);},getPileSize:()=>50,
+      getWatchedItems:()=>[raw()],isPileFull:()=>false}},ItemPile:{INBOX:1,PURCHASED:2,TRANSFER:3},
     setTimeout(fn,delay){timers.push(delay);return setTimeout(fn,delay===15000?25:0);},clearTimeout});
   for(const file of ['persona.js','diagnostics.js','page.js'])vm.runInContext(fs.readFileSync('browser/production-v1/'+file,'utf8'),sandbox);
   const api=sandbox.window.__fcProductionV1;

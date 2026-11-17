@@ -1,0 +1,1 @@
+{"status": "ONE_BID_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 3, "command_id": "ea909ac38a41698a72cfec9912e2cbea", "amount": 950, "target": {"definition_id": 246420, "item_id": "item:8aef7859641834fa53d09a96", "trade_id": "trade:a2c4ba61fc42b8324ee9f1a4"}, "confirmation": ["7d7c5df48a81134c8742705001c06e72"]}

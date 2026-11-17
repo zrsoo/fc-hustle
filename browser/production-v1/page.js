@@ -335,6 +335,11 @@
           inventory.truncated=data?.hasMore===true;
         }catch{inventory.wire=null;}
       }
+      if(inventory.controllerRead && c.operation==='watched' && m.path===routes.watched[1]){
+        try{const data=this.responseType==='json'?this.response:JSON.parse(this.responseType==='arraybuffer'?new TextDecoder().decode(this.response):this.responseText);
+          inventory.watchWireCount=Array.isArray(data?.auctionInfo)?data.auctionInfo.length:null;
+        }catch{inventory.watchWireCount=null;}
+      }
       diagnostic(c.id,'EA_RESPONSE',{status:m.status,request_count:rows.length,xhr_zero_status:wireStatus===0});});}return orig.send.apply(this,args);};
     proto.open=open;proto.send=send;proto.setRequestHeader=header;
     return ()=>{active=false;for(const [xhr,fn]of listeners)xhr.removeEventListener?.('loadend',fn);
@@ -694,6 +699,15 @@
         if(!Array.isArray(rows)||rows.length>(op==='search'?21:100))throw Error('schema_unrecognized');
         if(['unassigned','owned_item'].includes(op))r.items=await Promise.all(rows.map(raw=>item(raw,c.context.identity_namespace,false,c.id)));
         else r.auctions=await Promise.all(rows.map(raw=>auction(raw,c,at)));
+        if(controllerRead && op==='watched'){
+          const repo=repositories.Item,capacity=num(repo.getPileSize?.(ItemPile.INBOX)),watched=repo.getWatchedItems?.(),full=repo.isPileFull?.(ItemPile.INBOX);
+          if(capacity===null || capacity<1 || capacity>1000 || !Array.isArray(watched) ||
+              typeof full!=='boolean' || full!==(watched.length>=capacity) ||
+              inventory.watchWireCount!==rows.length || watched.length!==rows.length ||
+              rows.some(raw=>!watched.some(w=>w.id===raw.id)))throw Error('schema_unrecognized');
+          out.coverage.watch_list={capacity,wire_count:inventory.watchWireCount,callback_count:rows.length,
+            repository_count:watched.length,repository_full:full};
+        }
         if(op==='search' && p.definition_id!==undefined && r.auctions.some(a=>a.item.definition_id!==p.definition_id))throw Error('schema_unrecognized');
         if(op==='owned_item' && (r.items.length>1 || r.items.some(i=>i.item_id!==p.item_id || i.definition_id!==p.definition_id)))throw Error('schema_unrecognized');
         if(op==='owned_item' && rows.length===1){

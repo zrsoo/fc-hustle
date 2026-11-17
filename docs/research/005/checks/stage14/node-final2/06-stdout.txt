@@ -1,0 +1,1 @@
+PASS 11 native renewal cases: read failure retained, next read recovery, native opt-out, renewal failure, no replay or mutation renewal

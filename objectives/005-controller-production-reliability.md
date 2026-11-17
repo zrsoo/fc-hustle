@@ -216,49 +216,57 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage13 repair: generation 718d2acbcab1b4d9cdcb75d7e0035b70 stopped cooperatively
-at 16:26:50 UTC for PERSISTENT_WRITE_FAILURE; scheduler healthy duration reset to
-zero. Complete 980-delivery evidence and a fresh canonical-lock SQLite backup are
-retained. No forced kill, duplicate actor, intent replay or historical rewrite.
-The completed run has 18 accepted initial bids with independent participation,
-49 accepted rebids with independent participation, seven UNKNOWN intents and
-684 genuine successful native operations. Of the accepted actions, 14 initials
-and 47 rebids have fresh exact-price highest readback; four initials and two
-rebids were already outbid at their independent readback. Total durable UNKNOWN
-in the actual production DB is 49, preserved without promotion or replay.
+Stage14: generation d5fb66757752d0191bc5f66574ed9d22 ran from16:47:54 UTC to
+18:03:27 UTC and stopped cooperatively after three actual native461/service403
+initial-bid failures. Scheduler healthy time is zero. Complete2518-delivery
+capture,147 delivered bid intents and four additional UNKNOWN intents with no
+transport record are preserved. Actual run has29 accepted initials and109
+accepted rebids with independent participation; nine delivered UNKNOWNs plus
+four undelivered UNKNOWNs stay consumed. Global UNKNOWN count is62 before any
+new diagnostic bid. No managed member remains ACTIVE;67 are LOST,one WON_ACCOUNTED.
 
-Diagnosed a semantic false-positive component: the last failure streak counted
-one coherent native200 competitive race (800 to 4500 during the delivery gap,
-850 bid / unchanged 3800 ceiling) before two wire461/service403 denials. A narrow
-fix excludes only this exact proven race from operational streak counting; it
-cannot acknowledge or enroll a bid, reset an actual fault streak or count native
-success. All original stop thresholds and trading policy remain unchanged.
-Two actual 461 denials remain unexplained and are NOT reclassified as ordinary
-competition, authentication failure, successful bids or an external blocker.
+New capacity defect evidenced: the last fresh watched GET returned47 closed,
+non-won/outbid targets. The next three new bids got native200/ACCEPTED receipts,
+then three new bids got461/403. The three accepted receipts have no independent
+readback and remain UNKNOWN. Current native capacity is independently observed
+as50 through a matched wire/callback/repository watched GET. The official UI's
+onBid blocks an unwatched bid when repositories.Item.isPileFull(INBOX); the
+bridge bypassed this UI guard and admission counted only active participation.
+The account's watched list is now empty; that change was already present before
+this worker's page refresh, with no account writes by this repair. Its cause is
+unattributed. Do not claim a witnessed cleanup or exact server error message.
+This does not explain every historical/rebid461 class.
 
-Two finite read-only windows (epochs21/22, zero account mutations) established
-live native renewal: one unassigned GET returned401, NATIVE_RENEWAL_RESULT was
-true, and a separate fresh unassigned GET succeeded200 without any UI refresh
-or replay of the failed request. Fresh exact status confirms the three last
-failed-write targets closed as losses. Full native expiry recovery is now
-observed; server-denial causality and final-generation resale remain open.
+Implemented matched native watch-capacity coverage for controller reads, batch
+selection bounded by actual free slots including closed entries, durable-read
+revalidation at dispatch, and native preflight matching the UI capacity guard.
+No source integrity assertions, strategy/pricing thresholds or stop thresholds
+changed. Focused cases47/50=>three,35/36=>one,full=>zero,missing/corrupt proof,
+recovery and native/UI behavior pass. Full regressions PASS:1129 Python
+executions,40 Node suites,nine independent commands. Five stopped-run negative
+artifact cases and three probe negative cases pass; both acceptance validators
+correctly reject the stopped runtime. A real read-only six-command window
+verifies capacity50,count0,zero pending/mutations.
 
-Full regressions passed: 1125 Python executions, 39 Node suites and nine
-independent commands. Stage13 artifact audit has four negative cases; both full
-acceptance validators' negative fixtures pass. Actual acceptance reports stopped
-service and remains incomplete. Fresh canonical-lock pre-service backups pass
-integrity/FK and every-table row equality. Official Edge is foreground verified,
-no visible challenge or connection error. All nine persisted ACTIVE members are
-independently observed closed/outbid/not-won; the controller must settle them
-from its own fresh reads. Legacy objective003 remains PAUSED,004 COMPLETED.
+One finite new-target bid after the guard repair independently confirmed at950:
+command ea909ac38a41698a72cfec9912e2cbea,definition246420,
+trade:a2c4ba61fc42b8324ee9f1a4,item:8aef7859641834fa53d09a96.
+Native200/ACCEPTED plus a separate exact-price highest readback; one mutation,
+129 logical commands,19 reserved EA requests,zero pending and probe stopped.
+All62 prior UNKNOWNs remain UNKNOWN. One confirmed managed member needs prompt
+fresh reconciliation/management. Full lifecycle/terminal ownership not inferred.
 
-Next: publish this complete stage and launch once through scheduler service
-005-stage13-d5fb66757752d0191bc5f66574ed9d22, generation d5fb66757752d0191bc5f66574ed9d22,
-epoch floor23. Immediately verify attachment and reconciliation before new
-acquisition; monitor the first native denial/renewal with exact command and
-account readback. Preserve
-uncertain effects; do not retry the prior failed bids. Final full lifecycle and
-14400 consecutive semantic healthy seconds still require genuine observation.
+Next: publish and launch one scheduler-owned integration generation
+470e3a23b7e363792dd230e271941202 with service 005-stage14-470e3a23b7e363792dd230e271941202
+and epoch floor28. Immediately verify attachment and reconcile/manage the950
+member through existing genuine terminal/win/resale rules. This integrates the
+capacity fix; remaining repairs are still required before final completion:
+(1) durable native lost-target cleanup using the captured Item.untarget ->
+transfersDao.unwatchItems contract; (2) supervision check before minting new
+intents. Stop owned service and take fresh quiescent backups before those code
+repairs, then regress/reconcile/restart with a new generation. No four-hour
+interval can be claimed across that stop or final fix. Preserve all62 UNKNOWNs;
+no retries of old commands. No external barrier or human prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -472,3 +480,19 @@ the stopped runtime, as required. Prepared single scheduler launch; generation
 directory does not yet exist. Pre-service quiescence2 is empty; the earlier
 quiescence projection matched the collecting shell itself and was independently
 reassessed. No account writes occurred during this repair stage.
+
+2026-11-17 stage14 hypothesis/action/result: full stopped run and canonical-lock
+DB backups retained. Native UI preflight and live INBOX capacity50 establish an
+omitted watch-capacity guard. Implemented native-count coverage/admission/dispatch
+negative and recovery contracts. Current watched0 and unchanged five physical
+transfer-list entries are independently read, not inferred from the prior run.
+No cleanup was executed or claimed. Scope remaining repair: native lost-target
+maintenance and supervision-before-intent, then genuine restart and monitoring.
+
+2026-11-17 stage14 final verification:1129 Python executions,40 Node suites,nine
+independent checks PASS. Live native coverage matches capacity50 and count0.
+One new950 bid has independent exact-price participation; no old command replay.
+Audits retain five plus three negative cases and both acceptance validators'
+negative fixtures. Actual acceptance is INCOMPLETE/stopped; healthy interval0.
+Canonical-lock pre-service DB backups verified. Prepared one scheduler launch
+for prompt management, then continue scoped cleanup/supervision repairs safely.

@@ -1,0 +1,1 @@
+PASS owned wire/current callback comparison across response encodings; no sensitive values or writes

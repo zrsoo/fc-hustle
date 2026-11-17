@@ -349,7 +349,14 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     coverage = v['coverage']
     extended = op == 'transfer_list' and type(coverage) is dict and 'transfer_list' in coverage
     fields(coverage, ({'complete', 'has_more', 'transfer_list'} if extended else {'complete', 'has_more'}) |
-           ({'bulk'} if op == 'transfer_list' and 'bulk' in coverage else set()))
+           ({'bulk'} if op == 'transfer_list' and 'bulk' in coverage else set()) |
+           ({'watch_list'} if op == 'watched' and 'watch_list' in coverage else set()))
+    if 'watch_list' in coverage:
+        proof=fields(coverage['watch_list'],{'capacity','wire_count','callback_count','repository_count','repository_full'})
+        integer(proof['capacity'],1)
+        for k in ('wire_count','callback_count','repository_count'):integer(proof[k],0)
+        if proof['capacity']>1000 or proof['wire_count']!=proof['callback_count'] or proof['callback_count']!=proof['repository_count'] or proof['callback_count']!=len(r['auctions'] or []) or type(proof['repository_full']) is not bool or proof['repository_full']!=(proof['repository_count']>=proof['capacity']):
+            raise ValueError('invalid_watch_capacity')
     if 'bulk' in coverage:
         proofs = coverage['bulk']
         if type(proofs) is not list or len(proofs) != len(r['auctions'] or []):

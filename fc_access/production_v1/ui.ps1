@@ -48,6 +48,16 @@ if($Action -eq 'navigate'){
  $bar=Find-Name 'Address and search bar'
  $p=$bar.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
  $bar.SetFocus();$p.SetValue($Url);[System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
+} elseif($Action -eq 'open-manager') {
+ $currentUrl=(Find-Name 'Address and search bar').GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value
+ if($currentUrl -notmatch '^(https://)?(www\.)?ea\.com/(?:[a-z]{2}-[a-z]{2}/)?ea-sports-fc/ultimate-team/web-app/?$'){throw 'official_tab_required'}
+ if(!(Test-FCEdgeForegroundOwner -WindowHandle $h.ToInt64())){throw 'foreground_changed'}
+ [System.Windows.Forms.SendKeys]::SendWait('^t')
+ Start-Sleep -Milliseconds 150
+ if(!(Test-FCEdgeForegroundOwner -WindowHandle $h.ToInt64())){throw 'foreground_changed'}
+ $bar=Find-Name 'Address and search bar';$bar.SetFocus()
+ $bar.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue('edge://extensions/')
+ [System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
 } elseif($Action -eq 'attach') {
  $currentUrl=(Find-Name 'Address and search bar').GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value
  if($currentUrl -notmatch '^(https://)?(www\.)?ea\.com/(?:[a-z]{2}-[a-z]{2}/)?ea-sports-fc/ultimate-team/web-app/?$'){throw 'official_tab_required'}

@@ -39,6 +39,7 @@ class SyntheticEA:
         self.offers=[auction(123,12000,1000),auction(123,12500,1001)]
         self.discovery=None;self.inventory=[];self.manual=[];self.owned=[]
         self.credits=50000;self.balance_fail=False;self.inventory_complete=True;self.watched_fail=False
+        self.watch_capacity=50
         self.bid_modes={};self.missing=set();self.full={};self.calls=[];self.phase=None
         self.duration=.01;self.on_request=None;self.active=0;self.max_active=0
         self.native=FixturePriceAdapter()
@@ -91,6 +92,9 @@ class SyntheticEA:
             for row in rows:self.full[row['trade_id']]=(c['id'],at,deepcopy(row))
         elif op=='watched':
             r.update(auctions=deepcopy(self.manual),cache_invalidated=True)
+            count=len(self.manual)
+            coverage['watch_list']=dict(capacity=self.watch_capacity,wire_count=count,callback_count=count,
+                repository_count=count,repository_full=count>=self.watch_capacity)
             if self.watched_fail:raise TimeoutError('synthetic_watched_failure')
             for row in self.manual:self.full[row['trade_id']]=(c['id'],at,deepcopy(row))
         elif op=='transfer_list':

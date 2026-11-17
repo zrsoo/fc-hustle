@@ -208,3 +208,14 @@ exact identities, amount and receipt all establish this specific active outbid
 race, it neither increments nor clears the write failure streak. Incoherent or
 stale receipts, equal-price uncertainty and native 461/service 403 still count
 as failures. Three actual consecutive write failures still stop the runtime.
+
+
+Controller watched reads include native watch_list coverage: capacity from
+Item.getPileSize(INBOX), matched owned-wire/callback/repository counts, and the
+native isPileFull result. Closed targets still occupy slots. Initial selection
+uses at most the remaining native slots in addition to the original ten-attempt
+and50-item pipeline bounds; dispatch revalidates the retained same-scope read.
+Missing or contradictory coverage grants no new bid authority. The native bid
+boundary also preserves the UI's full-INBOX guard for unwatched targets.
+This admission guard does not clear lost targets; durable cleanup remains a
+separate maintenance repair required before final operational acceptance.

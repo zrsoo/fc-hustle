@@ -168,6 +168,9 @@ class Controller:
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
             watched=self._read('watched')
+            from .watch_capacity import slots
+            watch_slots=slots(watched)
+            j.update_batch(bid,watch_read_id=watched['command_id'],watch_slots=watch_slots)
             inventory=self._read('transfer_list')
             ic=self.native.commands[inventory['command_id']]
             parse_response(inventory,ic,now=self.now(),source=self.native.source)
@@ -183,7 +186,7 @@ class Controller:
             inv_at=inventory['freshness']['network_at']
             j.update_batch(bid,inventory_at=inv_at,inventory_read_id=inventory['command_id'],
                 physical_count=len(physical),known_pipeline=known,known_pending_items=sorted(pending-physical))
-            if len(physical)>=50 or known>=50:
+            if len(physical)>=50 or known>=50 or watch_slots==0:
                 j.update_batch(bid,state='CAPACITY_FULL');return
             self.store.admit_batch(bid,balance_read_id=balance_id,inventory_command=ic,
                                    inventory_response=inventory,threshold=self.config.entry_threshold)
@@ -197,7 +200,7 @@ class Controller:
                 if candidate['target']['item_id'] in physical|pending:continue
                 c=deepcopy(candidate);c.update(selection_age=age,selection_remaining=remaining)
                 selected.append(c)
-                if len(selected)>=min(10,50-known):break
+                if len(selected)>=min(10,50-known,watch_slots):break
             if selected:
                 refreshed=self._refresh_selection(bid,selected)
                 if refreshed is None:

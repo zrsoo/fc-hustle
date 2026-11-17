@@ -1,0 +1,7 @@
+{
+  "generation": "470e3a23b7e363792dd230e271941202",
+  "service_id": "005-stage14-470e3a23b7e363792dd230e271941202",
+  "epoch_floor": 28,
+  "prepared_at": "2026-11-17T20:44:53.181233+00:00",
+  "purpose": "Scheduler-owned integration after native watch-slot repair; reconcile/manage the one confirmed950 member. Lost-target cleanup and supervision-before-intent remain next repairs; final healthy interval unproven."
+}

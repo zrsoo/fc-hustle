@@ -1,0 +1,25 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_ONE_BID_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "one-bid-after-capacity-guard/checkpoint.jsonl",
+      "sha256": "2770febd892329d7d2cc92b598bfa400dcb0369e324c918e07237ce0a469d0b3"
+    },
+    {
+      "path": "one-bid-after-capacity-guard/result.json",
+      "sha256": "04fe04cf328b4ae3e8b36a9827ba3a19d65b944d2570d12b8210a6c3f45aa6b3"
+    },
+    {
+      "path": "post-probe-state.json",
+      "sha256": "d44dc3945838244e69c07c8f75d2f77b203677113ff847962180611cd4d9331d"
+    },
+    {
+      "path": "probe-acquisition.json",
+      "sha256": "591afa9e51d9b14788152f74b373266d79f294d92feb59aa30028e107239fe22"
+    },
+    {
+      "path": "probe-commands.jsonl",
+      "sha256": "62b82b3370854c45813d826354160a5ecc6415667c11d49b47bbad1be8577c14"
+    }
+  ]
+}

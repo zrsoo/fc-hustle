@@ -20,7 +20,7 @@ from fc_access.controller_v1.server import Server
 from fc_access.production_v1.contracts import Search
 
 
-def run(output, *, epoch=1, idle_seconds=0, target=None, status_targets=None):
+def run(output, *, epoch=1, idle_seconds=0, target=None, status_targets=None, native_watched=False):
     if type(epoch) is not int or epoch<1 or not 0<=idle_seconds<=40:raise ValueError('invalid_probe_scope')
     if target is not None:
         from fc_access.controller_v1.protocol import target as validate_target
@@ -43,6 +43,7 @@ def run(output, *, epoch=1, idle_seconds=0, target=None, status_targets=None):
            owner_epoch=epoch,local_idle_seconds=idle_seconds,
            exact_owned_target=target,
            exact_status_targets=status_targets,
+           native_watched=native_watched,
            max_commands=6, max_ea_requests=7, max_mutations=0, deadline_seconds=240, context=scope)
     deadline = time.monotonic() + 240
     reserved = 0
@@ -69,8 +70,9 @@ def run(output, *, epoch=1, idle_seconds=0, target=None, status_targets=None):
             print('READ_ONLY_SERVICE_READY', flush=True)
             adapter = ControllerAdapter(SerializedExecutor(Bounded()), context=scope, owner=secrets.token_hex(16), epoch=epoch)
             record('ATTACHED', context=adapter.context, fences=adapter.fences)
+            watch_read=adapter.native.read if native_watched else adapter.read
             commands = [lambda: adapter.read(secrets.token_hex(16), 'balance'),
-                        lambda: adapter.read(secrets.token_hex(16), 'watched'),
+                        lambda: watch_read(secrets.token_hex(16), 'watched'),
                         lambda: adapter.native.read(secrets.token_hex(16), 'transfer_list'),
                         lambda: adapter.native.read(secrets.token_hex(16), 'unassigned'),
                         lambda: adapter.native.search(secrets.token_hex(16), Search.discovery())]
@@ -129,6 +131,8 @@ if __name__ == '__main__':
     parser.add_argument('--idle-seconds',type=float,default=0)
     parser.add_argument('--target-json')
     parser.add_argument('--status-targets-file')
+    parser.add_argument('--native-watched',action='store_true')
     args=parser.parse_args()
     raise SystemExit(run(args.output,epoch=args.epoch,idle_seconds=args.idle_seconds,target=json.loads(args.target_json) if args.target_json else None,
-                        status_targets=json.loads(Path(args.status_targets_file).read_text()) if args.status_targets_file else None))
+                        status_targets=json.loads(Path(args.status_targets_file).read_text()) if args.status_targets_file else None,
+                        native_watched=args.native_watched))

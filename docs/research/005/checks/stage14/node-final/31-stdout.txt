@@ -1,0 +1,1 @@
+PASS network failure: absent HTTP status retained as null, explicit zero diagnostic, failed/unfresh, no retry or secret

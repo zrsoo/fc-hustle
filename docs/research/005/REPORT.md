@@ -1425,3 +1425,101 @@ private-captures/controller-v1/public-context.json --port 8784 --epoch-floor 23`
 The final service handoff supplies this public argv. No provider/tool child
 starts a persistent service. Scheduler monitoring owns the healthy interval;
 future failure or restart resets it. No completion or external barrier claimed.
+
+
+## Stage14 ? native transfer-target capacity and new guarded bid
+
+Generation **d5fb66757752d0191bc5f66574ed9d22** ran **16:47:54?18:03:27 UTC**
+and stopped cooperatively on **three actual native461/service403 initial-bid
+failures**. Retained complete evidence contains **2518 unique deliveries**,
+**29 initial bids and109 rebids with matching native receipts plus independent
+participation**, **nine delivered UNKNOWNs**, and **four further UNKNOWN intents
+with no transport record**. The latter were minted after admission stopped;
+no enqueue/claim/account request is present for them. They remain consumed and
+protected; adding supervision-before-intent is explicitly scoped as a further
+repair. The global UNKNOWN count remains **62**. No uncertain bid was replayed.
+There were **1942 successful native operations** and three completed reported
+acquisition batches. These outcomes do not establish the four-hour requirement.
+
+The last fresh watched GET returned **47 closed/outbid/not-won targets**. Three
+new bids then returned native200/ACCEPTED, followed by three initial461/403
+responses with empty native items. None of those six has a fresh participation
+readback because the watchdog stopped; all remain UNKNOWN. The three accepted
+receipts are not promoted to ownership or membership. The watchdog requested
+stop within one second of the third denial, exiting normally without forced kill.
+
+The official client's captured **UTItemDetailsViewController.onBid** checks
+**repositories.Item.isPileFull(ItemPile.INBOX)** before an unwatched bid. Its
+repository counts every INBOX entry, including closed losses, against native
+getPileSize(INBOX). The bridge called Item.bid directly and admission counted
+only active participation/physical pipeline. This omitted the client's watch-slot
+constraint. Native **getPileSize/isPileFull/onBid** behavior is independently
+exercised; a real read now confirms **capacity50** with **wire0/callback0/repository0**
+and full=false. The47-plus-three boundary fits that observed capacity. This is
+an evidenced missing client/admission guard; no exact server error message was
+captured and it does not explain every earlier rebid461 or historical failure.
+
+The current watched list was already empty during the first read-only window,
+before this worker refreshed/reloaded the page. No account mutation by this
+repair caused that change. Its cause remains unattributed; a cleanup, manual
+intervention or automatic expiry must not be fabricated. Current physical
+transfer list has five entries and unassigned is empty. No unrelated card was
+moved or listed. Public captured UI cleanup uses getExpiredAuctions/findExpired
+and Item.untarget -> transfersDao.unwatchItems, one DELETE /watchlist with exact
+tradeId list, then local repository removal. These methods are retained for the
+next durable-cleanup implementation, not claimed as an executed operation.
+
+The fix projects **coverage.watch_list** only on controller native watched reads:
+native capacity, owned-wire count, callback count, repository count and full flag.
+Contradictory/missing native evidence grants no new bid authority. Admission
+limits selection by actual free slots in addition to unchanged ten-attempt and
+50-item pipeline bounds; durable dispatch revalidates the same retained read and
+scope. The native bid boundary also mirrors the UI's full-INBOX check while
+allowing already-watched targets. Tests cover47/50=>three attempts,35/36=>one,
+full=>zero,recovery,corrupt/missing/scope evidence,forged batch allowance,native
+metadata disagreement and the captured UI guard. No source/test/configuration
+hash assertions or strategy/price/profit/stop-threshold changes were added.
+
+Browser recovery encountered a missing Extensions tab. Foreground-verified
+normal UI opened a separate manager tab, reloaded the reviewed bridge and
+refreshed the official app; no credential/token/session value was read. A
+reusable open-manager action preserves the verified FC tab. The corrected
+native-capacity read is a separate epoch26, six-command, zero-mutation window;
+all native reads pass, zero missing targets,zero pending,service stopped.
+
+Full verification **PASS:1129 Python executions,40 Node suites,nine independent
+commands**. Latest receipts: checks/stage14/python-final,node-final2,
+independent-final. The stage14 audit validates all delivered responses, every
+accepted bid's independent participation, exact failure boundary, prompt stop,
+protected unsent intents and real native capacity. Five negative cases reject
+altered occupancy,denial,promoted receipt,capacity and unsent outcome. A separate
+live-probe audit has three negative cases. Both acceptance validators' negative
+fixtures pass; their actual full checks remain INCOMPLETE for stopped service.
+
+After regressions and a new canonical-lock backup, one finite new-target bid
+used the unchanged production entry,discovery,exact quote,minimum and cap rules.
+**ea909ac38a41698a72cfec9912e2cbea** bid **950 coins** on definition246420,
+item:8aef7859641834fa53d09a96 / trade:a2c4ba61fc42b8324ee9f1a4. It received a
+matching native200/ACCEPTED receipt and independent exact-price highest readback
+**7d7c5df48a81134c8742705001c06e72**. The probe made **one mutation**,129 logical
+commands,19 reserved EA requests,zero pending and stopped. All62 prior UNKNOWNs
+remain protected. This proves a successful guarded initial and participation;
+terminal ownership/move/resale for that member are not yet observed.
+
+Prepared one scheduler-owned integration launch **005-stage14-470e3a23b7e363792dd230e271941202**,
+generation **470e3a23b7e363792dd230e271941202**, epoch floor**28**, startup90s,
+health interval30s and owned-stop timeout60s. Fresh canonical-lock backups pass
+integrity/FK and every-table row equality. The service will promptly reconcile
+and manage the confirmed member; no persistent tool/provider child is launched.
+The same worker then continues durable lost-target cleanup and supervision-before-
+intent repair, stopping/backup/regressing/reconciling as required. Any further
+fix/restart resets the final interval. **14400 consecutive monitored healthy
+seconds and full final-generation lifecycle remain unproven.** No external
+barrier or human prerequisite is claimed.
+
+Current status/stop/resume PowerShell commands in stage13 continue to read the
+actual runtime generation from state.json. Corrected scheduler launch uses the
+same operational service argv with this prepared generation and **--epoch-floor28**
+(spelled as separate argv `--epoch-floor`, `28`). Native losses must be cleaned
+through the reviewed durable contract before final acceptance; a full list of
+closed targets and idle acquisition is not completion.

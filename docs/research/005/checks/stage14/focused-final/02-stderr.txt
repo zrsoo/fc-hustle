@@ -1,0 +1,9 @@
+test_absent_capacity_and_corrupt_count_grant_no_write_authority (__main__.WatchCapacityTests.test_absent_capacity_and_corrupt_count_grant_no_write_authority) ... ok
+test_closed_targets_limit_initials_to_actual_free_native_slots (__main__.WatchCapacityTests.test_closed_targets_limit_initials_to_actual_free_native_slots) ... ok
+test_dispatch_rechecks_immutable_read_instead_of_trusting_batch_count (__main__.WatchCapacityTests.test_dispatch_rechecks_immutable_read_instead_of_trusting_batch_count) ... ok
+test_full_list_is_capacity_outcome_and_new_fresh_read_can_recover (__main__.WatchCapacityTests.test_full_list_is_capacity_outcome_and_new_fresh_read_can_recover) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 3.555s
+
+OK

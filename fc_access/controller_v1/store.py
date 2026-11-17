@@ -312,6 +312,13 @@ class ControllerStore:
                 raise ValueError('selected_authority_mismatch')
             if batch['known_pipeline']+len(j.selected(p['batch_id']))>50:
                 raise ValueError('pipeline_full')
+            from .watch_capacity import slots
+            saved=self.db.execute('SELECT body,state,result FROM c4_commands WHERE id=?',(batch.get('watch_read_id'),)).fetchone()
+            if not saved or saved[1]!='DONE' or not saved[2]:raise ValueError('native_watch_capacity_required')
+            wc,wv=json.loads(saved[0]),json.loads(saved[2])
+            if wc['context']!=decision['peer']['context'] or wc['fences']!=decision['peer']['fences']:raise ValueError('watch_capacity_scope_mismatch')
+            delivery_response(wv,wc,now=stamp(wv['freshness']['observed_at']))
+            if len(j.selected(p['batch_id']))>slots(wv) or batch.get('watch_slots')!=slots(wv):raise ValueError('watch_capacity_exceeded')
         elif state['phase']!='MANAGING' or not any(m['target']==p['target'] and m['batch_id']==p['batch_id'] and m['state']=='ACTIVE' for m in j.members()):
             raise ValueError('confirmed_membership_required')
         intent=self.db.execute('SELECT batch_id,state,body FROM c4_attempts WHERE id=?',(command_id,)).fetchone()

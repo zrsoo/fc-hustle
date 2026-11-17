@@ -1,0 +1,77 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage14.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 11.698258200020064,
+      "finished": "2026-11-17T20:44:14.965774+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/check_005_stage14_probe.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.28806540003279224,
+      "finished": "2026-11-17T20:44:15.253924+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/test_005_watch_capacity.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 3.7687172000296414,
+      "finished": "2026-11-17T20:44:19.022713+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 1.7333290999522433,
+      "finished": "2026-11-17T20:44:20.756096+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py",
+        "--self-test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "seconds": 0.1835039000143297,
+      "finished": "2026-11-17T20:44:20.939662+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_lifecycle.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.23075580003205687,
+      "finished": "2026-11-17T20:44:21.170485+00:00"
+    },
+    {
+      "command": [
+        "{python}",
+        "tests/validate_005_interval.py"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "seconds": 0.18296609999379143,
+      "finished": "2026-11-17T20:44:21.353546+00:00"
+    }
+  ]
+}
