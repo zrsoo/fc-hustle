@@ -1,0 +1,1 @@
+{"status": "INCOMPLETE", "criterion": 0, "diagnostic": "full_genuine_lifecycle_not_observed: "}

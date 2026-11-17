@@ -1058,3 +1058,51 @@ Earlier UNKNOWN commands and completed move/list/bulk operations must not replay
 Any new fault requires preservation, safe stop, diagnosis and repair. Final genuine
 lifecycle and **14400 consecutive healthy seconds remain unproven**; there is no
 verified external barrier or human prerequisite.
+
+
+## Stage 10 ? genuine restarted management and monitoring handoff
+
+Generation **e4f748f311fbcdaccdfe983600a8726c** launched through the existing
+scheduler at **11:36:18 UTC**, owner epoch **17**. Ownership is supervisor PID
+**19088**, creation FILETIME **134393889782388626**, and child PID **1872**,
+creation FILETIME **134393889786235899**, both the reviewed Python313 image.
+Exclusive runtime lock and current process identities were independently checked.
+The restart reestablished exact current membership through native watched and
+full/lite linked status, then managed the genuine 700-coin member from stage09.
+
+Actual competition led to **rebid 59abe62de9f8971e732996e209630158** at **1600**,
+with original stored cap **4300**. Its pre-status was active/outbid, below the
+new minimum; native wire/service 200 and exact matching ACCEPTED receipt were
+followed by independent highest/current-1600 reads. The retained successful prefix
+contains **31 native deliveries** and **eleven post-rebid confirmations**. No
+new initial or earlier UNKNOWN bid was replayed. The controller remains in its
+single sequential MANAGING phase with genuine fresh native reads and no semantic
+error streaks. The child fault trace was empty at capture; this is a short healthy
+prefix, not four-hour crash-proof evidence.
+
+**tests/check_005_stage10.py** reparses immutable command/diagnostic evidence,
+original confirmed-member identity, unchanged stored cap, fresh competitive
+prerequisite and independent participation. Three negative cases reject a missing
+receipt, altered cap and missing post-bid account participation. The capture also
+checks unique deliveries, single-phase management, ownership and semantic health.
+It reports STAGE_VERIFIED_OBJECTIVE_INCOMPLETE. It cannot pass the final objective.
+
+The existing full tested production inventory remains **1120 Python executions,
+38 Node suites and nine independent commands**. This checkpoint changes proof
+auditors/documentation only. Focused receipts retain stage09/10 artifact checks,
+both final validators' negative fixtures, and actual final validator failures:
+criterion 0 **full_genuine_lifecycle_not_observed**, criterion 1
+**scheduler_interval_incomplete**. At approximately **11:38:50 UTC** the independent
+scheduler state showed **121.29 healthy seconds**, same generation and scheduler
+epoch, faulted false. This interval is explicitly less than the required 14400.
+The final generation still needs its own genuine acquisition-to-resale outcomes.
+
+After publication, leave this exact service running and return the existing
+30-second semantic monitor; **no new service launch or startup grace** is requested.
+The scheduler retains health samples without AI quota and resumes the same worker
+for actual faults or completion assessment. A fault/stop/restart/monitor gap resets
+the interval. Market waiting does not establish a blocker. If required real events
+have not occurred after four hours, continue safe monitoring. Independently audit
+the full final lifecycle and interval before done; preserve uncertainty about the
+historical 461 server causes. **41 earlier UNKNOWN intents remain protected**.
+No external barrier or human prerequisite is established.

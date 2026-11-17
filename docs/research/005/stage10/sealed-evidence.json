@@ -1,0 +1,25 @@
+{
+  "scope": "IMMUTABLE_CAPTURED_EA_MANAGEMENT_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "attempts.json",
+      "sha256": "2469cd2e7bb882ebfb90ccdb3ded0115422a5c60a4f7c4cc8ba902373776536e"
+    },
+    {
+      "path": "commands.jsonl",
+      "sha256": "e1f6a2a084a7aa8d8ed93a501e58758f6948f1164e03b0a94091e69aaae53ac1"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "5d8852c068c3235b01a2556132f0e7df3d9d9c2fddcacd9641158fb2497b4177"
+    },
+    {
+      "path": "members.json",
+      "sha256": "c5627f0c5dd5143c268998dbb6dab8ad77491794418e293bb9247377c8970d52"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "bdcc9aafa9db36c83df9ddc8192a1457ed3cad7621e842858ee13b4680f8c322"
+    }
+  ]
+}

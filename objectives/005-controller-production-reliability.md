@@ -216,52 +216,44 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage 09 live recovery complete; publish and scheduler launch next. Starting
-published main 9ab412b. Generation 2a7a7c6219060321031664a0e4b5d86f launched
-11:25:56 UTC, owner epoch 15, and made genuine native reads. All eight inherited
-active auctions independently settled LOST. The earlier paid-3100 item listed
-at 4300 was independently observed sold at 4300 and removed through exact native
-clear_sold maintenance, with before/after inventory proof. This completes that
-historical resale outcome but does not count as final-generation acceptance.
+Stage 10: scheduler-owned generation e4f748f311fbcdaccdfe983600a8726c is genuinely
+RUNNING / MANAGING after normal session recovery. It launched at 11:36:18 UTC,
+owner epoch 17, supervisor PID 19088 / child PID 1872 with verified creation/image
+ownership and exclusive lock. Fresh watched/full-linked status reestablished the
+one real 700-coin member from the finite stage09 probe. Competition was observed;
+new rebid 59abe62de9f8971e732996e209630158 bid 1600, within the original stored
+4300 cap, and independent later native status confirmed highest/current 1600.
+No initial bid or uncertain command was replayed. Current management remains
+sequential, paced, fresh and free of semantic failure streaks. No restart or
+production implementation change occurred during this checkpoint.
 
-The next batch's first three bids returned wire 461, native error 461 and service
-403; all remained UNCONFIRMED. At the third failure the watchdog requested stop
-within one second and exited cooperatively at 11:27:06 UTC, without force or a
-native crash. No fourth bid was dispatched. All nine selected intents (including
-six unsent) became consumed UNKNOWN, bringing total UNKNOWN to 41. Healthy time
-is ZERO. Reads and cleanup success do not establish current bid permission or
-explain the server denial. No blanket account restriction is inferred.
+Retained stage10 prefix contains 31 actual native deliveries, exact durable rebid,
+current member, ownership/health snapshot and independent native diagnostics.
+The pure stage10 audit verifies original-member identity, stored cap, actual
+outbid prerequisite, accepted native receipt, eleven later highest readbacks,
+unique deliveries and management-only phase. Three corruptions are rejected.
+Full acceptance remains INCOMPLETE: this runtime has not yet produced its own
+complete acquisition-to-resale lifecycle and has not accumulated 14400 healthy
+seconds. At 11:38:50 UTC the scheduler reported approximately 121 healthy seconds,
+faulted false, same generation/epoch. This is progress, not four-hour proof.
 
-After fresh quiescent backups, ordinary official-page navigation refreshed the
-existing app. A transient Login control disappeared before any click was made;
-the page loaded using its normal saved session, without a challenge or credential
-access. This worker verified the official foreground and reattached the reviewed
-extension. A separately journaled one-bid experiment on a NEW target at epoch 16
-confirmed a 700-coin initial bid through wire/service 200, matching ACCEPTED native
-receipt, independent status and independent watched account read. Exactly one
-mutation, 124 commands, 23 reserved EA requests, zero pending commands, probe
-closed cleanly. The three earlier uncertain bids were not retried. Refresh changed
-the document/session and candidate, so this comparison does not establish the
-exact cause of the preceding 461s. Continue investigation if they recur.
+Existing full production regressions remain 1120 Python test executions, 38 Node
+suites and nine independent commands; only captured-proof auditors/docs changed
+this stage. Focused captured audits and both acceptance validators' negative
+fixtures pass. Both real acceptance commands correctly return nonzero INCOMPLETE
+(full_genuine_lifecycle_not_observed / scheduler_interval_incomplete). All 41
+prior UNKNOWN intents remain consumed; no historical evidence was rewritten.
 
-Stage09 captured-evidence audit verifies all eight losses, exact sold resale and
-cleanup, three-layer denials, prompt stop, unchanged production policy for the
-new bid, independent confirmation, and four negative cases. Existing complete
-production regressions remain 1120 Python, 38 Node suites and nine independent
-commands; no production implementation changed this stage. Focused audits and
-both acceptance validators' negative fixtures pass. Actual acceptance remains
-INCOMPLETE while stopped, with no four-hour interval or final-generation lifecycle.
-
-Fresh pre-service backup/quiescence/browser evidence and launch intent are under
-docs/research/005/stage09. Safe journal: 34 ACKNOWLEDGED, 41 UNKNOWN; one ACTIVE,
-19 LOST, one WON_ACCOUNTED; zero pending commands, epoch 16. Prepared unique
-scheduler generation e4f748f311fbcdaccdfe983600a8726c, epoch floor 17, service
-ID 005-normal-session-recovery-e4f748f311fbcdaccdfe983600a8726c. Next: publish this
-stage, launch through the scheduler, immediately reconcile/manage the confirmed
-700-coin member and continue trading with original policy. Do not replay earlier
-UNKNOWN bids or completed move/list/bulk operations. On another failure preserve
-fresh layer evidence and continue repair. Require full genuine final-generation
-behavior and 14400 uninterrupted healthy seconds. No human prerequisite exists.
+Next: commit/push this checkpoint, leave this exact healthy service running and
+return monitoring with the existing generation-bound check/stop commands, 30s
+interval and no service launch. The scheduler polls without AI quota and resumes
+this same worker after an actual fault or the required interval. On a fault,
+retain evidence, safely stop, diagnose/repair/reconcile and restart under a NEW
+generation, resetting the interval. If an event needed for genuine end-to-end
+proof has not occurred after four hours, continue safe monitoring; elapsed time
+alone cannot pass. Audit all final native lifecycle and semantic samples before
+done, preserve earlier 461 causal uncertainty honestly, and leave healthy runtime
+running. No external barrier or human prerequisite is established.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -415,3 +407,11 @@ or historical bid outcome inferred. Native-fault trace did not record a crash in
 this run. Focused captured-proof audit rejects four corruptions; full acceptance
 still INCOMPLETE, healthy seconds zero. Publish, scheduler-launch epoch 17 and
 reconcile/manage the actual new member before continuing four-hour proof.
+
+2026-11-17 stage10: verified new owned generation/epoch 17, genuine current-member
+management and one native 1600 rebid after competition with eleven independent
+highest readbacks. Captured proof auditor rejects receipt/cap/participation
+corruptions; actual final acceptance still INCOMPLETE. No production source fix
+or restart at this checkpoint. Leave healthy service running and hand monitoring
+to the scheduler; continue same-session engineering if it faults. No life-only
+PASS, no replay of 41 UNKNOWN intents, no claimed four-hour interval.

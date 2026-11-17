@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_checks": 3, "generation": "e4f748f311fbcdaccdfe983600a8726c", "rebid": "59abe62de9f8971e732996e209630158", "amount": 1600, "cap": 4300, "independent_confirmations": 11}
