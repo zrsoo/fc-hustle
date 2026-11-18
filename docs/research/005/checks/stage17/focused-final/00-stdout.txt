@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 6, "deliveries": 319, "confirmed_initials": 10, "confirmed_rebids": 10, "maintenance": "clear_sold", "unknown_bids_preserved": 62, "production_errno": "NOT_RETAINED", "healthy_seconds": 0}

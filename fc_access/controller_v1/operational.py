@@ -67,20 +67,28 @@ def replace_snapshot(temporary,path):
 
 def atomic(path,value):
     path=Path(path);temporary=path.with_name(path.name+'.'+secrets.token_hex(8)+'.tmp')
+    phase='write'
     try:
         with temporary.open('x',encoding='utf-8',newline='\n') as stream:
             json.dump(value,stream,sort_keys=True,allow_nan=False);stream.write('\n')
             stream.flush();os.fsync(stream.fileno())
         # An ordinary Windows reader may temporarily deny delete sharing. Only
         # retry this local rename, boundedly; account requests are never retried.
-        deadline=time.monotonic()+.5
+        phase='replace';deadline=time.monotonic()+1
         while True:
             try:replace_snapshot(temporary,path);break
             except OSError as error:
                 if os.name!='nt' or getattr(error,'winerror',None) not in {5,32,33} or time.monotonic()>=deadline:raise
                 time.sleep(.01)
+    except (OSError,ValueError,TypeError) as error:
+        error.runtime_io_stage=phase
+        raise
     finally:
-        if temporary.exists():temporary.unlink()
+        try:
+            if temporary.exists():temporary.unlink()
+        except OSError as error:
+            error.runtime_io_stage='cleanup'
+            raise
 
 
 @contextmanager
@@ -174,7 +182,11 @@ class Runtime:
             state=state,operational_state=operational_state,reason=reason,latest=latest,semantic=semantics,
             limits=vars(monitor.limits) if monitor else vars(Limits()),semantic_limits=vars(SemanticLimits()),log=self.log)
         # Keep generation-specific state as well as the restart-readable pointer.
-        atomic(self.run/'state.json',value);atomic(self.directory/'state.json',value)
+        for target,path in (('run_state',self.run/'state.json'),('current_state',self.directory/'state.json')):
+            try:atomic(path,value)
+            except (OSError,ValueError,TypeError) as error:
+                error.runtime_target=target
+                raise
 
 
 def evaluate(value,*,task,generation,now,owner_held,supervisor_alive,child_alive):

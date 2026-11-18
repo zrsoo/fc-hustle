@@ -78,6 +78,48 @@ class OperationsTests(unittest.TestCase):
                 self.assertLess(time.monotonic()-started,1.5)
             self.assertEqual(read(target),dict(version=2));self.assertEqual(list(Path(path).glob('*.tmp')),[])
 
+    @unittest.skipUnless(sys.platform=='win32','Windows sharing contract')
+    def test_reader_released_after_old_half_second_budget_recovers_locally(self):
+        import threading
+        with tempfile.TemporaryDirectory() as path:
+            target=Path(path)/'state.json';atomic(target,dict(version=1));opened=target.open();errors=[]
+            def writer():
+                try:atomic(target,dict(version=2))
+                except OSError as error:errors.append(error)
+            thread=threading.Thread(target=writer);thread.start()
+            try:
+                time.sleep(.7);self.assertTrue(thread.is_alive());self.assertEqual(json.load(opened),dict(version=1))
+            finally:opened.close();thread.join(2)
+            self.assertFalse(thread.is_alive());self.assertEqual(errors,[])
+            self.assertEqual(read(target),dict(version=2));self.assertEqual(list(Path(path).glob('*.tmp')),[])
+
+    def test_runtime_failure_projection_keeps_only_finite_error_identity(self):
+        from fc_access.controller_v1.watchdog import runtime_failure
+        error=PermissionError(13,'SECRET_CANARY','C:/SECRET_CANARY');error.winerror=32
+        error.runtime_io_stage='replace';error.runtime_target='current_state'
+        self.assertEqual(runtime_failure(error),dict(exception='PermissionError',errno=13,winerror=32,runtime_io_stage='replace',runtime_target='current_state'))
+        error.errno=True;error.winerror=-1;error.runtime_io_stage='SECRET_CANARY';error.runtime_target='SECRET_CANARY'
+        self.assertEqual(runtime_failure(error),dict(exception='PermissionError'))
+        class SECRET_CANARY(ValueError):pass
+        self.assertEqual(runtime_failure(SECRET_CANARY('SECRET_CANARY')),dict(exception='ValueError'))
+
+    def test_snapshot_failure_identifies_io_stage_and_target_without_partial_success(self):
+        from fc_access.controller_v1 import operational as module
+        with tempfile.TemporaryDirectory() as path:
+            target=Path(path)/'state.json';atomic(target,dict(version=1))
+            with patch.object(module,'replace_snapshot',side_effect=OSError(28,'SECRET_CANARY')):
+                with self.assertRaises(OSError) as caught:atomic(target,dict(version=2))
+            self.assertEqual(caught.exception.runtime_io_stage,'replace');self.assertEqual(read(target),dict(version=1))
+            self.assertEqual(list(Path(path).glob('*.tmp')),[])
+            with Runtime(Path(path)/'owner',TASK,GEN) as runtime:
+                original=module.atomic
+                def failing_current(destination,value):
+                    if Path(destination)==runtime.directory/'state.json':raise OSError(28,'SECRET_CANARY')
+                    return original(destination,value)
+                with patch.object(module,'atomic',side_effect=failing_current):
+                    with self.assertRaises(OSError) as caught:runtime.publish(None,'STARTING',force=True)
+                self.assertEqual(caught.exception.runtime_target,'current_state')
+
     def test_transient_and_persistent_read_denial_do_not_fabricate_health_or_leak_error_values(self):
         from fc_access.controller_v1 import operational as module
         base=self.fixture_state()
@@ -215,6 +257,9 @@ class OperationsTests(unittest.TestCase):
             self.assertEqual(code,1);self.assertEqual({p.pid for p in multiprocessing.active_children()},before)
             rows=[json.loads(line) for line in next(fixture.glob('watchdog-runs/*/events.jsonl')).read_text().splitlines()]
             self.assertEqual(rows[-1]['kind'],'STOPPED');self.assertEqual(rows[-1]['reason'],'RUNTIME_STATE_FAILED')
+            failures=[row for row in rows if row['kind']=='RUNTIME_PUBLISH_FAILED']
+            self.assertEqual(len(failures),1);self.assertEqual(failures[0]['exception'],'OSError')
+            self.assertNotIn('fixture_disk_full',json.dumps(rows))
 
 
 if __name__=='__main__':

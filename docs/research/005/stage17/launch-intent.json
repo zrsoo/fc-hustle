@@ -1,0 +1,7 @@
+{
+  "generation": "ea5de5d1c6b45e5c5affdc8a51d75679",
+  "service_id": "005-stage17-ea5de5d1c6b45e5c5affdc8a51d75679",
+  "epoch_floor": 33,
+  "prepared_at": "2026-11-18T01:29:29.844833+00:00",
+  "purpose": "Tested runtime snapshot diagnostics and bounded local replacement repair; independently reconciled ten terminal losses, no bid replay; new four-hour proof generation."
+}

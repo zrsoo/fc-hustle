@@ -54,6 +54,14 @@ not an acquisition or management-cycle budget. Long batches and the documented
 26-second management cycle remain valid when individual operations progress.
 The watchdog also stops if its own status output or event log fails.
 
+Runtime snapshot replacement retries only Windows sharing/access errors5/32/33
+for at most one second per file. Other errors fail immediately; persistent
+publication failures still stop the owned worker. The first failure is retained
+as RUNTIME_PUBLISH_FAILED with a finite exception class,errno/winerror and known
+write/replace/cleanup stage and run/current snapshot target. Exception messages,
+paths and arbitrary attributes are excluded. This local retry never retries an
+EA command or extends semantic health,dispatch lease or startup limits.
+
 The parent checks every 0.5 seconds. Leases expire after 10 seconds; policy step,
 paced dispatch, server enqueue and native claim refuse work after supervision
 loss. On stop it allows 35 seconds for in-flight work/cleanup, then terminates

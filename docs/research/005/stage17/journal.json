@@ -1,0 +1,369 @@
+{
+  "attempts": [
+    {
+      "id": "9a7deee267af5d6acd165ac731108177",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "7e5a1661a4ba67dcf3f923742997ada1",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "d83226a0c62e0c04d2edf24f172c9114",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "a59b5995a014ca7aef95f9c26a926b1d",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "37d39a0717d75353f65a628ab473309c",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "0a2832f175ab01704ba2e7755a922131",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "a4710f88fc0d344bf2a7118d930de5f7",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "58e7f71b7469f62e68bda6a2dac3a5df",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "4b509b3153ff30d4c65984e119428eeb",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "db894e3fcbd93ee91a556797729099d9",
+      "kind": "initial",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "8c7769a00e44315c39d0155cfbe5d5e1",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "0fc6430b85cf6d362ded9de0e60cac70",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "80e7964645ce4ab844535fd7770695cb",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "02ea795556cfd08ee23989bbf4c63968",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "4b30bb714ef8ccafcbcab7f8f5ff8f47",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "22f3eb900c90ad40c77552eaa134f4c9",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "24f4558eee565e3c8a0e1e724d2a5375",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "9262795cce708ab5da8f1a459ef974b1",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "970c6bec3772c2c361a134ff3ba657db",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    },
+    {
+      "id": "4a083a3e3183d1a00c0f8f1c639fa495",
+      "kind": "rebid",
+      "state": "ACKNOWLEDGED"
+    }
+  ],
+  "work": [
+    {
+      "id": "c084fbc194f5abfbae5b03555befddbe",
+      "state": "CONFIRMED",
+      "body": "{\"context\":{\"account\":\"05d6a82f7a6cecb077c5fe16e9cd532a\",\"game\":\"fc27\",\"identity_namespace\":\"845af286456d6fd586f22975a9de8aff\",\"persona\":\"99fb9c45c6229ec5b509d0f955877fc0\",\"platform\":\"pc\"},\"fences\":{\"document\":\"f3d71df77b1276b82841854a98a19753\",\"epoch\":31,\"host_epoch\":\"314262f247e8a4fac04028004aff851b\",\"owner\":\"8ede4efed15426129a6f47ba422a5a9a\",\"worker_epoch\":\"292f2df317157fb93db2573fab12c305\"},\"id\":\"c084fbc194f5abfbae5b03555befddbe\",\"operation\":\"clear_sold\",\"params\":{\"before_read_id\":\"834303563d79c930b6644f45ea40da07\",\"expected_expired_count\":1,\"expected_inventory_ids\":[\"item:1905f4d010a21aa0b1365183\",\"item:2ac57afc05db1f770216e1e6\",\"item:397b89901a227666e0e19a6e\",\"item:580b539b7023d927772053c6\",\"item:7ddbe2d1122bb0cb3a037cb6\"],\"expected_item_ids\":[\"item:580b539b7023d927772053c6\"],\"expected_sold_count\":1},\"schema\":2}",
+      "proof": "{\"after\":{\"command_id\":\"0007c559da6e2740fd8f706c65f6fb81\",\"context\":{\"account\":\"05d6a82f7a6cecb077c5fe16e9cd532a\",\"game\":\"fc27\",\"identity_namespace\":\"845af286456d6fd586f22975a9de8aff\",\"persona\":\"99fb9c45c6229ec5b509d0f955877fc0\",\"platform\":\"pc\"},\"coverage\":{\"bulk\":[{\"active\":false,\"expired\":true,\"item_id\":\"item:7ddbe2d1122bb0cb3a037cb6\",\"sold\":false,\"trade_owner\":true},{\"active\":true,\"expired\":false,\"item_id\":\"item:397b89901a227666e0e19a6e\",\"sold\":false,\"trade_owner\":true},{\"active\":true,\"expired\":false,\"item_id\":\"item:1905f4d010a21aa0b1365183\",\"sold\":false,\"trade_owner\":true},{\"active\":true,\"expired\":false,\"item_id\":\"item:2ac57afc05db1f770216e1e6\",\"sold\":false,\"trade_owner\":true}],\"complete\":true,\"has_more\":false,\"transfer_list\":{\"callback_count\":4,\"reason\":\"TRANSFER_LIST_COMPLETE\",\"repository_count\":4,\"repository_end_of_list\":true,\"wire_count\":4}},\"fences\":{\"document\":\"f3d71df77b1276b82841854a98a19753\",\"epoch\":31,\"host_epoch\":\"314262f247e8a4fac04028004aff851b\",\"owner\":\"8ede4efed15426129a6f47ba422a5a9a\",\"worker_epoch\":\"292f2df317157fb93db2573fab12c305\"},\"freshness\":{\"network_at\":\"2026-11-17T21:41:57.659Z\",\"observed_at\":\"2026-11-17T21:41:57.747Z\",\"read_id\":\"0007c559da6e2740fd8f706c65f6fb81\",\"request_count\":1,\"source\":\"native\"},\"operation\":\"transfer_list\",\"result\":{\"auctions\":[{\"bid_state\":\"none\",\"buy_now_price\":46000,\"current_bid\":0,\"expires\":-1,\"item\":{\"definition_id\":239085,\"item_id\":\"item:7ddbe2d1122bb0cb3a037cb6\",\"last_sale_price\":35000,\"untradeable\":false},\"native_is_won\":false,\"starting_bid\":45000,\"trade_id\":\"trade:cb9f0f0b6ca41b0fc42ecb4e\",\"trade_state\":\"expired\"},{\"bid_state\":\"none\",\"buy_now_price\":750,\"current_bid\":0,\"expires\":62609,\"item\":{\"definition_id\":244669,\"item_id\":\"item:397b89901a227666e0e19a6e\",\"last_sale_price\":0,\"untradeable\":false},\"native_is_won\":false,\"starting_bid\":650,\"trade_id\":\"trade:91c871225751b41b9534268d\",\"trade_state\":\"active\"},{\"bid_state\":\"none\",\"buy_now_price\":850,\"current_bid\":0,\"expires\":62609,\"item\":{\"definition_id\":247103,\"item_id\":\"item:1905f4d010a21aa0b1365183\",\"last_sale_price\":0,\"untradeable\":false},\"native_is_won\":false,\"starting_bid\":650,\"trade_id\":\"trade:63a96996c24de0df241dc889\",\"trade_state\":\"active\"},{\"bid_state\":\"none\",\"buy_now_price\":700,\"current_bid\":0,\"expires\":62609,\"item\":{\"definition_id\":220834,\"item_id\":\"item:2ac57afc05db1f770216e1e6\",\"last_sale_price\":0,\"untradeable\":false},\"native_is_won\":false,\"starting_bid\":650,\"trade_id\":\"trade:fb33c4e2a53fcb493c8903e2\",\"trade_state\":\"active\"}],\"cache_invalidated\":true,\"caps\":null,\"credits\":null,\"error\":null,\"items\":null,\"network\":[{\"host\":\"utas.mob.v1.prd.futc-ext.gcp.ea.com\",\"method\":\"GET\",\"path\":\"/ut/game/fc27/tradepile\",\"query\":{},\"session_header_present\":true,\"status\":200}],\"status\":200,\"success\":true},\"schema\":2,\"timing\":{\"ea_rtt_ms\":82.89999997615814,\"native_helper_ms\":0,\"native_service_ms\":87.30000001192093}},\"incompatible\":false}"
+    }
+  ],
+  "prior_unknowns": [
+    {
+      "id": "a519ba8d87f0ce0fef2c6f14a8ce5c11",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "acd71ae3e9337372578e09418950a827",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "3a7bb98eca362cbf2f1178af71f71799",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "0c2d5dda40478d6f745d3e1251e935a6",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "83fadec17fae5857a893adc81b01fc6d",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "26bdf8207d34e308c4c9ba4c23fd7db5",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "efa2a061e5a60fc431edbd4ed52d94e1",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "689eb4b827b0aba0726682d11ab73c47",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "73051fd81762b9307d9c60358bcb389c",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "cefbd2d5ac66a38f62796fec3cf868f1",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "0e44fe9a9653d6b7b83c80bc06708a15",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "dabdfec0a3fdfab052da2cf54275aed9",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "5b7d76edbc9aee6064bd82dbb7612010",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "e02dd85eab17006167f370a71252689f",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "844836f85d5b06ba272f50e525e71b3a",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1dfa5c0d6ece1a22131f829fc8c2c56e",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1043fa9dde222537535e541eae925465",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "d7243cca5ebbb26815d07283b76a293e",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "14f440b38f16b57aec9813ed9ca914ef",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "17bcb5a360204fbfee2fd7a766771d62",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "b222891a17fab1a972100ff332ef6c2b",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "2c2d0a4005e78c5b07496c23bfaae997",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "4495c08e3a3f0d2b7e40a1e829592137",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "0ef470d8d6f853c1c660c7c714063f9b",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "6b12eab917f984dc2caef3bb3bef2ba7",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "5bfc65bf992062a3cbcc9480186302d5",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "d07c9a7da9105b7c7592142a935ed3cf",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "2abcf1e0a812cc597b39c742f34a1212",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "67021eb7fe9f25d1aff88bda26a77491",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "ce655c3c1e076d7e4087f13b79c67a3d",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "b4b1fd21faeb907e8de1a029c41e8f70",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "925f719d16be53d8feec724535aa7168",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "68a50082ee2f498470387208b272c910",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "2c3d39c57340859623cdd74f83ef5c8c",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "b54de24f311a113e5c651e80e3257770",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "509541d08a70a9a8121646a01f9a436f",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "c3d9082d1274f0be2006d346986e8dc1",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "cac1c0d99deed503f6da1d0a16c6ad77",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1da11c1d1af0b42a8e613667aa1e885a",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "f3d301e2866fb2b78f5f81f693296272",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "188be48552549dbf1e2f75da4a2dbae4",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "ad9626eed7a19edd5b8f1978d3ddf56a",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "109c82be1aac4f8496df34bfb74b0249",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "ef25dfec44fc78db3b6edb42151ac7f3",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "961187e8f3faeaff10a6b5de2ae5fecd",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "16e5a43b1ce8e00ce3e87024c23a266e",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "5e52ce34012c95812c5caf3799a543cf",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "80417bb062cfea7e0409687da803d079",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "90df5a22ff4344db0d9b5f617fd685e3",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1a4fdc84146823940ee765c22fc58efb",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "be82dfa861cec618e458487bdeb7cf13",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "10baae47c547da24d339f86612c8d800",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "f6fb36c3cf20ab069891674592b1e79c",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "9481366a0c1bd2ba86d480a00a8c7ea2",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "4a4ed54dd148dc158ed658504465686e",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "b1d2ed198a0d649fed280ef30c210801",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "03294670261dff45b2210dd4fdfa04ef",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "9f3433612f4adabfbcf6d5d016c93934",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "4715650affa2aaea7f811bd8b6bb05bd",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "96175afb9ac9596ae4d18fd9ea417eea",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "f669bab19d42f00d3aa19db0fa19c340",
+      "state": "UNKNOWN"
+    },
+    {
+      "id": "1b75e7581641e925a97be9628dd60302",
+      "state": "UNKNOWN"
+    }
+  ],
+  "members": {
+    "ACTIVE": 10,
+    "LOST": 68,
+    "WON_ACCOUNTED": 1
+  },
+  "unknown_command_count": 77,
+  "pending": 0
+}

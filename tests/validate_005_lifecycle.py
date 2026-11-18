@@ -258,7 +258,7 @@ def regression_evidence():
                      '... skipped' not in stderr,'python_result_does_not_match_receipt')
             count+=row['tests_run']
         summary[group]=dict(receipt=path.relative_to(ROOT).as_posix(),commands=len(rows),python_executions=count)
-    for script in ('check_005_stage01.py','check_005_stage02.py','check_005_stage03.py','check_005_stage04.py','check_005_stage05.py','check_005_stage06.py','check_005_stage07.py','check_005_stage08.py','check_005_stage09.py','check_005_stage10.py','check_005_stage11.py','check_005_stage12.py','check_005_stage13.py','check_005_stage14.py','check_005_stage14_probe.py','check_005_stage15.py','check_005_cleanup_probe_bounds.py','check_005_stage16.py'):
+    for script in ('check_005_stage01.py','check_005_stage02.py','check_005_stage03.py','check_005_stage04.py','check_005_stage05.py','check_005_stage06.py','check_005_stage07.py','check_005_stage08.py','check_005_stage09.py','check_005_stage10.py','check_005_stage11.py','check_005_stage12.py','check_005_stage13.py','check_005_stage14.py','check_005_stage14_probe.py','check_005_stage15.py','check_005_cleanup_probe_bounds.py','check_005_stage16.py','check_005_stage17.py','check_005_stage17_reconciliation.py'):
         result=subprocess.run([sys.executable,str(ROOT/'tests'/script)],cwd=ROOT,capture_output=True,text=True,timeout=30 if script=='check_005_stage14.py' else 15)
         need(result.returncode==0,'incident_or_consumed_window_audit_failed_'+script)
     return summary

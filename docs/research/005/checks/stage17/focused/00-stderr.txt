@@ -1,0 +1,17 @@
+test_atomic_snapshot_reader_allows_replacement_and_keeps_old_complete_snapshot (__main__.OperationsTests.test_atomic_snapshot_reader_allows_replacement_and_keeps_old_complete_snapshot) ... ok
+test_health_rejects_life_only_failed_reads_gaps_and_unbounded_startup (__main__.OperationsTests.test_health_rejects_life_only_failed_reads_gaps_and_unbounded_startup) ... ok
+test_immediate_health_waits_for_real_manifest_and_absence_never_extends_startup (__main__.OperationsTests.test_immediate_health_waits_for_real_manifest_and_absence_never_extends_startup) ... ok
+test_legacy_windows_reader_contention_is_bounded_and_never_exposes_partial_state (__main__.OperationsTests.test_legacy_windows_reader_contention_is_bounded_and_never_exposes_partial_state) ... ok
+test_parent_death_releases_ownership_and_child_loses_dispatch_lease (__main__.OperationsTests.test_parent_death_releases_ownership_and_child_loses_dispatch_lease) ... ok
+test_reader_released_after_old_half_second_budget_recovers_locally (__main__.OperationsTests.test_reader_released_after_old_half_second_budget_recovers_locally) ... ok
+test_real_semantic_fault_stops_without_restart_and_preserves_stop_reason (__main__.OperationsTests.test_real_semantic_fault_stops_without_restart_and_preserves_stop_reason) ... ok
+test_real_service_excludes_duplicate_and_stop_is_idempotent_with_generation_binding (__main__.OperationsTests.test_real_service_excludes_duplicate_and_stop_is_idempotent_with_generation_binding) ... ok
+test_runtime_failure_projection_keeps_only_finite_error_identity (__main__.OperationsTests.test_runtime_failure_projection_keeps_only_finite_error_identity) ... ok
+test_runtime_state_write_failure_still_joins_owned_worker (__main__.OperationsTests.test_runtime_state_write_failure_still_joins_owned_worker) ... ok
+test_snapshot_failure_identifies_io_stage_and_target_without_partial_success (__main__.OperationsTests.test_snapshot_failure_identifies_io_stage_and_target_without_partial_success) ... ok
+test_transient_and_persistent_read_denial_do_not_fabricate_health_or_leak_error_values (__main__.OperationsTests.test_transient_and_persistent_read_denial_do_not_fabricate_health_or_leak_error_values) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 16.612s
+
+OK

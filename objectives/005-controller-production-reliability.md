@@ -216,37 +216,48 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage16: stage15 repair committed/pushed as4005620. Scheduler-owned generation
-6c2549d24df0b1155c3b8de951412965 launched at21:40:34 UTC,epoch31,supervisor4264,
-child19556. Lock,process creation/image identities and semantic health verify.
-The first batch independently confirmed all10 initial bids and handed off to
-MANAGING. At21:43:28 UTC the retained prefix has185 unique native/local deliveries,
-69 genuine native successes,one completed batch and zero operational failure
-streaks. No rebid is present in this prefix; no ownership/resale is inferred.
-All62 prior UNKNOWN IDs remain UNKNOWN; legacy003 PAUSED,004 COMPLETED.
+Stage17 completed repair stage after quota recovery. Epoch31 generation
+6c2549d24df0b1155c3b8de951412965 stopped cooperatively at2026-11-17T21:47:41 UTC
+for RUNTIME_STATE_FAILED. Its underlying publication errno/target was not retained;
+its exact historical cause stays unknown. Complete319-delivery evidence proves
+10 initial bids,10 competitive rebids and native clear_sold with exact readback.
+All62 prior UNKNOWN bids remain UNKNOWN;77 consumed UNKNOWN transport commands
+are distinct from zero WAITING/CLAIMED commands. Final healthy interval is zero.
 
-Independent captured-evidence audit passes six negative cases covering receipt,
-participation,strategy,UNKNOWN promotion,ownership and stopped runtime. Capture
-seals cover only immutable native/runtime/account evidence. Both final validators
-and their eight negative fixtures each were exercised. Actual criterion0 stays
-INCOMPLETE for missing genuine final-generation owned-win/move/hour-listing;
-criterion1 stays INCOMPLETE for the short monitored interval (captured121.398s).
-Previous full production regressions remain1139 Python executions,41 Node suites,
-nine independent commands PASS; this stage changes evidence/checks/docs only.
+Repaired lost diagnostic detail and bounded local Windows snapshot sharing:
+first RUNTIME_PUBLISH_FAILED records finite exception class,errno/winerror and
+known write/replace/cleanup stage and run/current snapshot target. No exception
+messages/paths are retained. Local5/32/33 replacement retries bound to1s per file;
+unrelated/persistent failure still stops the owned worker. A700ms reader now
+recovers while persistent denial remains bounded. No EA retry,health threshold,
+lease,startup or trading-strategy change. Historical cause is not inferred from
+the isolated32/13 reproduction.
 
-Next: publish the stage16 evidence/checks and hand off monitoring of this SAME
-running generation. Do not replay the consumed service launch or restart healthy
-actors. The scheduler checks every30s without AI quota. On a semantic fault it
-safely stops this runtime and resumes this same worker for diagnosis,regression,
-actual-account reconciliation and a new generation. Preserve all historical
-UNKNOWNs and exact individual intents. Any fault,stop,restart,scheduler restart
-or unmonitored gap resets the required14400 consecutive healthy seconds.
+Full regressions PASS:1142 Python executions,41 Node suites,nine independent
+commands.12 focused operations tests and both final validators' eight negative
+fixtures each pass. Complete stopped-run audit passes six negative cases.
+Fresh read-only epoch32 account reconciliation after these receipts passes:
+five native commands,zero mutations,all10 exact targets returned,zero missing,
+zero pending,service closed. Each target is genuinely closed/outbid/non-won:
+10 terminal losses,not owned wins. Five negative reconciliation cases pass.
+The production controller will apply its normal fresh recovery; no SQL lifecycle
+or membership edits and no ambiguous bid replays were used.
 
-When the scheduler resumes after the interval, independently audit the entire
-current generation and actual trading/resale/eligible maintenance. If a required
-market event has not occurred, continue monitoring; elapsed time,old-generation
-resale or idle/failed acquisition cannot substitute. Leave healthy watchdog and
-controller running. No external barrier or human prerequisite exists.
+Fresh pre-service canonical-lock backups verify integrity/FK and every table's
+row equality. Current production actors/listeners/jobs are absent; official Edge
+foreground verified,no visible challenge/connection error. Prepared new service
+005-stage17-ea5de5d1c6b45e5c5affdc8a51d75679, generation
+ea5de5d1c6b45e5c5affdc8a51d75679,epoch floor33,startup90s,health30s.
+Legacy003 remains PAUSED,004 COMPLETED. No external prerequisite exists.
+
+Next: publish this stage and launch exactly once through the scheduler handoff.
+Immediately verify attachment,ten-member settlement/lost cleanup and new trading,
+then return monitoring. If publication fails again,inspect the new sanitized
+first-failure record and continue evidence-led repair. Any defect,stop,restart,
+scheduler restart or monitored gap resets14400 consecutive healthy seconds.
+Final-generation full owned-win/move/hour-resale and eligible maintenance still
+require genuine observation. Do not substitute old-generation evidence,elapsed
+time,heartbeat or idle/failed acquisition. Leave a healthy runtime running.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -514,3 +525,24 @@ remain preserved. No rebid was observed in this retained prefix. Six corrupted
 artifact cases fail; final lifecycle/interval checks correctly stay INCOMPLETE.
 Next: same-generation quota-free monitoring,then independent full interval and
 owned-win/move/hour-resale audit. No restart or extra account probe is needed.
+
+2026-11-18 H23 / PUBLICATION DIAGNOSTIC DEFECT AND BOUNDED SHARING RECOVERY:
+The stopped epoch31 runtime retained only RUNTIME_STATE_FAILED,not the underlying
+exception. Its179 native successes,20 independent confirmed bids and normal
+cooperative exit exclude inventing a trading/auth failure at this stop. Isolated
+ordinary Windows reader produces winerror32/errno13 after the old511ms budget;
+this reproduces a possible local failure mechanism,not its historical attribution.
+Added sanitized first-failure record and stage/target diagnostics;700ms transient
+reader recovery and persistent fail-closed behavior tested. Complete319 native/
+local envelopes,actual rebids,clear_sold and unchanged62 UNKNOWN bids audit with
+six negative cases. Full regressions and fresh account reconciliation underway.
+
+2026-11-18 H23 FOLLOW-UP / GREEN REGRESSIONS AND FRESH REAL RECONCILIATION:
+1142 Python executions,41 Node suites,nine independent commands PASS. Five
+fresh epoch32 native reads after green receipts returned all10 exact cohort
+targets as closed/outbid/non-won: terminal losses with no guessed ownership.
+Zero mutations,pending commands or replay; finite service closed. Separate
+five-case negative audit passes. Fresh verified backups and scheduler-only
+new launch prepared with epoch floor33. Original publication errno stays unknown;
+new finite diagnostics will preserve any recurrence. Next: publish/launch once,
+verify genuine new account flow and resume semantic monitoring for14400s.

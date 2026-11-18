@@ -27,6 +27,19 @@ class Limits:
     poll: float = .5
 
 
+def runtime_failure(error):
+    """Finite local diagnostic projection; never exception values or paths."""
+    kind=next((t.__name__ for t in (PermissionError,OSError,ValueError,TypeError) if isinstance(error,t)),'Error')
+    value=dict(exception=kind)
+    for name in ('errno','winerror'):
+        code=getattr(error,name,None)
+        if type(code) is int and 0<=code<=65535:value[name]=code
+    for name,allowed in (('runtime_io_stage',{'write','replace','cleanup'}),('runtime_target',{'run_state','current_state'})):
+        projected=getattr(error,name,None)
+        if type(projected) is str and projected in allowed:value[name]=projected
+    return value
+
+
 class SupervisionLost(ValueError):
     pass
 
@@ -209,7 +222,9 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
         nonlocal runtime_failed
         if runtime:
             try:runtime.publish(monitor,state,reason,force=force)
-            except (OSError,ValueError,TypeError):runtime_failed=True
+            except (OSError,ValueError,TypeError) as error:
+                if not runtime_failed:record('RUNTIME_PUBLISH_FAILED',state=state,**runtime_failure(error))
+                runtime_failed=True
 
     def display(state, reason=None):
         nonlocal width,output_failed

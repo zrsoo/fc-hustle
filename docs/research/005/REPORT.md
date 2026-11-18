@@ -1692,3 +1692,85 @@ terminal owned win/paid identity,move/hour resale and eligible maintenance.
 If a market event remains unobserved,continue monitoring. Leave the healthy
 watchdog/controller running. Neither heartbeat nor this startup prefix fulfills
 the objective. No external barrier or manual prerequisite is claimed.
+
+
+Stage17 ? local runtime-publication failure and diagnostic repair
+
+Epoch31 generation6c2549d24df0b1155c3b8de951412965 stopped cooperatively at
+2026-11-17T21:47:41 UTC for RUNTIME_STATE_FAILED. Complete319-delivery evidence
+and the original stopped state are retained. No underlying publication errno
+or target was logged by that code; its exact historical cause remains unknown.
+The preceding semantic snapshot has179 native successes,10 confirmed members,
+one completed acquisition batch and zero operational failure streaks. No auth,
+market or ownership failure is fabricated to explain this local stop.
+
+The independent stopped-run audit proves10 matching initial bids and10 actual
+competitive rebids through fresh exact-version account participation. It also
+proves the clear_sold native acknowledgement and exact independent inventory
+effect. All62 earlier UNKNOWN bid IDs remain UNKNOWN. The77 UNKNOWN transport
+commands are consumed historical records,not77 pending dispatches. There are
+zero WAITING/CLAIMED commands. Ten managed members need current native outcome
+reconciliation after the quota wait; their old ACTIVE journal state is not a
+current-account verdict. The final healthy interval resets to zero.
+
+A separate isolated Windows file test holds an ordinary Python snapshot reader
+open. The old511ms replacement budget fails with winerror32/errno13 and preserves
+the complete original snapshot. This is evidence of a possible sharing mechanism,
+not proof that it caused the production stop. Production was changed to retain
+the first RUNTIME_PUBLISH_FAILED record with finite exception class,errno/winerror,
+known write/replace/cleanup stage and run/current snapshot target. Arbitrary error
+messages,paths,custom class names and attributes never enter that projection.
+Local sharing/access errors5/32/33 retry for at most one second per snapshot;
+unrelated or persistent errors still fail closed and stop the owned worker.
+No account request,mutation or consumed launch is retried. Health thresholds,
+startup grace,dispatch leases and trading policy stay unchanged.
+
+Focused behavioral tests verify recovery from a reader released after700ms,
+complete old/new snapshots,persistent bounded failure,correct failure stage/target,
+sanitized diagnostic negative cases and cooperative worker join with one retained
+failure record. The stopped-run artifact audit rejects six altered cases,including
+invented production-cause attribution. Canonical-lock pre-repair backups verify
+both databases' integrity,foreign keys and every table's row equality outsideGit.
+After quota recovery production processes/listeners/jobs remain absent. Full
+regression receipts and fresh read-only reconciliation are being completed before
+publication and a new scheduler-owned launch. No external barrier is asserted.
+
+
+Stage17 final validation and restart preparation
+
+Full current regressions PASS: **1142 Python test executions** in528.798 seconds,
+**41 Node suites** and **nine independent commands**. Twelve operations tests
+pass; focused/focused-final receipts retain the stopped-run audit with six
+negative cases,readback audit with five negative cases and both final validators'
+eight negative fixtures each. Actual acceptance still exits1 INCOMPLETE because
+the required owned service is stopped; no final interval/lifecycle PASS is claimed.
+
+After explicitly checking all three green full receipts,a new finite read-only
+window used epoch32 and the ten exact original managed targets. Native balance,
+watched,transfer_list,unassigned and status_batch all returned success200. All10
+targets returned; no target was missing. Each is closed,outbid,expired and native
+isWon false. The independently linked exact-version readback therefore proves
+**ten terminal losses**,not wins. Five commands,zero mutations,zero pending,
+service closed. No saved membership/lifecycle was edited by SQL and no consumed
+bid replayed. Normal new-controller recovery will re-read/apply settlement and
+perform eligible exact lost-target cleanup. Account evidence and diagnostic seals
+cover only immutable native capture records. No authentication material is read.
+
+Fresh pre-service backups under the outsideGit evidence root verify integrity,
+foreign keys and every-table row equality while canonical guards are held.
+Processes/listeners/jobs are absent; official Edge foreground is verified without
+a visible challenge or connection error. Legacy003 PAUSED and004 COMPLETED are
+preserved. The new unconsumed launch is **005-stage17-ea5de5d1c6b45e5c5affdc8a51d75679**,
+generation **ea5de5d1c6b45e5c5affdc8a51d75679**,epoch floor**33**,startup grace90s,
+health interval30s,owned stop timeout60s. Publish completed stages to main before
+the scheduler launches. Use the existing documented service argv with this new
+generation and `--epoch-floor 33`; status/stop reads actual state.json generation.
+The same worker immediately verifies attachment,settlement/cleanup and trading,
+then hands off quota-free monitoring. Any failure/restart/gap resets14400 seconds.
+
+The snapshot diagnostic defect and isolated700ms sharing recovery are tested.
+The original runtime's precise filesystem cause remains **NOT_RETAINED**; the
+isolated32/13 result does not prove attribution. Live reliability of the revised
+publication path,and final-generation full owned-win/move/hour-resale and four
+healthy hours,remain unproven. Continue autonomous engineering/monitoring until
+all original criteria are met. No external barrier or manual action is claimed.

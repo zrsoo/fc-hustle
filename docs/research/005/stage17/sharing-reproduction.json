@@ -1,0 +1,10 @@
+{
+  "scope": "ISOLATED_LOCAL_WINDOWS_FILE_SHARING_NOT_PRODUCTION_CAUSE_PROOF",
+  "exception_type": "PermissionError",
+  "winerror": 32,
+  "errno": 13,
+  "seconds": 0.511907100037206,
+  "original": {
+    "version": 1
+  }
+}

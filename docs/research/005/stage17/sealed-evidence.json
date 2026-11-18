@@ -1,0 +1,29 @@
+{
+  "scope": "IMMUTABLE_EA_AND_EXPERIMENT_CAPTURE_ONLY",
+  "files": [
+    {
+      "path": "commands.jsonl",
+      "sha256": "c91173e37229a076bc207b775debf9e2369e722d506cb1aade5629a55640116e"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "1459ce7d05669c6bf610cefcffd1aaf360563a8fb2201b83e29c81f37ba38953"
+    },
+    {
+      "path": "journal.json",
+      "sha256": "ee9f015d494b0f62988f9a253240e733afae0a86d35e643c376ea25a51436b71"
+    },
+    {
+      "path": "maintenance.json",
+      "sha256": "4a261356e22f4d5f10f1eb3af3f1c12ee7068df18de0eccb7292480753d09c9c"
+    },
+    {
+      "path": "sharing-reproduction.json",
+      "sha256": "c091a9398a00dfc5a8e0693e1ced44fdb30a8f2b4c88cdb222a936db47cb02c6"
+    },
+    {
+      "path": "stopped-state.json",
+      "sha256": "bd6ecd7f685cf927c96cd36465213edc459105ea03775d34f67886f7182b7bd6"
+    }
+  ]
+}
