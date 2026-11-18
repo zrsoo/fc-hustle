@@ -1,0 +1,71 @@
+{
+  "status": "CONFIRMED_PARTICIPATION",
+  "account_mutations": 1,
+  "batch_id": "eb12dde10e1aa56a250f33f3bae69c7c",
+  "attempts": [
+    {
+      "command_id": "1abca7fe1758028203d2bd20c7d45ff1",
+      "state": "ACKNOWLEDGED",
+      "result": {
+        "command_id": "1abca7fe1758028203d2bd20c7d45ff1",
+        "independently_confirmed": false,
+        "outcome": "ACKNOWLEDGED",
+        "reason": null,
+        "receipt": {
+          "auction": {
+            "bid_state": "highest",
+            "buy_now_price": 11000,
+            "current_bid": 800,
+            "expires": 486,
+            "item": {
+              "definition_id": 246272,
+              "item_id": "item:6cfc046d421bf74cfe66cec1",
+              "last_sale_price": 0,
+              "untradeable": false
+            },
+            "native_is_won": false,
+            "starting_bid": 700,
+            "trade_id": "trade:33ac27a1e76eb39889f3cf36",
+            "trade_state": "active"
+          },
+          "before_bid_state": "none",
+          "input_stale": false,
+          "matching_item_count": 1,
+          "native_error_code": null,
+          "native_error_name": null,
+          "native_item_count": 1,
+          "native_success": true,
+          "reason": "MATCHING_NATIVE_PARTICIPATION",
+          "schema": 1,
+          "verdict": "ACCEPTED",
+          "wire_amount": 800,
+          "wire_amount_matches": true,
+          "wire_error_code": null,
+          "wire_identity_matches": true,
+          "wire_item_count": 1,
+          "wire_trade_id": "trade:33ac27a1e76eb39889f3cf36"
+        }
+      }
+    }
+  ],
+  "confirmed_members": 1,
+  "semantic": {
+    "reason": null,
+    "native_successes": 18,
+    "native_success_age": 0.0048528999905101955,
+    "read_failures": 0,
+    "write_failures": 0,
+    "auth_failures": 0,
+    "missing_statuses": 0,
+    "batch_failures": 0,
+    "helper_failures": 0,
+    "diagnostic_failures": 0,
+    "unconfirmed_attempts": 0,
+    "confirmed": 1,
+    "batches": 1
+  },
+  "pending": 0,
+  "reserved_ea": 19,
+  "commands": 127,
+  "service_stopped": true
+}

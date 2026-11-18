@@ -1,0 +1,21 @@
+{
+  "scope": "IMMUTABLE_NATIVE_PROBE_EVIDENCE_ONLY",
+  "files": [
+    {
+      "path": "after-normal-login-one-bid/checkpoint.jsonl",
+      "sha256": "86044a22ca5f3c4d1611fa824d6000015786644ca000eb58e53adcb37994e5f4"
+    },
+    {
+      "path": "after-normal-login-one-bid/result.json",
+      "sha256": "5ad4f61fce2918415873ac5d7bf8bbfab434ae8b543c1e0beb04168b374ae9cd"
+    },
+    {
+      "path": "probe-acquisition.json",
+      "sha256": "b0f9be339dd80e76f592e43ecd87773ad04c5733746827cf408bb7c48e3c35ec"
+    },
+    {
+      "path": "probe-commands.jsonl",
+      "sha256": "6d188ad2c45ec4282fb01d40c4033c083147fc7b4f78bd5aa1477e08f6897809"
+    }
+  ]
+}

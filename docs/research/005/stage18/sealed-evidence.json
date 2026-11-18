@@ -1,0 +1,29 @@
+{
+  "scope": "IMMUTABLE_NATIVE_INCIDENT_CAPTURE_ONLY",
+  "files": [
+    {
+      "path": "commands.jsonl",
+      "sha256": "6d043617fa228c08b77e284817d100427c52bbae92da1b5ae2e5b5084ee8a8dc"
+    },
+    {
+      "path": "events.jsonl",
+      "sha256": "42f182dae87a885a759d15a1da6f49ef92e6a83f47c63e1dd4f8a0db0912adcb"
+    },
+    {
+      "path": "journal.json",
+      "sha256": "19d2d5fc63ab0510849f6a117cd00a3daabd269cae13d7b8f9cfeea89c93ee45"
+    },
+    {
+      "path": "stopped-state.json",
+      "sha256": "cdb39c7ccd9cbd3198779c1e633c8decfedf43f555c62486174b27430bd3411d"
+    },
+    {
+      "path": "uncertain-targets.json",
+      "sha256": "a6cdc50493cabde10d2867788876b9296ccc498ca743c910f127cf37c024c8ee"
+    },
+    {
+      "path": "work.json",
+      "sha256": "8b7df08a36b86d8e4a9fc7e08493cf2aa23e64738870be98aa5576296b4352e3"
+    }
+  ]
+}

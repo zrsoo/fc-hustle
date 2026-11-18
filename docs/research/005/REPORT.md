@@ -1774,3 +1774,63 @@ isolated32/13 result does not prove attribution. Live reliability of the revised
 publication path,and final-generation full owned-win/move/hour-resale and four
 healthy hours,remain unproven. Continue autonomous engineering/monitoring until
 all original criteria are met. No external barrier or manual action is claimed.
+
+
+Stage18 ? genuine ten-target cleanup,renewed bid denial and normal login recovery
+
+Epoch33 generationea5de5d1c6b45e5c5affdc8a51d75679 launched at01:32:08 UTC under
+published339b547. Normal recovery settled all10 prior managed losses. Native
+relist_all and clear_lost both CONFIRMED with exact independent readbacks. Cleanup
+removed precisely the10 prior lost targets; the subsequent complete native
+watched GET returned0 of capacity50. Three fresh production-policy bids then
+returned nativeHTTP461/service403,UNCONFIRMED receipts and no confirmed member.
+Semantic write-failure streak3 stopped the owned worker promptly/cooperatively
+at01:33:39 UTC,exit0,forcedfalse. Snapshot publication did not fail in this run.
+The empty watch list rules out capacity as this incident's explanation.
+
+Four new initial intents remain UNKNOWN:three actual wire/service outcomes and
+one intent without retained transport result. There are66 total UNKNOWN bid
+IDs,all consumed/protected,zero WAITING/CLAIMED commands and no unconfirmed
+managed member. No rejected or absent reply is promoted to owned participation.
+A finite epoch34 read-only follow-up returned genuine200 balance,empty watched,
+transfer_list and unassigned. Exact status returned known_identity_unavailable
+without a native request because those DTO mappings were unavailable in that
+window. The finite service closed with zero mutations/pending. This cannot prove
+those UNKNOWN writes failed; expired/unavailable mappings are not a prerequisite
+to safe independent new work. The failed read window is retained unchanged.
+
+Ordinary authorized Edge refresh and saved zzorniss sign-in were completed through
+normal UI controls,with foreground/origin verification. No security challenge was
+encountered and no saved credential value,authentication header,cookie,token or
+EA session identifier was read or retained. A new document epoch35 then ran a
+separate finite one-initial-bid production-policy experiment. Bid
+**1abca7fe1758028203d2bd20c7d45ff1** at**800 coins** received a matching actual native
+accepted receipt; later exact-version status showed our highest800,then a separate
+watched GET independently confirmed it. Original threshold40000,filters1000/11000,
+remaining>60s,completed profitable quote,capacity50 and stored ceiling remain
+validated. This target differs from every protected UNKNOWN target. All66 earlier
+UNKNOWN IDs remain UNKNOWN.127 commands,one mutation,18 native successes,zero
+semantic faults/pending; finite window stopped. The actual member is handed back
+to production for management. Combined refresh/normal sign-in restored one bid;
+the private server reason for earlier denials remains unknown.
+
+Independent stage18 incident audit checks every delivered envelope,layer-specific
+failure,exact cleanup/relist effects and66 consumed UNKNOWNs; six negatives reject
+fake wire success/ACK,missing cleanup,relist duration,promoted UNKNOWN and false
+stop reason. Recovery audit independently checks the new document/same account,
+one allowed new target,normal policy,matching receipt,fresh status and separate
+watched confirmation; five negative cases pass. Focused receipts also retain both
+full acceptance validators' eight negative fixtures and actual INCOMPLETE outputs.
+Production code is unchanged since full1142 Python executions,41 Node suites and
+nine independent commands passed. Source hashes are not asserted; native/log/
+transaction evidence alone is sealed. The historical successful prefix is preserved.
+
+Fresh pre-service canonical-lock backups verify integrity,foreign keys and all
+table rows outsideGit. New unconsumed service **005-stage18-acf4b804e083b078ece2f74f00ec2958**,
+generation **acf4b804e083b078ece2f74f00ec2958**,epoch floor**36**,startup90s,health30s,
+owned stop60s. Publish this stage to main,then use only the scheduler launch
+handoff. Immediately verify attachment and manage the actual800 member. No
+ambiguous intent or consumed launch is replayed. Final-generation full trading,
+owned-win/paid-item/move/hour-resale and14400 consecutive healthy seconds remain
+unproven. Stop/restart/defect/gap resets the interval. Continue autonomous repair
+or quota-free monitoring; no external prerequisite or completion is claimed.

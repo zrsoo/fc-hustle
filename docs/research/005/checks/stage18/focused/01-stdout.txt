@@ -1,0 +1,1 @@
+{"status": "ONE_BID_RECOVERY_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 5, "command_id": "1abca7fe1758028203d2bd20c7d45ff1", "amount": 800, "independent_status_reads": 1, "protected_unknowns": 66}

@@ -1,0 +1,17 @@
+{
+  "scope": "IMMUTABLE_NATIVE_READ_ONLY_CAPTURE",
+  "files": [
+    {
+      "path": "checkpoint.jsonl",
+      "sha256": "cb9ba4c8ffd2794c0f4b007bcf34a2d1b0a4ba9686ebd6a1848cea3c13e20ab3"
+    },
+    {
+      "path": "result.json",
+      "sha256": "da325e88a0bb9f4c15db88305c30b08c25cf6c6efc1bcd468bd3671764903c43"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "201352d32974235c4df46c924b9bc18cafaea6e14b5a1b824e9ec09a8247aaa6"
+    }
+  ]
+}

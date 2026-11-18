@@ -1,0 +1,8 @@
+{
+  "status": "FAILED",
+  "mutations": 0,
+  "reason": "FAILED_NATIVE_READ",
+  "pending": 0,
+  "reserved_commands": 5,
+  "service_stopped": true
+}

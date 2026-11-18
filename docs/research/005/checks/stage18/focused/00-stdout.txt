@@ -1,0 +1,1 @@
+{"status": "STAGE_VERIFIED_OBJECTIVE_INCOMPLETE", "negative_cases": 6, "native_cleanup_targets": 10, "maintenance": ["relist_all"], "delivered_bid_denials": 3, "protected_unknown_bids": 66, "healthy_seconds": 0}

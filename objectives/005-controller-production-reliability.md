@@ -216,48 +216,45 @@ remaining safe actions and exact missing prerequisite for recovery assessment.
 
 ## Progress and next action (update before handoffs)
 
-Stage17 completed repair stage after quota recovery. Epoch31 generation
-6c2549d24df0b1155c3b8de951412965 stopped cooperatively at2026-11-17T21:47:41 UTC
-for RUNTIME_STATE_FAILED. Its underlying publication errno/target was not retained;
-its exact historical cause stays unknown. Complete319-delivery evidence proves
-10 initial bids,10 competitive rebids and native clear_sold with exact readback.
-All62 prior UNKNOWN bids remain UNKNOWN;77 consumed UNKNOWN transport commands
-are distinct from zero WAITING/CLAIMED commands. Final healthy interval is zero.
+Stage18: epoch33 generationea5de5d1c6b45e5c5affdc8a51d75679 stopped cooperatively
+at01:33:39 UTC after three native461/service403 bid failures. Runtime snapshot
+publication did not fail in this run. Native relist_all and exact clear_lost of
+all10 prior targets were independently CONFIRMED; the native watched read was
+empty before the three denied bids. Capacity therefore does not explain this
+incident. Four new initial intents remain UNKNOWN:three with actual responses,
+one without retained transport result. All62 older UNKNOWNs remain protected;
+total66 UNKNOWN bids,zero pending,no unconfirmed managed members. Healthy time0.
 
-Repaired lost diagnostic detail and bounded local Windows snapshot sharing:
-first RUNTIME_PUBLISH_FAILED records finite exception class,errno/winerror and
-known write/replace/cleanup stage and run/current snapshot target. No exception
-messages/paths are retained. Local5/32/33 replacement retries bound to1s per file;
-unrelated/persistent failure still stops the owned worker. A700ms reader now
-recovers while persistent denial remains bounded. No EA retry,health threshold,
-lease,startup or trading-strategy change. Historical cause is not inferred from
-the isolated32/13 reproduction.
+A finite epoch34 read-only window confirmed native balance,empty watched,
+transfer_list and unassigned; targeted status could not dispatch because its
+DTO identities were unavailable. This is not proof the UNKNOWN bids failed.
+The window closed with zero writes/pending. Ordinary authorized page refresh
+and saved zzorniss sign-in then recovered a new document without challenge;
+no credential values,cookies,headers,tokens or EA session identifiers were read.
+A separate epoch35 one-bid window restored genuine confirmed participation:
+new800 bid1abca7fe1758028203d2bd20c7d45ff1,matching native accepted receipt,
+fresh exact-price status and separate watched readback. All66 protected targets
+remain consumed; this new target is distinct.127 commands,one mutation,18 native
+successes,zero semantic faults/pending,window stopped. Exact earlier server denial
+cause remains unknown; combined normal refresh/sign-in recovery is observed.
 
-Full regressions PASS:1142 Python executions,41 Node suites,nine independent
-commands.12 focused operations tests and both final validators' eight negative
-fixtures each pass. Complete stopped-run audit passes six negative cases.
-Fresh read-only epoch32 account reconciliation after these receipts passes:
-five native commands,zero mutations,all10 exact targets returned,zero missing,
-zero pending,service closed. Each target is genuinely closed/outbid/non-won:
-10 terminal losses,not owned wins. Five negative reconciliation cases pass.
-The production controller will apply its normal fresh recovery; no SQL lifecycle
-or membership edits and no ambiguous bid replays were used.
+Independent stopped-incident audit passes six negative cases; one-bid recovery
+audit passes five. Both full acceptance validators and their eight negative
+fixtures each were exercised; actual checks stay INCOMPLETE because service is
+stopped. Current production code remains339b547 with full1142 Python executions,
+41 Node suites,nine independent commands PASS. This stage changes evidence,
+checks and recovery state,not pricing,strategy,stop thresholds or EA retry rules.
+Fresh canonical-lock backups verify integrity/FK/every-table row equality.
 
-Fresh pre-service canonical-lock backups verify integrity/FK and every table's
-row equality. Current production actors/listeners/jobs are absent; official Edge
-foreground verified,no visible challenge/connection error. Prepared new service
-005-stage17-ea5de5d1c6b45e5c5affdc8a51d75679, generation
-ea5de5d1c6b45e5c5affdc8a51d75679,epoch floor33,startup90s,health30s.
-Legacy003 remains PAUSED,004 COMPLETED. No external prerequisite exists.
-
-Next: publish this stage and launch exactly once through the scheduler handoff.
-Immediately verify attachment,ten-member settlement/lost cleanup and new trading,
-then return monitoring. If publication fails again,inspect the new sanitized
-first-failure record and continue evidence-led repair. Any defect,stop,restart,
-scheduler restart or monitored gap resets14400 consecutive healthy seconds.
-Final-generation full owned-win/move/hour-resale and eligible maintenance still
-require genuine observation. Do not substitute old-generation evidence,elapsed
-time,heartbeat or idle/failed acquisition. Leave a healthy runtime running.
+Prepared service005-stage18-acf4b804e083b078ece2f74f00ec2958, generation
+acf4b804e083b078ece2f74f00ec2958,epoch floor36,startup90s,health30s.
+Next: publish stage18,launch once via scheduler,immediately attach/reconcile/manage
+the real800 member,then monitor genuine flow. Do not replay66 UNKNOWNs or the
+consumed epoch33 launch. On further faults continue evidence-led repair; any
+stop,restart,defect,scheduler restart or monitored gap resets14400 healthy seconds.
+Final-generation full owned-win/move/hour resale and eligible maintenance remain
+unproven. If market events are pending,continue monitoring. Leave a healthy
+watchdog/controller running; no external barrier or manual prerequisite exists.
 
 ## Hypotheses, actions and results (append with evidence)
 
@@ -546,3 +543,15 @@ five-case negative audit passes. Fresh verified backups and scheduler-only
 new launch prepared with epoch floor33. Original publication errno stays unknown;
 new finite diagnostics will preserve any recurrence. Next: publish/launch once,
 verify genuine new account flow and resume semantic monitoring for14400s.
+
+2026-11-18 H24 / EMPTY-WATCH BID DENIAL AND NORMAL SIGN-IN RECOVERY OBSERVED:
+Epoch33 actually cleared10 lost targets and relisted eligible inventory,then
+three fresh bids received461/403 despite an empty50-capacity watch list. Do not
+attribute this incident to capacity or invent a private server restriction.
+All four new intents stayUNKNOWN (66 total). A read-only follow-up had four
+successful native account reads but no target DTO for exact status; it grants
+no settlement/failed-write verdict. Ordinary new-document/saved-account recovery
+then restored one genuinely new800 bid with independent status/watched proof.
+Six incident/five recovery negative cases pass. Exact denial cause is unknown;
+combined normal refresh/sign-in restored trading. Prepare next scheduler run to
+manage the actual member and continue full proof; no new production code change.
