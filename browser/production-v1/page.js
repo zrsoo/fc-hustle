@@ -60,6 +60,14 @@
     window.__fcNativeCommandOwner = document;
     binding = {context:{...context},fences:{...fences}}; nativeUser = u; nativePersona = p; return true;
   }
+  // Keyed digest of the selected persona's public game id, scoped to the
+  // operator's identity namespace like item/trade ids. It lets a later reload
+  // prove it is the same persona an operator bound; no login field, session or
+  // display name is read, and the raw id never leaves the page.
+  async function personaFingerprint(context) {
+    if (!official() || !validContext(context) || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform() !== 'pc') return null;
+    try { const p = selected(); return p ? await id(p.id,'persona',context.identity_namespace) : null; } catch { return null; }
+  }
   function valid(c) {
     if (!keys(c,'schema,id,operation,params,context,fences') || c.schema !== 2 || !hex(c.id) || !binding ||
         !equal(c.context,binding.context) || !equal(c.fences,binding.fences) || !operation(c.operation)) return false;
@@ -834,7 +842,7 @@
     // persona display name is not an EA saved-sign-in identifier. Never infer
     // account identity by reading login fields or by comparing these aliases.
     auth:()=>{if(services.User.getUser?.()!==nativeUser || selected()!==nativePersona || window.__fcDiscoveryPersonaFollowupV1?.selectedPlatform()!=='pc')throw Error('persona_unverified');}});
-  Object.defineProperty(window,'__fcProductionV1',{value:Object.freeze({attach,execute,document,
+  Object.defineProperty(window,'__fcProductionV1',{value:Object.freeze({attach,execute,document,personaFingerprint,
     executeReadController:c=>execute(c,true),
     executeController:controller?.execute,interruptController:controller?.interrupt})});
 })();

@@ -72,11 +72,11 @@ class Artifacts(unittest.TestCase):
         self.assertEqual(p.returncode,0,p.stderr)
         for name in ('run','status','pause','stop'):self.assertIn(name,p.stdout)
         with tempfile.TemporaryDirectory() as path:
-            h=harness(path);won(h);h.controller.step();h.controller.pause()
+            h=harness(path);won(h);h.controller.step();h.controller.step();h.controller.pause()
             database=h.store.path;h.ea.world.close();h.close()
             p=subprocess.run([sys.executable,'-m','fc_access.controller_v1','status','--database',str(database)],cwd=ROOT,capture_output=True,text=True,timeout=10)
             self.assertEqual(p.returncode,0,p.stderr);s=json.loads(p.stdout)
-            self.assertEqual((s['phase'],s['lifecycle']),('MANAGING','PAUSED'))
+            self.assertEqual((s['phase'],s['lifecycle']),('ACQUIRING','PAUSED'))
             self.assertEqual(s['work'][0]['state'],'CONFIRMED');self.assertTrue(s['members'])
 
     def test_1_6_7_shipped_native_calls_and_legacy_entry_points(self):

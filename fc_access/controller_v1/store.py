@@ -306,7 +306,8 @@ class ControllerStore:
             raise ValueError('selected_authority_required')
         if decision['kind']=='initial':
             age=(self.now()-stamp(batch['inventory_at'])).total_seconds()
-            if state['phase']!='ACQUIRING' or not j.inventory_valid() or not 0<=age<=batch['config']['inventory_max_age']:
+            from fc_access.production_v1.contracts import fresh
+            if state['phase']!='ACQUIRING' or not j.inventory_valid() or not fresh(age,batch['config']['inventory_max_age']):
                 raise ValueError('inventory_authority_expired')
             if p['amount']!=selected[0]['minimum'] or p['status_read_id']!=selected[0]['read_id']:
                 raise ValueError('selected_authority_mismatch')

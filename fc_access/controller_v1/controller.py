@@ -1,4 +1,9 @@
-"""Sequential ACQUIRING/MANAGING policy; explicit steps, no import-time work.
+"""Sequential ACQUIRING -> MANAGING -> MAINTENANCE policy; explicit steps.
+
+Each phase owns its writes: initial bids in ACQUIRING, rebids in MANAGING and
+every account maintenance write (won-item move/list, clear_sold, relist_all and
+clear_lost when the watch list is at capacity) only in MAINTENANCE. After a
+maintenance write no bid is sent for ``maintenance_gap`` seconds.
 
 The hosting application supplies a single owned SerializedExecutor, an isolated
 store and completed quote cache. Verified win handling is integrated. No actors or
@@ -12,7 +17,7 @@ import json
 import secrets
 import time
 
-from fc_access.production_v1.contracts import Search, stamp, parse_response
+from fc_access.production_v1.contracts import Search, stamp, parse_response, fresh
 from fc_access.production_v1.prices import PriceService, CardKey
 from fc_access.production_v1.pricing import PricingService
 from .config import ControllerConfig
@@ -47,9 +52,16 @@ class Controller:
         finally:self.lock.release()
         self.win_handler=win_handler
         adapter.executor.guard=store.dispatch_guard
+        # Dispatch-time listing authority (work.validate) reads the same markup.
+        store.list_markup=self.config.list_markup
         from .work import Work
         self.work=Work(self)
         self.last_cycle=None
+        # After a restart the page can map only auctions present in the fresh
+        # watch list. Members whose auction left it (e.g. won and moved off it by
+        # EA) cannot be status-read in this runtime; they stay members with an
+        # unknown outcome and never block management of the others.
+        self.unmapped=set()
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -89,14 +101,11 @@ class Controller:
         try:
             if self.journal.state()['lifecycle']!='RUNNING':return self.status()
             self.store.check_peer({'context':self.adapter.context,'fences':self.adapter.fences})
-            if self.journal.state()['phase']=='MANAGING':
-                self._manage()
-                # Settled management hands directly to acquisition in this step.
-                if self.journal.members():return self.status()
-            if self.journal.state()['lifecycle']=='RUNNING':
-                # Maintenance also runs while acquisition is capacity constrained.
-                self.work.maintenance()
-                if self.journal.state()['lifecycle']=='RUNNING':self._acquire()
+            phase=self.journal.state()['phase']
+            if phase=='MANAGING':self._manage()
+            elif phase=='MAINTENANCE':self._maintain()
+            elif self._gap_wait():pass
+            else:self._acquire()
             return self.status()
         finally:self.lock.release()
 
@@ -155,11 +164,11 @@ class Controller:
             for row,minimum,rules in sorted(prepared,key=lambda v:v[1]):
                 version=row['item']['definition_id']
                 if version not in quotes:
-                    quotes[version]=self.pricing.quote(row,rules,X=500)
+                    quotes[version]=self.pricing.quote(row,rules,X=self.config.margin)
             for row,minimum,rules in prepared:
                 t=identity(row);quote=quotes[t['definition_id']]
                 if not quote.completed:continue
-                quote=self.pricing.quote(row,rules,X=500)
+                quote=self.pricing.quote(row,rules,X=self.config.margin)
                 if quote.status!='COMPLETE' or not quote.completed:continue
                 if minimum is None or quote.max_affordable_bid is None or minimum>quote.max_affordable_bid or row['buy_now_price'] and minimum>=row['buy_now_price']:continue
                 eligible.append(dict(target=t,row=row,read_id=discovery['command_id'],observed_at=at,
@@ -167,10 +176,9 @@ class Controller:
                     cap=quote.max_affordable_bid,resale_price=quote.resale_price,quote=asdict(quote)))
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
+            # Lost targets are cleared only by MAINTENANCE at capacity; a full
+            # list is an ordinary CAPACITY_FULL outcome here, never a write.
             watched=self._read('watched')
-            watched=self.work.clear_lost(watched)
-            if watched is None:
-                j.update_batch(bid,state='OPERATION_FAILED',reason='LOST_TARGET_CLEANUP_UNCONFIRMED');return
             from .watch_capacity import slots
             watch_slots=slots(watched)
             j.update_batch(bid,watch_read_id=watched['command_id'],watch_slots=watch_slots)
@@ -217,7 +225,7 @@ class Controller:
                 inv_age=(self.now()-stamp(inv_at)).total_seconds()
                 reason=None
                 if self.now()>=stamp(c['deadline']):reason='EXPIRED';expiry_misses+=1
-                elif not j.inventory_valid() or not 0<=inv_age<=self.config.inventory_max_age:reason='INVENTORY_INVALID'
+                elif not j.inventory_valid() or not fresh(inv_age,self.config.inventory_max_age):reason='INVENTORY_INVALID'
                 if reason:
                     j.metric(bid,'INITIAL_SKIPPED',target=c['target'],reason=reason,observation_age=age,inventory_age=inv_age);continue
                 result=self._bid(bid,c,c['read_id'],c['row'],'initial')
@@ -232,7 +240,7 @@ class Controller:
                     established=self.store.db.execute('SELECT 1 FROM c4_members WHERE trade_id=?',(c['target']['trade_id'],)).fetchone()
                     if not established:j.abandon(cid)
             j.update_batch(bid,state='MANAGING' if j.members() else 'SETTLED')
-            if j.members():j.checkpoint(phase='MANAGING',batch_id=bid)
+            j.checkpoint(phase='MANAGING' if j.members() else 'MAINTENANCE',batch_id=bid)
         except Exception:
             # Only finite enumerated categories enter the audit. Commands already
             # intended remain consumed even if the surrounding batch fails.
@@ -241,8 +249,8 @@ class Controller:
                 trade=json.loads(body)['candidate']['target']['trade_id']
                 if not self.store.db.execute('SELECT 1 FROM c4_members WHERE trade_id=?',(trade,)).fetchone():j.abandon(cid)
         finally:
-            if j.members() and j.state()['lifecycle']=='RUNNING' and j.state()['phase']=='ACQUIRING':
-                j.checkpoint(phase='MANAGING',batch_id=bid)
+            if j.state()['lifecycle']=='RUNNING' and j.state()['phase']=='ACQUIRING':
+                j.checkpoint(phase='MANAGING' if j.members() else 'MAINTENANCE',batch_id=bid)
             report=getattr(self.store,'semantic_report',None)
             if report:
                 with self.store.lock:
@@ -342,12 +350,12 @@ class Controller:
             except ValueError:
                 j.metric(bid,'MISSING_OR_INVALID_ROW',target=c['target']);continue
             if row['trade_state']=='active' and row['bid_state'] in {'highest','outbid'}:
-                j.member(bid,c,proof=dict(read_id=status['command_id'],row=row,at=status['network_at']))
+                j.member(c.get('batch_id',bid),c,proof=dict(read_id=status['command_id'],row=row,at=status['network_at']))
             elif row['trade_state']=='closed' and row['bid_state']=='outbid' and row['native_is_won'] is not True:
-                if initial:j.member(bid,c,proof=dict(read_id=status['command_id'],row=row))
+                if initial:j.member(c.get('batch_id',bid),c,proof=dict(read_id=status['command_id'],row=row))
                 j.settle(trade,'LOST',dict(read_id=status['command_id'],row=row))
             elif row['trade_state']=='closed' and row['bid_state']=='highest' and row['native_is_won'] is not False:
-                j.member(bid,c,state='PENDING_WIN',proof=dict(read_id=status['command_id'],row=row,at=status['network_at']))
+                j.member(c.get('batch_id',bid),c,state='PENDING_WIN',proof=dict(read_id=status['command_id'],row=row,at=status['network_at']))
         # Missing rows and elapsed countdowns deliberately preserve membership.
 
     def _wins(self):
@@ -379,10 +387,83 @@ class Controller:
             except Exception:
                 j.metric(m['batch_id'],'WIN_PENDING',target=m['target'])
 
+    def _gap_wait(self):
+        """True while bids are held after a maintenance write.
+
+        Waits at most 30s per step in one-second supervised slices, then one
+        balance read keeps native freshness. Reads never write or bid.
+        """
+        remaining=self.gap_remaining()
+        if remaining<=0:return False
+        bid=self.journal.state()['batch_id']
+        self.journal.metric(bid,'MAINTENANCE_GAP',remaining=remaining,gap=self.config.maintenance_gap)
+        end=self.clock()+min(remaining,30)
+        while self.clock()<end:
+            self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
+        try:self.adapter.read(self.ids(),'balance')
+        except Exception:self.journal.metric(bid,'MAINTENANCE_GAP_READ_FAILED')
+        return True
+
+    def gap_remaining(self):
+        if self.config.maintenance_gap<=0:return 0
+        row=self.store.db.execute("SELECT max(coalesce(completed_at,dispatched_at)) FROM c4_work WHERE dispatched_at IS NOT NULL").fetchone()
+        if not row or not row[0]:return 0
+        return max(0.,self.config.maintenance_gap-(self.now()-stamp(row[0])).total_seconds())
+
+    def _maintain(self):
+        """One maintenance pass: each check writes only when it has work."""
+        j=self.journal;bid=j.state()['batch_id']
+        try:
+            self.work.recover_bulk()
+            # A verified win is moved, then listed, within the same pass.
+            for _ in range(2):
+                if not any(m['state']=='PENDING_WIN' for m in j.members()):break
+                self._wins()
+            self.work.maintenance(scan=True)
+            self.work.lost_at_capacity()
+        except Exception:
+            j.metric(bid,'MAINTENANCE_UNKNOWN',reason='MAINTENANCE_PASS_INCOMPLETE')
+        finally:
+            if j.state()['lifecycle']=='RUNNING' and j.state()['phase']=='MAINTENANCE':
+                j.checkpoint(phase='ACQUIRING',batch_id=bid)
+
+    def _needs_status(self, m):
+        """Active auctions, and wins whose terminal proof is not yet complete."""
+        if m['target']['trade_id'] in self.unmapped:return False
+        if m['state']=='ACTIVE':return True
+        if m['state']!='PENDING_WIN' or self.work.moved(m):return False
+        row=(m.get('proof') or {}).get('row') or {}
+        return not (row.get('expires',1)<=0 and row.get('native_is_won') is True)
+
+    def _remap(self, members):
+        """After a restart, map members from one fresh watch-list read.
+
+        Members absent from it cannot be status-read in this runtime (the page
+        has no native DTO for them); they are excluded until a later re-map
+        finds them again. Returns False while the read itself is unavailable.
+        """
+        j=self.journal;bid=members[0]['batch_id']
+        try:refreshed=self._read('watched')
+        except Exception:
+            j.metric(bid,'MAPPING_RECOVERY_PENDING');return False
+        if refreshed.get('result',{}).get('success') is not True:
+            j.metric(bid,'MAPPING_RECOVERY_PENDING');return False
+        self.mapping_refresh_needed=False
+        present={r['trade_id'] for r in refreshed['result']['auctions']}
+        self.unmapped-=present
+        for m in members:
+            trade=m['target']['trade_id']
+            if trade not in present and trade not in self.unmapped and not self.work.moved(m):
+                self.unmapped.add(trade)
+                j.metric(m['batch_id'],'MAPPING_LOST',target=m['target'],state=m['state'])
+        return True
+
     def _manage(self):
         j=self.journal;members=j.members()
-        if not members:
-            j.checkpoint(phase='ACQUIRING');return
+        if members and self.mapping_refresh_needed and not self._remap(members):return
+        if not any(self._needs_status(m) for m in members):
+            # Won items and every other account write belong to MAINTENANCE.
+            j.checkpoint(phase='MAINTENANCE');return
         if self.last_cycle is not None:
             delay=self.last_cycle+self.config.cycle_target-self.clock()
             if delay>0:self.sleep(delay)
@@ -392,11 +473,7 @@ class Controller:
         # a new exact physical inventory and current caps in this runtime.
         active=[m for m in members if m['state']!='PENDING_WIN' or not self.work.moved(m)]
         try:
-            if self.mapping_refresh_needed:
-                try:self._read('watched')
-                except Exception:
-                    j.metric(bid,'MAPPING_RECOVERY_PENDING');return
-                self.mapping_refresh_needed=False
+            active=[m for m in active if m['target']['trade_id'] not in self.unmapped]
             status=self._status([m['target'] for m in active],bid) if active else None
             if status:
                 self._apply(status,{m['target']['trade_id']:m for m in active},bid)
@@ -412,7 +489,9 @@ class Controller:
                     else:j.metric(bid,'HOLD',target=m['target'],reason='HIGHEST_OR_NOT_ACTIONABLE')
                 submitted=[]
                 for _,m,row in sorted(actions,key=lambda a:(a[0],a[1]['target']['trade_id'])):
-                    result=self._bid(bid,m,status['command_id'],row,'rebid')
+                    # Members can come from different batches once an unresolved
+                    # win or unmapped auction outlives its batch; each keeps its own.
+                    result=self._bid(m['batch_id'],m,status['command_id'],row,'rebid')
                     if result:submitted.append(result)
                     else:j.metric(bid,'HOLD',target=m['target'],reason='CAP_OR_LOCAL_AUTHORITY')
                 if submitted:
@@ -421,11 +500,8 @@ class Controller:
                         after={m['target']['trade_id']:at for m,_,at in submitted})
                     for m,cid,_ in submitted:
                         if not readback or m['target'] in readback['missing']:j.abandon(cid)
-            self.work.recover_bulk()
-            self._wins()
-            self.work.maintenance(scan=True)
-            if not j.members():
-                j.update_batch(bid,state='SETTLED');j.checkpoint(phase='ACQUIRING')
+            if not j.members():j.update_batch(bid,state='SETTLED')
+            if not any(self._needs_status(m) for m in j.members()):j.checkpoint(phase='MAINTENANCE')
         finally:
             elapsed=self.clock()-start
             j.metric(bid,'CYCLE',elapsed=elapsed,target=self.config.cycle_target,

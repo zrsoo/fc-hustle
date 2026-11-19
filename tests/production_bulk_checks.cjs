@@ -63,9 +63,9 @@ async function fixture(op='clear_sold',mode='ok'){
 async function workerContract(){
   const calls=[],files=[],handlers={},context={account:'1'.repeat(32),persona:'2'.repeat(32),identity_namespace:'3'.repeat(32),game:'fc27',platform:'pc'};
   const owner={context,owner:'4'.repeat(32),epoch:1};let peer,delivered=false;
-  const page={document:'5'.repeat(32),attach(){return true;},execute(c){calls.push(c.operation);return {production:true};}};
+  const page={document:'5'.repeat(32),async personaFingerprint(){return 'persona:'+'8'.repeat(24);},attach(){return true;},execute(c){calls.push(c.operation);return {production:true};}};
   const pageSandbox=vm.createContext({window:{__fcProductionV1:page,__fcBulkTransferV1:{execute(){throw Error('research replay forbidden');}}}});
-  const chrome={storage:{session:{async get(){return {productionTab:1,productionDocument:null};},async set(){}}},
+  const chrome={storage:{session:{async get(){return {productionTab:1,productionDocument:null};},async set(){}},local:{async get(){return {};},async set(){}}},
     tabs:{async get(){return {url:'https://www.ea.com/ultimate-team/web-app/'};}},
     scripting:{async executeScript(spec){if(spec.files){files.push(...spec.files);return [];}
       return [{result:await vm.runInContext('('+spec.func.toString()+')(...'+JSON.stringify(spec.args)+')',pageSandbox)}];}},

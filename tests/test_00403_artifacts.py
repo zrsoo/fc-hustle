@@ -34,9 +34,13 @@ class Artifacts(unittest.TestCase):
             self.assertEqual(result['terminal_lost'],10)
             self.assertEqual(result['maximum_parallel_requests'],1)
             self.assertEqual(result['final'],dict(phase='ACQUIRING',lifecycle='HALTED',reason='ENTRY_CREDITS_AT_OR_BELOW_THRESHOLD'))
-            # 004-04 adds one complete maintenance scan after each managed cycle.
-            # The sealed 004-03 capture retains its original request inventory.
-            self.assertEqual(result['requests'],dict(balance=2,search=3,caps=1,watched=1,transfer_list=1 if historical else 3,bid=20,status_batch=4 if historical else 5))
+            # Current code adds one MAINTENANCE pass (watched + transfer_list
+            # reads) between settled management and the next acquisition. The
+            # sealed 004-03 capture retains its original request inventory.
+            self.assertEqual(result['requests'],dict(balance=2,search=3,caps=1,watched=1 if historical else 2,transfer_list=1 if historical else 2,bid=20,status_batch=4 if historical else 5))
+            if not historical:
+                phases={(c['operation'],c['phase']) for c in result['trace']}
+                self.assertNotIn(('bid','MAINTENANCE'),phases);self.assertIn(('transfer_list','MAINTENANCE'),phases)
             self.assertEqual(len(result['cycles']),2)
             self.assertTrue(all(c['target']==5 and c['elapsed']>0 and c['missed_targets']>=0 for c in result['cycles']))
             self.assertGreater(result['acquisition'][0]['burst_elapsed'],0)

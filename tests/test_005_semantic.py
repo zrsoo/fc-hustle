@@ -163,7 +163,8 @@ class SemanticTests(unittest.TestCase):
                 s=SemanticHealth(clock=h.clock.clock)
                 h.executor.result=lambda c,v:s.observe(dict(kind='native_result',**native_summary(c,v)))
                 h.ea.balance_fail=True
-                h.controller.run(steps=3)
+                # Each failed acquisition is followed by a MAINTENANCE pass.
+                h.controller.run(steps=5)
                 self.assertEqual(s.check(),'PERSISTENT_READ_FAILURE')
                 self.assertEqual(h.calls('bid'),[])
             finally:h.close()

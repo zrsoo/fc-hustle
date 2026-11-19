@@ -75,7 +75,8 @@ def parse_response(value, c, *, now=None):
         raise ValueError('scope_mismatch')
     now = now or datetime.now(timezone.utc)
     age = (now-stamp(value['observed_at'])).total_seconds()
-    if not 0 <= age <= 30 or type(value['success']) is not bool:
+    from fc_access.production_v1.contracts import fresh
+    if not fresh(age, 30) or type(value['success']) is not bool:
         raise ValueError('stale_response')
     if not isinstance(value['background'], list) or len(value['background']) > 32 or any(r != {'event':'UNOWNED_SEND'} for r in value['background']):
         raise ValueError('unsafe_diagnostics')
@@ -122,7 +123,7 @@ def parse_response(value, c, *, now=None):
     if value['designated_account_verified'] is not True:
         raise ValueError('designated_account_required')
     at = stamp(value['network_at'])
-    if not 0 <= (now-at).total_seconds() <= 30 or at > stamp(value['observed_at']):
+    if not fresh((now-at).total_seconds(), 30) or at > stamp(value['observed_at']):
         raise ValueError('stale_network')
     if not isinstance(network, list) or len(network) != 1:
         raise ValueError('owned_request_required')

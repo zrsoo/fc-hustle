@@ -102,7 +102,11 @@ class OccupancyAcceptance(unittest.TestCase):
         v,c=sample['response'],sample['command']
         network=stamp(v['freshness']['network_at'])
         self.assertTrue(assess(v,c,now=network+timedelta(seconds=30),source='native')['enrollment_allowed'])
-        for seconds in [-1,30.001,60]:
+        # A browser clock slightly ahead of this process (Windows time sync) is
+        # tolerated up to CLOCK_SKEW; beyond it the read is still stale.
+        from fc_access.production_v1.contracts import CLOCK_SKEW
+        self.assertTrue(assess(v,c,now=network-timedelta(seconds=1),source='native')['enrollment_allowed'])
+        for seconds in [-CLOCK_SKEW-1,30.001,60]:
             e=assess(v,c,now=network+timedelta(seconds=seconds),source='native')
             self.assertFalse(e['enrollment_allowed']);self.assertEqual(e['reason'],'TRANSFER_LIST_STALE')
         changes=[lambda x:x['coverage']['transfer_list'].update(wire_count=6),

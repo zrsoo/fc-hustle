@@ -52,7 +52,8 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertEqual(state['lifecycle'],'RUNNING');self.assertFalse(h.calls('bid'))
         self.assertEqual(h.store.db.execute('SELECT state FROM c4_policy_batches').fetchone()[0],'READ_FAILED')
         self.assertEqual(h.store.db.execute('SELECT count(*) FROM c4_batches').fetchone()[0],0)
-        h.ea.balance_fail=False;h.controller.step();self.assertEqual(len(h.calls('balance')),2)
+        self.assertEqual(state['phase'],'MAINTENANCE')
+        h.ea.balance_fail=False;h.controller.step();h.controller.step();self.assertEqual(len(h.calls('balance')),2)
         self.assertEqual(len(h.calls('bid')),1)
 
     def test_1_discovery_filters_identity_fields_observation_ages_and_exact_counts(self):
@@ -229,9 +230,9 @@ class ControllerAcceptance(unittest.TestCase):
             if mode=='empty':h.ea.rows=[]
             elif mode=='missing':h.ea.missing={r['trade_id'] for r in h.ea.rows}
             else:h.ea.bid_modes={r['trade_id']:mode for r in h.ea.rows}
-            h.controller.run(steps=2)
+            h.controller.run(steps=3)  # ACQUIRING, MAINTENANCE (no-op), ACQUIRING
             self.assertEqual(len(h.calls('balance')),2,mode)
-            self.assertEqual(h.controller.status()['phase'],'ACQUIRING')
+            self.assertEqual(h.controller.status()['phase'],'MAINTENANCE')
             self.assertLessEqual(len(h.calls('bid')),2)
             # Only central pacing; no acquisition-specific timer or backoff.
             self.assertTrue(all(s<=h.config.request_spacing for s in h.clock.sleeps))
@@ -258,17 +259,21 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertEqual(len(h.controller.journal.members()),3)
         targets=h.calls('status_batch')[-1]['command']['params']['targets']
         self.assertEqual(len(targets),3)
-        # Independent terminal rows settle all three, then next credits read occurs
-        # in the same step. No false loss is inferred from the previous omission.
+        # Independent terminal rows settle all three; MAINTENANCE then runs before
+        # the next credits read. No false loss is inferred from the omission.
         h.ea.missing.clear()
         for r in h.ea.rows:r.update(trade_state='closed',bid_state='outbid',expires=0)
-        h.controller.step();self.assertEqual(len(h.calls('balance')),2)
+        h.controller.step();self.assertEqual(h.controller.status()['phase'],'MAINTENANCE')
+        self.assertEqual(len(h.calls('balance')),1)
+        h.controller.step();h.controller.step();self.assertEqual(len(h.calls('balance')),2)
         self.assertEqual(len(h.controller.journal.members()),0)
         self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='LOST'").fetchone()[0],3)
 
     def test_7_won_requires_exact_physical_paid_cost_and_accounted_handoff(self):
-        proofs=[]
-        h=self.harness(2,win_handler=lambda member,proof:proofs.append(proof) or True)
+        proofs=[];phases=[]
+        def handler(member,proof):
+            phases.append(h.controller.journal.state()['phase']);proofs.append(proof);return True
+        h=self.harness(2,win_handler=handler)
         h.controller.step()
         h.ea.rows[0].update(trade_state='closed',bid_state='highest',native_is_won=True,expires=0)
         h.ea.rows[1].update(trade_state='closed',bid_state='outbid',expires=0)
@@ -276,9 +281,12 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertEqual(h.controller.journal.members()[0]['state'],'PENDING_WIN');self.assertFalse(proofs)
         item=deepcopy(h.ea.rows[0]['item']);item['last_sale_price']=999;h.ea.owned=[item]
         h.controller.step();self.assertFalse(proofs)
-        item['last_sale_price']=150;h.controller.step()
+        item['last_sale_price']=150
+        for _ in range(6):
+            if proofs:break
+            h.controller.step()
         self.assertEqual(len(proofs),1);self.assertEqual(proofs[0]['paid'],150)
-        self.assertEqual(len(h.calls('balance')),2)
+        self.assertEqual(phases,['MAINTENANCE'],'win handoff only in MAINTENANCE')
         self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='WON_ACCOUNTED'").fetchone()[0],1)
 
     def test_8_uncertain_rebid_preserves_membership_later_writes_and_fresh_decisions(self):
@@ -315,7 +323,7 @@ class ControllerAcceptance(unittest.TestCase):
             h.controller.journal.outcome(c['id'],dict(outcome='ACKNOWLEDGED'))
         self.assertTrue(all(v['state']=='UNKNOWN' for v in h.attempts()))
         self.assertFalse(h.controller.journal.members())
-        h.ea.rows.append(auction(123,15000,80));h.controller.step()
+        h.ea.rows.append(auction(123,15000,80));h.controller.step();h.controller.step()
         self.assertEqual(len(h.calls('bid')),3)
 
     def test_9_insufficient_funds_is_ordinary_outcome_without_stop_or_retry(self):
@@ -358,7 +366,7 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertFalse(any(m and any(v in m for v in ['actors_v1.actors','continuous_v1.runtime']) for m in imports))
         names={n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}
         self.assertFalse(names & {'Acquirer','Bidder','Broker','Timer','Popen','DRAINING','budget_allocator'})
-        self.assertEqual(set(h.config.__dataclass_fields__),{'entry_threshold','request_spacing','cycle_target','inventory_max_age'})
+        self.assertEqual(set(h.config.__dataclass_fields__),{'entry_threshold','request_spacing','cycle_target','inventory_max_age','maintenance_gap','margin','list_markup'})
 
     def test_10_serial_executor_prevents_parallel_requests_even_for_concurrent_callers(self):
         h=self.harness(0);entered=threading.Event();release=threading.Event();out=[]
@@ -388,7 +396,7 @@ class ControllerAcceptance(unittest.TestCase):
             if c['operation']=='status_batch' and len(h.calls('bid'))==2:
                 for r in h.ea.rows:r.update(trade_state='closed',bid_state='outbid',expires=0)
         h.ea.on_request=terminal;state=h.controller.step()
-        self.assertEqual(state['phase'],'ACQUIRING');self.assertFalse(state['members'])
+        self.assertEqual(state['phase'],'MAINTENANCE');self.assertFalse(state['members'])
         self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='LOST'").fetchone()[0],2)
 
     def test_8_discarded_uncertainties_are_visible_but_no_global_ten_reservation_gate(self):
@@ -398,7 +406,7 @@ class ControllerAcceptance(unittest.TestCase):
         # Unknown submissions could have registered, while incomplete watchlist
         # traffic does not establish those effects. New exact targets may proceed.
         h.ea.rows=[auction(123,15000,n+100) for n in range(10)]
-        h.ea.bid_modes.clear();state=h.controller.step()
+        h.ea.bid_modes.clear();h.controller.step();state=h.controller.step()
         self.assertEqual(len(h.calls('bid')),20);self.assertEqual(len(state['members']),10)
         self.assertEqual(len(state['potentially_untracked_effects']),10)
         self.assertFalse(state['global_ten_participation_guarantee'])

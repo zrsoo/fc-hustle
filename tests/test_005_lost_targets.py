@@ -14,17 +14,30 @@ class LostTargets(unittest.TestCase):
         h.ea.manual=[]
         for i in range(count):
             r=auction(123,15000,8000+i);r.update(trade_state='closed',bid_state='outbid',expires=-1,native_is_won=False);h.ea.manual.append(r)
-    def test_all_losses_cleaned_before_new_acquisition_and_other_cards_untouched(self):
+    def test_losses_cleared_only_by_maintenance_at_capacity_and_other_cards_untouched(self):
         with tempfile.TemporaryDirectory() as path:
             h=Harness(path,10)
             try:
-                self.losses(h,47);active=auction(123,15000,9000);won=auction(123,15000,9001);won.update(trade_state='closed',bid_state='highest',expires=-1,native_is_won=True)
+                self.losses(h,48);active=auction(123,15000,9000);won=auction(123,15000,9001);won.update(trade_state='closed',bid_state='highest',expires=-1,native_is_won=True)
                 h.ea.manual.extend([active,won]);original=deepcopy([active,won]);physical=auction(123,15000,9500);h.ea.inventory=[physical];before=deepcopy(h.ea.inventory)
-                h.controller.step();self.assertEqual(len(h.calls('clear_lost')),1);self.assertEqual(len(h.calls('bid')),10)
+                # 50/50: acquisition is a CAPACITY_FULL outcome and never cleans.
+                h.controller.step();self.assertEqual(h.calls('clear_lost'),[]);self.assertEqual(h.calls('bid'),[])
+                self.assertEqual(h.controller.status()['phase'],'MAINTENANCE')
+                h.controller.step();self.assertEqual(len(h.calls('clear_lost')),1);self.assertEqual(h.calls('bid'),[])
+                self.assertEqual(h.controller.status()['phase'],'ACQUIRING')
+                h.controller.step();self.assertEqual(len(h.calls('bid')),10)
                 self.assertEqual(h.ea.manual,original);self.assertEqual(h.ea.inventory,before)
-                cmd=h.calls('clear_lost')[0]['command'];self.assertEqual(len(cmd['params']['targets']),47)
+                cmd=h.calls('clear_lost')[0]['command'];self.assertEqual(len(cmd['params']['targets']),48)
                 state,proof=h.store.db.execute('select state,proof from c4_work where id=?',(cmd['id'],)).fetchone();self.assertEqual(state,'CONFIRMED');self.assertEqual(json.loads(proof)['mode'],'NATIVE_ACK_AND_READBACK')
                 self.assertLess(h.calls('clear_lost')[0]['at'],h.calls('bid')[0]['at'])
+            finally:h.close()
+    def test_below_capacity_losses_are_never_cleared(self):
+        with tempfile.TemporaryDirectory() as path:
+            h=Harness(path,10)
+            try:
+                self.losses(h,49)
+                for _ in range(2):h.controller.step()
+                self.assertEqual(h.calls('clear_lost'),[]);self.assertEqual(len(h.calls('bid')),1)
             finally:h.close()
     def test_no_eligible_target_never_dispatches_cleanup(self):
         with tempfile.TemporaryDirectory() as path:
@@ -49,10 +62,11 @@ class LostTargets(unittest.TestCase):
         with tempfile.TemporaryDirectory() as path:
             h=Harness(path,1)
             try:
-                self.losses(h,1);h.ea.lost_mode='no_effect';s=SemanticHealth(clock=h.clock.clock)
+                self.losses(h,50);h.ea.lost_mode='no_effect';s=SemanticHealth(clock=h.clock.clock)
                 h.executor.result=lambda c,v:s.observe(dict(kind='native_result',**native_summary(c,v)))
                 h.store.semantic_report=lambda **fields:s.observe(dict(kind='batch_result',**fields))
-                for _ in range(3):h.controller.step()
+                # ACQUIRING (full) -> MAINTENANCE (cleanup unconfirmed), three times.
+                for _ in range(6):h.controller.step()
                 self.assertEqual(len(h.calls('clear_lost')),1);self.assertEqual(h.calls('bid'),[]);self.assertEqual(s.check(),'PERSISTENT_ACQUISITION_FAILURE')
                 self.assertEqual(h.store.db.execute('select state from c4_work').fetchone()[0],'UNKNOWN')
             finally:h.close()
@@ -60,14 +74,16 @@ class LostTargets(unittest.TestCase):
         with tempfile.TemporaryDirectory() as path:
             h=Harness(path,1)
             try:
-                self.losses(h,1)
+                self.losses(h,50)
                 def crash(stage):
                     if stage=='intent':raise RuntimeError('offline_fault')
                 h.controller.work.checkpoint=crash;before=h.controller._read('watched')
                 with self.assertRaises(RuntimeError):h.controller.work.clear_lost(before)
                 self.assertEqual(h.calls('clear_lost'),[])
                 h.controller=Controller(h.store,h.adapter,h.cache,config=h.config,ids=h.ids,clock=h.clock.clock,sleep=h.clock.sleep)
-                h.controller.resume();h.controller.step();self.assertEqual(h.calls('clear_lost'),[]);self.assertEqual(h.calls('bid'),[])
+                h.controller.resume()
+                for _ in range(2):h.controller.step()  # ACQUIRING (full) then MAINTENANCE
+                self.assertEqual(h.calls('clear_lost'),[]);self.assertEqual(h.calls('bid'),[])
                 self.assertEqual(h.store.db.execute('select state,dispatched_at from c4_work').fetchone(),('UNKNOWN',None))
             finally:h.close()
     def test_omitted_extra_or_stale_target_cannot_create_work_intent(self):

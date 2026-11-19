@@ -24,7 +24,11 @@ def record(*, historical=False):
             h.controller.step()
             for row in h.ea.rows:row.update(trade_state='closed',bid_state='outbid',expires=0)
             h.ea.credits=40000
-            final=h.controller.step()
+            # Settled management -> MAINTENANCE -> ACQUIRING, which halts at the
+            # threshold. Drive by phase, not by a fixed step count.
+            for _ in range(4):
+                final=h.controller.step()
+                if final['lifecycle']=='HALTED':break
             return dict(schema=1,classification='SYNTHETIC_OFFLINE_ONLY',
                 initial_confirmed_members=members,terminal_lost=h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='LOST'").fetchone()[0],
                 final={k:final[k] for k in ('phase','lifecycle','reason')},

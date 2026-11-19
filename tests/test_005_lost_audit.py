@@ -22,7 +22,11 @@ class LostAudit(unittest.TestCase):
         with tempfile.TemporaryDirectory() as path:
             h=Harness(path,1)
             try:
-                r=auction(123,15000,8000);r.update(trade_state='closed',bid_state='outbid',expires=-1,native_is_won=False);h.ea.manual=[r,auction(123,15000,8001)];h.controller.step()
+                # Cleanup happens only in MAINTENANCE once the watch list is full (49 lost + 1 active).
+                h.ea.manual=[]
+                for i in range(49):
+                    r=auction(123,15000,8000+i);r.update(trade_state='closed',bid_state='outbid',expires=-1,native_is_won=False);h.ea.manual.append(r)
+                h.ea.manual.append(auction(123,15000,8100));h.controller.step();h.controller.step()
                 ids=[r[0] for r in h.store.db.execute('select id from c4_commands')];e=Evidence(h.store.db,ids,{},live=False);result=audit_lost_cleanup(e);self.assertEqual(len(result['confirmed']),1)
                 cid=result['confirmed'][0];c,v=e.get(cid);after=json.loads(h.store.db.execute('select proof from c4_work where id=?',(cid,)).fetchone()[0])['after']['command_id']
                 for mode in ('wire','scope','target','effect'):

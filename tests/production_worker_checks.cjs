@@ -3,12 +3,13 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const hex=n=>n.toString(16).padStart(32,'0');
 const context={account:hex(1),persona:hex(2),game:'fc27',platform:'pc',identity_namespace:hex(3)};
 let owner={context,owner:hex(4),epoch:1},host=hex(5),document=hex(7),next=null,mode='ok';
-let stored={},executions=0,bulkExecutions=0,posts=[],badge='',files=[],personaOK=true,official=true;
+let stored={},local={},fingerprint=hex(77),queryTabs=null,executions=0,bulkExecutions=0,posts=[],badge='',files=[],personaOK=true,official=true;
 let controllerExecutions=0,controllerReads=0,controllerService=false;
-const listeners={},page={document,attach(c,f){return personaOK;},executeReadController(c){controllerReads++;return {command_id:c.id,safe:true};},executeController(c){controllerExecutions++;return {command_id:c.id,safe:true};},execute(c){executions++;return {command_id:c.id,safe:true};}};
+const listeners={},page={document,async personaFingerprint(c){return personaOK?fingerprint:null;},attach(c,f){return personaOK;},executeReadController(c){controllerReads++;return {command_id:c.id,safe:true};},executeController(c){controllerExecutions++;return {command_id:c.id,safe:true};},execute(c){executions++;return {command_id:c.id,safe:true};}};
 const chrome={
-  storage:{session:{async get(){return stored;},async set(v){Object.assign(stored,v);}}},
-  tabs:{async get(id){assert.equal(id,7);return {url:official?'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/':'https://evil.example/'};}},
+  storage:{session:{async get(){return stored;},async set(v){Object.assign(stored,v);}},local:{async get(){return local;},async set(v){Object.assign(local,v);}}},
+  tabs:{async get(id){assert.equal(id,7);if(stored.closed)throw Error('No tab');return {url:official?'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/':'https://evil.example/'};},
+    async query(q){assert(q.url.every(u=>u.startsWith('https://')&&u.includes('/ultimate-team/web-app/')));return queryTabs??[{id:7,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'}];}},
   action:{async setBadgeText(v){badge=v.text;},onClicked:{addListener(f){listeners.click=f;}}},
   alarms:{async create(){},onAlarm:{addListener(f){listeners.alarm=f;}}},
   scripting:{async executeScript(c){
@@ -69,6 +70,25 @@ const cmd=n=>({schema:2,id:hex(n),operation:'balance',params:{},fences:{}});
   await alarm();assert.equal(controllerExecutions,1,'controller commands are never replayed');
   controllerService=true;next={...cmd(30),operation:'search'};await alarm();
   assert.equal(controllerReads,1);assert.equal(executions,3,'controller shared reads use their explicit non-blocking seam');
+  // Continuity: an operator click recorded the persona fingerprint for this account.
+  assert.equal(local.personaFingerprints[context.account],fingerprint);controllerService=false;
+  const before=executions;
+  page.document=hex(9);next=cmd(31);await alarm();assert.equal(executions,before,'same owner epoch cannot rebind a reloaded document');
+  owner={...owner,epoch:3};fingerprint=hex(78);next=cmd(32);await alarm();
+  assert.equal(executions,before,'a different persona after reload is refused even with a newer epoch');
+  assert.equal(local.personaFingerprints[context.account],hex(77),'refused continuity never overwrites the operator binding');
+  fingerprint=hex(77);next=cmd(33);await alarm();assert.equal(executions,before+1,'newer epoch plus same persona rebinds without a click');
+  assert.equal(stored.productionDocument,hex(9));assert.equal(stored.productionEpoch,3);assert.equal(stored.productionMode,'continuity');
+  // Session state lost (extension/browser restart): rediscover the single official tab.
+  for(const k of Object.keys(stored))delete stored[k];
+  owner={...owner,epoch:4};next=cmd(34);await alarm();assert.equal(executions,before+2,'single official tab is rediscovered for a bound persona');
+  for(const k of Object.keys(stored))delete stored[k];
+  queryTabs=[{id:7,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'},{id:8,url:'https://www.ea.com/ea-sports-fc/ultimate-team/web-app/'}];
+  owner={...owner,epoch:5};next=cmd(35);await alarm();assert.equal(executions,before+2,'two official tabs are ambiguous');assert.equal(badge,'WAIT');
+  queryTabs=null;for(const k of Object.keys(stored))delete stored[k];local.personaFingerprints={};
+  next=cmd(36);await alarm();assert.equal(executions,before+2,'never-bound persona requires an explicit operator click');
+  next=null;
   assert(!JSON.stringify(posts).includes('SECRET_NATIVE_ERROR'));
+  assert(posts.filter(p=>p.path==='/hello'&&p.v.peer).every(p=>Object.keys(p.v.peer).sort().join()==='context,fences'),'fingerprint never leaves the extension');
   console.log('PASS production worker: explicit tab, local-only idle, fences, dropped ACK, no replay, reload requires rebind, persona and no secret retention');
 })().catch(e=>{console.error(e);process.exitCode=1;});

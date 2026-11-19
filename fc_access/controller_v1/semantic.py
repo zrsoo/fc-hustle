@@ -15,6 +15,8 @@ class SemanticLimits:
     helper_failures: int = 3
     diagnostic_failures: int = 3
     native_freshness: float = 90
+    # Tolerant mode only: stop when bids keep being denied with none accepted.
+    denial_window: float = 600
 
 
 def native_summary(command, response=None):
@@ -71,8 +73,14 @@ def native_summary(command, response=None):
 
 
 class SemanticHealth:
-    def __init__(self, limits=SemanticLimits(), *, clock=time.monotonic):
+    def __init__(self, limits=SemanticLimits(), *, clock=time.monotonic, tolerate_denials=False):
         self.limits, self.clock = limits, clock
+        # With tolerate_denials, a 461/403 bid denial is an ordinary no-effect
+        # outcome; only a denial run without any accepted bid for
+        # limits.denial_window seconds stops the runtime.
+        self.tolerate_denials = tolerate_denials
+        self.denied_bids = 0
+        self.denial_since = None
         self.started = clock()
         self.last_native_success = None
         self.read_failures = self.write_failures = self.auth_failures = 0
@@ -83,6 +91,11 @@ class SemanticHealth:
         self.batch_failures = 0
         self.helper_failures = 0
         self.diagnostic_failures = 0
+        # Consecutive bids the server denied with native 461 / service 403 while
+        # reads kept working. Evidence pairs this signature with a stale official
+        # document that a normal reload/sign-in restored; the stop reason itself
+        # stays PERSISTENT_WRITE_FAILURE and no bid outcome is inferred.
+        self.denial_streak = 0
         self.reason = None
 
     def observe(self, message):
@@ -114,9 +127,28 @@ class SemanticHealth:
                 op=message['operation']
                 self.write_streaks[op] = 0 if success else self.write_streaks.get(op,0)+1
                 self.write_failures = max(self.write_streaks.values())
+                denied = (not success and op == 'bid' and message['wire_statuses'] == [461] and
+                          message['service_status'] == 403 and message['receipt_verdict'] in (None, 'UNCONFIRMED'))
+                self.denial_streak = self.denial_streak+1 if denied else 0
+                if denied:
+                    self.denied_bids += 1
+                    if self.denial_since is None: self.denial_since = self.clock()
+                    if self.tolerate_denials:
+                        # Not a write failure in this mode; undo its streak count.
+                        self.write_streaks[op] -= 1
+                        self.write_failures = max(self.write_streaks.values())
+                elif success and op == 'bid':
+                    self.denial_since = None
+        elif message['kind'] == 'batch_result' and message.get('state') == 'MAINTENANCE_FAILED':
+            # Unconfirmed capacity cleanup; acquisition only sees CAPACITY_FULL.
+            self.batch_failures += 1
         elif message['kind'] == 'batch_result':
             self.batches += 1
-            self.batch_failures = self.batch_failures+1 if message.get('state') in {'READ_FAILED','OPERATION_FAILED','INVENTORY_UNKNOWN'} else 0
+            state = message.get('state')
+            # A full watch list neither proves progress nor is itself a fault:
+            # it leaves the failure streak unchanged until MAINTENANCE acts.
+            if state != 'CAPACITY_FULL':
+                self.batch_failures = self.batch_failures+1 if state in {'READ_FAILED','OPERATION_FAILED','INVENTORY_UNKNOWN'} else 0
             if message['confirmed']:
                 self.confirmed += message['confirmed']
                 self.unconfirmed_attempts = 0
@@ -137,13 +169,24 @@ class SemanticHealth:
             (self.unconfirmed_attempts, self.limits.unconfirmed_attempts, 'PERSISTENT_UNCONFIRMED_ACQUISITION')):
             if observed >= threshold:
                 self.reason = reason; return reason
+        if (self.tolerate_denials and self.denial_since is not None and
+                not 0 <= self.clock()-self.denial_since < self.limits.denial_window):
+            self.reason = 'PERSISTENT_BID_DENIAL'; return self.reason
         age = self.clock() - (self.last_native_success if self.last_native_success is not None else self.started)
         if not math.isfinite(age) or not 0 <= age <= self.limits.native_freshness:
             self.reason = 'NO_FRESH_NATIVE_SUCCESS'
         return self.reason
 
+    def recoverable(self):
+        """Only the evidenced stale-document signature, never other write faults."""
+        if (self.check() == 'PERSISTENT_WRITE_FAILURE' and self.denial_streak >= self.limits.write_failures and
+                self.read_failures == 0 and self.auth_failures == 0 and self.native_successes > 0):
+            return 'STALE_DOCUMENT_WRITE_DENIAL'
+        return None
+
     def snapshot(self):
-        return dict(reason=self.check(), native_successes=self.native_successes,
+        return dict(reason=self.check(),recoverable=self.recoverable(),denied_bids=self.denied_bids,
+                    denial_seconds=None if self.denial_since is None else self.clock()-self.denial_since, native_successes=self.native_successes,
                     native_success_age=None if self.last_native_success is None else self.clock()-self.last_native_success,
                     read_failures=self.read_failures, write_failures=self.write_failures,
                     auth_failures=self.auth_failures, missing_statuses=self.missing_statuses,

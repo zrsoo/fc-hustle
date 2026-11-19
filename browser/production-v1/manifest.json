@@ -1,9 +1,11 @@
 {
   "manifest_version": 3,
   "name": "FC27 production one-shot bridge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "permissions": ["activeTab", "scripting", "storage", "alarms"],
-  "host_permissions": ["http://127.0.0.1:8784/*"],
+  "host_permissions": ["http://127.0.0.1:8784/*",
+    "https://www.ea.com/ea-sports-fc/ultimate-team/web-app/*", "https://www.ea.com/*/ea-sports-fc/ultimate-team/web-app/*",
+    "https://ea.com/ea-sports-fc/ultimate-team/web-app/*", "https://ea.com/*/ea-sports-fc/ultimate-team/web-app/*"],
   "background": {"service_worker": "worker.js"},
   "action": {"default_title": "Attach production read-only bridge"}
 }

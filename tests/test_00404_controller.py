@@ -95,11 +95,11 @@ class Acceptance(unittest.TestCase):
 
     def test_1_exact_paid_win_moves_then_lists_at_stored_native_pair_and_hour(self):
         h=self.make();won(h);price=h.controller.journal.members()[0]['resale_price']
-        h.controller.step();self.assertEqual(effects(h),[('move',1)])
-        self.assertEqual(h.controller.status()['phase'],'MANAGING')
+        h.controller.step();self.assertEqual(effects(h),[],'MANAGING never writes resale/maintenance work')
+        self.assertEqual(h.controller.status()['phase'],'MAINTENANCE')
         h.controller.step();self.assertEqual(effects(h),[('list',1),('move',1)])
         self.assertEqual(h.controller.status()['phase'],'ACQUIRING')
-        self.assertEqual(len(h.calls('balance')),2)
+        self.assertEqual(len(h.calls('balance')),1,'no acquisition between move and list')
         resales=[];cleanups=[]
         for _,state,body,proof in self.work(h):
             c=json.loads(body);self.assertEqual(state,'CONFIRMED');self.assertIsNotNone(json.loads(proof)['after'])
@@ -114,7 +114,8 @@ class Acceptance(unittest.TestCase):
             else:
                 self.assertIn(c['operation'],{'move','list'});resales.append(c['operation'])
                 self.assertEqual((c['params']['starting_bid'],c['params']['buy_now_price'],c['params']['duration']),(11750,price,3600))
-        self.assertEqual(sorted(resales),['list','move']);self.assertEqual(len(cleanups),1)
+        # One lost target is far below watch capacity: no clear_lost at all.
+        self.assertEqual(sorted(resales),['list','move']);self.assertEqual(len(cleanups),0)
         self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='WON_ACCOUNTED'").fetchone()[0],1)
         self.assertEqual(h.ea.max_active,1)
 
@@ -129,8 +130,11 @@ class Acceptance(unittest.TestCase):
             if mode=='not_won':h.ea.rows[0]['native_is_won']=False
             if mode=='future_terminal':h.ea.rows[0]['expires']=50
             h.ea.manual=deepcopy(h.ea.rows)
-            h.controller.step();self.assertEqual(effects(h),[],mode)
-            self.assertEqual(h.controller.status()['phase'],'MANAGING')
+            for _ in range(3):h.controller.step()
+            self.assertEqual(effects(h),[],mode)
+            # Unverified wins stay members (ACTIVE when EA denies the win), never accounted.
+            self.assertEqual([m['state'] for m in h.controller.journal.members()],['ACTIVE' if mode=='not_won' else 'PENDING_WIN'],mode)
+            self.assertEqual(h.store.db.execute("SELECT count(*) FROM c4_members WHERE state='WON_ACCOUNTED'").fetchone()[0],0,mode)
 
     def test_1_bad_listing_readbacks_cannot_account_for_win_or_replay(self):
         for mode in ('price','duration','physical','trade','state','missing'):
@@ -144,9 +148,10 @@ class Acceptance(unittest.TestCase):
                 if mode=='trade':r['trade_id']=c['params']['trade_id']
                 if mode=='state':r['trade_state']='inactive'
                 if mode=='missing':h.ea.inventory=[]
-            h.ea.bad_after=corrupt;h.controller.step();h.controller.step()
+            h.ea.bad_after=corrupt
+            for _ in range(4):h.controller.step()
             self.assertEqual(effects(h),[('list',1),('move',1)],mode)
-            self.assertEqual(h.controller.status()['phase'],'MANAGING',mode)
+            self.assertEqual([m['state'] for m in h.controller.journal.members()],['PENDING_WIN'],mode)
             self.assertEqual(self.work(h)[1][1],'UNKNOWN')
 
     def inventory(self,h,sold=1,expired=1,active=1):
@@ -183,14 +188,19 @@ class Acceptance(unittest.TestCase):
     def test_2_urgent_rebid_precedes_resale_and_bulk_without_overlap_or_credits(self):
         h=self.make();h.controller.step();h.ea.rows[0].update(trade_state='closed',bid_state='highest',native_is_won=True,expires=0)
         h.ea.rows[1].update(bid_state='outbid',current_bid=200,expires=10);h.ea.owned=[dict(h.ea.rows[0]['item'],last_sale_price=150)];h.ea.manual=deepcopy(h.ea.rows)
-        self.inventory(h,sold=1,expired=0);n=len(h.ea.calls);h.controller.step()
+        self.inventory(h,sold=1,expired=0);n=len(h.ea.calls)
+        # While an auction is still active, MANAGING only reads and rebids.
+        for _ in range(3):h.controller.step()
         ops=[v['command']['operation'] for v in h.ea.calls[n:]]
-        self.assertLess(ops.index('bid'),ops.index('move'))
+        self.assertIn('bid',ops);self.assertNotIn('move',ops);self.assertNotIn('clear_sold',ops)
+        self.assertEqual(h.controller.status()['phase'],'MANAGING')
+        h.ea.rows[1].update(trade_state='closed',bid_state='outbid',expires=-1,native_is_won=False);h.ea.manual=deepcopy(h.ea.rows)
+        for _ in range(2):h.controller.step()
+        ops=[v['command']['operation'] for v in h.ea.calls[n:]]
+        writes=[op for op in ops if op in {'move','list','clear_sold','relist_all','clear_lost'}]
+        self.assertEqual(writes[:1],['move']);self.assertIn('clear_sold',writes)
+        self.assertLess(max(i for i,op in enumerate(ops) if op=='bid'),ops.index('move'))
         self.assertEqual(h.ea.max_active,1);self.assertEqual(len(h.calls('balance')),1)
-        h=self.make();h.controller.step();h.ea.rows[0].update(bid_state='outbid',current_bid=200,expires=10)
-        self.inventory(h,sold=1,expired=0);n=len(h.ea.calls);h.controller.step()
-        ops=[v['command']['operation'] for v in h.ea.calls[n:]]
-        self.assertLess(ops.index('bid'),ops.index('clear_sold'))
 
     def test_2_ambiguous_bulk_consumed_without_blocking_unrelated_work(self):
         h=self.make(1);self.inventory(h,sold=1,expired=0);h.ea.effect=False;h.ea.lose_reply=True
@@ -222,8 +232,11 @@ class Acceptance(unittest.TestCase):
             self.assertEqual(self.work(h)[0][1],'UNKNOWN')
 
     def test_5_current_caps_native_tick_duration_and_stored_policy_enforced_at_authority(self):
-        h=self.make();won(h);h.controller.step();captured=[]
-        with patch.object(h.controller.work,'dispatch',side_effect=lambda op,p:captured.append((op,p))):h.controller.step()
+        h=self.make();won(h);h.controller.step();captured=[];real=h.controller.work.dispatch
+        def capture(op,p):
+            if op=='move':return real(op,p)
+            captured.append((op,p))
+        with patch.object(h.controller.work,'dispatch',side_effect=capture):h.controller.step()
         self.assertEqual(captured[0][0],'list');op,p=captured[0]
         for key,value in (('buy_now_price',11750),('starting_bid',11500),('paid',999),('duration',7200),('owned_read_id',p['caps_read_id'])):
             bad=dict(p,**{key:value})
@@ -242,7 +255,12 @@ class Acceptance(unittest.TestCase):
         with self.assertRaises(ValueError):h.executor.execute(old.envelope(h.ids(),'balance',{}))
         h.ea.manual=deepcopy(h.ea.rows)
         for r in h.ea.rows:r.update(bid_state='outbid',current_bid=200)
-        h.ea.manual=deepcopy(h.ea.rows);h.controller.mapping_refresh_needed=True;h.controller.step()
+        h.ea.manual=deepcopy(h.ea.rows);h.controller.mapping_refresh_needed=True
+        # The empty reconnect watch list left both unmappable (MAPPING_LOST), so the
+        # cycle passes MAINTENANCE/ACQUIRING before MANAGING re-maps and rebids.
+        for _ in range(3):
+            if len(h.calls('bid'))==4:break
+            h.controller.step()
         self.assertEqual(len(h.calls('bid')),4)
 
     def test_4_every_durable_persistence_failure_prevents_native_mutation(self):

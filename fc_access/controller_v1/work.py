@@ -122,7 +122,8 @@ def validate(store, c):
     row=store.db.execute("SELECT body FROM c4_members WHERE trade_id=? AND state='PENDING_WIN'",(p['trade_id'],)).fetchone()
     if not row:raise ValueError('known_win_required')
     member=json.loads(row[0]);t=member['target']
-    if t!={k:p[k] for k in ('trade_id','item_id','definition_id')} or p['buy_now_price']!=member['resale_price']:
+    markup=getattr(store,'list_markup',0) if p.get('duration')==3600 and 'starting_bid' in p else 0
+    if t!={k:p[k] for k in ('trade_id','item_id','definition_id')} or not member['resale_price']<=p['buy_now_price']<=member['resale_price']+markup:
         raise ValueError('stored_policy_required')
     # Re-establish terminal physical ownership and cost at dispatch. There is no
     # inference from HTTP success, a balance delta or a market comparable.
@@ -280,6 +281,19 @@ class Work:
         state,proof=self.s.db.execute('SELECT state,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
         return json.loads(proof)['after'] if state=='CONFIRMED' else None
 
+    def lost_at_capacity(self):
+        """clear_lost only when the native watch list is at or over capacity."""
+        from .watch_capacity import slots
+        watched=self.c._read('watched')
+        if slots(watched)>0:return None
+        after=self.clear_lost(watched)
+        if after is None:
+            self.c.journal.metric(None,'LOST_TARGET_CLEANUP_UNCONFIRMED')
+            # Capacity stays full: repeated unconfirmed cleanup is wedged work.
+            report=getattr(self.s,'semantic_report',None)
+            if report:report(batch_id=None,state='MAINTENANCE_FAILED',confirmed=0,uncertain=0)
+        return after
+
     def win(self,m,proof):
         t=m['target'];s=self.s
         writes=[(cid,json.loads(body)['operation'],state) for cid,body,state in s.db.execute('SELECT id,body,state FROM c4_work') if json.loads(body)['params'].get('item_id')==t['item_id']]
@@ -296,11 +310,17 @@ class Work:
         win=moved['win'] if moved else self.c._read('watched')
         owned=self.c._read('owned_item',**t) if op=='move' else self.pile()
         rules=self.c.prices.load(key=CardKey(t['definition_id']))
-        pair=rules.validate_listing(m['resale_price'])
+        price=m['resale_price']
+        markup=self.c.config.list_markup
+        if markup:
+            # Greatest legal native tick <= resale + markup, within card limits.
+            raised=rules.floor(min(m['resale_price']+markup,rules.maximum))
+            if raised and raised>m['resale_price']:price=raised
+        pair=rules.validate_listing(price)
         if pair.status!='LISTABLE':
             self.c.journal.metric(m['batch_id'],'WIN_LISTING_PENDING',target=t,reason=pair.reason);return False
         params=dict(**t,paid=proof['paid'],owned_read_id=owned['command_id'],win_read_id=win['command_id'],
-            caps_read_id=rules.caps_read_id,starting_bid=pair.starting_bid,buy_now_price=m['resale_price'],duration=3600)
+            caps_read_id=rules.caps_read_id,starting_bid=pair.starting_bid,buy_now_price=price,duration=3600)
         cid=self.dispatch(op,params)
         return op=='list' and s.db.execute('SELECT state FROM c4_work WHERE id=?',(cid,)).fetchone()[0]=='CONFIRMED'
 

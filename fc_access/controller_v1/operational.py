@@ -135,7 +135,7 @@ class Runtime:
     """One exclusive parent. Separate immutable run directory consumes each ID."""
     def __init__(self,directory,task,generation,*,clock=time.monotonic):
         self.directory=Path(directory).resolve();self.task=task;self.generation=token(generation);self.clock=clock
-        self.stack=ExitStack();self.child=None;self.last_publish=None
+        self.stack=ExitStack();self.child=None;self.last_publish=None;self.recovery=None
 
     def __enter__(self):
         try:
@@ -170,16 +170,16 @@ class Runtime:
 
     def publish(self,monitor,state,reason=None,*,force=False):
         tick=self.clock()
-        if not force and self.last_publish is not None and tick-self.last_publish<1:return
-        self.last_publish=tick
+        if not force and self.last_publish is not None and tick-self.last_publish<1:return False
         semantics=monitor.semantic.snapshot() if monitor else None
         latest=dict(monitor.latest) if monitor else dict(stage='STARTING',tick=tick)
         recovering=semantics and any(semantics.get(k,0)>0 for k in
             ('read_failures','write_failures','auth_failures','helper_failures','diagnostic_failures','missing_statuses','batch_failures','unconfirmed_attempts'))
-        operational_state=(state if state!='RUNNING' else 'RECOVERING' if recovering else latest.get('phase','STARTING'))
+        operational_state=(state if state!='RUNNING' else 'DOCUMENT_RECOVERY' if self.recovery else 'RECOVERING' if recovering else latest.get('phase','STARTING'))
         value=dict(schema=1,task=self.task,generation=self.generation,supervisor=self.supervisor,child=self.child,
             started_mono=self.started,published_mono=tick,at=datetime.now(timezone.utc).isoformat(),
             state=state,operational_state=operational_state,reason=reason,latest=latest,semantic=semantics,
+            recovery=dict(self.recovery) if self.recovery else None,
             limits=vars(monitor.limits) if monitor else vars(Limits()),semantic_limits=vars(SemanticLimits()),log=self.log)
         # Keep generation-specific state as well as the restart-readable pointer.
         for target,path in (('run_state',self.run/'state.json'),('current_state',self.directory/'state.json')):
@@ -187,6 +187,56 @@ class Runtime:
             except (OSError,ValueError,TypeError) as error:
                 error.runtime_target=target
                 raise
+        # Throttle only after a complete publication, so a failed one is
+        # retried on the supervisor's next poll rather than a second later.
+        self.last_publish=tick
+        return True
+
+
+# The supervisor publishes about once a second and tolerates a bounded local
+# publication outage (Limits.publish_tolerance, 10s). Health must not report a
+# fault the supervisor itself still tolerates; a hung supervisor exceeds both.
+STATE_FRESHNESS=15
+# Mirrors Limits.recovery_window. A launch with refresh-on-start needs the
+# scheduler's startup_seconds to be at least STARTUP_REFRESH_SECONDS.
+RECOVERY_WINDOW=240
+STARTUP_REFRESH_SECONDS=180
+
+
+def read_state(directory,generation,*,deadline_seconds=2):
+    """Restart-readable pointer, else this generation's identical run copy.
+
+    Both are written by the same publication. A transient sharing denial on one
+    file is not runtime failure; absence never fabricates a state.
+    """
+    directory=Path(directory);deadline=time.monotonic()+deadline_seconds
+    while True:
+        error=other=None
+        for path in (directory/'state.json',directory/'runs'/generation/'state.json'):
+            try:value=read(path)
+            except (FileNotFoundError,PermissionError) as caught:error=error or caught;continue
+            if type(value) is not dict:raise ValueError('invalid_runtime_state')
+            if value.get('generation')==generation:return value
+            # The pointer may still name an older generation right after launch.
+            other=other or value
+        if time.monotonic()>=deadline:
+            if other is not None:return other
+            raise error
+        time.sleep(.05)
+
+
+def read_pointer(directory,*,deadline_seconds=2):
+    """The restart-readable pointer itself, retrying only transient denial.
+
+    Unlike read_state this never substitutes a run copy, so callers still see a
+    newer generation that replaced the pointer.
+    """
+    deadline=time.monotonic()+deadline_seconds
+    while True:
+        try:return read(Path(directory)/'state.json')
+        except PermissionError:
+            if time.monotonic()>=deadline:raise
+        time.sleep(.05)
 
 
 def evaluate(value,*,task,generation,now,owner_held,supervisor_alive,child_alive):
@@ -202,7 +252,16 @@ def evaluate(value,*,task,generation,now,owner_held,supervisor_alive,child_alive
         if value['state'] not in {'STARTING','RUNNING'}:return result('repair',value.get('reason') or 'RUNTIME_STOPPED')
         if not owner_held or not supervisor_alive:return result('repair','SUPERVISOR_OWNERSHIP_LOST')
         age=now-value['published_mono'];uptime=now-value['started_mono']
-        if not all(math.isfinite(v) for v in (age,uptime)) or not 0<=age<=5 or uptime<0:return result('repair','RUNTIME_STATE_STALE')
+        if not all(math.isfinite(v) for v in (age,uptime)) or not 0<=age<=STATE_FRESHNESS or uptime<0:return result('repair','RUNTIME_STATE_STALE')
+        recovery=value.get('recovery')
+        if recovery is not None:
+            # Bounded supervisor-owned document recovery: the old worker stopped
+            # cooperatively and a fresh one must prove a native success in time.
+            elapsed=now-recovery['started_mono']
+            if not math.isfinite(elapsed) or not 0<=elapsed<=RECOVERY_WINDOW:return result('repair','DOCUMENT_RECOVERY_TIMEOUT')
+            if recovery['initial'] is True:
+                return result('starting','STARTING_DOCUMENT_REFRESH') if uptime<=STARTUP_REFRESH_SECONDS else result('repair','STARTUP_REFRESH_TIMEOUT')
+            return result('healthy','DOCUMENT_RECOVERY')
         if not child_alive:
             if value['child'] is None and uptime<=90:return result('starting','STARTING_OWNED_WORKER')
             return result('repair','WORKER_OWNERSHIP_LOST')
@@ -222,7 +281,7 @@ def evaluate(value,*,task,generation,now,owner_held,supervisor_alive,child_alive
         if native_age is None or s['native_successes']==0:
             return result('starting','STARTING_NATIVE_VALIDATION') if uptime<=90 else result('repair','NO_FRESH_NATIVE_SUCCESS')
         if type(native_age) not in (int,float) or not math.isfinite(native_age) or native_age<0 or not 0<=native_age+age<=limits.native_freshness:return result('repair','NO_FRESH_NATIVE_SUCCESS')
-        if latest.get('lifecycle')!='RUNNING' or latest.get('phase') not in {'ACQUIRING','MANAGING'}:return result('repair','CONTROLLER_NOT_RUNNING')
+        if latest.get('lifecycle')!='RUNNING' or latest.get('phase') not in {'ACQUIRING','MANAGING','MAINTENANCE'}:return result('repair','CONTROLLER_NOT_RUNNING')
         return result('healthy',value['operational_state'])
     except (KeyError,TypeError,ValueError,OverflowError):return result('repair','INVALID_RUNTIME_STATE')
 
@@ -233,15 +292,7 @@ def health(directory,task,generation):
         # The scheduler can poll immediately after spawning the service, before
         # Python has published its first manifest (or replaced an old pointer).
         # Wait only for actual state; absence never fabricates STARTING/health.
-        deadline=time.monotonic()+2
-        while True:
-            try:value=read(Path(directory)/'state.json')
-            except (FileNotFoundError,PermissionError):
-                if time.monotonic()>=deadline:raise
-            else:
-                if type(value) is not dict or value.get('generation')==generation or time.monotonic()>=deadline:break
-            time.sleep(.05)
-        if type(value) is not dict:raise ValueError('invalid_runtime_state')
+        value=read_state(directory,generation)
         return evaluate(value,task=task,generation=generation,now=time.monotonic(),owner_held=held(directory),
                         supervisor_alive=same_process(value.get('supervisor')),child_alive=same_process(value.get('child')))
     except (OSError,ValueError,TypeError) as error:
@@ -257,7 +308,7 @@ def health(directory,task,generation):
 def stop(directory,task,generation,*,timeout=50):
     """Cooperative generation-bound request, never kill/HTTP/account operations."""
     directory=Path(directory).resolve();generation=token(generation)
-    try:value=read(directory/'state.json')
+    try:value=read_pointer(directory)
     except FileNotFoundError:
         if held(directory):raise ValueError('unknown_runtime_owner')
         return dict(status='stopped',generation=generation,diagnostic='NO_RUNTIME')
@@ -270,7 +321,10 @@ def stop(directory,task,generation,*,timeout=50):
     atomic(directory/'runs'/generation/'stop.json',dict(task=task,generation=generation,supervisor=supervisor))
     deadline=time.monotonic()+timeout
     while time.monotonic()<deadline:
-        current=read(directory/'state.json')
+        try:current=read(directory/'state.json')
+        except PermissionError:
+            # Transient Windows sharing denial; the stop deadline still bounds it.
+            time.sleep(.1);continue
         if current['generation']!=generation:raise ValueError('runtime_generation_changed_during_stop')
         if not same_process(supervisor) and not same_process(child) and not held(directory):
             return dict(status='stopped',generation=generation,diagnostic=current.get('reason') or 'OWNED_RUNTIME_EXITED')
@@ -285,6 +339,16 @@ def main(argv=None):
     parser.add_argument('--generation',required=True)
     parser.add_argument('--database');parser.add_argument('--cache');parser.add_argument('--context');parser.add_argument('--port',type=int)
     parser.add_argument('--epoch-floor',type=int,default=1)
+    # Interchangeable response to the bid-denial signature (measures.py).
+    parser.add_argument('--write-denial-measure',default='noop')
+    parser.add_argument('--auth-failure-measure',default='noop',help='noop or relogin (needs --recovery-config)')
+    # Private local JSON {"account_label": ...} outside Git, for sign-in measures.
+    # The label only filters Edge's saved sign-ins.
+    parser.add_argument('--recovery-config')
+    parser.add_argument('--refresh-on-start',action='store_true')
+    parser.add_argument('--maintenance-gap',type=float,default=0.0,help='seconds without bids after a maintenance write')
+    parser.add_argument('--margin',type=int,default=500,help='profit margin X in the bid cap')
+    parser.add_argument('--list-markup',type=int,default=0,help='list won items at resale + markup (legal tick)')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0
@@ -292,8 +356,13 @@ def main(argv=None):
         if not all((a.database,a.cache,a.context,a.port)) or not 1024<=a.port<=65535:raise ValueError('service_arguments_required')
         from .__main__ import next_owner_epoch
         next_owner_epoch(0,a.epoch_floor)
+        from .measures import measure
+        denial=measure(a.write_denial_measure,recovery_config=a.recovery_config)
+        startup=measure('relogin',recovery_config=a.recovery_config) if a.refresh_on_start else None
+        auth=measure(a.auth_failure_measure,recovery_config=a.recovery_config)
+        if auth.name not in {'noop','relogin'}:raise ValueError('invalid_auth_failure_measure')
         with Runtime(a.runtime_dir,a.task_key,a.generation) as runtime:
-            return supervise(a,runtime=runtime)
+            return supervise(a,runtime=runtime,denial_measure=denial,startup_refresh=startup,auth_measure=auth)
     except (OSError,ValueError,TimeoutError,KeyError,TypeError) as error:
         # Exception values may contain paths or OS/provider details. Only type
         # and a finite action outcome are emitted at this CLI boundary.

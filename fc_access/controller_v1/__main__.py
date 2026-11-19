@@ -92,7 +92,11 @@ def run_controller(a, supervision):
             adapter.executor.failure=supervision.failure
             server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
-            controller=Controller(server.store,adapter,cache);server.controller=controller
+            from dataclasses import replace
+            from .config import ControllerConfig
+            config=replace(ControllerConfig(),maintenance_gap=float(getattr(a,'maintenance_gap',0) or 0),
+                           margin=int(getattr(a,'margin',500)),list_markup=int(getattr(a,'list_markup',0) or 0))
+            controller=Controller(server.store,adapter,cache,config=config);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.
             controller.run(progress=supervision.state)

@@ -185,8 +185,9 @@ class WatchdogTests(unittest.TestCase):
                     self.assertEqual(packet['phase'],h.controller.journal.state()['phase'])
                     phases.append(packet['phase'])
                 h.ea.on_request=inspect
-                h.controller.run(steps=1,progress=s.state)
-                self.assertIn('MANAGING',phases);self.assertIn('ACQUIRING',phases)
+                h.controller.run(steps=3,progress=s.state)
+                order=[p for i,p in enumerate(phases) if i==0 or phases[i-1]!=p]
+                self.assertEqual(order[:3],['MANAGING','MAINTENANCE','ACQUIRING'])
             finally:h.close()
 
     def supervise_fixture(self,path,mode):

@@ -25,6 +25,17 @@ class Limits:
     lease: float = 10
     grace: float = 35
     poll: float = .5
+    # Local state publication may fail transiently (Windows sharing with an
+    # ordinary reader). Trading safety does not depend on it: the semantic
+    # monitor runs in this process. Stop only after a sustained outage.
+    publish_tolerance: float = 10
+    # Document recovery anti-loop limits only (see supervise). EA denials are
+    # not respected as a reason to stop trading (account-risk policy); these only
+    # stop a runtime that would otherwise just reload without ever trading.
+    recovery_spacing: float = 60
+    recovery_per_hour: int = 6
+    # From recovery start until the fresh worker's first native success.
+    recovery_window: float = 240
 
 
 def runtime_failure(error):
@@ -197,12 +208,25 @@ class Watchdog:
                 + (label(reason) if reason else f"stage {max(0,self.clock()-v['tick']):.0f}s"))
 
 
-def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime=None):
-    """Explicit run only. One worker, one status line, one retained event log.
+def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime=None,
+              denial_measure=None, startup_refresh=None, auth_measure=None):
+    """Explicit run only. One worker at a time, one status line, one event log.
 
-    No restart, notification service, web dashboard, account probe or trading
-    policy lives here. Tests inject a separate offline worker, never CLI flags.
+    No notification service, web dashboard, account probe or trading policy
+    lives here. When the worker stops on the bid-denial signature, the
+    interchangeable ``denial_measure`` (see measures.py; default no-op) decides
+    what is attempted. An inactive measure only logs the signature and the
+    runtime stops as before. An active one is attempted after the worker stops
+    cooperatively; on success a fresh worker starts with a higher owner epoch
+    and never replays uncertain work. ``startup_refresh``, an active measure,
+    is attempted once before the first worker. ``auth_measure``, when active,
+    is attempted the same way after a PERSISTENT_AUTH_FAILURE stop. A measure
+    with ``tolerate_denials`` keeps bidding through 461 denials instead.
+    Tests inject offline workers.
     """
+    from .measures import NoOpMeasure
+    denial_measure=denial_measure or NoOpMeasure()
+    tolerant=bool(getattr(denial_measure,'tolerate_denials',False))
     output=output or sys.stdout
     root=Path(arguments.database).resolve().parent/'watchdog-runs'
     root.mkdir(parents=True,exist_ok=True)
@@ -211,20 +235,30 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     log_path=directory/'events.jsonl'
     print(f'Watchdog log: {log_path}',file=output,flush=True)
     ctx=multiprocessing.get_context('spawn')
-    parent,child=ctx.Pipe()
-    worker_arguments=dict(vars(arguments),_fault_trace=str(directory/'python-fault.txt'))
-    process=ctx.Process(target=target,args=(child,worker_arguments,limits),name='fc-controller-v1')
-    monitor=Watchdog(limits,semantic=SemanticHealth())
+    parent=child=process=None
+    monitor=Watchdog(limits,semantic=SemanticHealth(tolerate_denials=tolerant))
     reason=None;forced=False;started=False;width=0;log_failed=False;output_failed=False;exit_code=None;alive=False
-    runtime_failed=False
+    runtime_failed=False;process_open=False
+    published_at=time.monotonic();publish_failures=0
+    workers=0;recoveries=[]
+    if runtime is not None:runtime.recovery=None
 
-    def publish(state,reason=None,*,force=False):
-        nonlocal runtime_failed
-        if runtime:
-            try:runtime.publish(monitor,state,reason,force=force)
-            except (OSError,ValueError,TypeError) as error:
-                if not runtime_failed:record('RUNTIME_PUBLISH_FAILED',state=state,**runtime_failure(error))
-                runtime_failed=True
+    def publish(state,reason=None,*,force=False,strict=None):
+        nonlocal runtime_failed,published_at,publish_failures
+        if not runtime:return
+        strict=force if strict is None else strict
+        try:written=runtime.publish(monitor,state,reason,force=force)
+        except (OSError,ValueError,TypeError) as error:
+            # Record the first failure of each outage with its finite identity.
+            if not publish_failures and not runtime_failed:record('RUNTIME_PUBLISH_FAILED',state=state,**runtime_failure(error))
+            publish_failures+=1
+            outage=time.monotonic()-published_at
+            if strict or not 0<=outage<=limits.publish_tolerance:runtime_failed=True
+        else:
+            if written is False:return  # throttled; nothing new was written
+            if publish_failures:
+                record('RUNTIME_PUBLISH_RECOVERED',failures=publish_failures,outage_seconds=round(time.monotonic()-published_at,3))
+            published_at=time.monotonic();publish_failures=0
 
     def display(state, reason=None):
         nonlocal width,output_failed
@@ -238,7 +272,7 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             try:
                 log.write(json.dumps(dict(at=datetime.now(timezone.utc).isoformat(),kind=kind,**fields))+'\n')
                 log.flush()
-                if kind in {'STARTED','STOP_REQUESTED','STOPPED','STOP_FAILED'}:os.fsync(log.fileno())
+                if kind in {'STARTED','STOP_REQUESTED','STOPPED','STOP_FAILED','WORKER_RESTARTED','DOCUMENT_RECOVERY_STARTED'}:os.fsync(log.fileno())
             except OSError:log_failed=True
 
         def drain():
@@ -249,60 +283,160 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             except (EOFError,OSError):return False
             return True
 
-        try:
+        def local_reason():
+            return ('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else
+                    'RUNTIME_STATE_FAILED' if runtime_failed else None)
+
+        def spawn():
+            nonlocal parent,child,process,monitor,started,workers,process_open
+            parent,child=ctx.Pipe()
+            trace=directory/('python-fault.txt' if not workers else f'python-fault-{workers}.txt')
+            process=ctx.Process(target=target,args=(child,dict(vars(arguments),_fault_trace=str(trace)),limits),name='fc-controller-v1')
+            # A fresh worker gets fresh semantic streaks; recovery stays published
+            # until it proves a new native success.
+            monitor=Watchdog(limits,semantic=SemanticHealth(tolerate_denials=tolerant))
             parent.send(dict(action='lease',tick=time.monotonic()))
-            process.start();started=True;child.close()
+            process.start();started=True;process_open=True;child.close()
             if runtime:runtime.bind(process.pid,log_path)
-            record('STARTED',pid=process.pid,limits=vars(limits),generation=runtime.generation if runtime else None)
+            if not workers:record('STARTED',pid=process.pid,limits=vars(limits),generation=runtime.generation if runtime else None)
+            else:record('WORKER_RESTARTED',pid=process.pid,worker=workers,generation=runtime.generation if runtime else None,mono=time.monotonic())
+            workers+=1
+
+        def watch():
             while True:
                 connected=drain()
-                reason=('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else 'RUNTIME_STATE_FAILED' if runtime_failed else monitor.check())
+                if runtime and runtime.recovery and monitor.semantic.native_successes>0:
+                    record('DOCUMENT_RECOVERY_COMPLETED',attempt=runtime.recovery['attempt'],native_successes=monitor.semantic.native_successes,mono=time.monotonic())
+                    runtime.recovery=None
+                reason=local_reason() or monitor.check()
+                if not reason and runtime and runtime.recovery and not 0<=time.monotonic()-runtime.recovery['started_mono']<=limits.recovery_window:
+                    reason='DOCUMENT_RECOVERY_TIMEOUT'
+                cause=None
                 if runtime:
                     reason=reason or runtime.stop_reason()
-                    publish('RUNNING' if monitor.latest.get('lifecycle')=='RUNNING' else 'STARTING',reason)
-                    if runtime_failed:reason='RUNTIME_STATE_FAILED'
-                if reason:break
-                if not connected or not process.is_alive():
-                    reason='PROCESS_EXIT';break
+                    cause=recoverable(reason)
+                    # Publish recovery before stopping the worker so a health
+                    # check never observes the recoverable fault as a stop.
+                    if cause:begin(*cause)
+                    publish('RUNNING' if monitor.latest.get('lifecycle')=='RUNNING' or runtime.recovery else 'STARTING',
+                            None if cause else reason,force=bool(cause),strict=False)
+                    if runtime_failed:reason='RUNTIME_STATE_FAILED';cause=None
+                if reason:return reason,cause
+                if not connected or not process.is_alive():return 'PROCESS_EXIT',None
                 try:parent.send(dict(action='lease',tick=time.monotonic()))
                 except OSError:
                     # The worker can exit between the drain and this send.
                     # Keep its final diagnostic instead of blaming the supervisor.
                     drain()
-                    reason=monitor.check() or 'PROCESS_EXIT';break
+                    return monitor.check() or 'PROCESS_EXIT',None
                 display('RUNNING')
                 time.sleep(limits.poll)
+
+        def stop_worker(reason,final):
+            nonlocal forced,alive,exit_code,process_open
+            display('STOPPING',reason)
+            record('STOP_REQUESTED' if final else 'WORKER_STOP_REQUESTED',reason=reason,**({} if final else dict(mono=time.monotonic())))
+            if final:publish('STOPPING',reason,force=True)
+            try:parent.send(dict(action='stop'))
+            except (OSError,EOFError):pass
+            # Stop takes effect at the dispatch/claim guards. Let the one
+            # already-issued request return; killing cannot undo an EA write.
+            process.join(limits.grace)
+            if process.is_alive():
+                forced=True;process.terminate();process.join(5)
+            if process.is_alive():process.kill();process.join(5)
+            drain()
+            alive=process.is_alive();exit_code=process.exitcode
+            if not final:record('WORKER_STOPPED' if not alive else 'STOP_FAILED',reason=reason,exit_code=exit_code,forced=forced,mono=time.monotonic())
+            parent.close()
+            if not alive:process.close();process_open=False
+
+        def recoverable(reason):
+            """(cause, measure) when an active measure should be attempted."""
+            if runtime is None:return None
+            if reason=='PERSISTENT_AUTH_FAILURE' and auth_measure is not None and auth_measure.active:
+                cause,measure='AUTH_FAILURE',auth_measure
+            elif reason=='PERSISTENT_WRITE_FAILURE':
+                cause,measure=monitor.semantic.recoverable(),denial_measure
+                if cause is None:return None
+                if not measure.active:
+                    record('WRITE_DENIAL_SIGNATURE',cause=cause,measure=measure.name);return None
+            else:return None
+            now=time.monotonic()
+            if sum(1 for t in recoveries if 0<=now-t<3600)>=limits.recovery_per_hour:refused='RECOVERY_BUDGET_EXHAUSTED'
+            elif recoveries and now-recoveries[-1]<limits.recovery_spacing:refused='DENIAL_PERSISTS_AFTER_RECOVERY'
+            else:return cause,measure
+            record('DOCUMENT_RECOVERY_REFUSED',cause=cause,refused=refused,recoveries=len(recoveries),measure=measure.name)
+            return None
+
+        def begin(cause,measure,*,initial=False):
+            recoveries.append(time.monotonic())
+            runtime.recovery=dict(started_mono=recoveries[-1],attempt=len(recoveries),cause=cause,initial=initial)
+            record('DOCUMENT_RECOVERY_STARTED',attempt=len(recoveries),cause=cause,initial=initial,
+                   measure=measure.name,mono=recoveries[-1])
+            return measure
+
+        def recover(measure):
+            """Attempts the begun measure while publishing it; returns a stop reason or None."""
+            cancel=threading.Event();box={}
+            def body():
+                try:box['result']=measure.attempt(cancel.is_set)
+                except Exception as error:box['result']=dict(outcome='FAILED',reason='RECOVERY_EXCEPTION',exception=type(error).__name__,steps=[])
+            thread=threading.Thread(target=body,name='fc-document-recovery',daemon=True);thread.start()
+            stop=None
+            try:
+                while thread.is_alive():
+                    stop=stop or local_reason() or runtime.stop_reason()
+                    if stop:cancel.set()
+                    publish('RUNNING',stop)
+                    display('RECOVERING',stop)
+                    thread.join(limits.poll)
+            except KeyboardInterrupt:
+                cancel.set();thread.join(60);stop='OPERATOR_STOP'
+            result=box.get('result') if type(box.get('result')) is dict else dict(outcome='FAILED',reason='RECOVERY_INCOMPLETE',steps=[])
+            outcome=result.get('outcome') if result.get('outcome') in {'READY','CHALLENGE','FAILED','CANCELLED'} else 'FAILED'
+            record('DOCUMENT_RECOVERY_RESULT',attempt=len(recoveries),outcome=outcome,mono=time.monotonic(),
+                   reason=result.get('reason') if type(result.get('reason')) is str else None,
+                   steps=result.get('steps') if type(result.get('steps')) is list else [])
+            if stop:return stop
+            if outcome=='READY':return None
+            return 'USER_SECURITY_CHALLENGE' if outcome=='CHALLENGE' else 'DOCUMENT_RECOVERY_FAILED'
+
+        try:
+            if startup_refresh is not None and runtime is not None:
+                reason=recover(begin('STARTUP_REFRESH',startup_refresh,initial=True))
+            if reason is None:spawn()
+            while reason is None:
+                reason,cause=watch()
+                if cause is None:break
+                stop_worker(reason,final=False)
+                if alive:break
+                reason=recover(cause[1])
+                if reason is None:spawn()
         except KeyboardInterrupt:reason='OPERATOR_STOP'
         except BaseException as error:
             reason='SUPERVISOR_EXCEPTION'
             record('EXCEPTION',exception=type(error).__name__)
         finally:
-            if started:
+            if runtime is not None:runtime.recovery=None
+            if process_open:
+                stop_worker(reason,final=True)
+            elif started:
+                # The last worker already stopped for recovery that did not succeed.
                 display('STOPPING',reason)
                 record('STOP_REQUESTED',reason=reason)
                 publish('STOPPING',reason,force=True)
-                try:parent.send(dict(action='stop'))
-                except (OSError,EOFError):pass
-                # Stop takes effect at the dispatch/claim guards. Let the one
-                # already-issued request return; killing cannot undo an EA write.
-                process.join(limits.grace)
-                if process.is_alive():
-                    forced=True;process.terminate();process.join(5)
-                if process.is_alive():process.kill();process.join(5)
-                drain()
-                alive=process.is_alive()
-                exit_code=process.exitcode
+            if started:
                 record('STOPPED' if not alive else 'STOP_FAILED',reason=reason,
                        exit_code=exit_code,forced=forced)
-                publish('STOPPED' if not alive else 'STOP_FAILED',reason,force=True)
-                display('STOPPED' if not alive else 'STOP_FAILED',reason)
             else:
                 record('STOPPED',reason=reason,worker_started=False)
-                publish('STOPPED',reason,force=True)
-                display('STOPPED',reason)
+            publish('STOPPED' if not alive else 'STOP_FAILED',reason,force=True)
+            display('STOPPED' if not alive else 'STOP_FAILED',reason)
             try:print(file=output,flush=True)
             except OSError:pass
-            parent.close();child.close()
-            if started and not process.is_alive():process.close()
-    return 0 if (not log_failed and not output_failed and not runtime_failed and not forced and not alive and exit_code==0 and
+            if parent is not None:parent.close()
+            if child is not None:child.close()
+    return 0 if (not log_failed and not output_failed and not runtime_failed and not forced and not alive and
+                 started and exit_code==0 and
                  reason in {'OPERATOR_STOP','OPERATOR_STOPPED','OPERATOR_PAUSED','OPERATIONAL_STOP'}) else 1

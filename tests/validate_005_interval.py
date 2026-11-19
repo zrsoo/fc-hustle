@@ -14,11 +14,13 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from fc_access.controller_v1.operational import health,read
+from fc_access.controller_v1.operational import STATE_FRESHNESS,health,read
 from fc_access.controller_v1.protocol import delivery_response
 
 TASK='obj-cb39371c785a/operate'
 REQUIRED=14400
+RESTART_EVENTS={'WORKER_STOP_REQUESTED','WORKER_STOPPED','DOCUMENT_RECOVERY_STARTED','DOCUMENT_RECOVERY_RESULT',
+                'DOCUMENT_RECOVERY_COMPLETED','WORKER_RESTARTED'}
 
 
 def need(value,reason):
@@ -40,7 +42,8 @@ def validate_samples(samples,natives,verified,*,generation,epoch,gap_limit=90):
         ticks.append(tick)
         index=bisect_right(native_ticks,tick)-1
         need(index>=0 and 0<=tick-native_ticks[index]<=90,'life_only_or_no_fresh_native_success')
-        need(abs((tick-samples[0]['published_mono'])-(healthy-samples[0]['healthy_seconds']))<=5,'scheduler_monotonic_counter_mismatch')
+        # A sample may lag publication by at most the health freshness bound.
+        need(abs((tick-samples[0]['published_mono'])-(healthy-samples[0]['healthy_seconds']))<=STATE_FRESHNESS,'scheduler_monotonic_counter_mismatch')
     span=ticks[-1]-ticks[0]
     need(span>=REQUIRED and samples[-1]['healthy_seconds']>=REQUIRED,'four_hour_interval_incomplete')
     return dict(seconds=span,samples=len(samples),generation=generation,epoch=epoch,
@@ -69,11 +72,11 @@ def retained_interval(runtime_dir=None,orchestrator=None):
                 need(report['status']=='healthy' and report['generation']==generation and observed_epoch==epoch,'final_interval_contains_restart_or_fault')
                 evidence=report['evidence'][0]
                 samples.append(dict(status=report['status'],generation=generation,epoch=observed_epoch,
-                    healthy_seconds=healthy,published_mono=evidence['published_mono']))
+                    healthy_seconds=healthy,published_mono=evidence['published_mono'],diagnostic=report.get('diagnostic')))
                 if len(samples)>1 and samples[0]['published_mono']-samples[-1]['published_mono']>=REQUIRED:
                     done=True;break
         samples.reverse()
-        need(0<=row[4]-samples[-1]['published_mono']<=5,'scheduler_sample_not_current')
+        need(0<=row[4]-samples[-1]['published_mono']<=STATE_FRESHNESS,'scheduler_sample_not_current')
     finally:db.close()
     # Snapshot only complete log lines; the healthy service continues running.
     path=Path(value['log']);size=path.stat().st_size
@@ -84,6 +87,13 @@ def retained_interval(runtime_dir=None,orchestrator=None):
     started=[e for e in events if e['kind']=='STARTED']
     need(len(started)==1 and started[0]['generation']==generation,'watchdog_generation_not_bound')
     need(not any(e['kind'] in {'STOP_REQUESTED','STOPPED','STOP_FAILED','EXCEPTION'} for e in events),'final_watchdog_generation_faulted')
+    # A bounded document recovery restarts the worker inside the generation. The
+    # objective resets the healthy interval on any restart, so the final interval
+    # must begin after the last recovery/restart and its completion.
+    restarts=[e for e in events if e['kind'] in RESTART_EVENTS]
+    need(all(type(e.get('mono')) in (int,float) for e in restarts),'restart_event_without_monotonic_tick')
+    need(all(e['mono']<samples[0]['published_mono'] for e in restarts),'final_interval_contains_worker_restart')
+    need(all(s.get('diagnostic')!='DOCUMENT_RECOVERY' for s in samples),'final_interval_contains_document_recovery')
     natives=[e['message'] for e in events if e['kind']=='WORKER' and e['message']['kind']=='native_result']
     need(len({n['command_id'] for n in natives})==len(natives),'duplicate_native_dispatch')
     # Independently parse actual source envelopes at their original timestamps.

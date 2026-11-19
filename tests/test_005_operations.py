@@ -16,7 +16,7 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'tests')]
 from controller_policy_fixture import Harness
-from fc_access.controller_v1.operational import Runtime,identity,same_process,evaluate,health,stop,read,state_stream,atomic
+from fc_access.controller_v1.operational import Runtime,identity,same_process,evaluate,health,stop,read,state_stream,atomic,STATE_FRESHNESS
 from fc_access.controller_v1.watchdog import Supervision,SupervisionLost,Watchdog,Limits,supervise
 from fc_access.controller_v1.semantic import SemanticHealth
 
@@ -234,7 +234,9 @@ class OperationsTests(unittest.TestCase):
         base=self.fixture_state()
         def check(v,**kwargs):return evaluate(v,task=TASK,generation=GEN,now=100.,owner_held=True,supervisor_alive=True,child_alive=True,**kwargs)
         self.assertEqual(check(base)['status'],'healthy')
-        for mutate in (lambda v:v.update(published_mono=90),lambda v:v.update(generation='b'*32),
+        boundary=deepcopy(base);boundary.update(published_mono=100-STATE_FRESHNESS)
+        self.assertEqual(check(boundary)['status'],'healthy')
+        for mutate in (lambda v:v.update(published_mono=100-STATE_FRESHNESS-.5),lambda v:v.update(published_mono=101),lambda v:v.update(generation='b'*32),
                        lambda v:v['semantic'].update(read_failures=3),lambda v:v['semantic'].update(helper_failures=3),
                        lambda v:v['semantic'].update(native_success_age=91),lambda v:v['semantic'].update(native_success_age=-1),
                        lambda v:v['semantic'].update(native_successes=True),lambda v:v['semantic'].update(native_successes=0,native_success_age=None),
@@ -253,13 +255,57 @@ class OperationsTests(unittest.TestCase):
             before={p.pid for p in multiprocessing.active_children()}
             with Runtime(Path(path)/'owner',TASK,GEN) as runtime:
                 with patch.object(runtime,'publish',side_effect=OSError('fixture_disk_full')):
-                    code=supervise(args,target=offline_worker,runtime=runtime,limits=replace(Limits(),poll=.01,grace=2),output=io.StringIO())
+                    started=time.monotonic()
+                    code=supervise(args,target=offline_worker,runtime=runtime,limits=replace(Limits(),poll=.01,grace=2,publish_tolerance=.3),output=io.StringIO())
+                    # A sustained outage is tolerated only for the bounded window.
+                    self.assertGreaterEqual(time.monotonic()-started,.3)
             self.assertEqual(code,1);self.assertEqual({p.pid for p in multiprocessing.active_children()},before)
             rows=[json.loads(line) for line in next(fixture.glob('watchdog-runs/*/events.jsonl')).read_text().splitlines()]
             self.assertEqual(rows[-1]['kind'],'STOPPED');self.assertEqual(rows[-1]['reason'],'RUNTIME_STATE_FAILED')
             failures=[row for row in rows if row['kind']=='RUNTIME_PUBLISH_FAILED']
             self.assertEqual(len(failures),1);self.assertEqual(failures[0]['exception'],'OSError')
             self.assertNotIn('fixture_disk_full',json.dumps(rows))
+
+    def test_transient_runtime_state_failure_is_tolerated_and_recovery_is_recorded(self):
+        from test_controller_watchdog import offline_worker
+        with tempfile.TemporaryDirectory() as path:
+            fixture=Path(path)/'fixture';fixture.mkdir()
+            args=Namespace(database=str(fixture/'fixture.sqlite'),fixture=str(fixture),mode='cooperative')
+            with Runtime(Path(path)/'owner',TASK,GEN) as runtime:
+                original=runtime.publish;started=time.monotonic();failed=[0]
+                def flaky(*a,**k):
+                    if time.monotonic()-started<.4 and not k.get('force'):
+                        failed[0]+=1;error=PermissionError(13,'SECRET_CANARY','C:/SECRET_CANARY');error.winerror=32;raise error
+                    return original(*a,**k)
+                stop_after=lambda:'OPERATIONAL_STOP' if time.monotonic()-started>1.2 else None
+                with patch.object(runtime,'publish',side_effect=flaky),patch.object(runtime,'stop_reason',side_effect=stop_after):
+                    code=supervise(args,target=offline_worker,runtime=runtime,
+                                   limits=replace(Limits(),poll=.01,grace=2,publish_tolerance=.8),output=io.StringIO())
+                final=read(runtime.directory/'state.json')
+            self.assertGreater(failed[0],1)
+            self.assertEqual(code,0)
+            self.assertEqual((final['state'],final['reason']),('STOPPED','OPERATIONAL_STOP'))
+            rows=[json.loads(line) for line in next(fixture.glob('watchdog-runs/*/events.jsonl')).read_text().splitlines()]
+            self.assertEqual(rows[-1]['kind'],'STOPPED');self.assertEqual(rows[-1]['reason'],'OPERATIONAL_STOP')
+            failures=[row for row in rows if row['kind']=='RUNTIME_PUBLISH_FAILED']
+            recovered=[row for row in rows if row['kind']=='RUNTIME_PUBLISH_RECOVERED']
+            self.assertEqual(len(failures),1);self.assertEqual(failures[0]['winerror'],32)
+            self.assertEqual(len(recovered),1);self.assertGreater(recovered[0]['failures'],1)
+            self.assertGreater(recovered[0]['outage_seconds'],0)
+            self.assertNotIn('CANARY',json.dumps(rows))
+
+    def test_health_reads_generation_run_copy_when_pointer_is_denied(self):
+        from fc_access.controller_v1 import operational as module
+        base=self.fixture_state();pointer=Path('unused')/'state.json'
+        def denied_pointer(path):
+            if Path(path)==pointer:raise PermissionError('SECRET_CANARY')
+            self.assertEqual(Path(path),Path('unused')/'runs'/GEN/'state.json');return deepcopy(base)
+        with patch.object(module,'read',side_effect=denied_pointer),patch.object(module,'held',return_value=True),patch.object(module,'same_process',return_value=True),patch.object(module.time,'monotonic',return_value=100):
+            self.assertEqual(health('unused',TASK,GEN)['status'],'healthy')
+        # A newer generation in the pointer is still seen by stop, never masked.
+        newer=deepcopy(base);newer['generation']='b'*32
+        with patch.object(module,'read',side_effect=[PermissionError('SECRET_CANARY'),newer]):
+            with self.assertRaises(ValueError):stop('unused',TASK,GEN,timeout=1)
 
 
 if __name__=='__main__':

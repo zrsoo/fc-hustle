@@ -34,7 +34,8 @@ class WatchCapacityTests(unittest.TestCase):
             try:
                 self.occupied(h,50);h.controller.step();self.assertEqual(h.calls('bid'),[])
                 self.assertEqual(h.controller.journal.state()['lifecycle'],'RUNNING')
-                self.occupied(h,0);h.controller.step();self.assertEqual(len(h.calls('bid')),10)
+                self.assertEqual(h.controller.status()['phase'],'MAINTENANCE')
+                self.occupied(h,0);h.controller.step();h.controller.step();self.assertEqual(len(h.calls('bid')),10)
             finally:h.close()
     def test_absent_capacity_and_corrupt_count_grant_no_write_authority(self):
         for mode in ('missing','count','scope'):

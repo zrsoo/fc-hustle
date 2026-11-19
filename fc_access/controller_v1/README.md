@@ -55,8 +55,14 @@ not an acquisition or management-cycle budget. Long batches and the documented
 The watchdog also stops if its own status output or event log fails.
 
 Runtime snapshot replacement retries only Windows sharing/access errors5/32/33
-for at most one second per file. Other errors fail immediately; persistent
-publication failures still stop the owned worker. The first failure is retained
+for at most one second per file. A failed publication is retried on the next
+0.5-second poll; the worker is stopped only after `publish_tolerance` (10s)
+without a complete publication, or when a final STOPPING/STOPPED publication
+fails. Trading safety does not depend on publication: semantic stops run in the
+supervisor itself. Health accepts state up to 15s old (`STATE_FRESHNESS`) and
+reads the generation's identical `runs/<generation>/state.json` copy when the
+pointer is momentarily locked. RUNTIME_PUBLISH_RECOVERED records the failure
+count and outage length after a tolerated outage. The first failure is retained
 as RUNTIME_PUBLISH_FAILED with a finite exception class,errno/winerror and known
 write/replace/cleanup stage and run/current snapshot target. Exception messages,
 paths and arbitrary attributes are excluded. This local retry never retries an
@@ -76,7 +82,141 @@ Existing admission/identity/persistence checks remain in the controller; this
 watchdog does not duplicate the trading engine or detect every possible logic
 error. Repeated handled operation failures can keep reporting progress and need
 inspection of the normal controller journal. No GUI, desktop notifications,
-additional EA polling, recovery automation or new trading policy is introduced.
+additional EA polling or new trading policy is introduced. The only automation is
+the selectable bid-denial measure below (default no-op).
+
+## Phase cycle: ACQUIRING -> MANAGING -> MAINTENANCE
+
+Each phase owns its account writes so they never interleave:
+
+- `ACQUIRING`: balance/discovery/pricing/capacity reads and initial bids only. A
+  full watch list (native count >= capacity, 50) is a `CAPACITY_FULL` outcome;
+  acquisition never clears it. No members -> `MAINTENANCE`, else `MANAGING`.
+- `MANAGING`: 5-second status/rebid cycles, reads and rebids only. It hands off
+  to `MAINTENANCE` once no auction is active and every win has terminal proof.
+- `MAINTENANCE`: one pass, each check writing only when needed: verified wins
+  are moved then listed (same pass); `clear_sold` when sold items exist;
+  `relist_all` when the hourly tick is due; `clear_lost` only when the watch
+  list is at or over capacity. Then `ACQUIRING`.
+
+`--maintenance-gap S` (service; local monitor default 120): no bid for S seconds
+after the last dispatched maintenance write, measured from the durable `c4_work`
+record so a restart cannot shorten it. While held, the controller waits in
+supervised one-second slices (at most 30s per step) and reads balance to keep
+native freshness; it never writes. A no-op maintenance pass starts no gap.
+
+`CAPACITY_FULL` batches are neutral for the semantic failure streak; an
+unconfirmed at-capacity cleanup reports `MAINTENANCE_FAILED`, and three in a row
+stop the runtime (PERSISTENT_ACQUISITION_FAILURE) instead of looping.
+
+## Bid-denial measures (interchangeable; default `noop`)
+
+Objective 005 evidence: native 461 / service 403 bid denials arrive in session-
+wide bursts (every bid in the batch, on valid active auctions with fresh status)
+while reads keep succeeding. A normal reload/sign-in restored bidding each time,
+but the last run (stage18, epoch 36) was denied again ten minutes after a fresh
+sign-in, so a stale document is not the whole explanation; an EA-side throttle
+is equally consistent. The cause is open, so the response is pluggable.
+
+The semantic monitor still stops on PERSISTENT_WRITE_FAILURE and marks it
+`recoverable=STALE_DOCUMENT_WRITE_DENIAL` only when the failing streak is
+consecutive bid denials with that exact wire/service status, reads/auth healthy
+and at least one native success. Any other write fault stops as before. What is
+then attempted is the `--write-denial-measure` (`measures.py`):
+
+- `noop` (default): attempts nothing. WRITE_DENIAL_SIGNATURE is logged with the
+  measure name and the runtime stops on PERSISTENT_WRITE_FAILURE, as before.
+- `relogin` (needs `--recovery-config`): the supervisor
+  1. publishes `recovery` / `DOCUMENT_RECOVERY` state *before* stopping anything,
+     so health reports `healthy` + `DOCUMENT_RECOVERY`, never the fault;
+  2. cooperatively stops the worker (uncertain bids stay UNKNOWN, never replayed);
+  3. runs `recovery.py` / `recovery.ps1`: reload the official tab, then one
+     allowlisted control per observed screen (Login, saved-account selection,
+     NEXT, SIGN IN, Continue) until the loaded app is seen twice. Deadline 150s,
+     three clicks per control. CAPTCHA/2FA/verification text stops with
+     USER_SECURITY_CHALLENGE; unknown pages or exhausted budgets with
+     DOCUMENT_RECOVERY_FAILED. No password, cookie, token or field value is
+     read; the account label only filters Edge's saved sign-in suggestions and
+     is never written to evidence;
+  4. starts a fresh worker with a higher owner epoch. The extension rebinds the
+     reloaded document only for that newer epoch **and** a matching persona
+     fingerprint (keyed digest of the selected persona's game id, recorded at
+     the last explicit operator click). Recovery ends at the new worker's first
+     native success, which must happen within 240s (`recovery_window`).
+
+  Account-risk policy (AGENTS.md): EA denials are accepted risks, so an active
+  measure repeats as needed with anti-loop limits only: a denial burst within
+  60s of the previous attempt stops (DENIAL_PERSISTS_AFTER_RECOVERY) and more
+  than six attempts in a rolling hour stops (RECOVERY_BUDGET_EXHAUSTED).
+
+- `continue`: bid through denials. A bid answered with exactly wire 461 /
+  service 403 / empty native receipt is recorded as `DENIED`, a no-effect
+  outcome (reads after denials never showed our participation), not UNKNOWN; it
+  feeds neither the write-failure nor the unconfirmed-acquisition streaks, the
+  batch goes on and the auction is not bid on again. The runtime stops with
+  PERSISTENT_BID_DENIAL only after `SemanticLimits.denial_window` (600s) from the
+  first denial without any accepted bid; an accepted bid resets the window.
+
+`--auth-failure-measure relogin` (needs `--recovery-config`) attempts the
+sign-in measure after a PERSISTENT_AUTH_FAILURE (401) stop and then starts a
+fresh worker, under the same anti-loop limits; `noop` (default) stops as before.
+
+A new measure implements `name`, `active` and `attempt(cancelled)` returning
+`dict(outcome=READY|CHALLENGE|FAILED|CANCELLED, reason, steps)` and is registered
+in `MEASURES`. Every step is in the watchdog log (WRITE_DENIAL_SIGNATURE,
+DOCUMENT_RECOVERY_* with the measure name, WORKER_* with monotonic ticks).
+
+`--refresh-on-start` (needs `--recovery-config`) attempts the `relogin` measure
+once before the first worker, independent of the denial measure. Health reports
+`starting` meanwhile, so a scheduler's `startup_seconds` must be at least 180.
+Sign-in measures need an unlocked interactive desktop and briefly take the Edge
+foreground; if they cannot, they fail closed and the runtime stops as before.
+The interval validator requires the final four hours to begin after the last
+recovery/restart, matching the objective's reset rule.
+
+Setup for sign-in measures: keep `{"account_label": "<saved Edge sign-in
+account>"}` in a private file outside Git (e.g.
+`private-captures/controller-v1/recovery.json`), reload the unpacked extension
+once (version 1.1.0 adds host access to the Web App URL only) and click it once
+on the official tab to record the persona fingerprint.
+
+```powershell
+python -m fc_access.controller_v1.operational service --runtime-dir private-captures/controller-v1/operational --task-key <task> --generation <32-hex> --database private-captures/controller-v1/controller.sqlite --cache private-captures/controller-v1/quotes.sqlite --context private-captures/controller-v1/public-context.json --port 8784 --epoch-floor <n> --write-denial-measure noop
+```
+
+Planned measure (on the radar, not implemented): `cooldown` - on the signature,
+wait five minutes, mark every ongoing (unconfirmed) bid of the stopped worker as
+failed, then resume normally with a fresh worker.
+
+## Local fix-loop monitor
+
+Runs without the orchestrator or any AI quota. `local_monitor.py` launches a new
+service generation and a detached watcher. The watcher calls the same health
+check every `--interval` seconds (default 30). On any fault, or `starting`
+beyond the startup grace, it performs the owned cooperative stop once, appends
+an incident and exits. It never restarts anything: whoever checks in diagnoses,
+fixes, runs the regressions and launches the next generation. Consecutive
+healthy seconds are counted per sample (same generation, gap at most
+2*interval+10s). Launch intents are journaled before spawn; each launch is a new
+generation with an epoch floor above the database and every previous launch.
+
+```powershell
+python -m fc_access.controller_v1.local_monitor launch --measure continue --auth-measure relogin --recovery-config private-captures/controller-v1/recovery.json --maintenance-gap 0 --note "why this run"
+python -m fc_access.controller_v1.local_monitor status
+python -m fc_access.controller_v1.local_monitor follow   # read-only live view; closing it stops nothing
+python -m fc_access.controller_v1.local_monitor stop
+```
+
+`status` prints the launch, watcher liveness, last health sample and longest
+healthy run, runtime state and semantic counters, bid totals (accepted / 461),
+the incident if any, the latest non-routine watchdog events with the path to
+the full log, and controller-only trading results (won and listed, relisted,
+sold, realized profit after EA's 5% tax, unsold at buy-now) for this run,
+since the first local launch and all time. Files: `private-captures/controller-v1/local-monitor/`
+(`launches.jsonl`, `samples-<generation>.jsonl`, `incidents.jsonl`, service and
+watcher logs). `launch` refuses while a runtime owns its lock or a watcher is
+alive. A launcher inside a Windows job that forbids breakaway gets
+`outside_caller_job: false`: its processes may die with that job.
 
 Pause/stop persist lifecycle withdrawal, invalidate queued delivery and drain the
 serialized in-flight call before acknowledging quiescence. They retain phase,

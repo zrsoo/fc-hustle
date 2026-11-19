@@ -46,14 +46,25 @@ class WinRecovery(unittest.TestCase):
         def withdraw(c):
             if c['operation']=='move':
                 h.ea.manual=[];h.ea.rows=[];h.ea.full.clear()
-        h.ea.after_effect=withdraw;h.controller.step()
+        h.ea.after_effect=withdraw;real=h.controller.work.dispatch
+        # MAINTENANCE moves then lists in one pass; defer the listing so these
+        # tests still exercise a later pass after the watch row disappears.
+        def defer_list(op,p):
+            if op=='list':raise RuntimeError('fixture_defers_listing')
+            return real(op,p)
+        with patch.object(h.controller.work,'dispatch',side_effect=defer_list):
+            h.controller.step();h.controller.step()  # MANAGING -> MAINTENANCE (move)
         self.assertEqual(effects(h),[('move',1)])
         h.clock.value+=45;h.ea.save();return target
+
+    def next_maintenance(self,h):
+        # ACQUIRING -> MANAGING (moved win needs no status) -> MAINTENANCE.
+        for _ in range(3):h.controller.step()
 
     def test_claimed_auction_lists_after_watch_disappears_and_terminal_read_ages(self):
         path=self.directory()
         h=self.make(path);target=self.claimed(h);count=len(h.ea.calls)
-        h.controller.step()
+        self.next_maintenance(h)
         self.assertEqual(effects(h),[('list',1),('move',1)])
         self.assertFalse(any(c['command']['operation']=='status_batch' and target in c['command']['params']['targets'] for c in h.ea.calls[count:]))
         move=h.calls('move')[0]['command'];listing=h.calls('list')[0]['command']
@@ -93,7 +104,7 @@ class WinRecovery(unittest.TestCase):
                         if c['operation']=='caps':v['result']['caps']['maximum']=100
                         return v
                     h.ea.shared=limited
-                h.controller.step();h.controller.step()
+                self.next_maintenance(h);self.next_maintenance(h)
                 self.assertEqual(effects(h),[('move',1)])
                 self.assertFalse(h.calls('list'))
 
@@ -116,7 +127,7 @@ class WinRecovery(unittest.TestCase):
                 else:
                     # Simulate absent dispatch lineage, not an ACK-based win.
                     with h.store.db:h.store.db.execute('DELETE FROM c4_tombstones')
-                h.controller.step()
+                self.next_maintenance(h)
                 self.assertEqual(effects(h),[('move',1)]);self.assertFalse(h.calls('list'))
 
 

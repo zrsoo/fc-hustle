@@ -121,7 +121,7 @@ class HelperFailureTests(unittest.TestCase):
                     return shared(c,at)
                 h.ea.shared=broken
                 h.executor.result=lambda c,v:s.observe(dict(kind='native_result',**native_summary(c,v)))
-                h.controller.run(steps=3)
+                h.controller.run(steps=5)  # three acquisitions with MAINTENANCE between
                 self.assertEqual(s.check(),'PERSISTENT_HELPER_FAILURE');self.assertEqual(h.calls('bid'),[])
             finally:h.close()
 

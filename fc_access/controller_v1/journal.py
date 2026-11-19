@@ -11,9 +11,10 @@ from .store import encode
 class BatchJournal:
     def __init__(self, store):
         self.store, self.db = store, store.db
+        self._migrate_phase_check()
         self.db.executescript('''
           CREATE TABLE IF NOT EXISTS c4_controller(singleton INTEGER PRIMARY KEY CHECK(singleton=1),
-            phase TEXT NOT NULL CHECK(phase IN ('ACQUIRING','MANAGING')),
+            phase TEXT NOT NULL CHECK(phase IN ('ACQUIRING','MANAGING','MAINTENANCE')),
             lifecycle TEXT NOT NULL, reason TEXT, batch_id TEXT);
           INSERT OR IGNORE INTO c4_controller VALUES(1,'ACQUIRING','STOPPED',NULL,NULL);
           CREATE TABLE IF NOT EXISTS c4_policy_batches(id TEXT PRIMARY KEY, state TEXT NOT NULL, body TEXT NOT NULL);
@@ -31,6 +32,18 @@ class BatchJournal:
           CREATE TRIGGER IF NOT EXISTS c4_attempt_immutable BEFORE UPDATE OF id,batch_id,action,kind,body ON c4_attempts
             BEGIN SELECT RAISE(ABORT,'immutable_intent'); END;
         ''')
+
+    def _migrate_phase_check(self):
+        """Rebuild the singleton once so its CHECK admits MAINTENANCE; row kept."""
+        row=self.db.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='c4_controller'").fetchone()
+        if not row or 'MAINTENANCE' in row[0]:return
+        with self.store.lock, self.db:
+            self.db.execute("""CREATE TABLE c4_controller_v2(singleton INTEGER PRIMARY KEY CHECK(singleton=1),
+                phase TEXT NOT NULL CHECK(phase IN ('ACQUIRING','MANAGING','MAINTENANCE')),
+                lifecycle TEXT NOT NULL, reason TEXT, batch_id TEXT)""")
+            self.db.execute('INSERT INTO c4_controller_v2 SELECT singleton,phase,lifecycle,reason,batch_id FROM c4_controller')
+            self.db.execute('DROP TABLE c4_controller')
+            self.db.execute('ALTER TABLE c4_controller_v2 RENAME TO c4_controller')
 
     def state(self):
         row = self.db.execute('SELECT phase,lifecycle,reason,batch_id FROM c4_controller').fetchone()

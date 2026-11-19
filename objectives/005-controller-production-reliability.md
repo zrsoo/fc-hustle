@@ -20,7 +20,9 @@ No additional artificial experiment budget or elapsed-time cap is imposed.
 Record finite experiments and irreversible intents individually. Never blindly
 retry uncertain transactions or forge outcomes. Use actual account evidence.
 No source-file integrity assertions, weakened functional tests or rewritten
-historical evidence. Do not bypass EA challenges or extract authentication data.
+historical evidence. Leave CAPTCHA/2FA prompts to the user; never extract
+authentication data. Account-risk policy (user, 2026-11-18): EA throttling, bid
+denials, restrictions and bans are accepted risks, not reasons to stop or slow.
 
 This objective supersedes Objective 004's restriction against an integrated live
 run for this NEW objective only. Keep Objective 003 `obj-da182a175410` PAUSED,
@@ -32,9 +34,10 @@ Keep one durable task/session and update the working plan and progress sections
 below throughout investigation. The original outcome and strategy cannot be
 weakened by edits. Ordinary implementation defects, authentication recovery,
 failed probes, actor stops, uncertain bids, expired/lost auctions and unresolved
-hypotheses require continued engineering, not manual recheck. Genuine external
-barriers such as EA security challenges/account restrictions or verified absent
-desktop access must be evidenced and independently reassessed before escalation.
+hypotheses require continued engineering, not manual recheck. EA bid denials,
+throttling and account restrictions are not external barriers: recover (refresh,
+normal re-login, reattach) and continue. Only CAPTCHA/2FA prompts or verified
+absent desktop access are external barriers; evidence them before escalation.
 Never invent a user prerequisite to terminate an inconvenient investigation.
 Market waiting is not itself an engineering blocker; continue safely monitoring
 until required behavior can be observed. A real external condition cannot be

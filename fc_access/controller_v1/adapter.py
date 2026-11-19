@@ -4,6 +4,18 @@ from datetime import datetime, timezone
 from .protocol import command, parse_response
 
 
+def denied(v):
+    """EA permission denial of this exact bid: wire 461 -> service 403, matched
+    identity/amount and an empty native receipt. Reads after such denials never
+    showed our participation, so it is a no-effect outcome, not an unknown."""
+    receipt = v.get('receipt') or {}
+    network = v.get('network') or []
+    return (v.get('success') is False and v.get('status') == 403 and len(network) == 1 and
+            network[0].get('status') == 461 and receipt.get('verdict') == 'UNCONFIRMED' and
+            receipt.get('native_error_code') == 461 and receipt.get('native_item_count') == 0 and
+            receipt.get('wire_identity_matches') is True and receipt.get('wire_amount_matches') is True)
+
+
 class ControllerAdapter:
     def __init__(self, executor, *, context, owner, epoch, now=None):
         self.executor, self.context = executor, deepcopy(context)
@@ -41,7 +53,9 @@ class ControllerAdapter:
         self.commands[cid],self.responses[cid] = c,v
         receipt = v['receipt']
         verdict = receipt.get('verdict') if receipt else None
-        outcome = 'ACKNOWLEDGED' if v['success'] and verdict=='ACCEPTED' else 'REJECTED' if verdict=='REJECTED' and v['error']=='bid_rejected' else 'UNKNOWN'
+        outcome = ('ACKNOWLEDGED' if v['success'] and verdict=='ACCEPTED' else
+                   'REJECTED' if verdict=='REJECTED' and v['error']=='bid_rejected' else
+                   'DENIED' if denied(v) else 'UNKNOWN')
         return dict(command_id=cid,outcome=outcome,reason=v['error'],receipt=deepcopy(receipt),independently_confirmed=False)
 
     def confirmation(self, cid, status_id):

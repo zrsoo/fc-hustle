@@ -10,6 +10,16 @@
   responses, transaction evidence, immutable experiment logs, and sealed historical
   evidence. Runtime hashes used for identity or correlation remain valid.
 
+## Account risk policy (user decision, 2026-11-18)
+
+- The user accepts the risk of EA throttling, transfer-market restrictions, soft
+  bans and a permanent account ban. None of these is an external barrier, a reason
+  to stop, escalate or ask, or a reason to reduce trading activity.
+- On EA bid denials (native 461 / service 403), throttling or session degradation,
+  recover (refresh, normal re-login, reattach the extension) and keep trading.
+- CAPTCHA and two-factor prompts still go to the user (see below); that is the
+  only EA-side condition that pauses work.
+
 ## Authorized browser/session recovery
 
 - The user authorizes ordinary recovery in the existing official EA FC Web App

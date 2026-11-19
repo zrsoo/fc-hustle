@@ -41,7 +41,7 @@ class SyntheticEA:
         self.credits=50000;self.balance_fail=False;self.inventory_complete=True;self.watched_fail=False
         self.watch_capacity=50
         self.lost_mode='ok'
-        self.bid_modes={};self.missing=set();self.full={};self.calls=[];self.phase=None
+        self.bid_modes={};self.missing=set();self.unmapped=set();self.full={};self.calls=[];self.phase=None
         self.duration=.01;self.on_request=None;self.active=0;self.max_active=0
         self.native=FixturePriceAdapter()
 
@@ -127,6 +127,9 @@ class SyntheticEA:
         elif op=='balance':
             if self.balance_fail:v.update(success=False,error='ambiguous_network',credits=None,network=[],network_at=None)
             else:v['credits']=self.credits
+        elif op=='status_batch' and any(t['trade_id'] in self.unmapped for t in targets):
+            # The real page fails the whole read when any target has no native DTO.
+            v.update(success=False,error='known_identity_unavailable',status=None,network=[],network_at=None)
         elif op=='status_batch':
             for t in targets:
                 if t['trade_id'] in self.missing:v['missing'].append(deepcopy(t));continue
@@ -140,6 +143,15 @@ class SyntheticEA:
             row=next(r for r in self.rows if identity(r)==p['target']);before=row['bid_state']
             mode=self.bid_modes.get(row['trade_id'],'accept')
             if mode=='timeout':raise TimeoutError('synthetic_lost_delivery')
+            if mode=='denied':
+                # Shape of the real stage18 EA permission denial: wire 461, service 403.
+                v.update(success=False,error='ambiguous_network',status=403);v['network'][0]['status']=461
+                v['receipt']=dict(schema=1,verdict='UNCONFIRMED',reason='EMPTY_NATIVE_ITEMS',
+                    wire_trade_id=row['trade_id'],wire_amount=p['amount'],wire_identity_matches=True,wire_amount_matches=True,
+                    wire_item_count=None,wire_error_code=None,native_success=False,native_error_code=461,
+                    native_error_name=None,native_item_count=0,matching_item_count=0,input_stale=False,
+                    before_bid_state=before,auction=None)
+                return v
             if mode in {'reject','funds','price_change'}:
                 v.update(success=False,error='bid_rejected',status=403);v['network'][0]['status']=403
                 v['receipt']=dict(schema=1,verdict='REJECTED',reason='EXPLICIT_NATIVE_REJECTION',

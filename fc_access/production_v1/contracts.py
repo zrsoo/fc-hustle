@@ -41,6 +41,18 @@ AUCTION = {'trade_id', 'item', 'starting_bid', 'current_bid', 'buy_now_price',
            'expires', 'trade_state', 'bid_state', 'native_is_won'}
 
 
+# Browser timestamps (page JavaScript clock) are compared with this process's
+# clock. Windows time sync can step the system clock back while Chromium keeps
+# its cached offset for a while (observed: -1.241s on 2026-11-19 01:42:17Z), so
+# a browser time may lead by a little. Ages between -CLOCK_SKEW and the limit
+# are fresh; comparisons between two browser timestamps stay strict.
+CLOCK_SKEW = 5.0
+
+
+def fresh(age, max_age):
+    return -CLOCK_SKEW <= age <= max_age
+
+
 def fields(value, keys):
     if type(value) is not dict or set(value) != set(keys):
         raise ValueError('invalid_fields')
@@ -389,7 +401,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     if r['success']:
         if not supported:raise ValueError('wrong_native_route')
         current = now or datetime.now(timezone.utc)
-        if not authenticated or network_at is None or not 0 <= (current-network_at).total_seconds() <= max_age or not 0 <= (observed-network_at).total_seconds() <= max_age:
+        if not authenticated or network_at is None or not fresh((current-network_at).total_seconds(), max_age) or not 0 <= (observed-network_at).total_seconds() <= max_age:
             raise ValueError('stale_or_unauthenticated_source')
         if r['status'] != target[0]['status']:
             raise ValueError('native_status_mismatch')
@@ -440,7 +452,7 @@ def parse_response(v, c, *, now=None, source='native', max_age=30, pricing_rows=
     if receipt:
         from .bid_receipt import validate
         validate(r['bid_receipt'], c, r)
-        if r['bid_receipt']['verdict']=='REJECTED' and not 0 <= ((now or datetime.now(timezone.utc))-observed).total_seconds() <= max_age:
+        if r['bid_receipt']['verdict']=='REJECTED' and not fresh(((now or datetime.now(timezone.utc))-observed).total_seconds(), max_age):
             raise ValueError('stale_bid_rejection')
     return v
 
@@ -461,7 +473,7 @@ def parse_status_support(v, c, *, now=None, source='native', max_age=30):
     if r['network'] != [] or f['network_at'] is not None or type(f['request_count']) is not int or f['request_count'] != 0 or f['read_id'] != c['id'] or f['source'] != source or source not in {'native', 'fixture'}:
         raise ValueError('invalid_local_provenance')
     age = ((now or datetime.now(timezone.utc)) - stamp(f['observed_at'])).total_seconds()
-    if not 0 <= age <= max_age:
+    if not fresh(age, max_age):
         raise ValueError('stale_local_source')
     if fields(v['coverage'], {'complete', 'has_more'}) != {'complete': False, 'has_more': None}:
         raise ValueError('unsupported_coverage')
@@ -480,7 +492,7 @@ def parse_helpers(v, c, *, now, source, max_age):
     at = stamp(f['observed_at'])
     if f['network_at'] is not None or type(f['request_count']) is not int or f['request_count'] != 0 or f['source'] != source or source not in {'native', 'fixture'} or f['read_id'] != c['id']:
         raise ValueError('invalid_local_source')
-    if not 0 <= ((now or datetime.now(timezone.utc))-at).total_seconds() <= max_age:
+    if not fresh(((now or datetime.now(timezone.utc))-at).total_seconds(), max_age):
         raise ValueError('stale_local_source')
     fields(v['coverage'], {'complete', 'has_more'})
     if v['coverage']['complete'] is not False or v['coverage']['has_more'] is not None:
@@ -517,7 +529,7 @@ def correlate_readbacks(write, status, balance, *, status_command, balance_comma
         if value['context'] != write['context'] or value['fences'] != write['fences'] or value['operation'] not in ops or not value['result']['success']:
             raise ValueError('readback_scope_mismatch')
         f = value['freshness']
-        if f['source'] != 'native' or f['network_at'] is None or not 0 <= ((now or datetime.now(timezone.utc))-stamp(f['network_at'])).total_seconds() <= 30:
+        if f['source'] != 'native' or f['network_at'] is None or not fresh(((now or datetime.now(timezone.utc))-stamp(f['network_at'])).total_seconds(), 30):
             raise ValueError('readback_stale')
     ids = {write['id'], write['params']['status_read_id'], write['params']['balance_read_id'],
            status['command_id'], balance['command_id']}

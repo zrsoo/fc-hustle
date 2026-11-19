@@ -64,7 +64,10 @@ def worker(path,stage,operation):
         if operation in ('clear_sold','relist_all'):
             if operation=='relist_all':h.clock.value+=3660
             h.controller.work.inventory=h.controller.work.pile();h.controller.work.maintenance()
-        else:h.controller.step()
+        else:
+            # Wins are handled in MAINTENANCE: step through the phase cycle
+            # until the requested boundary crashes this process.
+            for _ in range(6):h.controller.step()
         close(h)
     raise AssertionError('requested fault boundary was never reached')
 
@@ -96,7 +99,14 @@ class ProcessAcceptance(unittest.TestCase):
                 with self.subTest(operation=operation,stage=stage),tempfile.TemporaryDirectory() as path:
                     with patch('socket.socket',side_effect=AssertionError('offline_socket_forbidden')):
                         h=harness(path);won(h)
-                        if operation=='list':h.controller.step()
+                        if operation=='list':
+                            # Reach a durable "moved, not yet listed" state.
+                            real=h.controller.work.dispatch
+                            def defer(op,p,real=real):
+                                if op=='list':raise RuntimeError('fixture_defers_listing')
+                                return real(op,p)
+                            with patch.object(h.controller.work,'dispatch',side_effect=defer):
+                                h.controller.step();h.controller.step()
                         if operation in ('clear_sold','relist_all'):
                             r=auction(123,15000,100);r.update(trade_state='closed' if operation=='clear_sold' else 'expired',current_bid=15000 if operation=='clear_sold' else 0,expires=-1)
                             h.ea.inventory=[r]
