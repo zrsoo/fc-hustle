@@ -113,4 +113,23 @@ class RefusedWrites(unittest.TestCase):
         self.assertEqual([op for op, _ in self.work(h, 'c4_work_rejected')], ['clear_sold'])
 
 
+    def test_a_refused_write_behind_an_older_unknown_one_is_released(self):
+        h = self.make(); self.inventory(h)
+        h.ea.lose_reply = True; h.ea.effect = False  # an older write whose outcome is unknown
+        h.controller.work.maintenance()
+        h.ea.lose_reply = False; h.ea.effect = True
+        self.assertEqual(self.work(h), [('clear_sold', 'UNKNOWN')])
+        # That sold card is cleared by hand; a later sale is cleared next and EA refuses it with 401.
+        h.ea.inventory = [r for r in h.ea.inventory if r['trade_state'] != 'closed']
+        extra = auction(123, 15000, 300); extra.update(trade_state='closed', current_bid=15000, expires=-1, bid_state='none')
+        h.ea.inventory.append(extra); h.ea.save()
+        self.refuse(h)
+        with patch.object(Work, 'release_refused', return_value=False):  # stuck as before the fix
+            h.controller.work.maintenance()
+        self.assertEqual([s for _, s in self.work(h)], ['UNKNOWN', 'UNKNOWN'])
+        h.controller.work.recover_bulk()
+        self.assertEqual(self.work(h), [('clear_sold', 'UNKNOWN')], 'the refused one is released, the unknown one stays')
+        self.assertEqual([op for op, _ in self.work(h, 'c4_work_rejected')], ['clear_sold'])
+
+
 if __name__ == '__main__': unittest.main(verbosity=2)

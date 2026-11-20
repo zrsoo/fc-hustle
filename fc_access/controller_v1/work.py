@@ -214,7 +214,11 @@ class Work:
 
     def recover_bulk(self):
         # Submitted records supply read-only recovery inputs, never replay work.
-        # Bound recovery to one operation; an unresolved effect is no write gate.
+        # Writes EA refused with 401 are released first, whatever their order
+        # (no I/O); then recovery is bounded to one operation.
+        for (cid,) in self.s.db.execute("""SELECT id FROM c4_work WHERE state!='CONFIRMED'
+            AND dispatched_at IS NOT NULL ORDER BY rowid""").fetchall():
+            self.release_refused(cid)
         row=self.s.db.execute("""SELECT id FROM c4_work WHERE state!='CONFIRMED'
             AND dispatched_at IS NOT NULL AND json_extract(body,'$.operation') IN ('clear_sold','relist_all','clear_lost')
             ORDER BY rowid LIMIT 1""").fetchone()
