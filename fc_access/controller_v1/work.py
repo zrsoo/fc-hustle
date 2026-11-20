@@ -85,6 +85,20 @@ def confirmed_move(store, target):
     raise ValueError('independent_confirmed_move_effect_required')
 
 
+def refused(v):
+    """EA refused a maintenance write unauthenticated: the response is a failure
+    and every request it sent returned HTTP 401 (signed out). EA did not carry it
+    out. Any other failure (no response, timeout, mixed or other statuses) stays
+    unknown."""
+    try:
+        r = v['result']
+        network = r['network']
+        return (r['success'] is False and r.get('status') == 401 and isinstance(network, list) and network and
+                all(type(n) is dict and n.get('status') == 401 for n in network))
+    except (KeyError, TypeError):
+        return False
+
+
 def action(c, before):
     op,p=c['operation'],c['params']
     if op=='clear_lost':return encode([c['context']['account'],op,sorted((t['trade_id'],t['item_id'],t['definition_id']) for t in p['targets'])])
@@ -173,6 +187,10 @@ class Work:
           CREATE TABLE IF NOT EXISTS c4_maintenance(singleton INTEGER PRIMARY KEY CHECK(singleton=1),next_due TEXT NOT NULL);
           CREATE TRIGGER IF NOT EXISTS c4_work_immutable BEFORE UPDATE OF id,action,body,before_read,at ON c4_work
             BEGIN SELECT RAISE(ABORT,'immutable_work_intent'); END;
+          CREATE TABLE IF NOT EXISTS c4_work_rejected(id TEXT PRIMARY KEY,action TEXT NOT NULL,body TEXT NOT NULL,
+            before_read TEXT NOT NULL,state TEXT NOT NULL,at TEXT NOT NULL,dispatched_at TEXT,completed_at TEXT,
+            proof TEXT,rejected_at TEXT NOT NULL,response TEXT NOT NULL);
+          CREATE TABLE IF NOT EXISTS c4_tombstones_rejected(action TEXT NOT NULL,command_id TEXT PRIMARY KEY);
         ''')
         with self.s.lock,self.s.db:
             interval=timedelta(seconds=self.c.config.relist_interval)
@@ -212,6 +230,32 @@ class Work:
         try:return confirmed_move(self.s,member['target'])
         except (ValueError,KeyError,TypeError):return None
 
+    def state(self,cid):
+        row=self.s.db.execute('SELECT state FROM c4_work WHERE id=?',(cid,)).fetchone()
+        return row[0] if row else None
+
+    def release_refused(self,cid,response=None):
+        """A maintenance write EA refused with HTTP 401 had no effect: move it, its
+        possibly-sent marker and EA's response to the rejected archive so a later
+        pass may attempt the same action again. Writes with an unknown outcome
+        are never released."""
+        s=self.s
+        stored=s.db.execute('SELECT result FROM c4_commands WHERE id=?',(cid,)).fetchone()
+        stored=json.loads(stored[0]) if stored and stored[0] else None
+        evidence=stored if refused(stored) else response if refused(response) else None
+        if evidence is None:return False
+        with s.lock,s.db:
+            row=s.db.execute('SELECT id,action,body,before_read,state,at,dispatched_at,completed_at,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
+            if not row or row[4]=='CONFIRMED':return False
+            s.db.execute('INSERT OR REPLACE INTO c4_work_rejected VALUES(?,?,?,?,?,?,?,?,?,?,?)',
+                         (*row,s.now().isoformat(),encode(evidence)))
+            for t in s.db.execute('SELECT action,command_id FROM c4_tombstones WHERE command_id=?',(cid,)).fetchall():
+                s.db.execute('INSERT OR REPLACE INTO c4_tombstones_rejected VALUES(?,?)',t)
+            s.db.execute('DELETE FROM c4_tombstones WHERE command_id=?',(cid,))
+            s.db.execute('DELETE FROM c4_work WHERE id=?',(cid,))
+        self.c.journal.metric(None,'WRITE_REFUSED',operation=json.loads(row[2])['operation'],command_id=cid,status=401)
+        return True
+
     def dispatch(self,op,params):
         self.s.require_supervision()
         c=(self.c.adapter if op=='clear_lost' else self.c.native).envelope(self.c.ids(),op,params);s=self.s
@@ -221,6 +265,7 @@ class Work:
             s.db.execute("INSERT INTO c4_work(id,action,body,before_read,state,at) VALUES(?,?,?,?,'INTENT',?)",
                 (c['id'],key,encode(c),encode(before),s.now().isoformat()))
         self.checkpoint('intent')
+        v=None
         try:
             # The HTTP/native claim consumes a tombstone before dispatch. No
             # transaction or account data lock spans this synchronous I/O.
@@ -231,6 +276,7 @@ class Work:
         with s.lock,s.db:
             s.db.execute('UPDATE c4_work SET state=?,completed_at=? WHERE id=?',(outcome,s.now().isoformat(),c['id']))
         self.c.journal.invalidate_inventory()
+        if outcome!='ACKNOWLEDGED' and self.release_refused(c['id'],v):return c['id']
         self.reconcile(c['id'])
         return c['id']
 
@@ -238,6 +284,7 @@ class Work:
         s=self.s
         row=s.db.execute('SELECT body,before_read,state,at,dispatched_at,completed_at,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
         if not row or row[2]=='CONFIRMED':return bool(row)
+        if self.release_refused(cid):return False
         c,before=json.loads(row[0]),json.loads(row[1]);op,p=c['operation'],json.loads(row[0])['params']
         if c['context']!=self.c.adapter.context:raise ValueError('wrong_recovery_context')
         if not row[4]:return False # Intent-only progress is never submitted work.
@@ -284,8 +331,8 @@ class Work:
         used=consumed(self.s)
         if any((t['trade_id'],t['item_id'],t['definition_id']) in used for t in p['targets']):return None
         cid=self.dispatch('clear_lost',p)
-        state,proof=self.s.db.execute('SELECT state,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
-        return json.loads(proof)['after'] if state=='CONFIRMED' else None
+        row=self.s.db.execute('SELECT state,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
+        return json.loads(row[1])['after'] if row and row[0]=='CONFIRMED' else None
 
     def lost_at_capacity(self):
         """clear_lost only when fewer than config.watch_reserve native watch-list
@@ -306,7 +353,8 @@ class Work:
         writes=[(cid,json.loads(body)['operation'],state) for cid,body,state in s.db.execute('SELECT id,body,state FROM c4_work') if json.loads(body)['params'].get('item_id')==t['item_id']]
         for cid,op,state in writes:
             if state!='CONFIRMED':self.reconcile(cid)
-        writes=[(cid,op,s.db.execute('SELECT state FROM c4_work WHERE id=?',(cid,)).fetchone()[0]) for cid,op,_ in writes]
+        writes=[(cid,op,self.state(cid)) for cid,op,_ in writes]
+        writes=[w for w in writes if w[2] is not None]  # refused writes were released
         if any(op=='list' and state=='CONFIRMED' for _,op,state in writes):return True
         pile=self.pile();matches=[r for r in pile['result']['auctions'] if r['item']['item_id']==t['item_id']]
         op='list' if matches else 'move'
@@ -329,7 +377,7 @@ class Work:
         params=dict(**t,paid=proof['paid'],owned_read_id=owned['command_id'],win_read_id=win['command_id'],
             caps_read_id=rules.caps_read_id,starting_bid=pair.starting_bid,buy_now_price=price,duration=3600)
         cid=self.dispatch(op,params)
-        return op=='list' and s.db.execute('SELECT state FROM c4_work WHERE id=?',(cid,)).fetchone()[0]=='CONFIRMED'
+        return op=='list' and self.state(cid)=='CONFIRMED'
 
     def maintenance(self, *, scan=False):
         """One bounded serialized pass, after urgent status/rebid readbacks.
@@ -365,6 +413,7 @@ class Work:
         if not params['expected_item_ids']:return False
         c=self.c.native.envelope(self.c.ids(),op,params);key=action(c,before)
         old=self.s.db.execute('SELECT id,state FROM c4_work WHERE action=?',(key,)).fetchone()
+        if old and old[1]!='CONFIRMED' and self.release_refused(old[0]):old=None
         if old:return old[1]=='CONFIRMED' or self.reconcile(old[0])
         cid=self.dispatch(op,params)
-        return self.s.db.execute('SELECT state FROM c4_work WHERE id=?',(cid,)).fetchone()[0]=='CONFIRMED'
+        return self.state(cid)=='CONFIRMED'
