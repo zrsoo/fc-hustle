@@ -457,6 +457,33 @@ class Interleave(Base):
         self.assertEqual(h.metrics('INTERLEAVE')[-1]['step'], 'MAINTENANCE')
         self.assertEqual(h.metrics('INTERLEAVE_WAIT'), [])
 
+    def test_a_priced_out_auction_neither_closes_the_window_nor_reserves_coins(self):
+        # Live 14:23-14:27: outbid beyond our 5500 cap, the auction kept being
+        # extended by others for 3 min; it held the window shut and kept its cap reserved.
+        h = self.make(3, interleave=True, coin_reservation=True, entry_threshold=0)
+        for r in h.ea.rows: r['expires'] = 600
+        h.controller._acquire()
+        r0 = h.ea.rows[0]
+        r0.update(bid_state='outbid', current_bid=20000, expires=30)   # ending soon, beyond cap
+        h.controller.step()
+        self.assertEqual(h.metrics('PRICED_OUT')[-1]['target']['trade_id'], r0['trade_id'])
+        self.assertGreater(h.controller._soonest_end(), 180)
+        self.assertEqual(h.controller._reserved(), 2*(10750-150))
+        self.assertEqual(h.metrics('INTERLEAVE')[-1]['step'], 'MAINTENANCE')
+        add_rows(h, 400, 2); searches = len(discoveries(h))
+        h.controller.step(); h.controller.step()                        # maintenance, then acquire
+        self.assertEqual(len(discoveries(h)), searches+1)
+
+    def test_priced_out_is_recognised_after_a_restart_from_the_last_status(self):
+        h = self.make_live()
+        h.ea.rows[0].update(bid_state='outbid', current_bid=10750)      # at our cap: no further bid
+        h.controller.step()
+        fresh = Controller(h.store, h.adapter, h.cache, config=h.config, ids=h.ids, clock=h.clock.clock, sleep=h.clock.sleep)
+        m = next(m for m in fresh.journal.members() if m['target']['trade_id'] == h.ea.rows[0]['trade_id'])
+        self.assertTrue(fresh._is_priced_out(m))
+        other = next(m for m in fresh.journal.members() if m['target']['trade_id'] == h.ea.rows[1]['trade_id'])
+        self.assertFalse(fresh._is_priced_out(other))
+
     def test_maintenance_waits_for_its_interval(self):
         h = self.make_live()
         h.controller.step(); h.controller.step()     # maintenance ran

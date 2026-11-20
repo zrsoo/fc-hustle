@@ -98,6 +98,10 @@ class Controller:
         # 461 wave: rounds whose opening bids were all denied, since the last
         # accepted opening bid (None when no wave is under way).
         self.denial_wave=None
+        # Auctions outbid beyond our cap: prices only rise, so we can never act on
+        # them again. They are still read until settled, but neither hold the
+        # interleave window shut nor reserve coins.
+        self.priced_out=set()
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -405,7 +409,9 @@ class Controller:
             rules=self.prices.latest.get(CardKey(candidate['target']['definition_id']))
             rules=self.prices.loaded[rules] if rules else self.prices.load(key=CardKey(candidate['target']['definition_id']))
             amount=self._minimum(row,rules)
-            if amount is None or amount>candidate['cap'] or row['buy_now_price'] and amount>=row['buy_now_price']:return None
+            if amount is None or amount>candidate['cap'] or row['buy_now_price'] and amount>=row['buy_now_price']:
+                if kind=='rebid' and amount is not None:self._mark_priced_out(bid,candidate,row,amount)
+                return None
             retry_of=candidate.get('retry_of') if kind=='initial' else None
             if j.attempted(candidate['target'],kind,amount=amount,read_id=read_id,retry_of=retry_of):return None
             if self.credit_gate:
@@ -585,6 +591,7 @@ class Controller:
         total=0;claims=[]
         for m in self.journal.members():
             if m['state']!='ACTIVE' or m['target']['trade_id'] in self.unmapped:continue
+            if self._is_priced_out(m):continue
             row=(m.get('proof') or {}).get('row') or {}
             top=(row.get('current_bid') or 0) if row.get('bid_state')=='highest' else 0
             claim=max(0,m['cap']-top);total+=claim
@@ -613,11 +620,26 @@ class Controller:
                  and r['bid_state'] in {'highest','outbid'} and r['trade_id'] not in known]
         if orphans:self.journal.metric(bid,'ORPHAN_PARTICIPATION',count=len(orphans),trades=orphans[:10])
 
+    def _mark_priced_out(self, bid, member, row, amount):
+        trade=member['target']['trade_id']
+        if trade in self.priced_out:return
+        self.priced_out.add(trade)
+        self.journal.metric(bid,'PRICED_OUT',target=member['target'],cap=member['cap'],
+                            current_bid=row.get('current_bid'),next_bid=amount)
+
+    def _is_priced_out(self, m):
+        """Outbid beyond our cap (also after a restart, from the last status row)."""
+        if m['target']['trade_id'] in self.priced_out:return True
+        row=(m.get('proof') or {}).get('row') or {}
+        return (m['state']=='ACTIVE' and row.get('bid_state')=='outbid' and
+                type(row.get('current_bid')) is int and row['current_bid']>=m['cap'])
+
     def _soonest_end(self):
-        """Seconds until the soonest live tracked auction ends (None if none)."""
+        """Seconds until the soonest live tracked auction we can still act on ends
+        (None if none). Auctions priced out of our cap do not count."""
         ends=[]
         for m in self.journal.members():
-            if not self._needs_status(m):continue
+            if not self._needs_status(m) or self._is_priced_out(m):continue
             proof=m.get('proof') or {};row=proof.get('row') or {}
             if proof.get('at') and row.get('expires') is not None:
                 ends.append((stamp(proof['at'])+timedelta(seconds=row['expires'])-self.now()).total_seconds())
