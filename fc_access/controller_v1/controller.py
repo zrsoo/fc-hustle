@@ -71,6 +71,11 @@ class Controller:
         self.credit_gate=False
         self.credit_view=None
         self.low_credit_maintenance=None
+        # Coin reservation: per-band smallest cap seen in its last search (expires),
+        # and whether the last round found that no band fits the spendable coins.
+        self.band_floor={}
+        self.coins_short=False
+        self.last_maintenance=None
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -113,6 +118,7 @@ class Controller:
             phase=self.journal.state()['phase']
             if phase=='MANAGING':self._manage()
             elif phase=='MAINTENANCE':self._maintain()
+            elif self._window_closed():pass
             elif self._gap_wait():pass
             elif self._acquisition_hold():pass
             else:self._acquire()
@@ -130,7 +136,7 @@ class Controller:
     def _acquire(self):
         j=self.journal;bid=self.ids();start=self.clock()
         j.begin(bid,asdict(self.config),self.now().isoformat())
-        burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0
+        burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0
         try:
             balance_id=self.ids()
             try:balance=self.adapter.read(balance_id,'balance')
@@ -150,8 +156,23 @@ class Controller:
                 reason='ENTRY_CREDITS_AT_OR_BELOW_THRESHOLD'
                 j.update_batch(bid,state='HALTED',reason=reason)
                 j.checkpoint(lifecycle='HALTED',reason=reason);return
-            band=self.config.bands[self.band_index%len(self.config.bands)]
-            self.band_index+=1
+            spendable=None
+            if self.config.coin_reservation:
+                reserved=self._reserved()
+                spendable=balance['credits']-reserved
+                j.update_batch(bid,reserved=reserved,spendable=spendable)
+                band=self._fitting_band(spendable)
+                if band is None:
+                    # Nothing can be funded: wait for settlements and sales; members
+                    # stay managed and maintenance keeps relisting.
+                    self.coins_short=True
+                    self.low_credit_maintenance=self.clock()
+                    j.metric(bid,'COINS_RESERVED',credits=balance['credits'],reserved=reserved,spendable=spendable)
+                    j.update_batch(bid,state='COINS_RESERVED',reason='NO_BAND_FITS');return
+                self.coins_short=False
+            else:
+                band=self.config.bands[self.band_index%len(self.config.bands)]
+                self.band_index+=1
             try:discovery=self.native.search(self.ids(),Search.discovery(max_bid=band[0],min_buy=band[1]))
             except ValueError as error:
                 if str(error)!='service_failed':raise
@@ -206,6 +227,7 @@ class Controller:
                     deadline=(stamp(at)+timedelta(seconds=row['expires'])).isoformat(),minimum=minimum,
                     cap=quote.max_affordable_bid,resale_price=quote.resale_price,quote=asdict(quote)))
                 if t['trade_id'] in retries:eligible[-1]['retry_of']=retries[t['trade_id']]
+            if eligible:self.band_floor[tuple(band)]=(min(c['cap'] for c in eligible),self.clock())
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
             # Lost targets are cleared only by MAINTENANCE at capacity; a full
@@ -214,6 +236,7 @@ class Controller:
             from .watch_capacity import slots
             watch_slots=slots(watched)
             j.update_batch(bid,watch_read_id=watched['command_id'],watch_slots=watch_slots)
+            if self.config.coin_reservation:self._orphans(bid,watched)
             inventory=self._read('transfer_list')
             ic=self.native.commands[inventory['command_id']]
             parse_response(inventory,ic,now=self.now(),source=self.native.source)
@@ -241,6 +264,10 @@ class Controller:
                 if remaining<=60:
                     expiry_misses+=1;continue
                 if candidate['target']['item_id'] in physical|pending:continue
+                if spendable is not None:
+                    if candidate['cap']>spendable:
+                        coin_skips+=1;continue
+                    spendable-=candidate['cap']
                 c=deepcopy(candidate);c.update(selection_age=age,selection_remaining=remaining)
                 selected.append(c)
                 if len(selected)>=min(10,50-known,watch_slots):break
@@ -302,7 +329,7 @@ class Controller:
             end=self.clock()
             j.metric(bid,'ACQUISITION',elapsed=end-start,burst_elapsed=(handoff or end)-burst if burst is not None else 0,
                      handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses,
-                     long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted)
+                     long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted,coin_skips=coin_skips)
 
     def _minimum(self, row, rules):
         return rules.minimum_bid(definition_id=row['item']['definition_id'],platform=self.adapter.context['platform'],
@@ -452,7 +479,77 @@ class Controller:
             except Exception:return None
             if not balance['success']:return None
             self.credit_view=(balance['credits'],self.clock())
+            self.journal.metric(self.journal.state()['batch_id'],'BALANCE_READ',credits=balance['credits'])
         return self.credit_view[0]
+
+    def _reserved(self):
+        """Coins live tracked auctions may still claim: cap minus our standing top bid
+        (EA already deducted that from the free balance); an outbid auction may claim
+        its whole cap again. Won (PENDING_WIN) auctions are paid; unmapped and
+        untracked auctions are never rebid, so they claim nothing further."""
+        total=0
+        for m in self.journal.members():
+            if m['state']!='ACTIVE' or m['target']['trade_id'] in self.unmapped:continue
+            row=(m.get('proof') or {}).get('row') or {}
+            top=(row.get('current_bid') or 0) if row.get('bid_state')=='highest' else 0
+            total+=max(0,m['cap']-top)
+        return total
+
+    def _fitting_band(self, spendable, *, peek=False):
+        """Next band in rotation whose cheapest recently seen cap fits; None if none."""
+        n=len(self.config.bands)
+        if spendable is None or spendable<=0:return None
+        for k in range(n):
+            band=self.config.bands[(self.band_index+k)%n]
+            floor=self.band_floor.get(tuple(band))
+            if floor and self.clock()-floor[1]<=900 and spendable<floor[0]:continue
+            if not peek:self.band_index+=k+1
+            return band
+        return None
+
+    def _orphans(self, bid, watched):
+        """Watch-list participations the controller does not track (diagnostic)."""
+        known={r[0] for r in self.store.db.execute('SELECT trade_id FROM c4_members')}
+        orphans=[r['trade_id'] for r in watched['result']['auctions'] if r['trade_state']=='active'
+                 and r['bid_state'] in {'highest','outbid'} and r['trade_id'] not in known]
+        if orphans:self.journal.metric(bid,'ORPHAN_PARTICIPATION',count=len(orphans),trades=orphans[:10])
+
+    def _soonest_end(self):
+        """Seconds until the soonest live tracked auction ends (None if none)."""
+        ends=[]
+        for m in self.journal.members():
+            if not self._needs_status(m):continue
+            proof=m.get('proof') or {};row=proof.get('row') or {}
+            if proof.get('at') and row.get('expires') is not None:
+                ends.append((stamp(proof['at'])+timedelta(seconds=row['expires'])-self.now()).total_seconds())
+            else:ends.append(0.)
+        return min(ends) if ends else None
+
+    def _maintenance_due(self):
+        if any(m['state']=='PENDING_WIN' and not self._needs_status(m) for m in self.journal.members()):return True
+        return self.last_maintenance is None or self.clock()-self.last_maintenance>=self.config.maintenance_interval
+
+    def _acquisition_ready(self):
+        """Interleave hand-off check: no acquisition hold would apply right now."""
+        now=self.clock()
+        if now<self.search_hold_until or now<self.denial_hold_until:return False
+        if self.config.search_budget and self.searches_last_hour()>=self.config.search_budget:return False
+        if self.config.low_credit_hold and self.credit_view is not None and self.credit_view[0]<=self.config.entry_threshold:
+            credits=self._credits()
+            if credits is None or credits<=self.config.entry_threshold:return False
+        if self.config.coin_reservation and self.coins_short:
+            credits=self._credits()
+            if credits is None or self._fitting_band(credits-self._reserved(),peek=True) is None:return False
+            self.coins_short=False
+        return True
+
+    def _window_closed(self):
+        """Interleave: acquisition waits (managing resumes) unless the soonest live
+        auction ends more than interleave_window seconds from now."""
+        if not self.config.interleave:return False
+        soonest=self._soonest_end()
+        if soonest is None or soonest>self.config.interleave_window:return False
+        self.journal.checkpoint(phase='MANAGING');return True
 
     def searches_last_hour(self):
         now=self.adapter.executor.clock()
@@ -470,11 +567,16 @@ class Controller:
                 self.credit_view[0]<=self.config.entry_threshold):
             credits=self._credits()
             if credits is not None and credits<=self.config.entry_threshold:reasons.append(('LOW_CREDITS',30.))
+        if not reasons and self.config.coin_reservation and self.coins_short:
+            credits=self._credits()
+            if credits is not None and self._fitting_band(credits-self._reserved(),peek=True) is None:
+                reasons.append(('COINS_RESERVED',30.))
+            elif credits is not None:self.coins_short=False
         if not reasons:return False
         reason,remaining=max(reasons,key=lambda r:r[1])
         if any(self._needs_status(m) for m in j.members()):
             j.checkpoint(phase='MANAGING');return True
-        if reason=='LOW_CREDITS' and (self.low_credit_maintenance is None or self.clock()-self.low_credit_maintenance>=300):
+        if reason in {'LOW_CREDITS','COINS_RESERVED'} and (self.low_credit_maintenance is None or self.clock()-self.low_credit_maintenance>=300):
             # Coins come back only through sales: keep relisting expired listings
             # and clearing sold ones while acquisition waits.
             self.low_credit_maintenance=self.clock()
@@ -485,7 +587,9 @@ class Controller:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
         try:
             balance=self.adapter.read(self.ids(),'balance')
-            if balance['success']:self.credit_view=(balance['credits'],self.clock())
+            if balance['success']:
+                self.credit_view=(balance['credits'],self.clock())
+                j.metric(bid,'BALANCE_READ',credits=balance['credits'])
         except Exception:j.metric(bid,'ACQUISITION_HOLD_READ_FAILED')
         return True
 
@@ -515,6 +619,7 @@ class Controller:
     def _maintain(self):
         """One maintenance pass: each check writes only when it has work."""
         j=self.journal;bid=j.state()['batch_id']
+        self.last_maintenance=self.clock()
         try:
             self.work.recover_bulk()
             # A verified win is moved, then listed, within the same pass.
@@ -602,6 +707,14 @@ class Controller:
                         after={m['target']['trade_id']:at for m,_,at in submitted})
                     for m,cid,_ in submitted:
                         if not readback or m['target'] in readback['missing']:j.abandon(cid)
+                if self.config.interleave and not actions:
+                    soonest=self._soonest_end()
+                    if soonest is not None and soonest>self.config.maintenance_window and self._maintenance_due():
+                        j.metric(bid,'INTERLEAVE',step='MAINTENANCE',soonest_end=soonest)
+                        j.checkpoint(phase='MAINTENANCE');return
+                    if soonest is not None and soonest>self.config.interleave_window and self._acquisition_ready():
+                        j.metric(bid,'INTERLEAVE',step='ACQUIRING',soonest_end=soonest)
+                        j.checkpoint(phase='ACQUIRING');return
             if not j.members():j.update_batch(bid,state='SETTLED')
             if not any(self._needs_status(m) for m in j.members()):j.checkpoint(phase='MAINTENANCE')
         finally:

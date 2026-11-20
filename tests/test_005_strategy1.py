@@ -10,6 +10,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]; sys.path[:0] = [str(ROOT), str(ROOT/'tests')]
 from controller_policy_fixture import Harness
+from native_price_fixture import auction
 from fc_access.controller_v1.__main__ import parse_bands
 from fc_access.controller_v1.config import ControllerConfig
 from fc_access.controller_v1.controller import Controller
@@ -310,6 +311,171 @@ class LowCredits(Base):
     def test_flag_validation_and_cli(self):
         with self.assertRaises(ValueError): ControllerConfig(low_credit_hold=1)
         from fc_access.controller_v1.local_monitor import main  # noqa: F401  (argparse wiring imports)
+
+
+def add_rows(h, start, count):
+    rows = [auction(123, 15000, start+n) for n in range(count)]
+    h.ea.rows.extend(rows); return rows
+
+
+def members(h):
+    return {t: s for t, s in h.store.db.execute('SELECT trade_id,state FROM c4_members')}
+
+
+class CoinReservation(Base):
+    """Admit an auction only if spendable coins (free balance minus every live
+    tracked auction's remaining claim) cover its cap. Fixture caps are 10750."""
+    CAP = 10750
+
+    def make_coins(self, count=3, **values):
+        return self.make(count, coin_reservation=True, entry_threshold=0, **values)
+
+    def test_admits_only_what_spendable_covers_and_keeps_going(self):
+        h = self.make_coins(); h.ea.credits = 25000
+        h.controller._acquire()
+        self.assertEqual(len(h.calls('bid')), 2)
+        self.assertEqual(h.metrics('ACQUISITION')[-1]['coin_skips'], 1)
+        b = h.controller.journal.batch(h.controller.journal.state()['batch_id'])
+        self.assertEqual((b['reserved'], b['spendable']), (0, 25000))
+
+    def test_live_auctions_reserve_cap_minus_standing_top_bid(self):
+        h = self.make_coins()
+        h.controller._acquire()
+        self.assertEqual(h.controller._reserved(), 3*(self.CAP-150))
+        add_rows(h, 50, 3); self.reset_phase(h)
+        h.ea.credits = 50000            # 50000 - 31800 = 18200: one more fits
+        h.controller._acquire()
+        self.assertEqual(len(h.calls('bid')), 4)
+
+    def test_outbid_reserves_full_cap_and_terminal_states_release(self):
+        h = self.make_coins()
+        h.controller._acquire()
+        r0, r1, r2 = h.ea.rows
+        r0.update(bid_state='outbid', current_bid=200)
+        h.ea.bid_modes[r0['trade_id']] = 'outbid'   # our rebid lands but is overtaken again
+        h.controller.step()
+        self.assertEqual(h.controller._reserved(), self.CAP + 2*(self.CAP-150))
+        r1.update(trade_state='closed', bid_state='outbid', expires=0)                       # lost
+        r2.update(trade_state='closed', bid_state='highest', expires=0, native_is_won=True)  # won, paid
+        h.controller.step()
+        st = members(h)
+        self.assertEqual((st[r1['trade_id']], st[r2['trade_id']]), ('LOST', 'PENDING_WIN'))
+        self.assertEqual(h.controller._reserved(), self.CAP)
+
+    def test_denied_unknown_and_unmapped_reserve_nothing(self):
+        h = self.make_coins()
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'denied'
+        h.ea.bid_modes[h.ea.rows[1]['trade_id']] = 'timeout'   # UNKNOWN; readback shows no participation
+        h.controller._acquire()
+        states = sorted(a['state'] for a in h.attempts())
+        self.assertEqual(states, ['ACKNOWLEDGED', 'DENIED', 'UNKNOWN'])
+        self.assertEqual(h.controller._reserved(), self.CAP-150)
+        h.controller.unmapped.add(h.ea.rows[2]['trade_id'])   # cannot be read: never rebid
+        self.assertEqual(h.controller._reserved(), 0)
+
+    def test_band_floor_skips_unaffordable_bands_and_holds_without_searching(self):
+        h = self.make_coins(1, bands=((1000, 11000), (3000, 20000)))
+        h.controller._acquire(); self.reset_phase(h)          # band A floor = 10750
+        h.ea.rows.clear(); add_rows(h, 60, 1)
+        h.ea.credits = 5000 + (self.CAP-150)                   # spendable 5000 < every cap
+        h.controller._acquire(); self.reset_phase(h)          # band B: floor unknown, searched
+        self.assertEqual([p['min_buy'] for p in discoveries(h)], [11000, 20000])
+        h.controller._acquire(); self.reset_phase(h)          # both floors known: no search
+        self.assertEqual(len(discoveries(h)), 2)
+        self.assertEqual(h.metrics('COINS_RESERVED')[-1]['spendable'], 5000)
+        self.assertTrue(h.controller.coins_short)
+        h.controller.step()                                    # a live auction: the hold manages it
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+        for m in h.controller.journal.members(): h.controller.unmapped.add(m['target']['trade_id'])
+        h.ea.credits = 5000; h.clock.value += 31; self.reset_phase(h)
+        h.controller.step()                                    # nothing live: held, balance read logged
+        self.assertEqual(len(discoveries(h)), 2)
+        self.assertEqual(h.metrics('ACQUISITION_HOLD')[-1]['reason'], 'COINS_RESERVED')
+        self.assertTrue(h.metrics('BALANCE_READ'))
+        h.ea.credits = 60000; h.clock.value += 31; self.reset_phase(h)
+        h.controller.step()
+        self.assertEqual(len(discoveries(h)), 3)
+
+    def test_untracked_watch_list_participation_is_logged(self):
+        h = self.make_coins()
+        orphan = auction(123, 15000, 900); orphan.update(bid_state='highest', current_bid=400)
+        h.ea.manual.append(orphan)
+        h.controller._acquire()
+        self.assertEqual(h.metrics('ORPHAN_PARTICIPATION')[-1]['trades'], [orphan['trade_id']])
+
+    def test_flag_off_keeps_the_threshold_and_validation(self):
+        h = self.make(); h.ea.credits = 30000
+        h.controller._acquire()
+        self.assertEqual(h.controller.journal.state()['lifecycle'], 'HALTED')
+        for bad in (dict(coin_reservation=1), dict(interleave='yes'), dict(interleave_window=0), dict(maintenance_interval=-5)):
+            with self.assertRaises(ValueError, msg=bad): ControllerConfig(**bad)
+
+
+class Interleave(Base):
+    """Acquisition and maintenance in quiet windows while auctions are live."""
+    def make_live(self, expires=300, **values):
+        h = self.make(3, interleave=True, **values)
+        for r in h.ea.rows: r['expires'] = expires
+        h.controller._acquire()                     # three live auctions, we are highest
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+        return h
+
+    def test_quiet_window_runs_maintenance_first_then_acquires(self):
+        h = self.make_live()
+        add_rows(h, 70, 2)
+        searches = len(discoveries(h))
+        h.controller.step()                          # status read, no war -> maintenance
+        self.assertEqual(h.controller.journal.state()['phase'], 'MAINTENANCE')
+        h.controller.step()                          # maintenance pass -> ACQUIRING
+        h.controller.step()                          # still > 3 min to the soonest end: acquire
+        self.assertEqual(len(discoveries(h)), searches+1)
+        self.assertEqual(len(h.controller.journal.members()), 5)
+        self.assertEqual(h.metrics('INTERLEAVE')[0]['step'], 'MAINTENANCE')
+
+    def test_no_acquisition_when_an_auction_ends_within_the_window(self):
+        h = self.make_live(expires=150)              # > 60 s: maintenance; < 180 s: no acquisition
+        searches = len(discoveries(h))
+        for _ in range(4): h.controller.step()
+        self.assertEqual(len(discoveries(h)), searches)
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+
+    def test_a_rebid_cycle_never_hands_off(self):
+        h = self.make_live()
+        for r in h.ea.rows: r.update(bid_state='outbid', current_bid=200)
+        h.controller.step()
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+        self.assertEqual(h.metrics('INTERLEAVE'), [])
+
+    def test_maintenance_waits_for_its_interval(self):
+        h = self.make_live()
+        h.controller.step(); h.controller.step()     # maintenance ran
+        h.controller.search_hold_until = h.clock.value + 10**6   # acquisition held
+        for _ in range(3): h.controller.step()
+        self.assertEqual([m['step'] for m in h.metrics('INTERLEAVE')], ['MAINTENANCE'])
+        h.clock.value += 301
+        for r in h.ea.rows: r['expires'] = 300
+        h.controller.step()
+        self.assertEqual([m['step'] for m in h.metrics('INTERLEAVE')], ['MAINTENANCE', 'MAINTENANCE'])
+
+    def test_flag_off_never_acquires_while_auctions_are_live(self):
+        h = self.make(3)
+        h.controller._acquire(); add_rows(h, 80, 2)
+        searches = len(discoveries(h))
+        for _ in range(4): h.controller.step()
+        self.assertEqual(len(discoveries(h)), searches)
+        self.assertEqual(h.metrics('INTERLEAVE'), [])
+
+
+class LaunchFlags(unittest.TestCase):
+    def test_flags_reach_the_controller_config(self):
+        from fc_access.controller_v1 import local_monitor as lm
+        from fc_access.controller_v1.__main__ import controller_config
+        a = lm.parser().parse_args(['launch', '--coin-reservation', '--interleave', '--low-credit-hold'])
+        self.assertTrue(a.coin_reservation and a.interleave and a.low_credit_hold)
+        c = controller_config(a)
+        self.assertEqual((c.coin_reservation, c.interleave, c.entry_threshold), (True, True, 0))
+        plain = controller_config(lm.parser().parse_args(['launch']))
+        self.assertEqual((plain.coin_reservation, plain.interleave, plain.entry_threshold), (False, False, 40000))
 
 
 if __name__ == '__main__': unittest.main(verbosity=2)

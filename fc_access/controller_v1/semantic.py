@@ -163,7 +163,7 @@ class SemanticHealth:
             state = message.get('state')
             # A full watch list neither proves progress nor is itself a fault:
             # it leaves the failure streak unchanged until MAINTENANCE acts.
-            if state not in {'CAPACITY_FULL', 'THROTTLED', 'LOW_CREDITS'}:
+            if state not in {'CAPACITY_FULL', 'THROTTLED', 'LOW_CREDITS', 'COINS_RESERVED'}:
                 self.batch_failures = self.batch_failures+1 if state in {'READ_FAILED','OPERATION_FAILED','INVENTORY_UNKNOWN'} else 0
             if message['confirmed']:
                 self.confirmed += message['confirmed']

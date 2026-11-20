@@ -35,11 +35,27 @@ class ControllerConfig:
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
+    # Admit a new auction only if spendable coins cover its cap: free balance minus
+    # every live tracked auction's remaining claim (cap - our standing top bid).
+    # Launches with this on use entry_threshold 0; the rule replaces the threshold.
+    coin_reservation: bool = False
+    # Allow acquisition (and maintenance) while auctions are live, in quiet
+    # windows: no live auction ends within interleave_window (acquisition) or
+    # maintenance_window seconds, and no rebid was needed in the last cycle.
+    interleave: bool = False
+    interleave_window: float = 180.0
+    maintenance_window: float = 60.0
+    maintenance_interval: float = 300.0
 
     def __post_init__(self):
         integer(self.entry_threshold)
-        if type(self.low_credit_hold) is not bool:
-            raise ValueError('invalid_controller_config')
+        for name in ('low_credit_hold', 'coin_reservation', 'interleave'):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError('invalid_controller_config')
+        for name in ('interleave_window', 'maintenance_window', 'maintenance_interval'):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 < value <= 3600:
+                raise ValueError('invalid_controller_config')
         if (not isinstance(self.bands, tuple) or not self.bands or len(self.bands) > 10 or
                 any(not isinstance(b, tuple) or len(b) != 2 or any(type(v) is not int or not 0 <= v <= 15000000 for v in b) for b in self.bands)):
             raise ValueError('invalid_controller_config')

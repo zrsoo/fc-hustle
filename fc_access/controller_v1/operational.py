@@ -353,6 +353,8 @@ def main(argv=None):
     parser.add_argument('--max-auction-seconds',type=int,default=0,help='skip new bids on longer auctions (0 = no limit)')
     parser.add_argument('--search-budget',type=int,default=0,help='max transfer-market searches per rolling hour (0 = no cap)')
     parser.add_argument('--low-credit-hold',action='store_true',help='hold acquisition instead of halting at low credits')
+    parser.add_argument('--coin-reservation',action='store_true',help='admit auctions only if spendable coins cover their cap')
+    parser.add_argument('--interleave',action='store_true',help='acquire and maintain in quiet windows while managing')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0

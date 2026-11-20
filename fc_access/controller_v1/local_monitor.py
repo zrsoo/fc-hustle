@@ -171,11 +171,14 @@ def launch(a, p=None):
     if a.recovery_config: service += ['--recovery-config', a.recovery_config]
     if a.refresh_on_start: service += ['--refresh-on-start']
     if a.low_credit_hold: service += ['--low-credit-hold']
+    if a.coin_reservation: service += ['--coin-reservation']
+    if a.interleave: service += ['--interleave']
     watcher = watcher_argv(p['base'], generation, a.interval, startup)
     intent = dict(at=now_iso(), generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                   auth_measure=a.auth_measure, margin=a.margin, list_markup=a.list_markup, bands=a.bands,
                   max_auction_seconds=a.max_auction_seconds, search_budget=a.search_budget,
-                  low_credit_hold=a.low_credit_hold, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  low_credit_hold=a.low_credit_hold, coin_reservation=a.coin_reservation,
+                  interleave=a.interleave, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -196,6 +199,21 @@ def watcher_alive(p):
 EA_TAX = 0.05
 
 
+def latest_pile(db):
+    """(observed_at, item ids) of the newest complete transfer-list read, or None."""
+    if not db.execute("SELECT 1 FROM sqlite_master WHERE name='c4_commands'").fetchone():
+        return None
+    for (result,) in db.execute("""SELECT result FROM c4_commands WHERE state='DONE' AND result IS NOT NULL
+            AND json_extract(body,'$.operation')='transfer_list' ORDER BY rowid DESC LIMIT 5"""):
+        try:
+            v = json.loads(result)
+            if v['result']['success'] is True and (v.get('coverage') or {}).get('complete') is True:
+                return v['freshness']['network_at'], {r['item']['item_id'] for r in v['result']['auctions']}
+        except (ValueError, KeyError, TypeError):
+            continue
+    return None
+
+
 def trading(base, since):
     """Controller-owned results only, from its own durable move/list/bulk work.
 
@@ -211,6 +229,7 @@ def trading(base, since):
     try:
         rows = db.execute("SELECT body,before_read,state,at FROM c4_work WHERE state='CONFIRMED'").fetchall()
         members = dict(db.execute("SELECT state,count(*) FROM c4_members GROUP BY state").fetchall())
+        pile = latest_pile(db)
     except sqlite3.Error:
         return None
     finally:
@@ -234,10 +253,20 @@ def trading(base, since):
                 sold_ever.add(item)
                 if inside(at): sold[item] = row['current_bid']
     profit = sum(int(price*(1-EA_TAX)) - listed[item]['paid'] for item, price in sold.items())
-    open_items = [i for i in listed if i not in sold_ever]
+    unsold = [i for i in listed if i not in sold_ever]
+    # Still listed = present in the newest complete transfer-list read (or listed
+    # after it). Items gone without a recorded sale were sold or cleared while the
+    # controller did not observe it; they are neither unsold nor realized profit.
+    if pile is None:
+        open_items, gone = unsold, []
+    else:
+        at, present = pile
+        open_items = [i for i in unsold if i in present or listed[i]['at'] > at]
+        gone = [i for i in unsold if i not in open_items]
     unrealized = sum(int(listed[i]['buy_now']*(1-EA_TAX)) - listed[i]['paid'] for i in open_items)
     return dict(won_listed=len(won), relisted=relisted, sold=len(sold), realized_profit=profit,
-                unsold_listed_all_time=len(open_items), unrealized_at_buy_now=unrealized,
+                unsold_listed_now=len(open_items), left_without_recorded_sale=len(gone),
+                unrealized_at_buy_now=unrealized,
                 pending_wins_now=members.get('PENDING_WIN', 0), active_auctions_now=members.get('ACTIVE', 0))
 
 
@@ -248,7 +277,7 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
@@ -351,6 +380,8 @@ def parser():
     l.add_argument('--max-auction-seconds', type=int, default=0, help='skip new bids on longer auctions (0 = no limit)')
     l.add_argument('--search-budget', type=int, default=0, help='max transfer-market searches per rolling hour (0 = no cap)')
     l.add_argument('--low-credit-hold', action='store_true', help='hold acquisition instead of halting at low credits')
+    l.add_argument('--coin-reservation', action='store_true', help='admit auctions only if spendable coins cover their cap')
+    l.add_argument('--interleave', action='store_true', help='acquire and maintain in quiet windows while managing')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)

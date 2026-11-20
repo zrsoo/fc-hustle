@@ -18,6 +18,21 @@ def guard_paths(root, scope, database, port):
             database.with_suffix('.controller.lock'))
 
 
+def controller_config(a):
+    """Launch arguments -> ControllerConfig. The coin rule replaces the entry threshold."""
+    from dataclasses import replace
+    from .config import ControllerConfig
+    config=replace(ControllerConfig(),maintenance_gap=float(getattr(a,'maintenance_gap',0) or 0),
+                   margin=int(getattr(a,'margin',500)),list_markup=int(getattr(a,'list_markup',0) or 0),
+                   bands=parse_bands(getattr(a,'bands',None) or '1000:11000'),
+                   max_auction_seconds=int(getattr(a,'max_auction_seconds',0) or 0),
+                   search_budget=int(getattr(a,'search_budget',0) or 0),
+                   low_credit_hold=bool(getattr(a,'low_credit_hold',False)),
+                   coin_reservation=bool(getattr(a,'coin_reservation',False)),
+                   interleave=bool(getattr(a,'interleave',False)))
+    return replace(config,entry_threshold=0) if config.coin_reservation else config
+
+
 def parse_bands(text):
     """'1000:11000,3000:20000' -> ((1000, 11000), (3000, 20000)); config validates ranges."""
     return tuple(tuple(int(v) for v in part.split(':')) for part in text.split(',') if part.strip())
@@ -97,14 +112,7 @@ def run_controller(a, supervision):
             adapter.executor.failure=supervision.failure
             server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
-            from dataclasses import replace
-            from .config import ControllerConfig
-            config=replace(ControllerConfig(),maintenance_gap=float(getattr(a,'maintenance_gap',0) or 0),
-                           margin=int(getattr(a,'margin',500)),list_markup=int(getattr(a,'list_markup',0) or 0),
-                           bands=parse_bands(getattr(a,'bands',None) or '1000:11000'),
-                           max_auction_seconds=int(getattr(a,'max_auction_seconds',0) or 0),
-                           search_budget=int(getattr(a,'search_budget',0) or 0),
-                           low_credit_hold=bool(getattr(a,'low_credit_hold',False)))
+            config=controller_config(a)
             controller=Controller(server.store,adapter,cache,config=config);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.

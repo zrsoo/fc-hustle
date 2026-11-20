@@ -144,11 +144,34 @@ class LaunchAndStatusTests(unittest.TestCase):
         all_time=lm.trading(self.dir,None)
         self.assertEqual((all_time['won_listed'],all_time['relisted'],all_time['sold']),(2,1,1))
         self.assertEqual(all_time['realized_profit'],int(4300*0.95)-3000,'manual 6200 sale excluded')
-        self.assertEqual((all_time['unsold_listed_all_time'],all_time['unrealized_at_buy_now']),(1,int(2000*0.95)-1000))
+        self.assertEqual((all_time['unsold_listed_now'],all_time['unrealized_at_buy_now']),(1,int(2000*0.95)-1000))
+        self.assertEqual(all_time['left_without_recorded_sale'],0,'no transfer-list read: nothing judged gone')
         self.assertEqual(all_time['pending_wins_now'],1)
         window=lm.trading(self.dir,'2026-11-18T20:00')
         self.assertEqual((window['won_listed'],window['relisted'],window['sold'],window['realized_profit']),(1,1,1,int(4300*0.95)-3000))
         self.assertEqual(lm.trading(self.dir,'2026-11-19T00:00')['realized_profit'],0)
+
+    def test_unsold_means_still_on_the_latest_transfer_list(self):
+        import sqlite3
+        db=sqlite3.connect(self.dir/'controller.sqlite')
+        db.executescript("CREATE TABLE c4_work(id,action,body,before_read,state,at,dispatched_at,completed_at,proof);"
+                         "CREATE TABLE c4_members(trade_id,batch_id,state,body);CREATE TABLE c4_commands(id,body,state,result);")
+        def work(op,at,params):
+            db.execute('INSERT INTO c4_work(body,before_read,state,at) VALUES (?,?,?,?)',(json.dumps(dict(operation=op,params=params)),'{}','CONFIRMED',at))
+        work('list','2026-11-18T10:00',dict(item_id='item:gone',paid=1000,buy_now_price=2000))
+        work('list','2026-11-18T11:00',dict(item_id='item:listed',paid=1000,buy_now_price=3000))
+        work('list','2026-11-18T13:00',dict(item_id='item:after_read',paid=1000,buy_now_price=4000))
+        def pile(at,items,complete=True):
+            v=dict(result=dict(success=True,auctions=[dict(item=dict(item_id=i)) for i in items]),
+                   coverage=dict(complete=complete),freshness=dict(network_at=at))
+            db.execute('INSERT INTO c4_commands VALUES (?,?,?,?)',('c',json.dumps(dict(operation='transfer_list')),'DONE',json.dumps(v)))
+        pile('2026-11-18T12:00',['item:listed','item:manual'])
+        pile('2026-11-18T12:30',[],complete=False)  # incomplete read never judges
+        db.commit();db.close()
+        out=lm.trading(self.dir,None)
+        self.assertEqual((out['unsold_listed_now'],out['left_without_recorded_sale']),(2,1))
+        self.assertEqual(out['unrealized_at_buy_now'],int(3000*0.95)-1000+int(4000*0.95)-1000)
+        self.assertEqual(out['realized_profit'],0,'a card gone without a recorded sale is not profit')
 
     def test_launch_and_service_accept_the_maintenance_gap(self):
         a=lm.parser().parse_args(['launch','--maintenance-gap','180'])
