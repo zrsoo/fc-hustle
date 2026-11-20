@@ -412,6 +412,8 @@ class Controller:
             if amount is None or amount>candidate['cap'] or row['buy_now_price'] and amount>=row['buy_now_price']:
                 if kind=='rebid' and amount is not None:self._mark_priced_out(bid,candidate,row,amount)
                 return None
+            minimum=amount
+            if self.config.bid_at_cap:amount=self._cap_bid(minimum,candidate['cap'],row,rules)
             retry_of=candidate.get('retry_of') if kind=='initial' else None
             if j.attempted(candidate['target'],kind,amount=amount,read_id=read_id,retry_of=retry_of):return None
             if self.credit_gate:
@@ -425,8 +427,8 @@ class Controller:
                 j.metric(bid,'EXPIRY_MISS',target=candidate['target']);return None
             decision=self.ids();cid=self.ids()
             self.store.decide(decision,batch_id=bid,status_read_id=read_id,identity=candidate['target'],
-                amount=amount,minimum=amount,cap=candidate['cap'],deadline=deadline,kind=kind,retry_of=retry_of)
-            params=dict(target=candidate['target'],amount=amount,minimum=amount,cap=candidate['cap'],
+                amount=amount,minimum=minimum,cap=candidate['cap'],deadline=deadline,kind=kind,retry_of=retry_of)
+            params=dict(target=candidate['target'],amount=amount,minimum=minimum,cap=candidate['cap'],
                 deadline=deadline,status_read_id=read_id,batch_id=bid,decision_id=decision)
             j.intend(cid,bid,candidate,kind,params)
         except Exception as error:
@@ -619,6 +621,14 @@ class Controller:
         orphans=[r['trade_id'] for r in watched['result']['auctions'] if r['trade_state']=='active'
                  and r['bid_state'] in {'highest','outbid'} and r['trade_id'] not in known]
         if orphans:self.journal.metric(bid,'ORPHAN_PARTICIPATION',count=len(orphans),trades=orphans[:10])
+
+    def _cap_bid(self, minimum, cap, row, rules):
+        """Greatest native legal tick <= cap and < Buy Now, never below the minimum."""
+        top=rules.floor(cap)
+        if row.get('buy_now_price'):
+            below=rules.floor(row['buy_now_price']-1)
+            top=min(top,below) if top and below else None
+        return top if top and top>=minimum else minimum
 
     def _mark_priced_out(self, bid, member, row, amount):
         trade=member['target']['trade_id']

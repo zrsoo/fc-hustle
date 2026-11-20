@@ -682,6 +682,48 @@ class DenialWave(Base):
         with self.assertRaises(ValueError): ControllerConfig(denial_pause_max=7201)
 
 
+class BidAtCap(Base):
+    """One bid at our cap per auction; once outbid it is priced out (no wars)."""
+    def test_opening_bid_is_the_cap_on_a_legal_tick_with_the_native_minimum(self):
+        h = self.make(3, bid_at_cap=True)
+        h.controller._acquire()
+        sent = [c['command']['params'] for c in h.calls('bid')]
+        self.assertEqual(len(sent), 3)
+        for p in sent:
+            self.assertEqual(p['amount'], p['cap'])                    # fixture cap 10750 is a legal tick
+            self.assertLess(p['minimum'], p['amount'])                 # minimum stays EA's own minimum
+        self.assertEqual(h.controller._reserved(), 0, 'highest at our cap: nothing left to claim')
+
+    def test_outbid_means_priced_out_and_no_rebid(self):
+        h = self.make(3, bid_at_cap=True, interleave=True)
+        for r in h.ea.rows: r['expires'] = 600
+        h.controller._acquire()
+        bids = len(h.calls('bid'))
+        h.ea.rows[0].update(bid_state='outbid', current_bid=11000)   # a legal tick above our cap
+        h.controller.step()
+        self.assertEqual(len(h.calls('bid')), bids)
+        self.assertEqual(h.metrics('PRICED_OUT')[-1]['target']['trade_id'], h.ea.rows[0]['trade_id'])
+
+    def test_flag_off_bids_the_minimum(self):
+        h = self.make(3)
+        h.controller._acquire()
+        self.assertTrue(all(c['command']['params']['amount'] == c['command']['params']['minimum'] for c in h.calls('bid')))
+
+    def test_every_layer_still_refuses_above_cap_or_below_minimum(self):
+        from fc_access.controller_v1.protocol import command
+        h = self.make(3)
+        h.controller._acquire()
+        a = h.attempts()[0]['body']['params']
+        base = dict(batch_id=a['batch_id'], status_read_id=a['status_read_id'], identity=a['target'], deadline=a['deadline'])
+        for amount, minimum in ((a['cap']+50, a['minimum']), (a['minimum']-50, a['minimum'])):
+            with self.assertRaises(ValueError):
+                h.store.decide('e'*32, amount=amount, minimum=minimum, cap=a['cap'], **base)
+        c = h.calls('bid')[0]['command']
+        for amount in (c['params']['cap']+50, c['params']['minimum']-50):
+            bad = json.loads(json.dumps(c)); bad['params']['amount'] = amount
+            with self.assertRaises(ValueError): command(bad)
+
+
 class LaunchFlags(unittest.TestCase):
     def test_flags_reach_the_controller_config(self):
         from fc_access.controller_v1 import local_monitor as lm

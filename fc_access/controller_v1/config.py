@@ -40,6 +40,9 @@ class ControllerConfig:
     # than this many slots are free (1 = only when full, the legacy rule). A
     # round can add up to 10 auctions, so 10 keeps rounds from being starved.
     watch_reserve: int = 1
+    # Bid our cap (greatest legal tick <= cap, below Buy Now) at once instead of
+    # the minimum: one bid per auction; once outbid it is priced out. Wins pay the cap.
+    bid_at_cap: bool = False
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -57,7 +60,7 @@ class ControllerConfig:
 
     def __post_init__(self):
         integer(self.entry_threshold)
-        for name in ('low_credit_hold', 'coin_reservation', 'interleave'):
+        for name in ('low_credit_hold', 'coin_reservation', 'interleave', 'bid_at_cap'):
             if type(getattr(self, name)) is not bool:
                 raise ValueError('invalid_controller_config')
         for name in ('interleave_window', 'maintenance_window', 'maintenance_interval'):

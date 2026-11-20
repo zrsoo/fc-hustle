@@ -30,7 +30,8 @@ def controller_config(a):
                    low_credit_hold=bool(getattr(a,'low_credit_hold',False)),
                    coin_reservation=bool(getattr(a,'coin_reservation',False)),
                    interleave=bool(getattr(a,'interleave',False)),
-                   watch_reserve=int(getattr(a,'watch_reserve',1) or 1))
+                   watch_reserve=int(getattr(a,'watch_reserve',1) or 1),
+                   bid_at_cap=bool(getattr(a,'bid_at_cap',False)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 

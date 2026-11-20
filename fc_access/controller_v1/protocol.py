@@ -58,7 +58,7 @@ def command(value):
         fields(p, {'target', 'amount', 'minimum', 'cap', 'deadline', 'status_read_id', 'batch_id', 'decision_id'})
         target(p['target'])
         for k in ('amount', 'minimum', 'cap'): integer(p[k], 1)
-        if p['amount'] != p['minimum'] or p['amount'] > p['cap']:
+        if p['amount'] < p['minimum'] or p['amount'] > p['cap']:
             raise ValueError('invalid_bid')
         for k in ('status_read_id', 'batch_id', 'decision_id'): token(p[k])
         stamp(p['deadline'])

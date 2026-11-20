@@ -18,7 +18,7 @@
         Array.isArray(p.targets) && p.targets.length>0 && p.targets.length<=100 && p.targets.every(target) &&
         new Set(p.targets.map(t=>t.trade_id)).size===p.targets.length && new Set(p.targets.map(t=>t.item_id)).size===p.targets.length;
       return c.operation==='bid' && keys(p,'target,amount,minimum,cap,deadline,status_read_id,batch_id,decision_id') && target(p.target) &&
-        [p.amount,p.minimum,p.cap].every(n=>num(n)>0) && p.amount===p.minimum && p.amount<=p.cap &&
+        [p.amount,p.minimum,p.cap].every(n=>num(n)>0) && p.amount>=p.minimum && p.amount<=p.cap &&
         [p.batch_id,p.decision_id,p.status_read_id].every(hex) && Number.isFinite(Date.parse(p.deadline)) && Date.parse(p.deadline)>Date.now();
     }
     const fresh=at=>Date.now()>=Date.parse(at) && Date.now()-Date.parse(at)<=30000;
@@ -79,7 +79,9 @@
             !row || row.item.item_id!==p.target.item_id || row.item.definition_id!==p.target.definition_id || row.trade_state!=='active' ||
             !['none','outbid'].includes(row.bid_state) || row.item.untradeable!==false ||
             Date.parse(p.deadline)>Date.parse(proof.at)+row.expires*1000 || row.buy_now_price>0 && p.amount>=row.buy_now_price ||
-            p.minimum!==(row.current_bid===0?row.starting_bid:helper('above',row.current_bid)))throw Error('invalid_preconditions');
+            p.minimum!==(row.current_bid===0?row.starting_bid:helper('above',row.current_bid)) ||
+            // Above the minimum (bid at our cap) only on a native legal tick.
+            p.amount!==p.minimum && helper('above',helper('below',p.amount))!==p.amount)throw Error('invalid_preconditions');
           const current=await auction(e.raw,{...c,operation:'status'},null);
           if(typeof repositories.Item.isPileFull!=='function' ||
               e.raw.getAuctionData().watched!==true && repositories.Item.isPileFull(ItemPile.INBOX))throw Error('invalid_preconditions');

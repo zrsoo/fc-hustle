@@ -191,7 +191,7 @@ class ControllerStore:
     def decide(self, decision_id, *, batch_id, status_read_id, identity, amount, minimum, cap, deadline, kind='initial', retry_of=None):
         token(decision_id); token(batch_id); token(status_read_id); target(identity)
         for n in (amount,minimum,cap): integer(n,1)
-        if amount != minimum or amount > cap or kind not in {'initial','rebid'} or stamp(deadline) <= self.now():
+        if amount < minimum or amount > cap or kind not in {'initial','rebid'} or stamp(deadline) <= self.now():
             raise ValueError('invalid_decision')
         if retry_of is not None and (kind != 'initial' or not self.denied_attempt(retry_of, identity)):
             raise ValueError('denied_attempt_required')
@@ -321,7 +321,8 @@ class ControllerStore:
             from fc_access.production_v1.contracts import fresh
             if state['phase']!='ACQUIRING' or not j.inventory_valid() or not fresh(age,batch['config']['inventory_max_age']):
                 raise ValueError('inventory_authority_expired')
-            if p['amount']!=selected[0]['minimum'] or p['status_read_id']!=selected[0]['read_id']:
+            if (p['minimum']!=selected[0]['minimum'] or not p['minimum']<=p['amount']<=p['cap'] or
+                    p['status_read_id']!=selected[0]['read_id']):
                 raise ValueError('selected_authority_mismatch')
             if batch['known_pipeline']+len(j.selected(p['batch_id']))>50:
                 raise ValueError('pipeline_full')

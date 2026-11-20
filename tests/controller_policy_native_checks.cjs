@@ -49,6 +49,23 @@ async function suite(){
     const forbidden=await h.api.executeReadController({...c,id:hex(998),operation:'bid',params:{}});
     assert(!forbidden.result.success);assert.equal(h.calls.length,n,'read seam cannot authorize mutations');
   }
-  console.log('PASS shared discovery, retained ages/full links, native bid and changed-state skip');
+  // Bid at cap: the amount may exceed EA's minimum, only on a native legal tick,
+  // never above the cap, and the declared minimum must still be EA's true minimum.
+  for(const [amount,minimum,cap,ok,why] of [[900,500,1000,true,'legal tick above the minimum'],[550,500,1000,true,'one tick above the minimum'],
+      [925,500,1000,false,'off the tick ladder'],[1100,500,1000,false,'above the cap'],
+      [900,550,1000,false,'declared minimum is not the native minimum']]){
+    const h=setup(1),c={...h.command('search',{purpose:'discovery',page:1,count:21,fresh:true,max_bid:1000,min_buy:11000}),schema:2};
+    // EA's helpers snap to a 50-coin grid below 1000 (the fixture default is a bare +/-100).
+    h.sandbox.UTCurrencyInputControl={getIncrementAboveVal:v=>Math.floor(v/50)*50+50,getIncrementBelowVal:v=>Math.max(0,Math.ceil(v/50)*50-50)};
+    const full=await h.api.executeReadController(c);assert(full.result.success);
+    const row=full.result.auctions[0],t={trade_id:row.trade_id,item_id:row.item.item_id,definition_id:row.item.definition_id};
+    const n=h.calls.filter(x=>x.method==='PUT').length;
+    const bid=await h.execute(h.command('bid',{target:t,amount,minimum,cap,deadline:'2030-01-01T00:03:00Z',
+      status_read_id:c.id,batch_id:hex(100),decision_id:hex(101)}));
+    assert.equal(bid.success,ok,why+': '+JSON.stringify(bid));
+    assert.equal(h.calls.filter(x=>x.method==='PUT').length-n,ok?1:0,why+': PUT count');
+    if(ok)assert.equal(bid.receipt.wire_amount,amount,'the bid sent is the cap amount');
+  }
+  console.log('PASS shared discovery, retained ages/full links, native bid and changed-state skip, bid at cap');
 }
 suite().catch(e=>{console.error(e);process.exitCode=1;});
