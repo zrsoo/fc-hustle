@@ -59,9 +59,17 @@ def native_summary(command, response=None):
         row['item'].get('definition_id') in (None, 0, target.get('definition_id')) and
         row.get('trade_state') == 'active' and row.get('bid_state') == 'outbid' and
         type(row.get('current_bid')) is int and row['current_bid'] > amount)
+    # EA 470 NOT_ENOUGH_CREDIT on this exact bid: an account outcome (no coins),
+    # not a transport or write fault.
+    no_credit = (correlated and command['schema'] == 4 and command['operation'] == 'bid' and
+        result.get('success') is False and status == 403 and len(network) == 1 and
+        network[0].get('status') == 470 and receipt.get('verdict') == 'UNCONFIRMED' and
+        receipt.get('native_error_code') == 470 and receipt.get('native_error_name') == 'NOT_ENOUGH_CREDIT' and
+        receipt.get('native_item_count') == 0 and receipt.get('wire_identity_matches') is True and
+        receipt.get('wire_amount_matches') is True)
     return dict(operation=command['operation'], command_id=command['id'],
         local=local, read=command['operation'] in READS | SHARED_READS and not local,
-        market_race=market_race,
+        market_race=market_race, no_credit=no_credit,
         success=correlated and result.get('success') is True and
                 (local and not network or not local and bool(network) and result.get('status') == 200 and
                  all(n.get('session_header_present') is True and n.get('status') == 200 for n in network)),
@@ -96,6 +104,10 @@ class SemanticHealth:
         # document that a normal reload/sign-in restored; the stop reason itself
         # stays PERSISTENT_WRITE_FAILURE and no bid outcome is inferred.
         self.denial_streak = 0
+        # Transfer-market searches EA refused with HTTP 429. The controller pauses
+        # acquisition; a throttle is neither a read failure nor progress.
+        self.search_throttles = 0
+        self.credit_rejections = 0
         self.reason = None
 
     def observe(self, message):
@@ -115,12 +127,16 @@ class SemanticHealth:
                 self.auth_failures = 0
             elif 401 in message['wire_statuses'] or message['service_status'] == 401 or message['error'] in {'unauthenticated', 'persona_unverified'}:
                 self.auth_failures += 1
-            if message['read']:
+            if message['read'] and not success and message['operation'] == 'search' and 429 in message['wire_statuses']:
+                self.search_throttles += 1
+            elif message['read']:
                 op=message['operation']
                 self.read_streaks[op] = 0 if success else self.read_streaks.get(op,0)+1
                 self.read_failures = max(self.read_streaks.values())
                 if message['operation'] == 'status_batch':
                     self.missing_statuses = self.missing_statuses + 1 if success and message['requested'] and not message['returned'] else 0
+            elif message.get('no_credit') is True:
+                self.credit_rejections += 1
             elif message['receipt_verdict'] != 'REJECTED' and message.get('market_race') is not True:
                 # An ordinary proven rejection is an account outcome. Other
                 # failed writes remain unknown; no effect or refund is inferred.
@@ -147,7 +163,7 @@ class SemanticHealth:
             state = message.get('state')
             # A full watch list neither proves progress nor is itself a fault:
             # it leaves the failure streak unchanged until MAINTENANCE acts.
-            if state != 'CAPACITY_FULL':
+            if state not in {'CAPACITY_FULL', 'THROTTLED', 'LOW_CREDITS'}:
                 self.batch_failures = self.batch_failures+1 if state in {'READ_FAILED','OPERATION_FAILED','INVENTORY_UNKNOWN'} else 0
             if message['confirmed']:
                 self.confirmed += message['confirmed']
@@ -193,4 +209,5 @@ class SemanticHealth:
                     batch_failures=self.batch_failures,
                     helper_failures=self.helper_failures,
                     diagnostic_failures=self.diagnostic_failures,
-                    unconfirmed_attempts=self.unconfirmed_attempts, confirmed=self.confirmed, batches=self.batches)
+                    unconfirmed_attempts=self.unconfirmed_attempts, confirmed=self.confirmed, batches=self.batches,
+                    search_throttles=self.search_throttles, credit_rejections=self.credit_rejections)

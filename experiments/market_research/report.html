@@ -1,0 +1,169 @@
+<title>FC27 Strategy Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column; a verdict table with range bars up top, strategy sections below, method last. */
+:root {
+  --bg: #f5f7f6; --surface: #ffffff; --fg: #15201c; --muted: #5b6a64; --line: #dbe2df;
+  --accent: #1d6b52; --accent-soft: #cfe6dc; --warn: #a86a12; --warn-soft: #f4e3c4; --bad: #9a3b33; --bad-soft: #f3d9d5;
+  --display: "Archivo", "Segoe UI", system-ui, sans-serif; --text: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1513; --surface: #161e1b; --fg: #e3ebe7; --muted: #95a59e; --line: #2a3531;
+  --accent: #5fc39c; --accent-soft: #1f3a30; --warn: #e0a54a; --warn-soft: #3a2d17; --bad: #e58a80; --bad-soft: #3b211e; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1513; --surface: #161e1b; --fg: #e3ebe7; --muted: #95a59e; --line: #2a3531;
+  --accent: #5fc39c; --accent-soft: #1f3a30; --warn: #e0a54a; --warn-soft: #3a2d17; --bad: #e58a80; --bad-soft: #3b211e; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 15px/1.6 var(--text); }
+main { max-width: 980px; margin: 0 auto; padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+section { display: grid; gap: 14px; min-width: 0; }
+.eyebrow { font: 600 0.72rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 1.05rem; color: var(--fg); }
+.muted { color: var(--muted); }
+.num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 0.72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+td.num { text-align: right; white-space: nowrap; }
+td.name { font-weight: 600; min-width: 200px; }
+.note { font-weight: 400; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+td.chart { min-width: 260px; width: 42%; }
+.pill { display: inline-block; font: 600 0.7rem/1 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.good { background: var(--accent-soft); color: var(--accent); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.bar { position: relative; height: 26px; border-radius: 6px; background: color-mix(in srgb, var(--line) 45%, transparent); }
+.bar .rng { position: absolute; inset: 0 auto 0 0; background: var(--accent-soft); border-radius: 6px; }
+.bar .cal { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 6px; }
+.bar .lab { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font: 600 0.78rem/1 var(--mono); color: var(--fg);
+  background: color-mix(in srgb, var(--surface) 80%, transparent); padding: 3px 5px; border-radius: 4px; }
+.bar.none { display: flex; align-items: center; padding: 0 10px; font-size: 0.8rem; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.fact .big { font: 600 1.35rem/1.1 var(--mono); font-variant-numeric: tabular-nums; }
+.strategy { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 10px; }
+.strategy dl { display: grid; grid-template-columns: 170px 1fr; gap: 6px 16px; margin: 0; }
+.strategy dt { color: var(--muted); font-size: 0.85rem; }
+.strategy dd { margin: 0; min-width: 0; }
+ol, ul { margin: 0; padding-left: 1.2em; max-width: 72ch; display: grid; gap: 6px; }
+code { font-family: var(--mono); font-size: 0.86em; background: color-mix(in srgb, var(--line) 50%, transparent); padding: 1px 5px; border-radius: 4px; }
+@media (max-width: 640px) { .strategy dl { grid-template-columns: 1fr; } h1 { font-size: 1.7rem; } }
+</style>
+<main>
+<header style="display:grid;gap:10px">
+  <div class="eyebrow">FC27 transfer market · read-only study · 19 Nov 2026</div>
+  <h1>FC27 Strategy Study</h1>
+  <p class="lede">Which trading strategies make coins on this account, measured from 6,153 live market searches and 14,915 tracked auction and listing outcomes, with no bids, purchases or listings made.</p>
+</header>
+
+<section>
+  <h2>Bottom line</h2>
+  <p>Auction flipping stays the best strategy, but in a wider set of bands than the bot used: cards worth about 6k to 20k, bidding up to a cap of the lowest Buy Now price minus tax and a 500 margin. Calibrated to the bot's real win rate, that is about <b>3.4k coins an hour</b>, up to about 9.3k if the bot won as often as the model says. Buying underpriced Buy Now listings of 10k+ cards adds roughly 523–2.5k an hour but spends the scarce resource, searches. Together that is about <b>77.7k–235.9k coins over a 20-hour day</b>, against the 6 wins and about 1.2k realized profit the bot made so far.</p>
+  <p>The hard limit is EA's search throttle: after 6,153 searches in about 7 hours, every search returned HTTP 429. Any plan has to stay well under ~800 searches an hour.</p>
+</section>
+
+<section>
+  <div class="eyebrow">Projected coins per hour, after 5% tax</div>
+  <div class="legend"><span><i style="background:var(--accent)"></i>Calibrated to the live bot</span><span><i style="background:var(--accent-soft)"></i>Up to the model's likely case</span></div>
+  <div class="wrap"><table>
+    <thead><tr><th>Verdict</th><th>Strategy</th><th>Coins / hour</th><th style="text-align:right">Searches</th></tr></thead>
+    <tbody><tr><td><span class="pill good">Recommended</span></td><td class="name">Auction flipping, 6k–20k cards<div class="note">Search-light; bids and status reads are not searches.</div></td><td class="chart"><div class="bar"><span class="rng" style="width:92.6%"></span><span class="cal" style="width:33.3%"></span><span class="lab">3.4k – 9.3k / h</span></div></td><td class="num">~220/h</td></tr>
+<tr><td><span class="pill warn">Add-on</span></td><td class="name">Underpriced Buy Now capture, 10k+ cards<div class="note">Every hit costs searches; most fresh underpricings are bought within seconds.</div></td><td class="chart"><div class="bar"><span class="rng" style="width:24.3%"></span><span class="cal" style="width:5.2%"></span><span class="lab">523 – 2.5k / h</span></div></td><td class="num">~280/h</td></tr>
+<tr><td><span class="pill bad">Skip</span></td><td class="name">Buy Now sniping, all values<div class="note">Half the hits were the price moving, not a bargain.</div></td><td class="chart"><div class="bar"><span class="rng" style="width:11.6%"></span><span class="cal" style="width:5.8%"></span><span class="lab">584 – 1.2k / h</span></div></td><td class="num">~960/h</td></tr>
+<tr><td><span class="pill bad">Skip</span></td><td class="name">Per-card ending-soon auctions<div class="note">0.2% of auctions closed below a profitable cap.</div></td><td class="chart"><div class="bar none">no positive return measured</div></td><td class="num">—</td></tr>
+<tr><td><span class="pill bad">Skip</span></td><td class="name">Cheap bands (bid ≤ 400, sub-1k cards)<div class="note">No profitable close at any margin; 32% sell-through.</div></td><td class="chart"><div class="bar none">no positive return measured</div></td><td class="num">—</td></tr>
+<tr><td><span class="pill bad">Skip</span></td><td class="name">Time-of-day buy low / sell high<div class="note">Hourly price index moved ±1.3% (13–20 UTC); the 5% tax is larger.</div></td><td class="chart"><div class="bar none">no positive return measured</div></td><td class="num">—</td></tr></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>What the market data says</h2>
+  <div class="facts">
+    <div class="fact"><span class="eyebrow">Lowest Buy Now clears</span><span class="big">1.00×</span><span class="muted">Median sale price over the lowest Buy Now at the time, across 1,462 observed sales. The lowest listing is a fair resale price.</span></div>
+    <div class="fact"><span class="eyebrow">Sells within 10 min</span><span class="big">83%</span><span class="muted">Share of the cheapest listings of 10k–50k cards bought within about 10 minutes. 2–10k: 73%; under 2k: 32%.</span></div>
+    <div class="fact"><span class="eyebrow">Auctions get extended</span><span class="big">65–80%</span><span class="muted">Value-band auctions still running after their deadline because a late bid added up to 30 seconds. It happened as often when no bid was in 2–5 minutes before the end (74%) as when one was (75%): when the first bid lands does not change the war.</span></div>
+    <div class="fact"><span class="eyebrow">Search throttle</span><span class="big">~6,153</span><span class="muted">Searches before EA answered every search with HTTP 429 (from 20:24 UTC). Status reads still worked. Searches were still refused at the last probe; the sampler kept probing once every 15 minutes.</span></div>
+    <div class="fact"><span class="eyebrow">Auction supply</span><span class="big">99+87+49/h</span><span class="muted">Auctions ending per hour in the three recommended bands. Supply, not speed, caps auction flipping.</span></div>
+    <div class="fact"><span class="eyebrow">No time-of-day edge</span><span class="big">-1.2% to +1.3%</span><span class="muted">Hourly price index of 33 repeatedly priced cards, 13–20 UTC. Overnight was not covered.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Strategies</h2>
+
+  <article class="strategy">
+    <h3>1 · Auction flipping in the 6k–20k bands <span class="pill good">Recommended</span></h3>
+    <dl>
+      <dt>How it works</dt><dd>Find auctions whose current bid is far below the card's lowest Buy Now, bid at most <code>lowest BIN × 0.95 − margin</code>, list wins one tick under the lowest Buy Now. This is the current bot widened from one band to three.</dd>
+      <dt>Run it</dt><dd>Reuse the controller. Rotate discovery over the bands <code>(max_bid 1k, min_buy 11k)</code>, <code>(3k, 20k)</code>, <code>(5k, 30k)</code>; price each card once per 45 minutes; rebid up to the cap until the auction closes, since extensions run every war to the highest cap. When the first bid lands made no measurable difference, so bidding only in the last minutes just saves requests and keeps coins free. Skip auctions with more than 8 hours left; keep the existing maintenance phase for listing.</dd>
+      <dt>Numbers</dt><dd>At margin 500: ~17 modelled wins an hour, 3.4k–9.3k coins an hour. The model predicted 9.2% wins in the bot's old band, and the bot really won 3.3% (6 of 183), so the low end is scaled by 0.36.</dd>
+      <dt>Risks</dt><dd>The 461 bid denials the live bot hit are still unexplained and would cut this directly. The gap between the model and the bot's real win rate is not explained yet (denials, rebid latency across many auctions, or the model). Margin 300 gives a similar total with more, smaller wins.</dd>
+    </dl>
+    <div class="wrap"><table>
+      <thead><tr><th>Band (max bid / min Buy Now)</th><th style="text-align:right">Typical card</th><th style="text-align:right">Auctions / h</th><th style="text-align:right">Extended</th><th style="text-align:right">Model win rate</th><th style="text-align:right">Coins / h</th></tr></thead>
+      <tbody><tr><td>b1k_m11k</td><td class='num'>6,000</td><td class='num'>99</td><td class='num'>65%</td><td class='num'>9.2%</td><td class='num'>1,761 – 4,891</td></tr>
+<tr><td>b3k_m20k</td><td class='num'>13,000</td><td class='num'>87</td><td class='num'>60%</td><td class='num'>6.4%</td><td class='num'>1,171 – 3,254</td></tr>
+<tr><td>b5k_m30k</td><td class='num'>19,000</td><td class='num'>49</td><td class='num'>62%</td><td class='num'>3.9%</td><td class='num'>431 – 1,196</td></tr>
+<tr><td>b8k_m40k</td><td class='num'>37,000</td><td class='num'>27</td><td class='num'>80%</td><td class='num'>2.0%</td><td class='num'>133 – 370</td></tr>
+<tr><td>b15k_m60k</td><td class='num'>54,750</td><td class='num'>33</td><td class='num'>79%</td><td class='num'>0.0%</td><td class='num'>0 – 0</td></tr>
+<tr><td>b20k_m100k</td><td class='num'>72,000</td><td class='num'>23</td><td class='num'>71%</td><td class='num'>3.2%</td><td class='num'>227 – 630</td></tr></tbody>
+    </table></div>
+  </article>
+
+  <article class="strategy">
+    <h3>2 · Underpriced Buy Now capture, 10k+ cards <span class="pill warn">Add-on</span></h3>
+    <dl>
+      <dt>How it works</dt><dd>Someone lists a card well below its going price; buy it instantly and relist one tick under the second-cheapest listing. Nearly every real case was a listing under two minutes old.</dd>
+      <dt>Run it</dt><dd>For ~40 liquid cards worth 10k–200k, search with <code>max_buy = second-lowest BIN × 0.95 − max(300, 3%)</code>; any result is a candidate. Needs a new Buy Now purchase operation in the extension and controller, which does not exist today.</dd>
+      <dt>Numbers</dt><dd>2.5 real bargains per 100 searches, average profit 582, but only 22% were still buyable 3–12 seconds later. Price checks found the same pattern in 3.8% of reads (median gap 1,256). At ~280 searches an hour: 523–2.5k coins an hour.</dd>
+      <dt>Risks</dt><dd>Competing snipers react within seconds; our latency decides the real share. Every probe spends search budget.</dd>
+    </dl>
+  </article>
+
+  <article class="strategy">
+    <h3>3 · What did not pay <span class="pill bad">Skip</span></h3>
+    <ul>
+      <li><b>Buy Now sniping across all values:</b> 1.1 real hits per 100 searches at a median 248 profit; most apparent bargains were the price moving.</li>
+      <li><b>Per-card auctions ending soon:</b> 8% of such listings sell at all, and almost none close below a profitable cap.</li>
+      <li><b>Cheap bands and bronze/silver cards:</b> zero profitable closes at any margin; sub-2k cards sell 32% of the time within 10 minutes. Apparent bargains there were cards with one or two listings and no real price.</li>
+      <li><b>Time of day:</b> the hourly index stayed within ±1.3%; individual cards swing more (median 4.9% after tax), but not on a schedule you could trade.</li>
+      <li><b>Consumables, packs and SBC fodder</b> were not measured: the extension can only search players and rows carry no rating.</li>
+    </ul>
+  </article>
+</section>
+
+<section>
+  <h2>Proposed next step</h2>
+  <ol>
+    <li>Change the controller's acquisition to strategy 1: three bands, rebids up to the cap, an 8-hour auction-length limit, margin 500.</li>
+    <li>Cap total searches at ~400 an hour and log every 429, so the throttle cannot stop trading.</li>
+    <li>Run it for a day and compare real wins and profit against the 3.4k–9.3k per hour projected here.</li>
+    <li>Only then decide on strategy 2, which needs a new purchase operation.</li>
+  </ol>
+  <p class="muted">Nothing here is implemented. Each step waits for your go-ahead.</p>
+</section>
+
+<section>
+  <h2>Method and caveats</h2>
+  <ul class="muted">
+    <li>Sampling ran 13:12–20:26 UTC on 19 Nov through the reviewed extension, using searches, status reads and one balance read only. 1,819 distinct cards, 48,152 distinct listings, 14,915 final outcomes.</li>
+    <li>Value is the lowest Buy Now with at least 3 listings at or below it; sales confirmed it clears (median 1.00×). Sale proceeds are one tick under it, minus 5% tax.</li>
+    <li>The auction model counts a win when other bidders stopped below our cap and charges the full cap. Auctions extended by late bids before re-reads were added (20:00 UTC) count as losses. The model's win rate is about twice what the bot achieved, which is why the calibrated figure is shown.</li>
+    <li>Auction supply per band is the 21 soonest auctions divided by the time until the last one ends; it is a lower bound for busy bands.</li>
+    <li>Evening and early-night data only (13:13–20:24 UTC before the throttle). Weekend, promo and morning markets may differ.</li>
+    <li>Before the next bot launch: the sampler raised the extension's owner epoch past 120, so start the controller with <code>--epoch-floor</code> above the latest epoch in <code>private-captures/market-research/bridge.sqlite</code>. Account balance at the last read: 75,595 coins.</li>
+  </ul>
+</section>
+</main>

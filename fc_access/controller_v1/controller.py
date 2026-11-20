@@ -62,6 +62,15 @@ class Controller:
         # EA) cannot be status-read in this runtime; they stay members with an
         # unknown outcome and never block management of the others.
         self.unmapped=set()
+        # Acquisition holds (monotonic deadlines): EA search throttle and 461 bursts.
+        self.search_hold_until=0.
+        self.denial_hold_until=0.
+        self.band_index=0
+        # Credit gate: armed by an EA 470 NOT_ENOUGH_CREDIT. Bids above the last
+        # balance read (refreshed at most every 30 s) are held instead of sent.
+        self.credit_gate=False
+        self.credit_view=None
+        self.low_credit_maintenance=None
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -105,6 +114,7 @@ class Controller:
             if phase=='MANAGING':self._manage()
             elif phase=='MAINTENANCE':self._maintain()
             elif self._gap_wait():pass
+            elif self._acquisition_hold():pass
             else:self._acquire()
             return self.status()
         finally:self.lock.release()
@@ -120,7 +130,7 @@ class Controller:
     def _acquire(self):
         j=self.journal;bid=self.ids();start=self.clock()
         j.begin(bid,asdict(self.config),self.now().isoformat())
-        burst=None;handoff=None;expiry_misses=0
+        burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0
         try:
             balance_id=self.ids()
             try:balance=self.adapter.read(balance_id,'balance')
@@ -129,13 +139,29 @@ class Controller:
             if not balance['success']:
                 j.update_batch(bid,state='READ_FAILED',reason='CREDITS_READ_FAILED');return
             j.update_batch(bid,balance_read_id=balance_id,credits=balance['credits'],credits_at=balance['network_at'])
+            self.credit_view=(balance['credits'],self.clock())
+            if balance['credits']<=self.config.entry_threshold and self.config.low_credit_hold:
+                # Coins are tied up in listings and highest bids: wait for sales and
+                # settlements instead of halting; members keep being managed.
+                j.metric(bid,'LOW_CREDITS',credits=balance['credits'],threshold=self.config.entry_threshold)
+                self.low_credit_maintenance=self.clock()  # maintenance follows this batch
+                j.update_batch(bid,state='LOW_CREDITS',reason='ENTRY_CREDITS_AT_OR_BELOW_THRESHOLD');return
             if balance['credits']<=self.config.entry_threshold:
                 reason='ENTRY_CREDITS_AT_OR_BELOW_THRESHOLD'
                 j.update_batch(bid,state='HALTED',reason=reason)
                 j.checkpoint(lifecycle='HALTED',reason=reason);return
-            discovery=self.native.search(self.ids(),Search.discovery())
+            band=self.config.bands[self.band_index%len(self.config.bands)]
+            self.band_index+=1
+            try:discovery=self.native.search(self.ids(),Search.discovery(max_bid=band[0],min_buy=band[1]))
+            except ValueError as error:
+                if str(error)!='service_failed':raise
+                # EA refused the search (HTTP 429 throttle): no acquisition for a while;
+                # managing and maintenance continue.
+                self.search_hold_until=self.clock()+self.config.throttle_pause
+                j.metric(bid,'SEARCH_THROTTLED',pause=self.config.throttle_pause,band=list(band))
+                j.update_batch(bid,state='THROTTLED',reason='SEARCH_THROTTLED');return
             at=discovery['freshness']['network_at']
-            j.update_batch(bid,discovery=discovery,discovery_at=at)
+            j.update_batch(bid,discovery=discovery,discovery_at=at,band=list(band))
             # Price each exact version once; the imported service owns all cache,
             # exclusion, early rejection, tax and native flooring policy.
             quotes={};rules_by_version={};prepared=[];eligible=[];trades=set();items=set()
@@ -144,9 +170,14 @@ class Controller:
                 t=identity(row)
                 if t['trade_id'] in trades or t['item_id'] in items:continue
                 trades.add(t['trade_id']);items.add(t['item_id'])
-                if t['trade_id'] in existing or j.attempted(t) or row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False:continue
+                if t['trade_id'] in existing or row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False:continue
+                retry=self._retry_of(t)
+                if retry is False:continue
                 if row['expires']-(self.now()-stamp(at)).total_seconds()<=60:
                     expiry_misses+=1;continue
+                if self.config.max_auction_seconds and row['expires']-(self.now()-stamp(at)).total_seconds()>self.config.max_auction_seconds:
+                    long_skips+=1;continue
+                if retry is not None:retries[t['trade_id']]=retry
                 version=t['definition_id']
                 if version not in rules_by_version:
                     try:
@@ -174,6 +205,7 @@ class Controller:
                 eligible.append(dict(target=t,row=row,read_id=discovery['command_id'],observed_at=at,
                     deadline=(stamp(at)+timedelta(seconds=row['expires'])).isoformat(),minimum=minimum,
                     cap=quote.max_affordable_bid,resale_price=quote.resale_price,quote=asdict(quote)))
+                if t['trade_id'] in retries:eligible[-1]['retry_of']=retries[t['trade_id']]
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
             # Lost targets are cleared only by MAINTENANCE at capacity; a full
@@ -229,7 +261,16 @@ class Controller:
                 if reason:
                     j.metric(bid,'INITIAL_SKIPPED',target=c['target'],reason=reason,observation_age=age,inventory_age=inv_age);continue
                 result=self._bid(bid,c,c['read_id'],c['row'],'initial')
-                if result:submitted.append(result)
+                if result:
+                    submitted.append(result);attempted+=1
+                    state=self.store.db.execute('SELECT state FROM c4_attempts WHERE id=?',(result[1],)).fetchone()
+                    denied+=bool(state) and state[0]=='DENIED'
+                    if attempted==2 and denied==2 and self.config.denial_pause>0:
+                        # A 461 burst denies whole batches and clears within minutes:
+                        # keep the remaining candidates for a later batch.
+                        self.denial_hold_until=self.clock()+self.config.denial_pause
+                        j.metric(bid,'DENIAL_BURST',pause=self.config.denial_pause,skipped=len(selected)-2)
+                        break
             handoff=self.clock()
             if submitted:
                 status=self._status([c['target'] for c,_,_ in submitted],bid)
@@ -260,7 +301,8 @@ class Controller:
                 report(batch_id=bid,state=batch_state,confirmed=confirmed,uncertain=uncertain)
             end=self.clock()
             j.metric(bid,'ACQUISITION',elapsed=end-start,burst_elapsed=(handoff or end)-burst if burst is not None else 0,
-                     handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses)
+                     handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses,
+                     long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted)
 
     def _minimum(self, row, rules):
         return rules.minimum_bid(definition_id=row['item']['definition_id'],platform=self.adapter.context['platform'],
@@ -303,13 +345,19 @@ class Controller:
             rules=self.prices.loaded[rules] if rules else self.prices.load(key=CardKey(candidate['target']['definition_id']))
             amount=self._minimum(row,rules)
             if amount is None or amount>candidate['cap'] or row['buy_now_price'] and amount>=row['buy_now_price']:return None
-            if j.attempted(candidate['target'],kind,amount=amount,read_id=read_id):return None
+            retry_of=candidate.get('retry_of') if kind=='initial' else None
+            if j.attempted(candidate['target'],kind,amount=amount,read_id=read_id,retry_of=retry_of):return None
+            if self.credit_gate:
+                credits=self._credits()
+                if credits is not None and amount>credits:
+                    j.metric(bid,'HOLD',target=candidate['target'],reason='NOT_ENOUGH_CREDIT',amount=amount,credits=credits)
+                    return None
             deadline=(stamp(self._observation_at(read_id))+timedelta(seconds=row['expires'])).isoformat()
             if stamp(deadline)<=self.now():
                 j.metric(bid,'EXPIRY_MISS',target=candidate['target']);return None
             decision=self.ids();cid=self.ids()
             self.store.decide(decision,batch_id=bid,status_read_id=read_id,identity=candidate['target'],
-                amount=amount,minimum=amount,cap=candidate['cap'],deadline=deadline,kind=kind)
+                amount=amount,minimum=amount,cap=candidate['cap'],deadline=deadline,kind=kind,retry_of=retry_of)
             params=dict(target=candidate['target'],amount=amount,minimum=amount,cap=candidate['cap'],
                 deadline=deadline,status_read_id=read_id,batch_id=bid,decision_id=decision)
             j.intend(cid,bid,candidate,kind,params)
@@ -320,6 +368,8 @@ class Controller:
         except Exception:result=dict(command_id=cid,outcome='UNKNOWN',reason='DELIVERY_UNCONFIRMED',receipt=None,independently_confirmed=False)
         finally:returned=self.now().isoformat()
         j.outcome(cid,result)
+        if result['outcome']=='REJECTED' and result.get('reason')=='not_enough_credit':
+            self.credit_gate=True;self.credit_view=None
         j.metric(bid,'BID',command_id=cid,target=candidate['target'],amount=amount,cap=candidate['cap'],
                  observation_age=(stamp(returned)-stamp(self._observation_at(read_id))).total_seconds(),
                  returned_at=returned,outcome=result['outcome'])
@@ -386,6 +436,58 @@ class Controller:
                     j.invalidate_inventory()
             except Exception:
                 j.metric(m['batch_id'],'WIN_PENDING',target=m['target'])
+
+    def _retry_of(self, target):
+        """None: never tried. A command id: every earlier initial bid on this auction
+        was 461-denied (no effect) and a retry is still allowed. False: not eligible."""
+        history=self.journal.initial_history(target)
+        if not history:return None
+        if any(state!='DENIED' for _,state in history) or len(history)>self.config.denial_retries:return False
+        return history[-1][0]
+
+    def _credits(self):
+        """Spendable coins from a balance read at most 30 s old, or None."""
+        if self.credit_view is None or self.clock()-self.credit_view[1]>30:
+            try:balance=self.adapter.read(self.ids(),'balance')
+            except Exception:return None
+            if not balance['success']:return None
+            self.credit_view=(balance['credits'],self.clock())
+        return self.credit_view[0]
+
+    def searches_last_hour(self):
+        now=self.adapter.executor.clock()
+        return sum(1 for m in self.adapter.executor.metrics if m['operation']=='search' and now-m['started']<=3600)
+
+    def _acquisition_hold(self):
+        """True while acquisition waits on the search throttle, a 461 burst or
+        the hourly search budget. Members keep being managed meanwhile."""
+        j=self.journal;bid=j.state()['batch_id'];now=self.clock()
+        reasons=[]
+        if now<self.search_hold_until:reasons.append(('SEARCH_THROTTLED',self.search_hold_until-now))
+        if now<self.denial_hold_until:reasons.append(('DENIAL_BURST',self.denial_hold_until-now))
+        if self.config.search_budget and self.searches_last_hour()>=self.config.search_budget:reasons.append(('SEARCH_BUDGET',60.))
+        if (not reasons and self.config.low_credit_hold and self.credit_view is not None and
+                self.credit_view[0]<=self.config.entry_threshold):
+            credits=self._credits()
+            if credits is not None and credits<=self.config.entry_threshold:reasons.append(('LOW_CREDITS',30.))
+        if not reasons:return False
+        reason,remaining=max(reasons,key=lambda r:r[1])
+        if any(self._needs_status(m) for m in j.members()):
+            j.checkpoint(phase='MANAGING');return True
+        if reason=='LOW_CREDITS' and (self.low_credit_maintenance is None or self.clock()-self.low_credit_maintenance>=300):
+            # Coins come back only through sales: keep relisting expired listings
+            # and clearing sold ones while acquisition waits.
+            self.low_credit_maintenance=self.clock()
+            j.checkpoint(phase='MAINTENANCE');return True
+        j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
+        end=self.clock()+min(remaining,30)
+        while self.clock()<end:
+            self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
+        try:
+            balance=self.adapter.read(self.ids(),'balance')
+            if balance['success']:self.credit_view=(balance['credits'],self.clock())
+        except Exception:j.metric(bid,'ACQUISITION_HOLD_READ_FAILED')
+        return True
 
     def _gap_wait(self):
         """True while bids are held after a maintenance write.

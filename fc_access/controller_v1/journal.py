@@ -103,16 +103,27 @@ class BatchJournal:
             self.db.execute('UPDATE c4_members SET state=? WHERE trade_id=?',(state,trade))
             self.store.event(trade,state,proof)
 
-    def action(self, target, kind, *, amount=None, read_id=None):
+    def action(self, target, kind, *, amount=None, read_id=None, retry_of=None):
         value=[self.store.peer['context']['account'], target['trade_id'],target['item_id'],target['definition_id'],kind]
         if kind=='rebid':value.extend([amount,read_id])
+        # A retry of a 461-denied initial bid is a distinct action naming the
+        # denied attempt it follows; the store admits it only after that DENIED.
+        elif retry_of is not None:value.extend(['retry',retry_of])
         return encode(value)
 
+    def initial_history(self, target):
+        """Earlier initial attempts on this exact auction, oldest first."""
+        return self.db.execute("""SELECT id,state FROM c4_attempts WHERE kind='initial'
+            AND json_extract(body,'$.params.target.trade_id')=? AND json_extract(body,'$.params.target.item_id')=?
+            ORDER BY rowid""",(target['trade_id'],target['item_id'])).fetchall()
+
     def attempted(self, target, kind='initial', **kwargs):
+        if kwargs.get('retry_of') is None:kwargs.pop('retry_of',None)
         return self.db.execute('SELECT 1 FROM c4_attempts WHERE action=?',(self.action(target,kind,**kwargs),)).fetchone() is not None
 
     def intend(self, cid, bid, candidate, kind, params):
-        action=self.action(candidate['target'],kind,amount=params['amount'],read_id=params['status_read_id'])
+        action=self.action(candidate['target'],kind,amount=params['amount'],read_id=params['status_read_id'],
+                           retry_of=candidate.get('retry_of') if kind=='initial' else None)
         with self.store.lock, self.db:
             if kind=='initial' and self.db.execute("SELECT count(*) FROM c4_attempts WHERE batch_id=? AND kind='initial'",(bid,)).fetchone()[0]>=10:
                 raise ValueError('batch_attempt_limit')

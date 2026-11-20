@@ -18,6 +18,11 @@ def guard_paths(root, scope, database, port):
             database.with_suffix('.controller.lock'))
 
 
+def parse_bands(text):
+    """'1000:11000,3000:20000' -> ((1000, 11000), (3000, 20000)); config validates ranges."""
+    return tuple(tuple(int(v) for v in part.split(':')) for part in text.split(',') if part.strip())
+
+
 def next_owner_epoch(previous, floor=1):
     """Public native fence recovery; cannot lower a persisted epoch or replay work."""
     if type(previous) is not int or not 0<=previous<2**53-1 or type(floor) is not int or not 1<=floor<=2**53-1:
@@ -95,7 +100,11 @@ def run_controller(a, supervision):
             from dataclasses import replace
             from .config import ControllerConfig
             config=replace(ControllerConfig(),maintenance_gap=float(getattr(a,'maintenance_gap',0) or 0),
-                           margin=int(getattr(a,'margin',500)),list_markup=int(getattr(a,'list_markup',0) or 0))
+                           margin=int(getattr(a,'margin',500)),list_markup=int(getattr(a,'list_markup',0) or 0),
+                           bands=parse_bands(getattr(a,'bands',None) or '1000:11000'),
+                           max_auction_seconds=int(getattr(a,'max_auction_seconds',0) or 0),
+                           search_budget=int(getattr(a,'search_budget',0) or 0),
+                           low_credit_hold=bool(getattr(a,'low_credit_hold',False)))
             controller=Controller(server.store,adapter,cache,config=config);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.

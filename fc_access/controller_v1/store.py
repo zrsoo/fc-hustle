@@ -188,11 +188,13 @@ class ControllerStore:
             value = dict(peer=self.peer,balance_read_id=balance_read_id,inventory_command=inventory_command,inventory=inventory)
             self.db.execute('INSERT INTO c4_batches VALUES (?,?)', (batch_id,encode(value)))
 
-    def decide(self, decision_id, *, batch_id, status_read_id, identity, amount, minimum, cap, deadline, kind='initial'):
+    def decide(self, decision_id, *, batch_id, status_read_id, identity, amount, minimum, cap, deadline, kind='initial', retry_of=None):
         token(decision_id); token(batch_id); token(status_read_id); target(identity)
         for n in (amount,minimum,cap): integer(n,1)
         if amount != minimum or amount > cap or kind not in {'initial','rebid'} or stamp(deadline) <= self.now():
             raise ValueError('invalid_decision')
+        if retry_of is not None and (kind != 'initial' or not self.denied_attempt(retry_of, identity)):
+            raise ValueError('denied_attempt_required')
         with self.lock, self.db:
             row,v = self.linked_row(status_read_id,identity)
             batch = self.db.execute('SELECT body FROM c4_batches WHERE id=?',(batch_id,)).fetchone()
@@ -212,7 +214,14 @@ class ControllerStore:
             count = sum(json.loads(r[0])['kind']=='initial' for r in self.db.execute('SELECT body FROM c4_decisions WHERE batch_id=?',(batch_id,)))
             if kind == 'initial' and count >= 10: raise ValueError('batch_attempt_limit')
             p = dict(target=identity,amount=amount,minimum=minimum,cap=cap,deadline=deadline,status_read_id=status_read_id,batch_id=batch_id,decision_id=decision_id)
-            self.db.execute('INSERT INTO c4_decisions VALUES (?,?,?)',(decision_id,batch_id,encode(dict(params=p,kind=kind,peer=self.peer))))
+            body=dict(params=p,kind=kind,peer=self.peer)
+            if retry_of is not None:body['retry_of']=retry_of
+            self.db.execute('INSERT INTO c4_decisions VALUES (?,?,?)',(decision_id,batch_id,encode(body)))
+
+    def denied_attempt(self, cid, identity):
+        """True only for a recorded 461-denied initial attempt on this exact auction."""
+        row=self.db.execute("SELECT kind,state,body FROM c4_attempts WHERE id=?",(cid,)).fetchone() if             self.db.execute("SELECT 1 FROM sqlite_master WHERE name='c4_attempts'").fetchone() else None
+        return bool(row) and row[0]=='initial' and row[1]=='DENIED' and json.loads(row[2])['params']['target']==identity
 
     def authorize(self, c):
         p = c['params']
@@ -229,6 +238,9 @@ class ControllerStore:
         t = p['target']
         action = [c['context']['account'],t['trade_id'],t['item_id'],t['definition_id'],d['kind']]
         if d['kind'] == 'rebid': action += [p['amount'],p['status_read_id']]
+        elif d.get('retry_of') is not None:
+            if not self.denied_attempt(d['retry_of'],t):raise ValueError('denied_attempt_required')
+            action += ['retry',d['retry_of']]
         if self.db.execute('SELECT 1 FROM c4_tombstones WHERE action=?',(encode(action),)).fetchone():
             raise ValueError('possibly_sent_no_replay')
         if policy_batch:self.policy_authority(d,c['id'])

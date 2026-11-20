@@ -349,6 +349,10 @@ def main(argv=None):
     parser.add_argument('--maintenance-gap',type=float,default=0.0,help='seconds without bids after a maintenance write')
     parser.add_argument('--margin',type=int,default=500,help='profit margin X in the bid cap')
     parser.add_argument('--list-markup',type=int,default=0,help='list won items at resale + markup (legal tick)')
+    parser.add_argument('--bands',default='1000:11000',help='discovery bands max_bid:min_buy, comma separated')
+    parser.add_argument('--max-auction-seconds',type=int,default=0,help='skip new bids on longer auctions (0 = no limit)')
+    parser.add_argument('--search-budget',type=int,default=0,help='max transfer-market searches per rolling hour (0 = no cap)')
+    parser.add_argument('--low-credit-hold',action='store_true',help='hold acquisition instead of halting at low credits')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0

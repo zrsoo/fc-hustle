@@ -1,0 +1,315 @@
+"""Strategy 1 acquisition: discovery bands, auction-length limit, search budget,
+EA search throttle (429) and 461 handling (bounded retries, burst pause).
+Offline synthetic EA; real store admission, tombstones and parsers."""
+from dataclasses import replace
+from pathlib import Path
+import json
+import sys
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]; sys.path[:0] = [str(ROOT), str(ROOT/'tests')]
+from controller_policy_fixture import Harness
+from fc_access.controller_v1.__main__ import parse_bands
+from fc_access.controller_v1.config import ControllerConfig
+from fc_access.controller_v1.controller import Controller
+from fc_access.controller_v1.semantic import SemanticHealth, native_summary
+
+
+def configured(h, **values):
+    h.config = replace(h.config, **values)
+    h.controller = Controller(h.store, h.adapter, h.cache, config=h.config, ids=h.ids, clock=h.clock.clock, sleep=h.clock.sleep)
+    h.controller.resume()
+    return h
+
+
+def discoveries(h):
+    return [c['command']['params'] for c in h.calls('search') if c['command']['params']['purpose'] == 'discovery']
+
+
+def rebids(h):
+    return [dict(state=r[0], result=json.loads(r[1]) if r[1] else None) for r in
+            h.store.db.execute("SELECT state,result FROM c4_attempts WHERE kind='rebid' ORDER BY rowid")]
+
+
+def initial(h):
+    return [a for a in h.attempts() if a['body']['params'].get('batch_id') and a['body']['candidate'].get('target')]
+
+
+class Base(unittest.TestCase):
+    def make(self, count=3, **values):
+        h = Harness(self.enterContext(tempfile.TemporaryDirectory()), count); self.addCleanup(h.close)
+        return configured(h, **values) if values else h
+
+    def reset_phase(self, h):
+        h.controller.journal.checkpoint(phase='ACQUIRING')
+
+
+class BandsAndLength(Base):
+    def test_bands_rotate_one_per_batch(self):
+        h = self.make(bands=((1000, 11000), (3000, 20000)))
+        for _ in range(3):
+            h.controller._acquire(); self.reset_phase(h)
+        got = [(p['max_bid'], p['min_buy']) for p in discoveries(h)]
+        self.assertEqual(got, [(1000, 11000), (3000, 20000), (1000, 11000)])
+        batches = [b['band'] for b in h.controller.store.db.execute("SELECT json_extract(body,'$.band') AS band FROM c4_policy_batches").fetchall() for b in [dict(band=b[0])]]
+        self.assertTrue(all(b for b in batches))
+
+    def test_default_keeps_the_legacy_band(self):
+        h = self.make()
+        h.controller._acquire()
+        self.assertEqual([(p['max_bid'], p['min_buy']) for p in discoveries(h)], [(1000, 11000)])
+
+    def test_long_auctions_are_skipped(self):
+        h = self.make(max_auction_seconds=200)  # fixture auctions have 300 s left
+        h.controller._acquire()
+        self.assertEqual(h.calls('bid'), [])
+        self.assertEqual(h.metrics('ACQUISITION')[-1]['long_skips'], 3)
+        h2 = self.make(max_auction_seconds=400)
+        h2.controller._acquire()
+        self.assertEqual(len(h2.calls('bid')), 3)
+
+    def test_config_and_cli_parsing(self):
+        self.assertEqual(parse_bands('1000:11000, 3000:20000'), ((1000, 11000), (3000, 20000)))
+        for bad in (dict(bands=()), dict(bands=((1000,),)), dict(bands=((-1, 5),)), dict(max_auction_seconds=-1),
+                    dict(search_budget=1.5), dict(denial_retries=6), dict(denial_pause=-1), dict(throttle_pause=10000)):
+            with self.assertRaises(ValueError, msg=bad): ControllerConfig(**bad)
+
+
+class Denials(Base):
+    def deny_all(self, h):
+        for r in h.ea.rows: h.ea.bid_modes[r['trade_id']] = 'denied'
+
+    def test_denied_auction_is_retried_and_can_still_be_won(self):
+        h = self.make(denial_pause=0)
+        self.deny_all(h)
+        h.controller._acquire(); self.reset_phase(h)
+        self.assertEqual([a['state'] for a in h.attempts()], ['DENIED']*3)
+        self.assertEqual(h.controller.journal.members(), [])
+        h.ea.bid_modes.clear()
+        h.controller._acquire()
+        states = [a['state'] for a in h.attempts()]
+        self.assertEqual(states.count('ACKNOWLEDGED'), 3)
+        self.assertEqual(len(h.controller.journal.members()), 3)
+        retried = h.store.db.execute("SELECT body FROM c4_decisions").fetchall()
+        self.assertEqual(sum('retry_of' in r[0] for r in retried), 3)
+        self.assertEqual(h.metrics('ACQUISITION')[-1]['retries'], 3)
+
+    def test_retries_are_bounded(self):
+        h = self.make(denial_pause=0, denial_retries=2)
+        self.deny_all(h)
+        for _ in range(5):
+            h.controller._acquire(); self.reset_phase(h)
+        per_trade = {}
+        for a in h.attempts():
+            t = a['body']['params']['target']['trade_id']; per_trade[t] = per_trade.get(t, 0)+1
+        self.assertEqual(set(per_trade.values()), {3})  # first try + 2 retries
+
+    def test_no_retry_after_any_non_denied_outcome(self):
+        h = self.make(denial_pause=0)
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'reject'
+        h.controller._acquire(); self.reset_phase(h)
+        h.ea.bid_modes.clear()
+        before = len(h.attempts())
+        h.controller._acquire()
+        tried = [a['body']['params']['target']['trade_id'] for a in h.attempts()[before:]]
+        self.assertNotIn(h.ea.rows[0]['trade_id'], tried)
+
+    def test_store_refuses_a_retry_of_an_attempt_that_was_not_denied(self):
+        h = self.make(denial_pause=0)
+        h.controller._acquire()
+        acked = h.attempts()[0]
+        target = acked['body']['params']['target']
+        self.assertFalse(h.store.denied_attempt(acked['id'], target))
+        with self.assertRaises(ValueError):
+            h.store.decide('f'*32, batch_id=acked['body']['params']['batch_id'], status_read_id=acked['body']['params']['status_read_id'],
+                           identity=target, amount=acked['body']['params']['amount'], minimum=acked['body']['params']['amount'],
+                           cap=acked['body']['params']['cap'], deadline=acked['body']['params']['deadline'], retry_of=acked['id'])
+
+    def test_burst_skips_the_rest_and_pauses_acquisition(self):
+        h = self.make(denial_pause=120)
+        self.deny_all(h)
+        h.controller._acquire(); self.reset_phase(h)
+        self.assertEqual(len(h.calls('bid')), 2)  # third candidate kept for later
+        self.assertEqual(h.metrics('DENIAL_BURST')[-1]['skipped'], 1)
+        searches = len(h.calls('search'))
+        h.controller.step()                         # held: no search, no bid
+        self.assertEqual(len(h.calls('search')), searches)
+        self.assertEqual(h.metrics('ACQUISITION_HOLD')[-1]['reason'], 'DENIAL_BURST')
+        h.clock.value += 130; h.ea.bid_modes.clear(); self.reset_phase(h)
+        h.controller.step()
+        self.assertEqual(len(h.controller.journal.members()), 3)  # two retries + the untried one
+
+
+class Throttle(Base):
+    def test_429_pauses_acquisition_without_stopping(self):
+        h = self.make(throttle_pause=900)
+        s = SemanticHealth(clock=lambda: h.clock.value)
+        h.executor.result = lambda c, v: s.observe(dict(kind='native_result', **native_summary(c, v)))
+        h.ea.search_throttle = True
+        h.controller.step()
+        self.assertEqual(h.metrics('SEARCH_THROTTLED')[-1]['pause'], 900)
+        state = h.store.db.execute("SELECT state FROM c4_policy_batches").fetchone()[0]
+        self.assertEqual(state, 'THROTTLED')
+        searches = len(h.calls('search'))
+        for _ in range(3): h.controller.step()
+        self.assertEqual(len(h.calls('search')), searches)
+        self.assertEqual(s.search_throttles, 1); self.assertEqual(s.read_failures, 0); self.assertIsNone(s.check())
+        h.clock.value += 901; h.ea.search_throttle = False; self.reset_phase(h)
+        h.controller.step()
+        self.assertEqual(len(h.controller.journal.members()), 3)
+
+    def test_search_budget_holds_acquisition(self):
+        # No live members (all denied): the hold waits in place and says why.
+        h = self.make(search_budget=2, denial_pause=0)
+        for r in h.ea.rows: h.ea.bid_modes[r['trade_id']] = 'denied'
+        h.controller._acquire(); self.reset_phase(h)
+        self.assertGreaterEqual(h.controller.searches_last_hour(), 2)
+        searches = len(h.calls('search'))
+        h.controller.step()
+        self.assertEqual(len(h.calls('search')), searches)
+        self.assertEqual(h.metrics('ACQUISITION_HOLD')[-1]['reason'], 'SEARCH_BUDGET')
+        h.clock.value += 3700; h.ea.bid_modes.clear(); self.reset_phase(h)
+        h.controller.step()                         # an hour later the budget is free
+        self.assertGreater(len(h.calls('search')), searches)
+
+    def test_hold_with_live_members_keeps_managing(self):
+        h = self.make(search_budget=2)
+        h.controller._acquire(); self.reset_phase(h)
+        searches = len(h.calls('search'))
+        h.controller.step()
+        self.assertEqual(len(h.calls('search')), searches)
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+
+
+class Credit(Base):
+    """Live 03:14 incident: rebids above spendable coins got wire 470 / service 403
+    NOT_ENOUGH_CREDIT, were filed UNKNOWN and stopped the runtime as write failures."""
+    def outbid(self, h):
+        h.controller.step()
+        for r in h.ea.rows: r.update(bid_state='outbid', current_bid=200, expires=120)
+
+    def test_470_is_a_no_effect_rejection_and_arms_the_credit_gate(self):
+        h = self.make()
+        self.outbid(h)
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'no_credit'
+        h.ea.credits = 100                          # below every rebid amount
+        balances = len(h.calls('balance'))
+        h.controller.step()
+        got = rebids(h)
+        self.assertEqual(got[0]['state'], 'REJECTED')
+        self.assertEqual(got[0]['result']['reason'], 'not_enough_credit')
+        self.assertTrue(h.controller.credit_gate)
+        # Later rebids in the same cycle are held locally after one balance read.
+        self.assertEqual(len(got), 1)
+        self.assertEqual(len(h.calls('balance')), balances+1)
+        holds = [m for m in h.metrics('HOLD') if m.get('reason') == 'NOT_ENOUGH_CREDIT']
+        self.assertEqual(len(holds), 2); self.assertEqual(holds[0]['credits'], 100)
+        self.assertEqual(len(h.controller.journal.members()), 3)   # still managed
+
+    def test_gate_reads_balance_at_most_every_30s_and_releases_when_coins_return(self):
+        h = self.make()
+        self.outbid(h)
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'no_credit'; h.ea.credits = 100
+        h.controller.step()
+        bids = len(h.calls('bid')); balances = len(h.calls('balance'))
+        h.controller.step()                         # cached 100 coins: nothing sent
+        self.assertEqual(len(h.calls('bid')), bids); self.assertEqual(len(h.calls('balance')), balances)
+        h.ea.bid_modes.clear(); h.ea.credits = 50000; h.clock.value += 31
+        h.controller.step()                         # fresh read shows coins again
+        self.assertEqual(len(h.calls('balance')), balances+1)
+        self.assertEqual(len(h.calls('bid')), bids+3)
+
+    def test_no_gate_and_no_extra_balance_reads_without_a_470(self):
+        h = self.make()
+        self.outbid(h)
+        balances = len(h.calls('balance'))
+        h.controller.step()
+        self.assertFalse(h.controller.credit_gate)
+        self.assertEqual(len(h.calls('balance')), balances)
+        self.assertEqual(len(rebids(h)), 3)
+
+    def test_semantic_counts_470_as_account_outcome_not_write_failure(self):
+        h = self.make()
+        s = SemanticHealth(clock=lambda: h.clock.value)
+        h.executor.result = lambda c, v: s.observe(dict(kind='native_result', **native_summary(c, v)))
+        self.outbid(h)
+        for r in h.ea.rows: h.ea.bid_modes[r['trade_id']] = 'no_credit'
+        h.ea.credits = 10**9                        # gate never holds: every rebid reaches EA
+        for _ in range(4):
+            h.controller.step(); h.clock.value += 31
+            for r in h.ea.rows: r.update(bid_state='outbid', expires=120)
+        self.assertGreaterEqual(s.credit_rejections, 4)
+        self.assertEqual(s.write_failures, 0); self.assertIsNone(s.check())
+
+    def test_unmatched_470_shape_stays_unknown(self):
+        from fc_access.controller_v1.adapter import no_credit
+        good = dict(success=False, status=403, network=[dict(status=470)], receipt=dict(
+            verdict='UNCONFIRMED', native_error_code=470, native_error_name='NOT_ENOUGH_CREDIT',
+            native_item_count=0, matching_item_count=0, wire_identity_matches=True, wire_amount_matches=True))
+        self.assertTrue(no_credit(good))
+        for change in (dict(status=200), dict(network=[dict(status=461)]), dict(network=[])):
+            self.assertFalse(no_credit({**good, **change}), change)
+        for change in (dict(wire_amount_matches=False), dict(native_item_count=1), dict(native_error_name=None)):
+            self.assertFalse(no_credit({**good, 'receipt': {**good['receipt'], **change}}), change)
+
+
+class LowCredits(Base):
+    """Live 04:30 incident: coins tied up in listings and highest bids fell under the
+    entry threshold and the runtime halted, leaving held auctions unmanaged."""
+    def test_legacy_default_still_halts(self):
+        h = self.make(); h.ea.credits = 30000
+        h.controller._acquire()
+        self.assertEqual(h.controller.journal.state()['lifecycle'], 'HALTED')
+
+    def test_hold_waits_without_searching_and_resumes_when_coins_return(self):
+        h = self.make(low_credit_hold=True); h.ea.credits = 30000
+        h.controller.step()
+        self.assertEqual(h.controller.journal.state()['lifecycle'], 'RUNNING')
+        self.assertEqual(h.calls('search'), [])
+        self.assertEqual(h.metrics('LOW_CREDITS')[-1]['credits'], 30000)
+        state = h.store.db.execute("SELECT state FROM c4_policy_batches").fetchone()[0]
+        self.assertEqual(state, 'LOW_CREDITS')
+        h.controller.step()                               # maintenance still runs
+        h.clock.value += 31; h.controller.step()          # still low: hold, no search
+        self.assertEqual(h.calls('search'), [])
+        self.assertEqual(h.metrics('ACQUISITION_HOLD')[-1]['reason'], 'LOW_CREDITS')
+        h.ea.credits = 50000; h.clock.value += 31; self.reset_phase(h)
+        h.controller.step()
+        self.assertGreater(len(h.calls('search')), 0)
+        self.assertEqual(len(h.controller.journal.members()), 3)
+
+    def test_hold_runs_maintenance_every_5_minutes(self):
+        # Listings last an hour; without relisting, coins would never come back.
+        h = self.make(low_credit_hold=True); h.ea.credits = 30000
+        h.controller.step(); h.controller.step()          # LOW_CREDITS, then maintenance
+        phases = []
+        for _ in range(12):
+            h.clock.value += 31; h.controller.step(); phases.append(h.controller.journal.state()['phase'])
+        self.assertIn('MAINTENANCE', phases)                # one pass in ~6 minutes of holding
+        self.assertLessEqual(phases.count('MAINTENANCE'), 2)
+        self.assertEqual(h.calls('search'), [])
+        self.assertEqual(h.controller.journal.state()['lifecycle'], 'RUNNING')
+
+    def test_hold_with_live_members_keeps_managing(self):
+        h = self.make(low_credit_hold=True)
+        h.controller.step()                               # three members bid
+        for r in h.ea.rows: r.update(bid_state='highest', expires=120)
+        h.ea.credits = 30000; h.controller.credit_view = (30000, h.clock.value)
+        self.reset_phase(h)
+        h.controller.step()
+        self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
+        self.assertEqual(h.controller.journal.state()['lifecycle'], 'RUNNING')
+
+    def test_low_credit_batches_are_neutral_for_semantic_health(self):
+        s = SemanticHealth(clock=lambda: 0)
+        for _ in range(10):
+            s.observe(dict(kind='batch_result', state='LOW_CREDITS', confirmed=0, uncertain=0))
+        self.assertEqual(s.batch_failures, 0); self.assertIsNone(s.check())
+
+    def test_flag_validation_and_cli(self):
+        with self.assertRaises(ValueError): ControllerConfig(low_credit_hold=1)
+        from fc_access.controller_v1.local_monitor import main  # noqa: F401  (argparse wiring imports)
+
+
+if __name__ == '__main__': unittest.main(verbosity=2)

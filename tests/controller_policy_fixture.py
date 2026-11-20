@@ -41,6 +41,7 @@ class SyntheticEA:
         self.credits=50000;self.balance_fail=False;self.inventory_complete=True;self.watched_fail=False
         self.watch_capacity=50
         self.lost_mode='ok'
+        self.search_throttle=False
         self.bid_modes={};self.missing=set();self.unmapped=set();self.full={};self.calls=[];self.phase=None
         self.duration=.01;self.on_request=None;self.active=0;self.max_active=0
         self.native=FixturePriceAdapter()
@@ -108,8 +109,11 @@ class SyntheticEA:
             r.update(items=deepcopy(self.owned),cache_invalidated=True)
             if op=='owned_item':wire={'item_id':p['item_id']};r['items']=[i for i in r['items'] if i['item_id']==p['item_id']]
         if op!='price_helpers':r['network']=[dict(method='GET',path='/ut/game/fc27/'+path,host='utas.test.ea.com',query=wire,status=200,session_header_present=True)]
+        if op=='search' and self.search_throttle:
+            # EA search throttle: native HTTP 429, page error service_failed.
+            r.update(success=False,error='service_failed',status=429,auctions=None);r['network'][0]['status']=429
         return dict(schema=2,command_id=c['id'],operation=op,context=deepcopy(c['context']),fences=deepcopy(c['fences']),
-            result=r,freshness=dict(observed_at=self.clock.now().isoformat(),network_at=None if op=='price_helpers' else at,
+            result=r,freshness=dict(observed_at=self.clock.now().isoformat(),network_at=None if op=='price_helpers' or op=='search' and self.search_throttle else at,
                 request_count=len(r['network']),read_id=c['id'],source='fixture'),coverage=coverage,timing=dict(native_service_ms=0))
 
     def controller(self,c,at):
@@ -150,6 +154,15 @@ class SyntheticEA:
                     wire_trade_id=row['trade_id'],wire_amount=p['amount'],wire_identity_matches=True,wire_amount_matches=True,
                     wire_item_count=None,wire_error_code=None,native_success=False,native_error_code=461,
                     native_error_name=None,native_item_count=0,matching_item_count=0,input_stale=False,
+                    before_bid_state=before,auction=None)
+                return v
+            if mode=='no_credit':
+                # Shape of the live EA insufficient-coins answer: wire 470, service 403.
+                v.update(success=False,error='ambiguous_network',status=403);v['network'][0]['status']=470
+                v['receipt']=dict(schema=1,verdict='UNCONFIRMED',reason='EMPTY_NATIVE_ITEMS',
+                    wire_trade_id=row['trade_id'],wire_amount=p['amount'],wire_identity_matches=True,wire_amount_matches=True,
+                    wire_item_count=None,wire_error_code=None,native_success=False,native_error_code=470,
+                    native_error_name='NOT_ENOUGH_CREDIT',native_item_count=0,matching_item_count=0,input_stale=False,
                     before_bid_state=before,auction=None)
                 return v
             if mode in {'reject','funds','price_change'}:

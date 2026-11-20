@@ -16,6 +16,19 @@ def denied(v):
             receipt.get('wire_identity_matches') is True and receipt.get('wire_amount_matches') is True)
 
 
+def no_credit(v):
+    """EA refused this exact bid for insufficient coins: wire 470 -> service 403,
+    native NOT_ENOUGH_CREDIT, matched identity/amount and an empty native receipt.
+    A definite no-effect outcome, not an unknown."""
+    receipt = v.get('receipt') or {}
+    network = v.get('network') or []
+    return (v.get('success') is False and v.get('status') == 403 and len(network) == 1 and
+            network[0].get('status') == 470 and receipt.get('verdict') == 'UNCONFIRMED' and
+            receipt.get('native_error_code') == 470 and receipt.get('native_error_name') == 'NOT_ENOUGH_CREDIT' and
+            receipt.get('native_item_count') == 0 and receipt.get('matching_item_count') == 0 and
+            receipt.get('wire_identity_matches') is True and receipt.get('wire_amount_matches') is True)
+
+
 class ControllerAdapter:
     def __init__(self, executor, *, context, owner, epoch, now=None):
         self.executor, self.context = executor, deepcopy(context)
@@ -55,8 +68,10 @@ class ControllerAdapter:
         verdict = receipt.get('verdict') if receipt else None
         outcome = ('ACKNOWLEDGED' if v['success'] and verdict=='ACCEPTED' else
                    'REJECTED' if verdict=='REJECTED' and v['error']=='bid_rejected' else
-                   'DENIED' if denied(v) else 'UNKNOWN')
-        return dict(command_id=cid,outcome=outcome,reason=v['error'],receipt=deepcopy(receipt),independently_confirmed=False)
+                   'DENIED' if denied(v) else
+                   'REJECTED' if no_credit(v) else 'UNKNOWN')
+        reason = 'not_enough_credit' if outcome=='REJECTED' and no_credit(v) else v['error']
+        return dict(command_id=cid,outcome=outcome,reason=reason,receipt=deepcopy(receipt),independently_confirmed=False)
 
     def confirmation(self, cid, status_id):
         from fc_access.production_v1.contracts import stamp
