@@ -175,7 +175,13 @@ class Work:
             BEGIN SELECT RAISE(ABORT,'immutable_work_intent'); END;
         ''')
         with self.s.lock,self.s.db:
-            self.s.db.execute('INSERT OR IGNORE INTO c4_maintenance VALUES(1,?)',((self.s.now()+timedelta(seconds=3660)).isoformat(),))
+            interval=timedelta(seconds=self.c.config.relist_interval)
+            self.s.db.execute('INSERT OR IGNORE INTO c4_maintenance VALUES(1,?)',((self.s.now()+interval).isoformat(),))
+            # A shorter configured interval pulls a later stored slot in; it never
+            # makes a slot earlier than one interval from now (no catch-up burst).
+            due=stamp(self.s.db.execute('SELECT next_due FROM c4_maintenance').fetchone()[0])
+            if due>self.s.now()+interval:
+                self.s.db.execute('UPDATE c4_maintenance SET next_due=?',((self.s.now()+interval).isoformat(),))
             self.s.db.execute("UPDATE c4_work SET state='UNKNOWN' WHERE state IN ('INTENT','SUBMITTED','ACKNOWLEDGED')")
         self.inventory=None
 
@@ -340,7 +346,7 @@ class Work:
         try:
             if tick:
                 # Advance before any I/O; interruption cannot reset a tick budget.
-                with self.s.lock,self.s.db:self.s.db.execute('UPDATE c4_maintenance SET next_due=?',((self.s.now()+timedelta(seconds=3660)).isoformat(),))
+                with self.s.lock,self.s.db:self.s.db.execute('UPDATE c4_maintenance SET next_due=?',((self.s.now()+timedelta(seconds=self.c.config.relist_interval)).isoformat(),))
                 before=self.pile()
             else:before=self.pile() if scan else self.inventory
             groups=classify(before)

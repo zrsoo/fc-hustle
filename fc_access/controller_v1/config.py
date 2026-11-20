@@ -60,6 +60,10 @@ class ControllerConfig:
     stored_price_rules: bool = False
     # A found auction is considered only with more than this many seconds left.
     min_seconds_left: int = 60
+    # Seconds between relist slots: each slot relists the expired cards once (after
+    # clearing sold ones). The legacy hourly slot left expired cards unlisted for
+    # up to an hour; a shorter slot keeps them on the market.
+    relist_interval: int = 3660
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -95,6 +99,8 @@ class ControllerConfig:
         if type(self.explore_every) is not int or not 1 <= self.explore_every <= 100:
             raise ValueError('invalid_controller_config')
         if type(self.min_seconds_left) is not int or not 0 <= self.min_seconds_left <= 600:
+            raise ValueError('invalid_controller_config')
+        if type(self.relist_interval) is not int or not 60 <= self.relist_interval <= 86400:
             raise ValueError('invalid_controller_config')
         if isinstance(self.band_recheck, bool) or not isinstance(self.band_recheck, (int, float)) or not 60 <= self.band_recheck <= 86400:
             raise ValueError('invalid_controller_config')
