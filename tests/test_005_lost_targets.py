@@ -31,6 +31,25 @@ class LostTargets(unittest.TestCase):
                 state,proof=h.store.db.execute('select state,proof from c4_work where id=?',(cmd['id'],)).fetchone();self.assertEqual(state,'CONFIRMED');self.assertEqual(json.loads(proof)['mode'],'NATIVE_ACK_AND_READBACK')
                 self.assertLess(h.calls('clear_lost')[0]['at'],h.calls('bid')[0]['at'])
             finally:h.close()
+    def test_watch_reserve_clears_losses_before_rounds_are_starved(self):
+        # Live 2026-11-20: 49/50 watched (lost auctions) left one slot, so every
+        # round could add a single auction. With watch_reserve=10, maintenance
+        # clears the losses while fewer than 10 slots are free.
+        from dataclasses import replace
+        with tempfile.TemporaryDirectory() as path:
+            h=Harness(path,10)
+            try:
+                h.config=replace(h.config,watch_reserve=10)
+                h.controller=Controller(h.store,h.adapter,h.cache,config=h.config,ids=h.ids,clock=h.clock.clock,sleep=h.clock.sleep);h.controller.resume()
+                self.losses(h,45)
+                h.controller.journal.checkpoint(phase='MAINTENANCE');h.controller.step()
+                self.assertEqual(len(h.calls('clear_lost')),1)
+                self.assertEqual(len(h.calls('clear_lost')[0]['command']['params']['targets']),45)
+                h.controller.step();self.assertEqual(len(h.calls('bid')),10)
+                self.losses(h,35)                       # 15 slots free: nothing to do
+                h.controller.journal.checkpoint(phase='MAINTENANCE');h.controller.step()
+                self.assertEqual(len(h.calls('clear_lost')),1)
+            finally:h.close()
     def test_below_capacity_losses_are_never_cleared(self):
         with tempfile.TemporaryDirectory() as path:
             h=Harness(path,10)

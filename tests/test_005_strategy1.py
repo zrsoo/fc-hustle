@@ -661,6 +661,8 @@ class LaunchFlags(unittest.TestCase):
         self.assertEqual((c.coin_reservation, c.interleave, c.entry_threshold), (True, True, 0))
         plain = controller_config(lm.parser().parse_args(['launch']))
         self.assertEqual((plain.coin_reservation, plain.interleave, plain.entry_threshold), (False, False, 40000))
+        self.assertEqual(plain.watch_reserve, 1)
+        self.assertEqual(controller_config(lm.parser().parse_args(['launch', '--watch-reserve', '10'])).watch_reserve, 10)
 
 
 if __name__ == '__main__': unittest.main(verbosity=2)

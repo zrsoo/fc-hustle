@@ -355,6 +355,7 @@ def main(argv=None):
     parser.add_argument('--low-credit-hold',action='store_true',help='hold acquisition instead of halting at low credits')
     parser.add_argument('--coin-reservation',action='store_true',help='admit auctions only if spendable coins cover their cap')
     parser.add_argument('--interleave',action='store_true',help='acquire and maintain in quiet windows while managing')
+    parser.add_argument('--watch-reserve',type=int,default=1,help='clear lost watch-list entries while fewer slots are free')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0

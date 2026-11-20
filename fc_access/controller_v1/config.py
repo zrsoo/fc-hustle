@@ -36,6 +36,10 @@ class ControllerConfig:
     # the acquisition pause doubles per such round, up to this many seconds,
     # and resets on the first accepted opening bid. Managing never pauses.
     denial_pause_max: float = 900.0
+    # Maintenance clears lost auctions from the native watch list while fewer
+    # than this many slots are free (1 = only when full, the legacy rule). A
+    # round can add up to 10 auctions, so 10 keeps rounds from being starved.
+    watch_reserve: int = 1
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -66,6 +70,8 @@ class ControllerConfig:
         for name in ('max_auction_seconds', 'search_budget', 'denial_retries'):
             if type(getattr(self, name)) is not int or not 0 <= getattr(self, name) <= 1000000:
                 raise ValueError('invalid_controller_config')
+        if type(self.watch_reserve) is not int or not 1 <= self.watch_reserve <= 50:
+            raise ValueError('invalid_controller_config')
         if self.denial_retries > 5:
             raise ValueError('invalid_controller_config')
         for name in ('margin', 'list_markup'):

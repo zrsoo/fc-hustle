@@ -282,10 +282,11 @@ class Work:
         return json.loads(proof)['after'] if state=='CONFIRMED' else None
 
     def lost_at_capacity(self):
-        """clear_lost only when the native watch list is at or over capacity."""
+        """clear_lost only when fewer than config.watch_reserve native watch-list
+        slots are free (default 1: at or over capacity)."""
         from .watch_capacity import slots
         watched=self.c._read('watched')
-        if slots(watched)>0:return None
+        if slots(watched)>=self.c.config.watch_reserve:return None
         after=self.clear_lost(watched)
         if after is None:
             self.c.journal.metric(None,'LOST_TARGET_CLEANUP_UNCONFIRMED')

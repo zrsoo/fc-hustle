@@ -29,7 +29,8 @@ def controller_config(a):
                    search_budget=int(getattr(a,'search_budget',0) or 0),
                    low_credit_hold=bool(getattr(a,'low_credit_hold',False)),
                    coin_reservation=bool(getattr(a,'coin_reservation',False)),
-                   interleave=bool(getattr(a,'interleave',False)))
+                   interleave=bool(getattr(a,'interleave',False)),
+                   watch_reserve=int(getattr(a,'watch_reserve',1) or 1))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 
