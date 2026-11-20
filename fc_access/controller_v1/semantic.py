@@ -41,7 +41,9 @@ def native_summary(command, response=None):
     status = result.get('status')
     statuses = [n['status'] for n in network if type(n.get('status')) is int and 100 <= n['status'] <= 599]
     local = command['operation'] == 'price_helpers'
-    # A coherent native 200 can report that a competitor overtook this bid.
+    # A coherent native 200 can report that a competitor overtook this bid, or
+    # tied it: outbid at exactly our amount means another bidder holds that
+    # price (had ours counted, the row would say highest).
     # It grants no acknowledgement or membership, but is not a transport fault.
     row = receipt.get('auction')
     target = command['params'].get('target', {})
@@ -61,7 +63,7 @@ def native_summary(command, response=None):
         row['item'].get('item_id') == target.get('item_id') and
         row['item'].get('definition_id') in (None, 0, target.get('definition_id')) and
         row.get('trade_state') == 'active' and row.get('bid_state') == 'outbid' and
-        type(row.get('current_bid')) is int and row['current_bid'] > amount)
+        type(row.get('current_bid')) is int and row['current_bid'] >= amount)
     # EA 470 NOT_ENOUGH_CREDIT on this exact bid: an account outcome (no coins),
     # not a transport or write fault.
     no_credit = (correlated and command['schema'] == 4 and command['operation'] == 'bid' and

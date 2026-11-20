@@ -24,6 +24,17 @@ class MarketRaceTests(unittest.TestCase):
         for _ in range(20):s.observe(dict(kind='native_result',**m))
         self.assertIsNone(s.check());self.assertEqual(s.write_failures,0)
         self.assertEqual(s.confirmed,0);self.assertEqual(s.native_successes,0)
+    def test_tie_at_our_amount_is_a_race_not_a_write_failure(self):
+        # Live 2026-11-20 13:28: three rebids (3200, 3300, 3400) each answered
+        # native 200 with the auction outbid at exactly our amount; they were
+        # counted as write failures and stopped the runtime.
+        r=deepcopy(self.race);amount=r['command']['params']['amount']
+        r['response']['receipt']['auction']['current_bid']=amount
+        m=native_summary(r['command'],r['response'])
+        self.assertTrue(m['market_race'])
+        s=SemanticHealth(clock=lambda:0)
+        for _ in range(5):s.observe(dict(kind='native_result',**m))
+        self.assertEqual(s.write_failures,0);self.assertIsNone(s.check())
     def test_race_never_resets_permission_failure_streak(self):
         s=SemanticHealth(clock=lambda:0)
         denied=dict(kind='native_result',**native_summary(self.denied['command'],self.denied['response']))
@@ -40,7 +51,7 @@ class MarketRaceTests(unittest.TestCase):
                ('receipt.wire_identity_matches',False),('receipt.wire_amount_matches',False),
                ('receipt.wire_amount',900),('receipt.wire_item_count',0),('receipt.native_item_count',2),
                ('receipt.matching_item_count',0),('receipt.input_stale',True),
-               ('receipt.wire_trade_id','trade:'+'0'*24),('receipt.auction.current_bid',850),
+               ('receipt.wire_trade_id','trade:'+'0'*24),('receipt.auction.current_bid',800),
                ('receipt.auction.bid_state','highest'),('receipt.auction.trade_state','closed'),
                ('receipt.auction.item.item_id','item:'+'0'*24),('receipt.auction.item.definition_id',999),
                ('network.0.status',461),('network.0.session_header_present',False)]
