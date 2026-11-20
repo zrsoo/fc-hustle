@@ -614,6 +614,9 @@ class Controller:
         explore=not self.config.rank_bands or self.rounds%self.config.explore_every==0
         if explore:order=[self.config.bands[(self.band_index+k)%n] for k in range(n)]
         else:order=self._band_order(peek=peek)
+        # No auction can be funded below EA's smallest practical bid: never search
+        # with less (a never-searched band is otherwise searched once to learn it).
+        if spendable<200:return None
         for band in order:
             floor=self.band_floor.get(tuple(band))
             if floor and spendable<floor[0] and self.clock()-floor[1]<self.config.band_recheck:
@@ -668,7 +671,9 @@ class Controller:
         if not peek and order!=self.band_order_logged:
             self.band_order_logged=order
             self.journal.metric(self.journal.state()['batch_id'],'BAND_RANK',order=[list(b) for b in order],
-                scores={f'{b[0]}:{b[1]}':{k:(round(v,5) if isinstance(v,float) else v) for k,v in scores[tuple(b)].items()}
+                scores={f'{b[0]}:{b[1]}':dict(win_rate=round(scores[tuple(b)]['win_rate'],4),
+                        median_cap=scores[tuple(b)]['median_cap'],settled=scores[tuple(b)]['settled'],
+                        profit_per_10k_coin_hours=round(scores[tuple(b)]['score']*(0.95*self.config.list_markup+self.config.margin)*10000,1))
                         for b in order if tuple(b) in scores})
         return order
 
@@ -888,32 +893,40 @@ class Controller:
         active=[m for m in members if m['state']!='PENDING_WIN' or not self.work.moved(m)]
         try:
             active=[m for m in active if m['target']['trade_id'] not in self.unmapped]
-            status=self._status([m['target'] for m in active],bid) if active else None
-            if status:
-                self._apply(status,{m['target']['trade_id']:m for m in active},bid)
+            # A native status read takes at most 10 targets: read live members in
+            # chunks (continuous acquisition can track more than one batch's 10).
+            reads=[]
+            for i in range(0,len(active),10):
+                chunk=active[i:i+10]
+                status=self._status([m['target'] for m in chunk],bid)
+                if status:
+                    self._apply(status,{m['target']['trade_id']:m for m in chunk},bid);reads.append((status,chunk))
+            if reads:
                 actions=[]
                 current={m['target']['trade_id'] for m in j.members() if m['state']=='ACTIVE'}
-                for m in active:
-                    if m['target']['trade_id'] not in current:continue
-                    try:row,_=self.store.linked_row(status['command_id'],m['target'])
-                    except ValueError:continue
-                    deadline=stamp(status['network_at'])+timedelta(seconds=row['expires'])
-                    if row['trade_state']=='active' and row['bid_state']=='outbid' and deadline>self.now():
-                        actions.append((deadline,m,row))
-                    else:self._hold(bid,m['target'],'HIGHEST_OR_NOT_ACTIONABLE',bid_state=row['bid_state'],trade_state=row['trade_state'])
+                for status,chunk in reads:
+                    for m in chunk:
+                        if m['target']['trade_id'] not in current:continue
+                        try:row,_=self.store.linked_row(status['command_id'],m['target'])
+                        except ValueError:continue
+                        deadline=stamp(status['network_at'])+timedelta(seconds=row['expires'])
+                        if row['trade_state']=='active' and row['bid_state']=='outbid' and deadline>self.now():
+                            actions.append((deadline,m,row,status['command_id']))
+                        else:self._hold(bid,m['target'],'HIGHEST_OR_NOT_ACTIONABLE',bid_state=row['bid_state'],trade_state=row['trade_state'])
                 submitted=[]
-                for _,m,row in sorted(actions,key=lambda a:(a[0],a[1]['target']['trade_id'])):
+                for _,m,row,read_id in sorted(actions,key=lambda a:(a[0],a[1]['target']['trade_id'])):
                     # Members can come from different batches once an unresolved
                     # win or unmapped auction outlives its batch; each keeps its own.
-                    result=self._bid(m['batch_id'],m,status['command_id'],row,'rebid')
+                    result=self._bid(m['batch_id'],m,read_id,row,'rebid')
                     if result:submitted.append(result)
                     elif self.credit_held_now!=m['target']['trade_id']:
                         self._hold(bid,m['target'],'CAP_OR_LOCAL_AUTHORITY',current_bid=row['current_bid'],cap=m['cap'])
-                if submitted:
-                    readback=self._status([m['target'] for m,_,_ in submitted],bid)
-                    if readback:self._apply(readback,{m['target']['trade_id']:m for m,_,_ in submitted},bid,
-                        after={m['target']['trade_id']:at for m,_,at in submitted})
-                    for m,cid,_ in submitted:
+                for i in range(0,len(submitted),10):
+                    part=submitted[i:i+10]
+                    readback=self._status([m['target'] for m,_,_ in part],bid)
+                    if readback:self._apply(readback,{m['target']['trade_id']:m for m,_,_ in part},bid,
+                        after={m['target']['trade_id']:at for m,_,at in part})
+                    for m,cid,_ in part:
                         if not readback or m['target'] in readback['missing']:j.abandon(cid)
                 if self.config.interleave:
                     soonest=self._soonest_end()

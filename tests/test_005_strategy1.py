@@ -812,6 +812,29 @@ class BandChoice(Base):
             with self.assertRaises(ValueError, msg=bad): ControllerConfig(**bad)
 
 
+class ManyLiveAuctions(Base):
+    def test_status_reads_are_chunked_to_ten_targets(self):
+        # Live 16:29: continuous acquisition held 13 live auctions; one status
+        # read for all 13 failed locally every cycle (native limit is 10).
+        h = self.make(13, interleave=True)
+        for r in h.ea.rows: r['expires'] = 600
+        h.controller._acquire(); self.reset_phase(h)
+        h.controller._acquire()                                    # 10 + 3 members
+        self.assertEqual(len(h.controller.journal.members()), 13)
+        reads = len(h.calls('status_batch'))
+        h.controller.journal.checkpoint(phase='MANAGING'); h.controller.step()
+        new = h.calls('status_batch')[reads:]
+        self.assertEqual(sorted(len(c['command']['params']['targets']) for c in new)[-2:], [3, 10])
+        self.assertTrue(all(len(c['command']['params']['targets']) <= 10 for c in new))
+        self.assertEqual(h.metrics('STATUS_UNKNOWN'), [])
+
+    def test_no_search_below_the_smallest_possible_bid(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, bands=((1000, 11000), (3000, 20000)))
+        h.controller.band_floor[(1000, 11000)] = (3900, h.clock.value)
+        self.assertIsNone(h.controller._fitting_band(13))        # live 16:24: a search with 13 coins
+        self.assertEqual(h.controller._fitting_band(1000), (3000, 20000), 'an unknown band is learned once')
+
+
 class LaunchFlags(unittest.TestCase):
     def test_flags_reach_the_controller_config(self):
         from fc_access.controller_v1 import local_monitor as lm
