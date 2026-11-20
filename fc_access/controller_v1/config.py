@@ -67,6 +67,14 @@ class ControllerConfig:
     # Seconds a cached market quote may set a bid cap (and so the listing price,
     # which is locked to the bid's quote). Older quotes are priced again.
     quote_max_age: int = 86400
+    # Market data: price searches for cards we hold (every market_held_interval)
+    # and recently priced cards (every market_index_interval), made only while
+    # acquisition waits, at most market_budget per hour (0: none; every pricing
+    # search and auction result is still recorded at no request cost).
+    market_budget: int = 0
+    market_held_interval: float = 900.0
+    market_index_interval: float = 1800.0
+    market_index_size: int = 100
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -107,6 +115,14 @@ class ControllerConfig:
             raise ValueError('invalid_controller_config')
         if type(self.quote_max_age) is not int or not 60 <= self.quote_max_age <= 86400:
             raise ValueError('invalid_controller_config')
+        if type(self.market_budget) is not int or not 0 <= self.market_budget <= 2000:
+            raise ValueError('invalid_controller_config')
+        if type(self.market_index_size) is not int or not 0 <= self.market_index_size <= 500:
+            raise ValueError('invalid_controller_config')
+        for name in ('market_held_interval', 'market_index_interval'):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 60 <= value <= 86400:
+                raise ValueError('invalid_controller_config')
         if isinstance(self.band_recheck, bool) or not isinstance(self.band_recheck, (int, float)) or not 60 <= self.band_recheck <= 86400:
             raise ValueError('invalid_controller_config')
         for name in ('rank_bid_hours', 'rank_sell_hours'):

@@ -362,6 +362,7 @@ def main(argv=None):
     parser.add_argument('--min-seconds-left',type=int,default=60,help='consider found auctions only with more seconds left')
     parser.add_argument('--relist-interval',type=int,default=3660,help='seconds between relist slots for expired cards')
     parser.add_argument('--quote-max-age',type=int,default=86400,help='seconds a cached market quote may set a bid cap')
+    parser.add_argument('--market-budget',type=int,default=0,help='idle-time market price searches per hour (0: none)')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0

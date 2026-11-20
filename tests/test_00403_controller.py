@@ -370,7 +370,7 @@ class ControllerAcceptance(unittest.TestCase):
             'bands','max_auction_seconds','search_budget','throttle_pause','denial_retries','denial_pause','low_credit_hold',
         'coin_reservation','interleave','interleave_window','maintenance_window','maintenance_interval',
         'denial_pause_max','watch_reserve','bid_at_cap','rank_bands','explore_every','band_recheck',
-        'rank_bid_hours','rank_sell_hours','stored_price_rules','min_seconds_left','relist_interval','quote_max_age'})
+        'rank_bid_hours','rank_sell_hours','stored_price_rules','min_seconds_left','relist_interval','quote_max_age','market_budget','market_held_interval','market_index_interval','market_index_size'})
 
     def test_10_serial_executor_prevents_parallel_requests_even_for_concurrent_callers(self):
         h=self.harness(0);entered=threading.Event();release=threading.Event();out=[]

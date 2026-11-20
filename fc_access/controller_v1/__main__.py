@@ -36,7 +36,8 @@ def controller_config(a):
                    stored_price_rules=bool(getattr(a,'stored_price_rules',False)),
                    min_seconds_left=int(getattr(a,'min_seconds_left',60)),
                    relist_interval=int(getattr(a,'relist_interval',3660)),
-                   quote_max_age=int(getattr(a,'quote_max_age',86400)))
+                   quote_max_age=int(getattr(a,'quote_max_age',86400)),
+                   market_budget=int(getattr(a,'market_budget',0) or 0))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 
@@ -106,7 +107,7 @@ def run_controller(a, supervision):
         server=Server(database,a.port,write_authority=True)
         server.store.supervision_guard=supervision.require
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-        cache=None;controller=None;rules=None
+        cache=None;controller=None;rules=None;market=None
         try:
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
             epoch=next_owner_epoch(json.loads(previous[0])['fences']['epoch'] if previous else 0,getattr(a,'epoch_floor',1))
@@ -123,7 +124,9 @@ def run_controller(a, supervision):
             if config.stored_price_rules:
                 from fc_access.production_v1.price_store import PriceRuleStore
                 rules=PriceRuleStore(Path(a.cache).resolve().parent/'price-rules.sqlite3')
-            controller=Controller(server.store,adapter,cache,config=config,rules=rules);server.controller=controller
+            from .market_data import MarketData
+            market=MarketData(Path(a.cache).resolve().parent/'market-data.sqlite3')
+            controller=Controller(server.store,adapter,cache,config=config,rules=rules,market=market);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.
             controller.run(progress=supervision.state)
@@ -135,6 +138,7 @@ def run_controller(a, supervision):
             server.shutdown();thread.join(5);server.server_close()
             if cache:cache.close()
             if rules:rules.close()
+            if market:market.close()
     return state
 
 

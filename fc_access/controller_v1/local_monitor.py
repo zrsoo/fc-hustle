@@ -180,6 +180,7 @@ def launch(a, p=None):
     service += ['--min-seconds-left', str(a.min_seconds_left)]
     service += ['--relist-interval', str(a.relist_interval)]
     service += ['--quote-max-age', str(a.quote_max_age)]
+    service += ['--market-budget', str(a.market_budget)]
     watcher = watcher_argv(p['base'], generation, a.interval, startup)
     intent = dict(at=now_iso(), generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                   auth_measure=a.auth_measure, margin=a.margin, list_markup=a.list_markup, bands=a.bands,
@@ -188,7 +189,7 @@ def launch(a, p=None):
                   interleave=a.interleave, watch_reserve=a.watch_reserve, bid_at_cap=a.bid_at_cap,
                   rank_bands=a.rank_bands, stored_price_rules=a.stored_price_rules,
                   min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval,
-                  quote_max_age=a.quote_max_age, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  quote_max_age=a.quote_max_age, market_budget=a.market_budget, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -209,7 +210,7 @@ def watcher_alive(p):
 EA_TAX = 0.05
 
 
-DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'PRICE_RULES', 'PRICE_RULES_RECHECK', 'SEARCH_THROTTLED', 'COINS_RESERVED',
+DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'PRICE_RULES', 'PRICE_RULES_RECHECK', 'MARKET_DATA', 'SEARCH_THROTTLED', 'COINS_RESERVED',
                     'BAND_SKIPPED', 'INTERLEAVE', 'INTERLEAVE_WAIT', 'INTERLEAVE_OVERRUN', 'MAINTENANCE_PASS',
                     'ACQUISITION', 'ACQUISITION_HOLD', 'HOLD', 'ORPHAN_PARTICIPATION')
 ERROR_KINDS = ('DECISION_SKIPPED', 'MAINTENANCE_UNKNOWN', 'STATUS_UNKNOWN', 'ACQUISITION_HOLD_READ_FAILED',
@@ -344,6 +345,28 @@ def trading(base, since):
                 pending_wins_now=members.get('PENDING_WIN', 0), active_auctions_now=members.get('ACTIVE', 0))
 
 
+def market_view(base, now=None):
+    """Market history: sample counts, cards we hold against their latest market
+    price (our listing premium) and the index trend."""
+    from .market_data import summarize as market_summary
+    path = Path(base)/'market-data.sqlite3'
+    if not path.exists(): return None
+    try:
+        db = sqlite3.connect(f'file:{path}?mode=ro', uri=True)
+        held_cards = {}
+        try:
+            c = sqlite3.connect(f'file:{Path(base)/"controller.sqlite"}?mode=ro', uri=True)
+            row = c.execute("SELECT result FROM c4_commands WHERE state='DONE' AND "
+                            "json_extract(body,'$.operation')='transfer_list' ORDER BY rowid DESC LIMIT 1").fetchone()
+            for r in ((json.loads(row[0]).get('result') or {}).get('auctions') or []) if row and row[0] else []:
+                held_cards.setdefault(r['item']['definition_id'], []).append(r['buy_now_price'])
+        except (sqlite3.Error, ValueError, KeyError):
+            pass
+        return market_summary(db, now if now is not None else time.time(), held_cards)
+    except sqlite3.Error:
+        return None
+
+
 def summarize(p, events=15):
     launch_row = latest_launch(p)
     if not launch_row: return dict(launch=None)
@@ -351,14 +374,15 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'market_budget', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
                last_sample={k: samples[-1].get(k) for k in ('at', 'status', 'diagnostic', 'healthy_seconds')} if samples else None,
                max_healthy_seconds=max([s.get('healthy_seconds') or 0 for s in samples] + [0]),
                incident=incidents[-1] if incidents else None,
-               controller=controller_view(p['base'], launch_row['at']))
+               controller=controller_view(p['base'], launch_row['at']),
+               market=market_view(p['base']))
     try:
         state = read(p['runtime']/'runs'/generation/'state.json')
     except (OSError, ValueError):
@@ -468,6 +492,8 @@ def parser():
                    help='seconds between relist slots for expired cards')
     l.add_argument('--quote-max-age', type=int, default=86400,
                    help='seconds a cached market quote may set a bid cap')
+    l.add_argument('--market-budget', type=int, default=0,
+                   help='idle-time market price searches per hour (0: none)')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)

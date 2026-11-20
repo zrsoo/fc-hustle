@@ -45,7 +45,7 @@ def identity(row):
 
 class Controller:
     def __init__(self, store, adapter, cache, *, config=None, ids=lambda:secrets.token_hex(16),
-                 clock=time.monotonic, sleep=time.sleep, win_handler=None, rules=None):
+                 clock=time.monotonic, sleep=time.sleep, win_handler=None, rules=None, market=None):
         self.store,self.adapter,self.native=store,adapter,adapter.native
         self.config=config or ControllerConfig()
         if not isinstance(adapter.executor,SerializedExecutor) or self.native.executor is not adapter.executor:
@@ -67,7 +67,10 @@ class Controller:
         # Bid caps (and the listing price locked to them) come only from quotes
         # younger than quote_max_age.
         cache.ttl=self.config.quote_max_age
-        self.pricing=PricingService(self.native,ids,cache)
+        # Market history: pricing searches are recorded as they happen.
+        self.market_data=market
+        self.market_searches=[]
+        self.pricing=PricingService(self.native,ids,cache,fetch=self._pricing_fetch)
         self.lock=store.controller_lock
         if not self.lock.acquire(blocking=False):raise RuntimeError('controller_step_already_running')
         try:
@@ -627,6 +630,74 @@ class Controller:
             unconfirmed=sum(1 for _,s in bids if s=='UNKNOWN'),
             credit_held=self.hold_reasons.get(trade,(None,))[0]=='NOT_ENOUGH_CREDIT')
         self.hold_reasons.pop(trade,None)
+        if self.market_data is not None and row.get('current_bid'):
+            try:self.market_data.record(member['target']['definition_id'],self.now().timestamp(),'final',[row['current_bid']])
+            except Exception:pass
+
+    # -- market data ------------------------------------------------------
+    def _pricing_fetch(self, cid, query):
+        v=self.native.search(cid,query)
+        if self.market_data is not None:self._record_search(query.definition_id,v,'quote')
+        return v
+
+    def _record_search(self, definition_id, v, source):
+        try:
+            rows=(v.get('result') or {}).get('auctions') or []
+            prices=[r['buy_now_price'] for r in rows if r.get('item',{}).get('definition_id')==definition_id and
+                    r.get('trade_state')=='active' and r.get('buy_now_price')]
+            at=(v.get('freshness') or {}).get('network_at')
+            self.market_data.record(definition_id,stamp(at).timestamp() if at else self.now().timestamp(),source,prices)
+        except Exception:pass
+
+    def _market_targets(self):
+        """Due price searches: cards we hold first, then recently priced cards."""
+        now=self.now().timestamp();due=[];held=set()
+        row=self.store.db.execute("SELECT result FROM c4_commands WHERE state='DONE' AND "
+            "json_extract(body,'$.operation')='transfer_list' ORDER BY rowid DESC LIMIT 1").fetchone()
+        if row and row[0]:
+            held={r['item']['definition_id'] for r in (json.loads(row[0]).get('result') or {}).get('auctions') or []}
+        for d in sorted(held):
+            last=self.market_data.last_at(d,('held',))
+            if last is None or now-last>=self.config.market_held_interval:due.append((d,'held'))
+        if self.config.market_index_size:
+            c=self.adapter.context
+            recent=[d for (d,) in self.pricing.cache.db.execute(
+                'SELECT definition_id FROM completed_quotes_v1 WHERE account=? AND game=? AND platform=? '
+                'ORDER BY observed_at DESC LIMIT ?',(c['account'],c['game'],c['platform'],self.config.market_index_size))]
+            for d in recent:
+                if d in held:continue
+                last=self.market_data.last_at(d,('quote','held','index'))
+                if last is None or now-last>=self.config.market_index_interval:due.append((d,'index'))
+        return due
+
+    def _collect_market(self, bid, until):
+        """Idle-time market searches until ``until`` (monotonic), within the
+        hourly market budget. Never runs inside an acquisition round."""
+        if self.market_data is None or not self.config.market_budget:return
+        now=self.clock();self.market_searches=[t for t in self.market_searches if now-t<3600]
+        if len(self.market_searches)>=self.config.market_budget:return
+        try:due=self._market_targets()
+        except Exception as error:
+            self.journal.metric(bid,'MARKET_DATA',error=error_code(error));return
+        searched=dict(held=0,index=0);error=None
+        for d,source in due:
+            if self.clock()>=until or len(self.market_searches)>=self.config.market_budget:break
+            self.store.require_supervision()
+            self.market_searches.append(self.clock())
+            try:v=self.native.search(self.ids(),Search.pricing(d))
+            except ValueError as e:
+                if str(e)=='service_failed':
+                    # EA refused the search (429): same pause as acquisition.
+                    self.search_hold_until=self.clock()+self.config.throttle_pause
+                    self.journal.metric(bid,'SEARCH_THROTTLED',pause=self.config.throttle_pause,source='market')
+                error=error_code(e);break
+            except Exception as e:
+                error=error_code(e);break
+            self._record_search(d,v,source);searched[source]+=1
+        if searched['held'] or searched['index'] or error:
+            self.journal.metric(bid,'MARKET_DATA',held=searched['held'],index=searched['index'],
+                held_due=sum(1 for _,s in due if s=='held'),index_due=sum(1 for _,s in due if s=='index'),
+                last_hour=len(self.market_searches),error=error)
 
     def _overrun_check(self, bid, step, elapsed):
         """Interleave safety: a step taken in a quiet window must finish before the
@@ -830,6 +901,7 @@ class Controller:
             j.checkpoint(phase='MAINTENANCE');return True
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
         end=self.clock()+min(remaining,30)
+        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
         while self.clock()<end:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
         try:
