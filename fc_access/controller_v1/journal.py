@@ -144,6 +144,8 @@ class BatchJournal:
                 (encode(dict(outcome='UNKNOWN',reason='PARTICIPATION_UNCONFIRMED')),cid))
 
     def metric(self, bid, kind, **values):
+        # Every metric carries its wall time; c4_metrics has no time column.
+        values.setdefault('at', self.store.now().isoformat())
         with self.store.lock, self.db:
             self.db.execute('INSERT INTO c4_metrics(batch_id,kind,body) VALUES (?,?,?)',(bid,kind,encode(values)))
 

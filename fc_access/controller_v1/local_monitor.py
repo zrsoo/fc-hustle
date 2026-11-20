@@ -199,6 +199,60 @@ def watcher_alive(p):
 EA_TAX = 0.05
 
 
+DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'SEARCH_THROTTLED', 'COINS_RESERVED',
+                    'BAND_SKIPPED', 'INTERLEAVE', 'INTERLEAVE_WAIT', 'INTERLEAVE_OVERRUN', 'MAINTENANCE_PASS',
+                    'ACQUISITION', 'ACQUISITION_HOLD', 'HOLD', 'ORPHAN_PARTICIPATION')
+ERROR_KINDS = ('DECISION_SKIPPED', 'MAINTENANCE_UNKNOWN', 'STATUS_UNKNOWN', 'ACQUISITION_HOLD_READ_FAILED',
+               'INTERLEAVE_OVERRUN', 'ORPHAN_PARTICIPATION', 'MAPPING_LOST', 'UNCORRELATED_READBACK',
+               'MISSING_OR_INVALID_ROW', 'LOST_TARGET_CLEANUP_UNCONFIRMED')
+
+
+def controller_view(base, since):
+    """Read-only controller state for status: phase, live auctions, coins, the
+    latest decision of each kind and recent errors (metrics carry 'at')."""
+    try:
+        db = sqlite3.connect((Path(base)/'controller.sqlite').resolve().as_uri()+'?mode=ro', uri=True)
+    except sqlite3.Error:
+        return None
+    try:
+        state = db.execute('SELECT phase,lifecycle,reason FROM c4_controller').fetchone()
+        now = datetime.now(timezone.utc)
+        live, ends, wins = 0, [], 0
+        for s, body in db.execute("SELECT state,body FROM c4_members WHERE state IN ('ACTIVE','PENDING_WIN')"):
+            if s == 'PENDING_WIN':
+                wins += 1; continue
+            live += 1
+            proof = json.loads(body).get('proof') or {}
+            if proof.get('at') and (proof.get('row') or {}).get('expires') is not None:
+                end = datetime.fromisoformat(proof['at'].replace('Z', '+00:00')).timestamp()+proof['row']['expires']
+                ends.append(round(end-now.timestamp()))
+        row = db.execute('SELECT state,body FROM c4_policy_batches ORDER BY rowid DESC LIMIT 1').fetchone()
+        last_round = None
+        if row:
+            b = json.loads(row[1])
+            last_round = dict(state=row[0], started_at=b.get('started_at'), band=b.get('band'),
+                              **{k: b.get(k) for k in ('credits', 'reserved', 'spendable', 'error')})
+        top = db.execute('SELECT coalesce(max(seq),0) FROM c4_metrics').fetchone()[0]
+        recent = [(k, json.loads(body)) for k, body in db.execute(
+            'SELECT kind,body FROM c4_metrics WHERE seq>? ORDER BY seq', (top-20000,))]
+        recent = [(k, v) for k, v in recent if (v.get('at') or '') >= since]
+        latest = {}
+        counts = {}
+        for k, v in recent:
+            counts[k] = counts.get(k, 0)+1
+            latest[k] = v
+        balance = latest.get('BALANCE_READ')
+        return dict(phase=state[0], lifecycle=state[1], reason=state[2], live_auctions=live, pending_wins=wins,
+                    soonest_end_seconds=min(ends) if ends else None, last_round=last_round, last_balance=balance,
+                    counts_since_launch={k: counts[k] for k in sorted(counts) if k != 'CYCLE'},
+                    latest={k: latest[k] for k in DIAGNOSTIC_KINDS if k in latest},
+                    errors=[dict(kind=k, **v) for k, v in recent if k in ERROR_KINDS][-5:])
+    except (sqlite3.Error, ValueError, KeyError, TypeError):
+        return None
+    finally:
+        db.close()
+
+
 def latest_pile(db):
     """(observed_at, item ids) of the newest complete transfer-list read, or None."""
     if not db.execute("SELECT 1 FROM sqlite_master WHERE name='c4_commands'").fetchone():
@@ -283,7 +337,8 @@ def summarize(p, events=15):
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
                last_sample={k: samples[-1].get(k) for k in ('at', 'status', 'diagnostic', 'healthy_seconds')} if samples else None,
                max_healthy_seconds=max([s.get('healthy_seconds') or 0 for s in samples] + [0]),
-               incident=incidents[-1] if incidents else None)
+               incident=incidents[-1] if incidents else None,
+               controller=controller_view(p['base'], launch_row['at']))
     try:
         state = read(p['runtime']/'runs'/generation/'state.json')
     except (OSError, ValueError):

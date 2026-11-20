@@ -466,6 +466,125 @@ class Interleave(Base):
         self.assertEqual(h.metrics('INTERLEAVE'), [])
 
 
+class Diagnostics(Base):
+    """Logging overhaul: every decision point leaves an accurate, finite record."""
+    def test_every_metric_carries_its_time(self):
+        h = self.make()
+        h.controller._acquire()
+        rows = [json.loads(b) for (b,) in h.store.db.execute('SELECT body FROM c4_metrics')]
+        self.assertTrue(rows and all(r.get('at', '').startswith('2030-01-01T') for r in rows))
+
+    def test_bid_records_kind_reason_and_native_error(self):
+        h = self.make(denial_pause=0)
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'denied'
+        h.controller._acquire()
+        bids = {b['target']['trade_id']: b for b in h.metrics('BID')}
+        denied = bids[h.ea.rows[0]['trade_id']]
+        self.assertEqual((denied['bid_kind'], denied['outcome'], denied['native_error']), ('initial', 'DENIED', 461))
+        self.assertEqual(bids[h.ea.rows[1]['trade_id']]['outcome'], 'ACKNOWLEDGED')
+        h.ea.bid_modes.clear(); self.reset_phase(h)
+        h.controller._acquire()
+        retry = [b for b in h.metrics('BID') if b.get('retry_of')]
+        self.assertEqual(len(retry), 1)
+
+    def test_auction_closed_once_per_outcome_with_price_against_cap(self):
+        h = self.make()
+        h.controller._acquire()
+        r0, r1, _ = h.ea.rows
+        r0.update(trade_state='closed', bid_state='outbid', current_bid=12000, expires=0)
+        r1.update(trade_state='closed', bid_state='highest', expires=0, native_is_won=True)
+        h.controller.step(); h.controller.step()
+        closed = {c['target']['trade_id']: c for c in h.metrics('AUCTION_CLOSED')}
+        self.assertEqual(len(h.metrics('AUCTION_CLOSED')), 2, 'a pending win is recorded once')
+        lost = closed[r0['trade_id']]
+        self.assertEqual((lost['outcome'], lost['cap'], lost['final_price'], lost['above_cap'], lost['bids']),
+                         ('LOST', 10750, 12000, True, 1))
+        self.assertEqual(closed[r1['trade_id']]['outcome'], 'WON')
+
+    def test_holds_are_logged_only_when_they_change(self):
+        h = self.make()
+        h.controller._acquire()
+        for _ in range(4): h.controller.step()       # we stay highest: same hold every cycle
+        self.assertEqual(len(h.metrics('HOLD')), 3)
+        h.ea.rows[0].update(bid_state='outbid', current_bid=200)
+        h.ea.bid_modes[h.ea.rows[0]['trade_id']] = 'outbid'
+        h.controller.step()                          # rebid clears the hold; next hold is new
+        h.ea.rows[0].update(bid_state='highest')
+        h.controller.step()
+        self.assertEqual(len(h.metrics('HOLD')), 4)
+
+    def test_coin_context_claims_balance_and_band_skips(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, bands=((1000, 11000), (3000, 20000)))
+        h.controller._acquire(); self.reset_phase(h)
+        h.ea.rows.clear(); h.ea.rows.append(auction(123, 15000, 61))
+        h.ea.credits = 5000 + 10600
+        h.controller._acquire(); self.reset_phase(h)
+        b = h.controller.journal.batch(h.controller.journal.state()['batch_id'])
+        self.assertEqual(len(b['claims']), 1)
+        self.assertEqual(b['claims'][0][1:], [10750, 150, 10600])
+        h.controller._acquire()
+        self.assertEqual(h.metrics('BAND_SKIPPED')[0]['cheapest_cap'], 10750)
+        h.clock.value += 31; h.controller._credits()
+        read = h.metrics('BALANCE_READ')[-1]
+        self.assertEqual((read['credits'], read['reserved'], read['spendable'], read['source']), (15600, 10600, 5000, 'CREDIT_CHECK'))
+        acq = h.metrics('ACQUISITION')[1]
+        self.assertEqual((acq['found'], acq['eligible'], acq['selected'], acq['min_skipped_cap'], acq['spendable_start']),
+                         (1, 1, 0, 10750, 5000))
+
+    def test_interleave_waits_steps_and_overrun_are_recorded(self):
+        h = self.make(3, interleave=True)
+        h.controller._acquire()
+        h.controller.search_hold_until = h.clock.value + 10**6
+        h.controller.step(); h.controller.step()     # maintenance pass (interleaved)
+        for _ in range(3): h.controller.step()       # acquisition held: one wait record
+        waits = h.metrics('INTERLEAVE_WAIT')
+        self.assertEqual([w['reason'] for w in waits], ['ACQUISITION_HELD:SEARCH_THROTTLED'])
+        steps = h.metrics('INTERLEAVE_STEP')
+        self.assertEqual(steps[0]['step'], 'MAINTENANCE'); self.assertGreater(steps[0]['soonest_end_after'], 0)
+        p = h.metrics('MAINTENANCE_PASS')[-1]
+        self.assertTrue(p['interleaved']); self.assertIsNone(p['error'])
+        # A slow acquisition that outlives the soonest auction is flagged.
+        h.controller.search_hold_until = 0; add_rows(h, 90, 1)
+        for r in h.ea.rows[:3]: r['expires'] = 200
+        h.controller.step()                          # fresh proofs: 200 s left -> hand off
+        h.controller.step()                          # interleaved acquisition
+        acq = [x for x in h.metrics('INTERLEAVE_STEP') if x['step'] == 'ACQUIRING']
+        self.assertEqual(len(acq), 1); self.assertGreater(acq[0]['soonest_end_after'], 0)
+        self.assertEqual(h.metrics('INTERLEAVE_OVERRUN'), [])
+        h.clock.value += 400                         # a step that outlived the soonest end
+        h.controller._overrun_check('b'*32, 'ACQUIRING', 400.)
+        self.assertLess(h.metrics('INTERLEAVE_OVERRUN')[-1]['soonest_end_after'], 0)
+
+    def test_errors_carry_safe_codes(self):
+        from fc_access.controller_v1.controller import error_code
+        self.assertEqual(error_code(ValueError('membership_limit')), 'ValueError:membership_limit')
+        self.assertEqual(error_code(ValueError('price 12000 for item 5')), 'ValueError')
+        class Custom(Exception): pass
+        self.assertEqual(error_code(Custom('x')), 'Exception:x')
+        h = self.make()
+        def boom(*a, **k): raise ValueError('synthetic_maintenance_fault')
+        h.controller.work.maintenance = boom
+        h.controller.journal.checkpoint(phase='MAINTENANCE'); h.controller.step()
+        self.assertEqual(h.metrics('MAINTENANCE_UNKNOWN')[-1]['error'], 'ValueError:synthetic_maintenance_fault')
+        self.assertEqual(h.metrics('MAINTENANCE_PASS')[-1]['error'], 'ValueError:synthetic_maintenance_fault')
+        def deny(*a, **k): raise ValueError('synthetic_authority_fault')
+        h.store.decide = deny; self.reset_phase(h)
+        h.controller._acquire()
+        self.assertEqual(h.metrics('DECISION_SKIPPED')[-1]['error'], 'ValueError:synthetic_authority_fault')
+
+    def test_status_controller_view(self):
+        from fc_access.controller_v1 import local_monitor as lm
+        h = self.make(3, coin_reservation=True, entry_threshold=0)
+        h.controller._acquire(); h.controller.step()
+        view = lm.controller_view(h.path, '2000-01-01')
+        self.assertEqual((view['phase'], view['live_auctions'], view['pending_wins']), ('MANAGING', 3, 0))
+        self.assertEqual(view['last_round']['reserved'], 0)
+        self.assertEqual(view['counts_since_launch']['BID'], 3)
+        self.assertIn('ACQUISITION', view['latest'])
+        self.assertGreater(view['soonest_end_seconds'] or 0, -10**9)
+        self.assertEqual(lm.controller_view(h.path, '2999-01-01')['counts_since_launch'], {})
+
+
 class LaunchFlags(unittest.TestCase):
     def test_flags_reach_the_controller_config(self):
         from fc_access.controller_v1 import local_monitor as lm

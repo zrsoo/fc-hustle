@@ -349,8 +349,9 @@ class Work:
             if tick and op=='clear_sold' and confirmed:
                 remaining=classify(self.pile())
                 if not remaining['sold'] and remaining['expired']:self.bulk('relist_all')
-        except Exception:
-            self.c.journal.metric(None,'MAINTENANCE_UNKNOWN',reason='BOUNDED_WORK_UNCONFIRMED')
+        except Exception as error:
+            from .controller import error_code
+            self.c.journal.metric(None,'MAINTENANCE_UNKNOWN',reason='BOUNDED_WORK_UNCONFIRMED',error=error_code(error))
 
     def bulk(self, op):
         before=self.pile();params=parameters(before,op)
