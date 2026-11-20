@@ -802,7 +802,9 @@ class Controller:
                         if not readback or m['target'] in readback['missing']:j.abandon(cid)
                 if self.config.interleave:
                     soonest=self._soonest_end()
-                    if actions:wait='REBID_CYCLE'
+                    # Only a rebid actually sent is a live bidding war. An auction
+                    # outbid beyond our cap cannot be rebid and must not block.
+                    if submitted:wait='REBID_CYCLE'
                     elif soonest is None:wait=None
                     elif soonest>self.config.maintenance_window and self._maintenance_due():
                         self.last_interleave_wait=None

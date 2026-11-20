@@ -446,6 +446,17 @@ class Interleave(Base):
         self.assertEqual(h.controller.journal.state()['phase'], 'MANAGING')
         self.assertEqual(h.metrics('INTERLEAVE'), [])
 
+    def test_an_auction_outbid_beyond_cap_does_not_block_hand_off(self):
+        # Live 10:50 finding: outbid at 2300 against a 2200 cap, no rebid possible,
+        # yet every cycle counted as a rebid cycle and interleaving stalled.
+        h = self.make_live()
+        h.ea.rows[0].update(bid_state='outbid', current_bid=20000)   # far above the 10750 cap
+        bids = len(h.calls('bid'))
+        h.controller.step()
+        self.assertEqual(len(h.calls('bid')), bids)
+        self.assertEqual(h.metrics('INTERLEAVE')[-1]['step'], 'MAINTENANCE')
+        self.assertEqual(h.metrics('INTERLEAVE_WAIT'), [])
+
     def test_maintenance_waits_for_its_interval(self):
         h = self.make_live()
         h.controller.step(); h.controller.step()     # maintenance ran
