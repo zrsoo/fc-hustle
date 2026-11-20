@@ -102,6 +102,9 @@ class Controller:
         # them again. They are still read until settled, but neither hold the
         # interleave window shut nor reserve coins.
         self.priced_out=set()
+        self.rounds=0
+        self.band_order_logged=None
+        self._restore_band_floors()
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -163,7 +166,7 @@ class Controller:
         j=self.journal;bid=self.ids();start=self.clock()
         j.begin(bid,asdict(self.config),self.now().isoformat())
         burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0;accepted=0
-        found=None;n_eligible=None;n_selected=None;band=None;spendable=None;spendable_start=None;min_skipped=None
+        found=None;n_eligible=None;n_selected=None;band=None;spendable=None;spendable_start=None;min_skipped=None;cheapest=None
         interleaved=self.config.interleave and any(self._needs_status(m) for m in j.members())
         try:
             balance_id=self.ids()
@@ -257,7 +260,9 @@ class Controller:
                     cap=quote.max_affordable_bid,resale_price=quote.resale_price,quote=asdict(quote)))
                 if t['trade_id'] in retries:eligible[-1]['retry_of']=retries[t['trade_id']]
             n_eligible=len(eligible)
-            if eligible:self.band_floor[tuple(band)]=(min(c['cap'] for c in eligible),self.clock())
+            if eligible:
+                cheapest=min(c['cap'] for c in eligible)
+                self.band_floor[tuple(band)]=(cheapest,self.clock())
             # Complete physical inventory plus all known participations. A failed
             # watch/inventory read is unknown authority, never an empty pipeline.
             # Lost targets are cleared only by MAINTENANCE at capacity; a full
@@ -364,7 +369,7 @@ class Controller:
                      handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses,
                      long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted,coin_skips=coin_skips,
                      band=list(band) if band else None,found=found,eligible=n_eligible,selected=n_selected,
-                     spendable_start=spendable_start,spendable_end=spendable,min_skipped_cap=min_skipped,
+                     spendable_start=spendable_start,spendable_end=spendable,min_skipped_cap=min_skipped,cheapest_cap=cheapest,
                      searches_last_hour=self.searches_last_hour(),interleaved=interleaved,
                      state=self.store.db.execute('SELECT state FROM c4_policy_batches WHERE id=?',(bid,)).fetchone()[0])
             if interleaved:self._overrun_check(bid,'ACQUIRING',end-start)
@@ -601,19 +606,71 @@ class Controller:
         return (total,claims) if detail else total
 
     def _fitting_band(self, spendable, *, peek=False):
-        """Next band in rotation whose cheapest recently seen cap fits; None if none."""
+        """First band, in ranked (or rotation) order, whose remembered cheapest cap
+        fits the spendable coins; None if none. A band never searched, or whose
+        memory is older than band_recheck, may be searched once to refresh it."""
         n=len(self.config.bands)
         if spendable is None or spendable<=0:return None
-        for k in range(n):
-            band=self.config.bands[(self.band_index+k)%n]
+        explore=not self.config.rank_bands or self.rounds%self.config.explore_every==0
+        if explore:order=[self.config.bands[(self.band_index+k)%n] for k in range(n)]
+        else:order=self._band_order(peek=peek)
+        for band in order:
             floor=self.band_floor.get(tuple(band))
-            if floor and self.clock()-floor[1]<=900 and spendable<floor[0]:
+            if floor and spendable<floor[0] and self.clock()-floor[1]<self.config.band_recheck:
                 if not peek:self.journal.metric(self.journal.state()['batch_id'],'BAND_SKIPPED',band=list(band),
                                                 cheapest_cap=floor[0],spendable=spendable)
                 continue
-            if not peek:self.band_index+=k+1
+            if not peek:
+                self.rounds+=1
+                if explore:self.band_index=(self.config.bands.index(band)+1)%n
             return band
         return None
+
+    def _restore_band_floors(self):
+        """Band cheapest caps from the latest round records (survive restarts)."""
+        try:
+            rows=self.store.db.execute("""SELECT body FROM c4_metrics WHERE kind='ACQUISITION'
+                AND json_extract(body,'$.cheapest_cap') IS NOT NULL ORDER BY seq DESC LIMIT 200""").fetchall()
+        except Exception:return
+        now=self.now()
+        for (body,) in rows:
+            b=json.loads(body);band=tuple(b.get('band') or ())
+            if band not in {tuple(x) for x in self.config.bands} or band in self.band_floor:continue
+            age=max(0.,(now-stamp(b['at'])).total_seconds()) if b.get('at') else self.config.band_recheck
+            self.band_floor[band]=(b['cheapest_cap'],self.clock()-age)
+
+    def _band_scores(self):
+        """Per band: expected profit per coin-hour of its settled auctions. Profit
+        per win is about the same at any card price, so the score is
+        p / (cap * (bid_hours + p * sell_hours)): a lost bid holds its cap only
+        while bidding, a win holds it until the card sells."""
+        stats={tuple(b):[0,[]] for b in self.config.bands}
+        for state,mbody,bbody in self.store.db.execute("""SELECT m.state,m.body,b.body FROM c4_members m
+                JOIN c4_policy_batches b ON b.id=m.batch_id WHERE m.state IN ('WON_ACCOUNTED','LOST','PENDING_WIN')"""):
+            band=tuple(json.loads(bbody).get('band') or ())
+            if band not in stats:continue
+            s=stats[band];s[0]+=state!='LOST';s[1].append(json.loads(mbody)['cap'])
+        wins=sum(s[0] for s in stats.values());n=sum(len(s[1]) for s in stats.values())
+        base=wins/n if n else .05;k=10
+        scores={}
+        for band,(w,caps) in stats.items():
+            if not caps:continue
+            caps=sorted(caps);median=caps[len(caps)//2]
+            p=(w+k*base)/(len(caps)+k)
+            hold=median*(self.config.rank_bid_hours+p*self.config.rank_sell_hours)
+            scores[band]=dict(win_rate=p,median_cap=median,settled=len(caps),score=p/hold if hold else 0)
+        return scores
+
+    def _band_order(self, *, peek=False):
+        scores=self._band_scores()
+        ranked=sorted((b for b in self.config.bands if tuple(b) in scores),key=lambda b:-scores[tuple(b)]['score'])
+        order=ranked+[b for b in self.config.bands if tuple(b) not in scores]
+        if not peek and order!=self.band_order_logged:
+            self.band_order_logged=order
+            self.journal.metric(self.journal.state()['batch_id'],'BAND_RANK',order=[list(b) for b in order],
+                scores={f'{b[0]}:{b[1]}':{k:(round(v,5) if isinstance(v,float) else v) for k,v in scores[tuple(b)].items()}
+                        for b in order if tuple(b) in scores})
+        return order
 
     def _orphans(self, bid, watched):
         """Watch-list participations the controller does not track (diagnostic)."""

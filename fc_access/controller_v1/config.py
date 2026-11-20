@@ -43,6 +43,18 @@ class ControllerConfig:
     # Bid our cap (greatest legal tick <= cap, below Buy Now) at once instead of
     # the minimum: one bid per auction; once outbid it is priced out. Wins pay the cap.
     bid_at_cap: bool = False
+    # Order bands by measured profit per coin (smoothed win rate / median cap of
+    # their settled auctions) instead of a fixed rotation; every explore_every-th
+    # round still follows the rotation so every band keeps producing data.
+    rank_bands: bool = False
+    explore_every: int = 5
+    # A band whose remembered cheapest cap exceeds spendable coins is searched
+    # again at most this often (its prices may have dropped).
+    band_recheck: float = 3600.0
+    # Ranking model: hours a bid holds its cap (bid at cap: until outbid or the
+    # end) and hours a win holds it until the card sells (live 2026-11-20).
+    rank_bid_hours: float = 0.1
+    rank_sell_hours: float = 6.0
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -60,7 +72,7 @@ class ControllerConfig:
 
     def __post_init__(self):
         integer(self.entry_threshold)
-        for name in ('low_credit_hold', 'coin_reservation', 'interleave', 'bid_at_cap'):
+        for name in ('low_credit_hold', 'coin_reservation', 'interleave', 'bid_at_cap', 'rank_bands'):
             if type(getattr(self, name)) is not bool:
                 raise ValueError('invalid_controller_config')
         for name in ('interleave_window', 'maintenance_window', 'maintenance_interval'):
@@ -75,6 +87,14 @@ class ControllerConfig:
                 raise ValueError('invalid_controller_config')
         if type(self.watch_reserve) is not int or not 1 <= self.watch_reserve <= 50:
             raise ValueError('invalid_controller_config')
+        if type(self.explore_every) is not int or not 1 <= self.explore_every <= 100:
+            raise ValueError('invalid_controller_config')
+        if isinstance(self.band_recheck, bool) or not isinstance(self.band_recheck, (int, float)) or not 60 <= self.band_recheck <= 86400:
+            raise ValueError('invalid_controller_config')
+        for name in ('rank_bid_hours', 'rank_sell_hours'):
+            v = getattr(self, name)
+            if isinstance(v, bool) or not isinstance(v, (int, float)) or not 0 < v <= 168:
+                raise ValueError('invalid_controller_config')
         if self.denial_retries > 5:
             raise ValueError('invalid_controller_config')
         for name in ('margin', 'list_markup'):

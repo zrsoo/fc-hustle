@@ -31,7 +31,8 @@ def controller_config(a):
                    coin_reservation=bool(getattr(a,'coin_reservation',False)),
                    interleave=bool(getattr(a,'interleave',False)),
                    watch_reserve=int(getattr(a,'watch_reserve',1) or 1),
-                   bid_at_cap=bool(getattr(a,'bid_at_cap',False)))
+                   bid_at_cap=bool(getattr(a,'bid_at_cap',False)),
+                   rank_bands=bool(getattr(a,'rank_bands',False)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 

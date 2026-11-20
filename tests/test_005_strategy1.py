@@ -747,6 +747,71 @@ class BidAtCap(Base):
             with self.assertRaises(ValueError): command(bad)
 
 
+class BandChoice(Base):
+    """Remembered band caps (no blind re-search) and profit-per-coin band ranking."""
+    BANDS = ((1000, 11000), (3000, 20000), (5000, 30000))
+
+    def history(self, h, band, wins, losses, cap):
+        """Settled auctions in a band, as the ranking reads them."""
+        import secrets
+        bid = secrets.token_hex(16)
+        h.store.db.execute('INSERT INTO c4_policy_batches VALUES (?,?,?)', (bid, 'SETTLED', json.dumps(dict(band=list(band)))))
+        for i in range(wins+losses):
+            h.store.db.execute('INSERT INTO c4_members VALUES (?,?,?,?)', (f'trade:{secrets.token_hex(12)}', bid,
+                'WON_ACCOUNTED' if i < wins else 'LOST', json.dumps(dict(cap=cap, target={}))))
+        h.store.db.commit()
+
+    def test_unaffordable_band_is_not_searched_again_within_the_hour(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, bands=self.BANDS[1:])
+        h.controller._acquire(); self.reset_phase(h)               # 3k:20k cheapest cap 10750 remembered
+        h.controller.band_floor[(5000, 30000)] = (17000, h.clock.value)
+        h.ea.credits = 10750 - 1 + (10750-150)                       # spendable just below every cap
+        searches = len(discoveries(h))
+        h.clock.value += 1200                                        # 20 min: the old memory expired at 15
+        h.controller._acquire(); self.reset_phase(h)
+        self.assertEqual(len(discoveries(h)), searches)
+        self.assertEqual(h.metrics('COINS_RESERVED')[-1]['spendable'], 10749)
+        h.clock.value += 3600                                        # an hour later: one re-check
+        h.controller._acquire()
+        self.assertEqual(len(discoveries(h)), searches+1)
+
+    def test_band_memory_survives_a_restart(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0)
+        h.controller._acquire()
+        self.assertEqual(h.metrics('ACQUISITION')[-1]['cheapest_cap'], 10750)
+        fresh = Controller(h.store, h.adapter, h.cache, config=h.config, ids=h.ids, clock=h.clock.clock, sleep=h.clock.sleep)
+        self.assertEqual(fresh.band_floor[(1000, 11000)][0], 10750)
+
+    def test_ranking_orders_by_profit_per_coin_and_explores(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, rank_bands=True, bands=self.BANDS)
+        self.history(h, self.BANDS[0], 2, 90, 5100)                  # live today: 2.2% at 5.1k
+        self.history(h, self.BANDS[1], 4, 21, 7300)                  # 16% at 7.3k
+        self.history(h, self.BANDS[2], 4, 30, 17750)                 # 11.8% at 17.75k
+        order = h.controller._band_order()
+        self.assertEqual(order, [self.BANDS[1], self.BANDS[0], self.BANDS[2]])
+        self.assertEqual(h.metrics('BAND_RANK')[-1]['order'], [list(b) for b in order])
+        picks = []
+        for _ in range(5):
+            picks.append(h.controller._fitting_band(10**6))
+        self.assertEqual(picks[0], self.BANDS[0], 'round 0 explores (rotation)')
+        self.assertEqual(picks[1:], [self.BANDS[1]]*4, 'then the best band')
+
+    def test_ranking_falls_back_to_the_next_affordable_band(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, rank_bands=True, bands=self.BANDS)
+        self.history(h, self.BANDS[1], 4, 21, 7300); self.history(h, self.BANDS[0], 2, 90, 5100)
+        h.controller.rounds = 1                                      # not an exploration round
+        h.controller.band_floor[self.BANDS[1]] = (7300, h.clock.value)
+        h.controller.band_floor[self.BANDS[0]] = (3900, h.clock.value)
+        self.assertEqual(h.controller._fitting_band(5000), self.BANDS[0])
+
+    def test_flag_off_keeps_the_rotation(self):
+        h = self.make(1, coin_reservation=True, entry_threshold=0, bands=self.BANDS)
+        self.history(h, self.BANDS[1], 4, 21, 7300)
+        self.assertEqual([h.controller._fitting_band(10**6) for _ in range(4)], list(self.BANDS)+[self.BANDS[0]])
+        for bad in (dict(rank_bands=1), dict(explore_every=0), dict(band_recheck=10)):
+            with self.assertRaises(ValueError, msg=bad): ControllerConfig(**bad)
+
+
 class LaunchFlags(unittest.TestCase):
     def test_flags_reach_the_controller_config(self):
         from fc_access.controller_v1 import local_monitor as lm
