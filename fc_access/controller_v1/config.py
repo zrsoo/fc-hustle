@@ -64,6 +64,9 @@ class ControllerConfig:
     # clearing sold ones). The legacy hourly slot left expired cards unlisted for
     # up to an hour; a shorter slot keeps them on the market.
     relist_interval: int = 3660
+    # Seconds a cached market quote may set a bid cap (and so the listing price,
+    # which is locked to the bid's quote). Older quotes are priced again.
+    quote_max_age: int = 86400
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -101,6 +104,8 @@ class ControllerConfig:
         if type(self.min_seconds_left) is not int or not 0 <= self.min_seconds_left <= 600:
             raise ValueError('invalid_controller_config')
         if type(self.relist_interval) is not int or not 60 <= self.relist_interval <= 86400:
+            raise ValueError('invalid_controller_config')
+        if type(self.quote_max_age) is not int or not 60 <= self.quote_max_age <= 86400:
             raise ValueError('invalid_controller_config')
         if isinstance(self.band_recheck, bool) or not isinstance(self.band_recheck, (int, float)) or not 60 <= self.band_recheck <= 86400:
             raise ValueError('invalid_controller_config')

@@ -35,7 +35,8 @@ def controller_config(a):
                    rank_bands=bool(getattr(a,'rank_bands',False)),
                    stored_price_rules=bool(getattr(a,'stored_price_rules',False)),
                    min_seconds_left=int(getattr(a,'min_seconds_left',60)),
-                   relist_interval=int(getattr(a,'relist_interval',3660)))
+                   relist_interval=int(getattr(a,'relist_interval',3660)),
+                   quote_max_age=int(getattr(a,'quote_max_age',86400)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 

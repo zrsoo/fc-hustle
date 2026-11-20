@@ -64,6 +64,9 @@ class Controller:
         self.prices=PriceService(self.native,ids,rules=rules)
         self.market=PriceService(self.native,ids,rules=rules,use_rules=True) if self.config.stored_price_rules else self.prices
         self.rules_prepared=None
+        # Bid caps (and the listing price locked to them) come only from quotes
+        # younger than quote_max_age.
+        cache.ttl=self.config.quote_max_age
         self.pricing=PricingService(self.native,ids,cache)
         self.lock=store.controller_lock
         if not self.lock.acquire(blocking=False):raise RuntimeError('controller_step_already_running')

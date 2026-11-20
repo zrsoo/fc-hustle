@@ -10,7 +10,11 @@ DEFAULT_CACHE_PATH = Path('private-captures/production-v1/completed-quotes.sqlit
 
 
 class QuoteCache:
-    def __init__(self, path=DEFAULT_CACHE_PATH):
+    def __init__(self, path=DEFAULT_CACHE_PATH, *, ttl=TTL_SECONDS):
+        """ttl: seconds a completed quote may be reused (at most TTL_SECONDS)."""
+        if isinstance(ttl, bool) or not isinstance(ttl, (int, float)) or not 0 < ttl <= TTL_SECONDS:
+            raise ValueError('invalid_quote_ttl')
+        self.ttl = ttl
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         self.db = sqlite3.connect(path, factory=TimedConnection)
@@ -32,7 +36,7 @@ class QuoteCache:
         row = self.db.execute('''SELECT observed_at,payload FROM completed_quotes_v1
             WHERE account=? AND game=? AND platform=? AND definition_id=?''',
             self.key(context, definition_id)).fetchone()
-        if row is None or not 0 <= now.timestamp()-row[0] < TTL_SECONDS:
+        if row is None or not 0 <= now.timestamp()-row[0] < self.ttl:
             return None
         try:
             value = json.loads(row[1])

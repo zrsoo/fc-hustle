@@ -179,6 +179,7 @@ def launch(a, p=None):
     if a.stored_price_rules: service += ['--stored-price-rules']
     service += ['--min-seconds-left', str(a.min_seconds_left)]
     service += ['--relist-interval', str(a.relist_interval)]
+    service += ['--quote-max-age', str(a.quote_max_age)]
     watcher = watcher_argv(p['base'], generation, a.interval, startup)
     intent = dict(at=now_iso(), generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                   auth_measure=a.auth_measure, margin=a.margin, list_markup=a.list_markup, bands=a.bands,
@@ -186,7 +187,8 @@ def launch(a, p=None):
                   low_credit_hold=a.low_credit_hold, coin_reservation=a.coin_reservation,
                   interleave=a.interleave, watch_reserve=a.watch_reserve, bid_at_cap=a.bid_at_cap,
                   rank_bands=a.rank_bands, stored_price_rules=a.stored_price_rules,
-                  min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval,
+                  quote_max_age=a.quote_max_age, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -349,7 +351,7 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
@@ -464,6 +466,8 @@ def parser():
                    help='consider found auctions only with more seconds left')
     l.add_argument('--relist-interval', type=int, default=3660,
                    help='seconds between relist slots for expired cards')
+    l.add_argument('--quote-max-age', type=int, default=86400,
+                   help='seconds a cached market quote may set a bid cap')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)
