@@ -621,6 +621,10 @@ class Diagnostics(Base):
         self.assertIn('ACQUISITION', view['latest'])
         self.assertGreater(view['soonest_end_seconds'] or 0, -10**9)
         self.assertEqual(lm.controller_view(h.path, '2999-01-01')['counts_since_launch'], {})
+        h.ea.rows[0].update(bid_state='outbid', current_bid=20000)   # priced out
+        h.controller.step()
+        view = lm.controller_view(h.path, '2000-01-01')
+        self.assertEqual((view['live_auctions'], view['priced_out']), (3, 1))
 
 
 class DenialWave(Base):

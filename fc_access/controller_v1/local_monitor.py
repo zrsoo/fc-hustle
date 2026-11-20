@@ -218,12 +218,21 @@ def controller_view(base, since):
     try:
         state = db.execute('SELECT phase,lifecycle,reason FROM c4_controller').fetchone()
         now = datetime.now(timezone.utc)
-        live, ends, wins = 0, [], 0
-        for s, body in db.execute("SELECT state,body FROM c4_members WHERE state IN ('ACTIVE','PENDING_WIN')"):
+        live, ends, wins, priced_out = 0, [], 0, 0
+        # Same rule as the controller: auctions outbid beyond our cap no longer count
+        # toward the soonest end (they are still live and still read until settled).
+        out = {r[0] for r in db.execute("SELECT json_extract(body,'$.target.trade_id') FROM c4_metrics "
+                                        "WHERE kind='PRICED_OUT' AND seq>(SELECT coalesce(max(seq),0)-50000 FROM c4_metrics)")}
+        for trade, s, body in db.execute("SELECT trade_id,state,body FROM c4_members WHERE state IN ('ACTIVE','PENDING_WIN')"):
             if s == 'PENDING_WIN':
                 wins += 1; continue
             live += 1
-            proof = json.loads(body).get('proof') or {}
+            member = json.loads(body)
+            proof = member.get('proof') or {}
+            row = proof.get('row') or {}
+            if trade in out or (row.get('bid_state') == 'outbid' and type(row.get('current_bid')) is int
+                                and row['current_bid'] >= member.get('cap', 10**9)):
+                priced_out += 1; continue
             if proof.get('at') and (proof.get('row') or {}).get('expires') is not None:
                 end = datetime.fromisoformat(proof['at'].replace('Z', '+00:00')).timestamp()+proof['row']['expires']
                 ends.append(round(end-now.timestamp()))
@@ -244,6 +253,7 @@ def controller_view(base, since):
             latest[k] = v
         balance = latest.get('BALANCE_READ')
         return dict(phase=state[0], lifecycle=state[1], reason=state[2], live_auctions=live, pending_wins=wins,
+                    priced_out=priced_out,
                     soonest_end_seconds=min(ends) if ends else None, last_round=last_round, last_balance=balance,
                     counts_since_launch={k: counts[k] for k in sorted(counts) if k != 'CYCLE'},
                     latest={k: latest[k] for k in DIAGNOSTIC_KINDS if k in latest},
