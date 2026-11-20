@@ -95,6 +95,9 @@ class Controller:
         self.last_interleave_wait=None
         self.last_hold_handoff=None
         self.credit_held_now=None
+        # 461 wave: rounds whose opening bids were all denied, since the last
+        # accepted opening bid (None when no wave is under way).
+        self.denial_wave=None
         self.mapping_refresh_needed=any(
             json.loads(row[0])['peer']!=store.peer for m in self.journal.members()
             for row in store.db.execute('SELECT body FROM c4_batches WHERE id=?',(m['batch_id'],)))
@@ -155,7 +158,7 @@ class Controller:
     def _acquire(self):
         j=self.journal;bid=self.ids();start=self.clock()
         j.begin(bid,asdict(self.config),self.now().isoformat())
-        burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0
+        burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0;accepted=0
         found=None;n_eligible=None;n_selected=None;band=None;spendable=None;spendable_start=None;min_skipped=None
         interleaved=self.config.interleave and any(self._needs_status(m) for m in j.members())
         try:
@@ -316,6 +319,7 @@ class Controller:
                     submitted.append(result);attempted+=1
                     state=self.store.db.execute('SELECT state FROM c4_attempts WHERE id=?',(result[1],)).fetchone()
                     denied+=bool(state) and state[0]=='DENIED'
+                    accepted+=bool(state) and state[0]=='ACKNOWLEDGED'
                     if attempted==2 and denied==2 and self.config.denial_pause>0:
                         # A 461 burst denies whole batches and clears within minutes:
                         # keep the remaining candidates for a later batch.
@@ -323,6 +327,7 @@ class Controller:
                         j.metric(bid,'DENIAL_BURST',pause=self.config.denial_pause,skipped=len(selected)-2)
                         break
             handoff=self.clock()
+            self._denial_wave(bid,denied,accepted)
             if submitted:
                 status=self._status([c['target'] for c,_,_ in submitted],bid)
                 if status:
@@ -519,6 +524,24 @@ class Controller:
             self.credit_view=(balance['credits'],self.clock())
             self._balance_metric(self.journal.state()['batch_id'],balance['credits'],'CREDIT_CHECK')
         return self.credit_view[0]
+
+    def _denial_wave(self, bid, denied, accepted):
+        """Wait out a 461 wave in-process. A round whose opening bids were all
+        denied extends the acquisition pause (doubling, capped); the first
+        accepted opening bid ends the wave. Rebids and management continue."""
+        if accepted:
+            if self.denial_wave:
+                w=self.denial_wave
+                self.journal.metric(bid,'DENIAL_WAVE',state='ENDED',rounds=w['rounds'],denials=w['denials'],
+                                    started_at=w['started_at'],seconds=self.clock()-w['started'])
+            self.denial_wave=None;return
+        if not denied:return
+        w=self.denial_wave or dict(rounds=0,denials=0,started=self.clock(),started_at=self.now().isoformat())
+        w['rounds']+=1;w['denials']+=denied;self.denial_wave=w
+        pause=min(self.config.denial_pause*2**(w['rounds']-1),self.config.denial_pause_max) if self.config.denial_pause>0 else 0
+        if pause:self.denial_hold_until=max(self.denial_hold_until,self.clock()+pause)
+        self.journal.metric(bid,'DENIAL_WAVE',state='ONGOING',rounds=w['rounds'],denials=w['denials'],pause=pause,
+                            started_at=w['started_at'],seconds=self.clock()-w['started'])
 
     def _balance_metric(self, bid, credits, source):
         values=dict(credits=credits,source=source)

@@ -29,8 +29,10 @@ class NoOpMeasure:
 
 class ContinueMeasure:
     """Bid through 461 denials: each is a no-effect outcome and the batch goes
-    on. The runtime stops only after limits.denial_window seconds of denials
-    with no accepted bid (PERSISTENT_BID_DENIAL)."""
+    on and the controller pauses acquisition with an escalating wait. The
+    runtime stops only after limits.denial_window seconds (2 h) of denials with
+    no accepted bid (PERSISTENT_BID_DENIAL). A reload or sign-in does not clear
+    461, so no measure is attempted."""
     name = 'continue'
     active = False
     tolerate_denials = True

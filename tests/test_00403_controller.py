@@ -368,7 +368,8 @@ class ControllerAcceptance(unittest.TestCase):
         self.assertFalse(names & {'Acquirer','Bidder','Broker','Timer','Popen','DRAINING','budget_allocator'})
         self.assertEqual(set(h.config.__dataclass_fields__),{'entry_threshold','request_spacing','cycle_target','inventory_max_age','maintenance_gap','margin','list_markup',
             'bands','max_auction_seconds','search_budget','throttle_pause','denial_retries','denial_pause','low_credit_hold',
-        'coin_reservation','interleave','interleave_window','maintenance_window','maintenance_interval'})
+        'coin_reservation','interleave','interleave_window','maintenance_window','maintenance_interval',
+        'denial_pause_max'})
 
     def test_10_serial_executor_prevents_parallel_requests_even_for_concurrent_callers(self):
         h=self.harness(0);entered=threading.Event();release=threading.Event();out=[]

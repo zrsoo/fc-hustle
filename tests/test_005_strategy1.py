@@ -596,6 +596,61 @@ class Diagnostics(Base):
         self.assertEqual(lm.controller_view(h.path, '2999-01-01')['counts_since_launch'], {})
 
 
+class DenialWave(Base):
+    """461 waves are waited out in-process: escalating acquisition pause, no stop."""
+    def fresh_denied_round(self, h, n):
+        rows = add_rows(h, 200+10*n, 2)
+        for r in rows: h.ea.bid_modes[r['trade_id']] = 'denied'
+        for r in h.ea.rows:
+            if r not in rows: r.update(trade_state='closed', expires=0)   # old ones leave discovery
+        h.ea.discovery = rows
+
+    def test_pause_doubles_per_denied_round_up_to_the_cap(self):
+        h = self.make(0, denial_pause=120, denial_pause_max=900)
+        pauses = []
+        for n in range(5):
+            self.fresh_denied_round(h, n); self.reset_phase(h)
+            h.controller._acquire()
+            pauses.append(h.metrics('DENIAL_WAVE')[-1]['pause'])
+            h.clock.value = h.controller.denial_hold_until + 1
+        self.assertEqual(pauses, [120, 240, 480, 900, 900])
+        w = h.metrics('DENIAL_WAVE')[-1]
+        self.assertEqual((w['state'], w['rounds'], w['denials']), ('ONGOING', 5, 10))
+
+    def test_first_accepted_opening_bid_ends_the_wave(self):
+        h = self.make(0, denial_pause=120)
+        self.fresh_denied_round(h, 0); h.controller._acquire()
+        h.clock.value = h.controller.denial_hold_until + 1
+        rows = add_rows(h, 300, 1); h.ea.discovery = rows; self.reset_phase(h)
+        h.controller._acquire()
+        end = h.metrics('DENIAL_WAVE')[-1]
+        self.assertEqual((end['state'], end['rounds'], end['denials']), ('ENDED', 1, 2))
+        self.assertIsNone(h.controller.denial_wave)
+        self.fresh_denied_round(h, 1); self.reset_phase(h)
+        h.clock.value = h.controller.denial_hold_until + 1
+        h.controller._acquire()
+        self.assertEqual(h.metrics('DENIAL_WAVE')[-1]['pause'], 120, 'a new wave starts from the base pause')
+
+    def test_live_auctions_keep_being_managed_during_a_wave(self):
+        h = self.make(3, denial_pause=120)
+        h.controller._acquire()                                  # three live auctions
+        self.fresh_denied_round(h, 0)
+        for r in h.ea.rows[:3]: r.update(trade_state='active', expires=600)
+        h.controller.journal.checkpoint(phase='ACQUIRING'); h.controller._acquire()
+        self.assertTrue(h.controller.denial_wave)
+        reads = len(h.calls('status_batch'))
+        h.ea.rows[0].update(bid_state='outbid', current_bid=200)
+        h.controller.step(); h.controller.step()               # hold hands to managing; rebid goes out
+        self.assertGreater(len(h.calls('status_batch')), reads)
+        self.assertTrue(any(c['command']['params']['target']['trade_id'] == h.ea.rows[0]['trade_id']
+                            for c in h.calls('bid')[-2:]))
+
+    def test_semantic_stop_only_after_two_hours_of_denials(self):
+        from fc_access.controller_v1.semantic import SemanticLimits
+        self.assertEqual(SemanticLimits().denial_window, 7200)
+        with self.assertRaises(ValueError): ControllerConfig(denial_pause_max=7201)
+
+
 class LaunchFlags(unittest.TestCase):
     def test_flags_reach_the_controller_config(self):
         from fc_access.controller_v1 import local_monitor as lm

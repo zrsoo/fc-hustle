@@ -16,7 +16,10 @@ class SemanticLimits:
     diagnostic_failures: int = 3
     native_freshness: float = 90
     # Tolerant mode only: stop when bids keep being denied with none accepted.
-    denial_window: float = 600
+    # 461 waves clear on their own within minutes and the controller waits them
+    # out in-process (escalating acquisition pause); only a denial lasting far
+    # beyond any observed wave stops the runtime.
+    denial_window: float = 7200
 
 
 def native_summary(command, response=None):

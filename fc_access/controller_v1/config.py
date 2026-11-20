@@ -32,6 +32,10 @@ class ControllerConfig:
     # When the first two initial bids of a batch are both denied, the rest of
     # the batch is skipped and acquisition pauses this many seconds.
     denial_pause: float = 120.0
+    # A 461 wave (rounds whose opening bids are all denied) waits in-process:
+    # the acquisition pause doubles per such round, up to this many seconds,
+    # and resets on the first accepted opening bid. Managing never pauses.
+    denial_pause_max: float = 900.0
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -67,10 +71,10 @@ class ControllerConfig:
         for name in ('margin', 'list_markup'):
             if type(getattr(self, name)) is not int or not 0 <= getattr(self, name) <= 100000:
                 raise ValueError('invalid_controller_config')
-        for name in ('request_spacing', 'cycle_target', 'inventory_max_age', 'maintenance_gap', 'throttle_pause', 'denial_pause'):
+        for name in ('request_spacing', 'cycle_target', 'inventory_max_age', 'maintenance_gap', 'throttle_pause', 'denial_pause', 'denial_pause_max'):
             value = getattr(self, name)
             if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
                 raise ValueError('invalid_controller_config')
         if (self.cycle_target <= 0 or not 0 < self.inventory_max_age <= 30 or self.maintenance_gap > 3600 or
-                self.throttle_pause > 7200 or self.denial_pause > 3600):
+                self.throttle_pause > 7200 or self.denial_pause > 3600 or self.denial_pause_max > 7200):
             raise ValueError('invalid_controller_config')
