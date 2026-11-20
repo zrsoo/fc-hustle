@@ -474,6 +474,17 @@ class Interleave(Base):
         h.controller.step(); h.controller.step()                        # maintenance, then acquire
         self.assertEqual(len(discoveries(h)), searches+1)
 
+    def test_all_live_auctions_priced_out_still_hands_off(self):
+        # Nothing actionable live must open the window, not keep managing forever.
+        h = self.make_live()
+        for r in h.ea.rows: r.update(bid_state='outbid', current_bid=20000)
+        h.controller.step()
+        self.assertIsNone(h.controller._soonest_end())
+        self.assertEqual(h.metrics('INTERLEAVE')[-1]['step'], 'MAINTENANCE')
+        add_rows(h, 600, 2); searches = len(discoveries(h))
+        h.controller.step(); h.controller.step()
+        self.assertEqual(len(discoveries(h)), searches+1)
+
     def test_priced_out_is_recognised_after_a_restart_from_the_last_status(self):
         h = self.make_live()
         h.ea.rows[0].update(bid_state='outbid', current_bid=10750)      # at our cap: no further bid
@@ -703,6 +714,18 @@ class BidAtCap(Base):
         h.controller.step()
         self.assertEqual(len(h.calls('bid')), bids)
         self.assertEqual(h.metrics('PRICED_OUT')[-1]['target']['trade_id'], h.ea.rows[0]['trade_id'])
+
+    def test_acquisition_is_continuous_with_auctions_about_to_end(self):
+        # Holding our cap, an auction ending in 30 s needs no protection: no rebid
+        # is ever possible, so the window stays open.
+        h = self.make(3, bid_at_cap=True, interleave=True)
+        for r in h.ea.rows: r['expires'] = 30
+        h.controller._acquire()
+        self.assertIsNone(h.controller._soonest_end())
+        add_rows(h, 500, 2); searches = len(discoveries(h))
+        h.controller.step(); h.controller.step(); h.controller.step()   # manage -> maintenance -> acquire
+        self.assertEqual(len(discoveries(h)), searches+1)
+        self.assertEqual(h.metrics('INTERLEAVE_WAIT'), [])
 
     def test_flag_off_bids_the_minimum(self):
         h = self.make(3)

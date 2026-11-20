@@ -646,7 +646,10 @@ class Controller:
 
     def _soonest_end(self):
         """Seconds until the soonest live tracked auction we can still act on ends
-        (None if none). Auctions priced out of our cap do not count."""
+        (None if none). Auctions priced out of our cap do not count; with
+        bid_at_cap no auction is ever rebid (we hold our cap, or are priced
+        out), so none counts and acquisition runs continuously."""
+        if self.config.bid_at_cap:return None
         ends=[]
         for m in self.journal.members():
             if not self._needs_status(m) or self._is_priced_out(m):continue
@@ -859,13 +862,14 @@ class Controller:
                     soonest=self._soonest_end()
                     # Only a rebid actually sent is a live bidding war. An auction
                     # outbid beyond our cap cannot be rebid and must not block.
+                    # Nothing actionable live (all priced out, or bid_at_cap): no window.
+                    horizon=float('inf') if soonest is None else soonest
                     if submitted:wait='REBID_CYCLE'
-                    elif soonest is None:wait=None
-                    elif soonest>self.config.maintenance_window and self._maintenance_due():
+                    elif horizon>self.config.maintenance_window and self._maintenance_due():
                         self.last_interleave_wait=None
                         j.metric(bid,'INTERLEAVE',step='MAINTENANCE',soonest_end=soonest)
                         j.checkpoint(phase='MAINTENANCE');return
-                    elif soonest<=self.config.interleave_window:wait='WINDOW'
+                    elif horizon<=self.config.interleave_window:wait='WINDOW'
                     else:
                         blocked=self._acquisition_blocked()
                         if blocked is None:
