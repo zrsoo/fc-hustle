@@ -176,13 +176,16 @@ def launch(a, p=None):
     service += ['--watch-reserve', str(a.watch_reserve)]
     if a.bid_at_cap: service += ['--bid-at-cap']
     if a.rank_bands: service += ['--rank-bands']
+    if a.stored_price_rules: service += ['--stored-price-rules']
+    service += ['--min-seconds-left', str(a.min_seconds_left)]
     watcher = watcher_argv(p['base'], generation, a.interval, startup)
     intent = dict(at=now_iso(), generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                   auth_measure=a.auth_measure, margin=a.margin, list_markup=a.list_markup, bands=a.bands,
                   max_auction_seconds=a.max_auction_seconds, search_budget=a.search_budget,
                   low_credit_hold=a.low_credit_hold, coin_reservation=a.coin_reservation,
                   interleave=a.interleave, watch_reserve=a.watch_reserve, bid_at_cap=a.bid_at_cap,
-                  rank_bands=a.rank_bands, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  rank_bands=a.rank_bands, stored_price_rules=a.stored_price_rules,
+                  min_seconds_left=a.min_seconds_left, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -203,7 +206,7 @@ def watcher_alive(p):
 EA_TAX = 0.05
 
 
-DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'SEARCH_THROTTLED', 'COINS_RESERVED',
+DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'PRICE_RULES', 'PRICE_RULES_RECHECK', 'SEARCH_THROTTLED', 'COINS_RESERVED',
                     'BAND_SKIPPED', 'INTERLEAVE', 'INTERLEAVE_WAIT', 'INTERLEAVE_OVERRUN', 'MAINTENANCE_PASS',
                     'ACQUISITION', 'ACQUISITION_HOLD', 'HOLD', 'ORPHAN_PARTICIPATION')
 ERROR_KINDS = ('DECISION_SKIPPED', 'MAINTENANCE_UNKNOWN', 'STATUS_UNKNOWN', 'ACQUISITION_HOLD_READ_FAILED',
@@ -345,7 +348,7 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
@@ -454,6 +457,10 @@ def parser():
     l.add_argument('--watch-reserve', type=int, default=1, help='clear lost watch-list entries while fewer slots are free')
     l.add_argument('--bid-at-cap', action='store_true', help='bid the cap at once instead of the minimum')
     l.add_argument('--rank-bands', action='store_true', help='order bands by measured profit per coin')
+    l.add_argument('--stored-price-rules', action='store_true',
+                   help='price acquisitions from stored page tick answers and card limits')
+    l.add_argument('--min-seconds-left', type=int, default=60,
+                   help='consider found auctions only with more seconds left')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)

@@ -179,10 +179,23 @@ class NativePrices:
 class PriceService:
     version = SERVICE_VERSION
 
-    def __init__(self, adapter, command_ids):
+    def __init__(self, adapter, command_ids, *, rules=None, use_rules=False, clock=None):
+        """rules: optional PriceRuleStore. Every native answer is written to it.
+        use_rules: also answer from it (stored ticks never expire; card limits for
+        a day) and keep tick answers across cap loads and page sessions, since the
+        tick ladder is a market rule. Without use_rules the behaviour is unchanged:
+        helper answers are scoped to one cap snapshot and one page binding."""
+        import time
+        if use_rules and rules is None:
+            raise ValueError('price_rule_store_required')
         self.adapter, self.command_ids = adapter, command_ids
+        self.rules, self.use_rules, self.clock = rules, use_rules, clock or time.time
         self.loaded, self.latest = {}, {}
         self.memo, self.memo_context = {}, None
+        self.stats = dict(helper_calls=0, tick_hits=0, caps_calls=0, caps_hits=0)
+
+    def _market(self):
+        return self.adapter.context['game'], self.adapter.context['platform']
 
     def helpers(self, probes):
         probes = list(probes)
@@ -193,30 +206,97 @@ class PriceService:
         a = self.adapter
         binding = (deepcopy(a.context), deepcopy(a.fences), a.source)
         if binding != self.memo_context:
-            self.memo.clear()
+            if not self.use_rules or binding[0] != (self.memo_context or (None,))[0]:
+                self.memo.clear()
             self.memo_context = binding
-        missing = list(dict.fromkeys(p for p in probes if p not in self.memo))
+        wanted = list(dict.fromkeys(probes))
+        missing = [p for p in wanted if p not in self.memo]
+        if missing and self.use_rules:
+            self.memo.update(self.rules.ticks(*self._market(), missing))
+            missing = [p for p in missing if p not in self.memo]
+        self.stats['tick_hits'] += len(wanted) - len(missing)
         for offset in range(0, len(missing), 32):
             batch = missing[offset:offset+32]
             response = a.price_helpers(self.command_ids(),
                 [dict(direction=d, value=v) for d, v in batch])
+            self.stats['helper_calls'] += 1
             if binding != (a.context, a.fences, a.source):
                 self.memo.clear()
                 raise ValueError('rules_context_changed')
             # Publish only a fully validated successful batch, never failures.
-            self.memo.update((p, r['price']) for p, r in zip(batch, response['result']['probes']))
+            answers = {p: r['price'] for p, r in zip(batch, response['result']['probes'])}
+            self.memo.update(answers)
+            if self.rules is not None:
+                self.rules.put_ticks(*self._market(), answers)
         return [self.memo[p] for p in probes]
 
     def helper(self, direction, value):
         return self.helpers([(direction, value)])[0]
 
+    def recheck(self, probes):
+        """Ask the page again for these probes, bypassing memo and store. Any answer
+        that differs from what was remembered drops every stored tick (the ladder
+        changed); returns the number of disagreements."""
+        a = self.adapter
+        probes = list(dict.fromkeys(probes))
+        known = dict(self.memo)
+        if self.use_rules:
+            known.update(self.rules.ticks(*self._market(), [p for p in probes if p not in known]))
+        disagreements = 0
+        for offset in range(0, len(probes), 32):
+            batch = probes[offset:offset+32]
+            response = a.price_helpers(self.command_ids(), [dict(direction=d, value=v) for d, v in batch])
+            self.stats['helper_calls'] += 1
+            answers = {p: r['price'] for p, r in zip(batch, response['result']['probes'])}
+            disagreements += sum(p in known and known[p] != price for p, price in answers.items())
+        if disagreements:
+            self.memo.clear()
+            if self.rules is not None:
+                self.rules.clear_ticks(*self._market())
+        return disagreements
+
+    def prepare(self, values, *, max_calls, check=True):
+        """Startup check, then warm-up. Re-asks the page for a spread of stored
+        answers in one call; a disagreement drops all stored ticks. Then asks for
+        the not yet stored above/below answers of ``values``, at most max_calls
+        calls of 32 probes. Returns what was done and how much is left."""
+        if not self.use_rules:
+            raise ValueError('price_rule_store_required')
+        market = self._market()
+        sample = self.rules.sample_ticks(*market) if check else {}
+        disagreements = self.recheck(list(sample)) if sample else 0
+        probes = [(d, v) for v in values for d in ('below', 'above')]
+        missing = [p for p in probes if p not in self.rules.ticks(*market, probes)]
+        batch = missing[:32*max_calls]
+        if batch:
+            self.helpers(batch)
+        return dict(checked=len(sample), disagreements=disagreements, warmed=len(batch),
+                    remaining=len(missing)-len(batch), stored=self.rules.tick_count(*market))
+
     def load(self, *, key, now=None):
         key = CardKey(key.definition_id, key.platform, key.game)
-        # A fresh cap snapshot is a new native legality context.
-        self.memo.clear()
-        # Availability is independent of cap authentication and persona validation.
-        self.adapter.price_helpers(self.command_ids())
+        a = self.adapter
+        if self.use_rules:
+            stored = self.rules.caps(key.game, key.platform, key.definition_id, now=self.clock())
+            if stored is not None:
+                minimum, maximum, read_id = stored
+                self.stats['caps_hits'] += 1
+                current = self.loaded.get(self.latest.get(key))
+                if (current is not None and current.caps_read_id == read_id and current.context == a.context and
+                        current.fences == a.fences and current.source == a.source):
+                    return current
+                rules = NativePrices(self, key, minimum, maximum, read_id, a.source,
+                                     deepcopy(a.context), deepcopy(a.fences))
+                self.loaded[read_id] = rules
+                self.latest[key] = read_id
+                return rules
+        else:
+            # A fresh cap snapshot is a new native legality context.
+            self.memo.clear()
+            # Availability is independent of cap authentication and persona validation.
+            self.adapter.price_helpers(self.command_ids())
         response = self.adapter.caps(self.command_ids(), key.definition_id)
+        self.stats['caps_calls'] += 1
         caps = response['result']['caps']
         if caps is None or caps['definition_id'] != key.definition_id:
             raise ValueError('rules_identity_mismatch')
@@ -225,6 +305,9 @@ class PriceService:
                              self.adapter.source, deepcopy(self.adapter.context), deepcopy(self.adapter.fences))
         self.loaded[rules.caps_read_id] = rules
         self.latest[key] = rules.caps_read_id
+        if self.rules is not None:
+            self.rules.put_caps(key.game, key.platform, key.definition_id, caps['minimum'], caps['maximum'],
+                                rules.caps_read_id, now=self.clock())
         return rules
 
     def validate(self, rules, *, key, now=None):

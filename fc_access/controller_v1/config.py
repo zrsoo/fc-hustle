@@ -55,6 +55,11 @@ class ControllerConfig:
     # end) and hours a win holds it until the card sells (live 2026-11-20).
     rank_bid_hours: float = 0.1
     rank_sell_hours: float = 6.0
+    # Price acquisitions from the durable store of the page's own tick answers
+    # (no expiry) and card price limits (a day), checked and warmed at startup.
+    stored_price_rules: bool = False
+    # A found auction is considered only with more than this many seconds left.
+    min_seconds_left: int = 60
     # At or below entry_threshold credits: False halts the runtime (legacy);
     # True only holds acquisition while members are managed and wins listed.
     low_credit_hold: bool = False
@@ -72,7 +77,7 @@ class ControllerConfig:
 
     def __post_init__(self):
         integer(self.entry_threshold)
-        for name in ('low_credit_hold', 'coin_reservation', 'interleave', 'bid_at_cap', 'rank_bands'):
+        for name in ('low_credit_hold', 'coin_reservation', 'interleave', 'bid_at_cap', 'rank_bands', 'stored_price_rules'):
             if type(getattr(self, name)) is not bool:
                 raise ValueError('invalid_controller_config')
         for name in ('interleave_window', 'maintenance_window', 'maintenance_interval'):
@@ -88,6 +93,8 @@ class ControllerConfig:
         if type(self.watch_reserve) is not int or not 1 <= self.watch_reserve <= 50:
             raise ValueError('invalid_controller_config')
         if type(self.explore_every) is not int or not 1 <= self.explore_every <= 100:
+            raise ValueError('invalid_controller_config')
+        if type(self.min_seconds_left) is not int or not 0 <= self.min_seconds_left <= 600:
             raise ValueError('invalid_controller_config')
         if isinstance(self.band_recheck, bool) or not isinstance(self.band_recheck, (int, float)) or not 60 <= self.band_recheck <= 86400:
             raise ValueError('invalid_controller_config')

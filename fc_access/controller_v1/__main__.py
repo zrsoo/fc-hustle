@@ -32,7 +32,9 @@ def controller_config(a):
                    interleave=bool(getattr(a,'interleave',False)),
                    watch_reserve=int(getattr(a,'watch_reserve',1) or 1),
                    bid_at_cap=bool(getattr(a,'bid_at_cap',False)),
-                   rank_bands=bool(getattr(a,'rank_bands',False)))
+                   rank_bands=bool(getattr(a,'rank_bands',False)),
+                   stored_price_rules=bool(getattr(a,'stored_price_rules',False)),
+                   min_seconds_left=int(getattr(a,'min_seconds_left',60)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 
@@ -102,7 +104,7 @@ def run_controller(a, supervision):
         server=Server(database,a.port,write_authority=True)
         server.store.supervision_guard=supervision.require
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-        cache=None;controller=None
+        cache=None;controller=None;rules=None
         try:
             previous=server.store.db.execute("SELECT value FROM c4_meta WHERE key='peer'").fetchone()
             epoch=next_owner_epoch(json.loads(previous[0])['fences']['epoch'] if previous else 0,getattr(a,'epoch_floor',1))
@@ -116,7 +118,10 @@ def run_controller(a, supervision):
             server.store.semantic_report=supervision.policy_result
             cache=QuoteCache(a.cache)
             config=controller_config(a)
-            controller=Controller(server.store,adapter,cache,config=config);server.controller=controller
+            if config.stored_price_rules:
+                from fc_access.production_v1.price_store import PriceRuleStore
+                rules=PriceRuleStore(Path(a.cache).resolve().parent/'price-rules.sqlite3')
+            controller=Controller(server.store,adapter,cache,config=config,rules=rules);server.controller=controller
             supervision.snapshot=lambda:dict(controller.journal.state(),members=controller.journal.members())
             # run is the sole CLI operation that grants RUNNING lifecycle.
             controller.run(progress=supervision.state)
@@ -127,6 +132,7 @@ def run_controller(a, supervision):
             state=controller.status() if controller else None
             server.shutdown();thread.join(5);server.server_close()
             if cache:cache.close()
+            if rules:rules.close()
     return state
 
 

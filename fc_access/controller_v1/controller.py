@@ -45,7 +45,7 @@ def identity(row):
 
 class Controller:
     def __init__(self, store, adapter, cache, *, config=None, ids=lambda:secrets.token_hex(16),
-                 clock=time.monotonic, sleep=time.sleep, win_handler=None):
+                 clock=time.monotonic, sleep=time.sleep, win_handler=None, rules=None):
         self.store,self.adapter,self.native=store,adapter,adapter.native
         self.config=config or ControllerConfig()
         if not isinstance(adapter.executor,SerializedExecutor) or self.native.executor is not adapter.executor:
@@ -56,7 +56,14 @@ class Controller:
             raise ValueError('attached_scope_required')
         store.check_peer({'context':adapter.context,'fences':adapter.fences})
         self.ids,self.clock,self.sleep,self.now=ids,clock,sleep,store.now
-        self.prices=PriceService(self.native,ids)
+        # Listing (maintenance) always asks the page: its authority needs recorded
+        # native tick answers. Acquisition pricing may answer from the durable
+        # store (stored_price_rules); both write every native answer to it.
+        if self.config.stored_price_rules and rules is None:raise ValueError('price_rule_store_required')
+        self.rules=rules
+        self.prices=PriceService(self.native,ids,rules=rules)
+        self.market=PriceService(self.native,ids,rules=rules,use_rules=True) if self.config.stored_price_rules else self.prices
+        self.rules_prepared=None
         self.pricing=PricingService(self.native,ids,cache)
         self.lock=store.controller_lock
         if not self.lock.acquire(blocking=False):raise RuntimeError('controller_step_already_running')
@@ -168,7 +175,10 @@ class Controller:
         burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0;accepted=0
         found=None;n_eligible=None;n_selected=None;band=None;spendable=None;spendable_start=None;min_skipped=None;cheapest=None
         interleaved=self.config.interleave and any(self._needs_status(m) for m in j.members())
+        price_before=dict(self.market.stats)
         try:
+            self._prepare_rules(bid)
+            price_before=dict(self.market.stats)  # warm-up is reported by PRICE_RULES
             balance_id=self.ids()
             try:balance=self.adapter.read(balance_id,'balance')
             except Exception:
@@ -226,7 +236,7 @@ class Controller:
                 if t['trade_id'] in existing or row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False:continue
                 retry=self._retry_of(t)
                 if retry is False:continue
-                if row['expires']-(self.now()-stamp(at)).total_seconds()<=60:
+                if row['expires']-(self.now()-stamp(at)).total_seconds()<=self.config.min_seconds_left:
                     expiry_misses+=1;continue
                 if self.config.max_auction_seconds and row['expires']-(self.now()-stamp(at)).total_seconds()>self.config.max_auction_seconds:
                     long_skips+=1;continue
@@ -234,7 +244,7 @@ class Controller:
                 version=t['definition_id']
                 if version not in rules_by_version:
                     try:
-                        rules_by_version[version]=self.prices.load(key=CardKey(version))
+                        rules_by_version[version]=self.market.load(key=CardKey(version))
                     except Exception:
                         rules_by_version[version]=None
                 rules=rules_by_version[version]
@@ -296,7 +306,7 @@ class Controller:
             for candidate in eligible:
                 age=(self.now()-stamp(at)).total_seconds()
                 remaining=candidate['row']['expires']-age
-                if remaining<=60:
+                if remaining<=self.config.min_seconds_left:
                     expiry_misses+=1;continue
                 if candidate['target']['item_id'] in physical|pending:continue
                 if spendable is not None:
@@ -365,7 +375,9 @@ class Controller:
                     batch_state=self.store.db.execute('SELECT state FROM c4_policy_batches WHERE id=?',(bid,)).fetchone()[0]
                 report(batch_id=bid,state=batch_state,confirmed=confirmed,uncertain=uncertain)
             end=self.clock()
-            j.metric(bid,'ACQUISITION',elapsed=end-start,burst_elapsed=(handoff or end)-burst if burst is not None else 0,
+            price={k:v-price_before.get(k,0) for k,v in self.market.stats.items()}
+            j.metric(bid,'ACQUISITION',elapsed=end-start,price_calls=price['helper_calls']+price['caps_calls'],
+                     tick_hits=price['tick_hits'],caps_hits=price['caps_hits'],burst_elapsed=(handoff or end)-burst if burst is not None else 0,
                      handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses,
                      long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted,coin_skips=coin_skips,
                      band=list(band) if band else None,found=found,eligible=n_eligible,selected=n_selected,
@@ -373,6 +385,35 @@ class Controller:
                      searches_last_hour=self.searches_last_hour(),interleaved=interleaved,
                      state=self.store.db.execute('SELECT state FROM c4_policy_batches WHERE id=?',(bid,)).fetchone()[0])
             if interleaved:self._overrun_check(bid,'ACQUIRING',end-start)
+
+    # Tick values warmed at startup: every 50 coins over the traded range. Each is
+    # a question to the page, never a derived tick.
+    WARM_VALUES=tuple(range(150,31001,50))
+    WARM_CALLS_PER_ROUND=15
+
+    def _prepare_rules(self, bid):
+        """Stored price rules: one startup check of stored ticks against the page,
+        then the warm-up spread over rounds (a bounded number of calls each, so
+        local calls never crowd out EA reads)."""
+        if self.market is self.prices or self.rules_prepared=='done':return
+        startup=self.rules_prepared is None
+        try:
+            result=self.market.prepare(self.WARM_VALUES,max_calls=self.WARM_CALLS_PER_ROUND,check=startup)
+        except Exception as error:
+            self.journal.metric(bid,'PRICE_RULES',error=error_code(error),startup=startup);return
+        self.journal.metric(bid,'PRICE_RULES',**result,startup=startup)
+        self.rules_prepared='done' if result['remaining']==0 else 'warming'
+
+    def _recheck_rules(self, bid, candidate, row, amount, minimum):
+        """A rejected bid may come from a stale stored tick: ask the page again for
+        the ticks this bid relied on; a disagreement drops the stored ladder."""
+        probes=[('below',amount),('above',amount),('below',minimum),('above',minimum)]
+        if row['current_bid']:probes.append(('above',row['current_bid']))
+        try:disagreements=self.market.recheck(probes)
+        except Exception as error:
+            self.journal.metric(bid,'PRICE_RULES_RECHECK',target=candidate['target'],error=error_code(error));return
+        self.journal.metric(bid,'PRICE_RULES_RECHECK',target=candidate['target'],disagreements=disagreements)
+        if disagreements:self.rules_prepared=None
 
     def _minimum(self, row, rules):
         return rules.minimum_bid(definition_id=row['item']['definition_id'],platform=self.adapter.context['platform'],
@@ -394,9 +435,9 @@ class Controller:
                 self.journal.metric(bid,'INITIAL_SKIPPED',target=old['target'],reason='PRE_BURST_TARGET_MISSING');continue
             age=(self.now()-stamp(status['network_at'])).total_seconds()
             remaining=row['expires']-age
-            rules=self.prices.loaded[self.prices.latest[CardKey(old['target']['definition_id'])]]
+            rules=self.market.loaded[self.market.latest[CardKey(old['target']['definition_id'])]]
             minimum=self._minimum(row,rules)
-            if row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False or remaining<=60 or minimum is None or minimum>old['cap'] or row['buy_now_price'] and minimum>=row['buy_now_price']:
+            if row['trade_state']!='active' or row['bid_state'] not in {'none','outbid'} or row['item']['untradeable'] is not False or remaining<=self.config.min_seconds_left or minimum is None or minimum>old['cap'] or row['buy_now_price'] and minimum>=row['buy_now_price']:
                 self.journal.metric(bid,'INITIAL_SKIPPED',target=old['target'],reason='PRE_BURST_NOT_ELIGIBLE');continue
             candidate=deepcopy(old)
             candidate.update(row=row,read_id=status['command_id'],observed_at=status['network_at'],minimum=minimum,
@@ -411,8 +452,8 @@ class Controller:
         self.store.require_supervision()
         j=self.journal;self.credit_held_now=None
         try:
-            rules=self.prices.latest.get(CardKey(candidate['target']['definition_id']))
-            rules=self.prices.loaded[rules] if rules else self.prices.load(key=CardKey(candidate['target']['definition_id']))
+            rules=self.market.latest.get(CardKey(candidate['target']['definition_id']))
+            rules=self.market.loaded[rules] if rules else self.market.load(key=CardKey(candidate['target']['definition_id']))
             amount=self._minimum(row,rules)
             if amount is None or amount>candidate['cap'] or row['buy_now_price'] and amount>=row['buy_now_price']:
                 if kind=='rebid' and amount is not None:self._mark_priced_out(bid,candidate,row,amount)
@@ -446,6 +487,8 @@ class Controller:
         j.outcome(cid,result)
         if result['outcome']=='REJECTED' and result.get('reason')=='not_enough_credit':
             self.credit_gate=True;self.credit_view=None
+        elif result['outcome']=='REJECTED' and self.market is not self.prices:
+            self._recheck_rules(bid,candidate,row,amount,minimum)
         receipt=result.get('receipt') or {}
         j.metric(bid,'BID',command_id=cid,target=candidate['target'],amount=amount,cap=candidate['cap'],
                  observation_age=(stamp(returned)-stamp(self._observation_at(read_id))).total_seconds(),

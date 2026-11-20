@@ -358,6 +358,8 @@ def main(argv=None):
     parser.add_argument('--watch-reserve',type=int,default=1,help='clear lost watch-list entries while fewer slots are free')
     parser.add_argument('--bid-at-cap',action='store_true',help='bid the cap at once instead of the minimum')
     parser.add_argument('--rank-bands',action='store_true',help='order bands by measured profit per coin')
+    parser.add_argument('--stored-price-rules',action='store_true',help='price acquisitions from stored page tick answers and card limits')
+    parser.add_argument('--min-seconds-left',type=int,default=60,help='consider found auctions only with more seconds left')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0
