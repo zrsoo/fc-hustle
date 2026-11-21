@@ -170,6 +170,7 @@ def launch(a, p=None):
                '--max-auction-seconds', str(a.max_auction_seconds), '--search-budget', str(a.search_budget)]
     if a.recovery_config: service += ['--recovery-config', a.recovery_config]
     if a.refresh_on_start: service += ['--refresh-on-start']
+    if a.wave_refresh_after: service += ['--wave-refresh-after', str(a.wave_refresh_after)]
     if a.low_credit_hold: service += ['--low-credit-hold']
     if a.coin_reservation: service += ['--coin-reservation']
     if a.interleave: service += ['--interleave']
@@ -191,7 +192,7 @@ def launch(a, p=None):
                   rank_bands=a.rank_bands, stored_price_rules=a.stored_price_rules,
                   min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval,
                   quote_max_age=a.quote_max_age, market_budget=a.market_budget,
-                  discovery_pages=a.discovery_pages, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  discovery_pages=a.discovery_pages, wave_refresh_after=a.wave_refresh_after, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -376,7 +377,7 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'market_budget', 'discovery_pages', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'market_budget', 'discovery_pages', 'wave_refresh_after', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
@@ -498,6 +499,8 @@ def parser():
                    help='idle-time market price searches per hour (0: none)')
     l.add_argument('--discovery-pages', type=int, default=1,
                    help='search up to this many pages when a page has no auction with enough time left')
+    l.add_argument('--wave-refresh-after', type=int, default=0,
+                   help='refresh the page once per 461 wave after this many seconds without an accepted bid (0: off)')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)

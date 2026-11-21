@@ -208,8 +208,13 @@ class Watchdog:
                 + (label(reason) if reason else f"stage {max(0,self.clock()-v['tick']):.0f}s"))
 
 
+# A wave refresh needs a denial this recent: a long hold after one 461 is no wave.
+WAVE_RECENT_SECONDS=600
+
+
 def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime=None,
-              denial_measure=None, startup_refresh=None, auth_measure=None):
+              denial_measure=None, startup_refresh=None, auth_measure=None,
+              wave_measure=None, wave_refresh_after=0, wave_recent=WAVE_RECENT_SECONDS):
     """Explicit run only. One worker at a time, one status line, one event log.
 
     No notification service, web dashboard, account probe or trading policy
@@ -222,6 +227,11 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     is attempted once before the first worker. ``auth_measure``, when active,
     is attempted the same way after a PERSISTENT_AUTH_FAILURE stop. A measure
     with ``tolerate_denials`` keeps bidding through 461 denials instead.
+    ``wave_measure``, when active and ``wave_refresh_after`` > 0, is attempted
+    once per 461 wave: when native bids have been denied for that many seconds
+    with no accepted bid (and the latest denial is recent), the worker stops,
+    the measure refreshes the page (signing in only if the page asks) and a
+    fresh worker resumes. An accepted bid ends the wave and re-arms it.
     Tests inject offline workers.
     """
     from .measures import NoOpMeasure
@@ -241,6 +251,9 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     runtime_failed=False;process_open=False
     published_at=time.monotonic();publish_failures=0
     workers=0;recoveries=[]
+    # Spans worker restarts: a refreshed wave is not refreshed again until an
+    # accepted bid ends it.
+    wave=dict(since=None,last=None,denied=0,refreshed=False)
     if runtime is not None:runtime.recovery=None
 
     def publish(state,reason=None,*,force=False,strict=None):
@@ -279,9 +292,32 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             try:
                 while parent.poll():
                     message=parent.recv()
-                    record('WORKER',message=message);monitor.observe(message)
+                    record('WORKER',message=message);monitor.observe(message);track(message)
             except (EOFError,OSError):return False
             return True
+
+        def track(message):
+            if (not isinstance(message,dict) or message.get('kind')!='native_result' or message.get('local')
+                    or message.get('operation')!='bid'):return
+            now=time.monotonic()
+            if message.get('success') is True:
+                if wave['since'] is not None:
+                    record('DENIAL_WAVE_CLEARED',seconds=round(now-wave['since'],1),denied=wave['denied'],
+                           refreshed=wave['refreshed'])
+                wave.update(since=None,last=None,denied=0,refreshed=False)
+            elif message.get('wire_statuses')==[461]:
+                if wave['since'] is None:wave['since']=now
+                wave['last']=now;wave['denied']+=1
+
+        def wave_due():
+            if wave_measure is None or not wave_measure.active or not wave_refresh_after>0:return None
+            if wave['since'] is None or wave['refreshed'] or runtime.recovery:return None
+            now=time.monotonic();seconds=now-wave['since']
+            # A hold with no bids is not a wave; only refresh while EA still denies.
+            if seconds<wave_refresh_after or now-wave['last']>wave_recent:return None
+            wave['refreshed']=True
+            record('WAVE_REFRESH',seconds=round(seconds,1),denied=wave['denied'],measure=wave_measure.name)
+            return 'DENIAL_WAVE_REFRESH'
 
         def local_reason():
             return ('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else
@@ -313,8 +349,10 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
                     reason='DOCUMENT_RECOVERY_TIMEOUT'
                 cause=None
                 if runtime:
-                    reason=reason or runtime.stop_reason()
+                    reason=reason or runtime.stop_reason() or wave_due()
                     cause=recoverable(reason)
+                    # A refused wave refresh (recovery budget) keeps trading.
+                    if reason=='DENIAL_WAVE_REFRESH' and cause is None:reason=None
                     # Publish recovery before stopping the worker so a health
                     # check never observes the recoverable fault as a stop.
                     if cause:begin(*cause)
@@ -356,6 +394,8 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             if runtime is None:return None
             if reason=='PERSISTENT_AUTH_FAILURE' and auth_measure is not None and auth_measure.active:
                 cause,measure='AUTH_FAILURE',auth_measure
+            elif reason=='DENIAL_WAVE_REFRESH':
+                cause,measure='DENIAL_WAVE',wave_measure
             elif reason=='PERSISTENT_WRITE_FAILURE':
                 cause,measure=monitor.semantic.recoverable(),denial_measure
                 if cause is None:return None
