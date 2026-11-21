@@ -127,7 +127,13 @@ class DocumentRecovery:
     def _click(self, window, name, clicks):
         if clicks[name] >= self.max_clicks: raise UIStepFailed('normal_action_repeated')
         clicks[name] += 1
-        self._step('click', window=window, name=name)
+        try: self._step('click', window=window, name=name)
+        except UIStepFailed as error:
+            # The page moved on between the observation and the click (live
+            # 2026-11-21: the second Login vanished while sign-in completed).
+            # Nothing was clicked; observe again within the deadline and budgets.
+            if error.reason != 'normal_action_ambiguous_or_missing': raise
+            self.steps[-1].update(missing=True)
 
     def _result(self, outcome, reason):
         # Steps contain only allowlisted actions/kinds; the window handle is local.

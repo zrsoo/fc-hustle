@@ -101,10 +101,13 @@ def ambiguous_write_worker(connection,arguments,limits):
 
 class FakeUI:
     """Scripted official-page observations; records every requested UI action."""
-    def __init__(self,screens):
-        self.screens=list(screens);self.calls=[]
+    def __init__(self,screens,click_failures=()):
+        self.screens=list(screens);self.calls=[];self.click_failures=list(click_failures)
     def __call__(self,action,**fields):
         self.calls.append((action,fields.get('name')))
+        if action=='click' and self.click_failures:
+            failure=self.click_failures.pop(0)
+            if failure:raise failure
         if action=='observe':
             screen=self.screens.pop(0) if len(self.screens)>1 else self.screens[0]
             if isinstance(screen,Exception):raise screen
@@ -117,8 +120,8 @@ def signin(*actions,email=False):return dict(kind='official_EA_signin',challenge
 
 
 class RecoveryPolicyTests(unittest.TestCase):
-    def run_recovery(self,screens,**kwargs):
-        ui=FakeUI(screens);tick=[0.]
+    def run_recovery(self,screens,click_failures=(),**kwargs):
+        ui=FakeUI(screens,click_failures);tick=[0.]
         def sleep(seconds):tick[0]+=seconds
         r=DocumentRecovery(ACCOUNT,ui=ui,clock=lambda:tick[0],sleep=sleep,**kwargs).run()
         return r,ui
@@ -146,6 +149,21 @@ class RecoveryPolicyTests(unittest.TestCase):
         # A Login that never makes progress on one visit still fails closed.
         r,_=self.run_recovery([web(),web('Login')])
         self.assertEqual((r['outcome'],r['reason']),('FAILED','normal_action_repeated'))
+
+    def test_a_login_that_vanishes_before_the_click_is_observed_again(self):
+        # Replay of the 2026-11-21 16:24Z wave refresh: the second Login was gone
+        # by the click (sign-in completing) and the recovery failed although the
+        # page then loaded signed in.
+        missing=UIStepFailed('normal_action_ambiguous_or_missing')
+        r,ui=self.run_recovery([web(),web(),web('Login'),web('Login'),web(ready=True),web(ready=True)],click_failures=[None,missing])
+        self.assertEqual(r['outcome'],'READY',r)
+        self.assertEqual([s.get('missing') for s in r['steps'] if s['action']=='click'],[None,True])
+        # A Login that keeps vanishing still ends on the per-visit click budget.
+        r,_=self.run_recovery([web(),web('Login')],click_failures=[missing]*5)
+        self.assertEqual((r['outcome'],r['reason']),('FAILED','normal_action_repeated'))
+        # Other click failures still fail closed.
+        r,_=self.run_recovery([web(),web('Login')],click_failures=[UIStepFailed('foreground_changed')])
+        self.assertEqual((r['outcome'],r['reason']),('FAILED','foreground_changed'))
 
     def test_security_challenge_is_left_to_the_user(self):
         r,ui=self.run_recovery([web(),web('Login'),dict(signin('NEXT'),challenge=True)])
