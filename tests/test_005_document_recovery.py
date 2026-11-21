@@ -62,7 +62,8 @@ def wave_worker(connection,arguments,limits):
     """Fixture worker scripted per spawn by arguments['script'] (comma separated):
     'deny' bids into 461 until stopped (writing denying-N after 1.5 s), 'clear'
     lands an accepted bid then writes ready-N, 'clear-deny' lands one then denies,
-    'quiet' is denied once and then only reads."""
+    'quiet' is denied once and then only reads, 'alternate' is denied and
+    accepted in turn."""
     fixture=Path(arguments['fixture']);counter=fixture/'spawns.txt'
     spawn=int(counter.read_text()) + 1 if counter.exists() else 1
     counter.write_text(str(spawn))
@@ -77,6 +78,8 @@ def wave_worker(connection,arguments,limits):
         while True:
             s.require()
             if step in {'deny','clear-deny'}:s.report('native_result',**native(**DENIED))
+            elif step=='alternate':
+                s.report('native_result',**native(**DENIED));time.sleep(.3);s.report('native_result',**native('bid'))
             else:s.report('native_result',**native('watched'))
             if time.monotonic()-began>1.5:(fixture/f'denying-{spawn}').write_text('1')
             time.sleep(.05)
@@ -278,7 +281,7 @@ class SupervisorTests(unittest.TestCase):
             with patch.object(runtime,'publish',side_effect=publish),patch.object(runtime,'stop_reason',side_effect=stop):
                 if wave is not None:
                     from fc_access.controller_v1.measures import ContinueMeasure
-                    extra=dict(denial_measure=ContinueMeasure(),wave_measure=measure,**wave)
+                    extra=dict(denial_measure=ContinueMeasure(),**wave)
                 else:extra=dict(denial_measure=None if refresh else measure,startup_refresh=measure if refresh else None)
                 code=supervise(args,target=target,runtime=runtime,limits=limits or self.limits,output=io.StringIO(),**extra)
             final=read(runtime.directory/'state.json')
@@ -358,57 +361,41 @@ class SupervisorTests(unittest.TestCase):
         self.assertEqual(rows[-1],dict(rows[-1],kind='STOPPED',worker_started=False))
 
 
-class WaveRefreshTests(unittest.TestCase):
-    """Once-per-wave page refresh: 461s with no accepted bid for wave_refresh_after seconds."""
-    limits=replace(SupervisorTests.limits,recovery_spacing=0)
+class WaveRestartTests(unittest.TestCase):
+    """A 461 wave of wave_refresh_after seconds stops the runtime for a whole restart."""
+    limits=SupervisorTests.limits
     run_service=SupervisorTests.run_service
-    READY=staticmethod(lambda:dict(outcome='READY',reason=None,steps=[{'action':'reload'}]))
 
-    def wave(self,script,stop_after,*,after=.5,recent=600,limits=None):
-        return self.run_service('wave',recovery=self.READY,target=wave_worker,script=script,stop_after=stop_after,
-                                limits=limits,wave=dict(wave_refresh_after=after,wave_recent=recent))
+    def wave(self,script,stop_after='never',*,after=.5,recent=600):
+        return self.run_service('wave',recovery=None,target=wave_worker,script=script,stop_after=stop_after,
+                                wave=dict(wave_refresh_after=after,wave_recent=recent))
 
-    def test_a_long_wave_refreshes_once_and_a_fresh_worker_resumes(self):
-        code,final,rows,states,calls=self.wave('deny,clear','ready-2')
+    def test_a_long_wave_stops_the_runtime_for_a_restart(self):
+        code,final,rows,_,calls=self.wave('deny')
         kinds=[r['kind'] for r in rows if r['kind']!='WORKER']
-        self.assertEqual(code,0,kinds);self.assertEqual(len(calls),1)
-        self.assertEqual(kinds[:7],['STARTED','WAVE_REFRESH','DOCUMENT_RECOVERY_STARTED','WORKER_STOP_REQUESTED',
-                                    'WORKER_STOPPED','DOCUMENT_RECOVERY_RESULT','WORKER_RESTARTED'])
-        self.assertEqual(next(r for r in rows if r['kind']=='DOCUMENT_RECOVERY_STARTED')['cause'],'DENIAL_WAVE')
-        self.assertEqual(next(r for r in rows if r['kind']=='WORKER_STOP_REQUESTED')['reason'],'DENIAL_WAVE_REFRESH')
-        refresh=next(r for r in rows if r['kind']=='WAVE_REFRESH')
-        self.assertGreaterEqual(refresh['seconds'],.5);self.assertGreater(refresh['denied'],0)
-        cleared=next(r for r in rows if r['kind']=='DENIAL_WAVE_CLEARED');self.assertTrue(cleared['refreshed'])
-        self.assertEqual((final['state'],final['reason']),('STOPPED','OPERATIONAL_STOP'))
+        self.assertEqual((code,final['state'],final['reason'],calls),(0,'STOPPED','DENIAL_WAVE_RESTART',[]),kinds)
+        self.assertEqual(kinds,['STARTED','WAVE_RESTART','STOP_REQUESTED','STOPPED'])
+        restart=next(r for r in rows if r['kind']=='WAVE_RESTART')
+        self.assertGreaterEqual(restart['seconds'],.5);self.assertGreater(restart['denied'],0)
+        self.assertNotIn('DOCUMENT_RECOVERY_STARTED',kinds,'no in-place recovery; the watcher relaunches')
 
-    def test_the_same_wave_is_never_refreshed_twice(self):
-        code,final,rows,_,calls=self.wave('deny,deny','denying-2')
-        self.assertEqual((code,final['reason'],len(calls)),(0,'OPERATIONAL_STOP',1))
-        self.assertEqual([r['kind'] for r in rows].count('WAVE_REFRESH'),1)
-
-    def test_an_accepted_bid_rearms_the_refresh(self):
-        code,final,rows,_,calls=self.wave('deny,clear-deny,clear','ready-3')
-        self.assertEqual((code,len(calls)),(0,2))
-        self.assertEqual([r['kind'] for r in rows].count('WAVE_REFRESH'),2)
-        self.assertEqual([r['refreshed'] for r in rows if r['kind']=='DENIAL_WAVE_CLEARED'],[True,True])
+    def test_accepted_bids_end_each_wave(self):
+        code,final,rows,_,_=self.wave('alternate','denying-1')
+        self.assertEqual((code,final['reason']),(0,'OPERATIONAL_STOP'))
+        self.assertNotIn('WAVE_RESTART',[r['kind'] for r in rows])
+        self.assertGreater([r['kind'] for r in rows].count('DENIAL_WAVE_CLEARED'),1)
 
     def test_off_by_default_and_without_recent_denials(self):
-        code,final,rows,_,calls=self.wave('deny','denying-1',after=0)
-        self.assertEqual((code,final['reason'],calls),(0,'OPERATIONAL_STOP',[]))
-        code,final,rows,_,calls=self.wave('quiet','denying-1',recent=.3)
-        self.assertEqual((code,final['reason'],calls),(0,'OPERATIONAL_STOP',[]),'a hold after one 461 is no wave')
-        self.assertNotIn('WAVE_REFRESH',[r['kind'] for r in rows])
-
-    def test_a_refused_refresh_keeps_trading(self):
-        code,final,rows,_,calls=self.wave('deny','denying-1',limits=replace(self.limits,recovery_per_hour=0))
-        self.assertEqual((code,final['reason'],calls),(0,'OPERATIONAL_STOP',[]))
-        self.assertEqual([r['refused'] for r in rows if r['kind']=='DOCUMENT_RECOVERY_REFUSED'],['RECOVERY_BUDGET_EXHAUSTED'])
-        self.assertNotIn('WORKER_STOP_REQUESTED',[r['kind'] for r in rows])
+        code,final,rows,_,_=self.wave('deny','denying-1',after=0)
+        self.assertEqual((code,final['reason']),(0,'OPERATIONAL_STOP'))
+        code,final,rows,_,_=self.wave('quiet','denying-1',recent=.3)
+        self.assertEqual((code,final['reason']),(0,'OPERATIONAL_STOP'),'a hold after one 461 is no wave')
+        self.assertNotIn('WAVE_RESTART',[r['kind'] for r in rows])
 
     def test_launch_flag(self):
         from fc_access.controller_v1 import local_monitor as lm
         self.assertEqual(lm.parser().parse_args(['launch']).wave_refresh_after,0)
-        self.assertEqual(lm.parser().parse_args(['launch','--wave-refresh-after','1800']).wave_refresh_after,1800)
+        self.assertEqual(lm.parser().parse_args(['launch','--wave-refresh-after','420']).wave_refresh_after,420)
 
 
 if __name__=='__main__':unittest.main(verbosity=2)

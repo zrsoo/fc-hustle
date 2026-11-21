@@ -347,7 +347,7 @@ def main(argv=None):
     parser.add_argument('--recovery-config')
     parser.add_argument('--refresh-on-start',action='store_true')
     parser.add_argument('--wave-refresh-after',type=int,default=0,
-                        help='refresh the page once per 461 wave after this many seconds without an accepted bid (0: off)')
+                        help='stop for a whole restart behind a page refresh after this many seconds of 461s without an accepted bid (0: off)')
     parser.add_argument('--maintenance-gap',type=float,default=0.0,help='seconds without bids after a maintenance write')
     parser.add_argument('--margin',type=int,default=500,help='profit margin X in the bid cap')
     parser.add_argument('--list-markup',type=int,default=0,help='list won items at resale + markup (legal tick)')
@@ -379,10 +379,11 @@ def main(argv=None):
         auth=measure(a.auth_failure_measure,recovery_config=a.recovery_config)
         if auth.name not in {'noop','relogin'}:raise ValueError('invalid_auth_failure_measure')
         if not 0<=a.wave_refresh_after<=86400:raise ValueError('invalid_wave_refresh_after')
-        wave=measure('relogin',recovery_config=a.recovery_config) if a.wave_refresh_after else None
+        # The restart's page refresh signs in with this config; validate it now.
+        if a.wave_refresh_after:measure('relogin',recovery_config=a.recovery_config)
         with Runtime(a.runtime_dir,a.task_key,a.generation) as runtime:
             return supervise(a,runtime=runtime,denial_measure=denial,startup_refresh=startup,auth_measure=auth,
-                             wave_measure=wave,wave_refresh_after=a.wave_refresh_after)
+                             wave_refresh_after=a.wave_refresh_after)
     except (OSError,ValueError,TimeoutError,KeyError,TypeError) as error:
         # Exception values may contain paths or OS/provider details. Only type
         # and a finite action outcome are emitted at this CLI boundary.

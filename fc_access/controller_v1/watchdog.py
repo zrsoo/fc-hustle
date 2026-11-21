@@ -208,13 +208,13 @@ class Watchdog:
                 + (label(reason) if reason else f"stage {max(0,self.clock()-v['tick']):.0f}s"))
 
 
-# A wave refresh needs a denial this recent: a long hold after one 461 is no wave.
+# A wave restart needs a denial this recent: a long hold after one 461 is no wave.
 WAVE_RECENT_SECONDS=600
 
 
 def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime=None,
               denial_measure=None, startup_refresh=None, auth_measure=None,
-              wave_measure=None, wave_refresh_after=0, wave_recent=WAVE_RECENT_SECONDS):
+              wave_refresh_after=0, wave_recent=WAVE_RECENT_SECONDS):
     """Explicit run only. One worker at a time, one status line, one event log.
 
     No notification service, web dashboard, account probe or trading policy
@@ -227,11 +227,12 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     is attempted once before the first worker. ``auth_measure``, when active,
     is attempted the same way after a PERSISTENT_AUTH_FAILURE stop. A measure
     with ``tolerate_denials`` keeps bidding through 461 denials instead.
-    ``wave_measure``, when active and ``wave_refresh_after`` > 0, is attempted
-    once per 461 wave: when native bids have been denied for that many seconds
-    with no accepted bid (and the latest denial is recent), the worker stops,
-    the measure refreshes the page (signing in only if the page asks) and a
-    fresh worker resumes. An accepted bid ends the wave and re-arms it.
+    With ``wave_refresh_after`` > 0, a 461 wave (native bids denied for that
+    many seconds with no accepted bid, the latest denial recent) stops the
+    runtime with DENIAL_WAVE_RESTART; the local monitor's watcher then starts a
+    whole new generation behind a page refresh (local_monitor.restart_after_wave).
+    Each fresh generation starts a new wave clock, so a lasting wave restarts
+    again after the same time. An accepted bid ends the wave.
     Tests inject offline workers.
     """
     from .measures import NoOpMeasure
@@ -251,9 +252,8 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
     runtime_failed=False;process_open=False
     published_at=time.monotonic();publish_failures=0
     workers=0;recoveries=[]
-    # Spans worker restarts: a refreshed wave is not refreshed again until an
-    # accepted bid ends it.
-    wave=dict(since=None,last=None,denied=0,refreshed=False)
+    # Spans worker restarts within this runtime.
+    wave=dict(since=None,last=None,denied=0)
     if runtime is not None:runtime.recovery=None
 
     def publish(state,reason=None,*,force=False,strict=None):
@@ -302,22 +302,19 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             now=time.monotonic()
             if message.get('success') is True:
                 if wave['since'] is not None:
-                    record('DENIAL_WAVE_CLEARED',seconds=round(now-wave['since'],1),denied=wave['denied'],
-                           refreshed=wave['refreshed'])
-                wave.update(since=None,last=None,denied=0,refreshed=False)
+                    record('DENIAL_WAVE_CLEARED',seconds=round(now-wave['since'],1),denied=wave['denied'])
+                wave.update(since=None,last=None,denied=0)
             elif message.get('wire_statuses')==[461]:
                 if wave['since'] is None:wave['since']=now
                 wave['last']=now;wave['denied']+=1
 
         def wave_due():
-            if wave_measure is None or not wave_measure.active or not wave_refresh_after>0:return None
-            if wave['since'] is None or wave['refreshed'] or runtime.recovery:return None
+            if not wave_refresh_after>0 or wave['since'] is None or runtime.recovery:return None
             now=time.monotonic();seconds=now-wave['since']
-            # A hold with no bids is not a wave; only refresh while EA still denies.
+            # A hold with no bids is not a wave; only restart while EA still denies.
             if seconds<wave_refresh_after or now-wave['last']>wave_recent:return None
-            wave['refreshed']=True
-            record('WAVE_REFRESH',seconds=round(seconds,1),denied=wave['denied'],measure=wave_measure.name)
-            return 'DENIAL_WAVE_REFRESH'
+            record('WAVE_RESTART',seconds=round(seconds,1),denied=wave['denied'])
+            return 'DENIAL_WAVE_RESTART'
 
         def local_reason():
             return ('WATCHDOG_LOG_FAILED' if log_failed else 'WATCHDOG_OUTPUT_FAILED' if output_failed else
@@ -351,8 +348,6 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
                 if runtime:
                     reason=reason or runtime.stop_reason() or wave_due()
                     cause=recoverable(reason)
-                    # A refused wave refresh (recovery budget) keeps trading.
-                    if reason=='DENIAL_WAVE_REFRESH' and cause is None:reason=None
                     # Publish recovery before stopping the worker so a health
                     # check never observes the recoverable fault as a stop.
                     if cause:begin(*cause)
@@ -394,8 +389,6 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             if runtime is None:return None
             if reason=='PERSISTENT_AUTH_FAILURE' and auth_measure is not None and auth_measure.active:
                 cause,measure='AUTH_FAILURE',auth_measure
-            elif reason=='DENIAL_WAVE_REFRESH':
-                cause,measure='DENIAL_WAVE',wave_measure
             elif reason=='PERSISTENT_WRITE_FAILURE':
                 cause,measure=monitor.semantic.recoverable(),denial_measure
                 if cause is None:return None
@@ -479,4 +472,4 @@ def supervise(arguments, *, target=worker, limits=Limits(), output=None, runtime
             if child is not None:child.close()
     return 0 if (not log_failed and not output_failed and not runtime_failed and not forced and not alive and
                  started and exit_code==0 and
-                 reason in {'OPERATOR_STOP','OPERATOR_STOPPED','OPERATOR_PAUSED','OPERATIONAL_STOP'}) else 1
+                 reason in {'OPERATOR_STOP','OPERATOR_STOPPED','OPERATOR_PAUSED','OPERATIONAL_STOP','DENIAL_WAVE_RESTART'}) else 1

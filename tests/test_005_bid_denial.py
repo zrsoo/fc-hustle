@@ -143,7 +143,7 @@ class SupervisorTests(unittest.TestCase):
         # The wave's end is recorded; no refresh is attempted without --wave-refresh-after.
         self.assertEqual(kinds,['STARTED','DENIAL_WAVE_CLEARED','STOP_REQUESTED','STOPPED'])
         cleared=next(r for r in rows if r['kind']=='DENIAL_WAVE_CLEARED')
-        self.assertEqual((cleared['refreshed'],cleared['denied']>0),(False,True))
+        self.assertGreater(cleared['denied'],0)
         self.assertEqual(final['semantic']['denied_bids'],6)
 
     def test_auth_failure_runs_the_auth_measure_then_a_fresh_worker(self):

@@ -1,16 +1,19 @@
 """Minimal local monitor for the fix loop. Never sends an EA request itself.
 
     launch   start a new operational service generation plus a detached watcher
-    watch    (internal) health every --interval s; on fault: owned stop + incident
+    watch    (internal) health every --interval s; on fault: owned stop + incident;
+             after a DENIAL_WAVE_RESTART stop: a new generation behind a page refresh
     status   compact view for a periodic check-in: health, runtime, incident, events
     follow   read-only live view for a terminal (closing it never stops anything)
     stop     operator stop of the current generation (labelled as such)
 
 The watcher replaces the orchestrator's quota-free health check: it uses the same
 `operational.health` and `operational.stop`, counts consecutive healthy seconds
-the same way (same generation, gap <= 2*interval + timeout) and never restarts
-anything. Diagnosis, fixes and the next `launch` are done by the person or agent
-checking in. Every generation is new; launch intents are journaled before spawn
+the same way (same generation, gap <= 2*interval + timeout). The only restart
+it makes is after the runtime stopped itself on a 461 wave (--wave-refresh-after):
+the same configuration again, behind a page refresh, at most
+AUTO_RESTARTS_PER_HOUR times per hour. Diagnosis, fixes and every other `launch`
+are done by the person or agent checking in. Every generation is new; launch intents are journaled before spawn
 and never replayed. Files live in private-captures/controller-v1/local-monitor.
 """
 import argparse
@@ -192,7 +195,9 @@ def launch(a, p=None):
                   rank_bands=a.rank_bands, stored_price_rules=a.stored_price_rules,
                   min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval,
                   quote_max_age=a.quote_max_age, market_budget=a.market_budget,
-                  discovery_pages=a.discovery_pages, wave_refresh_after=a.wave_refresh_after, refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
+                  discovery_pages=a.discovery_pages, wave_refresh_after=a.wave_refresh_after,
+                  recovery_config=a.recovery_config, auto_restart=bool(getattr(a, 'auto_restart', False)),
+                  refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
     child, breakaway = spawn(service, p['monitor']/f'service-{generation}.log')
     time.sleep(1)
@@ -202,6 +207,43 @@ def launch(a, p=None):
     print(json.dumps(dict(generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                           service_pid=child.pid,
                           watcher_pid=guard.pid, outside_caller_job=breakaway and guard_breakaway)))
+
+
+WAVE_RESTART = 'DENIAL_WAVE_RESTART'
+AUTO_RESTARTS_PER_HOUR = 6
+
+
+def restart_after_wave(incident, p, *, launcher=None, now=None, settle=30, sleep=time.sleep):
+    """After the runtime stopped itself on a 461 wave, launch the same
+    configuration as a new generation behind a page refresh. Returns the
+    relaunch arguments, or None when nothing was launched."""
+    if incident.get('kind') != 'FAULT' or incident.get('diagnostic') != WAVE_RESTART: return None
+    rows = lines(p['launches'])
+    row = next((r for r in reversed(rows) if r.get('generation') == incident.get('generation')), None)
+    if not row or not row.get('wave_refresh_after') or not row.get('recovery_config'): return None
+    now = now or datetime.now(timezone.utc)
+    def refuse(reason):
+        append(p['incidents'], dict(at=now.isoformat(), generation=incident['generation'], kind='AUTO_RESTART_REFUSED',
+                                    diagnostic=reason))
+    recent = [r for r in rows if r.get('state') == 'intent' and r.get('auto_restart') and
+              0 <= (now-datetime.fromisoformat(r['at'])).total_seconds() < 3600]
+    if len(recent) >= AUTO_RESTARTS_PER_HOUR: refuse('AUTO_RESTART_BUDGET_EXHAUSTED'); return None
+    a = parser().parse_args(['--base', str(p['base']), 'launch'])
+    for key, value in row.items():
+        if key not in {'base', 'epoch_floor', 'at', 'generation', 'state'} and hasattr(a, key): setattr(a, key, value)
+    a.refresh_on_start = True; a.auto_restart = True
+    a.note = f"automatic restart after a 461 wave (from {incident['generation'][:8]})"
+    # This watcher is the one launch would wait for; the old runtime exits on its own.
+    try:
+        if json.loads(p['watcher'].read_text(encoding='utf-8')).get('generation') == incident['generation']:
+            p['watcher'].unlink()
+    except (OSError, ValueError): pass
+    for _ in range(settle):
+        if not held(p['runtime']): break
+        sleep(1)
+    try: (launcher or launch)(a, p)
+    except SystemExit as refused: refuse('AUTO_RESTART_LAUNCH_REFUSED:'+str(refused)[:80]); return None
+    return a
 
 
 def watcher_alive(p):
@@ -500,7 +542,8 @@ def parser():
     l.add_argument('--discovery-pages', type=int, default=1,
                    help='search up to this many pages when a page has no auction with enough time left')
     l.add_argument('--wave-refresh-after', type=int, default=0,
-                   help='refresh the page once per 461 wave after this many seconds without an accepted bid (0: off)')
+                   help='restart the whole bot behind a page refresh after this many seconds of 461s '
+                        'without an accepted bid (0: off; needs --recovery-config)')
     w = sub.add_parser('watch')
     w.add_argument('--generation', required=True); w.add_argument('--interval', type=int, default=30)
     w.add_argument('--startup', type=int, default=90)
@@ -515,7 +558,9 @@ def main(argv=None):
         if not 5 <= a.interval <= 300: raise SystemExit('interval must be 5..300 seconds')
         return launch(a, p)
     if a.action == 'watch':
-        print(json.dumps(watch(a.generation, interval=a.interval, startup=a.startup, p=p))); return
+        incident = watch(a.generation, interval=a.interval, startup=a.startup, p=p)
+        print(json.dumps(incident), flush=True)
+        restart_after_wave(incident, p); return
     if a.action == 'follow':
         try: follow(p)
         except KeyboardInterrupt: pass

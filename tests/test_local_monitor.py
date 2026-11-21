@@ -69,6 +69,60 @@ class WatchTests(unittest.TestCase):
             with self.assertRaises(ValueError):self.run_watch([dict(status='repair',diagnostic='X')])
 
 
+class WaveRestartTests(unittest.TestCase):
+    def setUp(self):
+        self.dir=Path(self.enterContext(tempfile.TemporaryDirectory()));self.p=lm.paths(self.dir)
+        self.p['monitor'].mkdir(parents=True)
+        self.row=dict(at='2026-11-21T21:00:00+00:00',generation=GEN,state='spawned',epoch_floor=240,measure='continue',
+                      auth_measure='relogin',margin=200,list_markup=500,bands='1000:11000',discovery_pages=3,
+                      wave_refresh_after=420,recovery_config='private-captures/controller-v1/recovery.json',
+                      refresh_on_start=False,auto_restart=False,interval=30,note='by hand')
+        lm.append(self.p['launches'],self.row)
+        self.now=lm.datetime(2026,11,21,21,30,tzinfo=lm.timezone.utc)
+
+    def restart(self,incident=None,**kwargs):
+        launched=[]
+        incident=incident or dict(kind='FAULT',diagnostic='DENIAL_WAVE_RESTART',generation=GEN)
+        out=lm.restart_after_wave(incident,self.p,launcher=lambda a,p:launched.append(a),now=self.now,
+                                  sleep=lambda s:None,**kwargs)
+        return out,launched
+
+    def test_a_wave_stop_relaunches_the_same_configuration_behind_a_refresh(self):
+        self.p['watcher'].write_text(json.dumps(dict(generation=GEN)))
+        out,launched=self.restart()
+        self.assertEqual(len(launched),1);a=launched[0]
+        self.assertTrue(a.refresh_on_start and a.auto_restart)
+        self.assertEqual((a.margin,a.bands,a.discovery_pages,a.wave_refresh_after,a.recovery_config,a.auth_measure),
+                         (200,'1000:11000',3,420,'private-captures/controller-v1/recovery.json','relogin'))
+        self.assertIsNone(a.epoch_floor,'the floor is recomputed, never reused');self.assertIn(GEN[:8],a.note)
+        self.assertFalse(self.p['watcher'].exists(),'the stopping watcher steps aside for the new one')
+
+    def test_other_stops_and_launches_without_wave_restart_never_relaunch(self):
+        for incident in (dict(kind='FAULT',diagnostic='PERSISTENT_BID_DENIAL',generation=GEN),
+                         dict(kind='OPERATOR_STOP',diagnostic='DENIAL_WAVE_RESTART',generation=GEN),
+                         dict(kind='FAULT',diagnostic='DENIAL_WAVE_RESTART',generation='f'*32)):
+            self.assertEqual(self.restart(incident),(None,[]),incident)
+        lm.append(self.p['launches'],dict(self.row,wave_refresh_after=0))
+        self.assertEqual(self.restart(),(None,[]))
+
+    def test_automatic_restarts_are_capped_per_hour(self):
+        for minute in range(31,31+lm.AUTO_RESTARTS_PER_HOUR):
+            lm.append(self.p['launches'],dict(self.row,generation='a'*32,state='intent',auto_restart=True,
+                                              at=f'2026-11-21T20:{minute:02d}:00+00:00'))
+        lm.append(self.p['launches'],dict(self.row))
+        self.assertEqual(self.restart(),(None,[]))
+        self.assertEqual(lm.lines(self.p['incidents'])[-1]['diagnostic'],'AUTO_RESTART_BUDGET_EXHAUSTED')
+        self.now=lm.datetime(2026,11,21,21,40,tzinfo=lm.timezone.utc)  # the oldest left the hour
+        self.assertEqual(len(self.restart()[1]),1)
+
+    def test_a_refused_launch_is_recorded(self):
+        def refuse(a,p):raise SystemExit('refused: an operational runtime already owns the lock')
+        out=lm.restart_after_wave(dict(kind='FAULT',diagnostic='DENIAL_WAVE_RESTART',generation=GEN),self.p,
+                                  launcher=refuse,now=self.now,sleep=lambda s:None)
+        self.assertIsNone(out)
+        self.assertTrue(lm.lines(self.p['incidents'])[-1]['diagnostic'].startswith('AUTO_RESTART_LAUNCH_REFUSED'))
+
+
 class LaunchAndStatusTests(unittest.TestCase):
     def setUp(self):
         self.dir=Path(self.enterContext(tempfile.TemporaryDirectory()));self.p=lm.paths(self.dir)
