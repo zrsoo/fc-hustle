@@ -61,6 +61,41 @@ class WinRecovery(unittest.TestCase):
         # ACQUIRING -> MANAGING (moved win needs no status) -> MAINTENANCE.
         for _ in range(3):h.controller.step()
 
+    def test_a_move_withdrawn_at_admission_is_released_and_attempted_again(self):
+        # Live 2026-11-21: the dispatch-time recheck withdrew a won card's move;
+        # the never-sent intent counted as consumed and the card was never listed.
+        from fc_access.controller_v1 import work as work_module
+        # The check passes when queued and fails when claimed (the live case).
+        for failing,reason in ((2,'ADMISSION_WITHDRAWN'),):
+            with self.subTest(reason=reason):
+                path=self.directory();h=self.make(path);won(h)
+                real=work_module.authorize;calls=[]
+                def once(store,c):
+                    calls.append(c['operation'])
+                    if c['operation']=='move' and calls.count('move')==failing:raise ValueError('fixture_admission_recheck_failed')
+                    return real(store,c)
+                with patch.object(work_module,'authorize',side_effect=once):
+                    h.controller.step();h.controller.step()  # MANAGING -> MAINTENANCE (move withdrawn)
+                    self.assertEqual([json.loads(b)['operation'] for b, in h.store.db.execute('SELECT body FROM c4_work_rejected')],['move'])
+                    self.assertLessEqual(len(h.calls('move')),1,'the withdrawn move never reached the page')
+                    self.assertEqual(h.metrics('WRITE_UNSENT')[-1]['reason'],reason)
+                    for _ in range(4):h.controller.step()
+                self.assertEqual(effects(h),[('list',1),('move',1)],'moved and listed on a later pass, once each')
+
+    def test_a_possibly_sent_or_claimed_write_is_never_released_as_unsent(self):
+        path=self.directory();h=self.make(path);self.claimed(h)
+        cid=h.store.db.execute('SELECT id FROM c4_work').fetchone()[0]
+        with h.store.db:
+            h.store.db.execute("UPDATE c4_work SET state='UNKNOWN' WHERE id=?",(cid,))
+            h.store.db.execute("UPDATE c4_commands SET state='UNKNOWN' WHERE id=?",(cid,))
+            h.store.event(cid,'ADMISSION_WITHDRAWN',{})
+        self.assertFalse(h.controller.work.release_unsent(cid),'dispatched with a possibly-sent marker')
+        with h.store.db:h.store.db.execute('UPDATE c4_work SET dispatched_at=NULL WHERE id=?',(cid,))
+        self.assertFalse(h.controller.work.release_unsent(cid),'the possibly-sent marker alone keeps it')
+        with h.store.db:h.store.db.execute('DELETE FROM c4_tombstones WHERE command_id=?',(cid,))
+        self.assertFalse(h.controller.work.release_unsent(cid),'a claimed command was handed to the page')
+        self.assertEqual(h.store.db.execute('SELECT count(*) FROM c4_work_rejected').fetchone()[0],0)
+
     def test_claimed_auction_lists_after_watch_disappears_and_terminal_read_ages(self):
         path=self.directory()
         h=self.make(path);target=self.claimed(h);count=len(h.ea.calls)

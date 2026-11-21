@@ -248,6 +248,32 @@ class Work:
         stored=json.loads(stored[0]) if stored and stored[0] else None
         evidence=stored if refused(stored) else response if refused(response) else None
         if evidence is None:return False
+        return self._archive(cid,evidence,'WRITE_REFUSED',status=401)
+
+    def release_unsent(self,cid):
+        """A maintenance intent the store withdrew at admission (its dispatch-time
+        recheck failed) was never claimed: no possibly-sent marker, no dispatch
+        time, nothing handed to the page. It is archived like a refused write so
+        a later pass may attempt the action again (live 2026-11-21: a won card's
+        move was withdrawn and the card sat in Transfer Targets for hours)."""
+        s=self.s
+        row=s.db.execute('SELECT dispatched_at,state FROM c4_work WHERE id=?',(cid,)).fetchone()
+        # Only settled work: dispatch marks its intent UNKNOWN after the executor returns.
+        if not row or row[0] is not None or row[1]!='UNKNOWN':return False
+        if s.db.execute('SELECT 1 FROM c4_tombstones WHERE command_id=?',(cid,)).fetchone():return False
+        if s.db.execute("SELECT 1 FROM c4_events WHERE id=? AND kind='CLAIMED'",(cid,)).fetchone():return False
+        # Only the explicit withdrawal; intent-only work (e.g. a crash before the
+        # queue) stays consumed, as the process acceptance requires.
+        command=s.db.execute('SELECT state FROM c4_commands WHERE id=?',(cid,)).fetchone()
+        if not command or command[0]!='UNKNOWN':return False
+        if not s.db.execute("SELECT 1 FROM c4_events WHERE id=? AND kind='ADMISSION_WITHDRAWN'",(cid,)).fetchone():return False
+        return self._archive(cid,dict(reason='ADMISSION_WITHDRAWN'),'WRITE_UNSENT',reason='ADMISSION_WITHDRAWN')
+
+    def released(self,cid,response=None):
+        return self.release_refused(cid,response) or self.release_unsent(cid)
+
+    def _archive(self,cid,evidence,kind,**fields):
+        s=self.s
         with s.lock,s.db:
             row=s.db.execute('SELECT id,action,body,before_read,state,at,dispatched_at,completed_at,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
             if not row or row[4]=='CONFIRMED':return False
@@ -257,7 +283,7 @@ class Work:
                 s.db.execute('INSERT OR REPLACE INTO c4_tombstones_rejected VALUES(?,?)',t)
             s.db.execute('DELETE FROM c4_tombstones WHERE command_id=?',(cid,))
             s.db.execute('DELETE FROM c4_work WHERE id=?',(cid,))
-        self.c.journal.metric(None,'WRITE_REFUSED',operation=json.loads(row[2])['operation'],command_id=cid,status=401)
+        self.c.journal.metric(None,kind,operation=json.loads(row[2])['operation'],command_id=cid,**fields)
         return True
 
     def dispatch(self,op,params):
@@ -280,7 +306,7 @@ class Work:
         with s.lock,s.db:
             s.db.execute('UPDATE c4_work SET state=?,completed_at=? WHERE id=?',(outcome,s.now().isoformat(),c['id']))
         self.c.journal.invalidate_inventory()
-        if outcome!='ACKNOWLEDGED' and self.release_refused(c['id'],v):return c['id']
+        if outcome!='ACKNOWLEDGED' and self.released(c['id'],v):return c['id']
         self.reconcile(c['id'])
         return c['id']
 
@@ -288,7 +314,7 @@ class Work:
         s=self.s
         row=s.db.execute('SELECT body,before_read,state,at,dispatched_at,completed_at,proof FROM c4_work WHERE id=?',(cid,)).fetchone()
         if not row or row[2]=='CONFIRMED':return bool(row)
-        if self.release_refused(cid):return False
+        if self.released(cid):return False
         c,before=json.loads(row[0]),json.loads(row[1]);op,p=c['operation'],json.loads(row[0])['params']
         if c['context']!=self.c.adapter.context:raise ValueError('wrong_recovery_context')
         if not row[4]:return False # Intent-only progress is never submitted work.
@@ -417,7 +443,7 @@ class Work:
         if not params['expected_item_ids']:return False
         c=self.c.native.envelope(self.c.ids(),op,params);key=action(c,before)
         old=self.s.db.execute('SELECT id,state FROM c4_work WHERE action=?',(key,)).fetchone()
-        if old and old[1]!='CONFIRMED' and self.release_refused(old[0]):old=None
+        if old and old[1]!='CONFIRMED' and self.released(old[0]):old=None
         if old:return old[1]=='CONFIRMED' or self.reconcile(old[0])
         cid=self.dispatch(op,params)
         return self.state(cid)=='CONFIRMED'
