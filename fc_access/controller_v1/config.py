@@ -72,6 +72,10 @@ class ControllerConfig:
     # acquisition waits, at most market_budget per hour (0: none; every pricing
     # search and auction result is still recorded at no request cost).
     market_budget: int = 0
+    # When a discovery page has no auction with more than min_seconds_left left
+    # (a busy market fills page 1 with auctions in their last seconds), search
+    # the next page, up to this many pages per round (1: page 1 only).
+    discovery_pages: int = 1
     market_held_interval: float = 900.0
     market_index_interval: float = 1800.0
     market_index_size: int = 100
@@ -116,6 +120,8 @@ class ControllerConfig:
         if type(self.quote_max_age) is not int or not 60 <= self.quote_max_age <= 86400:
             raise ValueError('invalid_controller_config')
         if type(self.market_budget) is not int or not 0 <= self.market_budget <= 2000:
+            raise ValueError('invalid_controller_config')
+        if type(self.discovery_pages) is not int or not 1 <= self.discovery_pages <= 10:
             raise ValueError('invalid_controller_config')
         if type(self.market_index_size) is not int or not 0 <= self.market_index_size <= 500:
             raise ValueError('invalid_controller_config')

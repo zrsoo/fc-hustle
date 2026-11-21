@@ -179,6 +179,7 @@ class Controller:
         j=self.journal;bid=self.ids();start=self.clock()
         j.begin(bid,asdict(self.config),self.now().isoformat())
         burst=None;handoff=None;expiry_misses=0;long_skips=0;retries={};denied=0;attempted=0;coin_skips=0;accepted=0
+        page=None;pages_skipped=0
         found=None;n_eligible=None;n_selected=None;band=None;spendable=None;spendable_start=None;min_skipped=None;cheapest=None
         interleaved=self.config.interleave and any(self._needs_status(m) for m in j.members())
         price_before=dict(self.market.stats)
@@ -220,17 +221,27 @@ class Controller:
             else:
                 band=self.config.bands[self.band_index%len(self.config.bands)]
                 self.band_index+=1
-            try:discovery=self.native.search(self.ids(),Search.discovery(max_bid=band[0],min_buy=band[1]))
-            except ValueError as error:
-                if str(error)!='service_failed':raise
-                # EA refused the search (HTTP 429 throttle): no acquisition for a while;
-                # managing and maintenance continue.
-                self.search_hold_until=self.clock()+self.config.throttle_pause
-                j.metric(bid,'SEARCH_THROTTLED',pause=self.config.throttle_pause,band=list(band))
-                j.update_batch(bid,state='THROTTLED',reason='SEARCH_THROTTLED');return
-            at=discovery['freshness']['network_at']
-            found=len(discovery['result']['auctions'] or [])
-            j.update_batch(bid,discovery=discovery,discovery_at=at,band=list(band))
+            page=0
+            while True:
+                page+=1
+                try:discovery=self.native.search(self.ids(),Search.discovery(page=page,max_bid=band[0],min_buy=band[1]))
+                except ValueError as error:
+                    if str(error)!='service_failed':raise
+                    # EA refused the search (HTTP 429 throttle): no acquisition for a while;
+                    # managing and maintenance continue.
+                    self.search_hold_until=self.clock()+self.config.throttle_pause
+                    j.metric(bid,'SEARCH_THROTTLED',pause=self.config.throttle_pause,band=list(band))
+                    j.update_batch(bid,state='THROTTLED',reason='SEARCH_THROTTLED');return
+                at=discovery['freshness']['network_at']
+                rows=discovery['result']['auctions'] or []
+                age=(self.now()-stamp(at)).total_seconds()
+                # A busy market fills a page with auctions in their last seconds: step to
+                # the next page (results are ordered by time left) when none has enough.
+                if (any(r['expires']-age>self.config.min_seconds_left for r in rows) or
+                        page>=self.config.discovery_pages or len(rows)<21):break
+                pages_skipped+=1
+            found=len(rows)
+            j.update_batch(bid,discovery=discovery,discovery_at=at,band=list(band),discovery_page=page)
             # Price each exact version once; the imported service owns all cache,
             # exclusion, early rejection, tax and native flooring policy.
             quotes={};rules_by_version={};prepared=[];eligible=[];trades=set();items=set()
@@ -387,6 +398,7 @@ class Controller:
                      handoff_elapsed=end-handoff if handoff is not None else 0,expiry_misses=expiry_misses,
                      long_skips=long_skips,retries=len(retries),denied=denied,attempted=attempted,coin_skips=coin_skips,
                      band=list(band) if band else None,found=found,eligible=n_eligible,selected=n_selected,
+                     page=page,pages_skipped=pages_skipped,
                      spendable_start=spendable_start,spendable_end=spendable,min_skipped_cap=min_skipped,cheapest_cap=cheapest,
                      searches_last_hour=self.searches_last_hour(),interleaved=interleaved,
                      state=self.store.db.execute('SELECT state FROM c4_policy_batches WHERE id=?',(bid,)).fetchone()[0])

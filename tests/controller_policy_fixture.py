@@ -85,10 +85,11 @@ class SyntheticEA:
         elif op=='caps':r['caps']=dict(definition_id=p['definition_id'],minimum=150,maximum=20000);wire={'defId':p['definition_id']}
         elif op=='search':
             rows=self.rows if self.discovery is None else self.discovery
+            if p['purpose']=='discovery' and getattr(self,'pages',None) is not None:rows=self.pages.get(p.get('page',1),[])
             if p['purpose']=='pricing':rows=self.offers
             rows=[r for r in rows if r['item']['definition_id']==p.get('definition_id',r['item']['definition_id']) and
                   ('max_buy' not in p or r['buy_now_price']<=p['max_buy'])]
-            r.update(auctions=deepcopy(rows),cache_invalidated=True);wire=dict(start=0,num=21)
+            r.update(auctions=deepcopy(rows),cache_invalidated=True);wire=dict(start=(p.get('page',1)-1)*20,num=21)
             for key,w in [('definition_id','definitionId'),('max_buy','maxb'),('max_bid','macr'),('min_buy','minb')]:
                 if key in p:wire[w]=p[key]
             for row in rows:self.full[row['trade_id']]=(c['id'],at,deepcopy(row))
