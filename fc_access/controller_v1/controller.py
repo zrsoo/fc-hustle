@@ -894,9 +894,11 @@ class Controller:
                 j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining,managing=True)
             j.checkpoint(phase='MANAGING');return True
         self.last_hold_handoff=None
-        if reason in {'LOW_CREDITS','COINS_RESERVED'} and (self.low_credit_maintenance is None or self.clock()-self.low_credit_maintenance>=300):
-            # Coins come back only through sales: keep relisting expired listings
-            # and clearing sold ones while acquisition waits.
+        if self.low_credit_maintenance is None:self.low_credit_maintenance=self.clock()  # 5 min into the hold
+        if self.clock()-self.low_credit_maintenance>=300:
+            # Whatever acquisition waits on (coins, a 461 wave, the search
+            # throttle or budget), keep relisting expired listings and clearing
+            # sold ones: coins come back only through sales.
             self.low_credit_maintenance=self.clock()
             j.checkpoint(phase='MAINTENANCE');return True
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)

@@ -292,6 +292,21 @@ class LowCredits(Base):
         self.assertEqual(h.calls('search'), [])
         self.assertEqual(h.controller.journal.state()['lifecycle'], 'RUNNING')
 
+    def test_every_hold_reason_runs_maintenance_every_5_minutes(self):
+        # A 461 wave, the search throttle or budget can hold acquisition for long
+        # stretches; listings expire hourly and must still be relisted.
+        for hold in ('denial_hold_until', 'search_hold_until'):
+            with self.subTest(hold=hold):
+                h = self.make()
+                setattr(h.controller, hold, h.clock.clock()+3600)
+                phases = []
+                for _ in range(24):
+                    h.clock.value += 31; h.controller.step(); phases.append(h.controller.journal.state()['phase'])
+                    if phases[-1] == 'MAINTENANCE': h.controller.step()  # the pass itself
+                self.assertGreaterEqual(phases.count('MAINTENANCE'), 2, phases)  # ~12+ minutes of holding
+                self.assertLessEqual(phases.count('MAINTENANCE'), 4)
+                self.assertEqual([c for c in h.calls('search') if c['command']['params']['purpose'] == 'discovery'], [])
+
     def test_hold_with_live_members_keeps_managing(self):
         h = self.make(low_credit_hold=True)
         h.controller.step()                               # three members bid
