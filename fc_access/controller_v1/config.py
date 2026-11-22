@@ -79,8 +79,9 @@ class ControllerConfig:
     # Relist expired cards one by one with single listings instead of the
     # native "relist all" (which EA refused for a whole day on 2026-11-22).
     card_relist: bool = False
-    # Maintenance only: never search or bid; keep clearing sold cards and
-    # relisting expired ones every 5 minutes.
+    # No acquisition: never searches for auctions to buy or bids; keeps
+    # clearing sold cards and relisting expired ones every 5 minutes, and keeps
+    # the idle-time market data scans (market_budget).
     relist_only: bool = False
     market_held_interval: float = 900.0
     market_index_interval: float = 1800.0

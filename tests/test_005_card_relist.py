@@ -109,7 +109,7 @@ class RelistOnly(unittest.TestCase):
         h.controller = Controller(h.store, h.adapter, h.cache, config=h.config, ids=h.ids, clock=h.clock.clock, sleep=h.clock.sleep)
         h.controller.resume()
         for _ in range(12): h.controller.step()
-        self.assertEqual(h.calls('search'), []); self.assertEqual(h.calls('bid'), [])
+        self.assertEqual(h.calls('search'), [], 'no market budget: no searches at all'); self.assertEqual(h.calls('bid'), [])
         self.assertIn('RELIST_ONLY', {m['reason'] for m in h.metrics('ACQUISITION_HOLD')})
         self.assertTrue(h.calls('transfer_list'), 'maintenance reads the transfer list')
         self.assertEqual(h.controller._acquisition_blocked(), 'RELIST_ONLY')

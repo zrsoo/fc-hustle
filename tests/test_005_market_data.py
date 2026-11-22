@@ -142,6 +142,16 @@ class IdleCollection(Base):
         self.assertEqual(self.rows(h2.controller.market_data, 'held'), [])
 
 
+    def test_relist_only_keeps_market_scans_and_never_discovers_or_bids(self):
+        h = self.work(held=(123,), market_budget=50, relist_only=True)
+        self.assertTrue(h.controller._acquisition_hold())  # relist-only maintains first
+        self.assertTrue(h.controller._acquisition_hold())
+        self.assertEqual(len(self.rows(h.controller.market_data, 'held')), 1)
+        for _ in range(6): h.controller.step()
+        self.assertNotIn('discovery', {c['command']['params']['purpose'] for c in h.calls('search')})
+        self.assertEqual(h.calls('bid'), [])
+
+
 class Summary(Base):
     def test_trend_and_held_premium(self):
         m = self.market(); now = 100000.0

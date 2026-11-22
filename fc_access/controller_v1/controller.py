@@ -917,7 +917,8 @@ class Controller:
             j.checkpoint(phase='MAINTENANCE');return True
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
         end=self.clock()+min(remaining,30)
-        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET','RELIST_ONLY'}:self._collect_market(bid,end-3)
+        # Relist-only keeps the full market data collection (searches, never bids).
+        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
         while self.clock()<end:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
         try:

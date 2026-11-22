@@ -547,7 +547,7 @@ def parser():
     l.add_argument('--card-relist', action='store_true',
                    help='relist expired cards one by one instead of relist all')
     l.add_argument('--relist-only', action='store_true',
-                   help='maintenance only: no searching or bidding; clear sold and relist expired cards')
+                   help='no acquisition (no discovery or bids); clear sold, relist expired, keep market scans')
     l.add_argument('--wave-refresh-after', type=int, default=0,
                    help='restart the whole bot behind a page refresh after this many seconds of 461s '
                         'without an accepted bid (0: off; needs --recovery-config)')
