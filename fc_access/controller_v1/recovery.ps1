@@ -59,7 +59,10 @@ function Click-Element($e){
  if(!(Test-FCEdgeForegroundOwner -WindowHandle $h)){throw 'foreground_changed'}
  # A physical click is an ordinary user gesture, which Edge requires before it
  # releases saved sign-in autofill to the page. Coordinates only, no values.
- $p=$e.GetClickablePoint();[void][FCRecoveryInput]::SetCursorPos([int]$p.X,[int]$p.Y)
+ # The element can vanish between the read and the click while the page moves on
+ # (live 2026-11-22: the second Login during sign-in). Nothing is clicked then.
+ try{$p=$e.GetClickablePoint()}catch{throw 'normal_action_ambiguous_or_missing'}
+ [void][FCRecoveryInput]::SetCursorPos([int]$p.X,[int]$p.Y)
  [FCRecoveryInput]::mouse_event(2,0,0,0,[UIntPtr]::Zero);[FCRecoveryInput]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
 }
 
