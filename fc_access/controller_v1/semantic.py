@@ -4,6 +4,10 @@ import math
 import time
 
 
+# EA statuses that refuse a transfer-market search for volume (throttle), not a fault.
+SEARCH_REFUSALS = {426, 429, 512}
+
+
 @dataclass(frozen=True)
 class SemanticLimits:
     auth_failures: int = 2
@@ -109,8 +113,9 @@ class SemanticHealth:
         # document that a normal reload/sign-in restored; the stop reason itself
         # stays PERSISTENT_WRITE_FAILURE and no bid outcome is inferred.
         self.denial_streak = 0
-        # Transfer-market searches EA refused with HTTP 429. The controller pauses
-        # acquisition; a throttle is neither a read failure nor progress.
+        # Transfer-market searches EA refused with a throttle status (429; under
+        # sustained load EA also answered 512 and 426, live 2026-11-23). The
+        # controller pauses searching; a throttle is neither a read failure nor progress.
         self.search_throttles = 0
         self.credit_rejections = 0
         self.reason = None
@@ -132,7 +137,7 @@ class SemanticHealth:
                 self.auth_failures = 0
             elif 401 in message['wire_statuses'] or message['service_status'] == 401 or message['error'] in {'unauthenticated', 'persona_unverified'}:
                 self.auth_failures += 1
-            if message['read'] and not success and message['operation'] == 'search' and 429 in message['wire_statuses']:
+            if message['read'] and not success and message['operation'] == 'search' and set(message['wire_statuses']) & SEARCH_REFUSALS:
                 self.search_throttles += 1
             elif message['read']:
                 op=message['operation']

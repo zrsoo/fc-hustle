@@ -143,6 +143,23 @@ class Denials(Base):
 
 
 class Throttle(Base):
+    def test_every_ea_search_refusal_status_is_a_throttle_not_a_read_failure(self):
+        # Live 2026-11-23: after 429s EA answered searches with 512 and 426; three of
+        # those counted as read failures and stopped the bot.
+        def search(status):
+            return dict(kind='native_result', operation='search', command_id='a'*32, local=False, read=True,
+                        market_race=False, success=False, error='service_failed', service_status=status,
+                        wire_statuses=[status], receipt_verdict=None, requested=0, returned=0)
+        s = SemanticHealth()
+        for status in (429, 512, 426, 426, 512):
+            s.observe(search(status))
+        self.assertEqual((s.search_throttles, s.read_failures), (5, 0)); self.assertIsNone(s.check())
+        s = SemanticHealth()
+        for status in (500, 500, 500):
+            s.observe(search(status))
+        self.assertEqual(s.check(), 'PERSISTENT_READ_FAILURE', 'other failures still stop')
+
+
     def test_429_pauses_acquisition_without_stopping(self):
         h = self.make(throttle_pause=900)
         s = SemanticHealth(clock=lambda: h.clock.value)
