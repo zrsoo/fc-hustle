@@ -188,6 +188,7 @@ def launch(a, p=None):
     service += ['--discovery-pages', str(a.discovery_pages)]
     if a.card_relist: service += ['--card-relist']
     if a.relist_only: service += ['--relist-only']
+    if a.collect: service += ['--collect']
     watcher = watcher_argv(p['base'], generation, a.interval, startup)
     intent = dict(at=now_iso(), generation=generation, epoch_floor=floor, measure=a.measure, maintenance_gap=a.maintenance_gap,
                   auth_measure=a.auth_measure, margin=a.margin, list_markup=a.list_markup, bands=a.bands,
@@ -198,7 +199,7 @@ def launch(a, p=None):
                   min_seconds_left=a.min_seconds_left, relist_interval=a.relist_interval,
                   quote_max_age=a.quote_max_age, market_budget=a.market_budget,
                   discovery_pages=a.discovery_pages, wave_refresh_after=a.wave_refresh_after,
-                  card_relist=a.card_relist, relist_only=a.relist_only,
+                  card_relist=a.card_relist, relist_only=a.relist_only, collect=a.collect,
                   recovery_config=a.recovery_config, auto_restart=bool(getattr(a, 'auto_restart', False)),
                   refresh_on_start=a.refresh_on_start, interval=a.interval, note=a.note)
     append(p['launches'], dict(intent, state='intent'))  # before spawn; never replayed
@@ -258,7 +259,7 @@ def watcher_alive(p):
 EA_TAX = 0.05
 
 
-DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'PRICE_RULES', 'PRICE_RULES_RECHECK', 'MARKET_DATA', 'WRITE_REFUSED', 'WRITE_UNSENT', 'WRITE_NO_EFFECT', 'RELIST_CARD', 'RELIST_CARD_SKIPPED', 'SEARCH_THROTTLED', 'COINS_RESERVED',
+DIAGNOSTIC_KINDS = ('BID', 'AUCTION_CLOSED', 'WIN_VERIFIED', 'DENIAL_BURST', 'DENIAL_WAVE', 'PRICED_OUT', 'BAND_RANK', 'PRICE_RULES', 'PRICE_RULES_RECHECK', 'MARKET_DATA', 'WRITE_REFUSED', 'WRITE_UNSENT', 'WRITE_NO_EFFECT', 'RELIST_CARD', 'RELIST_CARD_SKIPPED', 'COLLECT', 'SEARCH_THROTTLED', 'COINS_RESERVED',
                     'BAND_SKIPPED', 'INTERLEAVE', 'INTERLEAVE_WAIT', 'INTERLEAVE_OVERRUN', 'MAINTENANCE_PASS',
                     'ACQUISITION', 'ACQUISITION_HOLD', 'HOLD', 'ORPHAN_PARTICIPATION')
 ERROR_KINDS = ('DECISION_SKIPPED', 'MAINTENANCE_UNKNOWN', 'STATUS_UNKNOWN', 'ACQUISITION_HOLD_READ_FAILED',
@@ -422,7 +423,7 @@ def summarize(p, events=15):
     samples = lines(p['monitor']/f'samples-{generation}.jsonl')
     incidents = [i for i in lines(p['incidents']) if i['generation'] == generation]
     first = lines(p['launches'])[0]['at']
-    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'market_budget', 'discovery_pages', 'wave_refresh_after', 'card_relist', 'relist_only', 'state', 'breakaway', 'note')},
+    out = dict(launch={k: launch_row.get(k) for k in ('generation', 'at', 'epoch_floor', 'measure', 'auth_measure', 'maintenance_gap', 'margin', 'list_markup', 'bands', 'max_auction_seconds', 'search_budget', 'low_credit_hold', 'coin_reservation', 'interleave', 'watch_reserve', 'bid_at_cap', 'rank_bands', 'stored_price_rules', 'min_seconds_left', 'relist_interval', 'quote_max_age', 'market_budget', 'discovery_pages', 'wave_refresh_after', 'card_relist', 'relist_only', 'collect', 'state', 'breakaway', 'note')},
                trading=dict(this_run=trading(p['base'], launch_row['at']), since_first_launch=trading(p['base'], first),
                             all_time=trading(p['base'], None)),
                watcher_alive=bool(watcher_alive(p)), samples=len(samples),
@@ -548,6 +549,8 @@ def parser():
                    help='relist expired cards one by one instead of relist all')
     l.add_argument('--relist-only', action='store_true',
                    help='no acquisition (no discovery or bids); clear sold, relist expired, keep market scans')
+    l.add_argument('--collect', action='store_true',
+                   help='full market data collection in holds: ladders, listing outcomes, discovery without bids')
     l.add_argument('--wave-refresh-after', type=int, default=0,
                    help='restart the whole bot behind a page refresh after this many seconds of 461s '
                         'without an accepted bid (0: off; needs --recovery-config)')

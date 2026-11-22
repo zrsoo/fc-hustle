@@ -368,6 +368,7 @@ def main(argv=None):
     parser.add_argument('--discovery-pages',type=int,default=1,help='search up to this many pages when a page has no auction with enough time left')
     parser.add_argument('--card-relist',action='store_true',help='relist expired cards one by one instead of relist all')
     parser.add_argument('--relist-only',action='store_true',help='no acquisition (no discovery or bids); keep market scans')
+    parser.add_argument('--collect',action='store_true',help='full market data collection in holds (no budget)')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0

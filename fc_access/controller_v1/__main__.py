@@ -40,7 +40,8 @@ def controller_config(a):
                    market_budget=int(getattr(a,'market_budget',0) or 0),
                    discovery_pages=int(getattr(a,'discovery_pages',1) or 1),
                    card_relist=bool(getattr(a,'card_relist',False)),
-                   relist_only=bool(getattr(a,'relist_only',False)))
+                   relist_only=bool(getattr(a,'relist_only',False)),
+                   collect=bool(getattr(a,'collect',False)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 

@@ -83,6 +83,9 @@ class ControllerConfig:
     # clearing sold cards and relisting expired ones every 5 minutes, and keeps
     # the idle-time market data scans (market_budget).
     relist_only: bool = False
+    # Full market data collection in holds (collector.py): price ladders, listing
+    # outcomes, discovery without bids and a wider card universe; no budget.
+    collect: bool = False
     market_held_interval: float = 900.0
     market_index_interval: float = 1800.0
     market_index_size: int = 100
@@ -130,7 +133,7 @@ class ControllerConfig:
             raise ValueError('invalid_controller_config')
         if type(self.discovery_pages) is not int or not 1 <= self.discovery_pages <= 10:
             raise ValueError('invalid_controller_config')
-        if type(self.card_relist) is not bool or type(self.relist_only) is not bool:
+        if type(self.card_relist) is not bool or type(self.relist_only) is not bool or type(self.collect) is not bool:
             raise ValueError('invalid_controller_config')
         if type(self.market_index_size) is not int or not 0 <= self.market_index_size <= 500:
             raise ValueError('invalid_controller_config')

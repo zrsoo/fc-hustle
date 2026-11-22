@@ -70,6 +70,9 @@ class Controller:
         # Market history: pricing searches are recorded as they happen.
         self.market_data=market
         self.market_searches=[]
+        # Full market data collection (config.collect): read-only streams in holds.
+        from .collector import Collector
+        self.collector=Collector(self) if self.config.collect and market is not None else None
         self.pricing=PricingService(self.native,ids,cache,fetch=self._pricing_fetch)
         self.lock=store.controller_lock
         if not self.lock.acquire(blocking=False):raise RuntimeError('controller_step_already_running')
@@ -918,7 +921,9 @@ class Controller:
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
         end=self.clock()+min(remaining,30)
         # Relist-only keeps the full market data collection (searches, never bids).
-        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
+        if self.collector is not None:
+            self.collector.run(bid,end-3,searches=reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'})
+        elif reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
         while self.clock()<end:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
         try:
