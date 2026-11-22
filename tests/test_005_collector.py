@@ -90,6 +90,25 @@ class Collect(unittest.TestCase):
         self.assertEqual(st[h.ea.rows[0]['trade_id']], 'lost')
         self.assertNotEqual(st[h.ea.rows[1]['trade_id']], 'lost')
 
+    def test_a_new_collector_drops_listings_an_earlier_page_load_followed(self):
+        # Live 2026-11-22: after a restart behind a page refresh, status reads of the
+        # previous run's listings failed (unknown to the new page) and stopped the bot.
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        self.assertTrue(self.rows(m, "SELECT 1 FROM followed_v1 WHERE status='open'"))
+        col.Collector(h.controller)
+        self.assertEqual(self.rows(m, "SELECT count(*) FROM followed_v1 WHERE status='open'"), [(0,)])
+        self.assertTrue(self.rows(m, "SELECT 1 FROM followed_v1 WHERE status='lost' AND error='restart'"))
+
+    def test_a_watchdog_stop_is_not_swallowed(self):
+        h, m = self.make()
+        from fc_access.controller_v1.watchdog import SupervisionLost
+        def stop(): raise SupervisionLost('WATCHDOG_STOP')
+        h.controller.collector.search = lambda q: stop()
+        h.controller.collector.next_discovery = 0
+        with self.assertRaises(SupervisionLost):
+            h.controller.collector.run(None, h.clock.clock()+20)
+
     def test_a_search_throttle_pauses_searches_but_not_status_reads(self):
         h, m = self.make()
         h.ea.search_throttle = True

@@ -66,7 +66,12 @@ class Collector:
     def __init__(self, controller):
         self.c = controller
         self.db = controller.market_data.db
-        self.db.executescript(SCHEMA); self.db.commit()
+        self.db.executescript(SCHEMA)
+        # Status reads work only for trades this page load has seen in a search; a
+        # new worker may run on a reloaded page, so earlier open listings are lost
+        # (reading them would fail and count as persistent read failures).
+        self.db.execute("UPDATE followed_v1 SET status='lost',error='restart' WHERE status='open'")
+        self.db.commit()
         self.next_discovery = 0.0
         self.band_index = 0
         self.stats = {}
@@ -257,6 +262,7 @@ class Collector:
                 if kind == 'ladder': self.ladder(d, src)
                 else: self.scan(d, src)
         except ValueError as e:
+            if type(e).__name__ == 'SupervisionLost': raise
             if str(e) == 'service_failed':
                 # EA refused a search (429): the usual search pause applies.
                 self.c.search_hold_until = self.c.clock()+self.c.config.throttle_pause
