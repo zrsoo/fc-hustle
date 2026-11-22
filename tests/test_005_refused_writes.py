@@ -102,6 +102,42 @@ class RefusedWrites(unittest.TestCase):
         self.assertEqual(self.work(h, 'c4_work_rejected'), [])
         self.assertEqual([op for op, _ in effects(h)].count('clear_sold'), 1)
 
+    def due(self, h, seconds=120):
+        h.clock.value += seconds; h.ea.save()
+        with h.store.db: h.store.db.execute('UPDATE c4_maintenance SET next_due=?', ('2000-01-01T00:00:00+00:00',))
+
+    def test_a_relist_without_effect_is_released_and_the_cards_relisted(self):
+        # Live 2026-11-22: EA answered a relist with HTTP 426; the cards stayed
+        # expired under their old trade ids and every later relist was refused
+        # as a consumed generation.
+        h = self.make(); self.inventory(h, sold=0, expired=3)
+        self.refuse(h, (426,))
+        self.due(h); h.controller.work.maintenance()
+        self.assertEqual(self.work(h), [('relist_all', 'UNKNOWN')])
+        self.due(h); h.controller.work.maintenance()
+        self.assertEqual([op for op, _ in self.work(h, 'c4_work_rejected')], ['relist_all'])
+        self.assertEqual(h.metrics('WRITE_NO_EFFECT')[-1]['reason'], 'RELIST_NO_EFFECT')
+        self.assertEqual(self.work(h), [('relist_all', 'CONFIRMED')])
+        self.assertEqual([r['trade_state'] for r in h.ea.inventory], ['active']*3)
+
+    def test_a_relist_is_kept_while_a_read_cannot_prove_it_had_no_effect(self):
+        for mode in ('too_soon', 'relisted', 'gone'):
+            with self.subTest(mode=mode):
+                h = self.make(); self.inventory(h, sold=0, expired=3)
+                self.refuse(h, (426,))
+                self.due(h); h.controller.work.maintenance()
+                cid = h.store.db.execute('SELECT id FROM c4_work').fetchone()[0]
+                if mode == 'too_soon': h.clock.value += 5; h.ea.save()
+                else:
+                    h.clock.value += 120
+                    if mode == 'relisted': h.ea.inventory[0]['trade_id'] = 'trade:'+'9'*24
+                    else: h.ea.inventory = h.ea.inventory[1:]
+                    h.ea.save()
+                h.controller.work.inventory = None
+                self.assertEqual(h.controller.work.release_no_effect(h.controller.work.pile()), 0)
+                self.assertEqual(h.controller.work.state(cid), 'UNKNOWN')
+                self.assertEqual(self.work(h, 'c4_work_rejected'), [])
+
     def test_an_already_stuck_refused_write_is_released_on_the_next_pass(self):
         h = self.make(); self.inventory(h)
         self.refuse(h)

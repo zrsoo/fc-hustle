@@ -269,6 +269,29 @@ class Work:
         if not s.db.execute("SELECT 1 FROM c4_events WHERE id=? AND kind='ADMISSION_WITHDRAWN'",(cid,)).fetchone():return False
         return self._archive(cid,dict(reason='ADMISSION_WITHDRAWN'),'WRITE_UNSENT',reason='ADMISSION_WITHDRAWN')
 
+    def release_no_effect(self,after):
+        """A relist gives every listed card a new trade id. An unconfirmed relist
+        whose every target is still expired under its original trade id in a
+        complete transfer-list read taken a minute or more after it completed
+        provably had no effect; it is archived so the cards can be relisted
+        (live 2026-11-22: EA answered a relist with HTTP 426 and the unknown
+        write blocked every later relist of those cards for an hour)."""
+        if not after['coverage']['complete']:return 0
+        at=stamp(after['freshness']['network_at'])
+        now={r['item']['item_id']:r for r in after['result']['auctions']}
+        released=0
+        for cid,body,prior,completed in self.s.db.execute("""SELECT id,body,before_read,completed_at FROM c4_work
+            WHERE state!='CONFIRMED' AND dispatched_at IS NOT NULL
+            AND json_extract(body,'$.operation')='relist_all' ORDER BY rowid""").fetchall():
+            if not completed or at<stamp(completed)+timedelta(seconds=60):continue
+            targets=json.loads(body)['params']['expected_item_ids']
+            old={r['item']['item_id']:r for r in json.loads(prior)['result']['auctions']}
+            if targets and all(i in old and i in now and now[i]['trade_id']==old[i]['trade_id'] and
+                               now[i]['trade_state']=='expired' for i in targets):
+                if self._archive(cid,dict(reason='RELIST_NO_EFFECT',after_read=after['command_id']),'WRITE_NO_EFFECT',
+                                 reason='RELIST_NO_EFFECT'):released+=1
+        return released
+
     def released(self,cid,response=None):
         return self.release_refused(cid,response) or self.release_unsent(cid)
 
@@ -439,7 +462,9 @@ class Work:
             self.c.journal.metric(None,'MAINTENANCE_UNKNOWN',reason='BOUNDED_WORK_UNCONFIRMED',error=error_code(error))
 
     def bulk(self, op):
-        before=self.pile();params=parameters(before,op)
+        before=self.pile()
+        if op=='relist_all':self.release_no_effect(before)
+        params=parameters(before,op)
         if not params['expected_item_ids']:return False
         c=self.c.native.envelope(self.c.ids(),op,params);key=action(c,before)
         old=self.s.db.execute('SELECT id,state FROM c4_work WHERE action=?',(key,)).fetchone()
