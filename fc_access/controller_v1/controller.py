@@ -857,6 +857,7 @@ class Controller:
     def _acquisition_blocked(self):
         """Interleave hand-off check: the acquisition hold that would apply now, or None."""
         now=self.clock()
+        if self.config.relist_only:return 'RELIST_ONLY'
         if now<self.search_hold_until:return 'SEARCH_THROTTLED'
         if now<self.denial_hold_until:return 'DENIAL_BURST'
         if self.config.search_budget and self.searches_last_hour()>=self.config.search_budget:return 'SEARCH_BUDGET'
@@ -885,7 +886,7 @@ class Controller:
         """True while acquisition waits on the search throttle, a 461 burst or
         the hourly search budget. Members keep being managed meanwhile."""
         j=self.journal;bid=j.state()['batch_id'];now=self.clock()
-        reasons=[]
+        reasons=[('RELIST_ONLY',30.)] if self.config.relist_only else []
         if now<self.search_hold_until:reasons.append(('SEARCH_THROTTLED',self.search_hold_until-now))
         if now<self.denial_hold_until:reasons.append(('DENIAL_BURST',self.denial_hold_until-now))
         if self.config.search_budget and self.searches_last_hour()>=self.config.search_budget:reasons.append(('SEARCH_BUDGET',60.))
@@ -906,7 +907,8 @@ class Controller:
                 j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining,managing=True)
             j.checkpoint(phase='MANAGING');return True
         self.last_hold_handoff=None
-        if self.low_credit_maintenance is None:self.low_credit_maintenance=self.clock()  # 5 min into the hold
+        if self.low_credit_maintenance is None:  # 5 min into the hold; relist-only maintains at once
+            self.low_credit_maintenance=self.clock()-(300 if reason=='RELIST_ONLY' else 0)
         if self.clock()-self.low_credit_maintenance>=300:
             # Whatever acquisition waits on (coins, a 461 wave, the search
             # throttle or budget), keep relisting expired listings and clearing
@@ -915,7 +917,7 @@ class Controller:
             j.checkpoint(phase='MAINTENANCE');return True
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
         end=self.clock()+min(remaining,30)
-        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
+        if reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET','RELIST_ONLY'}:self._collect_market(bid,end-3)
         while self.clock()<end:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
         try:

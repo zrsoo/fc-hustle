@@ -38,7 +38,9 @@ def controller_config(a):
                    relist_interval=int(getattr(a,'relist_interval',3660)),
                    quote_max_age=int(getattr(a,'quote_max_age',86400)),
                    market_budget=int(getattr(a,'market_budget',0) or 0),
-                   discovery_pages=int(getattr(a,'discovery_pages',1) or 1))
+                   discovery_pages=int(getattr(a,'discovery_pages',1) or 1),
+                   card_relist=bool(getattr(a,'card_relist',False)),
+                   relist_only=bool(getattr(a,'relist_only',False)))
     return replace(config,entry_threshold=0) if config.coin_reservation else config
 
 

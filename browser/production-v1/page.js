@@ -618,7 +618,9 @@
             typeof services.Item.move!=='function' || ItemPile.TRANSFER===undefined)throw Error('invalid_preconditions');
           invoke=()=>services.Item.move([e.raw],ItemPile.TRANSFER,false);
         }else{
-          if(e.operation!=='transfer_list' || owned.complete!==true || e.row.trade_state!=='inactive' || e.row.current_bid!==0 ||
+          // A won card (inactive) or an expired listing of the same card, listed again card by card.
+          if(e.operation!=='transfer_list' || owned.complete!==true || !['inactive','expired'].includes(e.row.trade_state) || e.row.current_bid!==0 ||
+            e.row.trade_state==='expired' && (e.row.trade_id!==p.trade_id || p.win_read_id!==p.owned_read_id) ||
             typeof services.Item.list!=='function')throw Error('invalid_preconditions');
           invoke=()=>services.Item.list(e.raw,p.starting_bid,p.buy_now_price,p.duration);
         }

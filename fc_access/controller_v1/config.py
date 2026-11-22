@@ -76,6 +76,12 @@ class ControllerConfig:
     # (a busy market fills page 1 with auctions in their last seconds), search
     # the next page, up to this many pages per round (1: page 1 only).
     discovery_pages: int = 1
+    # Relist expired cards one by one with single listings instead of the
+    # native "relist all" (which EA refused for a whole day on 2026-11-22).
+    card_relist: bool = False
+    # Maintenance only: never search or bid; keep clearing sold cards and
+    # relisting expired ones every 5 minutes.
+    relist_only: bool = False
     market_held_interval: float = 900.0
     market_index_interval: float = 1800.0
     market_index_size: int = 100
@@ -122,6 +128,8 @@ class ControllerConfig:
         if type(self.market_budget) is not int or not 0 <= self.market_budget <= 2000:
             raise ValueError('invalid_controller_config')
         if type(self.discovery_pages) is not int or not 1 <= self.discovery_pages <= 10:
+            raise ValueError('invalid_controller_config')
+        if type(self.card_relist) is not bool or type(self.relist_only) is not bool:
             raise ValueError('invalid_controller_config')
         if type(self.market_index_size) is not int or not 0 <= self.market_index_size <= 500:
             raise ValueError('invalid_controller_config')

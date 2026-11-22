@@ -85,6 +85,10 @@ def confirmed_move(store, target):
     raise ValueError('independent_confirmed_move_effect_required')
 
 
+# Card-by-card relisting is bounded per maintenance pass (about 5 requests each).
+RELIST_CARDS_PER_PASS=10
+
+
 def refused(v):
     """EA refused a maintenance write unauthenticated: the response is a failure
     and every request it sent returned HTTP 401 (signed out). EA did not carry it
@@ -134,6 +138,7 @@ def validate(store, c):
                 raise ValueError('consumed_bulk_generation')
         return before
     row=store.db.execute("SELECT body FROM c4_members WHERE trade_id=? AND state='PENDING_WIN'",(p['trade_id'],)).fetchone()
+    if not row and op=='list':return validate_relist(store,c)
     if not row:raise ValueError('known_win_required')
     member=json.loads(row[0]);t=member['target']
     markup=getattr(store,'list_markup',0) if p.get('duration')==3600 and 'starting_bid' in p else 0
@@ -156,8 +161,36 @@ def validate(store, c):
         inv=store.db.execute("SELECT id FROM c4_commands WHERE state='DONE' AND json_extract(body,'$.operation')='transfer_list' ORDER BY rowid DESC LIMIT 1").fetchone()
         pile=shared_read(store,inv[0],'transfer_list') if inv else None
         if not pile or not pile['coverage']['complete'] or len(pile['result']['auctions'])>=50 or any(r['item']['item_id']==p['item_id'] for r in pile['result']['auctions']):raise ValueError('move_capacity_required')
+    listing_rules(store,p,t['definition_id'])
+    return before
+
+
+def relisted_card(before,p):
+    """The one expired listing a card relist targets, or None."""
+    rows=[r for r in before['result']['auctions'] if r['item']['item_id']==p['item_id']]
+    if len(rows)!=1:return None
+    r=rows[0]
+    if (r['trade_id']!=p['trade_id'] or r['trade_state']!='expired' or r['current_bid']!=0 or
+            r['item']['definition_id']!=p['definition_id'] or r['item']['untradeable'] is not False or
+            r['item']['last_sale_price']!=p['paid']):return None
+    return r
+
+
+def validate_relist(store,c):
+    """Card-by-card relist: the same card, still expired under the same trade id
+    in a complete transfer-list read, listed again at its own buy-now price."""
+    p=c['params']
+    before=shared_read(store,p['owned_read_id'],'transfer_list')
+    if not before['coverage']['complete'] or p['win_read_id']!=p['owned_read_id']:raise ValueError('relist_card_required')
+    r=relisted_card(before,p)
+    if r is None or p['buy_now_price']!=r['buy_now_price']:raise ValueError('relist_card_required')
+    listing_rules(store,p,p['definition_id'])
+    return before
+
+
+def listing_rules(store,p,definition_id):
     caps=shared_read(store,p['caps_read_id'],'caps')['result']['caps']
-    if caps['definition_id']!=t['definition_id'] or not caps['minimum']<=p['starting_bid']<p['buy_now_price']<=caps['maximum'] or p['duration']!=3600:raise ValueError('native_caps_required')
+    if caps['definition_id']!=definition_id or not caps['minimum']<=p['starting_bid']<p['buy_now_price']<=caps['maximum'] or p['duration']!=3600:raise ValueError('native_caps_required')
     probes={}
     for cid, in store.db.execute("SELECT id FROM c4_commands WHERE state='DONE' AND json_extract(body,'$.operation')='price_helpers'"):
         try:v=shared_read(store,cid,'price_helpers')
@@ -166,7 +199,6 @@ def validate(store, c):
     start,price=p['starting_bid'],p['buy_now_price']
     if probes.get(('below',price))!=start or probes.get(('above',start))!=price or probes.get(('above',probes.get(('below',start))))!=start:
         raise ValueError('native_tick_required')
-    return before
 
 
 def authorize(store,c):
@@ -282,15 +314,53 @@ class Work:
         released=0
         for cid,body,prior,completed in self.s.db.execute("""SELECT id,body,before_read,completed_at FROM c4_work
             WHERE state!='CONFIRMED' AND dispatched_at IS NOT NULL
-            AND json_extract(body,'$.operation')='relist_all' ORDER BY rowid""").fetchall():
+            AND json_extract(body,'$.operation') IN ('relist_all','list') ORDER BY rowid""").fetchall():
             if not completed or at<stamp(completed)+timedelta(seconds=60):continue
-            targets=json.loads(body)['params']['expected_item_ids']
-            old={r['item']['item_id']:r for r in json.loads(prior)['result']['auctions']}
+            c=json.loads(body);old={r['item']['item_id']:r for r in json.loads(prior)['result']['auctions']}
+            if c['operation']=='list':
+                # Only a card relist (an expired listing), never a won card's listing.
+                if relisted_card(json.loads(prior),c['params']) is None:continue
+                targets=[c['params']['item_id']]
+            else:targets=c['params']['expected_item_ids']
             if targets and all(i in old and i in now and now[i]['trade_id']==old[i]['trade_id'] and
                                now[i]['trade_state']=='expired' for i in targets):
                 if self._archive(cid,dict(reason='RELIST_NO_EFFECT',after_read=after['command_id']),'WRITE_NO_EFFECT',
                                  reason='RELIST_NO_EFFECT'):released+=1
         return released
+
+    def relist_cards(self,before):
+        """Card by card (config.card_relist): each expired listing is listed again
+        on its own at its buy-now price, bounded per pass. A card whose earlier
+        relist is still unresolved waits; one that cannot be listed is skipped."""
+        self.release_no_effect(before)
+        listed=0
+        for r in [x for x in before['result']['auctions'] if x['trade_state']=='expired' and x['current_bid']==0]:
+            if listed>=RELIST_CARDS_PER_PASS:break
+            t=dict(trade_id=r['trade_id'],item_id=r['item']['item_id'],definition_id=r['item']['definition_id'])
+            pending=self.s.db.execute("""SELECT 1 FROM c4_work WHERE json_extract(body,'$.operation')='list'
+                AND json_extract(body,'$.params.trade_id')=? AND json_extract(body,'$.params.item_id')=?""",
+                (t['trade_id'],t['item_id'])).fetchone()
+            if pending:continue
+            if r['item']['last_sale_price']<=0 or r['item']['untradeable'] is not False:
+                self.c.journal.metric(None,'RELIST_CARD_SKIPPED',target=t,reason='NO_PAID_PRICE');continue
+            try:
+                rules=self.c.prices.load(key=CardKey(t['definition_id']))
+                pair=rules.validate_listing(r['buy_now_price'])
+                if pair.status!='LISTABLE':
+                    self.c.journal.metric(None,'RELIST_CARD_SKIPPED',target=t,reason=pair.reason);continue
+                pile=self.pile()  # the page lists only from a fresh complete read
+                if relisted_card(pile,dict(t,paid=r['item']['last_sale_price'])) is None:continue
+                params=dict(**t,paid=r['item']['last_sale_price'],owned_read_id=pile['command_id'],
+                            win_read_id=pile['command_id'],caps_read_id=rules.caps_read_id,
+                            starting_bid=pair.starting_bid,buy_now_price=r['buy_now_price'],duration=3600)
+                cid=self.dispatch('list',params)
+            except (ValueError,TimeoutError) as error:
+                from .controller import error_code
+                self.c.journal.metric(None,'RELIST_CARD_SKIPPED',target=t,reason=error_code(error));continue
+            listed+=1
+            self.c.journal.metric(None,'RELIST_CARD',target=t,buy_now_price=r['buy_now_price'],
+                                  state=self.state(cid))
+        return listed
 
     def released(self,cid,response=None):
         return self.release_refused(cid,response) or self.release_unsent(cid)
@@ -453,10 +523,14 @@ class Work:
             groups=classify(before)
             op='clear_sold' if groups['sold'] else 'relist_all' if tick and groups['expired'] else None
             if not op:return
+            if op=='relist_all' and self.c.config.card_relist:
+                self.relist_cards(before);return
             confirmed=self.bulk(op)
             if tick and op=='clear_sold' and confirmed:
-                remaining=classify(self.pile())
-                if not remaining['sold'] and remaining['expired']:self.bulk('relist_all')
+                after=self.pile();remaining=classify(after)
+                if not remaining['sold'] and remaining['expired']:
+                    if self.c.config.card_relist:self.relist_cards(after)
+                    else:self.bulk('relist_all')
         except Exception as error:
             from .controller import error_code
             self.c.journal.metric(None,'MAINTENANCE_UNKNOWN',reason='BOUNDED_WORK_UNCONFIRMED',error=error_code(error))

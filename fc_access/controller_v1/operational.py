@@ -366,6 +366,8 @@ def main(argv=None):
     parser.add_argument('--quote-max-age',type=int,default=86400,help='seconds a cached market quote may set a bid cap')
     parser.add_argument('--market-budget',type=int,default=0,help='idle-time market price searches per hour (0: none)')
     parser.add_argument('--discovery-pages',type=int,default=1,help='search up to this many pages when a page has no auction with enough time left')
+    parser.add_argument('--card-relist',action='store_true',help='relist expired cards one by one instead of relist all')
+    parser.add_argument('--relist-only',action='store_true',help='maintenance only: no searching or bidding')
     a=parser.parse_args(argv);token(a.generation)
     try:
         if a.action=='health':print(json.dumps(health(a.runtime_dir,a.task_key,a.generation),allow_nan=False));return 0
