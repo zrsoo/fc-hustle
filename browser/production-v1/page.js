@@ -603,10 +603,12 @@
       }
       else if(['move','list'].includes(op)){
         const e=physical.get(p.item_id),caps=reads.get(p.caps_read_id),owned=reads.get(p.owned_read_id);
+        // One action per card, except a relist: each expired trade of the card is its own one-shot.
+        const once=op==='list' && e?.row?.trade_state==='expired'?'relist:'+p.item_id+':'+p.trade_id:op+':'+p.item_id;
         const age=at=>at!==null && Date.now()-Date.parse(at)>=0 && Date.now()-Date.parse(at)<=30000;
         if(!e || e.read_id!==p.owned_read_id || !owned || !age(e.at) || !caps || caps.operation!=='caps' || !age(caps.at) ||
           caps.caps?.definition_id!==p.definition_id || e.item.definition_id!==p.definition_id || e.item.untradeable!==false ||
-          e.item.last_sale_price!==p.paid || sent.has(c.id) || sent.has(op+':'+p.item_id) ||
+          e.item.last_sale_price!==p.paid || sent.has(c.id) || sent.has(once) ||
           p.starting_bid<caps.caps.minimum || p.buy_now_price>caps.caps.maximum ||
           helper('below',p.buy_now_price)!==p.starting_bid || helper('above',p.starting_bid)!==p.buy_now_price ||
           helper('above',helper('below',p.starting_bid))!==p.starting_bid)throw Error('invalid_preconditions');
@@ -625,7 +627,7 @@
           invoke=()=>services.Item.list(e.raw,p.starting_bid,p.buy_now_price,p.duration);
         }
         if(op==='list')listRaw=e.raw;
-        sent.add(c.id);sent.add(op+':'+p.item_id);physical.delete(p.item_id);
+        sent.add(c.id);sent.add(once);physical.delete(p.item_id);
       }
       else {
         const e=known.get(p.trade_id),b=reads.get(p.balance_read_id),s=reads.get(p.status_read_id);

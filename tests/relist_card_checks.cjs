@@ -29,7 +29,7 @@ async function fixture(state='expired'){
   const r=pile.v.result.auctions[0];
   const params={trade_id:r.trade_id,item_id:r.item.item_id,definition_id:r.item.definition_id,paid:800,
     win_read_id:pile.c.id,owned_read_id:pile.c.id,caps_read_id:caps.c.id,starting_bid:11750,buy_now_price:12000,duration:3600};
-  return {h,writes,read,params,pile};
+  return {h,writes,read,params,pile,active};
 }
 
 (async()=>{
@@ -40,9 +40,16 @@ async function fixture(state='expired'){
   assert.equal(r.result.network[0].method,'POST');assert.equal(r.result.network[0].path,'/ut/game/fc27/auctionhouse');
   const after=await f.read('transfer_list');
   assert.equal(after.v.result.auctions[0].trade_state,'active');assert.notEqual(after.v.result.auctions[0].trade_id,f.params.trade_id);
-  // No second listing of the same card from the same evidence.
-  const again=await f.h.execute(f.h.command('list',f.params));
-  assert.equal(again.result.success,false);assert.deepEqual(f.writes,['list']);
+  // The relisted card expires again under its new trade id: the same page lists it again (live 2026-11-22).
+  Object.assign(f.active,{tradeState:'expired',expires:-1});
+  const pile2=await f.read('transfer_list'),caps2=await f.read('caps',{definition_id:7654321});
+  const r2=pile2.v.result.auctions[0];assert.equal(r2.trade_state,'expired');assert.notEqual(r2.trade_id,f.params.trade_id);
+  const p2={...f.params,trade_id:r2.trade_id,owned_read_id:pile2.c.id,win_read_id:pile2.c.id,caps_read_id:caps2.c.id};
+  const second=await f.h.execute(f.h.command('list',p2));
+  assert.equal(second.result.success,true,JSON.stringify(second));assert.deepEqual(f.writes,['list','list']);
+  // No second listing of the same expired trade, nor of the first one again (a refusal poisons the page).
+  const third=await f.h.execute(f.h.command('list',p2));
+  assert.equal(third.result.success,false);assert.deepEqual(f.writes,['list','list']);
 
   for(const mode of ['active','closed','other-trade','separate-win-read','stale']){
     const x=await fixture(mode==='active'||mode==='closed'?mode:'expired'),p={...x.params};
