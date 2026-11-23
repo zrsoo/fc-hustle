@@ -80,6 +80,22 @@ class Collect(unittest.TestCase):
         self.assertTrue(others <= {'missing', 'open'})
         self.assertEqual(h.calls('bid'), [])
 
+    def test_a_bidding_war_is_followed_until_it_ends(self):
+        # Live 2026-11-23: bids near the end kept pushing auctions' end back; after
+        # 6 checks they were marked stale and their final price was never seen.
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        war = h.ea.rows[0]; tid = war['trade_id']
+        h.clock.value += 400; self.collect(h); self.collect(h)
+        for k in range(16):
+            war.update(expires=20, current_bid=1000+100*k, bid_state='outbid')
+            h.clock.value += 60; self.collect(h)
+        row = self.rows(m, 'SELECT status,checks FROM followed_v1 WHERE trade_id=?', tid)[0]
+        self.assertEqual(row[0], 'open'); self.assertGreater(row[1], 6)
+        war.update(trade_state='closed', expires=-1, current_bid=2500)
+        for _ in range(3): h.clock.value += 60; self.collect(h)
+        self.assertEqual(self.rows(m, 'SELECT status,final_bid FROM followed_v1 WHERE trade_id=?', tid), [('sold', 2500)])
+
     def test_a_failed_batch_is_split_and_unknown_trades_are_lost(self):
         h, m = self.make()
         self.collect(h); self.collect(h)

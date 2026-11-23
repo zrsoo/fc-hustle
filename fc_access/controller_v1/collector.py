@@ -24,7 +24,9 @@ UNIVERSE_HOURS = 24
 FOLLOW_PER_PAGE = 5
 LADDER_STEPS = 6
 FOLLOW_GRACE = 5.0
-FOLLOW_MAX_CHECKS = 6
+# A bid near the end pushes an auction's end back (~30 s; live bidding wars ran
+# minutes), so a still-running auction is checked again up to this many times.
+FOLLOW_MAX_CHECKS = 40
 
 SCHEMA = '''
 CREATE TABLE IF NOT EXISTS ladder_v1(definition_id INTEGER NOT NULL, at REAL NOT NULL, page_low INTEGER,
