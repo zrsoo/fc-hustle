@@ -2,11 +2,9 @@
 and trade status reads, never a bid or a listing.
 
 Four streams, all in market-data.sqlite3, run in the idle time of each hold:
-- scans:  the existing held/index page samples (samples_v1), without the hourly
-          market budget, over the held cards, the priced cards and the universe;
-- ladder: per card about hourly, the true cheapest buy-now (searches with a
-          falling max buy-now until none is cheaper) and the listings within
-          +5% and +10% of it (ladder_v1);
+- ladder: per card about hourly (held cards, priced cards and the universe), a
+          page sample (samples_v1), the true cheapest buy-now and the listings
+          within +5% and +10% of it (ladder_v1);
 - follow: listings sampled from every search page, and every auction a
           discovery search shows, followed with trade status reads until they
           end: sold (at what price) or expired (followed_v1);
@@ -187,7 +185,10 @@ class Collector:
                     page >= self.c.config.discovery_pages or len(rows) < 21): break
 
     def targets(self):
-        """Due scans and ladders: held cards, priced cards and the universe."""
+        """Due ladders: held cards, priced cards and the universe, each about hourly.
+        Between ladders a card's price moves no more than the noise of one page
+        (live 2026-11-23: page median change ~3-4% at 15, 30, 60 and 120 min), so
+        each ladder's first page is the card's only page sample."""
         now = self.now(); held = set()
         row = self.c.store.db.execute("SELECT result FROM c4_commands WHERE state='DONE' AND "
             "json_extract(body,'$.operation')='transfer_list' ORDER BY rowid DESC LIMIT 1").fetchone()
@@ -200,45 +201,45 @@ class Collector:
             'SELECT definition_id FROM completed_quotes_v1 WHERE account=? AND game=? AND platform=?',
             (ctx['account'], ctx['game'], ctx['platform']))}
         cards |= {d for (d,) in self.db.execute('SELECT definition_id FROM universe_v1 WHERE last_seen>=?', (now-UNIVERSE_HOURS*3600,))}
-        md = self.c.market_data
         due = []
         for d in sorted(held | cards):
             last_ladder = self.db.execute('SELECT max(at) FROM ladder_v1 WHERE definition_id=?', (d,)).fetchone()[0]
             if last_ladder is None or now-last_ladder >= LADDER_INTERVAL:
                 due.append((last_ladder or 0, d, 'ladder', 'held' if d in held else 'index'))
-                continue
-            src = 'held' if d in held else 'index'
-            last = md.last_at(d, ('held',) if src == 'held' else ('quote', 'held', 'index'))
-            interval = self.c.config.market_held_interval if src == 'held' else self.c.config.market_index_interval
-            if last is None or now-last >= interval: due.append((last or 0, d, 'scan', src))
         due.sort()
         return [(d, kind, src) for _, d, kind, src in due]
 
-    def scan(self, d, source):
-        v = self.search(Search.pricing(d))
-        self.c._record_search(d, v, source)
-        self.follow(v, source, rows=rows_of(v, d))
-        self.count('scans')
-
     def ladder(self, d, source):
-        """True cheapest buy-now of a card, and how many listings sit within +5%/+10%."""
+        """True cheapest buy-now of a card, and how many listings sit within +5%/+10%.
+
+        After the first page (low L), one search up to L+10%: when it holds fewer
+        than a page (21), it is every listing in that range, so its cheapest is the
+        true low and both depths count from it (2 searches). Otherwise walk down
+        with a falling max buy-now, then count the depths (live: ~43% complete)."""
         searches = self.stats.get('searches', 0)
         v = self.search(Search.pricing(d))
         self.c._record_search(d, v, source)
         rows = rows_of(v, d); self.follow(v, source, rows=rows)
         page_low = min((r['buy_now_price'] for r in rows), default=None)
-        low, steps = page_low, 0
-        while low is not None and steps < LADDER_STEPS and low > 150:
-            steps += 1
-            cheaper = rows_of(self.search(Search.pricing(d, max_buy=below(low))), d)
-            if not cheaper: break
-            low = min(r['buy_now_price'] for r in cheaper)
-        depth = {}
-        for pct in (5, 10):
-            if low is None: depth[pct] = (None, None); continue
-            w = self.search(Search.pricing(d, max_buy=floor_tick(int(low*(100+pct)/100))))
-            n = len(rows_of(w, d))
-            depth[pct] = (n, 1 if (w.get('coverage') or {}).get('has_more') or n >= 21 else 0)
+        low, steps, depth = page_low, 0, {5: (None, None), 10: (None, None)}
+        count = lambda rs, base, pct: sum(1 for r in rs if r['buy_now_price'] <= floor_tick(int(base*(100+pct)/100)))
+        wide = rows_of(self.search(Search.pricing(d, max_buy=floor_tick(int(low*110/100)))), d) if low else []
+        if low and wide and len(wide) < 21:
+            low = min(low, min(r['buy_now_price'] for r in wide))
+            depth = {pct: (count(wide, low, pct), 0) for pct in (5, 10)}
+        elif low:
+            while steps < LADDER_STEPS and low > 150:
+                steps += 1
+                cheaper = rows_of(self.search(Search.pricing(d, max_buy=below(low))), d)
+                if not cheaper: break
+                low = min(r['buy_now_price'] for r in cheaper)
+            for pct in (5, 10):
+                if pct == 10 and low == page_low:
+                    w_rows, more = wide, 1  # the same range, already searched: a full page
+                else:
+                    w = self.search(Search.pricing(d, max_buy=floor_tick(int(low*(100+pct)/100))))
+                    w_rows = rows_of(w, d); more = 1 if (w.get('coverage') or {}).get('has_more') or len(w_rows) >= 21 else 0
+                depth[pct] = (len(w_rows), more)
         with self.db:
             self.db.execute('INSERT INTO ladder_v1 VALUES(?,?,?,?,?,?,?,?,?,?)',
                             (d, self.now(), page_low, low, steps, depth[5][0], depth[5][1], depth[10][0], depth[10][1],
@@ -261,8 +262,7 @@ class Collector:
                 if queue is None: queue = self.targets()
                 if not queue: break
                 d, kind, src = queue.pop(0)
-                if kind == 'ladder': self.ladder(d, src)
-                else: self.scan(d, src)
+                self.ladder(d, src)
         except ValueError as e:
             if type(e).__name__ == 'SupervisionLost': raise
             if str(e) == 'service_failed':

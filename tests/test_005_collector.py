@@ -59,7 +59,28 @@ class Collect(unittest.TestCase):
         self.assertEqual(lad[0][1], 11750)
         # +5%: max buy-now 12337 -> 12250, only 11750; +10%: 12925 -> 12750, 11750 and 12500.
         self.assertEqual(lad[0][2:], (1, 2))
+        # Under a page within +10%: that one search gives the true low and both depths.
+        self.assertEqual(self.rows(m, 'SELECT steps,searches,more5,more10 FROM ladder_v1'), [(0, 2, 0, 0)])
         self.assertTrue(h.metrics('COLLECT'))
+
+    def test_a_crowded_card_walks_down_and_counts_its_depth(self):
+        h, m = self.make()
+        h.ea.offers = [auction(123, 11500+250*(k % 2), 3000+k) for k in range(20)] + [auction(123, 11000, 2999)]
+        self.collect(h); self.collect(h)
+        # A full page (21) within +10% of the first page's low: walk down (none cheaper),
+        # count +5% (11550 -> 11500: 11 listings) and reuse the +10% search.
+        lad = self.rows(m, 'SELECT page_low,true_low,steps,n5,more5,n10,more10,searches FROM ladder_v1')
+        self.assertEqual(lad, [(11000, 11000, 1, 11, 0, 21, 1, 4)])
+
+    def test_every_card_gets_one_ladder_an_hour_and_no_scans_between(self):
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        c = h.controller.collector
+        self.assertEqual(c.targets(), [])
+        h.clock.value += 3700
+        self.assertEqual(c.targets(), [(123, 'ladder', 'index')])
+        self.assertEqual({s for (s,) in self.rows(m, 'SELECT source FROM samples_v1')}, {'index'})
+        self.assertEqual(len(self.rows(m, 'SELECT 1 FROM samples_v1')), 1, 'one page sample, from the ladder')
 
     def test_followed_listings_end_sold_expired_or_missing(self):
         h, m = self.make()
