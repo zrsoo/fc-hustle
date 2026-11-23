@@ -5,7 +5,8 @@ Four streams, all in market-data.sqlite3, run in the idle time of each hold:
 - ladder: per card about hourly (held cards, priced cards and the universe), a
           page sample (samples_v1), the true cheapest buy-now and the listings
           within +5% and +10% of it (ladder_v1);
-- follow: listings sampled from every search page, and every auction a
+- follow: listings sampled from every price page (up to 10 each, 'depth' for
+          the ladder's depth pages nearest the true low), and every auction a
           discovery search shows, followed with trade status reads until they
           end: sold (at what price) or expired (followed_v1);
 - shadow: the discovery searches acquisition would make in each band, without
@@ -19,7 +20,8 @@ from fc_access.production_v1.contracts import Search, stamp
 LADDER_INTERVAL = 3600.0
 DISCOVERY_INTERVAL = 120.0
 UNIVERSE_HOURS = 24
-FOLLOW_PER_PAGE = 5
+# Listings followed per price-search page (spread from cheapest to dearest).
+FOLLOW_PER_PAGE = 10
 LADDER_STEPS = 6
 FOLLOW_GRACE = 5.0
 # A bid near the end pushes an auction's end back (~30 s; live bidding wars ran
@@ -223,7 +225,12 @@ class Collector:
         page_low = min((r['buy_now_price'] for r in rows), default=None)
         low, steps, depth = page_low, 0, {5: (None, None), 10: (None, None)}
         count = lambda rs, base, pct: sum(1 for r in rs if r['buy_now_price'] <= floor_tick(int(base*(100+pct)/100)))
-        wide = rows_of(self.search(Search.pricing(d, max_buy=floor_tick(int(low*110/100)))), d) if low else []
+        wide = []
+        if low:
+            # Depth pages hold the listings nearest the true low: follow them too
+            # (source 'depth'), at no extra search.
+            wide_v = self.search(Search.pricing(d, max_buy=floor_tick(int(low*110/100))))
+            wide = rows_of(wide_v, d); self.follow(wide_v, 'depth', rows=wide)
         if low and wide and len(wide) < 21:
             low = min(low, min(r['buy_now_price'] for r in wide))
             depth = {pct: (count(wide, low, pct), 0) for pct in (5, 10)}
@@ -238,7 +245,8 @@ class Collector:
                     w_rows, more = wide, 1  # the same range, already searched: a full page
                 else:
                     w = self.search(Search.pricing(d, max_buy=floor_tick(int(low*(100+pct)/100))))
-                    w_rows = rows_of(w, d); more = 1 if (w.get('coverage') or {}).get('has_more') or len(w_rows) >= 21 else 0
+                    w_rows = rows_of(w, d); self.follow(w, 'depth', rows=w_rows)
+                    more = 1 if (w.get('coverage') or {}).get('has_more') or len(w_rows) >= 21 else 0
                 depth[pct] = (len(w_rows), more)
         with self.db:
             self.db.execute('INSERT INTO ladder_v1 VALUES(?,?,?,?,?,?,?,?,?,?)',

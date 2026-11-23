@@ -72,6 +72,17 @@ class Collect(unittest.TestCase):
         lad = self.rows(m, 'SELECT page_low,true_low,steps,n5,more5,n10,more10,searches FROM ladder_v1')
         self.assertEqual(lad, [(11000, 11000, 1, 11, 0, 21, 1, 4)])
 
+    def test_ladder_pages_feed_up_to_ten_follows_each_and_depth_pages_too(self):
+        h, m = self.make()
+        h.ea.offers = [auction(123, 11500+250*(k % 2), 3000+k) for k in range(20)] + [auction(123, 11000, 2999)]
+        self.collect(h); self.collect(h)
+        by = dict(self.rows(m, "SELECT source,count(*) FROM followed_v1 WHERE source!='discovery' GROUP BY source"))
+        self.assertEqual(by['index'], col.FOLLOW_PER_PAGE, 'ten from the first page')
+        self.assertGreater(by.get('depth', 0), 0, 'more from the depth pages, at no extra search')
+        self.assertLessEqual(by['index']+by['depth'], 21, 'each listing followed once')
+        cheapest = self.rows(m, "SELECT 1 FROM followed_v1 WHERE trade_id=?", f'trade:{2999:024x}')
+        self.assertEqual(cheapest, [(1,)], 'the cheapest listing is always among those followed')
+
     def test_every_card_gets_one_ladder_an_hour_and_no_scans_between(self):
         h, m = self.make()
         self.collect(h); self.collect(h)
