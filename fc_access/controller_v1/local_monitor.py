@@ -2,7 +2,7 @@
 
     launch   start a new operational service generation plus a detached watcher
     watch    (internal) health every --interval s; on fault: owned stop + incident;
-             after a DENIAL_WAVE_RESTART stop: a new generation behind a page refresh
+             after a DENIAL_WAVE_RESTART or page-hang stop: a new generation behind a page refresh
     status   compact view for a periodic check-in: health, runtime, incident, events
     follow   read-only live view for a terminal (closing it never stops anything)
     stop     operator stop of the current generation (labelled as such)
@@ -10,9 +10,10 @@
 The watcher replaces the orchestrator's quota-free health check: it uses the same
 `operational.health` and `operational.stop`, counts consecutive healthy seconds
 the same way (same generation, gap <= 2*interval + timeout). The only restart
-it makes is after the runtime stopped itself on a 461 wave (--wave-refresh-after):
-the same configuration again, behind a page refresh, at most
-AUTO_RESTARTS_PER_HOUR times per hour. Diagnosis, fixes and every other `launch`
+it makes is after the runtime stopped itself on a 461 wave (--wave-refresh-after)
+or on a hung page (PERSISTENT_MISSING_DIAGNOSTICS: the page stopped answering, so
+requests fail with no wire evidence until it reloads): the same configuration
+again, behind a page refresh, at most AUTO_RESTARTS_PER_HOUR times per hour in all. Diagnosis, fixes and every other `launch`
 are done by the person or agent checking in. Every generation is new; launch intents are journaled before spawn
 and never replayed. Files live in private-captures/controller-v1/local-monitor.
 """
@@ -214,17 +215,24 @@ def launch(a, p=None):
 
 
 WAVE_RESTART = 'DENIAL_WAVE_RESTART'
+# Three requests in a row came back without any wire evidence: the page stopped
+# answering (live 2026-11-23: a balance read timed out, then the bridge refused
+# everything until a reload). A refresh is the recovery.
+PAGE_HANG = 'PERSISTENT_MISSING_DIAGNOSTICS'
+RESTART_CAUSES = {WAVE_RESTART: 'a 461 wave', PAGE_HANG: 'a page hang'}
 AUTO_RESTARTS_PER_HOUR = 6
 
 
 def restart_after_wave(incident, p, *, launcher=None, now=None, settle=30, sleep=time.sleep):
-    """After the runtime stopped itself on a 461 wave, launch the same
-    configuration as a new generation behind a page refresh. Returns the
-    relaunch arguments, or None when nothing was launched."""
-    if incident.get('kind') != 'FAULT' or incident.get('diagnostic') != WAVE_RESTART: return None
+    """After the runtime stopped itself on a 461 wave or a hung page, launch
+    the same configuration as a new generation behind a page refresh. Returns
+    the relaunch arguments, or None when nothing was launched."""
+    cause = incident.get('diagnostic')
+    if incident.get('kind') != 'FAULT' or cause not in RESTART_CAUSES: return None
     rows = lines(p['launches'])
     row = next((r for r in reversed(rows) if r.get('generation') == incident.get('generation')), None)
-    if not row or not row.get('wave_refresh_after') or not row.get('recovery_config'): return None
+    if not row or not row.get('recovery_config'): return None
+    if cause == WAVE_RESTART and not row.get('wave_refresh_after'): return None
     now = now or datetime.now(timezone.utc)
     def refuse(reason):
         append(p['incidents'], dict(at=now.isoformat(), generation=incident['generation'], kind='AUTO_RESTART_REFUSED',
@@ -236,7 +244,7 @@ def restart_after_wave(incident, p, *, launcher=None, now=None, settle=30, sleep
     for key, value in row.items():
         if key not in {'base', 'epoch_floor', 'at', 'generation', 'state'} and hasattr(a, key): setattr(a, key, value)
     a.refresh_on_start = True; a.auto_restart = True
-    a.note = f"automatic restart after a 461 wave (from {incident['generation'][:8]})"
+    a.note = f"automatic restart after {RESTART_CAUSES[cause]} (from {incident['generation'][:8]})"
     # This watcher is the one launch would wait for; the old runtime exits on its own.
     try:
         if json.loads(p['watcher'].read_text(encoding='utf-8')).get('generation') == incident['generation']:

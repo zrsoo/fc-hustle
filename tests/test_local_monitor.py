@@ -115,6 +115,28 @@ class WaveRestartTests(unittest.TestCase):
         self.now=lm.datetime(2026,11,21,21,40,tzinfo=lm.timezone.utc)  # the oldest left the hour
         self.assertEqual(len(self.restart()[1]),1)
 
+    def test_a_page_hang_stop_relaunches_behind_a_refresh_sharing_the_hourly_cap(self):
+        hang=dict(kind='FAULT',diagnostic='PERSISTENT_MISSING_DIAGNOSTICS',generation=GEN)
+        lm.append(self.p['launches'],dict(self.row,wave_refresh_after=0))  # needs no wave setting
+        out,launched=self.restart(hang)
+        self.assertEqual(len(launched),1);a=launched[0]
+        self.assertTrue(a.refresh_on_start and a.auto_restart)
+        self.assertIn('page hang',a.note);self.assertIn(GEN[:8],a.note)
+        for minute in range(31,31+lm.AUTO_RESTARTS_PER_HOUR):
+            lm.append(self.p['launches'],dict(self.row,generation='a'*32,state='intent',auto_restart=True,
+                                              at=f'2026-11-21T20:{minute:02d}:00+00:00'))
+        lm.append(self.p['launches'],dict(self.row))
+        self.assertEqual(self.restart(hang),(None,[]),'wave and hang restarts share one budget')
+
+    def test_a_page_hang_without_a_recovery_config_or_by_an_operator_never_relaunches(self):
+        lm.append(self.p['launches'],dict(self.row,recovery_config=None))
+        self.assertEqual(self.restart(dict(kind='FAULT',diagnostic='PERSISTENT_MISSING_DIAGNOSTICS',generation=GEN)),(None,[]))
+        lm.append(self.p['launches'],dict(self.row))
+        for incident in (dict(kind='OPERATOR_STOP',diagnostic='PERSISTENT_MISSING_DIAGNOSTICS',generation=GEN),
+                         dict(kind='FAULT',diagnostic='PERSISTENT_READ_FAILURE',generation=GEN),
+                         dict(kind='FAULT',diagnostic='PERSISTENT_HELPER_FAILURE',generation=GEN)):
+            self.assertEqual(self.restart(incident),(None,[]),incident)
+
     def test_a_refused_launch_is_recorded(self):
         def refuse(a,p):raise SystemExit('refused: an operational runtime already owns the lock')
         out=lm.restart_after_wave(dict(kind='FAULT',diagnostic='DENIAL_WAVE_RESTART',generation=GEN),self.p,
