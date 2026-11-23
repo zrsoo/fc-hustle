@@ -151,11 +151,11 @@ class Throttle(Base):
                         market_race=False, success=False, error='service_failed', service_status=status,
                         wire_statuses=[status], receipt_verdict=None, requested=0, returned=0)
         s = SemanticHealth()
-        for status in (429, 512, 426, 426, 512):
+        for status in (429, 512, 426, 521, 426, 512, 503):
             s.observe(search(status))
-        self.assertEqual((s.search_throttles, s.read_failures), (5, 0)); self.assertIsNone(s.check())
+        self.assertEqual((s.search_throttles, s.read_failures), (7, 0)); self.assertIsNone(s.check())
         s = SemanticHealth()
-        for status in (500, 500, 500):
+        for status in (404, 404, 404):
             s.observe(search(status))
         self.assertEqual(s.check(), 'PERSISTENT_READ_FAILURE', 'other failures still stop')
 
