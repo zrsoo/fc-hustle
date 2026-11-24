@@ -186,6 +186,13 @@ class SemanticHealth:
 
     def check(self):
         if self.reason: return self.reason
+        # Reads failing with no wire evidence at all are a hung page, not EA
+        # refusing reads (live 2026-11-24 02:30: a balance read timed out, then
+        # three transfer-list reads were refused locally). Name it as such so the
+        # monitor's page-hang restart applies whichever streak reaches 3 first.
+        if (self.auth_failures < self.limits.auth_failures and self.read_failures >= self.limits.read_failures and
+                self.diagnostic_failures >= self.limits.diagnostic_failures):
+            self.reason = 'PERSISTENT_MISSING_DIAGNOSTICS'; return self.reason
         for observed, threshold, reason in (
             (self.auth_failures, self.limits.auth_failures, 'PERSISTENT_AUTH_FAILURE'),
             (self.read_failures, self.limits.read_failures, 'PERSISTENT_READ_FAILURE'),

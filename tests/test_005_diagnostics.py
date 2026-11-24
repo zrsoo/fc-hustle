@@ -131,6 +131,16 @@ class HelperFailureTests(unittest.TestCase):
         for _ in range(3):s.observe(dict(event(),diagnostic_records=0))
         self.assertEqual(s.check(),'PERSISTENT_MISSING_DIAGNOSTICS')
 
+    def test_reads_failing_without_wire_evidence_are_a_hung_page_not_a_read_failure(self):
+        from test_005_semantic import event
+        hung=SemanticHealth(clock=lambda:0)
+        hung.observe(dict(event(),diagnostic_records=1))
+        for _ in range(3):hung.observe(dict(event('transfer_list',success=False,status=None,wire=[]),diagnostic_records=0))
+        self.assertEqual(hung.check(),'PERSISTENT_MISSING_DIAGNOSTICS')
+        refused=SemanticHealth(clock=lambda:0)
+        for _ in range(3):refused.observe(dict(event('transfer_list',success=False,status=500),diagnostic_records=2))
+        self.assertEqual(refused.check(),'PERSISTENT_READ_FAILURE','EA refusing reads keeps its own reason')
+
     def test_foreground_policy_fixture_and_existing_window_selection(self):
         for script in ('desktop_focus_checks.ps1','desktop_window_checks.ps1'):
             p=subprocess.run(['powershell','-NoProfile','-File','tests/'+script],cwd=ROOT,capture_output=True,text=True,timeout=15)
