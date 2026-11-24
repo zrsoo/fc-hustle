@@ -72,6 +72,45 @@ class Collect(unittest.TestCase):
         lad = self.rows(m, 'SELECT page_low,true_low,steps,n5,more5,n10,more10,searches FROM ladder_v1')
         self.assertEqual(lad, [(11000, 11000, 1, 11, 0, 21, 1, 4)])
 
+    def paged(self, h):
+        """EA shows at most a page (21): here the most expensive, so the unfiltered
+        first page misses the cheap listings."""
+        shared = h.ea.shared
+        def page(c, at):
+            v = shared(c, at); p = c['params']
+            if c['operation'] == 'search' and p.get('purpose') == 'pricing':
+                rows = v['result']['auctions']; rows.sort(key=lambda r: -r['buy_now_price']); del rows[21:]
+            return v
+        h.ea.shared = page
+
+    def depth_searches(self, h):
+        return sorted(c['command']['params'].get('max_buy') for c in h.calls('search')
+                      if c['command']['params']['purpose'] == 'pricing' and c['command']['params'].get('max_buy'))
+
+    def test_a_walked_down_low_takes_both_depths_from_one_search_when_it_is_not_full(self):
+        h, m = self.make(); self.paged(h)
+        crowd = [auction(123, 12000, 4000+k) for k in range(21)]
+        cheap = [auction(123, p, 3000+k) for k, p in enumerate((10000, 10250, 10500, 10750))]
+        h.ea.offers = crowd + cheap
+        self.collect(h); self.collect(h)
+        # Page low 12000; +10% (13200 -> 13000) is full: walk down to 10000. +10% of
+        # 10000 (11000) holds the four cheap ones only, all within one page: +5% (10500)
+        # is counted from it (10000, 10250, 10500), with no search of its own.
+        lad = self.rows(m, 'SELECT page_low,true_low,n5,more5,n10,more10 FROM ladder_v1')
+        self.assertEqual(lad, [(12000, 10000, 3, 0, 4, 0)])
+        self.assertNotIn(10500, self.depth_searches(h), 'no separate +5% search')
+        self.assertIn(11000, self.depth_searches(h))
+
+    def test_a_full_depth_page_still_counts_five_percent_with_its_own_search(self):
+        h, m = self.make(); self.paged(h)
+        crowd = [auction(123, 12000, 4000+k) for k in range(21)]
+        cheap = [auction(123, 10000+250*(k % 3), 3000+k) for k in range(22)]
+        h.ea.offers = crowd + cheap
+        self.collect(h); self.collect(h)
+        lad = self.rows(m, 'SELECT true_low,more10 FROM ladder_v1')
+        self.assertEqual(lad, [(10000, 1)])
+        self.assertIn(10500, self.depth_searches(h), '+10% full: +5% needs its own search')
+
     def test_ladder_pages_feed_up_to_ten_follows_each_and_depth_pages_too(self):
         h, m = self.make()
         h.ea.offers = [auction(123, 11500+250*(k % 2), 3000+k) for k in range(20)] + [auction(123, 11000, 2999)]

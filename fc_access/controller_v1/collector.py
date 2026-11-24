@@ -240,7 +240,14 @@ class Collector:
                 cheaper = rows_of(self.search(Search.pricing(d, max_buy=below(low))), d)
                 if not cheaper: break
                 low = min(r['buy_now_price'] for r in cheaper)
-            for pct in (5, 10):
+            # +10% first: when that page is not full it holds every listing within
+            # +5% too, so both depths come from one search, at one moment (counting
+            # them from two searches seconds apart let a sale in between give
+            # n5 > n10 or n5 = 0, and cost a search).
+            for pct in (10, 5):
+                if pct == 5 and not depth[10][1]:
+                    depth[5] = (count(w_rows, low, 5), 0)
+                    continue
                 if pct == 10 and low == page_low:
                     w_rows, more = wide, 1  # the same range, already searched: a full page
                 else:
