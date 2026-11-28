@@ -27,6 +27,10 @@ FOLLOW_GRACE = 5.0
 # A bid near the end pushes an auction's end back (~30 s; live bidding wars ran
 # minutes), so a still-running auction is checked again up to this many times.
 FOLLOW_MAX_CHECKS = 40
+# ...and no sooner than this: its final price needs one read after it closes,
+# while reading at every pushed-back end (15-30 s) took ~60% of status reads in
+# hot hours (live 2026-11-28: 1,063 rechecks/h) and starved the ladders.
+WAR_RECHECK = 60.0
 
 SCHEMA = '''
 CREATE TABLE IF NOT EXISTS ladder_v1(definition_id INTEGER NOT NULL, at REAL NOT NULL, page_low INTEGER,
@@ -77,6 +81,9 @@ class Collector:
         self.next_discovery = 0.0
         self.band_index = 0
         self.stats = {}
+        self.urgent = set()
+        # When EA last answered one of the collector's requests (monotonic clock).
+        self.answered_at = None
 
     # -- helpers -------------------------------------------------------------
     def now(self):
@@ -88,7 +95,9 @@ class Collector:
     def search(self, query):
         self.c.store.require_supervision()
         self.count('searches')
-        return self.c.native.search(self.c.ids(), query)
+        v = self.c.native.search(self.c.ids(), query)
+        self.answered_at = self.c.clock()
+        return v
 
     def follow(self, v, source, *, band=None, rows=None):
         """Store listings from a search page to follow until they end."""
@@ -122,11 +131,18 @@ class Collector:
                     DO UPDATE SET last_seen=excluded.last_seen, seen=seen+1''', (d, now, now))
 
     # -- streams -------------------------------------------------------------
-    def follow_due(self):
-        """One status read for the listings that have ended. True if it read."""
+    def follow_due(self, first=True):
+        """One status read for followed listings whose end has passed. True if it read.
+
+        ``first``: listings not read since their end, and bidding wars more than
+        WAR_RECHECK overdue for their next read; these come before every search.
+        Otherwise: the bidding wars due now, which wait behind the ladders of cards
+        with live discovery follows (run)."""
         now = self.now()
-        rows = self.db.execute('''SELECT trade_id,item_id,definition_id,single,checks FROM followed_v1
-            WHERE status='open' AND expires_at+?<=? ORDER BY expires_at LIMIT 10''', (FOLLOW_GRACE, now)).fetchall()
+        which = 'AND (checks=0 OR expires_at+?<=?)' if first else 'AND checks>0'
+        args = (FOLLOW_GRACE, now, WAR_RECHECK, now) if first else (FOLLOW_GRACE, now)
+        rows = self.db.execute(f'''SELECT trade_id,item_id,definition_id,single,checks FROM followed_v1
+            WHERE status='open' AND expires_at+?<=? {which} ORDER BY expires_at LIMIT 10''', args).fetchall()
         if not rows: return False
         if any(r[3] for r in rows): rows = [next(r for r in rows if r[3])]
         targets = [dict(trade_id=t, item_id=i, definition_id=d) for t, i, d, _, _ in rows]
@@ -139,6 +155,7 @@ class Collector:
             v, ok = None, False; err = type(error).__name__
         else:
             err = v.get('error') if not ok else None
+            if ok: self.answered_at = self.c.clock()
         with self.db:
             if not ok:
                 if len(targets) > 1:
@@ -168,7 +185,7 @@ class Collector:
                 else:
                     left = r.get('expires') if (r.get('expires') or 0) > 0 else 15
                     self.db.execute('UPDATE followed_v1 SET expires_at=?,checked_at=?,checks=checks+1 WHERE trade_id=?',
-                                    (now+left, now, t))
+                                    (now+max(left, WAR_RECHECK), now, t))
         return True
 
     def discovery(self):
@@ -203,13 +220,19 @@ class Collector:
             'SELECT definition_id FROM completed_quotes_v1 WHERE account=? AND game=? AND platform=?',
             (ctx['account'], ctx['game'], ctx['platform']))}
         cards |= {d for (d,) in self.db.execute('SELECT definition_id FROM universe_v1 WHERE last_seen>=?', (now-UNIVERSE_HOURS*3600,))}
+        # Cards with live discovery follows come first: a follow is read against
+        # its card's ladder, and in hot hours (live 2026-11-27/28) about a fifth of
+        # discovery follows had no ladder within 2 h.
+        live = {d for (d,) in self.db.execute(
+            "SELECT DISTINCT definition_id FROM followed_v1 WHERE status='open' AND source='discovery'")}
         due = []
-        for d in sorted(held | cards):
+        for d in sorted(held | cards | live):
             last_ladder = self.db.execute('SELECT max(at) FROM ladder_v1 WHERE definition_id=?', (d,)).fetchone()[0]
             if last_ladder is None or now-last_ladder >= LADDER_INTERVAL:
-                due.append((last_ladder or 0, d, 'ladder', 'held' if d in held else 'index'))
+                due.append((d not in live, last_ladder or 0, d, 'ladder', 'held' if d in held else 'index'))
         due.sort()
-        return [(d, kind, src) for _, d, kind, src in due]
+        self.urgent = live & {d for _, _, d, _, _ in due}
+        return [(d, kind, src) for _, _, d, kind, src in due]
 
     def ladder(self, d, source):
         """True cheapest buy-now of a card, and how many listings sit within +5%/+10%.
@@ -270,11 +293,20 @@ class Collector:
         try:
             while self.c.clock() < until:
                 self.c.store.require_supervision()
-                if self.follow_due(): continue
-                if not searches: break
+                # Order: listings that just ended (their final read), discovery when
+                # due, ladders of cards with live discovery follows, bidding wars
+                # due a read, then the other ladders.
+                if self.follow_due(first=True): continue
+                if not searches:
+                    if self.follow_due(first=False): continue
+                    break
                 if self.c.clock() >= self.next_discovery:
                     self.discovery(); continue
                 if queue is None: queue = self.targets()
+                if queue and queue[0][0] in self.urgent:
+                    d, kind, src = queue.pop(0)
+                    self.ladder(d, src); continue
+                if self.follow_due(first=False): continue
                 if not queue: break
                 d, kind, src = queue.pop(0)
                 self.ladder(d, src)

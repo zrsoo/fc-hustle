@@ -28,6 +28,9 @@ from .journal import BatchJournal
 
 SAFE_ERRORS = {'ValueError','TypeError','KeyError','RuntimeError','TimeoutError','OSError','IndexError',
                'AttributeError','LookupError','ConnectionError','PermissionError','SupervisionLost'}
+# Relist-only holds read coins at most this often while the collector keeps EA
+# answering: every ~30 s hold read them, ~80 of a ~700 requests/h lane (live 2026-11-28).
+HOLD_BALANCE_INTERVAL = 300.
 
 
 def error_code(error):
@@ -919,13 +922,20 @@ class Controller:
             self.low_credit_maintenance=self.clock()
             j.checkpoint(phase='MAINTENANCE');return True
         j.metric(bid,'ACQUISITION_HOLD',reason=reason,remaining=remaining)
-        end=self.clock()+min(remaining,30)
+        start=self.clock();end=start+min(remaining,30)
         # Relist-only keeps the full market data collection (searches, never bids).
         if self.collector is not None:
             self.collector.run(bid,end-3,searches=reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'})
         elif reason not in {'SEARCH_THROTTLED','SEARCH_BUDGET'}:self._collect_market(bid,end-3)
         while self.clock()<end:
             self.store.require_supervision();self.sleep(min(1,max(0,end-self.clock())))
+        # The read stays whenever the collector got no answer this hold: the
+        # watchdog needs a fresh EA answer (90 s), e.g. while searches are blocked.
+        answered=self.collector.answered_at if self.collector is not None else None
+        if (self.config.relist_only and self.credit_view is not None and
+                self.clock()-self.credit_view[1]<HOLD_BALANCE_INTERVAL and
+                answered is not None and answered>=start):
+            return True
         try:
             balance=self.adapter.read(self.ids(),'balance')
             if balance['success']:

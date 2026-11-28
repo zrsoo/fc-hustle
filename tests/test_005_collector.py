@@ -167,6 +167,89 @@ class Collect(unittest.TestCase):
         for _ in range(3): h.clock.value += 60; self.collect(h)
         self.assertEqual(self.rows(m, 'SELECT status,final_bid FROM followed_v1 WHERE trade_id=?', tid), [('sold', 2500)])
 
+    def test_a_running_war_is_read_again_no_sooner_than_a_minute(self):
+        # Live 2026-11-28: reading wars at every pushed-back end (15-30 s) took ~60%
+        # of status reads in hot hours and starved the ladders.
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        c = h.controller.collector
+        war = h.ea.rows[0]; tid = war['trade_id']
+        h.clock.value += 400
+        war.update(expires=10, current_bid=1500, bid_state='outbid')
+        while c.follow_due(first=True): pass
+        exp, at, checks = self.rows(m, 'SELECT expires_at,checked_at,checks FROM followed_v1 WHERE trade_id=?', tid)[0]
+        self.assertEqual(checks, 1)
+        self.assertGreaterEqual(exp-at, col.WAR_RECHECK)
+        self.assertFalse(c.follow_due(first=False), 'not read again within the minute')
+        h.clock.value += col.WAR_RECHECK+col.FOLLOW_GRACE
+        self.assertTrue(c.follow_due(first=False))
+
+    def order(self, *, live, just_ended):
+        """What one collector run does first: card 123's ladder is due, a bidding war
+        is due a read, and optionally a discovery follow of 123 is still running
+        (``live``) and another has just ended (``just_ended``). Without ``live`` the
+        war is of card 456, whose ladder is fresh (a war is itself a live follow)."""
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        c = h.controller.collector
+        h.clock.value += 3700
+        now = c.now()
+        disc = [t for (t,) in self.rows(m, "SELECT trade_id FROM followed_v1 WHERE source='discovery' ORDER BY rowid")]
+        with m.db:
+            m.db.execute("UPDATE followed_v1 SET status='expired' WHERE source!='discovery'")
+            m.db.execute('UPDATE followed_v1 SET checks=1,expires_at=? WHERE trade_id=?', (now-10, disc[0]))
+            m.db.execute("UPDATE followed_v1 SET expires_at=?,status=? WHERE trade_id=?",
+                         (now+600, 'open' if live else 'expired', disc[1]))
+            m.db.execute("UPDATE followed_v1 SET expires_at=?,status=? WHERE trade_id=?",
+                         (now-10, 'open' if just_ended else 'expired', disc[2]))
+            if not live:
+                m.db.execute('UPDATE followed_v1 SET definition_id=456 WHERE trade_id=?', (disc[0],))
+                m.db.execute('INSERT INTO ladder_v1(definition_id,at,steps,searches) VALUES(456,?,0,2)', (now,))
+        done = []
+        c.next_discovery = c.c.clock()+1e6
+        c.ladder = lambda d, src: done.append(('ladder', d))
+        read = c.c.adapter.status_batch
+        def status_batch(ids, targets):
+            done.append(('read', tuple(t['trade_id'] for t in targets))); return read(ids, targets)
+        c.c.adapter.status_batch = status_batch
+        c.run(None, h.clock.clock()+20)
+        return done, disc
+
+    def test_a_card_with_live_discovery_follows_gets_its_ladder_before_war_rechecks(self):
+        done, disc = self.order(live=True, just_ended=False)
+        self.assertEqual(done[:2], [('ladder', 123), ('read', (disc[0],))])
+
+    def test_a_just_ended_listing_is_read_before_even_an_urgent_ladder(self):
+        done, disc = self.order(live=True, just_ended=True)
+        self.assertEqual(done[:3], [('read', (disc[2],)), ('ladder', 123), ('read', (disc[0],))])
+
+    def test_without_live_discovery_follows_the_war_is_read_before_the_ladder(self):
+        done, disc = self.order(live=False, just_ended=False)
+        self.assertEqual(done[:2], [('read', (disc[0],)), ('ladder', 123)])
+
+    def test_relist_only_reads_coins_every_five_minutes_while_the_collector_gets_answers(self):
+        # Live 2026-11-28: a balance read every ~30 s hold was ~80 of ~700 requests/h.
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        balances = lambda: len(h.calls('balance'))
+        first = balances(); self.assertGreaterEqual(first, 1)
+        c = h.controller.collector
+        c.next_discovery = 0; self.collect(h)
+        self.assertEqual(balances(), first, 'the collector got answers: no balance read')
+        h.clock.value += 301
+        c.next_discovery = 0; self.collect(h); c.next_discovery = 0; self.collect(h)
+        self.assertEqual(balances(), first+1, 'five minutes on: read again')
+
+    def test_a_hold_without_collector_answers_still_reads_coins(self):
+        # The watchdog needs a fresh EA answer every 90 s, e.g. while searches are blocked.
+        h, m = self.make()
+        self.collect(h); self.collect(h)
+        with m.db: m.db.execute('UPDATE followed_v1 SET expires_at=expires_at+1e6')
+        before = len(h.calls('balance'))
+        h.controller.search_hold_until = h.clock.clock()+3600
+        self.collect(h)
+        self.assertEqual(len(h.calls('balance')), before+1)
+
     def test_a_failed_batch_is_split_and_unknown_trades_are_lost(self):
         h, m = self.make()
         self.collect(h); self.collect(h)
